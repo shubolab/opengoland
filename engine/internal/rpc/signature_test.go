@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 )
 
@@ -99,6 +100,12 @@ func TestSignatureCancellationIsolationDuplicatesAndShutdown(t *testing.T) {
 func TestMain(m *testing.M) {
 	if runSignatureParentProbe() {
 		return
+	}
+	if handled, err := testgen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			os.Exit(1)
+		}
+		os.Exit(0)
 	}
 	if handled, err := signature.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {

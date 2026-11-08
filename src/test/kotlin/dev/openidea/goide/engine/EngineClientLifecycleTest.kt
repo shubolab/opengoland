@@ -6,6 +6,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.testFramework.LightPlatformTestCase
 import dev.openidea.goide.settings.GoProjectSettings
+import dev.openidea.goide.settings.GoToolchain
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Proxy
 import java.nio.file.Files
@@ -114,6 +115,27 @@ class EngineClientLifecycleTest {
         ProcessHandle.of(pid).ifPresent { it.onExit().get(5, TimeUnit.SECONDS) }
         assertTrue(ProcessHandle.of(pid).map { !it.isAlive }.orElse(true))
         assertFailsWith<java.util.concurrent.ExecutionException> { engine.connect().get(2, TimeUnit.SECONDS) }
+    }
+
+    @Test fun frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange() = fixture { root, settings, engine ->
+        settings.state.goos = "linux"
+        val captured = GoToolchain.capture(project(root, settings))
+        val first = engine.connect(captured).get(10, TimeUnit.SECONDS).asJsonObject
+        settings.state.goos = "freebsd"
+
+        val frozen = engine.request("project/info", JsonObject(), captured).get(10, TimeUnit.SECONDS).asJsonObject
+        assertEquals("linux", frozen.get("goos").asString)
+        assertEquals(first.get("pid").asLong, frozen.get("pid").asLong)
+
+        val live = engine.request("project/info").get(10, TimeUnit.SECONDS).asJsonObject
+        assertEquals("freebsd", live.get("goos").asString)
+        assertNotEquals(first.get("pid").asLong, live.get("pid").asLong)
+
+        val capturedAgain = engine.request("project/info", JsonObject(), captured).get(10, TimeUnit.SECONDS).asJsonObject
+        assertEquals("linux", capturedAgain.get("goos").asString)
+        assertNotEquals(live.get("pid").asLong, capturedAgain.get("pid").asLong)
+        ProcessHandle.of(first.get("pid").asLong).ifPresent { it.onExit().get(5, TimeUnit.SECONDS) }
+        ProcessHandle.of(live.get("pid").asLong).ifPresent { it.onExit().get(5, TimeUnit.SECONDS) }
     }
 }
 

@@ -170,7 +170,10 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
                 var current: Path? = path
                 while (current != null && current !in files) current = current.parent
                 val file = current?.let { files[it]?.file } ?: throw GoWorkspaceEditRejected("Resource parent disappeared: $path")
-                if (!history.isUnderControl(file)) throw GoWorkspaceEditRejected("Native file Undo does not cover this resource: $path")
+                // Local History consults the project file index. Its cached
+                // model query needs a read lock even on this background worker.
+                val controlled = ReadAction.compute<Boolean, RuntimeException> { history.isUnderControl(file) }
+                if (!controlled) throw GoWorkspaceEditRejected("Native file Undo does not cover this resource: $path")
             }
         }
         val closed = textOrigins.filter { initial[it]?.closedOnDisk == true && synchronized[it] == null }.toSet()

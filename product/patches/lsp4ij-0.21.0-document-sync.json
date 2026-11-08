@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "repository": "https://github.com/redhat-developer/lsp4ij",
+    "tag": "0.21.0",
+    "refObject": {
+      "sha": "b30f69dd1285f201d53ce360b7fad0bba96f0d58",
+      "type": "commit",
+      "url": "https://api.github.com/repos/redhat-developer/lsp4ij/git/commits/b30f69dd1285f201d53ce360b7fad0bba96f0d58"
+    },
+    "license": "EPL-2.0; original public source headers are preserved"
+  },
+  "patchFile": "lsp4ij-0.21.0-document-sync.patch",
+  "patchSha256": "a440516d46d7a83401f5fd401491c11fbff8cfa246e3ea0346006600a7f4205b",
+  "scope": {
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。",
+    "preserves": [
+      "Original client document version generation",
+      "Native unsaved editor document content",
+      "LSP4IJ transport, queue observation, cancellation and notification futures",
+      "Existing waitForDidOpen return behavior, including returning without waiting when false",
+      "Workspace folder I/O outside the document critical section"
+    ],
+    "limitations": [
+      "Not a claim that all LSP request/editor races are solved",
+      "Requests such as codeAction still do not flush pending didChange before dispatch",
+      "Native runtime validation and packaged-binary integration are owned by the main task",
+      "Existing stop/disconnect versus asynchronous connect lifecycle behavior is preserved; this patch does not claim to close all disposal races"
+    ]
+  },
+  "sources": [
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
+      "upstreamSha256": "df1ab61afecedf04c5c4b75df0dd4d3e5eb5535362b26e069e04530318bfad69",
+      "patchedSha256": "4dd57581cecd63682febba42c02a4a3de7f8a84a571a62b44a935c2a7f6b2251"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java",
+      "upstreamSha256": "df53ffc46779af67e3cbdc97b7df736eb18541453abda6bcfaed0cb1e15313a3",
+      "patchedSha256": "873923102b2df09616a7dcf802f3dc9ab743f211dc9006d7f597a282314622c4"
+    }
+  ],
+  "initialVerification": {
+    "status": "Standalone source compilation at patch creation; later integration and native results are recorded in docs/verification/lsp-document-sync.md",
+    "scratchDirectory": ".tools/lsp4ij-sync-patch",
+    "requiredClassReplacement": "All generated LanguageServerWrapper*.class and DocumentContentSynchronizer*.class, not only their outer classes",
+    "compiler": "javac 25.0.3",
+    "release": 17,
+    "classpathJars": 374,
+    "compiledClasses": [
+      {
+        "path": "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class",
+        "sha256": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+        "bytes": 843
+      },
+      {
+        "path": "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class",
+        "sha256": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+        "bytes": 1511
+      },
+      {
+        "path": "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class",
+        "sha256": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+        "bytes": 17818
+      },
+      {
+        "path": "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class",
+        "sha256": "87c093c7eabb0db5af8b5eba01b023ecc463da4248df011e1ed923b07f487edd",
+        "bytes": 973
+      },
+      {
+        "path": "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class",
+        "sha256": "0da48ae7fce2174d5b1193dc1010384f391d84eaa90925e8502f91cc0967a0e0",
+        "bytes": 2359
+      },
+      {
+        "path": "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class",
+        "sha256": "559816e6fe53af71831f5536d877afb2661df4218cbf88192c5a29eb5542f7f9",
+        "bytes": 3133
+      },
+      {
+        "path": "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class",
+        "sha256": "c34769f8d12431d9e33ee115cd7a62c79c39a279808e61f1d8f413f6f28ab84a",
+        "bytes": 63711
+      }
+    ],
+    "regressionTest": {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspInitializationSyncTest.kt",
+      "sha256": "5e87c113380afb41045088a33f27874ac124089fbb56385e2c61c9fc9005c0bc",
+      "cases": 4,
+      "status": "Prepared; main task must run against the actual patched dependency classes",
+      "uses": "Real public LanguageServerWrapper.connect/sendNotification, DocumentContentSynchronizer, native Document and ReadAction; held initialization and in-memory remote only"
+    },
+    "rawGoplsProbe": {
+      "tool": "gopls v0.21.1",
+      "ownedTemporaryWorkspaceCleaned": true,
+      "ownedProcessExitCode": 0,
+      "sequence": [
+        "Disk already contains 47 LF fixture; didOpen v1 sends older 41 LF overlay",
+        "codeAction range (42,5)..(42,19) returns code 0: column is beyond end of file",
+        "didChange v2 with full current fixture then identical codeAction returns null without error"
+      ],
+      "scope": "Protocol-level reproduction; native reproduction and wire trace are recorded separately by the main task"
+    }
+  }
+}

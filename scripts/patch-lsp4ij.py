@@ -1,0 +1,156 @@
+#!/usr/bin/env python3
+"""Build the pinned public-source document-sync fix into an owned sandbox plugin.
+
+Never edits the downloaded dependency cache or an installed IDE. The upstream
+JAR, source files and patch are independently SHA-256 pinned before compilation.
+"""
+import argparse
+import fcntl
+import hashlib
+import json
+import os
+from pathlib import Path
+import shutil
+import subprocess
+import tempfile
+import urllib.request
+import zipfile
+
+ROOT = Path(__file__).resolve().parent.parent
+PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
+UPSTREAM_JAR_SHA = "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
+MARKER = "META-INF/open-goland-document-sync.json"
+PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer")
+
+
+def sha(data):
+    return hashlib.sha256(data).hexdigest()
+
+
+def patched_class(name):
+    return name.endswith(".class") and any(name == p + ".class" or name.startswith(p + "$") for p in PREFIXES)
+
+
+def build(args):
+    pin = json.loads(PIN.read_text())
+    patch = PIN.parent / pin["patchFile"]
+    assert sha(patch.read_bytes()) == pin["patchSha256"], "LSP4IJ patch digest mismatch"
+    jars = list(args.plugins.glob("*/lib/lsp4ij-0.21.0.jar"))
+    if len(jars) != 1:
+        raise ValueError(f"Expected one private sandbox LSP4IJ 0.21.0 JAR, found {len(jars)}")
+    target = jars[0]
+    # Keep a verified original for idempotent checks and compilation, never mutate
+    # Gradle's downloaded/transformed plugin or any application installation.
+    cache = ROOT / ".tools/lsp4ij-document-sync"
+    cache.mkdir(parents=True, exist_ok=True)
+    original = cache / "upstream-0.21.0.jar"
+    target_sha = sha(target.read_bytes())
+    if target_sha == UPSTREAM_JAR_SHA:
+        if not original.exists() or sha(original.read_bytes()) != UPSTREAM_JAR_SHA:
+            shutil.copyfile(target, original)
+    elif not original.exists() or sha(original.read_bytes()) != UPSTREAM_JAR_SHA:
+        raise ValueError("Sandbox plugin is neither the pinned upstream JAR nor verifiable from its original")
+
+    metadata = {"upstreamVersion": "0.21.0", "upstreamCommit": pin["upstream"]["refObject"]["sha"],
+                "upstreamJarSha256": UPSTREAM_JAR_SHA, "patchSha256": pin["patchSha256"],
+                "sources": [{k: v for k, v in source.items() if k != "sourceUrl"} for source in pin["sources"]]}
+    if target_sha != UPSTREAM_JAR_SHA:
+        with zipfile.ZipFile(original) as before, zipfile.ZipFile(target) as after:
+            saved = json.loads(after.read(MARKER))
+            if all(saved.get(k) == v for k, v in metadata.items()):
+                expected = set(before.namelist()) - {n for n in before.namelist() if patched_class(n)}
+                actual = set(after.namelist()) - {n for n in after.namelist() if patched_class(n)} - {MARKER}
+                if expected == actual and all(before.read(n) == after.read(n) for n in expected) and all(
+                        sha(after.read(n)) == digest for n, digest in saved["classSha256"].items()):
+                    print("Verified private LSP4IJ document-sync patch")
+                    return
+        raise ValueError("Existing private LSP4IJ patch does not match its pinned inputs")
+
+    javac_candidates = [args.sdk / "Contents/jbr/Contents/Home/bin/javac"]
+    if os.environ.get("JAVA_HOME"):
+        javac_candidates.append(Path(os.environ["JAVA_HOME"]) / "bin/javac")
+    if shutil.which("javac"):
+        javac_candidates.append(Path(shutil.which("javac")))
+    javac = next((p for p in javac_candidates if p.is_file() and os.access(p, os.X_OK)), None)
+    if javac is None:
+        raise ValueError("A JDK with javac is required to compile the pinned LSP4IJ source patch")
+    compiler = subprocess.check_output([str(javac), "-version"], text=True, stderr=subprocess.STDOUT).strip()
+    sdk_lib = args.sdk / "Contents/lib"
+    classpath = [original] + sorted(target.parent.glob("*.jar")) + sorted(sdk_lib.rglob("*.jar"))
+    classpath = [p for p in classpath if p != target]
+    key = sha(json.dumps({**metadata, "compiler": compiler,
+                          "sdk": json.loads((args.sdk / "Contents/Resources/product-info.json").read_text())["buildNumber"]}, sort_keys=True).encode())
+    work = cache / key
+    built = work / "classes"
+    class_manifest = work / "classes.json"
+    valid = class_manifest.exists() and built.is_dir()
+    if valid:
+        try:
+            records = json.loads(class_manifest.read_text())
+            valid = records and all((built / n).is_file() and sha((built / n).read_bytes()) == d for n, d in records.items())
+        except (OSError, ValueError):
+            valid = False
+    if not valid:
+        work.mkdir(parents=True, exist_ok=True)
+        upstream = work / "source"
+        shutil.rmtree(upstream, ignore_errors=True)
+        shutil.rmtree(built, ignore_errors=True)
+        built.mkdir()
+        for source in pin["sources"]:
+            path = upstream / source["path"]
+            path.parent.mkdir(parents=True, exist_ok=True)
+            # Pin immutable commit URLs as well as bytes; a moved tag cannot
+            # silently change the source used to produce this build.
+            url = source["sourceUrl"].replace("/0.21.0/", "/" + metadata["upstreamCommit"] + "/")
+            with urllib.request.urlopen(url, timeout=60) as response:
+                data = response.read()
+            if sha(data) != source["upstreamSha256"]:
+                raise ValueError(f"Upstream source digest mismatch: {source['path']}")
+            path.write_bytes(data)
+        subprocess.run(["patch", "--batch", "--fuzz=0", "-p1", "-i", str(patch)], cwd=upstream, check=True, capture_output=True)
+        for source in pin["sources"]:
+            if sha((upstream / source["path"]).read_bytes()) != source["patchedSha256"]:
+                raise ValueError(f"Patched source digest mismatch: {source['path']}")
+        command = [str(javac), "--release", "17", "-encoding", "UTF-8", "-classpath", os.pathsep.join(map(str, classpath)), "-d", str(built)]
+        command += [str(upstream / source["path"]) for source in pin["sources"]]
+        result = subprocess.run(command, text=True, capture_output=True)
+        if result.returncode:
+            raise ValueError("Compiling the pinned LSP4IJ patch failed:\n" + result.stderr)
+        records = {p.relative_to(built).as_posix(): sha(p.read_bytes()) for p in sorted(built.rglob("*.class"))}
+        if not records or not all(patched_class(n) for n in records):
+            raise ValueError("Unexpected classes produced by LSP4IJ source patch")
+        candidate_manifest = work / "classes.json.pending"
+        candidate_manifest.write_text(json.dumps(records, indent=2) + "\n")
+        os.replace(candidate_manifest, class_manifest)
+    metadata["compiler"] = compiler
+    metadata["classSha256"] = records
+    with tempfile.TemporaryDirectory(prefix="lsp4ij-patch-", dir=target.parent) as temporary:
+        candidate = Path(temporary) / target.name
+        with zipfile.ZipFile(original) as before, zipfile.ZipFile(candidate, "w", zipfile.ZIP_DEFLATED) as after:
+            for entry in before.infolist():
+                if not patched_class(entry.filename):
+                    after.writestr(entry, before.read(entry.filename))
+            for name in sorted(records):
+                after.writestr(name, (built / name).read_bytes())
+            after.writestr(MARKER, json.dumps(metadata, sort_keys=True, indent=2))
+        os.replace(candidate, target)
+    print(f"Built private LSP4IJ document-sync patch: {len(records)} classes, patch {pin['patchSha256']}")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--sdk", required=True, type=Path)
+    parser.add_argument("--plugins", required=True, type=Path)
+    args = parser.parse_args()
+    cache = ROOT / ".tools/lsp4ij-document-sync"
+    cache.mkdir(parents=True, exist_ok=True)
+    # Development/test sandbox preparation (or separate Gradle invocations)
+    # can share a cold compiler cache. Lock its entire verify/build/install
+    # transaction; a process exit releases this OS lock without stale markers.
+    with (cache / "build.lock").open("a+b") as guard:
+        fcntl.flock(guard, fcntl.LOCK_EX)
+        build(args)
+
+
+if __name__ == "__main__":
+    main()

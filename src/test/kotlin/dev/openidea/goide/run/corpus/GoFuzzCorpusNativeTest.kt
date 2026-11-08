@@ -6,6 +6,8 @@ import com.intellij.codeInsight.daemon.impl.HighlightingSessionImpl
 import com.intellij.codeInsight.daemon.impl.LineMarkersPass
 import com.intellij.codeInsight.multiverse.CodeInsightContextManager
 import com.intellij.execution.actions.ConfigurationContext
+import com.intellij.execution.executors.DefaultDebugExecutor
+import com.intellij.execution.executors.DefaultRunExecutor
 import com.intellij.execution.lineMarker.RunLineMarkerProvider
 import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.application.WriteIntentReadAction
@@ -27,6 +29,7 @@ import com.intellij.testFramework.LightPlatformTestCase
 import dev.openidea.goide.run.GoRunConfiguration
 import dev.openidea.goide.run.GoRunKind
 import dev.openidea.goide.run.GoTestMode
+import dev.openidea.goide.run.invokeNativeGoGutter
 import java.nio.file.Files
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
@@ -110,6 +113,19 @@ class GoFuzzCorpusNativeTest : LightPlatformTestCase() {
         val marker = collected.single()
         assertEquals(0, marker.startOffset)
         assertEquals(2, marker.createGutterRenderer()!!.popupMenuActions!!.getChildren(null).size)
+    }
+
+    fun testNativeCorpusGutterActionPerformedRegistersExactSeedReplayForRunAndDebug() = fixture { file ->
+        val header = ReadAction.compute<com.intellij.psi.PsiElement, RuntimeException> { file.findElementAt(0)!! }
+        val directory = file.virtualFile.parent.parent.parent.parent.path
+        for (executor in listOf(DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID)) {
+            val parameters = invokeNativeGoGutter(file, header, executor, directory)
+            assertEquals(GoTestMode.TEST, parameters.testMode)
+            assertEquals(".", parameters.target)
+            assertEquals(directory, parameters.workingDirectory)
+            assertEquals("^FuzzDecode$/^817e8c7d02cb3556$", parameters.testPattern)
+            assertFalse(parameters.testRuntimeArguments().any { it.startsWith("-fuzz") })
+        }
     }
 
     fun testConsoleHyperlinkOpensTheActualCorpusInANativeEditor() = fixture { file ->

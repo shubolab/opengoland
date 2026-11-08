@@ -18,13 +18,14 @@ def snapshot(root: Path = ROOT) -> dict:
         if path.is_file() and (path.suffix == ".go" or path.name in {"go.mod", "go.sum"} or "licenses" in path.relative_to(root / "engine").parts):
             sources.add(path)
     sources.update(path for path in (root / "scripts").iterdir() if path.is_file() and path.suffix in {".py", ".sh"})
+    sources.update(path for path in (root / "product/patches").rglob("*") if path.is_file())
     for name in ["build.gradle.kts", "settings.gradle.kts", "gradle.properties", "product/platform.lock.json"]:
         sources.add(root / name)
     entries = [{"path": path.relative_to(root).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()} for path in sorted(sources)]
     canonical = "".join(f"{entry['sha256']}  {entry['path']}\n" for entry in entries)
     return {
         "schemaVersion": 1, "algorithm": "sha256",
-        "scope": "Kotlin main/test sources and resources, Go engine sources/tests/licenses, Gradle configuration, packaging scripts",
+        "scope": "Kotlin main/test sources and resources, Go engine sources/tests/licenses, Gradle configuration, packaging scripts and pinned public-source patches",
         "files": entries, "digest": hashlib.sha256(canonical.encode()).hexdigest(),
     }
 

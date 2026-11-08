@@ -148,6 +148,24 @@ class GoRunContextNativeTest : LightPlatformTestCase() {
         }
     }
 
+    fun testNativeGutterPopupActionPerformedRegistersTheClickedTestFrameworkAndSelector() = fixture { file ->
+        for ((name, mode) in listOf("TestReady" to GoTestMode.TEST, "ExampleReady" to GoTestMode.TEST,
+            "Benchmark你好" to GoTestMode.BENCHMARK, "FuzzBytes" to GoTestMode.FUZZ)) {
+            val anchor = ReadAction.compute<PsiElement, RuntimeException> { element(file, name) }
+            for (executor in listOf(DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID)) {
+                val parameters = invokeNativeGoGutter(file, anchor, executor, file.virtualFile.parent.path)
+                assertEquals(mode, parameters.testMode)
+                assertEquals(".", parameters.target)
+                val selected = when (mode) {
+                    GoTestMode.TEST -> parameters.testPattern
+                    GoTestMode.BENCHMARK -> parameters.benchmarkPattern
+                    GoTestMode.FUZZ -> parameters.fuzzPattern
+                }
+                assertEquals("^$name$", selected)
+            }
+        }
+    }
+
     private fun element(file: PsiFile, name: String): PsiElement {
         val offset = file.text.indexOf(name)
         assertTrue("Missing test fixture identifier $name", offset >= 0)

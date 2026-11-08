@@ -11,6 +11,35 @@ go test -race ./...
 go build -o bin/opengoland-engine ./cmd/opengoland-engine
 ```
 
+## Typed test generation
+
+`generate/tests/inspect` and `generate/tests/plan` use independently implemented
+Go type analysis. They share signature refactoring's versioned source/module/
+workspace overlays, toolchain and dependency preconditions. Each request needs
+a unique `operationId`; `refactor/cancel` cancels that operation only.
+
+Inspection accepts `scope` (`empty`, `function`, `file`, `package`) and
+`packageMode` (`same`, `external`), plus the UTF-16 `target` and `overlays` used
+by signature requests. It returns stable declaration identifiers, suggested
+test names, existing-name status, generic parameters and destination hints.
+
+Planning echoes `inspectionId` and `configurationDigest`, then explicitly
+selects `selections: [{symbolId, testName, typeArguments}]`. An empty selection
+does not mean every declaration. Empty-template planning uses `emptyName`.
+`destinationUri` optionally consolidates compatible declarations into one test
+file; omitting it preserves per-source platform/build constraints.
+
+The result contains a standard WorkspaceEdit, source/directory preconditions,
+usage hints, conflicts and candidate type-check results. New files use
+`CreateFile` followed by a text edit. The planner never applies edits or executes
+workspace init/test code. Empty cases explicitly Skip until the developer fills
+them in. Tests must belong to the active test graph; other build contexts remain
+a separate verification requirement.
+
+The private `--opengoland-test-generation-worker` route is an engine-owned,
+bounded subprocess protocol. Parent exit/cancellation reaps only its worker
+and retained driver descendants.
+
 ## Wire contract
 
 The executable reads JSON-RPC 2.0 requests from stdin and writes responses and

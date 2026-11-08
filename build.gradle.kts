@@ -29,11 +29,13 @@ val platformPath = providers.gradleProperty("platformPath")
         if (openSourcePlatform.isDirectory) openSourcePlatform.absolutePath
         else "${System.getProperty("user.home")}/Applications/PyCharm.app"
     })
+val lspPatchSdk = platformPath
 
 val buildInputManifest = layout.buildDirectory.file("provenance/build-inputs.json")
 val captureBuildInputs by tasks.registering(Exec::class) {
     inputs.files(fileTree("src"), fileTree("engine") { include("**/*.go", "go.mod", "go.sum", "licenses/**") })
     inputs.files(fileTree("scripts") { include("*.py", "*.sh") })
+    inputs.files(fileTree("product/patches"))
     inputs.files("build.gradle.kts", "settings.gradle.kts", "gradle.properties", "product/platform.lock.json")
     outputs.file(buildInputManifest)
     commandLine("python3", "scripts/build_inputs.py", "capture", buildInputManifest.get().asFile)
@@ -121,5 +123,12 @@ tasks.withType<PrepareSandboxTask>().configureEach {
     from(layout.projectDirectory.dir("engine/licenses")) {
         into(pluginName.map { "$it/license" })
         filePermissions { unix("rw-r--r--") }
+    }
+    inputs.files(fileTree("product/patches"), "scripts/patch-lsp4ij.py")
+    doLast {
+        providers.exec {
+            commandLine("python3", "scripts/patch-lsp4ij.py", "--sdk", lspPatchSdk.get(),
+                "--plugins", sandboxPluginsDirectory.get().asFile.absolutePath)
+        }.result.get().assertNormalExitValue()
     }
 }

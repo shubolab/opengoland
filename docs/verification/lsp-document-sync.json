@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "status": "pre-fix native reproduction and post-fix controlled native verification passed",
+  "baselineBuild": "448a585dc11282af6a9d5d8fb9b2670f2947ee804db7c4e61afc0058f276409a",
+  "method": "Actual standalone open Goland app and official gopls0.21.1; transparent owned stdio relay held only the initialize response while a real native editor pasted a new function. No user reference application was modified.",
+  "held": true,
+  "initialDocument": {
+    "version": 1,
+    "codePoints": 823,
+    "utf16Units": 825,
+    "lineFeeds": 41,
+    "sha256": "cdf7eae3eec07379c51eaa479617a3c7dc74853875195f752f422af104066c9a",
+    "containsAppendedFunction": false
+  },
+  "didChanges": [],
+  "codeActionErrors": [
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "15",
+        "method": "textDocument/codeAction",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+          },
+          "range": {
+            "start": {
+              "line": 43,
+              "character": 0
+            },
+            "end": {
+              "line": 43,
+              "character": 0
+            }
+          },
+          "context": {
+            "diagnostics": [],
+            "triggerKind": 2
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "error": {
+          "code": 0,
+          "message": "line number 43 out of range 0-42"
+        },
+        "id": "15"
+      }
+    },
+    {
+      "request": {
+        "jsonrpc": "2.0",
+        "id": "20",
+        "method": "textDocument/codeAction",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+          },
+          "range": {
+            "start": {
+              "line": 42,
+              "character": 5
+            },
+            "end": {
+              "line": 42,
+              "character": 5
+            }
+          },
+          "context": {
+            "diagnostics": [],
+            "triggerKind": 2
+          }
+        }
+      },
+      "response": {
+        "jsonrpc": "2.0",
+        "error": {
+          "code": 0,
+          "message": "column is beyond end of file"
+        },
+        "id": "20"
+      }
+    }
+  ],
+  "cleanup": "All recorded wrapper/gopls PIDs were checked absent after the native app exited.",
+  "limitations": [
+    "Two ordinary startup/restart controls did not reproduce the bug.",
+    "Controlled initialization delay establishes the race, not its frequency in normal startup.",
+    "All position requests versus pending changes, stop/disconnect races, and ordinary-startup occurrence frequency remain outside this controlled probe."
+  ],
+  "postFix": {
+    "buildInputsSha256": "e388774d9987f1a1c59daaddcae0071b6b39ffe68e688fb590403dd6069b5711",
+    "inputFiles": 219,
+    "heldInitialize": true,
+    "firstDidOpen": {
+      "version": 1,
+      "codePoints": 898,
+      "utf16Units": 900,
+      "lineFeeds": 43,
+      "sha256": "ed4e4af35af04d482a0ebac1cbb343dc17f8e6338e34905387a324565480bbc0",
+      "containsAppendedFunction": true
+    },
+    "didChanges": [
+      {
+        "textDocument": {
+          "version": 2,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+        },
+        "contentChanges": [
+          {
+            "range": {
+              "start": {
+                "line": 42,
+                "character": 44
+              },
+              "end": {
+                "line": 42,
+                "character": 69
+              }
+            },
+            "rangeLength": 25,
+            "text": "fter 😀 初始化"
+          }
+        ]
+      },
+      {
+        "textDocument": {
+          "version": 3,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+        },
+        "contentChanges": [
+          {
+            "range": {
+              "start": {
+                "line": 42,
+                "character": 55
+              },
+              "end": {
+                "line": 42,
+                "character": 55
+              }
+            },
+            "rangeLength": 0,
+            "text": "!"
+          }
+        ]
+      }
+    ],
+    "replayedMirrorEqualsNativeSavedDocument": true,
+    "finalDocumentSha256": "9d3ed6719a36bf94afcc85437d461c0d11c84a8d7c14331ba1d419cbfe122598",
+    "codeActions": [
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "16",
+          "method": "textDocument/codeAction",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+            },
+            "range": {
+              "start": {
+                "line": 43,
+                "character": 0
+              },
+              "end": {
+                "line": 43,
+                "character": 0
+              }
+            },
+            "context": {
+              "diagnostics": [],
+              "triggerKind": 2
+            }
+          }
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "result": null,
+          "id": "16"
+        }
+      },
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "21",
+          "method": "textDocument/codeAction",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+            },
+            "range": {
+              "start": {
+                "line": 42,
+                "character": 5
+              },
+              "end": {
+                "line": 42,
+                "character": 5
+              }
+            },
+            "context": {
+              "diagnostics": [],
+              "triggerKind": 2
+            }
+          }
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "result": null,
+          "id": "21"
+        }
+      },
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "30",
+          "method": "textDocument/codeAction",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+            },
+            "range": {
+              "start": {
+                "line": 42,
+                "character": 55
+              },
+              "end": {
+                "line": 42,
+                "character": 55
+              }
+            },
+            "context": {
+              "diagnostics": [],
+              "triggerKind": 2
+            }
+          }
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "result": null,
+          "id": "30"
+        }
+      },
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "33",
+          "method": "textDocument/codeAction",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+            },
+            "range": {
+              "start": {
+                "line": 42,
+                "character": 56
+              },
+              "end": {
+                "line": 42,
+                "character": 56
+              }
+            },
+            "context": {
+              "diagnostics": [],
+              "triggerKind": 2
+            }
+          }
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "result": null,
+          "id": "33"
+        }
+      },
+      {
+        "request": {
+          "jsonrpc": "2.0",
+          "id": "45",
+          "method": "textDocument/codeAction",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-codeaction-wtl3bzwq/subject_test.go"
+            },
+            "range": {
+              "start": {
+                "line": 42,
+                "character": 56
+              },
+              "end": {
+                "line": 42,
+                "character": 56
+              }
+            },
+            "context": {
+              "diagnostics": [],
+              "triggerKind": 2
+            }
+          }
+        },
+        "response": {
+          "jsonrpc": "2.0",
+          "result": null,
+          "id": "45"
+        }
+      }
+    ],
+    "nativeRun": {
+      "selector": "^TestDuringInit$",
+      "summary": "Test Results, 1 test passed.",
+      "console": "subject_test.go:43: after 😀 初始化!\n--- PASS: TestDuringInit (0.00s)\nProcess finished with exit code 0"
+    },
+    "lspPatch": {
+      "jarSha256": "0388793c52a1546a172a3714e59e704e2a66badd363fec71dad13c08a0be63ff",
+      "patchSha256": "a440516d46d7a83401f5fd401491c11fbff8cfa246e3ea0346006600a7f4205b",
+      "classSha256": {
+        "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+        "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+        "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "87c093c7eabb0db5af8b5eba01b023ecc463da4248df011e1ed923b07f487edd",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "0da48ae7fce2174d5b1193dc1010384f391d84eaa90925e8502f91cc0967a0e0",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "559816e6fe53af71831f5536d877afb2661df4218cbf88192c5a29eb5542f7f9",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "c34769f8d12431d9e33ee115cd7a62c79c39a279808e61f1d8f413f6f28ab84a"
+      }
+    },
+    "cleanup": {
+      "wrapperPid": 16899,
+      "goplsPid": 16900,
+      "bothAbsentAfterNativeExit": true
+    }
+  }
+}

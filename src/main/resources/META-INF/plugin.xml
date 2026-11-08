@@ -34,6 +34,8 @@
         <typeHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.typeHierarchy.LSPTypeHierarchyProvider"/>
         <lang.importOptimizer language="OpenIDEAGo" implementationClass="dev.openidea.goide.semantic.GoImportOptimizer"/>
         <lang.refactoringSupport language="OpenIDEAGo" implementationClass="dev.openidea.goide.refactor.signature.GoRefactoringSupportProvider"/>
+        <testCreator language="OpenIDEAGo" implementationClass="dev.openidea.goide.generate.tests.GoTestCreator"/>
+        <testFinder implementation="dev.openidea.goide.generate.tests.GoTestFinder"/>
         <renameHandler id="OpenGolandRenameHandler" implementation="dev.openidea.goide.semantic.GoRenameHandler" order="first, before LSPRenameHandler"/>
         <langCodeStyleSettingsProvider implementation="dev.openidea.goide.lang.GoCodeStyleSettingsProvider"/>
         <projectConfigurable id="dev.openidea.go.settings" displayName="Go" instance="dev.openidea.goide.settings.GoSettingsConfigurable"/>
@@ -66,6 +68,21 @@
         <debugAdapterServer id="openidea.delve" name="Go (Delve)" factoryClass="dev.openidea.goide.debug.GoDebugAdapterFactory" icon="/icons/go.svg"/>
     </extensions>
     <actions>
+        <action id="OpenIDEA.Go.GenerateTests" class="dev.openidea.goide.generate.tests.GoGenerateTestsAction" text="Go Tests…" description="Generate typed Go tests with native preview and Undo">
+            <add-to-group group-id="CodeMenu" anchor="last"/>
+        </action>
+        <action id="OpenIDEA.Go.GenerateEmptyTestFile" class="dev.openidea.goide.generate.tests.GoGenerateEmptyTestFileAction" text="Empty test file" description="Preview a Go test scaffold">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+        <action id="OpenIDEA.Go.GenerateFunctionTest" class="dev.openidea.goide.generate.tests.GoGenerateFunctionTestAction" text="Test for function" description="Preview Go tests for the current function or method">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+        <action id="OpenIDEA.Go.GenerateFileTests" class="dev.openidea.goide.generate.tests.GoGenerateFileTestsAction" text="Tests for file" description="Preview Go tests for declarations in the current file">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+        <action id="OpenIDEA.Go.GeneratePackageTests" class="dev.openidea.goide.generate.tests.GoGeneratePackageTestsAction" text="Tests for package" description="Preview Go tests for declarations in the current package">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
         <action id="OpenIDEA.Go.Refactor" class="dev.openidea.goide.semantic.GoRefactorAction" text="Go Refactor…" description="Preview Go refactorings for the current selection">
             <add-to-group group-id="RefactoringMenu" anchor="last"/>
         </action>

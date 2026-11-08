@@ -21,7 +21,8 @@ import java.security.MessageDigest
 
 /** Checks the analyzed dependency snapshot as well as the edited files. No source writes. */
 internal class GoSignatureValidation(private val project: Project, plan: JsonObject, private val configuration: List<String>,
-                                     private val readDisk: (Path) -> ByteArray = Files::readAllBytes) : GoWorkspaceEditValidation {
+                                     private val readDisk: (Path) -> ByteArray = Files::readAllBytes,
+                                     private val operationName: String = "Change Signature") : GoWorkspaceEditValidation {
     private data class Expected(val uri: String, val path: Path, val exists: Boolean, val disk: String, val text: String,
                                 val stamp: Long?, val session: Long?, val version: Int?)
     private data class Checked(val expected: Expected, val file: VirtualFile?, val fileStamp: Long?, val document: Document?, val documentStamp: Long?)
@@ -51,8 +52,8 @@ internal class GoSignatureValidation(private val project: Project, plan: JsonObj
         path.normalize()
     }?.toSet().orEmpty()
     init {
-        require(expected.isNotEmpty()) { "The signature plan has no analyzed-source preconditions" }
-        require(directories.isNotEmpty()) { "The signature plan has no package-directory preconditions" }
+        require(expected.isNotEmpty()) { "The Go plan has no analyzed-source preconditions" }
+        require(directories.isNotEmpty()) { "The Go plan has no package-directory preconditions" }
         mainModules.forEach { module ->
             require(directories.any { it.path == module } && expected.any { it.path == module.resolve("go.mod") }) { "An analyzed Go module lacks configuration preconditions: $module" }
         }
@@ -68,9 +69,9 @@ internal class GoSignatureValidation(private val project: Project, plan: JsonObj
             val directory = LocalFileSystem.getInstance().refreshAndFindFileByNioFile(entry.path)
                 ?: error("An analyzed package directory disappeared: ${entry.path}")
             directory.refresh(false, false)
-            require(nativeEntries(directory) == entry.entries) { "Package files are refreshing: ${entry.path}. Run Change Signature again." }
+            require(nativeEntries(directory) == entry.entries) { "Package files are refreshing: ${entry.path}. Run $operationName again." }
             require(Files.isDirectory(entry.path) && diskEntries(entry.path) == entry.entries) {
-                "Package files or directories changed since analysis: ${entry.path}. Run Change Signature again."
+                "Package files or directories changed since analysis: ${entry.path}. Run $operationName again."
             }
             directory.refresh(false, false)
             require(directory.isValid && nativeEntries(directory) == entry.entries) { "An analyzed directory changed while it was being validated: ${entry.path}" }
@@ -79,7 +80,7 @@ internal class GoSignatureValidation(private val project: Project, plan: JsonObj
         val next = expected.map { entry ->
             checkOpen()
             val exists = Files.exists(entry.path)
-            require(exists == entry.exists) { "An analyzed file was created or removed: ${entry.path}. Run Change Signature again." }
+            require(exists == entry.exists) { "An analyzed file was created or removed: ${entry.path}. Run $operationName again." }
             val file = if (exists) LocalFileSystem.getInstance().refreshAndFindFileByNioFile(entry.path) else null
             file?.refresh(false, false)
             val fileStamp = file?.modificationStamp
@@ -89,7 +90,7 @@ internal class GoSignatureValidation(private val project: Project, plan: JsonObj
                 Triple(document, document?.modificationStamp, document?.text)
             }
             val disk = if (exists) readDisk(entry.path) else byteArrayOf()
-            require(!exists || sha256(disk) == entry.disk) { "An analyzed file changed on disk: ${entry.path}. Run Change Signature again." }
+            require(!exists || sha256(disk) == entry.disk) { "An analyzed file changed on disk: ${entry.path}. Run $operationName again." }
             val after = if (Files.exists(entry.path)) Files.readAttributes(entry.path, BasicFileAttributes::class.java) else null
             require((attributes == null && after == null) || attributes != null && after != null && attributes.size() == after.size() &&
                 attributes.lastModifiedTime() == after.lastModifiedTime() && attributes.fileKey() == after.fileKey()) { "An analyzed file changed while reading it: ${entry.path}" }
@@ -99,9 +100,9 @@ internal class GoSignatureValidation(private val project: Project, plan: JsonObj
                 val current = file?.let { FileDocumentManager.getInstance().getCachedDocument(it) }
                 require(current === snapshot.first && current?.modificationStamp == snapshot.second) { "An editor changed while reading its baseline: ${entry.path}" }
             }
-            entry.stamp?.let { require(snapshot.second == it) { "An editor changed since analysis: ${entry.path}. Run Change Signature again." } }
+            entry.stamp?.let { require(snapshot.second == it) { "An editor changed since analysis: ${entry.path}. Run $operationName again." } }
             val text = snapshot.third ?: canonicalText(disk)
-            require(sha256(text.toByteArray(Charsets.UTF_8)) == entry.text) { "An analyzed document changed: ${entry.path}. Run Change Signature again." }
+            require(sha256(text.toByteArray(Charsets.UTF_8)) == entry.text) { "An analyzed document changed: ${entry.path}. Run $operationName again." }
             checkSync(entry)
             Checked(entry, file, fileStamp, snapshot.first, snapshot.second)
         }
@@ -135,7 +136,7 @@ internal class GoSignatureValidation(private val project: Project, plan: JsonObj
     private fun checkOpen() { check(!project.isDisposed) { "The Go project is closed" } }
     private fun checkConfiguration() {
         checkOpen()
-        require(GoToolchain.configurationKey(project) == configuration) { "The Go SDK or build settings changed. Run Change Signature again." }
+        require(GoToolchain.configurationKey(project) == configuration) { "The Go SDK or build settings changed. Run $operationName again." }
     }
     companion object {
         fun sha256(bytes: ByteArray): String = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }

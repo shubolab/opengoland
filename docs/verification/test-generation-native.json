@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": "Standalone native Generate Tests, actual typed planner, file transaction and Test/Subject navigation. Not full LANG-09 or commercial parity.",
+  "initialBuild": {
+    "inputsSha256": "e388774d9987f1a1c59daaddcae0071b6b39ffe68e688fb590403dd6069b5711",
+    "inputFiles": 219,
+    "kotlinTests": 248,
+    "failures": 0,
+    "skips": 0,
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 17100,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+      ]
+    }
+  },
+  "fixture": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-generation-iaz09y6d/生成 测试 😀",
+    "sourceDiskBeforePreview": "func Echo(value string) string { return value }",
+    "nativeUnsavedOverlay": "func Echo(value []string) []string { return value }",
+    "otherSource": "package generation\n\nfunc Enabled(value bool) bool { return value }\n"
+  },
+  "observedNativeSteps": [
+    "Code > Generate showed Empty test file, Test for function, Tests for file, Tests for package, and the platform Test… entry.",
+    "Test for function opened Current function or method and showed Sum(values ...int) (int).",
+    "Changed scope using native combo to Current package; background response updated the still-open modal dialog with Enabled, Echo, Sum, Identity and Box.Get.",
+    "Entered int into concrete type arguments for Identity and Box.Get.",
+    "Preview showed Create/Edit pairs for other_test.go and subject_test.go; source disk still had string and no test files existed.",
+    "Preview generated []string arguments/results from the dirty editor, []int for variadic values, Identity[int] and Box[int].",
+    "Apply created both files; original source remained unsaved and unchanged on disk.",
+    "One Cmd+Z removed both generated files; dirty source editor remained []string, disk still string.",
+    "One Cmd+Shift+Z restored both generated files byte-identically; source was still unsaved.",
+    "Cmd+Shift+T from Echo showed subject_test.go; selecting navigated to that file.",
+    "Native Go Test ran the package: all 5 empty generated tables explicitly reported ignored/Skip, exit 0. Run saved the dirty source as the normal run flow.",
+    "Filled the generated Echo table using the native editor with one Unicode slice case. Ctrl+Shift+R ran exact ^TestEcho$, showed 1 test passed, Unicode subtest PASS, exit 0.",
+    "Cmd+Shift+T from TestEcho returned to subject.go at Echo (4:6).",
+    "Exited only the owned open Goland app."
+  ],
+  "generatedBeforeManualCase": {
+    "subject_test.go": {
+      "sha256": "9bf8d4bb0dfdc07410c90b98d3289941354473cacb8670b97c5518bf98789315",
+      "text": "package generation\n\nimport (\n\treflect \"reflect\"\n\ttesting \"testing\"\n)\n\nfunc TestEcho(t *testing.T) {\n\ttype args struct {\n\t\tvalue []string\n\t}\n\ttests := []struct {\n\t\tname  string\n\t\targs  args\n\t\twant0 []string\n\t}{\n\t\t// TODO: Add test cases, including receiver and argument values.\n\t}\n\tif len(tests) == 0 {\n\t\tt.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt := range tests {\n\t\tt.Run(tt.name, func(t *testing.T) {\n\t\t\tgot0 := Echo(tt.args.value)\n\t\t\tif !reflect.DeepEqual(got0, tt.want0) {\n\t\t\t\tt.Errorf(\"Echo() = %#v, want %#v\", got0, tt.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n\nfunc TestSum(t2 *testing.T) {\n\ttype args2 struct {\n\t\tvalues []int\n\t}\n\ttests2 := []struct {\n\t\tname  string\n\t\targs  args2\n\t\twant0 int\n\t}{\n\t\t// TODO: Add test cases, including receiver and argument values.\n\t}\n\tif len(tests2) == 0 {\n\t\tt2.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt2 := range tests2 {\n\t\tt2.Run(tt2.name, func(t2 *testing.T) {\n\t\t\tgot02 := Sum(tt2.args.values...)\n\t\t\tif !reflect.DeepEqual(got02, tt2.want0) {\n\t\t\t\tt2.Errorf(\"Sum() = %#v, want %#v\", got02, tt2.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n\nfunc TestIdentity(t3 *testing.T) {\n\ttype args3 struct {\n\t\tvalue int\n\t}\n\ttests3 := []struct {\n\t\tname  string\n\t\targs  args3\n\t\twant0 int\n\t}{\n\t\t// TODO: Add test cases, including receiver and argument values.\n\t}\n\tif len(tests3) == 0 {\n\t\tt3.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt3 := range tests3 {\n\t\tt3.Run(tt3.name, func(t3 *testing.T) {\n\t\t\tgot03 := Identity[int](tt3.args.value)\n\t\t\tif !reflect.DeepEqual(got03, tt3.want0) {\n\t\t\t\tt3.Errorf(\"Identity() = %#v, want %#v\", got03, tt3.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n\nfunc TestBox_Get(t4 *testing.T) {\n\ttests4 := []struct {\n\t\tname     string\n\t\treceiver Box[int]\n\t\twant0    int\n\t}{\n\t\t// TODO: Add test cases, including receiver and argument values.\n\t}\n\tif len(tests4) == 0 {\n\t\tt4.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt4 := range tests4 {\n\t\tt4.Run(tt4.name, func(t4 *testing.T) {\n\t\t\tgot04 := tt4.receiver.Get()\n\t\t\tif !reflect.DeepEqual(got04, tt4.want0) {\n\t\t\t\tt4.Errorf(\"Get() = %#v, want %#v\", got04, tt4.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n"
+    },
+    "other_test.go": {
+      "sha256": "62e1312aab37acc5c54d73be69c19d443d6657d0e0291758cccae9e21b1fe830",
+      "text": "package generation\n\nimport (\n\treflect \"reflect\"\n\ttesting \"testing\"\n)\n\nfunc TestEnabled(t *testing.T) {\n\ttype args struct {\n\t\tvalue bool\n\t}\n\ttests := []struct {\n\t\tname  string\n\t\targs  args\n\t\twant0 bool\n\t}{\n\t\t// TODO: Add test cases, including receiver and argument values.\n\t}\n\tif len(tests) == 0 {\n\t\tt.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt := range tests {\n\t\tt.Run(tt.name, func(t *testing.T) {\n\t\t\tgot0 := Enabled(tt.args.value)\n\t\t\tif !reflect.DeepEqual(got0, tt.want0) {\n\t\t\t\tt.Errorf(\"Enabled() = %#v, want %#v\", got0, tt.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n"
+    }
+  },
+  "nativeRun": {
+    "emptyPackage": "Test Results, 5 tests ignored.\nProcess finished with exit code 0",
+    "filledEcho": "go test -json -run ^TestEcho$ .\n=== RUN   TestEcho/中文😀\n--- PASS: TestEcho/中文😀 (0.00s)\n--- PASS: TestEcho (0.00s)\nTest Results, 1 test passed.\nProcess finished with exit code 0"
+  },
+  "limits": [
+    "Source-to-test chooser caption displayed Choose Test for null; file navigation worked but declaration naming remains incomplete.",
+    "While Undo deleted newly opened files, native notifications included gopls stat other_test.go: no such file or directory for codeAction/semanticTokens/inlayHint. Restoring, navigation and test execution succeeded; pending-request/deletion synchronization remains open.",
+    "The final-build supplement verified native external-package generation and preview cancellation; native stale-preview rejection and cancellation stress remain open.",
+    "Immutable-settings A/B payload and engine connection ownership are covered by two regression tests in the final 250-test suite; no native adversarial A→B→A scheduling test was performed."
+  ],
+  "finalBuildVerification": {
+    "inputsSha256": "3d8bd9dade696a845be76ab221b523e65162d6c8f967f1b796f461ce9b63df79",
+    "inputFiles": 220,
+    "kotlinTests": 250,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "goRace": {
+      "passedTestEventsIncludingSubtests": 150,
+      "passedTopLevelTests": 74,
+      "failedEvents": 0
+    },
+    "goVet": "passed",
+    "pluginStructure": "passed",
+    "provenance": "passed",
+    "codesignDeepStrict": "passed",
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 18610,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+      ]
+    },
+    "archivesSha256": {
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "34898d38d9d3571a677888450d256600dde86e03341f89d6fb99e371cb44df5c",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "21c1fb2a0de53afc4061b06e56719926f95d529fd9a2d9acbf30cd9770c96881"
+    },
+    "nativeSupplement": {
+      "fixtureRoot": "/Users/wangshubo/develop/openidea-go/.tools/native-generation-final-jtv7myan/外部测试 😀",
+      "steps": [
+        "Opened Generate Tests on Identity[T comparable].",
+        "Changed package mode to External test package; modal background re-analysis returned generation_test.",
+        "Entered concrete type int; Preview opened.",
+        "Clicked Cancel; filesystem check confirmed no *_test.go was created.",
+        "Repeated external/int plan; Apply created subject_test.go importing example.org/finalgeneration and calling generation.Identity[int].",
+        "Added {name: \"int\", args: args{value: 42}, want0: 42} in the native editor.",
+        "Ctrl+Shift+R ran exact ^TestIdentity$; native tree showed 1 test passed and exit 0.",
+        "Exited owned application."
+      ],
+      "finalGeneratedText": "package generation_test\n\nimport (\n\tgeneration \"example.org/finalgeneration\"\n\treflect \"reflect\"\n\ttesting \"testing\"\n)\n\nfunc TestIdentity(t *testing.T) {\n\ttype args struct {\n\t\tvalue int\n\t}\n\ttests := []struct {\n\t\tname  string\n\t\targs  args\n\t\twant0 int\n\t}{\n\t\t{name: \"int\", args: args{value: 42}, want0: 42},\n\t}\n\tif len(tests) == 0 {\n\t\tt.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt := range tests {\n\t\tt.Run(tt.name, func(t *testing.T) {\n\t\t\tgot0 := generation.Identity[int](tt.args.value)\n\t\t\tif !reflect.DeepEqual(got0, tt.want0) {\n\t\t\t\tt.Errorf(\"Identity() = %#v, want %#v\", got0, tt.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n",
+      "console": "go test -json -run ^TestIdentity$ .\n--- PASS: TestIdentity/int (0.00s)\n--- PASS: TestIdentity (0.00s)\nPASS\nTest Results, 1 test passed.\nProcess finished with exit code 0"
+    }
+  }
+}

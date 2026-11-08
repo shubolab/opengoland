@@ -1,0 +1,166 @@
+--- a/src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java
+@@ -12,12 +12,13 @@
+ 
+ import com.google.common.util.concurrent.ThreadFactoryBuilder;
+ import com.google.gson.JsonObject;
+ import com.intellij.notification.Notification;
+ import com.intellij.openapi.Disposable;
+ import com.intellij.openapi.application.ApplicationManager;
++import com.intellij.openapi.application.ReadAction;
+ import com.intellij.openapi.editor.Document;
+ import com.intellij.openapi.fileEditor.FileEditorManager;
+ import com.intellij.openapi.fileEditor.FileEditorManagerListener;
+ import com.intellij.openapi.project.Project;
+ import com.intellij.openapi.util.Disposer;
+ import com.intellij.openapi.util.ModificationTracker;
+@@ -762,49 +763,46 @@
+             // Compute workspace folder BEFORE synchronized block to avoid slow I/O operations in critical section
+             WorkspaceFolder folderToNotify = null;
+             if (workspaceFolderNotificationManager != null) {
+                 folderToNotify = workspaceFolderNotificationManager.computeWorkspaceFolderToNotify(file);
+             }
+ 
+-            CompletableFuture<LanguageServer> result;
+-            boolean shouldNotify = false;
+-            synchronized (documentsLock) {
+-                // Remove from closed documents and check if already opened
+-                closedDocuments.remove(fileUri);
+-
+-                // Check again if file is already opened (within synchronized block)
+-                ls2 = getLanguageServerWhenDidOpen(fileUri, waitForDidOpen);
+-                if (ls2 != null) {
+-                    return ls2;
++            final WorkspaceFolder workspaceFolderToNotify = folderToNotify;
++            final boolean[] shouldNotify = {false};
++            // Snapshot and listener registration must be atomic with respect to editor writes.
++            // The connection info may have been captured before language-server initialization.
++            CompletableFuture<LanguageServer> result = ReadAction.compute(() -> {
++                synchronized (documentsLock) {
++                    closedDocuments.remove(fileUri);
++
++                    var connected = getLanguageServerWhenDidOpen(fileUri, waitForDidOpen);
++                    if (connected != null) {
++                        return connected;
++                    }
++
++                    if (workspaceFolderToNotify != null) {
++                        shouldNotify[0] = workspaceFolderNotificationManager.markFolderAsNotified(workspaceFolderToNotify);
++                    }
++
++                    DocumentContentSynchronizer synchronizer = createDocumentContentSynchronizer(toUriString(fileUri), file, document, document.getText(), fileConnectionInfo.languageId());
++                    Disposer.register(this, synchronizer);
++                    document.addDocumentListener(synchronizer, synchronizer);
++                    OpenedDocument data = new OpenedDocument(new LanguageServerItem(languageServer, this), file, synchronizer);
++                    LanguageServerWrapper.this.openedDocuments.put(fileUri, data);
++
++                    // Materialize didOpen under the same read lock even when the caller need not wait.
++                    var didOpenFuture = synchronizer.getDidOpenFuture();
++                    return waitForDidOpen ? getLanguageServerWhenDidOpen(didOpenFuture)
++                            : CompletableFuture.completedFuture(languageServer);
+                 }
+-
+-                // Mark workspace folder as notified BEFORE didOpen (fast operation in synchronized block)
+-                if (folderToNotify != null) {
+-                    shouldNotify = workspaceFolderNotificationManager.markFolderAsNotified(folderToNotify);
+-                }
+-
+-                DocumentContentSynchronizer synchronizer = createDocumentContentSynchronizer(toUriString(fileUri), file, document, fileConnectionInfo.documentText(), fileConnectionInfo.languageId());
+-                // Synchronizer usually is disposed when document editor is closed.
+-                // But in case of closing the project, it does not close all editors,
+-                // so to ensure synchronizer is disposed we also register it here
+-                Disposer.register(this, synchronizer);
+-                document.addDocumentListener(synchronizer, synchronizer);
+-                OpenedDocument data = new OpenedDocument(new LanguageServerItem(languageServer, this), file, synchronizer);
+-                LanguageServerWrapper.this.openedDocuments.put(fileUri, data);
+-
+-                if (waitForDidOpen) {
+-                    result = getLanguageServerWhenDidOpen(synchronizer.getDidOpenFuture());
+-                } else {
+-                    result = CompletableFuture.completedFuture(languageServer);
+-                }
+-            }
++            });
+ 
+             // Send notification AFTER synchronized block to avoid blocking other file opens
+             // Only send if folder was newly marked (not already notified)
+-            if (shouldNotify) {
+-                workspaceFolderNotificationManager.sendFolderAddedNotification(folderToNotify);
++            if (shouldNotify[0]) {
++                workspaceFolderNotificationManager.sendFolderAddedNotification(workspaceFolderToNotify);
+             }
+ 
+             return result;
+         });
+     }
+ 
+--- a/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java
+@@ -28,26 +28,23 @@
+ 
+ import java.util.ArrayList;
+ import java.util.Collections;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.concurrent.CompletableFuture;
+-import java.util.concurrent.TimeUnit;
+ 
+ /**
+  * Synchronize IntelliJ document (open, content changed, close, save)
+  * with LSP notifications (didOpen, didChanged, didClose, didSave).
+  */
+ public class DocumentContentSynchronizer implements DocumentListener, Disposable {
+ 
+     public enum RefreshPullDiagnosticOrigin {
+         ON_REGISTER_CAPABILITY,
+         ON_WORKSPACE_REFRESH
+     }
+-
+-    private static final long WAIT_AFTER_SENDING_DID_OPEN = 500L;
+ 
+     private final @NotNull LanguageServerWrapper languageServerWrapper;
+     private final @NotNull Document document;
+     private final @NotNull String fileUri;
+     private final @NotNull TextDocumentSyncOptions syncOptions;
+     private final @NotNull VirtualFile file;
+@@ -104,34 +101,18 @@
+         textDocument.setText(documentText != null ? documentText : document.getText());
+ 
+         @NotNull String languageId = this.languageId != null ? this.languageId :
+                 languageServerWrapper.getServerDefinition().getLanguageId(file, languageServerWrapper.getProject());
+         textDocument.setLanguageId(languageId);
+         textDocument.setVersion(++version);
+-        didOpenFuture = languageServerWrapper
+-                .getInitializedServer()
+-                .thenApplyAsync(ls -> {
+-                    ls.getTextDocumentService()
+-                            .didOpen(new DidOpenTextDocumentParams(textDocument));
+-                    return ls;
+-                })
+-                .thenCompose(ls ->
+-                        CompletableFuture.supplyAsync(() -> {
+-                            if (!ApplicationManager.getApplication().isUnitTestMode()) {
+-                                try {
+-                                    // Wait 500ms after sending didOpen notification
+-                                    // to be sure that the notification has been sent before
+-                                    // consuming other LSP request like 'textDocument/codeLens'.
+-                                    TimeUnit.MILLISECONDS.sleep(WAIT_AFTER_SENDING_DID_OPEN);
+-                                } catch (InterruptedException e) {
+-                                    Thread.currentThread().interrupt();
+-                                }
+-                            }
+-                            return ls;
+-                        })
+-                );
++        // Use the same FIFO dispatcher as didChange. Completion means the notification
++        // has been dispatched, so subsequent dependent requests need no timed sleep.
++        didOpenFuture = languageServerWrapper.sendNotification(ls -> {
++            ls.getTextDocumentService().didOpen(new DidOpenTextDocumentParams(textDocument));
++            return ls;
++        });
+         processPullDiagnosticIfNeeded(didOpenFuture, version);
+         return didOpenFuture;
+     }
+ 
+     @Override
+     public void documentChanged(@NotNull DocumentEvent event) {

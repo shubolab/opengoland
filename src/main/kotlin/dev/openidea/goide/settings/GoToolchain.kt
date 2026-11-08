@@ -8,8 +8,27 @@ import java.nio.file.Path
 import java.io.File
 
 object GoToolchain {
-    fun command(project: Project, tool: String, args: List<String>): GeneralCommandLine {
-        val settings = GoProjectSettings.get(project)
+    /** Captures settings in memory; executable resolution belongs to the background command path. */
+    data class Settings(
+        val goExecutable: String,
+        val goplsExecutable: String,
+        val delveExecutable: String,
+        val buildTags: String,
+        val goos: String,
+        val goarch: String,
+        val cgoEnabled: String,
+        val environment: String,
+    ) {
+        val key: List<String> get() = listOf(goExecutable, goplsExecutable, delveExecutable, buildTags, goos, goarch, cgoEnabled, environment)
+    }
+
+    fun capture(project: Project): Settings = GoProjectSettings.get(project).let {
+        Settings(it.goExecutable, it.goplsExecutable, it.delveExecutable, it.buildTags, it.goos, it.goarch, it.cgoEnabled, it.environment)
+    }
+
+    fun command(project: Project, tool: String, args: List<String>): GeneralCommandLine = command(project, tool, args, capture(project))
+
+    fun command(project: Project, tool: String, args: List<String>, settings: Settings): GeneralCommandLine {
         val configured = when (tool) {
             "go" -> settings.goExecutable
             "gopls" -> settings.goplsExecutable
@@ -71,9 +90,7 @@ object GoToolchain {
 
     fun buildTags(text: String): List<String> = text.split(Regex("[,\\s]+")).filter(String::isNotBlank).distinct()
 
-    fun configurationKey(project: Project): List<String> = GoProjectSettings.get(project).let {
-        listOf(it.goExecutable, it.goplsExecutable, it.delveExecutable, it.buildTags, it.goos, it.goarch, it.cgoEnabled, it.environment)
-    }
+    fun configurationKey(project: Project): List<String> = capture(project).key
 
     private fun compareSDKVersions(a: String, b: String): Int {
         val av = a.substringBefore('-').split('.').map { it.toIntOrNull() ?: 0 }

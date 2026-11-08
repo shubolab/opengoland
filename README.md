@@ -122,6 +122,14 @@ Native cross-module, interface, added-parameter/result and Undo/Redo checks have
 passed; [implementation and boundaries](docs/verification/change-signature-implementation.md)
 describe conservative conflicts, UI gaps and build-context limitations.
 Refactor > Go Refactor also offers gopls refactorings for the selection.
+
+Code > Generate provides Empty test file, Test for function, Tests for file, and
+Tests for package. The native dialog selects declarations, same/external package,
+test names, and concrete generic types. A typed Go planner validates the full
+candidate before a cross-file Diff preview; applying uses one global Undo/Redo
+command. Standard Test/Subject navigation is integrated. See the
+[test-generation evidence and boundaries](docs/verification/test-generation.md).
+
 Workspace edits check actual document versions and unsaved changes,
 with a separate verified-disk baseline for closed files. Consult the
 [transaction boundaries](docs/verification/workspace-edit-architecture.md)
@@ -162,8 +170,11 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current test-workflow batch passed all 229 Kotlin tests with no skips, the complete Go
-race suite (137 tests including subtests), and Go vet. Native evidence includes
+The current generation/synchronization batch passed all 250 Kotlin tests with no skips,
+the complete Go race suite (150 tests including subtests), and Go vet.
+It includes real typed generation, two-file CreateFile/Undo/Redo, stale dependency
+rejection, immutable settings/connection ownership, and actual upstream LSP
+initialization/UTF-16 synchronization regressions. Native evidence includes
 an unsaved go.work adding an unopened external caller, stale-preview rejection,
 three-file interface migration, and combined name/parameter/result conversion.
 The [native records](docs/verification/change-signature-native.json) retain
@@ -189,6 +200,8 @@ evidence is recorded separately from the direct protocol results.
   Variables, Unicode Watches, field modification, stepping, external DAP source
   mapping and detach, and remaining limits.
 - [Native test/benchmark/fuzz workflows](docs/verification/native-test-workflows.md).
+- [Native test generation](docs/verification/test-generation.md).
+- [Initialization document synchronization](docs/verification/lsp-document-sync.md).
 - [Attach Stop ordering](docs/verification/debug-stop-ordering.md).
 - [Engine protocol and tests](engine/README.md).
 - [Pinned platform input](product/platform.lock.json).

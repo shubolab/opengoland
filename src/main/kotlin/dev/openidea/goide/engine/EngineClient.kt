@@ -34,15 +34,21 @@ class EngineClient(private val project: Project) : Disposable {
     private val activeTasks = ConcurrentHashMap.newKeySet<String>()
     private val writeLock = Any()
 
-    @Synchronized
     fun connect(): CompletableFuture<JsonElement> {
+        if (disposed) return CompletableFuture.failedFuture(IllegalStateException("Project is closed"))
+        return try { connect(GoToolchain.capture(project)) }
+        catch (error: Exception) { CompletableFuture.failedFuture(error) }
+    }
+
+    @Synchronized
+    fun connect(settings: GoToolchain.Settings): CompletableFuture<JsonElement> {
         if (disposed) return CompletableFuture.failedFuture(IllegalStateException("Project is closed"))
         val root = project.basePath ?: return CompletableFuture.failedFuture(IllegalStateException("Open a Go project first"))
         val executable = executable()
             ?: return CompletableFuture.failedFuture(IllegalStateException("Go engine is missing. Run ./gradlew buildEngine or scripts/build.sh."))
-        val command = try { GoToolchain.command(project, "go", emptyList()) }
+        val command = try { GoToolchain.command(project, "go", emptyList(), settings) }
             catch (error: Exception) { return CompletableFuture.failedFuture(error) }
-        val key = GoToolchain.configurationKey(project) + command.exePath + command.environment.toSortedMap().flatMap { listOf(it.key, it.value) }
+        val key = settings.key + command.exePath + command.environment.toSortedMap().flatMap { listOf(it.key, it.value) }
         initialized?.let { ready ->
             if (configurationKey == key && process?.isAlive == true) return ready
             disconnect(IllegalStateException("Go toolchain settings changed or the engine exited"), reason = "configuration_changed")
@@ -80,7 +86,19 @@ class EngineClient(private val project: Project) : Disposable {
     }
 
     fun request(method: String, params: JsonObject = JsonObject(), timeoutSeconds: Long = 45): CompletableFuture<JsonElement> =
-        try { connect().thenCompose { requestRaw(method, params, timeoutSeconds = timeoutSeconds) } } catch (e: Exception) { CompletableFuture.failedFuture(e) }
+        try { requestConnected(connect(), method, params, timeoutSeconds) } catch (e: Exception) { CompletableFuture.failedFuture(e) }
+
+    fun request(method: String, params: JsonObject, settings: GoToolchain.Settings, timeoutSeconds: Long = 45): CompletableFuture<JsonElement> =
+        try { requestConnected(connect(settings), method, params, timeoutSeconds) } catch (e: Exception) { CompletableFuture.failedFuture(e) }
+
+    private fun requestConnected(connection: CompletableFuture<JsonElement>, method: String, params: JsonObject, timeoutSeconds: Long): CompletableFuture<JsonElement> =
+        connection.thenCompose {
+            // Another task may have selected another SDK while initialization was in flight.
+            // Bind the request to this connection; never send it to a replacement engine.
+            val child = synchronized(this) { if (initialized === connection) process else null }
+                ?: return@thenCompose CompletableFuture.failedFuture(IllegalStateException("Go engine configuration changed before the request was sent"))
+            requestRaw(method, params, child, timeoutSeconds)
+        }
 
     /** Cancellation must not initialize a new engine or resolve executables on the EDT. */
     fun cancelOperation(operationId: String) {
