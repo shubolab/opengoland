@@ -12,24 +12,38 @@ object GoTestRerunPlan {
             selected.forEach { test ->
                 val values = original.independentCopy().apply {
                     target = ParametersListUtil.join(pkg)
-                    testPattern = if (test.isEmpty()) "" else test.split('/').joinToString("/") { "^${quote(it)}$" }
-                    buildFlags = withoutRunSelector(buildFlags)
-                    arguments = withoutRunSelector(arguments)
+                    if (test.isNotEmpty()) {
+                        val selector = test.split('/').joinToString("/") { "^${quote(it)}$" }
+                        if (test.substringBefore('/').startsWith("Benchmark")) {
+                            testMode = GoTestMode.BENCHMARK
+                            benchmarkPattern = selector
+                            testPattern = ""
+                        } else {
+                            // A discovered fuzz failure is reproduced from its saved
+                            // seed corpus, never by starting new mutation workers.
+                            testMode = GoTestMode.TEST
+                            testPattern = selector
+                        }
+                    } else testPattern = ""
+                    buildFlags = withoutExecutionSelectors(buildFlags)
+                    arguments = withoutExecutionSelectors(arguments)
                 }
                 add(GoTestRetry(if (test.isEmpty()) "Retry $pkg" else "$test in $pkg", values))
             }
         }
     }
 
-    private fun withoutRunSelector(text: String): String {
+    private fun withoutExecutionSelectors(text: String): String {
         val values = ParametersListUtil.parse(text, false, true)
         val result = mutableListOf<String>()
         var index = 0
         while (index < values.size) {
             val value = values[index++]
+            val name = value.trimStart('-').substringBefore('=').removePrefix("test.")
             when {
-                value == "-run" || value == "-test.run" -> if (index < values.size) index++
-                value.startsWith("-run=") || value.startsWith("-test.run=") -> Unit
+                value.startsWith('-') && name in setOf("run", "bench", "benchtime", "fuzz", "fuzztime", "fuzzminimizetime") ->
+                    if ('=' !in value && index < values.size) index++
+                value.startsWith('-') && name == "benchmem" -> Unit
                 else -> result += value
             }
         }

@@ -17,10 +17,15 @@ import com.intellij.openapi.util.ModificationTracker
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.psi.util.PsiModificationTracker
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessage
+import dev.openidea.goide.run.corpus.GoFuzzCorpusConsoleFilter
 
 class GoTestConsoleProperties(configuration: GoRunConfiguration, executor: Executor, private val output: GoTestOutput) :
     SMTRunnerConsoleProperties(configuration, "OpenIDEAGo", executor), SMCustomMessagesParsing {
-    init { isIdBasedTestTree = true }
+    val fuzzCorpusFilter = GoFuzzCorpusConsoleFilter(output.corpusPackageDirectory())
+    init {
+        isIdBasedTestTree = true
+        addStackTraceFilter(fuzzCorpusFilter)
+    }
     private val locator = GoTestLocator(output)
     override fun getTestLocator(): SMTestLocator = locator
     override fun createTestEventsConverter(testFrameworkName: String, consoleProperties: TestConsoleProperties): OutputToGeneralTestEventsConverter =

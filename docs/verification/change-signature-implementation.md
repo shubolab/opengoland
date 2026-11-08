@@ -28,7 +28,7 @@ Kotlin 和 IntelliJ Platform 提供标准 Refactor > Change Signature 入口、�
 
 无冲突的候选进入共享预览窗口，展示 Files/Usages 和只读 Before/After 差异；Apply 应用整组修改。磁盘读取和 package/process 分析在后台，提交前在原生 write command 内再次检查已缓存的文档与 VFS 前提。文件内容、原生文档 stamp、真实可选 LSP session/version、依赖、目录成员或 SDK/build 配置有变化时拒绝旧计划。成功应用使用一个原生全局 Undo command；中途失败按事务 journal 回滚。
 
-当前采用自动相关关系闭包，没有 GoLand 式的实现范围选择器。类型和表达式是原生表格/文本框，语义校验由 Preview 中的 Go planner 完成；尚无 Go 代码片段补全及逐单元格语义编辑器。Usages 负责选择对应文件，尚未实现完整的使用处树和精确行级预览导航。这些差异仍属于原生体验验收范围。
+当前采用自动相关关系闭包，尚无官方文档所述的同时更新全部实现确认；GoLand 是否提供逐实现选择器仍未验证。类型和表达式是原生表格/文本框，语义校验由 Preview 中的 Go planner 完成；尚无 Go 代码片段补全及逐单元格语义编辑器。Usages 负责选择对应文件，尚未实现完整的使用处树和精确行级预览导航。这些差异仍属于原生体验验收范围。
 
 ## 明确冲突与覆盖边界
 

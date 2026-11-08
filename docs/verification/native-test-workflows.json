@@ -1,0 +1,253 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "method": "Actual independent app; native CUA actions and AX/screenshots; owned CLI process/heartbeat observations. Curated observations, not a recording of DAP wire traffic.",
+  "initialBuild": {
+    "digest": "2c8f0472cc35286010bdda002606aaee4214b3e4368d0a051efe8a6846662515",
+    "inputs": 190,
+    "appPid": 93844,
+    "bundleId": "dev.opengoland.ide",
+    "platform": "IC-261.26222.65",
+    "strictCodesignAfterExit": true
+  },
+  "fixture": {
+    "module": "example.org/workflows",
+    "sources": {
+      "cmd/attach/main.go": "package main\n\nimport (\n\t\"fmt\"\n\t\"os\"\n\t\"strconv\"\n\t\"time\"\n)\n\ntype Counter struct{ Value int }\n\nfunc checkpoint(cart *Counter) {\n\tcart.Value++\n\tvalue := strconv.Itoa(cart.Value)\n\ttemporary := os.Args[1] + \".next\"\n\tif err := os.WriteFile(temporary, []byte(value), 0600); err == nil {\n\t\t_ = os.Rename(temporary, os.Args[1])\n\t}\n\ttime.Sleep(30 * time.Millisecond)\n}\nfunc main() {\n\tfmt.Println(\"open Goland owned attach fixture\")\n\tcart := &Counter{}\n\tfor {\n\t\tcheckpoint(cart)\n\t}\n}\n",
+      "subject.go": "package workflows\n\nfunc Echo(value string) string { return value }\n\nvar Sink string\n",
+      "subject_test.go": "package workflows\n\nimport \"testing\"\n\nfunc TestOrdinary(t *testing.T) {\n\tt.Fatal(\"ordinary test must be excluded from benchmark and fuzz workflows\")\n}\n\nfunc BenchmarkEcho(b *testing.B) {\n\tb.Run(\"small\", func(b *testing.B) {\n\t\tfor i := 0; i < b.N; i++ {\n\t\t\tSink = Echo(\"中文 😀\")\n\t\t}\n\t})\n\tb.Run(\"large\", func(b *testing.B) {\n\t\tfor i := 0; i < b.N; i++ {\n\t\t\tSink = Echo(\"a longer string\")\n\t\t}\n\t})\n}\n\nfunc BenchmarkOther(b *testing.B) { b.Fatal(\"unselected benchmark executed\") }\n\nfunc FuzzEcho(f *testing.F) {\n\tf.Add(\"seed\")\n\tf.Add(\"中文 😀\")\n\tf.Fuzz(func(t *testing.T, value string) {\n\t\tif Echo(value) != value {\n\t\t\tt.Fatalf(\"echo mismatch: %q\", value)\n\t\t}\n\t})\n}\n\nfunc FuzzFailure(f *testing.F) {\n\tf.Add(\"seed\")\n\tf.Fuzz(func(t *testing.T, value string) {\n\t\tif value != \"seed\" {\n\t\t\tt.Fatal(\"deterministic corpus failure\")\n\t\t}\n\t})\n}\n"
+    },
+    "corpus": {
+      "path": "testdata/fuzz/FuzzFailure/f118c7fef3bb37e7",
+      "contents": "go test fuzz v1\nstring(\"3eed\")\n"
+    }
+  },
+  "observations": [
+    {
+      "flow": "Native Go Test configuration gobench",
+      "command": [
+        "go",
+        "test",
+        "-json",
+        "-run",
+        "^$",
+        "-bench",
+        "^BenchmarkEcho$/^small$",
+        "-benchtime",
+        "3x",
+        "-benchmem",
+        "."
+      ],
+      "status": "1 test passed; exit 0",
+      "measurement": "BenchmarkEcho/small-8 3 111.0 ns/op 0 B/op 0 allocs/op",
+      "excluded": [
+        "TestOrdinary",
+        "BenchmarkOther",
+        "BenchmarkEcho/large"
+      ],
+      "scope": "Created using Run > Edit Configurations > Add Go Test; not a gutter execution observation."
+    },
+    {
+      "flow": "Native Go Test configuration fuzz",
+      "command": [
+        "go",
+        "test",
+        "-json",
+        "-run",
+        "^$",
+        "-fuzz",
+        "^FuzzEcho$",
+        "-fuzztime",
+        "100x",
+        "-fuzzminimizetime",
+        "0",
+        "-parallel",
+        "1",
+        "."
+      ],
+      "status": "1 test passed; 100 executions; exit 0"
+    },
+    {
+      "flow": "Native indefinite fuzz Stop",
+      "ownedPids": [
+        94798,
+        94824,
+        94825
+      ],
+      "lastObservedExecutions": 1377964,
+      "ownedPidsGoneAfterStop": true,
+      "preFixBug": "Late Go PASS after Stop incorrectly showed 1 passed although process exit was 1; corrected source/native recheck pending."
+    },
+    {
+      "flow": "Native failing fuzz",
+      "command": [
+        "go",
+        "test",
+        "-json",
+        "-run",
+        "^$",
+        "-fuzz",
+        "^FuzzFailure$",
+        "-fuzztime",
+        "100x",
+        "-fuzzminimizetime",
+        "0",
+        "-parallel",
+        "1",
+        "."
+      ],
+      "status": "1 failed; exit 1; real mutation produced saved corpus",
+      "consoleLink": "Clicked actual underlined path; opened native editor with go test fuzz v1 and string(\"3eed\")",
+      "preFixBug": "Corpus file had no gutter marker because Go lexer leaf tokens carried the source language; corrected source/native recheck pending."
+    },
+    {
+      "flow": "Native local PID attach Stop while entry-paused",
+      "ownedTargetPid": 93833,
+      "ownedAdapterPid": 95024,
+      "ownedDebugserverPid": 95029,
+      "entrySource": "runtime/proc.go",
+      "targetPausedState": "TXs",
+      "pausedHeartbeat": [
+        "33377",
+        "33377"
+      ],
+      "pausedSampleSeconds": 0.3,
+      "continuedBeforeStop": false,
+      "addedBreakpoints": false,
+      "adapterExitCode": 0,
+      "adapterAndDebugserverGone": true,
+      "targetSurvivedState": "Ss; parent 1",
+      "resumedHeartbeat": [
+        "33542",
+        "33552"
+      ],
+      "resumedSampleSeconds": 0.3,
+      "limitation": "One successful native case; no wire ACK capture and no proof all historical backend detach intermittency is resolved."
+    },
+    {
+      "flow": "Recheck corpus gutter display and native context Run",
+      "build": "b38bd22f",
+      "markerVisible": true,
+      "trigger": "Control+Shift+R in corpus editor",
+      "selector": "^FuzzFailure$/^f118c7fef3bb37e7$",
+      "runNames": [
+        "FuzzFailure",
+        "FuzzFailure/f118c7fef3bb37e7"
+      ],
+      "status": "1 failed, expected; exit 1",
+      "limitation": "Physical gutter click popup was not established; context Run used the actual producer."
+    },
+    {
+      "flow": "Recheck exact corpus Debug",
+      "build": "b38bd22f",
+      "ownedAdapterPid": 627,
+      "ownedDebugserverPid": 881,
+      "ownedTestPid": 882,
+      "testBinaryArguments": [
+        "-test.run",
+        "^FuzzFailure$/^f118c7fef3bb37e7$"
+      ],
+      "nativeBreakpoint": "workflows.FuzzFailure.func1:38, subject_test.go",
+      "nativeEvaluation": {
+        "expression": "value",
+        "result": "3eed"
+      },
+      "afterResume": "Test target exit 1 (expected failing assertion); adapter exit 0; all three PIDs gone."
+    },
+    {
+      "flow": "Recheck indefinite fuzz Stop",
+      "build": "b38bd22f",
+      "trigger": "Run > Stop Native Fuzz Stop",
+      "ownedPids": [
+        1918,
+        1944,
+        1945
+      ],
+      "goLateResult": "PASS FuzzEcho then package PASS; process exit 1",
+      "nativeResult": "1 test ignored, Go test run was stopped; no passed/failed nodes",
+      "ownedPidsGone": true,
+      "lastExecutions": 2199668
+    },
+    {
+      "flow": "Native persisted settings after restart",
+      "build": "b38bd22f",
+      "settings": {
+        "framework": "go test -fuzz",
+        "fuzzPattern": "^FuzzFailure$",
+        "fuzzTime": "100x",
+        "minimization": "0",
+        "workers": "1"
+      },
+      "benchConfigurationAlsoPresent": true
+    },
+    {
+      "flow": "Final package parent teardown cancellation",
+      "build": "448a585dc11282af6a9d5d8fb9b2670f2947ee804db7c4e61afc0058f276409a",
+      "selector": "^TestParentStop$",
+      "fixtureSource": "package workflows\n\nimport \"testing\"\n\nfunc TestOrdinary(t *testing.T) {\n\tt.Fatal(\"ordinary test must be excluded from benchmark and fuzz workflows\")\n}\n\nfunc BenchmarkEcho(b *testing.B) {\n\tb.Run(\"small\", func(b *testing.B) {\n\t\tfor i := 0; i < b.N; i++ {\n\t\t\tSink = Echo(\"中文 😀\")\n\t\t}\n\t})\n\tb.Run(\"large\", func(b *testing.B) {\n\t\tfor i := 0; i < b.N; i++ {\n\t\t\tSink = Echo(\"a longer string\")\n\t\t}\n\t})\n}\n\nfunc BenchmarkOther(b *testing.B) { b.Fatal(\"unselected benchmark executed\") }\n\nfunc FuzzEcho(f *testing.F) {\n\tf.Add(\"seed\")\n\tf.Add(\"中文 😀\")\n\tf.Fuzz(func(t *testing.T, value string) {\n\t\tif Echo(value) != value {\n\t\t\tt.Fatalf(\"echo mismatch: %q\", value)\n\t\t}\n\t})\n}\n\nfunc FuzzFailure(f *testing.F) {\n\tf.Add(\"seed\")\n\tf.Fuzz(func(t *testing.T, value string) {\n\t\tif value != \"seed\" {\n\t\t\tt.Fatal(\"deterministic corpus failure\")\n\t\t}\n\t})\n}\n\nfunc TestParentStop(t *testing.T) {\n\tt.Run(\"child\", func(t *testing.T) {})\n\tt.Log(\"parent teardown started\")\n\tselect {}\n}\n",
+      "beforeStop": "Native Running tests, 1 test passed; child PASS and parent teardown started; parent still active",
+      "trigger": "Native Run > Stop",
+      "afterStop": "1 test passed, 1 ignored; Go test run was stopped; exit 1",
+      "preservedChildResult": true,
+      "visibleParentIgnoredPhase": true,
+      "ownedPids": [
+        3059,
+        3087
+      ],
+      "ownedPidsGone": true
+    },
+    {
+      "flow": "Additional language notification during final native check",
+      "build": "448a585dc11282af6a9d5d8fb9b2670f2947ee804db7c4e61afc0058f276409a",
+      "observation": "gopls textDocument/codeAction notification: column is beyond end of file, after app restart with an externally extended owned fixture and moving the caret to its new function. Test execution and Stop still worked.",
+      "classification": "Unresolved; no request trace captured, root cause not established. Do not treat full document-sync/code-action robustness as passed."
+    }
+  ],
+  "remaining": [
+    "Native precise toolbar failed-corpus rerun directly from mutation result",
+    "Physical gutter click popup/Run/Debug and native benchmark Debug",
+    "Complete GoLand parity remains open",
+    "Investigate observed codeAction column beyond EOF notification and external-edit/caret request consistency"
+  ],
+  "recheckBuild": {
+    "digest": "b38bd22fd64f81834a7bde39b9432e51bed3c7aa04f8363fd6bdcf6f588150f6",
+    "inputs": 191,
+    "appPid": 99727
+  },
+  "finalBuild": {
+    "digest": "448a585dc11282af6a9d5d8fb9b2670f2947ee804db7c4e61afc0058f276409a",
+    "inputs": 192,
+    "appPid": 2974,
+    "tests": {
+      "tests": 229,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "runtimeIdentityVerification": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 2974,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+      ]
+    },
+    "pluginArtifactsUnchanged": 32,
+    "ownedAttachFixtureTerminatedAfterValidation": true,
+    "allTaskOwnedAppTestAdapterProcessesExited": true
+  }
+}

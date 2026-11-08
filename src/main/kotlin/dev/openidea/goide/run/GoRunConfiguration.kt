@@ -61,7 +61,10 @@ class GoRunConfiguration(
         return DAPCommandLineState(GoDebugDescriptor(sessionOptions, environment, debugAdapterServer), sessionOptions, environment)
     }
     override fun checkConfiguration() {
-        try { parameters.validate() } catch (error: IllegalArgumentException) { throw RuntimeConfigurationError(error.message.orEmpty()) }
+        try {
+            parameters.validate()
+            if (kind == GoRunKind.TEST) parameters.commandArguments(kind, "")
+        } catch (error: IllegalArgumentException) { throw RuntimeConfigurationError(error.message.orEmpty()) }
     }
     override fun excludeCompileBeforeLaunchOption() = true
 
@@ -77,6 +80,16 @@ class GoRunConfiguration(
             passParentEnvironment = saved.getAttributeValue("passParentEnvironment") != "false",
             outputPath = saved.getAttributeValue("outputPath").orEmpty(),
             testPattern = saved.getAttributeValue("testPattern").orEmpty(),
+            testMode = saved.getAttributeValue("testMode")?.let { value ->
+                runCatching { GoTestMode.valueOf(value) }.getOrElse { throw com.intellij.openapi.util.InvalidDataException("Unknown Go test framework: $value") }
+            } ?: GoTestMode.TEST,
+            benchmarkPattern = saved.getAttributeValue("benchmarkPattern") ?: ".",
+            benchmarkTime = saved.getAttributeValue("benchmarkTime") ?: "1s",
+            benchmarkMemory = saved.getAttributeValue("benchmarkMemory") != "false",
+            fuzzPattern = saved.getAttributeValue("fuzzPattern").orEmpty(),
+            fuzzTime = saved.getAttributeValue("fuzzTime") ?: "30s",
+            fuzzMinimizeTime = saved.getAttributeValue("fuzzMinimizeTime") ?: "60s",
+            fuzzParallelism = saved.getAttributeValue("fuzzParallelism").orEmpty(),
             environment = saved.getChildren("env").associate { it.getAttributeValue("name").orEmpty() to it.getAttributeValue("value").orEmpty() }.toMutableMap(),
         )
     }
@@ -93,6 +106,14 @@ class GoRunConfiguration(
             .setAttribute("passParentEnvironment", parameters.passParentEnvironment.toString())
             .setAttribute("outputPath", parameters.outputPath)
             .setAttribute("testPattern", parameters.testPattern)
+            .setAttribute("testMode", parameters.testMode.name)
+            .setAttribute("benchmarkPattern", parameters.benchmarkPattern)
+            .setAttribute("benchmarkTime", parameters.benchmarkTime)
+            .setAttribute("benchmarkMemory", parameters.benchmarkMemory.toString())
+            .setAttribute("fuzzPattern", parameters.fuzzPattern)
+            .setAttribute("fuzzTime", parameters.fuzzTime)
+            .setAttribute("fuzzMinimizeTime", parameters.fuzzMinimizeTime)
+            .setAttribute("fuzzParallelism", parameters.fuzzParallelism)
         parameters.environment.forEach { (name, value) -> saved.addContent(Element("env").setAttribute("name", name).setAttribute("value", value)) }
         element.addContent(saved)
     }

@@ -188,7 +188,7 @@
       "partial_evidence": {
         "source": "../verification/change-signature-implementation.md",
         "native_record": "../verification/change-signature-native.json",
-        "observation": "Typed Go planner and native tables/diff; actual unsaved-workspace cross-module reorder, function-value migration, stale-preview rejection, three-file interface change and combined name/parameter/result conversion passed with single-command Undo/Redo. Full multiple-build-context migration, implementation scope selection, semantic cell editors and remaining advanced scopes are open. Commercial reference runtime remains unverified."
+        "observation": "Typed Go planner and native tables/diff; actual unsaved-workspace cross-module reorder, function-value migration, stale-preview rejection, three-file interface change and combined name/parameter/result conversion passed with single-command Undo/Redo. Full multiple-build-context migration, all-implementations confirmation (publicly documented; per-implementation selection unverified), semantic cell editors and remaining advanced scopes are open. Commercial reference runtime remains unverified."
       }
     },
     {
@@ -238,7 +238,12 @@
       "reference": "GoRunLineMarkerProvider and GoApplicationRunConfigurationProducer",
       "probe": "Run main from gutter and context menu, edit/save configuration, restart, rerun with same values",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/native-test-workflows.md",
+        "native_record": "../verification/native-test-workflows.json",
+        "observation": "Native source/editor DataContext and real gutter action-update regressions cover Test/Example/Benchmark/Fuzz; corpus provider and actual daemon marker collection pass. Independent app context Run and Debug selected exactly one saved corpus. Saved benchmark/fuzz configurations survived restart. Physical gutter click workflow and full configuration persistence scope remain open."
+      }
     },
     {
       "id": "TEST-01",
@@ -260,7 +265,12 @@
       "reference": "Platform test runner and GoTestFinder",
       "probe": "Fail one nested subtest among packages, rerun failed and verify only intended scope runs",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/native-test-workflows.md",
+        "native_record": "../verification/native-test-workflows.json",
+        "observation": "Real mutation JSON now binds its saved input by package/function and failure confirmation; real Go rerun test executes only the new hash. Native context Run independently reproduced one saved failure. Mutation-result toolbar rerun and complete cross-package/nested cases remain open."
+      }
     },
     {
       "id": "TEST-03",
@@ -269,7 +279,12 @@
       "reference": "GobenchRunConfigurationProducer and GoFuzzRunConfigurationProducer",
       "probe": "Run benchmark and short fuzz fixture, stop fuzz safely, navigate corpus failure",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/native-test-workflows.md",
+        "native_record": "../verification/native-test-workflows.json",
+        "observation": "Independent app ran exact BenchmarkEcho/small (3x and allocations), bounded FuzzEcho (100x), generated a true FuzzFailure corpus and opened its console link. Recheck displayed corpus gutter; native context Run and Debug selected one hash, hit the Go callback breakpoint and evaluated its exact value. Infinite Fuzz Stop reaped owned children and showed ignored despite late Go PASS. Native saved settings survived restart. Full scope/framework parity, physical gutter clicking, benchmark Debug and arbitrary manual corpus-name disambiguation remain open."
+      }
     },
     {
       "id": "TEST-04",
@@ -315,8 +330,9 @@
       "reference_runtime": "unverified",
       "reconstruction": "unverified",
       "partial_evidence": {
-        "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "Snapshot54b2629 native local PID config/attach/goroutines/frame/evaluation and non-terminating Stop proved target heartbeat continued; remote3-mode direct DAP probe passed separately. Remote native UI remains open."
+        "source": "../verification/debug-stop-ordering.md",
+        "native_record": "../verification/native-test-workflows.json",
+        "observation": "New local adapter handler shares one non-terminating disconnect and waits before bounded adapter-only cleanup; 3 lifecycle tests pass. Independent app entry-paused local PID attach Stop left its owned target alive with heartbeat resumed and adapter/debugserver gone. Single native case does not close historical backend intermittency. Earlier native remote DAP/headless loopback evidence remains in native-debug-recovery.md; broader remote lifecycle scope remains open."
       }
     },
     {

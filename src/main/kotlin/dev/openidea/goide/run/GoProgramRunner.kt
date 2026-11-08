@@ -42,7 +42,8 @@ import java.nio.file.Path
 class GoProgramRunner : AsyncProgramRunner<RunnerSettings>() {
     override fun getRunnerId() = "OpenIDEAGoRun"
     override fun canRun(executorId: String, profile: RunProfile) = profile is GoRunConfiguration &&
-        (executorId == DefaultRunExecutor.EXECUTOR_ID || executorId == GO_COVERAGE_EXECUTOR && profile.kind == GoRunKind.TEST)
+        (executorId == DefaultRunExecutor.EXECUTOR_ID || executorId == GO_COVERAGE_EXECUTOR &&
+            profile.kind == GoRunKind.TEST && profile.parameters.testMode == GoTestMode.TEST)
 
     override fun execute(environment: ExecutionEnvironment, state: RunProfileState): Promise<RunContentDescriptor?> {
         val promise = AsyncPromise<RunContentDescriptor?>()
@@ -85,7 +86,7 @@ class GoCommandLineState(environment: ExecutionEnvironment, private val configur
     private var coverageRevision = 0L
 
     fun prepareCoverage() {
-        if (environment.executor.id == GoProgramRunner.GO_COVERAGE_EXECUTOR && configuration.kind == GoRunKind.TEST) {
+        if (environment.executor.id == GoProgramRunner.GO_COVERAGE_EXECUTOR && configuration.kind == GoRunKind.TEST && values.testMode == GoTestMode.TEST) {
             coverageService = GoCoverageService.get(configuration.project)
             coverageRevision = coverageService!!.captureSourceRevision()
         }
@@ -135,6 +136,7 @@ class GoCommandLineState(environment: ExecutionEnvironment, private val configur
         if (handler is GoTestProcessHandler) {
             val properties = GoTestConsoleProperties(configuration, executor, handler.output)
             val console = SMTestRunnerConnectionUtil.createAndAttachConsole("OpenIDEAGo", handler, properties)
+            console.addMessageFilter(properties.fuzzCorpusFilter)
             val rerun = GoRerunFailedTestsAction(configuration, handler.output, values, handler, executor)
             return DefaultExecutionResult(console, handler).apply { setRestartActions(rerun) }
         }
@@ -148,14 +150,14 @@ class GoTestProcessHandler(commandLine: GeneralCommandLine, workingDirectory: St
     val output = GoTestOutput(workingDirectory, packageDirectories)
     @Volatile var cancellationRequested = false
         private set
-    override fun destroyProcessImpl() { cancellationRequested = true; super.destroyProcessImpl() }
-    override fun killProcess() { cancellationRequested = true; super.killProcess() }
+    override fun destroyProcessImpl() { cancellationRequested = true; output.requestCancellation(); super.destroyProcessImpl() }
+    override fun killProcess() { cancellationRequested = true; output.requestCancellation(); super.killProcess() }
     override fun notifyTextAvailable(text: String, outputType: Key<*>) {
         if (outputType === ProcessOutputTypes.STDOUT) output.consume(text) { super.notifyTextAvailable(it, outputType) }
         else super.notifyTextAvailable(text, outputType)
     }
     override fun notifyProcessTerminated(exitCode: Int) {
-        try { output.finish(exitCode) { super.notifyTextAvailable(it, ProcessOutputTypes.STDOUT) } }
+        try { output.finish(exitCode, cancellationRequested) { super.notifyTextAvailable(it, ProcessOutputTypes.STDOUT) } }
         finally { output.close(); super.notifyProcessTerminated(exitCode) }
     }
 }

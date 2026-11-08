@@ -8,7 +8,7 @@
 
 ## 1. 证据边界和参考声明
 
-GoLand 的参考功能取自 [2026.1 官方 Change Signature 文档](https://www.jetbrains.com/help/go/2026.1/change-signature.html)：原生 Name/Parameters/Result parameters，参数新增、删除、重排、默认实参、类型修改、结果新增，调用及实现更新，接口方法的实现范围选择，以及 Preview。该页是**功能声明**，不是安装版本 2026.1.4 的运行证明，尤其不证明它能保持所有副作用。
+GoLand 的参考功能取自 [2026.1 官方 Change Signature 文档](https://www.jetbrains.com/help/go/2026.1/change-signature.html)：原生 Name/Parameters/Result parameters，参数新增、删除、重排、默认实参、类型修改、结果新增，调用及实现更新，接口方法变更时选择是否同时更新全部实现（逐实现选择器是否存在尚未验证），以及 Preview。该页是**功能声明**，不是安装版本 2026.1.4 的运行证明，尤其不证明它能保持所有副作用。
 
 本次依照 REA skill 尝试仅用显式路径 `inspect_plist` 读取已授权 GoLand 的 Info.plist；当前服务返回 `target_unavailable / No app is open`。没有调用 `open_binary`、没有激活应用、没有修改安装或用户配置。已有 `docs/reference/installed-ides.json` 中 ChangeSignature action/keymap 是历史静态记录，本次不将其升级为运行事实。没有读取或复制任何商业实现。
 
@@ -210,7 +210,7 @@ callee/receiver 自身可能有副作用，必须在旧实参之前且只求值�
 同类型接口探针说明，漏改 dynamic call 的 bug 可以通过所有类型检查。因此必须在**变更前**计算相关关系闭包，而不是先改具体方法，再依赖编译器找漏项。
 
 - 起点是选中的具体方法或接口方法；沿实际赋值约束、实现关系、接口嵌入、promoted method sets、generic constraints 和相关方法规格扩展。
-- 修改接口方法时，原生对话框按 GoLand 声明提供受影响实现范围；范围之外仍有必须维持的关系则列冲突，不允许静默跳过。
+- 修改接口方法时，原生对话框提供是否同时更新全部实现的确认，符合官方文档声明；逐实现选择器是否存在尚未验证。必须维持的关系无法一致更新时列出冲突，不允许静默跳过。
 - interface 的两个 int 参数也要携带旧 rowId 映射；更新 dynamic call 的实参，而不是因类型签名相同就认为不受影响。
 - 一个方法可能同时满足多个接口，多个接口可能共享 embedded 方法；必须闭包去重。名字相同不意味着同一关系。外部只读接口、不可编辑实现、build variants 不完整时不能伪造可安全的完整方案。
 - exported API 的未知外部消费者、reflection/unsafe/string-based lookup 不是可枚举的本地调用图。报告工作区边界；可保留兼容 API 的 bridge 是显式设计选择，Go 不能用同名不同参数重载来同时保留两套方法。
@@ -247,7 +247,7 @@ callee/receiver 自身可能有副作用，必须在旧实参之前且只求值�
 | B 类型关系和使用分类 | Go engine | 对象引用、接口闭包、receiver/generic、函数值与外部边界；重排两个 int 的动态调用也完整枚举 |
 | C 参数/调用 lowering | Go engine | 新增/删/重排/改类型/默认值；effect trace、panic、tuple、variadic、defer/go、short-circuit、nil/常量测试 |
 | D 结果和函数体 | Go engine | 新增/删/重排/改结果类型、named return/defer/使用迁移与冲突；返回及 LHS 效果测试 |
-| E 原生对话框 | Kotlin semantic UI | 注册 Go RefactoringSupportProvider/ChangeSignatureHandler，真正的 Refactor > Change Signature / Ctrl+F6；Name/参数/结果/默认值/实现范围、Go 类型/表达式校验；没有 WebUI |
+| E 原生对话框 | Kotlin semantic UI | 注册 Go RefactoringSupportProvider/ChangeSignatureHandler，真正的 Refactor > Change Signature / Ctrl+F6；Name/参数/结果/默认值/同时更新全部实现确认、Go 类型/表达式校验；没有 WebUI |
 | F 整组预览/事务 | Kotlin refactor | native usages/diff、计划取消/过期拒绝、全局 Undo/Redo 与关闭文件/多模块，复用现有事务而不直接写磁盘 |
 | G 验证和冲突汇总 | Go + Kotlin tests | 解析/类型检查、请求意图验证、语义效果回归、干净错误/取消；实际独立 App GUI 验收 |
 

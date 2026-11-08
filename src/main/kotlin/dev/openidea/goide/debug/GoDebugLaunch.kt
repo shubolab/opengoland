@@ -37,12 +37,13 @@ data class GoDebugLaunch(
     companion object {
         fun fromRun(kind: GoRunKind, parameters: GoRunParameters, projectRoot: String): GoDebugLaunch {
             parameters.validate()
+            if (kind == GoRunKind.TEST) parameters.commandArguments(kind, "")
             val targets = parseArguments(parameters.target)
             require(targets.size == 1) { "Debug one Go package or source file at a time; select its package directory for multiple files." }
             val cwd = resolveWorkingDirectory(parameters.workingDirectory, projectRoot)
             val mode = if (kind == GoRunKind.TEST) "test" else "debug"
             val test = if (kind == GoRunKind.TEST) GoTestDebugArguments.create(
-                parseArguments(parameters.buildFlags), parseArguments(parameters.arguments), parameters.testPattern) else null
+                parseArguments(parameters.buildFlags), parameters.testRuntimeArguments(debug = true) + parseArguments(parameters.arguments)) else null
             return GoDebugLaunch(
                 resolveProgram(targets.single(), cwd, mode), cwd, mode, test?.arguments ?: parseArguments(parameters.arguments),
                 test?.buildFlags ?: parseArguments(parameters.buildFlags), parameters.environment.toMap(), parameters.passParentEnvironment,

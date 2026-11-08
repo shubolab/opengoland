@@ -14,12 +14,16 @@
         <fileType name="open Goland" language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoFileType" fieldName="INSTANCE" extensions="go"/>
         <fileType name="open Goland Module" language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModFileType" fieldName="INSTANCE" patterns="go.mod"/>
         <fileType name="open Goland Workspace" language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkFileType" fieldName="INSTANCE" patterns="go.work"/>
+        <fileType name="open Goland Fuzz Corpus" language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.run.corpus.GoFuzzCorpusFileType" fieldName="INSTANCE"/>
+        <fileTypeDetector implementation="dev.openidea.goide.run.corpus.GoFuzzCorpusFileTypeDetector"/>
         <lang.parserDefinition language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkParserDefinition"/>
+        <lang.parserDefinition language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.run.corpus.GoFuzzCorpusParserDefinition"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
+        <lang.syntaxHighlighterFactory language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
         <lang.commenter language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoCommenter"/>
         <lang.braceMatcher language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoBraceMatcher"/>
         <lang.foldingBuilder language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.foldingRange.LSPFoldingRangeBuilder" order="first"/>
@@ -46,7 +50,11 @@
         <programRunner implementation="dev.openidea.goide.run.GoProgramRunner"/>
         <runConfigurationProducer implementation="dev.openidea.goide.run.GoBuildConfigurationProducer"/>
         <runConfigurationProducer implementation="dev.openidea.goide.run.GoTestConfigurationProducer"/>
+        <runConfigurationProducer implementation="dev.openidea.goide.run.GoBenchmarkConfigurationProducer"/>
+        <runConfigurationProducer implementation="dev.openidea.goide.run.GoFuzzConfigurationProducer"/>
+        <runConfigurationProducer implementation="dev.openidea.goide.run.corpus.GoFuzzCorpusConfigurationProducer"/>
         <runLineMarkerContributor language="OpenIDEAGo" implementationClass="dev.openidea.goide.run.GoRunLineMarkerContributor"/>
+        <runLineMarkerContributor language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.run.corpus.GoFuzzCorpusRunLineMarkerContributor"/>
     </extensions>
     <extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
         <server id="openidea.gopls" name="Go (gopls)" factoryClass="dev.openidea.goide.lsp.GoLanguageServerFactory">

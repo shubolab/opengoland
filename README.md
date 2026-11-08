@@ -66,8 +66,10 @@ Run > Edit Configurations > **+** also provides these attach configurations:
   example `go build -gcflags='all=-N -l'`, when needed. Stop requests a
   non-terminating detach and closes the local adapter. A native check found
   that stopping while paused could leave the surviving target OS-stopped;
-  resume before Stop when the process should keep running. See the current
-  [paused-Stop limitation](docs/verification/native-debug-recovery.md#native-detach).
+  resume before Stop when the process should keep running. The current handler
+  now waits for non-terminating detach before adapter cleanup, and one packaged
+  entry-paused Stop check restored the target heartbeat. The historical
+  intermittency remains open; see [Stop ordering evidence](docs/verification/debug-stop-ordering.md).
 - **Go Remote Debug (DAP)**: enter the DAP host and TCP port reachable from the
   IDE, including through an existing tunnel. Select the server type explicitly.
   For **dlv dap — attach to process ID on server**, start an external
@@ -125,6 +127,15 @@ with a separate verified-disk baseline for closed files. Consult the
 [transaction boundaries](docs/verification/workspace-edit-architecture.md)
 for unsupported resource-edit cases and checks still awaiting native evidence.
 
+The native Go Test configuration has `gotest`, `gobench`, and `go test -fuzz`
+frameworks. Benchmark settings include exact patterns, duration/iteration limits,
+and allocation reporting. Fuzz settings include a function pattern, time/iteration
+limit, minimization limit, and worker count. Empty ordinary-test patterns exclude
+unrelated tests in Benchmark/Fuzz modes. Fuzz Debug executes seed corpus without
+mutation workers. Saved failing inputs open from console links as corpus data;
+supported filenames offer exact seed Run/Debug. See the
+[test workflow evidence and boundaries](docs/verification/native-test-workflows.md).
+
 Go Test also supports the native Run with Coverage executor. Go Coverage shows
 statement totals and editor markers. Go Profiles generates CPU/memory/block/mutex
 pprof files, displays flat/cumulative hotspots, and opens recorded source locations.
@@ -151,7 +162,7 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current batch passed all 182 Kotlin tests with no skips, the complete Go
+The current test-workflow batch passed all 229 Kotlin tests with no skips, the complete Go
 race suite (137 tests including subtests), and Go vet. Native evidence includes
 an unsaved go.work adding an unopened external caller, stale-preview rejection,
 three-file interface migration, and combined name/parameter/result conversion.
@@ -177,6 +188,8 @@ evidence is recorded separately from the direct protocol results.
 - [Native debug recovery](docs/verification/native-debug-recovery.md): attached
   Variables, Unicode Watches, field modification, stepping, external DAP source
   mapping and detach, and remaining limits.
+- [Native test/benchmark/fuzz workflows](docs/verification/native-test-workflows.md).
+- [Attach Stop ordering](docs/verification/debug-stop-ordering.md).
 - [Engine protocol and tests](engine/README.md).
 - [Pinned platform input](product/platform.lock.json).
 

@@ -2,6 +2,7 @@ package dev.openidea.goide.run
 
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import dev.openidea.goide.run.corpus.GoFuzzCorpusPath
 import java.nio.file.Path
 import java.nio.charset.StandardCharsets
 import java.util.Base64
@@ -20,6 +21,7 @@ class GoTestOutput @JvmOverloads constructor(
         var suite: Boolean = false, var started: Boolean = false, var finished: Boolean = false,
         var declared: Boolean = false, var hasTestChildren: Boolean = false,
         var failed: Boolean = false, var location: String? = null,
+        var fuzzReplayName: String? = null, var ambiguousFuzzReplay: Boolean = false,
     )
     private data class Package(
         val name: String,
@@ -34,9 +36,15 @@ class GoTestOutput @JvmOverloads constructor(
     private val locations = ConcurrentHashMap<String, String>()
     private val locationChanges = AtomicLong()
     val locationRevision: Long get() = locationChanges.get()
+    /** Metadata was loaded before process creation; ambiguous package scopes must not guess a corpus path. */
+    fun corpusPackageDirectory(): String? = packageDirectories.values.distinct().singleOrNull()
     private var progressStarted = false
     private var maximumReportedMillis = 0L
     private var closed = false
+    @Volatile private var runCancelled = false
+
+    /** Signal before interrupting: Go may report either pass or fail while handling SIGINT. */
+    fun requestCancellation() { runCancelled = true }
 
     fun feed(chunk: String): List<String> = mutableListOf<String>().also { consume(chunk, it::add) }
 
@@ -60,9 +68,12 @@ class GoTestOutput @JvmOverloads constructor(
 
     fun finish(exitCode: Int): List<String> = mutableListOf<String>().also { finish(exitCode, it::add) }
 
+    fun finish(exitCode: Int, emit: (String) -> Unit) = finish(exitCode, false, emit)
+
     @Synchronized
-    fun finish(exitCode: Int, emit: (String) -> Unit) {
+    fun finish(exitCode: Int, cancelled: Boolean, emit: (String) -> Unit) {
         if (closed) return
+        if (cancelled) runCancelled = true
         try {
             if (pendingLine.isNotEmpty()) {
                 parseLine(pendingLine.toString(), emit)
@@ -70,9 +81,10 @@ class GoTestOutput @JvmOverloads constructor(
             }
             packages.values.filterNot { it.finished }.forEach { pkg ->
                 pkg.history.filterNot { it.finished }.sortedByDescending { it.name.count { c -> c == '/' } }.forEach {
-                    finishUnreported(pkg, it, emit, "Test process ended before reporting a result (exit $exitCode).")
+                    if (runCancelled && !it.failed) finishTest(pkg, it, "skip", null, emit, "Go test run was stopped")
+                    else finishUnreported(pkg, it, emit, "Test process ended before reporting a result (exit $exitCode).")
                 }
-                if (pkg.tests.isEmpty() && exitCode != 0) packageFailure(pkg, emit)
+                if (pkg.tests.isEmpty() && exitCode != 0 && !runCancelled) packageFailure(pkg, emit)
                 emitDuration(packageId(pkg.name), null, emit)
                 emit(message("testSuiteFinished", "name" to pkg.name, "nodeId" to packageId(pkg.name)))
                 pkg.finished = true
@@ -107,9 +119,16 @@ class GoTestOutput @JvmOverloads constructor(
                 "output" -> emit(message("testStdOut", "name" to packageName, "nodeId" to packageId(packageName), "out" to event.string("Output").orEmpty()))
                 "pass", "fail", "skip" -> {
                     pkg.history.filterNot { it.finished }.sortedByDescending { it.name.count { c -> c == '/' } }.forEach {
-                        finishUnreported(pkg, it, emit, "Package ended before reporting this test result.")
+                        // go test2json deliberately emits no per-benchmark pass
+                        // event. Package success is the completion boundary;
+                        // numeric user logs must never be treated as terminal results.
+                        if (runCancelled && !it.failed) {
+                            finishTest(pkg, it, "skip", null, emit, "Go test run was stopped")
+                        } else if (isBenchmark(it) && action == "pass") {
+                            finishBenchmark(pkg, it, emit)
+                        } else finishUnreported(pkg, it, emit, "Package ended before reporting this test result.")
                     }
-                    if (action == "fail" && !pkg.failedTest) packageFailure(pkg, emit)
+                    if (action == "fail" && !pkg.failedTest && !runCancelled) packageFailure(pkg, emit)
                     // SuiteFinished itself has no duration field; write the real Go value to its native proxy.
                     emitDuration(packageId(pkg.name), event.elapsedSeconds(), emit)
                     emit(message("testSuiteFinished", "name" to packageName, "nodeId" to packageId(packageName)))
@@ -118,11 +137,20 @@ class GoTestOutput @JvmOverloads constructor(
             }
             return
         }
-        if (action == "run" && pkg.tests[name]?.finished == true) pkg.tests.remove(name)
+        if (action == "run") {
+            // A new sibling/top-level run proves the previous benchmark body
+            // returned. Close it before the next long benchmark starts so the
+            // native tree does not keep completed measurements running.
+            pkg.history.filter { !it.finished && isBenchmark(it) && !name.startsWith(it.name + "/") }
+                .sortedByDescending { it.name.count { c -> c == '/' } }
+                .forEach { finishBenchmark(pkg, it, emit) }
+            if (pkg.tests[name]?.finished == true) pkg.tests.remove(name)
+        }
         val test = ensureTest(pkg, name, emit, declared = true)
         when (action) {
             "output" -> {
                 val output = event.string("Output").orEmpty()
+                captureFuzzReplay(pkg, test, output)
                 findLocation(output, pkg.name)?.takeIf { it != test.location }?.let { location ->
                     test.location = location
                     locations[test.id] = location
@@ -130,7 +158,22 @@ class GoTestOutput @JvmOverloads constructor(
                 }
                 emitTestOutput(test, output, emit)
             }
-            "pass", "fail", "skip" -> finishTest(pkg, test, action, event.elapsedSeconds(), emit)
+            "pass", "fail", "skip" -> finishTest(pkg, test, action,
+                event.elapsedSeconds(), emit, confirmedFailure = action == "fail")
+        }
+    }
+
+    /** Mutation failures report only FuzzName as Test; the saved case exists solely in its output. */
+    private fun captureFuzzReplay(pkg: Package, test: Test, output: String) {
+        if (test.finished || runCancelled || '/' in test.name) return
+        val directory = packageDirectories[pkg.name] ?: return
+        for (line in output.lineSequence()) {
+            val reported = FUZZ_CORPUS_LINE.matchEntire(line)?.groupValues?.get(1) ?: continue
+            val corpus = GoFuzzCorpusPath.reportedPath(directory, reported)
+                ?.takeIf { it.fuzzFunction == test.name && it.canReplayExactly } ?: continue
+            val name = "${test.name}/${corpus.caseName}"
+            if (test.fuzzReplayName != null && test.fuzzReplayName != name) test.ambiguousFuzzReplay = true
+            test.fuzzReplayName = name
         }
     }
 
@@ -164,8 +207,14 @@ class GoTestOutput @JvmOverloads constructor(
     private fun emitTestOutput(test: Test, output: String, emit: (String) -> Unit) =
         emit(message("testStdOut", "name" to displayName(test.name), "nodeId" to test.id, "out" to output))
 
-    private fun finishTest(pkg: Package, test: Test, action: String, seconds: Double?, emit: (String) -> Unit, reason: String? = null) {
+    private fun finishTest(pkg: Package, test: Test, reportedAction: String, seconds: Double?, emit: (String) -> Unit,
+                           reportedReason: String? = null, confirmedFailure: Boolean = false) {
         if (test.finished) return
+        // A stopped Go fuzzer can emit --- PASS and package pass before exiting
+        // nonzero. No unfinished node may become successful after cancellation.
+        val stopped = runCancelled && !test.failed
+        val action = if (stopped) "skip" else reportedAction
+        val reason = if (stopped) "Go test run was stopped" else reportedReason
         // A slash inside t.Run's own name creates grouping paths with no Go run/result event.
         // Close these virtual suites before their real ancestor, using their existing children's state.
         pkg.history.filter { !it.declared && !it.finished && test.id in it.ancestors }
@@ -178,20 +227,25 @@ class GoTestOutput @JvmOverloads constructor(
         if (action == "fail") {
             test.failed = true
             pkg.failedTest = true
+            // Never promote an output hint to a corpus failure for a missing
+            // result, package-only failure, successful run, or cancellation.
+            val failedName = if (confirmedFailure && !test.ambiguousFuzzReplay) test.fuzzReplayName ?: test.name else test.name
             if (!test.suite) {
-                failed.getOrPut(pkg.name) { linkedSetOf() } += test.name
+                failed.getOrPut(pkg.name) { linkedSetOf() } += failedName
                 emit(message("testFailed", "name" to displayName(test.name), "nodeId" to id,
                     "message" to (reason ?: "Go test failed"), "details" to ""))
             }
             else if (test.declared && (ownLeaf || !childFailed)) {
-                failed.getOrPut(pkg.name) { linkedSetOf() } += test.name
+                failed.getOrPut(pkg.name) { linkedSetOf() } += failedName
                 emitOwnResult(test, action, seconds, reason, emit)
             }
-        } else if (test.suite && ownLeaf) {
+        } else if (test.suite && (ownLeaf || stopped && test.declared)) {
             // A real leaf may have the same full path as an earlier virtual grouping node.
             // Preserve that real result as one child instead of losing it or flattening earlier tests.
+            // A parent's body/teardown can still be running after its children
+            // finish. Keep that cancelled phase visible beside their confirmed results.
             emitOwnResult(test, action, seconds, reason, emit)
-        } else if (action == "skip" && !test.suite) emit(message("testIgnored", "name" to displayName(test.name), "nodeId" to id, "message" to "Go test skipped"))
+        } else if (action == "skip" && !test.suite) emit(message("testIgnored", "name" to displayName(test.name), "nodeId" to id, "message" to (reason ?: "Go test skipped")))
         val attrs = mutableListOf("name" to displayName(test.name), "nodeId" to id)
         if (!test.suite && seconds != null) attrs += "duration" to recordMillis(seconds).toString()
         if (test.suite) emitDuration(id, seconds?.takeIf { test.declared && !ownLeaf }, emit)
@@ -205,6 +259,12 @@ class GoTestOutput @JvmOverloads constructor(
         else finishTest(pkg, test, if (pkg.history.any { test.id in it.ancestors && it.failed }) "fail" else "pass", null, emit)
     }
 
+    private fun isBenchmark(test: Test) = test.name.substringBefore('/').startsWith("Benchmark")
+
+    private fun finishBenchmark(pkg: Package, test: Test, emit: (String) -> Unit) {
+        finishTest(pkg, test, "pass", null, emit)
+    }
+
     private fun emitOwnResult(test: Test, action: String, seconds: Double?, reason: String?, emit: (String) -> Unit) {
         val id = "${test.id}:parent-result"
         val name = "${displayName(test.name)} result"
@@ -213,7 +273,7 @@ class GoTestOutput @JvmOverloads constructor(
         emit(message("testStarted", *attrs.toTypedArray()))
         if (action == "fail") emit(message("testFailed", "name" to name, "nodeId" to id,
             "message" to (reason ?: "Parent Go test failed"), "details" to ""))
-        if (action == "skip") emit(message("testIgnored", "name" to name, "nodeId" to id, "message" to "Go test skipped"))
+        if (action == "skip") emit(message("testIgnored", "name" to name, "nodeId" to id, "message" to (reason ?: "Go test skipped")))
         val finished = mutableListOf("name" to name, "nodeId" to id)
         seconds?.let { finished += "duration" to recordMillis(it).toString() }
         emit(message("testFinished", *finished.toTypedArray()))
@@ -262,6 +322,7 @@ class GoTestOutput @JvmOverloads constructor(
 
     companion object {
         private const val MAX_LINE = 4 * 1024 * 1024
+        private val FUZZ_CORPUS_LINE = Regex("^[\\t ]*Failing input written to ([^\\r\\n]+)$")
         private fun processTimer(): () -> Long {
             val start = System.nanoTime()
             return { (System.nanoTime() - start).coerceAtLeast(0) / 1_000_000 }

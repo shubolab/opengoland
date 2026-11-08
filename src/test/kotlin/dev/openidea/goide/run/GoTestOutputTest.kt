@@ -124,4 +124,87 @@ class GoTestOutputTest {
             assertEquals(if (failing) mapOf("example.com/app" to listOf("TestPath/dir")) else emptyMap(), output.failures())
         }
     }
+
+    @Test fun mutationFailureUsesItsSavedCorpusOnlyAfterTheMatchingTestFails() {
+        val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work", "example.com/other" to "/tmp/other"))
+        output.feed(event("run", test = "FuzzDecode"))
+        output.feed(event("run", pkg = "example.com/other", test = "FuzzDecode"))
+        output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/0123456789abcdef\n"))
+        assertTrue(output.failures().isEmpty(), "An output hint alone is not a failure")
+        output.feed(event("fail", test = "FuzzDecode"))
+        output.feed(event("fail", pkg = "example.com/other", test = "FuzzDecode"))
+        output.feed(event("fail")); output.feed(event("fail", pkg = "example.com/other"))
+        assertEquals(mapOf("example.com/app" to listOf("FuzzDecode/0123456789abcdef"),
+            "example.com/other" to listOf("FuzzDecode")), output.failures())
+    }
+
+    @Test fun corpusFailureHintsMustMatchThePackageTestAndAnUnambiguousExactPath() {
+        val invalid = listOf(
+            "testdata/fuzz/FuzzOther/0123456789abcdef",
+            "testdata/fuzz/FuzzDecode/../0123456789abcdef",
+            "/tmp/other/testdata/fuzz/FuzzDecode/0123456789abcdef",
+            "testdata/fuzz/FuzzDecode/seed_name",
+        )
+        for (path in invalid) {
+            val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+            output.feed(event("run", test = "FuzzDecode"))
+            output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to $path\n"))
+            output.feed(event("fail", test = "FuzzDecode"))
+            assertEquals(listOf("FuzzDecode"), output.failures()["example.com/app"], path)
+        }
+        for (metadata in listOf(emptyMap(), mapOf("example.com/app" to "/tmp/work"))) {
+            val output = GoTestOutput("/tmp/work", metadata)
+            output.feed(event("run", test = "FuzzDecode"))
+            for (name in listOf("0123456789abcdef", "fedcba9876543210"))
+                output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/$name\n"))
+            output.feed(event("fail", test = "FuzzDecode"))
+            assertEquals(listOf("FuzzDecode"), output.failures()["example.com/app"], "Absent metadata or ambiguous hints must not guess")
+        }
+    }
+
+    @Test fun savedCorpusHintsDoNotInventAConfirmedFailureOrDuplicateAnExistingChild() {
+        val hint = event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/0123456789abcdef\n")
+        val missing = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        missing.feed(event("run", test = "FuzzDecode")); missing.feed(hint); missing.finish(1)
+        assertEquals(listOf("FuzzDecode"), missing.failures()["example.com/app"], "Missing terminal result must not confirm a saved case")
+        val passed = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        passed.feed(event("run", test = "FuzzDecode")); passed.feed(hint); passed.feed(event("pass", test = "FuzzDecode")); passed.finish(0)
+        assertTrue(passed.failures().isEmpty())
+        val nested = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        nested.feed(event("run", test = "FuzzDecode")); nested.feed(hint)
+        nested.feed(event("run", test = "FuzzDecode/0123456789abcdef"))
+        nested.feed(event("fail", test = "FuzzDecode/0123456789abcdef")); nested.feed(event("fail", test = "FuzzDecode")); nested.finish(1)
+        assertEquals(listOf("FuzzDecode/0123456789abcdef"), nested.failures()["example.com/app"])
+    }
+
+    @Test fun stoppedRunsIgnoreLatePassAndPackagePassWhileKeepingEarlierConfirmedResults() {
+        val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        val before = listOf(event("run", test = "TestPassed"), event("pass", test = "TestPassed"),
+            event("run", test = "TestFailed"), event("fail", test = "TestFailed"),
+            event("run", test = "FuzzDecode")).flatMap(output::feed).joinToString("")
+        output.requestCancellation()
+        val after = listOf(event("pass", test = "FuzzDecode"), event("pass")).flatMap(output::feed).joinToString("") + output.finish(1).joinToString("")
+        assertTrue(before.contains("#TestPassed:1' outcome='pass'"), before)
+        assertTrue(after.contains("testIgnored name='FuzzDecode'"), after)
+        assertFalse(after.contains("outcome='pass'"), after)
+        assertEquals(listOf("TestFailed"), output.failures()["example.com/app"])
+        val benchmark = GoTestOutput("/tmp/work")
+        benchmark.feed(event("run", test = "BenchmarkEcho")); benchmark.requestCancellation()
+        val benchmarkEvents = benchmark.feed(event("pass")).joinToString("")
+        assertTrue(benchmarkEvents.contains("testIgnored name='BenchmarkEcho'"), benchmarkEvents)
+        assertFalse(benchmarkEvents.contains("outcome='pass'"), benchmarkEvents)
+    }
+
+    @Test fun stoppedMutationDoesNotTurnItsSavedCorpusHintIntoARetry() {
+        for (terminal in listOf("pass", "fail")) {
+            val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+            output.feed(event("run", test = "FuzzDecode"))
+            output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/0123456789abcdef\n"))
+            output.requestCancellation()
+            val records = output.feed(event(terminal, test = "FuzzDecode")).joinToString("") + output.feed(event(terminal)).joinToString("")
+            assertTrue(output.failures().isEmpty(), records)
+            assertTrue(records.contains("outcome='skip'"), records)
+            assertFalse(records.contains("outcome='pass'"), records)
+        }
+    }
 }
