@@ -11,9 +11,9 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "a440516d46d7a83401f5fd401491c11fbff8cfa246e3ea0346006600a7f4205b",
+  "patchSha256": "b33e0838392baa149316efae53a1107710e22cd04fa82e8943a3ddb43f2c2f0f",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
@@ -25,7 +25,8 @@
       "Not a claim that all LSP request/editor races are solved",
       "Requests such as codeAction still do not flush pending didChange before dispatch",
       "Native runtime validation and packaged-binary integration are owned by the main task",
-      "Existing stop/disconnect versus asynchronous connect lifecycle behavior is preserved; this patch does not claim to close all disposal races"
+      "Existing stop/disconnect versus asynchronous connect lifecycle behavior is preserved; this patch does not claim to close all disposal races",
+      "Original intermittent native stat-missing notification is not root-causally closed by this lifecycle fix; ordinary single/two-file and held-server controls did not reproduce it"
     ]
   },
   "sources": [
@@ -33,13 +34,19 @@
       "path": "src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
       "upstreamSha256": "df1ab61afecedf04c5c4b75df0dd4d3e5eb5535362b26e069e04530318bfad69",
-      "patchedSha256": "4dd57581cecd63682febba42c02a4a3de7f8a84a571a62b44a935c2a7f6b2251"
+      "patchedSha256": "799730ac34c1946547b3541c36d47ae535c4f3909e604642e410a77e240b05ca"
     },
     {
       "path": "src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java",
       "upstreamSha256": "df53ffc46779af67e3cbdc97b7df736eb18541453abda6bcfaed0cb1e15313a3",
       "patchedSha256": "873923102b2df09616a7dcf802f3dc9ab743f211dc9006d7f597a282314622c4"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java",
+      "upstreamSha256": "f3128832177a89ea7bd8212b657818690d26128e2a57297c96ae7bcbde499ac3",
+      "patchedSha256": "fd8b086041ecf9b7f04146aab3027f0ce6f70f00b66c1a32eff28a4c316f9243"
     }
   ],
   "initialVerification": {
@@ -103,6 +110,21 @@
         "didChange v2 with full current fixture then identical codeAction returns null without error"
       ],
       "scope": "Protocol-level reproduction; native reproduction and wire trace are recorded separately by the main task"
+    }
+  },
+  "deletionLifecycleRevision": {
+    "status": "Exact pinned upstream sources patched with system patch and standalone javac --release17 passed; native regression tests pending",
+    "requiredClassReplacement": "All generated LanguageServerWrapper*.class, DocumentContentSynchronizer*.class and LSPFileListener*.class",
+    "scope": "Native file validity guards and cancellation of existing cached PSI feature supports on VFS before-delete; no blanket error suppression or notification reordering",
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class": "23d72bc203e5daec3a437ef6f0c7ccaf238544d356acbede5b20d46190379047",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f"
     }
   }
 }

@@ -1,6 +1,6 @@
 # 原生 Go 测试生成与导航 — 2026-11-09
 
-本项补充 LANG-09 的测试生成部分；接口方法、结构体帮助方法以及完整 GoLand 行为验收仍开放。
+本项补充 LANG-09 的测试生成部分；接口方法另见 [实现与验收](interface-generation.md)；结构体帮助方法以及完整 GoLand 行为验收仍开放。
 
 ## 参考的证据边界
 
@@ -40,4 +40,9 @@ Go 新包的 12 项实际 fixture 测试已通过局部 race/vet，包括生成�
 
 交叉审查另发现 live 设置 A→B→A 可令分析上下文与捕获配置不一致。后续修复让生成 payload、project/info 与 engine 连接全程使用同一个不可变设置，并将请求绑定具体初始化连接；新增两项回归，最终 250 项 Kotlin 全量测试全部通过（无失败、无跳过）。最终独立包输入摘要 `3d8bd9dade696a845be76ab221b523e65162d6c8f967f1b796f461ce9b63df79`（220 文件），结构校验、provenance 校验和 `codesign --verify --deep --strict` 通过。初版桌面记录与最终版补充检查分开保存，避免将旧原生证据归给新源码。最终版已原生验证 external 模式、`Identity[int]`、取消预览不创建文件、再次 Apply 和真实用例运行通过；运行身份验证只证明应用及插件加载，功能结论来自对应桌面操作与真实输出。
 
-开放边界：Test 选择器的声明标题出现 null；Undo 删除已打开新文件时，gopls 尚可能对在途 codeAction/semanticTokens/inlayHint 报 stat 不存在。恢复文件与实际运行成功，但删除/在途请求竞争不因本轮生成验收而关闭。Empty 默认模板和商业运行行为仍未知，LANG-09 的接口方法与帮助方法也未完成。
+开放边界：Test 选择器的声明标题出现 null；Undo 删除已打开新文件时，gopls 尚可能对在途 codeAction/semanticTokens/inlayHint 报 stat 不存在。恢复文件与实际运行成功，但删除/在途请求竞争不因本轮生成验收而关闭。Empty 默认模板和商业运行行为仍未知，接口方法生成另有独立实现/原生记录；LANG-09 的结构体帮助方法和完整等价验收仍开放。
+
+
+后续导航修复使用命名导航对象和公开 GotoTargetPresentationProvider，保留真实声明名，
+让候选显示 receiver-qualified 文本。实际 SDK 回归与独立包桌面均已看到带 TestRead 的标题、
+四个可区分的 Read 候选及选择 Reader.Read 后精确导航；见接口生成 native JSON。

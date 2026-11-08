@@ -5,12 +5,20 @@ import (
 	"os"
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
+	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 	"github.com/shubolab/opengoland/engine/internal/rpc"
 )
 
 func main() {
+	if handled, err := methodgen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		return
+	}
 	if handled, err := testgen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)

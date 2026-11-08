@@ -40,6 +40,42 @@ The private `--opengoland-test-generation-worker` route is an engine-owned,
 bounded subprocess protocol. Parent exit/cancellation reaps only its worker
 and retained driver descendants.
 
+## Typed interface implementation
+
+`generate/methods/inspect` and `generate/methods/plan` use the same immutable
+Go SDK/environment/workspace/UTF-16 overlay snapshot and operation cancellation
+as typed refactoring. The server advertises `features.interfaceGeneration`.
+Each request is isolated in an owned method-generation worker; planning returns
+standard text WorkspaceEdit operations and never writes source or runs user code.
+
+Inspection accepts the shared signature request plus `receiverType` (an existing
+local type) or `newTypeName` (a new struct), `receiverKind` (`pointer`/`value`),
+and `interfaceId` or `interfaceExpression`. It can infer an entry from the caret.
+`interfaceImportPath`, `catalogPackages`, and `interfaceTypeArguments` select
+additional packages and generic interfaces. The catalog includes active workspace
+and import-closure interfaces plus common standard packages; it is not a full
+preloaded SDK index. Additional packages load with the workspace in one go/types
+universe. Legal local non-generic aliases resolve to their canonical defined type;
+foreign or instantiated generic alias receivers are rejected.
+
+The result includes `inspectionId`, `configurationDigest`, `receiver` (with its
+`receiverId`), receiver/interface catalogs, selected interface, and method IDs with
+`missing`/`existing`/`conflict` status. A plan resends the exact inspected selection
+plus those IDs, `receiverName`, and either `allMissing` or `methodIds`. It preserves
+receiver source constraints, unsaved buffers and imports, rechecks the full
+candidate, and verifies actual method sets/Implements. Partial method selection
+can remain explicitly incomplete. Existing missing-method assertions may be
+resolved by the candidate; unrelated remaining errors reject the plan. TODO bodies
+panic explicitly until the developer implements them.
+
+The planner returns dependency and directory preconditions, coverage, usages,
+conflicts and validation for native Diff/Undo. Compiler-generated non-.go cache
+inputs retain content hashing, while unrelated neighbors in the Go cache no
+longer invalidate a workspace plan. Ordinary source-directory membership guards
+remain active. Go fixtures include ordinary/pointer aliases, same/external
+_test.go mocks, embedded/generic/imported/variadic methods, additional SDK packages,
+dirty metadata, candidate compilation and owned cancellation.
+
 ## Wire contract
 
 The executable reads JSON-RPC 2.0 requests from stdin and writes responses and

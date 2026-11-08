@@ -1,0 +1,1669 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "status": "pre-revision native controls; original intermittent stat error not reproduced by these controls",
+  "buildInputsSha256": "3d8bd9dade696a845be76ab221b523e65162d6c8f967f1b796f461ce9b63df79",
+  "fixtureRoot": "/Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3",
+  "method": "Actual standalone open Goland, native typed test generation, native Undo/Redo and transparent stdio logging of byte-identical frames. Controlled server pause used SIGSTOP/SIGCONT only on its exactly identified official gopls child; no messages were rewritten or reordered.",
+  "source": "package lifecycle\n\nfunc Echo(value string) string { return value }\n",
+  "ordinarySingleFileUndo": [
+    {
+      "ordinal": 92,
+      "delta": 3.603408,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "textDocument/didClose",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 93,
+      "delta": 3.605993,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "workspace/didChangeWatchedFiles",
+        "params": {
+          "changes": [
+            {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go",
+              "type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "heldServerSingleFileUndo": [
+    {
+      "ordinal": 103,
+      "delta": 8.228733,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "textDocument/didOpen",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go",
+            "languageId": "go",
+            "version": 1,
+            "text": "package lifecycle\n\nimport (\n\treflect \"reflect\"\n\ttesting \"testing\"\n)\n\nfunc TestEcho(t *testing.T) {\n\ttype args struct {\n\t\tvalue string\n\t}\n\ttests := []struct {\n\t\tname  string\n\t\targs  args\n\t\twant0 string\n\t}{\n\t\t// TODO: Add test cases, including receiver and argument values.\n\t}\n\tif len(tests) == 0 {\n\t\tt.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt := range tests {\n\t\tt.Run(tt.name, func(t *testing.T) {\n\t\t\tgot0 := Echo(tt.args.value)\n\t\t\tif !reflect.DeepEqual(got0, tt.want0) {\n\t\t\t\tt.Errorf(\"Echo() = %#v, want %#v\", got0, tt.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 104,
+      "delta": 8.229278,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "32",
+        "method": "textDocument/codeLens",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 105,
+      "delta": 8.229447,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "33",
+        "method": "textDocument/documentHighlight",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          },
+          "position": {
+            "line": 0,
+            "character": 0
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 106,
+      "delta": 8.242102,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "34",
+        "method": "textDocument/documentSymbol",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 107,
+      "delta": 8.554202,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "35",
+        "method": "textDocument/foldingRange",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 108,
+      "delta": 8.554541,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "36",
+        "method": "textDocument/inlayHint",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          },
+          "range": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 30,
+              "character": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 109,
+      "delta": 8.557453,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "37",
+        "method": "textDocument/documentLink",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 110,
+      "delta": 8.56838,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "38",
+        "method": "textDocument/semanticTokens/full",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 111,
+      "delta": 15.52754,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "$/cancelRequest",
+        "params": {
+          "id": "33"
+        }
+      }
+    },
+    {
+      "ordinal": 112,
+      "delta": 15.527758,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "39",
+        "method": "textDocument/documentHighlight",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          },
+          "position": {
+            "line": 7,
+            "character": 5
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 113,
+      "delta": 15.605065,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "40",
+        "method": "textDocument/codeAction",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          },
+          "range": {
+            "start": {
+              "line": 7,
+              "character": 5
+            },
+            "end": {
+              "line": 7,
+              "character": 5
+            }
+          },
+          "context": {
+            "diagnostics": [],
+            "triggerKind": 2
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 114,
+      "delta": 15.675648,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "textDocument/didClose",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 115,
+      "delta": 15.676581,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "$/cancelRequest",
+        "params": {
+          "id": "38"
+        }
+      }
+    },
+    {
+      "ordinal": 116,
+      "delta": 15.677389,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "workspace/didChangeWatchedFiles",
+        "params": {
+          "changes": [
+            {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go",
+              "type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ordinal": 117,
+      "delta": 22.609287,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": null,
+        "id": "32"
+      }
+    },
+    {
+      "ordinal": 118,
+      "delta": 22.609448,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "error": {
+          "code": -32800,
+          "message": "JSON RPC cancelled"
+        },
+        "id": "33"
+      }
+    },
+    {
+      "ordinal": 119,
+      "delta": 22.609513,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "name": "TestEcho",
+            "detail": "func(t *testing.T)",
+            "kind": 12,
+            "range": {
+              "start": {
+                "line": 7,
+                "character": 0
+              },
+              "end": {
+                "line": 29,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 7,
+                "character": 5
+              },
+              "end": {
+                "line": 7,
+                "character": 13
+              }
+            }
+          }
+        ],
+        "id": "34"
+      }
+    },
+    {
+      "ordinal": 120,
+      "delta": 22.609781,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "startLine": 2,
+            "startCharacter": 8,
+            "endLine": 5,
+            "endCharacter": 0,
+            "kind": "imports"
+          },
+          {
+            "startLine": 7,
+            "startCharacter": 14,
+            "endLine": 7,
+            "endCharacter": 26
+          },
+          {
+            "startLine": 7,
+            "startCharacter": 29,
+            "endLine": 29,
+            "endCharacter": 0
+          },
+          {
+            "startLine": 8,
+            "startCharacter": 19,
+            "endLine": 10,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 11,
+            "startCharacter": 20,
+            "endLine": 15,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 15,
+            "startCharacter": 3,
+            "endLine": 17,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 18,
+            "startCharacter": 8,
+            "endLine": 18,
+            "endCharacter": 13
+          },
+          {
+            "startLine": 18,
+            "startCharacter": 21,
+            "endLine": 20,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 19,
+            "startCharacter": 9,
+            "endLine": 19,
+            "endCharacter": 32
+          },
+          {
+            "startLine": 21,
+            "startCharacter": 27,
+            "endLine": 28,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 22,
+            "startCharacter": 8,
+            "endLine": 27,
+            "endCharacter": 3
+          },
+          {
+            "startLine": 22,
+            "startCharacter": 22,
+            "endLine": 22,
+            "endCharacter": 34
+          },
+          {
+            "startLine": 22,
+            "startCharacter": 37,
+            "endLine": 27,
+            "endCharacter": 2
+          },
+          {
+            "startLine": 23,
+            "startCharacter": 16,
+            "endLine": 23,
+            "endCharacter": 29
+          },
+          {
+            "startLine": 24,
+            "startCharacter": 25,
+            "endLine": 24,
+            "endCharacter": 39
+          },
+          {
+            "startLine": 24,
+            "startCharacter": 42,
+            "endLine": 26,
+            "endCharacter": 3
+          },
+          {
+            "startLine": 25,
+            "startCharacter": 13,
+            "endLine": 25,
+            "endCharacter": 53
+          }
+        ],
+        "id": "35"
+      }
+    },
+    {
+      "ordinal": 123,
+      "delta": 22.613586,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "position": {
+              "line": 19,
+              "character": 9
+            },
+            "label": [
+              {
+                "value": "args...:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 22,
+              "character": 8
+            },
+            "label": [
+              {
+                "value": "name:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 22,
+              "character": 17
+            },
+            "label": [
+              {
+                "value": "f:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 23,
+              "character": 16
+            },
+            "label": [
+              {
+                "value": "value:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 24,
+              "character": 25
+            },
+            "label": [
+              {
+                "value": "x:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 24,
+              "character": 31
+            },
+            "label": [
+              {
+                "value": "y:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 25,
+              "character": 13
+            },
+            "label": [
+              {
+                "value": "format:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 25,
+              "character": 39
+            },
+            "label": [
+              {
+                "value": "args...:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 11,
+              "character": 6
+            },
+            "label": [
+              {
+                "value": "[]struct{name string; args a..."
+              }
+            ],
+            "kind": 1,
+            "paddingLeft": true
+          },
+          {
+            "position": {
+              "line": 23,
+              "character": 7
+            },
+            "label": [
+              {
+                "value": "string"
+              }
+            ],
+            "kind": 1,
+            "paddingLeft": true
+          }
+        ],
+        "id": "36"
+      }
+    },
+    {
+      "ordinal": 124,
+      "delta": 22.614244,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "range": {
+              "start": {
+                "line": 3,
+                "character": 10
+              },
+              "end": {
+                "line": 3,
+                "character": 17
+              }
+            },
+            "target": "https://pkg.go.dev/reflect"
+          },
+          {
+            "range": {
+              "start": {
+                "line": 4,
+                "character": 10
+              },
+              "end": {
+                "line": 4,
+                "character": 17
+              }
+            },
+            "target": "https://pkg.go.dev/testing"
+          }
+        ],
+        "id": "37"
+      }
+    },
+    {
+      "ordinal": 125,
+      "delta": 22.614346,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "error": {
+          "code": -32800,
+          "message": "JSON RPC cancelled"
+        },
+        "id": "38"
+      }
+    },
+    {
+      "ordinal": 126,
+      "delta": 22.614535,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "range": {
+              "start": {
+                "line": 7,
+                "character": 5
+              },
+              "end": {
+                "line": 7,
+                "character": 13
+              }
+            },
+            "kind": 1
+          }
+        ],
+        "id": "39"
+      }
+    },
+    {
+      "ordinal": 127,
+      "delta": 22.614945,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": null,
+        "id": "40"
+      }
+    }
+  ],
+  "ordinaryTwoFileUndo": [
+    {
+      "ordinal": 152,
+      "time": 32999.951302708,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "textDocument/didOpen",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go",
+            "languageId": "go",
+            "version": 1,
+            "text": "package lifecycle\n\nimport (\n\treflect \"reflect\"\n\ttesting \"testing\"\n)\n\nfunc TestOther(t *testing.T) {\n\ttype args struct {\n\t\tvalue bool\n\t}\n\ttests := []struct {\n\t\tname  string\n\t\targs  args\n\t\twant0 bool\n\t}{\n\t\t// TODO: Add test cases, including receiver and argument values.\n\t}\n\tif len(tests) == 0 {\n\t\tt.Skip(\"TODO: Add test cases.\")\n\t}\n\tfor _, tt := range tests {\n\t\tt.Run(tt.name, func(t *testing.T) {\n\t\t\tgot0 := Other(tt.args.value)\n\t\t\tif !reflect.DeepEqual(got0, tt.want0) {\n\t\t\t\tt.Errorf(\"Other() = %#v, want %#v\", got0, tt.want0)\n\t\t\t}\n\t\t})\n\t}\n}\n"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 153,
+      "time": 32999.952115625,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "47",
+        "method": "textDocument/codeLens",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 154,
+      "time": 32999.952263875,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "48",
+        "method": "textDocument/documentHighlight",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          },
+          "position": {
+            "line": 0,
+            "character": 0
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 155,
+      "time": 32999.971166083,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "49",
+        "method": "textDocument/documentSymbol",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 158,
+      "time": 33000.278434083,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "50",
+        "method": "textDocument/foldingRange",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 159,
+      "time": 33000.2786035,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "51",
+        "method": "textDocument/inlayHint",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          },
+          "range": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 30,
+              "character": 0
+            }
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 160,
+      "time": 33000.28144125,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "52",
+        "method": "textDocument/documentLink",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 161,
+      "time": 33000.286360166,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "53",
+        "method": "textDocument/semanticTokens/full",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 163,
+      "time": 33000.306405666,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": null,
+        "id": "47"
+      }
+    },
+    {
+      "ordinal": 166,
+      "time": 33000.554214666,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": null,
+        "id": "48"
+      }
+    },
+    {
+      "ordinal": 169,
+      "time": 33000.554511958,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "name": "TestOther",
+            "detail": "func(t *testing.T)",
+            "kind": 12,
+            "range": {
+              "start": {
+                "line": 7,
+                "character": 0
+              },
+              "end": {
+                "line": 29,
+                "character": 1
+              }
+            },
+            "selectionRange": {
+              "start": {
+                "line": 7,
+                "character": 5
+              },
+              "end": {
+                "line": 7,
+                "character": 14
+              }
+            }
+          }
+        ],
+        "id": "49"
+      }
+    },
+    {
+      "ordinal": 171,
+      "time": 33000.554684583,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "startLine": 2,
+            "startCharacter": 8,
+            "endLine": 5,
+            "endCharacter": 0,
+            "kind": "imports"
+          },
+          {
+            "startLine": 7,
+            "startCharacter": 15,
+            "endLine": 7,
+            "endCharacter": 27
+          },
+          {
+            "startLine": 7,
+            "startCharacter": 30,
+            "endLine": 29,
+            "endCharacter": 0
+          },
+          {
+            "startLine": 8,
+            "startCharacter": 19,
+            "endLine": 10,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 11,
+            "startCharacter": 20,
+            "endLine": 15,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 15,
+            "startCharacter": 3,
+            "endLine": 17,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 18,
+            "startCharacter": 8,
+            "endLine": 18,
+            "endCharacter": 13
+          },
+          {
+            "startLine": 18,
+            "startCharacter": 21,
+            "endLine": 20,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 19,
+            "startCharacter": 9,
+            "endLine": 19,
+            "endCharacter": 32
+          },
+          {
+            "startLine": 21,
+            "startCharacter": 27,
+            "endLine": 28,
+            "endCharacter": 1
+          },
+          {
+            "startLine": 22,
+            "startCharacter": 8,
+            "endLine": 27,
+            "endCharacter": 3
+          },
+          {
+            "startLine": 22,
+            "startCharacter": 22,
+            "endLine": 22,
+            "endCharacter": 34
+          },
+          {
+            "startLine": 22,
+            "startCharacter": 37,
+            "endLine": 27,
+            "endCharacter": 2
+          },
+          {
+            "startLine": 23,
+            "startCharacter": 17,
+            "endLine": 23,
+            "endCharacter": 30
+          },
+          {
+            "startLine": 24,
+            "startCharacter": 25,
+            "endLine": 24,
+            "endCharacter": 39
+          },
+          {
+            "startLine": 24,
+            "startCharacter": 42,
+            "endLine": 26,
+            "endCharacter": 3
+          },
+          {
+            "startLine": 25,
+            "startCharacter": 13,
+            "endLine": 25,
+            "endCharacter": 54
+          }
+        ],
+        "id": "50"
+      }
+    },
+    {
+      "ordinal": 172,
+      "time": 33000.554805541,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "position": {
+              "line": 19,
+              "character": 9
+            },
+            "label": [
+              {
+                "value": "args...:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 22,
+              "character": 8
+            },
+            "label": [
+              {
+                "value": "name:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 22,
+              "character": 17
+            },
+            "label": [
+              {
+                "value": "f:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 23,
+              "character": 17
+            },
+            "label": [
+              {
+                "value": "value:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 24,
+              "character": 25
+            },
+            "label": [
+              {
+                "value": "x:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 24,
+              "character": 31
+            },
+            "label": [
+              {
+                "value": "y:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 25,
+              "character": 13
+            },
+            "label": [
+              {
+                "value": "format:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 25,
+              "character": 40
+            },
+            "label": [
+              {
+                "value": "args...:"
+              }
+            ],
+            "kind": 2,
+            "paddingRight": true
+          },
+          {
+            "position": {
+              "line": 11,
+              "character": 6
+            },
+            "label": [
+              {
+                "value": "[]struct{name string; args a..."
+              }
+            ],
+            "kind": 1,
+            "paddingLeft": true
+          },
+          {
+            "position": {
+              "line": 23,
+              "character": 7
+            },
+            "label": [
+              {
+                "value": "bool"
+              }
+            ],
+            "kind": 1,
+            "paddingLeft": true
+          }
+        ],
+        "id": "51"
+      }
+    },
+    {
+      "ordinal": 173,
+      "time": 33000.555765291,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": [
+          {
+            "range": {
+              "start": {
+                "line": 3,
+                "character": 10
+              },
+              "end": {
+                "line": 3,
+                "character": 17
+              }
+            },
+            "target": "https://pkg.go.dev/reflect"
+          },
+          {
+            "range": {
+              "start": {
+                "line": 4,
+                "character": 10
+              },
+              "end": {
+                "line": 4,
+                "character": 17
+              }
+            },
+            "target": "https://pkg.go.dev/testing"
+          }
+        ],
+        "id": "52"
+      }
+    },
+    {
+      "ordinal": 174,
+      "time": 33000.556156916,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": {
+          "resultId": "2026-11-09 04:29:19.485397 +0800 CST m=+223.360852167",
+          "data": [
+            0,
+            0,
+            7,
+            8,
+            0,
+            0,
+            8,
+            9,
+            0,
+            0,
+            2,
+            0,
+            6,
+            8,
+            0,
+            1,
+            1,
+            7,
+            0,
+            0,
+            1,
+            1,
+            7,
+            0,
+            0,
+            3,
+            0,
+            4,
+            8,
+            0,
+            0,
+            5,
+            9,
+            5,
+            2049,
+            0,
+            10,
+            1,
+            3,
+            1025,
+            0,
+            2,
+            1,
+            12,
+            0,
+            0,
+            1,
+            7,
+            0,
+            0,
+            0,
+            8,
+            1,
+            1,
+            16384,
+            1,
+            1,
+            4,
+            8,
+            0,
+            0,
+            5,
+            4,
+            1,
+            16385,
+            0,
+            5,
+            6,
+            8,
+            0,
+            1,
+            2,
+            5,
+            4,
+            17,
+            0,
+            6,
+            4,
+            1,
+            20,
+            2,
+            1,
+            5,
+            4,
+            4097,
+            0,
+            6,
+            2,
+            12,
+            0,
+            0,
+            5,
+            6,
+            8,
+            0,
+            1,
+            2,
+            4,
+            4,
+            8193,
+            0,
+            6,
+            6,
+            1,
+            8196,
+            1,
+            2,
+            4,
+            4,
+            16385,
+            0,
+            6,
+            4,
+            1,
+            16384,
+            1,
+            2,
+            5,
+            4,
+            17,
+            0,
+            6,
+            4,
+            1,
+            20,
+            2,
+            2,
+            64,
+            9,
+            0,
+            2,
+            1,
+            2,
+            8,
+            0,
+            0,
+            3,
+            3,
+            5,
+            4,
+            0,
+            4,
+            5,
+            4,
+            4096,
+            0,
+            7,
+            2,
+            12,
+            0,
+            0,
+            3,
+            1,
+            11,
+            0,
+            1,
+            2,
+            1,
+            3,
+            1024,
+            0,
+            2,
+            4,
+            6,
+            2048,
+            0,
+            5,
+            23,
+            10,
+            0,
+            2,
+            1,
+            3,
+            8,
+            0,
+            0,
+            4,
+            1,
+            4,
+            513,
+            0,
+            3,
+            2,
+            4,
+            16385,
+            0,
+            6,
+            5,
+            8,
+            0,
+            0,
+            6,
+            5,
+            4,
+            4096,
+            1,
+            2,
+            1,
+            3,
+            1024,
+            0,
+            2,
+            3,
+            6,
+            2048,
+            0,
+            4,
+            2,
+            4,
+            16384,
+            0,
+            3,
+            4,
+            4,
+            8192,
+            0,
+            6,
+            4,
+            8,
+            0,
+            0,
+            5,
+            1,
+            3,
+            1025,
+            0,
+            2,
+            1,
+            12,
+            0,
+            0,
+            1,
+            7,
+            0,
+            0,
+            0,
+            8,
+            1,
+            1,
+            16384,
+            1,
+            3,
+            4,
+            4,
+            17,
+            0,
+            5,
+            2,
+            12,
+            0,
+            0,
+            3,
+            5,
+            5,
+            2048,
+            0,
+            6,
+            2,
+            4,
+            16384,
+            0,
+            3,
+            4,
+            4,
+            16384,
+            0,
+            5,
+            5,
+            4,
+            16,
+            1,
+            3,
+            2,
+            8,
+            0,
+            0,
+            3,
+            1,
+            12,
+            0,
+            0,
+            1,
+            7,
+            0,
+            0,
+            0,
+            8,
+            9,
+            5,
+            2048,
+            0,
+            10,
+            4,
+            4,
+            16,
+            0,
+            6,
+            2,
+            4,
+            16384,
+            0,
+            3,
+            5,
+            4,
+            16,
+            1,
+            4,
+            1,
+            3,
+            1024,
+            0,
+            2,
+            6,
+            6,
+            2048,
+            0,
+            7,
+            11,
+            10,
+            0,
+            0,
+            11,
+            3,
+            10,
+            64,
+            0,
+            3,
+            7,
+            10,
+            0,
+            0,
+            7,
+            3,
+            10,
+            64,
+            0,
+            3,
+            1,
+            10,
+            0,
+            0,
+            3,
+            4,
+            4,
+            16,
+            0,
+            6,
+            2,
+            4,
+            16384,
+            0,
+            3,
+            5,
+            4,
+            16
+          ]
+        },
+        "id": "53"
+      }
+    },
+    {
+      "ordinal": 175,
+      "time": 33000.570775375,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "id": "54",
+        "method": "textDocument/codeAction",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          },
+          "range": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 0,
+              "character": 0
+            }
+          },
+          "context": {
+            "diagnostics": [],
+            "triggerKind": 2
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 176,
+      "time": 33000.571021,
+      "direction": "server",
+      "message": {
+        "jsonrpc": "2.0",
+        "result": null,
+        "id": "54"
+      }
+    },
+    {
+      "ordinal": 180,
+      "time": 33009.302343333,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "workspace/didChangeWatchedFiles",
+        "params": {
+          "changes": [
+            {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/subject_test.go",
+              "type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "ordinal": 181,
+      "time": 33009.312272916,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "textDocument/didClose",
+        "params": {
+          "textDocument": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go"
+          }
+        }
+      }
+    },
+    {
+      "ordinal": 182,
+      "time": 33009.313735166,
+      "direction": "client",
+      "message": {
+        "jsonrpc": "2.0",
+        "method": "workspace/didChangeWatchedFiles",
+        "params": {
+          "changes": [
+            {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-delete-sync-psesszz3/other_test.go",
+              "type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "observations": [
+    "Ordinary single-file Undo sent didClose then watched-file Delete; no stat error observed.",
+    "Held-server single-file control queued didOpen and feature requests, then actual Undo deleted the file. didClose preceded Delete. Only semantic tokens were cancelled on the wire; inlayHint and codeAction returned valid old results after the owned server resumed. No stat error occurred.",
+    "Ordinary two-file Undo deleted subject_test.go, closed opened other_test.go, then deleted other_test.go; its previous feature requests had already completed. No stat error observed."
+  ],
+  "inference": "Queued invalid-file connections and uncancelled native feature owners are separate demonstrable lifecycle gaps. These traces do not establish them as the root cause of the historical native stat notifications.",
+  "cleanup": {
+    "nativeApplicationExited": true,
+    "wrapperPid": 19576,
+    "goplsPid": 19577,
+    "bothAbsent": true
+  },
+  "limitations": [
+    "No normal-startup occurrence rate is measured.",
+    "No blanket suppression of live-file server errors is justified.",
+    "Post-revision native and integration verification is recorded separately."
+  ],
+  "postRevisionVerification": {
+    "inputsSha256": "57be2c7437c6a4c34118cba45282454080304a0fbb162f9cef956a68849aa914",
+    "kotlinSuite": {
+      "tests": 271,
+      "failures": 0,
+      "skipped": 0
+    },
+    "upstreamNativeInitializationTests": 5,
+    "nativeDeletionTests": 2,
+    "loadedPatchClassCount": 8,
+    "patchSha256": "b33e0838392baa149316efae53a1107710e22cd04fa82e8943a3ddb43f2c2f0f",
+    "jarSha256": "415832d686faf9952aab774358973559e2fbec17318695f3f0abcc1593d76673",
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class": "23d72bc203e5daec3a437ef6f0c7ccaf238544d356acbede5b20d46190379047",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f"
+    },
+    "observations": [
+      "Actual wrapper initialization gate plus real VFS deletion rejects the queued deleted-file connect without didOpen.",
+      "Actual cached PSI CodeActionSupport held future is cancelled by real VFS before-delete; another file remains pending and its real server error propagates.",
+      "Classloader regression reads every loaded patched class and matches the private JAR marker."
+    ],
+    "scope": "Actual platform/feature integration, not a new native reproduction of the intermittent historical stat notification."
+  }
+}

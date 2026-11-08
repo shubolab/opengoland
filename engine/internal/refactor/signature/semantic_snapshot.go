@@ -44,7 +44,13 @@ func semanticSource(source *sourceFile) SemanticFile {
 }
 
 func (s *SemanticSnapshot) Load(ctx context.Context, candidates map[string]string) (SemanticAnalysis, error) {
-	a, err := s.snapshot.load(ctx, candidates)
+	return s.LoadPackages(ctx, candidates, nil)
+}
+
+// LoadPackages resolves explicitly requested import paths in the same type
+// universe and guarded snapshot as all active workspace packages.
+func (s *SemanticSnapshot) LoadPackages(ctx context.Context, candidates map[string]string, importPaths []string) (SemanticAnalysis, error) {
+	a, err := s.snapshot.load(ctx, candidates, importPaths...)
 	if err != nil {
 		return SemanticAnalysis{}, err
 	}

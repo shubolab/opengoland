@@ -130,6 +130,13 @@ candidate before a cross-file Diff preview; applying uses one global Undo/Redo
 command. Standard Test/Subject navigation is integrated. See the
 [test-generation evidence and boundaries](docs/verification/test-generation.md).
 
+Code > Implement Methods and the native **Implement interface** inlay open a typed
+receiver/interface chooser. It supports existing local types or a new struct,
+pointer/value receivers, generic interfaces, and all or selected missing methods.
+The complete candidate is checked before Diff preview and grouped Undo/Redo.
+Local aliases and test-package mocks are supported. See the
+[interface-generation evidence and boundaries](docs/verification/interface-generation.md).
+
 Workspace edits check actual document versions and unsaved changes,
 with a separate verified-disk baseline for closed files. Consult the
 [transaction boundaries](docs/verification/workspace-edit-architecture.md)
@@ -170,11 +177,12 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current generation/synchronization batch passed all 250 Kotlin tests with no skips,
-the complete Go race suite (150 tests including subtests), and Go vet.
-It includes real typed generation, two-file CreateFile/Undo/Redo, stale dependency
-rejection, immutable settings/connection ownership, and actual upstream LSP
-initialization/UTF-16 synchronization regressions. Native evidence includes
+The current generation/synchronization batch passed all 271 Kotlin tests with no skips,
+the complete Go race suite (172 tests including subtests), and Go vet.
+It includes typed test/interface generation, dirty-source and two-file native
+Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
+clickable interface inlays, immutable settings/connection ownership, and actual
+upstream LSP initialization/deletion/UTF-16 synchronization regressions. Native evidence includes
 an unsaved go.work adding an unopened external caller, stale-preview rejection,
 three-file interface migration, and combined name/parameter/result conversion.
 The [native records](docs/verification/change-signature-native.json) retain
@@ -201,6 +209,8 @@ evidence is recorded separately from the direct protocol results.
   mapping and detach, and remaining limits.
 - [Native test/benchmark/fuzz workflows](docs/verification/native-test-workflows.md).
 - [Native test generation](docs/verification/test-generation.md).
+- [Native interface-method generation](docs/verification/interface-generation.md).
+- [Deletion lifecycle controls](docs/verification/lsp-deletion-lifecycle.json).
 - [Initialization document synchronization](docs/verification/lsp-document-sync.md).
 - [Attach Stop ordering](docs/verification/debug-stop-ordering.md).
 - [Engine protocol and tests](engine/README.md).

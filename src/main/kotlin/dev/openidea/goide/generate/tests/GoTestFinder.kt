@@ -67,7 +67,7 @@ class GoTestFinder : TestFinder {
         if (!committed(file)) return file
         val offset = from.textRange.startOffset
         val declaration = symbols(file).lastOrNull { offset in it.offset until it.end }
-        return declaration?.let { file.findElementAt(it.offset) } ?: file
+        return declaration?.let { anchor(file, it.name, it.receiver, it.offset) } ?: file
     }
 
     override fun isTest(element: PsiElement): Boolean = goFile(element)?.name?.endsWith("_test.go") == true
@@ -84,7 +84,7 @@ class GoTestFinder : TestFinder {
             val matches = candidates.flatMap { file ->
                 entries(file).functions.filter { function ->
                     function.kind in runnableKinds && subject.testCores().any { matchesTestName(function.name, it) }
-                }.mapNotNull { anchor(file, it.nameOffset) }
+                }.map { anchor(file, it.name, "", it.nameOffset) }
             }
             if (matches.isNotEmpty()) return matches
         }
@@ -103,7 +103,7 @@ class GoTestFinder : TestFinder {
         if (declaration != null) {
             val matches = candidates.flatMap { file ->
                 symbols(file).filter { candidate -> candidate.testCores().any { matchesTestName(declaration.name, it) } }
-                    .mapNotNull { anchor(file, it.offset) }
+                    .map { anchor(file, it.name, it.receiver, it.offset) }
             }
             if (matches.isNotEmpty()) return matches
         }
@@ -127,7 +127,8 @@ class GoTestFinder : TestFinder {
         return if (document != null && !committed(file)) GoSourceFunctions.scan(document.immutableCharSequence) else GoSourceFunctions.forFile(file)
     }
 
-    private fun anchor(file: PsiFile, offset: Int): PsiElement? = if (committed(file)) file.findElementAt(offset) else file
+    private fun anchor(file: PsiFile, name: String, receiver: String, offset: Int): PsiElement =
+        GoTestNavigationDeclaration(file, name, receiver, offset)
 
     private fun packageFiles(file: PsiFile): List<PsiFile> {
         val parent = file.virtualFile?.parent ?: return listOf(file)

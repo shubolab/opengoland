@@ -1,0 +1,255 @@
+{
+  "buildInputsSha256": "4b8c567b638ad46b2b75f6e251a828dad0419fbc83c7ec059ff521b170d9f9cc",
+  "inputFiles": 245,
+  "kotlinTests": 269,
+  "fixtureRoot": "/Users/wangshubo/develop/openidea-go/.tools/native-method-generation-ipvt3plk/接口 实现 😀",
+  "runtime": {
+    "status": "pass",
+    "scope": "live process identity, expanded plugin paths, startup plugin loading",
+    "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+    "pid": 36994,
+    "name": "open Goland",
+    "bundleId": "dev.opengoland.ide",
+    "vendor": "OpenGoland",
+    "selector": "OpenIDEAGo2026.1",
+    "pluginPaths": [
+      "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+      "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+    ],
+    "loadedPlugins": {
+      "dev.openidea.go": "Go Workbench",
+      "com.redhat.devtools.lsp4ij": "LSP4IJ"
+    },
+    "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+    "limitations": [
+      "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+    ]
+  },
+  "beforeApply": {
+    "diskText": "package implementation\n\nimport \"io\"\n\ntype StreamInterface interface { io.ReadCloser }\n\ntype Stream struct { Value string }\n\nvar _ StreamInterface = (*Stream)(nil)\n",
+    "sha256": "4672a7aa9c8eadd8f6faf395139618b1fe2f093bd4dc12b389174128fab8416e"
+  },
+  "existingImplementedBeforeNewType": {
+    "source": "package implementation\n\nimport \"io\"\n\ntype StreamInterface interface{ io.ReadCloser }\n\n// 未保存 中文😀\ntype Stream struct{ Value string }\n\nvar _ StreamInterface = (*Stream)(nil)\n\n// Close implements StreamInterface.\nfunc (r *Stream) Close() error {\n\treturn nil\n}\n\n// Read implements StreamInterface.\nfunc (r *Stream) Read(p []byte) (n int, err error) {\n\tn = copy(p, r.Value)\n    r.Value = r.Value[n:]\n    if n == 0 { err = io.EOF }\n    return\n}\n",
+    "sha256": "d71859006c294c0603508e07ec287b3f1459684d14cc9507139b5381293d7493",
+    "test": "package implementation\n\nimport (\n \"io\"\n \"testing\"\n)\n\nfunc TestStream(t *testing.T) {\n var stream io.ReadCloser = &Stream{Value: \"中文😀\"}\n data, err := io.ReadAll(stream)\n if err != nil || string(data) != \"中文😀\" { t.Fatalf(\"read = %q, %v\", data, err) }\n if err := stream.Close(); err != nil { t.Fatal(err) }\n}\n"
+  },
+  "finalSource": "package implementation\n\nimport \"io\"\n\ntype StreamInterface interface{ io.ReadCloser }\n\n// 未保存 中文😀\ntype Stream struct{ Value string }\n\nvar _ StreamInterface = (*Stream)(nil)\n\n// Close implements StreamInterface.\nfunc (r *Stream) Close() error {\n\treturn nil\n}\n\n// Read implements StreamInterface.\nfunc (r *Stream) Read(p []byte) (n int, err error) {\n\tn = copy(p, r.Value)\n\tr.Value = r.Value[n:]\n\tif n == 0 {\n\t\terr = io.EOF\n\t}\n\treturn\n}\n\ntype ValueStream struct{}\n\n// Close implements StreamInterface.\nfunc (r ValueStream) Close() error {\n\tpanic(\"TODO: implement Close\")\n}\n\n// Read implements StreamInterface.\nfunc (r ValueStream) Read(p []byte) (n int, err error) {\n\tpanic(\"TODO: implement Read\")\n}\n",
+  "navigationSource": "package implementation\n\ntype Reader struct{}\ntype Writer struct{}\nfunc (r Reader) Read() {}\nfunc (r Writer) Read() {}\n",
+  "navigationTest": "package implementation\n\nimport \"testing\"\n\nfunc TestRead(t *testing.T) {}\n",
+  "observations": [
+    "Real native Implement interface inlay rendered after the interface opening brace. Cmd-click invoked typed analysis; Ctrl+I also opened the standard native Implement Methods action.",
+    "Interface entry preselected StreamInterface and offered existing Stream or Create new struct. Selected Stream/pointer; actual keyboard Space activated Analyze, enabling Preview.",
+    "Diff preview generated Close and Read from embedded io.ReadCloser and preserved the unsaved Unicode comment. Source disk still contained neither that comment nor generated methods.",
+    "Apply updated only the native unsaved document. One Cmd+Z removed both methods and restored exact prior source layout while retaining the Unicode edit; Cmd+Shift+Z restored both methods.",
+    "Edited the generated TODO bodies in the native editor to implement Read with copy/EOF and Close with nil. Exact native TestStream compiled/reran and passed; Run saved source normally.",
+    "From the interface, chose new struct ValueStream and unchecked Pointer receiver. Analysis/preview showed type ValueStream and value receiver Close/Read. Apply, global Undo and Redo preserved existing working Stream implementation.",
+    "Native TestStream reran after the new type existed: 1 test passed, exit 0. The unused ValueStream TODO bodies remain explicit panics; no business implementation for them is claimed.",
+    "After adding owned navigation fixtures, File > Reload All from Disk loaded those files. Cmd+Shift+T from TestRead showed Choose Test Subject for TestRead (4 found) with Stream.Read, ValueStream.Read, Reader.Read and Writer.Read plus their paths. No null caption.",
+    "Selecting Reader.Read navigated to navigation.go at 5:17."
+  ],
+  "nativeTestConsole": "go test -json -run ^TestStream$ .\n--- PASS: TestStream (0.00s)\nPASS\nTest Results, 1 test passed.\nProcess finished with exit code 0",
+  "automationCorrection": "AX clicks on some Swing buttons focused them without firing; Space activated the focused button and the old package then worked. This was not established as a product Analyze failure. A later independent Swing no-op/editor-commit regression is recorded with its own final build.",
+  "limitations": [
+    "Commercial reference runtime remains unverified.",
+    "Typed relationships in Test/Subject navigation remain lexical hints with an explicit ambiguity chooser.",
+    "Final duplicate-interface labels and editable-combo refinements are not retroactively attributed to this 4b8c native cohort.",
+    "Project Trust prompted again on repackaged launches; persistence for repeated launches of the exact same binary was not isolated by this run."
+  ],
+  "cleanup": {
+    "recordedProcessTree": [
+      {
+        "pid": 36994,
+        "ppid": 1,
+        "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea"
+      },
+      {
+        "pid": 37023,
+        "ppid": 36994,
+        "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+      },
+      {
+        "pid": 37058,
+        "ppid": 36994,
+        "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls serve"
+      },
+      {
+        "pid": 37059,
+        "ppid": 37058,
+        "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls ** telemetry **"
+      },
+      {
+        "pid": 37135,
+        "ppid": 36994,
+        "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+      }
+    ],
+    "allRecordedPidsAbsentAfterNativeExit": true
+  },
+  "finalBuild": {
+    "inputsSha256": "86365f300c24abe945d91258351ba9b742b6f9ba0bb42f3b3b1854a7d1c6215b",
+    "inputFiles": 245,
+    "kotlin": {
+      "tests": 271,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "go": {
+      "racePassedEventsIncludingSubtests": 172,
+      "passedTopLevelTests": 90,
+      "failedEvents": 0,
+      "vet": "passed"
+    },
+    "provenance": "passed",
+    "pluginStructure": "passed",
+    "codesignDeepStrict": "passed",
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 39240,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+      ]
+    },
+    "nativeSupplement": [
+      "Standard Ctrl+I opened Implement Methods for StreamInterface.",
+      "Native catalog showed rand.Source — math/rand and rand.Source — math/rand/v2 as distinct entries.",
+      "Selected existing Stream, activated Analyze and observed both Close and Read marked existing, with All required methods already exist.",
+      "Cancelled with Escape without applying a new type; FinalStream was not created.",
+      "Exited only the owned application; all recorded app/engine/gopls/fsnotifier/telemetry child PIDs were absent."
+    ],
+    "archivesSha256": {
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "93bb45b307e3c9098ef612830c047e47d0763551f911da7c86cb90f1f149ae50",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "298f7fbb7d2236b0e46a30156a26155331a8f773220679e0101ff4efa6ac7736"
+    },
+    "cleanup": {
+      "recordedProcessTree": [
+        {
+          "pid": 39240,
+          "ppid": 1,
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea"
+        },
+        {
+          "pid": 39255,
+          "ppid": 39240,
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+        },
+        {
+          "pid": 39308,
+          "ppid": 39240,
+          "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls serve"
+        },
+        {
+          "pid": 39309,
+          "ppid": 39308,
+          "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls ** telemetry **"
+        },
+        {
+          "pid": 39341,
+          "ppid": 39240,
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+        }
+      ],
+      "allRecordedPidsAbsent": true
+    }
+  },
+  "deliveryBuild": {
+    "inputsSha256": "57be2c7437c6a4c34118cba45282454080304a0fbb162f9cef956a68849aa914",
+    "inputFiles": 245,
+    "kotlin": {
+      "tests": 271,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "changeFromPriorSupplement": "Removed an empty line at EOF; source provenance changed. Compiled class identity is recorded rather than assumed.",
+    "compiledClassEntriesCompared": 392,
+    "changedClassEntries": [
+      "dev/openidea/goide/generate/methods/GoImplementMethodsService$InspectionOwner.class",
+      "dev/openidea/goide/generate/methods/GoImplementMethodsService.class"
+    ],
+    "classMapSha256": "1b9ae7820b4afc0c6feb5a0af2cc07131b5a5c72006440a7fd6d438b76d3ef10",
+    "engineSha256": "46d0e8150448c7b37aa26b497f9d6b18746b3c1454f8fe17012d4d1730c7b301",
+    "engineByteIdenticalPriorSupplement": true,
+    "archivesSha256": {
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "c6024a724873f5ce1c735d5c25c0781de61dbe1eb60a6cbf460c1bb1a81db59a",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "415832d686faf9952aab774358973559e2fbec17318695f3f0abcc1593d76673"
+    },
+    "pluginStructure": "passed",
+    "provenance": "passed",
+    "codesignDeepStrict": "passed",
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 40816,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+      ]
+    },
+    "nativeSupplement": [
+      "Standard Ctrl+I opened the interface selector in this exact delivery package.",
+      "Catalog disambiguated rand.Source by math/rand and math/rand/v2.",
+      "Selected Stream, actually triggered Analyze and observed Close/Read existing with All required methods already exist.",
+      "Escape cancelled without new source edits; owned app and all recorded child PIDs exited."
+    ],
+    "cleanup": {
+      "recordedProcessTree": [
+        {
+          "pid": 40816,
+          "ppid": 1,
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea"
+        },
+        {
+          "pid": 40833,
+          "ppid": 40816,
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+        },
+        {
+          "pid": 40880,
+          "ppid": 40816,
+          "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls serve"
+        },
+        {
+          "pid": 40882,
+          "ppid": 40880,
+          "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls ** telemetry **"
+        },
+        {
+          "pid": 40915,
+          "ppid": 40816,
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+        }
+      ],
+      "allRecordedPidsAbsent": true
+    }
+  }
+}

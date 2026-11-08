@@ -46,3 +46,17 @@ executing or extracting its implementation. Archive SHA-256:
 inventory. Central-directory inventory does not establish runtime behavior or
 the semantics of JVM implementation classes. Resource declarations are further
 parsed by the separate reproducible `inspect_reference.py` investigation.
+
+
+## Interface-generation entry points
+
+The exact Go plugin archive was reopened with REA and its same authenticated
+inventory reproduced. Focused descriptor occurrence view
+`ev_aacd759185d4d17c2ff9abe2a7f770351dc30434ca4d4e3e79c3adde7c71bc08`
+retains the META-INF/plugin.xml identity. Separate XML parsing observed the
+codeInsight.implementMethod extension and GoGenerateMethodAction declaration;
+resource SHA-256 is `d44228e7f63f725c7c1996d4b1c555650b9b20a14294cc268a8023639337d19f`.
+Canonical selected Evidence, primary public guide, inference and unknowns are
+retained in [method-generation-reference.json](method-generation-reference.json).
+The investigation read no proprietary implementation classes, and the archive
+session was closed. Static registration is not commercial runtime verification.

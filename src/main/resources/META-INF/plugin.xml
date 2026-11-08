@@ -36,6 +36,10 @@
         <lang.refactoringSupport language="OpenIDEAGo" implementationClass="dev.openidea.goide.refactor.signature.GoRefactoringSupportProvider"/>
         <testCreator language="OpenIDEAGo" implementationClass="dev.openidea.goide.generate.tests.GoTestCreator"/>
         <testFinder implementation="dev.openidea.goide.generate.tests.GoTestFinder"/>
+        <gotoTargetPresentationProvider implementation="dev.openidea.goide.generate.tests.GoTestNavigationPresentationProvider"/>
+        <codeInsight.implementMethod language="OpenIDEAGo" implementationClass="dev.openidea.goide.generate.methods.GoImplementMethodsHandler"/>
+        <codeInsight.declarativeInlayProvider language="OpenIDEAGo" providerId="opengoland.implement.interface" implementationClass="dev.openidea.goide.generate.methods.GoImplementInterfaceHints" group="OTHER_GROUP" isEnabledByDefault="true" bundle="messages.GoImplementInterfaceHintsBundle" nameKey="inlay.implement.interface.name" descriptionKey="inlay.implement.interface.description"/>
+        <codeInsight.inlayActionHandler handlerId="opengoland.implement.interface.click" implementationClass="dev.openidea.goide.generate.methods.GoImplementInterfaceInlayAction"/>
         <renameHandler id="OpenGolandRenameHandler" implementation="dev.openidea.goide.semantic.GoRenameHandler" order="first, before LSPRenameHandler"/>
         <langCodeStyleSettingsProvider implementation="dev.openidea.goide.lang.GoCodeStyleSettingsProvider"/>
         <projectConfigurable id="dev.openidea.go.settings" displayName="Go" instance="dev.openidea.goide.settings.GoSettingsConfigurable"/>

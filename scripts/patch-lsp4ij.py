@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
 UPSTREAM_JAR_SHA = "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
 MARKER = "META-INF/open-goland-document-sync.json"
-PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer")
+PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener")
 
 
 def sha(data):

@@ -110,7 +110,14 @@ func (s *snapshot) sourcePath(path string) string {
 	return path
 }
 func (s *snapshot) captureParsedDirectory(path string) error {
-	dir := filepath.Dir(s.sourcePath(path))
+	source := s.sourcePath(path)
+	// go list also supplies compiler-generated sources such as GOCACHE/*-d
+	// test mains. Their own bytes remain hashed, but unrelated cache artifacts
+	// are not Go package membership and may change during any other build.
+	if !s.editable(source) && !strings.HasSuffix(source, ".go") {
+		return nil
+	}
+	dir := filepath.Dir(source)
 	s.mu.Lock()
 	defer s.mu.Unlock()
 	if _, ok := s.directories[dir]; ok {

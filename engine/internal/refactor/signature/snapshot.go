@@ -451,7 +451,7 @@ func (s *snapshot) unchanged() error {
 	}
 	return nil
 }
-func (s *snapshot) load(ctx context.Context, candidates map[string]string) (*analysis, error) {
+func (s *snapshot) load(ctx context.Context, candidates map[string]string, extraPatterns ...string) (*analysis, error) {
 	if err := ctx.Err(); err != nil {
 		return nil, err
 	}
@@ -496,6 +496,7 @@ func (s *snapshot) load(ctx context.Context, candidates map[string]string) (*ana
 	for i, p := range s.modules {
 		patterns[i] = filepath.Join(p, "...")
 	}
+	patterns = append(patterns, extraPatterns...)
 	roots, err := packages.Load(cfg, patterns...)
 	if err != nil {
 		return nil, err

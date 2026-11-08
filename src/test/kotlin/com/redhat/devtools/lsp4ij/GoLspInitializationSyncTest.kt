@@ -39,7 +39,7 @@ class GoLspInitializationSyncTest : LightPlatformTestCase() {
         val marker = requireNotNull(loader.getResourceAsStream("META-INF/open-goland-document-sync.json")) {
             "Tests must load the patched private sandbox plugin rather than the downloaded upstream dependency"
         }.bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
-        assertEquals("a440516d46d7a83401f5fd401491c11fbff8cfa246e3ea0346006600a7f4205b", marker.get("patchSha256").asString)
+        assertEquals("b33e0838392baa149316efae53a1107710e22cd04fa82e8943a3ddb43f2c2f0f", marker.get("patchSha256").asString)
         val classes = marker.getAsJsonObject("classSha256").entrySet()
         assertTrue("Nested/record classes must be included in the source rebuild", classes.size > 2)
         for ((path, digest) in classes) {

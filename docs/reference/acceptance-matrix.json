@@ -211,7 +211,9 @@
       "partial_evidence": {
         "implementation": "../verification/test-generation.md",
         "native_record": "../verification/test-generation-native.json",
-        "observation": "Typed tests, native scope/package/generic dialog, two-file Diff/apply/global Undo/Redo, dirty source and Test/Subject navigation exercised. Interface methods and struct helpers, full generation UI/semantic parity and commercial runtime remain open."
+        "observation": "Typed test and interface-method generation, native inlay/standard actions, receiver/interface/new-type/pointer/value choices, preview/global Undo/Redo and dirty buffers exercised. Named Test/Subject chooser and concrete Go run passed. Struct helpers, readonly SDK entry, all build contexts and commercial runtime/full UI parity remain open.",
+        "interface_implementation": "../verification/interface-generation.md",
+        "interface_native": "../verification/interface-generation-native.json"
       }
     },
     {
@@ -404,7 +406,8 @@
       "partial_evidence": {
         "document_sync": "../verification/lsp-document-sync.md",
         "native_record": "../verification/lsp-document-sync.json",
-        "observation": "Controlled native initialization edit loss reproduced, fixed with pinned public LSP4IJ source patch, and verified with real gopls. Broader position/pending-change, file deletion/Undo, stop/disconnect and other lifecycle races remain open."
+        "observation": "Controlled native initialization edit loss reproduced, fixed with pinned public LSP4IJ source patch, and verified with real gopls. Broader position/pending-change, file deletion/Undo, stop/disconnect and other lifecycle races remain open. Queued deleted-file connects and existing cached native feature ownership have focused real-platform regressions; historical intermittent stat notifications remain unresolved.",
+        "deletion_lifecycle": "../verification/lsp-deletion-lifecycle.json"
       }
     },
     {

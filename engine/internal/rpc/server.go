@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
+	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
 	"github.com/shubolab/opengoland/engine/internal/protocol"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
@@ -199,6 +200,7 @@ func (s *Server) handle(req request) {
 		info := m.Capabilities()
 		info["features"].(map[string]bool)["signatureRefactoring"] = true
 		info["features"].(map[string]bool)["testGeneration"] = true
+		info["features"].(map[string]bool)["interfaceGeneration"] = true
 		info["project"] = m.Project(s.ctx)
 		info["tools"] = m.Tools(s.ctx)
 		_ = s.result(req.ID, info)
@@ -230,6 +232,28 @@ func (s *Server) handle(req request) {
 	var after func()
 	var err error
 	switch req.Method {
+	case "generate/methods/inspect":
+		var params methodgen.Request
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request)
+			if err == nil {
+				defer finish()
+				result, err = methodgen.RunIsolated(ctx, "inspect", params)
+			}
+		}
+	case "generate/methods/plan":
+		var params methodgen.PlanRequest
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request.Request)
+			if err == nil {
+				defer finish()
+				result, err = methodgen.RunIsolated(ctx, "plan", params)
+			}
+		}
 	case "generate/tests/inspect":
 		var params testgen.Request
 		if err = decode(req.Params, &params); err == nil {

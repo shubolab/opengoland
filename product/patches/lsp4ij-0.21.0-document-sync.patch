@@ -14,7 +14,40 @@
  import com.intellij.openapi.project.Project;
  import com.intellij.openapi.util.Disposer;
  import com.intellij.openapi.util.ModificationTracker;
-@@ -762,49 +763,46 @@
+@@ -719,12 +720,16 @@
+      * @return the completable future with the language server instance or null.
+      */
+     CompletableFuture<@Nullable LanguageServer> connect(@NotNull VirtualFile file,
+                                                         @NotNull LanguageServerWrapper.LSPFileConnectionInfo fileConnectionInfo) {
+         removeStopTimer(false);
+ 
++        if (isDisposed() || getProject().isDisposed() || !file.isValid()) {
++            return CompletableFuture.completedFuture(null);
++        }
++
+         URI fileUri = toUri(file);
+         if (fileUri == null) {
+             // Invalid file uri
+             return CompletableFuture.completedFuture(null);
+         }
+ 
+@@ -740,12 +745,15 @@
+         if (this.initializeFuture == null) {
+             // The "initialize" future is not initialized, return null as language server.
+             return CompletableFuture.completedFuture(null);
+         }
+ 
+         return initializeFuture.thenComposeAsync(theVoid -> {
++            if (isDisposed() || getProject().isDisposed() || !file.isValid()) {
++                return CompletableFuture.completedFuture(null);
++            }
+             // Here, the "initialize" future is initialized
+ 
+             // Check if file is already opened (without synchronized block)
+             var ls2 = getLanguageServerWhenDidOpen(fileUri, waitForDidOpen);
+             if (ls2 != null) {
+                 return ls2;
+@@ -762,49 +770,49 @@
              // Compute workspace folder BEFORE synchronized block to avoid slow I/O operations in critical section
              WorkspaceFolder folderToNotify = null;
              if (workspaceFolderNotificationManager != null) {
@@ -36,6 +69,13 @@
 +            // Snapshot and listener registration must be atomic with respect to editor writes.
 +            // The connection info may have been captured before language-server initialization.
 +            CompletableFuture<LanguageServer> result = ReadAction.compute(() -> {
++                if (isDisposed() || getProject().isDisposed() || !file.isValid()) {
++                    return CompletableFuture.completedFuture(null);
+                 }
+-
+-                // Mark workspace folder as notified BEFORE didOpen (fast operation in synchronized block)
+-                if (folderToNotify != null) {
+-                    shouldNotify = workspaceFolderNotificationManager.markFolderAsNotified(folderToNotify);
 +                synchronized (documentsLock) {
 +                    closedDocuments.remove(fileUri);
 +
@@ -59,11 +99,6 @@
 +                    return waitForDidOpen ? getLanguageServerWhenDidOpen(didOpenFuture)
 +                            : CompletableFuture.completedFuture(languageServer);
                  }
--
--                // Mark workspace folder as notified BEFORE didOpen (fast operation in synchronized block)
--                if (folderToNotify != null) {
--                    shouldNotify = workspaceFolderNotificationManager.markFolderAsNotified(folderToNotify);
--                }
 -
 -                DocumentContentSynchronizer synchronizer = createDocumentContentSynchronizer(toUriString(fileUri), file, document, fileConnectionInfo.documentText(), fileConnectionInfo.languageId());
 -                // Synchronizer usually is disposed when document editor is closed.
@@ -164,3 +199,60 @@
  
      @Override
      public void documentChanged(@NotNull DocumentEvent event) {
+--- a/src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java
+@@ -8,12 +8,16 @@
+  * Contributors:
+  * Red Hat, Inc. - initial API and implementation
+  ******************************************************************************/
+ package com.redhat.devtools.lsp4ij;
+ 
+ import com.intellij.openapi.fileEditor.FileEditorManager;
++import com.intellij.openapi.fileEditor.FileDocumentManager;
++import com.intellij.openapi.util.Disposer;
++import com.intellij.openapi.vfs.VfsUtilCore;
++import com.intellij.psi.PsiDocumentManager;
+ import com.intellij.openapi.vfs.VirtualFile;
+ import com.redhat.devtools.lsp4ij.features.files.AbstractLSPFileListener;
+ import com.intellij.openapi.progress.util.ProgressIndicatorUtils;
+ import com.redhat.devtools.lsp4ij.internal.CompletableFutures;
+ import org.eclipse.lsp4j.*;
+ import org.jetbrains.annotations.NotNull;
+@@ -109,15 +113,37 @@
+      * @param deletedFile the file that will be deleted
+      * @param fileDeletes the list of LSP {@link FileDelete} events to populate
+      */
+     @Override
+     protected void onFileDeleteBefore(@NotNull VirtualFile deletedFile,
+                                       @NotNull List<FileDelete> fileDeletes) {
++        // Deleted editor generations no longer own useful feature requests. Cancel
++        // their existing native supports before the file disappears; do not create
++        // PSI or consult the filesystem from this VFS write callback.
++        cancelCachedFileRequests(deletedFile);
++        if (deletedFile.isDirectory()) {
++            for (OpenedDocument opened : languageServerWrapper.getOpenedDocuments()) {
++                if (VfsUtilCore.isAncestor(deletedFile, opened.getFile(), false)) {
++                    cancelCachedFileRequests(opened.getFile());
++                }
++            }
++        }
+         if (languageServerWrapper.isWillDeleteFilesSupported(deletedFile)) {
+             URI deletedFileUri = languageServerWrapper.toUri(deletedFile);
+             fileDeletes.add(new FileDelete(languageServerWrapper.toUriString(deletedFileUri)));
++        }
++    }
++
++    private void cancelCachedFileRequests(@NotNull VirtualFile file) {
++        if (file.isDirectory()) {
++            return;
++        }
++        var document = FileDocumentManager.getInstance().getCachedDocument(file);
++        var psi = document == null ? null : PsiDocumentManager.getInstance(languageServerWrapper.getProject()).getCachedPsiFile(document);
++        if (psi != null && LSPFileSupport.hasSupport(psi)) {
++            Disposer.dispose(LSPFileSupport.getSupport(psi));
+         }
+     }
+ 
+     /**
+      * Handles a file rename (or move) before it occurs, preparing a {@code workspace/willRenameFiles} request.
+      *
