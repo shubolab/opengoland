@@ -4,6 +4,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
+import kotlin.test.assertNull
 import dev.openidea.goide.coverage.GoCoverageModule
 
 class GoPackageDirectoriesTest {
@@ -18,7 +19,7 @@ class GoPackageDirectoriesTest {
             {"Action":"output","Package":"example.com/app/b","Test":"TestX","Output":"    shared_test.go:17: failure\n"}
             {"Action":"fail","Package":"example.com/app/b","Test":"TestX"}
         """.trimIndent() + "\n").joinToString("")
-        assertTrue(records.contains("locationHint='file:///work/b/shared_test.go:17'"))
+        assertEquals("file:///work/b/shared_test.go:17", output.locationForNode("go-test:example.com/app/b#TestX:1"))
         assertFalse(records.contains("file:///work/shared_test.go"))
     }
 
@@ -29,7 +30,8 @@ class GoPackageDirectoriesTest {
         val records = output.feed("""{"Action":"output","Package":"same","Test":"TestX","Output":"    shared_test.go:17: failure\n"}
             {"Action":"fail","Package":"same","Test":"TestX"}
         """.trimIndent() + "\n").joinToString("")
-        assertFalse(records.contains("locationHint="))
+        assertNull(output.locationForNode("go-test:same#TestX:1"))
+        assertFalse(records.contains("file://"))
     }
 
     @Test fun coverageModulesUseRealReplacementRootsAndRetainFileScopePackages() {

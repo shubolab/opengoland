@@ -10,6 +10,7 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.redhat.devtools.lsp4ij</depends>
     <extensions defaultExtensionNs="com.intellij">
+        <applicationInitializedListener implementation="dev.openidea.goide.lifecycle.StandaloneProxyWarmup"/>
         <fileType name="open Goland" language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoFileType" fieldName="INSTANCE" extensions="go"/>
         <fileType name="open Goland Module" language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModFileType" fieldName="INSTANCE" patterns="go.mod"/>
         <fileType name="open Goland Workspace" language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkFileType" fieldName="INSTANCE" patterns="go.work"/>
@@ -27,6 +28,8 @@
         <lang.psiStructureViewFactory language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.documentSymbol.LSPDocumentSymbolStructureViewFactory"/>
         <callHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.callHierarchy.LSPCallHierarchyProvider"/>
         <typeHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.typeHierarchy.LSPTypeHierarchyProvider"/>
+        <lang.importOptimizer language="OpenIDEAGo" implementationClass="dev.openidea.goide.semantic.GoImportOptimizer"/>
+        <renameHandler id="OpenGolandRenameHandler" implementation="dev.openidea.goide.semantic.GoRenameHandler" order="first, before LSPRenameHandler"/>
         <langCodeStyleSettingsProvider implementation="dev.openidea.goide.lang.GoCodeStyleSettingsProvider"/>
         <projectConfigurable id="dev.openidea.go.settings" displayName="Go" instance="dev.openidea.goide.settings.GoSettingsConfigurable"/>
         <projectConfigurable id="dev.openidea.go.lint.settings" parentId="dev.openidea.go.settings" displayName="Go Inspections" instance="dev.openidea.goide.settings.GoLintConfigurable"/>
@@ -35,6 +38,8 @@
         <toolWindow id="Go Profiles" anchor="bottom" factoryClass="dev.openidea.goide.profile.GoProfileToolWindowFactory" icon="/icons/go.svg"/>
         <toolWindow id="Go Inspections" anchor="bottom" factoryClass="dev.openidea.goide.lint.GoLintToolWindowFactory" icon="/icons/go.svg"/>
         <configurationType implementation="dev.openidea.goide.debug.GoDebugConfigurationType"/>
+        <configurationType implementation="dev.openidea.goide.debug.GoLocalAttachConfigurationType"/>
+        <configurationType implementation="dev.openidea.goide.debug.GoRemoteDebugConfigurationType"/>
         <configurationType implementation="dev.openidea.goide.run.GoBuildConfigurationType"/>
         <configurationType implementation="dev.openidea.goide.run.GoTestConfigurationType"/>
         <programRunner implementation="dev.openidea.goide.run.GoProgramRunner"/>
@@ -52,6 +57,9 @@
         <debugAdapterServer id="openidea.delve" name="Go (Delve)" factoryClass="dev.openidea.goide.debug.GoDebugAdapterFactory" icon="/icons/go.svg"/>
     </extensions>
     <actions>
+        <action id="OpenIDEA.Go.Refactor" class="dev.openidea.goide.semantic.GoRefactorAction" text="Go Refactor…" description="Preview Go refactorings for the current selection">
+            <add-to-group group-id="RefactoringMenu" anchor="last"/>
+        </action>
         <action id="OpenIDEA.NewGoModule" class="dev.openidea.goide.project.NewGoModuleAction" text="Go Module…" description="Create a new Go module">
             <add-to-group group-id="NewGroup" anchor="first"/>
             <add-to-group group-id="WelcomeScreen.QuickStart" anchor="first"/>

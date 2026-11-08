@@ -2,7 +2,7 @@
   "status": "pass",
   "scope": "live process identity, expanded plugin paths, startup plugin loading",
   "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
-  "pid": 19805,
+  "pid": 26876,
   "name": "open Goland",
   "bundleId": "dev.opengoland.ide",
   "vendor": "OpenGoland",

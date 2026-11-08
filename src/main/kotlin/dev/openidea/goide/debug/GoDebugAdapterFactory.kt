@@ -23,7 +23,9 @@ import dev.openidea.goide.settings.GoToolchain
 
 class GoDebugAdapterFactory : DebugAdapterDescriptorFactory() {
     override fun createDebugAdapterDescriptor(options: RunConfigurationOptions, environment: ExecutionEnvironment): DebugAdapterDescriptor =
-        GoDebugDescriptor(options, environment, serverDefinition)
+        if (options is GoConnectionOptions) GoConnectionDescriptor(options, environment, serverDefinition,
+            environment.runProfile is GoLocalAttachConfiguration)
+        else GoDebugDescriptor(options, environment, serverDefinition)
     override fun isDebuggableFile(file: VirtualFile, project: Project) = file.extension == "go"
     override fun prepareConfiguration(configuration: RunConfiguration, file: VirtualFile, project: Project) = false
     override fun canRun(executorId: String) = executorId == DefaultDebugExecutor.EXECUTOR_ID

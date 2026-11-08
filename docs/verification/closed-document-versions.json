@@ -1,0 +1,208 @@
+{
+  "scope": "real gopls rename optional document versions on one open and two closed files; disposable fixture, edits not applied",
+  "versions": {
+    "go": "go version go1.24.3 darwin/arm64",
+    "gopls": "golang.org/x/tools/gopls v0.21.1"
+  },
+  "cases": [
+    {
+      "name": "only_declaration_open_v17",
+      "requestOrigin": "model.go",
+      "openVersions": {
+        "model.go": 17
+      },
+      "files": [
+        {
+          "file": "model.go",
+          "open": true,
+          "clientVersion": 17,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 17,
+          "editCount": 1
+        },
+        {
+          "file": "model_test.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "use.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 2
+        }
+      ]
+    },
+    {
+      "name": "after_didClose_all_files_closed",
+      "requestOrigin": "model.go",
+      "openVersions": {},
+      "files": [
+        {
+          "file": "model.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "model_test.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "use.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 2
+        }
+      ]
+    },
+    {
+      "name": "declaration_reopened_v29",
+      "requestOrigin": "model.go",
+      "openVersions": {
+        "model.go": 29
+      },
+      "files": [
+        {
+          "file": "model.go",
+          "open": true,
+          "clientVersion": 29,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 29,
+          "editCount": 1
+        },
+        {
+          "file": "model_test.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "use.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 2
+        }
+      ]
+    },
+    {
+      "name": "only_reference_open_v41",
+      "requestOrigin": "use.go",
+      "openVersions": {
+        "use.go": 41
+      },
+      "files": [
+        {
+          "file": "model.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "model_test.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "use.go",
+          "open": true,
+          "clientVersion": 41,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 41,
+          "editCount": 2
+        }
+      ]
+    },
+    {
+      "name": "reference_closed_all_files_closed_again",
+      "requestOrigin": "model.go",
+      "openVersions": {},
+      "files": [
+        {
+          "file": "model.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "model_test.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 1
+        },
+        {
+          "file": "use.go",
+          "open": false,
+          "clientVersion": null,
+          "versionKeyPresent": true,
+          "workspaceEditVersion": 0,
+          "editCount": 2
+        }
+      ]
+    }
+  ],
+  "status": "passed",
+  "adapterExited": true,
+  "stderrTail": [],
+  "seconds": 1.434,
+  "findings": {
+    "closedDocumentVersion": 0,
+    "closedVersionIsExplicitNonNull": true,
+    "didCloseResetsToDiskVersion": true,
+    "reopenUsesNewClientVersion": true,
+    "caution": "Zero is also a possible client-owned open version. Interpret it as disk-backed only for a confirmed closed/unmodified document; a missing synchronization mirror alone does not establish closed state. Keep disk/content/stamp guards and strict checks for open or unknown state."
+  },
+  "sourceEvidence": [
+    {
+      "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/file/file.go",
+      "lines": "47-49",
+      "finding": "The file handle contract assigns version 0 to disk-backed handles."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/cache/fs_memoized.go",
+      "lines": "56",
+      "finding": "diskFile.Version returns integer zero."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/cache/fs_overlay.go",
+      "lines": "82",
+      "finding": "An editor overlay returns the client supplied version."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/protocol/edits.go",
+      "lines": "121-129",
+      "finding": "DocumentChangeEdit copies fileHandle.Version directly into the WorkspaceEdit document identifier."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/protocol/tsprotocol.go",
+      "lines": "3767-3775",
+      "finding": "The optional document version is represented by an int32 field with a required JSON key in this gopls version, producing numeric zero for closed files rather than null."
+    }
+  ]
+}

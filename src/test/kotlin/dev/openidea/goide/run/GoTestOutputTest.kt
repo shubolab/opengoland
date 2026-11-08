@@ -22,13 +22,14 @@ class GoTestOutputTest {
             event("fail", test = "TestTable/one"), event("pass", test = "TestTable/two"),
             event("fail", test = "TestTable"), event("fail"),
         ).flatMap(output::feed).joinToString("")
-        assertTrue(records.contains("testSuiteStarted name='TestTable'"))
+        assertTrue(records.contains("goTestSuite nodeId='go-test:example.com/app#TestTable:1'"))
         assertTrue(records.contains("parentNodeId='go-test:example.com/app#TestTable:1'"))
-        assertTrue(records.contains("locationHint='file:///tmp/work/app_test.go:12'"))
+        assertEquals("file:///tmp/work/app_test.go:12", output.locationForNode("go-test:example.com/app#TestTable/one:1"))
         assertTrue(records.contains("failure |[x|]|'|n"))
         assertEquals(1, Regex("##teamcity\\[testFailed ").findAll(records).count())
         assertEquals(mapOf("example.com/app" to listOf("TestTable/one")), output.failures())
-        assertTrue(output.finish(1).isEmpty())
+        assertTrue(output.finish(1).single().contains("goTestDuration nodeId='0'"))
+        assertTrue(output.finish(1).isEmpty(), "Final process duration must be emitted only once")
     }
 
     @Test fun sameTestNameInDifferentPackagesDoesNotCollide() {
@@ -69,5 +70,58 @@ class GoTestOutputTest {
         val records = output.feed(event("output", output = "##teamcity[testStarted name='forged']\n")).joinToString("")
         assertFalse(records.contains("\n##teamcity[testStarted name='forged']"))
         assertTrue(records.contains("##teamcity|[testStarted name=|'forged|'|]"))
+    }
+
+    @Test fun aLaterParentFailureDoesNotDisappearBehindAnEarlierAttemptChildFailure() {
+        val output = GoTestOutput("/tmp/work")
+        val records = listOf(
+            event("run", test = "TestRepeat"), event("run", test = "TestRepeat/child"),
+            event("fail", test = "TestRepeat/child"), event("fail", test = "TestRepeat"),
+            event("run", test = "TestRepeat"), event("run", test = "TestRepeat/child"),
+            event("pass", test = "TestRepeat/child"), event("fail", test = "TestRepeat"), event("fail"),
+        ).flatMap(output::feed).joinToString("")
+        assertEquals(1, Regex("nodeId='go-test:example.com/app#TestRepeat:2:parent-result' parentNodeId=").findAll(records).count())
+        assertEquals(3, Regex("##teamcity\\[goTestLeafResult ").findAll(records).count())
+        assertTrue(records.contains("nodeId='go-test:example.com/app#TestRepeat/child:2' parentNodeId='go-test:example.com/app#TestRepeat:2'"))
+        assertEquals(mapOf("example.com/app" to listOf("TestRepeat")), output.failures(), "A direct parent failure needs a whole-parent retry")
+    }
+
+    @Test fun slashNamesCloseVirtualSuitesWithoutInventingFailuresAcrossAttempts() {
+        val output = GoTestOutput("/tmp/work")
+        val records = buildList {
+            repeat(2) {
+                addAll(output.feed(event("run", test = "TestPath")))
+                addAll(output.feed(event("run", test = "TestPath/dir/file")))
+                addAll(output.feed(event("pass", test = "TestPath/dir/file")))
+                addAll(output.feed(event("pass", test = "TestPath")))
+            }
+            addAll(output.feed(event("pass")))
+            addAll(output.finish(0))
+        }.joinToString("")
+        assertFalse(records.contains("testFailed"), records)
+        assertEquals(2, Regex("##teamcity\\[goTestLeafResult ").findAll(records).count())
+        assertEquals(2, Regex("##teamcity\\[testSuiteFinished name='dir'").findAll(records).count())
+        assertTrue(records.contains("nodeId='go-test:example.com/app#TestPath/dir:2' parentNodeId='go-test:example.com/app#TestPath:2'"))
+        assertTrue(output.failures().isEmpty())
+    }
+
+    @Test fun realTestsSharingVirtualPathNamesRetainResultsAndFailuresInEitherOrder() {
+        for (pathFirst in listOf(true, false)) for (failing in listOf(true, false)) {
+            val output = GoTestOutput("/tmp/work")
+            val paths = if (pathFirst) listOf("TestPath/dir/file", "TestPath/dir") else listOf("TestPath/dir", "TestPath/dir/file")
+            val records = buildList {
+                addAll(output.feed(event("run", test = "TestPath")))
+                for (name in paths) {
+                    addAll(output.feed(event("run", test = name)))
+                    addAll(output.feed(event(if (failing && name == "TestPath/dir") "fail" else "pass", test = name)))
+                }
+                addAll(output.feed(event(if (failing) "fail" else "pass", test = "TestPath")))
+                addAll(output.feed(event(if (failing) "fail" else "pass")))
+                addAll(output.finish(if (failing) 1 else 0))
+            }.joinToString("")
+            assertEquals(2, Regex("##teamcity\\[goTestLeafResult ").findAll(records).count(), records)
+            assertEquals(if (failing) 1 else 0, Regex("##teamcity\\[testFailed ").findAll(records).count(), records)
+            assertEquals(if (failing) mapOf("example.com/app" to listOf("TestPath/dir")) else emptyMap(), output.failures())
+        }
     }
 }

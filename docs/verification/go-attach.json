@@ -1,0 +1,146 @@
+{
+  "scope": "direct-tool-DAP-attach-baseline; not native IDE integration evidence",
+  "versions": {
+    "go": "go version go1.24.3 darwin/arm64",
+    "dlv": "Delve Debugger\nVersion: 1.24.2\nBuild: $Id: 7e679e5860c17d90514f9c440e055355de831ce2 $"
+  },
+  "cases": [
+    {
+      "mode": "local_owned_dap",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "dap_initialize_real_attach_and_source_mapped_breakpoint",
+          "status": "passed",
+          "seconds": 0.172,
+          "wireRequest": "attach",
+          "attachMode": "local",
+          "breakpointLine": 7,
+          "sourceMapped": false,
+          "adapterPid": 21830
+        },
+        {
+          "name": "goroutines_stack_scopes_and_watch",
+          "status": "passed",
+          "seconds": 0.114,
+          "goroutineCount": 6,
+          "stackDepth": 4,
+          "watchExpression": "cart.Value",
+          "watchResult": "41"
+        },
+        {
+          "name": "detach_preserves_owned_fixture_and_cleanup_scope",
+          "status": "passed",
+          "seconds": 0.083,
+          "terminateDebuggee": false,
+          "targetAliveAfterDetach": true,
+          "heartbeatContinued": true,
+          "externalMulticlientServerPreserved": null,
+          "targetAliveAfterAdapterCleanup": true
+        }
+      ],
+      "ownedTargetPid": 21827,
+      "targetOsAliveBeforeHarnessCleanup": true,
+      "ownedAdapterExited": true,
+      "ownedFixtureExitedAfterHarnessCleanup": true,
+      "outputTail": [
+        "ATTACH_READY 21827",
+        "DAP server listening at: 127.0.0.1:58401"
+      ]
+    },
+    {
+      "mode": "remote_external_dap",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "dap_initialize_real_attach_and_source_mapped_breakpoint",
+          "status": "passed",
+          "seconds": 0.166,
+          "wireRequest": "attach",
+          "attachMode": "local",
+          "breakpointLine": 7,
+          "sourceMapped": true,
+          "adapterPid": 21859
+        },
+        {
+          "name": "goroutines_stack_scopes_and_watch",
+          "status": "passed",
+          "seconds": 0.113,
+          "goroutineCount": 6,
+          "stackDepth": 4,
+          "watchExpression": "cart.Value",
+          "watchResult": "40"
+        },
+        {
+          "name": "detach_preserves_owned_fixture_and_cleanup_scope",
+          "status": "passed",
+          "seconds": 0.078,
+          "terminateDebuggee": false,
+          "targetAliveAfterDetach": true,
+          "heartbeatContinued": true,
+          "externalMulticlientServerPreserved": null,
+          "targetAliveAfterAdapterCleanup": true
+        }
+      ],
+      "ownedTargetPid": 21858,
+      "targetOsAliveBeforeHarnessCleanup": true,
+      "ownedAdapterExited": true,
+      "ownedFixtureExitedAfterHarnessCleanup": true,
+      "outputTail": [
+        "ATTACH_READY 21858",
+        "DAP server listening at: 127.0.0.1:58411"
+      ]
+    },
+    {
+      "mode": "remote_headless_multiclient",
+      "status": "passed",
+      "checks": [
+        {
+          "name": "dap_initialize_real_attach_and_source_mapped_breakpoint",
+          "status": "passed",
+          "seconds": 0.169,
+          "wireRequest": "attach",
+          "attachMode": "remote",
+          "breakpointLine": 7,
+          "sourceMapped": true,
+          "adapterPid": 21880
+        },
+        {
+          "name": "goroutines_stack_scopes_and_watch",
+          "status": "passed",
+          "seconds": 0.111,
+          "goroutineCount": 6,
+          "stackDepth": 4,
+          "watchExpression": "cart.Value",
+          "watchResult": "40"
+        },
+        {
+          "name": "detach_preserves_owned_fixture_and_cleanup_scope",
+          "status": "passed",
+          "seconds": 0.068,
+          "terminateDebuggee": false,
+          "targetAliveAfterDetach": true,
+          "heartbeatContinued": true,
+          "externalMulticlientServerPreserved": true,
+          "targetAliveAfterAdapterCleanup": true
+        }
+      ],
+      "ownedTargetPid": 21879,
+      "targetOsAliveBeforeHarnessCleanup": true,
+      "ownedAdapterExited": true,
+      "ownedFixtureExitedAfterHarnessCleanup": true,
+      "outputTail": [
+        "2026-11-08T21:39:15+08:00 debug layer=debugger callInjection protocol on:",
+        "2026-11-08T21:39:15+08:00 debug layer=debugger \t226670 PC=0x18fef7308",
+        "2026-11-08T21:39:15+08:00 debug layer=debugger \t226671 PC=0x18fef750c",
+        "2026-11-08T21:39:15+08:00 debug layer=debugger \t226672 PC=0x18fef750c",
+        "2026-11-08T21:39:15+08:00 debug layer=debugger \t226673 PC=0x18fef750c",
+        "2026-11-08T21:39:15+08:00 debug layer=debugger \t226667 PC=0x18fef9fcc",
+        "2026-11-08T21:39:15+08:00 debug layer=dap connection 1 closed - stopping \"continue\" command",
+        "2026-11-08T21:39:15+08:00 debug layer=debugger detaching"
+      ]
+    }
+  ],
+  "seconds": 2.039,
+  "status": "passed"
+}

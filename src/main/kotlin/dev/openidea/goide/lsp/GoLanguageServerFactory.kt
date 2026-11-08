@@ -4,17 +4,27 @@ import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.redhat.devtools.lsp4ij.LanguageServerFactory
 import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
-import com.redhat.devtools.lsp4ij.server.OSProcessStreamConnectionProvider
+import com.redhat.devtools.lsp4ij.client.features.LSPRenameFeature
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
+import dev.openidea.goide.lang.GoLanguage
 import org.eclipse.lsp4j.InitializeParams
 
 class GoLanguageServerFactory : LanguageServerFactory {
+    override fun createLanguageClient(project: Project) = GoLanguageClient(project)
+
     override fun createConnectionProvider(project: Project): StreamConnectionProvider =
-        OSProcessStreamConnectionProvider(GoToolchain.command(project, "gopls", listOf("serve")))
+        GoTrackedConnectionProvider(GoToolchain.command(project, "gopls", listOf("serve")), GoDocumentSync.get(project))
 
     override fun createClientFeatures(): LSPClientFeatures = object : LSPClientFeatures() {
+        init {
+            // Standard Rename is supplied by our versioned preview/undo handler.
+            // Keep the distinct file-operation capabilities used by project-tree renames.
+            setRenameFeature(object : LSPRenameFeature() {
+                override fun isRenameSupported(file: PsiFile) = file.language != GoLanguage && super.isRenameSupported(file)
+            })
+        }
         override fun isCaseSensitive(file: PsiFile) = true
         override fun getLineCommentPrefix(file: PsiFile) = "//"
         override fun getBlockCommentPrefix(file: PsiFile) = "/*"

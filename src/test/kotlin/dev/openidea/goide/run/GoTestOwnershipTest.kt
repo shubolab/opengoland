@@ -2,8 +2,6 @@ package dev.openidea.goide.run
 
 import com.google.gson.JsonObject
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessage
-import java.nio.file.Files
-import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -37,22 +35,21 @@ class GoTestOwnershipTest {
         output.finish(0)
     }
 
-    @Test fun largeDeferredUnicodeOutputIsNotDuplicatedTruncatedOrLeftOnDisk() {
-        val before = spoolFiles()
+    @Test fun largeUnicodeOutputStreamsBeforeFinishWithoutDuplicationOrTruncation() {
         val expected = "β😀|[]'\n".repeat(50_000)
         val output = GoTestOutput("/tmp")
         val records = mutableListOf<String>()
         output.consume(event("run", "TestLarge"), records::add)
         expected.chunked(1024).forEach { output.consume(event("output", "TestLarge", it), records::add) }
+        assertEquals(expected, console(decode(records)), "All output must be available while this test is still running")
         output.consume(event("pass", "TestLarge"), records::add)
         output.finish(0, records::add)
         assertEquals(expected, console(decode(records)))
-        assertEquals(before, spoolFiles())
         val interrupted = GoTestOutput("/tmp")
         interrupted.feed(event("run", "TestInterrupted"))
         interrupted.feed(event("output", "TestInterrupted", expected))
         interrupted.close()
-        assertEquals(before, spoolFiles())
+        assertTrue(interrupted.feed(event("output", "TestInterrupted", "late output")).isEmpty())
     }
 
     @Test fun failureOutputIsNotCopiedIntoFailureDetailsAndKeepsItsRecordedLocation() {
@@ -62,10 +59,10 @@ class GoTestOwnershipTest {
             event("fail", "TestBad", elapsed = .0506), event("fail", elapsed = .679)).flatMap(output::feed))
         assertEquals(1, Regex("controlled-failure").findAll(console(messages)).count())
         assertEquals("", messages.single { it.messageName == "testFailed" }.attributes["details"])
-        assertEquals("file:///tmp/the actual package/owned_test.go:23", messages.single { it.messageName == "testStarted" }.attributes["locationHint"])
+        val hint = messages.single { it.messageName == "testStarted" }.attributes["locationHint"]!!
+        assertEquals("file:///tmp/the actual package/owned_test.go:23", output.locationForToken(hint.substringAfter("://")))
         assertEquals("51", messages.single { it.messageName == "testFinished" }.attributes["duration"])
         assertEquals(mapOf("example.com/owned" to listOf("TestBad")), output.failures())
     }
 
-    private fun spoolFiles(): Set<String> = Files.newDirectoryStream(Path.of(System.getProperty("java.io.tmpdir")), "openidea-go-test-output-*.log").use { files -> files.map { it.toString() }.toSet() }
 }

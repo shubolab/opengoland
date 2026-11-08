@@ -1,0 +1,53 @@
+{
+  "schema": "opengoland.desktop-snapshot.v1",
+  "sourceDigest": "867caa4dcb8c464df254c6ed510cc086f3d9c52e67be8ccfcc924f0b963e730c",
+  "inputFiles": 128,
+  "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+  "pid": 26876,
+  "tests": {
+    "kotlin": {
+      "tests": 119,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goRace": "pass (engine unchanged)",
+    "goVet": "pass (engine unchanged)",
+    "package": "pass",
+    "pluginStructure": "pass",
+    "signature": "strict deep pass"
+  },
+  "nativeObservations": [
+    "Cross-module symbol rename: 3-file native Diff, definition and 3 references updated",
+    "Single Undo restored all 3 original files exactly; single Redo restored all 4 replacements; final Undo restored fixture",
+    "Native Code > Optimize Imports removed unused os in unsaved Go source and preserved Unicode",
+    "Fresh blocking test: immediate running node/output; 8 passed, native total 11.828 s, parent 10.43 s, package 11.173 s, exit 0"
+  ],
+  "earlierSnapshotEvidence": {
+    "digest": "54b2629ccd9a7a9d75880aa4219318b4170c886e667bc300099aa348a1930532",
+    "pids": [
+      25176,
+      25474
+    ],
+    "observations": [
+      "Native Markdown/JCEF render without earlier proxy initializer assertion",
+      "Local PID attach, six goroutines, main frame and cart.Value evaluation",
+      "Native Stop exited owned adapter, detached target heartbeat continued"
+    ]
+  },
+  "openDefects": [
+    "Attached Variables remained Collecting data",
+    "Pasted DAP evaluation fragment logged Document/PSI mismatch; diagnosis recorded, source fix pending"
+  ],
+  "limitations": [
+    "Does not establish broad GoLand equivalence",
+    "Remote attach UI not verified; direct three-mode DAP probe is separate",
+    "Resource-operation native Undo, conflict/cancel/preview typing workflows still need acceptance",
+    "Case-only resource rename and duplicate versioned edits are conservatively rejected"
+  ],
+  "cleanup": [
+    "Temporary Go probe and run configuration removed",
+    "Only owned attach fixture process terminated",
+    "Original tracked Go fixture files restored; source editor returned to app/main.go"
+  ]
+}

@@ -18,9 +18,7 @@ import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.AsyncProgramRunner
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.RunContentBuilder
-import com.intellij.execution.testframework.sm.FileUrlProvider
 import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
-import com.intellij.execution.testframework.sm.runner.SMTRunnerConsoleProperties
 import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
@@ -135,9 +133,7 @@ class GoCommandLineState(environment: ExecutionEnvironment, private val configur
 
     fun createResult(handler: ProcessHandler, executor: Executor): DefaultExecutionResult {
         if (handler is GoTestProcessHandler) {
-            val properties = object : SMTRunnerConsoleProperties(configuration, "OpenIDEAGo", executor) {
-                override fun getTestLocator() = FileUrlProvider.INSTANCE
-            }.apply { isIdBasedTestTree = true }
+            val properties = GoTestConsoleProperties(configuration, executor, handler.output)
             val console = SMTestRunnerConnectionUtil.createAndAttachConsole("OpenIDEAGo", handler, properties)
             val rerun = GoRerunFailedTestsAction(configuration, handler.output, values, handler, executor)
             return DefaultExecutionResult(console, handler).apply { setRestartActions(rerun) }

@@ -135,3 +135,70 @@ checks passed again. LaunchServices started native PID 19805; a second helper
 invocation and CUA activation retained that same single process and showed the
 project window. The live name/bundle/plugin verification passed. The broader
 Markdown lifecycle issue and feature acceptance gaps above remain open.
+
+## Native editing, attach and live tests — snapshot 54b2629
+
+Source digest `54b2629ccd9a7a9d75880aa4219318b4170c886e667bc300099aa348a1930532`
+(128 input files, 114 Kotlin tests passing, no skips). Packaging and strict deep
+signature verification passed. Native PID 25176 first exercised Rename; PID
+25474 subsequently exercised tests, Markdown and local attach in the same build.
+
+- Standard Shift+F6 opened our native Go Rename input. **Failed:** cross-module
+  rename refused unopened `catalog_test.go`: gopls returns explicit version 0 for
+  disk files, which the first transaction implementation required to have an
+  open-document mirror. No edits were applied. This is corrected and rechecked
+  in the following snapshot.
+- A disposable blocking test produced a visible native
+  `TestNativeLiveProgress, Running` node and its Chinese/emoji log before the
+  release gate was opened. After release, dynamic `dir/file` and parallel children
+  completed; the suite had eight passing leaves, exit 0, with the log appearing
+  once. **Failed:** the native duration was 0 ms despite a 12.66 s parent wait;
+  automatic leaf aggregation omitted the real Go parent's elapsed time.
+- Startup logged proxy warmup completion before the application starter.
+  Opening README rendered the native Markdown split preview and JCEF initialized
+  with its sandbox enabled. The earlier JCEF/proxy initializer assertion did not
+  recur in this process.
+- A temporary native Go Attach to Process configuration loaded the owned target
+  PID 25838 and adapter working directory. Debug launched only adapter PID 25919,
+  attached to the existing target, exposed six goroutines and `main.main:15`, and
+  evaluated `cart.Value` to 2640 in the selected frame. This value is run-specific.
+- Native Run > Stop printed `Detaching without terminating target process`,
+  adapter exit 0, and successful disconnect. OS identity plus the heartbeat
+  advancing from 2640 to 3567 verified the target continued running. Only that
+  owned fixture was then terminated; its temporary run configuration was removed.
+- **Open defect:** attached Variables remained at `Collecting data`. Pasting the
+  watch expression also logged a DAPExpressionCodeFragment Document/PSI mismatch,
+  although evaluation returned a value. The compatibility diagnosis and pending
+  fix are in `dap-expression-compatibility.md`. Remote UI and attached breakpoint
+  interaction were not established by this smoke.
+
+## Closed-file rename and duration regression — snapshot 867caa4
+
+Source digest `867caa4dcb8c464df254c6ed510cc086f3d9c52e67be8ccfcc924f0b963e730c`
+(128 input files, **119 Kotlin tests, zero failures/errors/skips**). Go race tests
+and vet passed for the unchanged engine. Packaging, plugin structure and strict
+deep signature checks passed. Native PID 26876 passed the live identity/plugin
+verification.
+
+- Shift+F6 on `catalog.Greeting` in `app/main.go` produced a native Diff preview
+  for that open file plus the closed `catalog.go` and `catalog_test.go` files.
+  Apply changed the definition and all three references, preserving the Chinese
+  and emoji content. Saving confirmed the four replacements in all three files.
+- A single Cmd+Z restored **all three files exactly** (`git diff --exit-code`
+  passed). A single Cmd+Shift+Z restored all four replacements. A final single
+  Undo and Save restored the original fixture again. This establishes this
+  symbol-rename workflow, not package rename or every resource-operation case.
+- Code > Optimize Imports was enabled for Go. After inserting an unused `os`
+  import into the unsaved editor, the standard action removed it and retained
+  the existing imports and Unicode source. Saving left the original file bytes.
+- A fresh, deliberately uncached blocking Go run exposed immediate running
+  progress again. After release, the native result showed eight passing leaves,
+  **11 s 828 ms** total, parent Go output **10.43 s**, package output **11.173 s**,
+  and exit 0. Root time includes the Go process's compilation/setup overhead;
+  parallel child durations are not summed into an inflated wall duration.
+- The disposable test file and release gate were removed after closing that
+  editor. The IDE was returned to the original `app/main.go`.
+
+The expression/Variables defects above remain open. Case-only resource renames
+on case-insensitive filesystems and other transaction restrictions are recorded
+in `workspace-edit-architecture.md`. The broad acceptance matrix remains open.
