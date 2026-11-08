@@ -1,0 +1,2315 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": "Independent native production LSP synchronization probe, actual server outputs; not commercial runtime or full race absence",
+  "deliveryBuild": {
+    "sourceDigest": "d2dc3e0755733e55267f3313d80a601634192323d1f230de9036c6a200937d17",
+    "inputFiles": 311,
+    "application": "build/product/open Goland.app",
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "42394d9420c0451e1c42418c0d3f4f66eeb75fb3cf5d78518b22169235842216",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "b19038229ad244847d2bbdc97fec09a230e0e40684bff33a6f9ee919ddb9b962",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "dd5ddfc69932774ad57de69e61bd0a35a4e221c2ef21c08db1e86e1fef60ab63"
+    },
+    "kotlin": {
+      "tests": 313,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goplsVersion": "golang.org/x/tools/gopls v0.21.1"
+  },
+  "transport": {
+    "wrapper": "/Users/wangshubo/develop/openidea-go/.tools/gopls-trace-wrapper.py",
+    "wrapperSHA256": "5a1bd0efa667b9c75d000e927f23bc5f666fa1e45d4f55bfb51270f5e807e282",
+    "mode": "Original Content-Length frames and payloads forwarded; logging only; initialization hold disabled; no injected LSP requests",
+    "identity": [
+      {
+        "line": 1,
+        "session": 1,
+        "raw": {
+          "time": 42633.990327166,
+          "kind": "identity",
+          "wrapperPid": 66942,
+          "goplsPid": 66943,
+          "args": [
+            "serve"
+          ]
+        }
+      }
+    ],
+    "trace": {
+      "metadata": "/Users/wangshubo/develop/openidea-go/.tools/native-json-generation.json",
+      "metadataSHA256": "75c7b14f234d7036ca6fe07af5b760d225ce38d9bbdf0f458673a04a95ff453c",
+      "trace": "/Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON 类型 😀/trace.jsonl",
+      "probe": "/Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON 类型 😀/sync.go",
+      "initialProbeSHA256": "85aa46d66b186734934e70ea38f467a2cbde855f001098f9b1434e5510a9b2ec",
+      "traceSHA256": "9436d496284e61091a54338b2ccee855537b95226f1efcf4fb55aae7bfe47aa1",
+      "traceBytes": 234509
+    },
+    "analyzerSHA256": "aee0a476dc8a8bba143033e60e4aa4f63e4e54a55ed83c8a8d1f5585c554eba0",
+    "validationIssues": []
+  },
+  "fixture": {
+    "source": "/Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON 类型 😀/sync.go",
+    "initialSource": "package fixture\n\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+    "savedBaseline": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+    "diskAtUndoHover": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"新😀a,omitempty\" xml:\"first\"`\n    B int `json:\"新😀b,string\" xml:\"second\"`\n}\n",
+    "diskAtFirstCompilerErrors": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+    "finalSource": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n"
+  },
+  "native": {
+    "tagCarets": "Alt+Enter > Edit tag values for json; native status 2 carets; paste 新😀 into both values, XML/options retained",
+    "hover130": "Native Quick Documentation shows both Unicode tags; this first hover happened after automatic didSave and is not unsaved evidence",
+    "hover146": "After Undo, Quick Documentation returns baseline tags while recorded disk still contains Unicode tags; no didSave between version 4 change and this request",
+    "undoNavigationBoundary": "After moving from the tag carets to the type for docs, first Undo restored caret state without text change; a further Undo removed both insertions. Do not claim one-keystroke text Undo across that navigation",
+    "diagnosticEdits": "Select int at A, native Select All Occurrences -> 2 carets; paste MissingProbeType into both field types",
+    "compilerErrorSequence": [
+      {
+        "version": 5,
+        "action": "Paste",
+        "serverErrors": 2,
+        "nativeHighlightCount": 2
+      },
+      {
+        "version": 6,
+        "action": "Undo",
+        "serverErrors": 0,
+        "nativeHighlightCount": 0
+      },
+      {
+        "version": 7,
+        "action": "Redo",
+        "serverErrors": 2,
+        "nativeHighlightCount": 2
+      },
+      {
+        "version": 8,
+        "action": "Undo",
+        "serverErrors": 0,
+        "nativeHighlightCount": 0
+      }
+    ],
+    "firstErrorOverlayUnsaved": "Disk checkpoint contained int fields while version 5 actual diagnostics reported MissingProbeType in both fields",
+    "finalState": "Escape to one caret, explicit Save, native Exit; final source equals clean saved baseline"
+  },
+  "sourceTimeline": [
+    {
+      "event": {
+        "line": 265,
+        "session": 1,
+        "direction": "client",
+        "time": 42877.376807458,
+        "raw": {
+          "time": 42877.376807458,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didOpen",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+                "languageId": "go",
+                "version": 1,
+                "text": "package fixture\n\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n"
+              }
+            }
+          }
+        }
+      },
+      "kind": "didOpen",
+      "snapshot": {
+        "version": 1,
+        "epoch": 1,
+        "eventLine": 265,
+        "sourceSHA256": "85aa46d66b186734934e70ea38f467a2cbde855f001098f9b1434e5510a9b2ec",
+        "utf16Length": 127,
+        "logicalLines": 7,
+        "text": "package fixture\n\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 0,
+        "fields": [
+          {
+            "name": "A",
+            "type": "int",
+            "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "int",
+            "rawTag": "json:\"b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "line": 291,
+        "session": 1,
+        "direction": "client",
+        "time": 42883.589934416,
+        "raw": {
+          "time": 42883.589934416,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didChange",
+            "params": {
+              "textDocument": {
+                "version": 2,
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+              },
+              "contentChanges": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 0,
+                      "character": 0
+                    },
+                    "end": {
+                      "line": 1,
+                      "character": 0
+                    }
+                  },
+                  "rangeLength": 16,
+                  "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "kind": "didChange",
+      "appliedChanges": [
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 0,
+              "character": 0
+            },
+            "end": {
+              "line": 1,
+              "character": 0
+            }
+          },
+          "rangeLength": 16,
+          "oldUTF16Length": 16,
+          "newUTF16Length": 126
+        }
+      ],
+      "snapshot": {
+        "version": 2,
+        "epoch": 1,
+        "eventLine": 291,
+        "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+        "utf16Length": 237,
+        "logicalLines": 9,
+        "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 0,
+        "fields": [
+          {
+            "name": "A",
+            "type": "int",
+            "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "int",
+            "rawTag": "json:\"b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "line": 321,
+        "session": 1,
+        "direction": "client",
+        "time": 42901.358793916,
+        "raw": {
+          "time": 42901.358793916,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didChange",
+            "params": {
+              "textDocument": {
+                "version": 3,
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+              },
+              "contentChanges": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 17
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 17
+                    }
+                  },
+                  "rangeLength": 0,
+                  "text": "新😀"
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 17
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 17
+                    }
+                  },
+                  "rangeLength": 0,
+                  "text": "新😀"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "kind": "didChange",
+      "appliedChanges": [
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 5,
+              "character": 17
+            },
+            "end": {
+              "line": 5,
+              "character": 17
+            }
+          },
+          "rangeLength": 0,
+          "oldUTF16Length": 0,
+          "newUTF16Length": 3
+        },
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 17
+            },
+            "end": {
+              "line": 6,
+              "character": 17
+            }
+          },
+          "rangeLength": 0,
+          "oldUTF16Length": 0,
+          "newUTF16Length": 3
+        }
+      ],
+      "snapshot": {
+        "version": 3,
+        "epoch": 1,
+        "eventLine": 321,
+        "sourceSHA256": "4e6957bcb2a1b5871ed37c4e72fb74b50eaeecca88588b41520087bd05985ac6",
+        "utf16Length": 243,
+        "logicalLines": 9,
+        "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"新😀a,omitempty\" xml:\"first\"`\n    B int `json:\"新😀b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 0,
+        "fields": [
+          {
+            "name": "A",
+            "type": "int",
+            "rawTag": "json:\"新😀a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "新😀a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "int",
+            "rawTag": "json:\"新😀b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "新😀b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "line": 363,
+        "session": 1,
+        "direction": "client",
+        "time": 42972.064762458,
+        "raw": {
+          "time": 42972.064762458,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didChange",
+            "params": {
+              "textDocument": {
+                "version": 4,
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+              },
+              "contentChanges": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 17
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 20
+                    }
+                  },
+                  "rangeLength": 3,
+                  "text": ""
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 17
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 20
+                    }
+                  },
+                  "rangeLength": 3,
+                  "text": ""
+                }
+              ]
+            }
+          }
+        }
+      },
+      "kind": "didChange",
+      "appliedChanges": [
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 17
+            },
+            "end": {
+              "line": 6,
+              "character": 20
+            }
+          },
+          "rangeLength": 3,
+          "oldUTF16Length": 3,
+          "newUTF16Length": 0
+        },
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 5,
+              "character": 17
+            },
+            "end": {
+              "line": 5,
+              "character": 20
+            }
+          },
+          "rangeLength": 3,
+          "oldUTF16Length": 3,
+          "newUTF16Length": 0
+        }
+      ],
+      "snapshot": {
+        "version": 4,
+        "epoch": 1,
+        "eventLine": 363,
+        "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+        "utf16Length": 237,
+        "logicalLines": 9,
+        "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 0,
+        "fields": [
+          {
+            "name": "A",
+            "type": "int",
+            "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "int",
+            "rawTag": "json:\"b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "line": 407,
+        "session": 1,
+        "direction": "client",
+        "time": 43015.568997083,
+        "raw": {
+          "time": 43015.568997083,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didChange",
+            "params": {
+              "textDocument": {
+                "version": 5,
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+              },
+              "contentChanges": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 9
+                    }
+                  },
+                  "rangeLength": 3,
+                  "text": "MissingProbeType"
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 9
+                    }
+                  },
+                  "rangeLength": 3,
+                  "text": "MissingProbeType"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "kind": "didChange",
+      "appliedChanges": [
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 5,
+              "character": 6
+            },
+            "end": {
+              "line": 5,
+              "character": 9
+            }
+          },
+          "rangeLength": 3,
+          "oldUTF16Length": 3,
+          "newUTF16Length": 16
+        },
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 6
+            },
+            "end": {
+              "line": 6,
+              "character": 9
+            }
+          },
+          "rangeLength": 3,
+          "oldUTF16Length": 3,
+          "newUTF16Length": 16
+        }
+      ],
+      "snapshot": {
+        "version": 5,
+        "epoch": 1,
+        "eventLine": 407,
+        "sourceSHA256": "dd70ed942d45eb70de23a5cb0f102dc419edcd457309395458d410bb84db21c3",
+        "utf16Length": 263,
+        "logicalLines": 9,
+        "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A MissingProbeType `json:\"a,omitempty\" xml:\"first\"`\n    B MissingProbeType `json:\"b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 2,
+        "fields": [
+          {
+            "name": "A",
+            "type": "MissingProbeType",
+            "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "MissingProbeType",
+            "rawTag": "json:\"b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "line": 429,
+        "session": 1,
+        "direction": "client",
+        "time": 43029.206707125,
+        "raw": {
+          "time": 43029.206707125,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didChange",
+            "params": {
+              "textDocument": {
+                "version": 6,
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+              },
+              "contentChanges": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 22
+                    }
+                  },
+                  "rangeLength": 16,
+                  "text": "int"
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 22
+                    }
+                  },
+                  "rangeLength": 16,
+                  "text": "int"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "kind": "didChange",
+      "appliedChanges": [
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 6
+            },
+            "end": {
+              "line": 6,
+              "character": 22
+            }
+          },
+          "rangeLength": 16,
+          "oldUTF16Length": 16,
+          "newUTF16Length": 3
+        },
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 5,
+              "character": 6
+            },
+            "end": {
+              "line": 5,
+              "character": 22
+            }
+          },
+          "rangeLength": 16,
+          "oldUTF16Length": 16,
+          "newUTF16Length": 3
+        }
+      ],
+      "snapshot": {
+        "version": 6,
+        "epoch": 1,
+        "eventLine": 429,
+        "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+        "utf16Length": 237,
+        "logicalLines": 9,
+        "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 0,
+        "fields": [
+          {
+            "name": "A",
+            "type": "int",
+            "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "int",
+            "rawTag": "json:\"b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "line": 449,
+        "session": 1,
+        "direction": "client",
+        "time": 43042.190721791,
+        "raw": {
+          "time": 43042.190721791,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didChange",
+            "params": {
+              "textDocument": {
+                "version": 7,
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+              },
+              "contentChanges": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 9
+                    }
+                  },
+                  "rangeLength": 3,
+                  "text": "MissingProbeType"
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 9
+                    }
+                  },
+                  "rangeLength": 3,
+                  "text": "MissingProbeType"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "kind": "didChange",
+      "appliedChanges": [
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 5,
+              "character": 6
+            },
+            "end": {
+              "line": 5,
+              "character": 9
+            }
+          },
+          "rangeLength": 3,
+          "oldUTF16Length": 3,
+          "newUTF16Length": 16
+        },
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 6
+            },
+            "end": {
+              "line": 6,
+              "character": 9
+            }
+          },
+          "rangeLength": 3,
+          "oldUTF16Length": 3,
+          "newUTF16Length": 16
+        }
+      ],
+      "snapshot": {
+        "version": 7,
+        "epoch": 1,
+        "eventLine": 449,
+        "sourceSHA256": "dd70ed942d45eb70de23a5cb0f102dc419edcd457309395458d410bb84db21c3",
+        "utf16Length": 263,
+        "logicalLines": 9,
+        "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A MissingProbeType `json:\"a,omitempty\" xml:\"first\"`\n    B MissingProbeType `json:\"b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 2,
+        "fields": [
+          {
+            "name": "A",
+            "type": "MissingProbeType",
+            "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "MissingProbeType",
+            "rawTag": "json:\"b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "event": {
+        "line": 473,
+        "session": 1,
+        "direction": "client",
+        "time": 43055.653285875,
+        "raw": {
+          "time": 43055.653285875,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/didChange",
+            "params": {
+              "textDocument": {
+                "version": 8,
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+              },
+              "contentChanges": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 22
+                    }
+                  },
+                  "rangeLength": 16,
+                  "text": "int"
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 22
+                    }
+                  },
+                  "rangeLength": 16,
+                  "text": "int"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "kind": "didChange",
+      "appliedChanges": [
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 6,
+              "character": 6
+            },
+            "end": {
+              "line": 6,
+              "character": 22
+            }
+          },
+          "rangeLength": 16,
+          "oldUTF16Length": 16,
+          "newUTF16Length": 3
+        },
+        {
+          "kind": "incremental",
+          "range": {
+            "start": {
+              "line": 5,
+              "character": 6
+            },
+            "end": {
+              "line": 5,
+              "character": 22
+            }
+          },
+          "rangeLength": 16,
+          "oldUTF16Length": 16,
+          "newUTF16Length": 3
+        }
+      ],
+      "snapshot": {
+        "version": 8,
+        "epoch": 1,
+        "eventLine": 473,
+        "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+        "utf16Length": 237,
+        "logicalLines": 9,
+        "text": "// Package fixture verifies native JSON generation.\npackage fixture\n\n// SyncProbe verifies native multi-caret synchronization.\ntype SyncProbe struct {\n    A int `json:\"a,omitempty\" xml:\"first\"`\n    B int `json:\"b,string\" xml:\"second\"`\n}\n",
+        "missingProbeTypeOccurrences": 0,
+        "fields": [
+          {
+            "name": "A",
+            "type": "int",
+            "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "a,omitempty"
+              },
+              {
+                "key": "xml",
+                "rawValue": "first"
+              }
+            ]
+          },
+          {
+            "name": "B",
+            "type": "int",
+            "rawTag": "json:\"b,string\" xml:\"second\"",
+            "tags": [
+              {
+                "key": "json",
+                "rawValue": "b,string"
+              },
+              {
+                "key": "xml",
+                "rawValue": "second"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ],
+  "probeDidSaveEvents": [
+    {
+      "line": 296,
+      "raw": {
+        "time": 42883.758709625,
+        "kind": "message",
+        "direction": "client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/didSave",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+            }
+          }
+        }
+      }
+    },
+    {
+      "line": 348,
+      "raw": {
+        "time": 42908.708485875,
+        "kind": "message",
+        "direction": "client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/didSave",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+            }
+          }
+        }
+      }
+    },
+    {
+      "line": 393,
+      "raw": {
+        "time": 43005.35174075,
+        "kind": "message",
+        "direction": "client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/didSave",
+          "params": {
+            "textDocument": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "actualServerHoverPairs": [
+    {
+      "requestId": "130",
+      "requestIdType": "str",
+      "session": 1,
+      "request": {
+        "event": {
+          "line": 353,
+          "session": 1,
+          "direction": "client",
+          "time": 42924.929631833,
+          "raw": {
+            "time": 42924.929631833,
+            "kind": "message",
+            "direction": "client",
+            "message": {
+              "jsonrpc": "2.0",
+              "id": "130",
+              "method": "textDocument/hover",
+              "params": {
+                "textDocument": {
+                  "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+                },
+                "position": {
+                  "line": 4,
+                  "character": 6
+                }
+              }
+            }
+          }
+        },
+        "method": "textDocument/hover",
+        "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+        "observedClientVersion": 3,
+        "observedEpoch": 1,
+        "clientContextTrusted": true
+      },
+      "response": {
+        "line": 354,
+        "session": 1,
+        "direction": "server",
+        "time": 42924.930597416,
+        "raw": {
+          "time": 42924.930597416,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "result": {
+              "contents": {
+                "kind": "markdown",
+                "value": "```go\ntype SyncProbe struct { // size=16 (0x10)\n\tA int `json:\"新😀a,omitempty\" xml:\"first\"`\n\tB int `json:\"新😀b,string\" xml:\"second\"`\n}\n```\n\n---\n\nSyncProbe verifies native multi-caret synchronization.\n\n\n---\n\n[`fixture.SyncProbe` on pkg.go.dev](https://pkg.go.dev/example.org/nativejson#SyncProbe)"
+              },
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 5
+                },
+                "end": {
+                  "line": 4,
+                  "character": 14
+                }
+              }
+            },
+            "id": "130"
+          }
+        }
+      },
+      "cancelEvents": [],
+      "returnedContent": "```go\ntype SyncProbe struct { // size=16 (0x10)\n\tA int `json:\"新😀a,omitempty\" xml:\"first\"`\n\tB int `json:\"新😀b,string\" xml:\"second\"`\n}\n```\n\n---\n\nSyncProbe verifies native multi-caret synchronization.\n\n\n---\n\n[`fixture.SyncProbe` on pkg.go.dev](https://pkg.go.dev/example.org/nativejson#SyncProbe)",
+      "returnedSyncProbe": true,
+      "returnedFields": [
+        {
+          "name": "A",
+          "type": "int",
+          "rawTag": "json:\"新😀a,omitempty\" xml:\"first\"",
+          "tags": [
+            {
+              "key": "json",
+              "rawValue": "新😀a,omitempty"
+            },
+            {
+              "key": "xml",
+              "rawValue": "first"
+            }
+          ]
+        },
+        {
+          "name": "B",
+          "type": "int",
+          "rawTag": "json:\"新😀b,string\" xml:\"second\"",
+          "tags": [
+            {
+              "key": "json",
+              "rawValue": "新😀b,string"
+            },
+            {
+              "key": "xml",
+              "rawValue": "second"
+            }
+          ]
+        }
+      ],
+      "matchingReconstructedSnapshots": [
+        {
+          "epoch": 1,
+          "version": 3,
+          "eventLine": 321,
+          "sourceSHA256": "4e6957bcb2a1b5871ed37c4e72fb74b50eaeecca88588b41520087bd05985ac6"
+        }
+      ],
+      "logResponsePrecedesRequest": false
+    },
+    {
+      "requestId": "146",
+      "requestIdType": "str",
+      "session": 1,
+      "request": {
+        "event": {
+          "line": 389,
+          "session": 1,
+          "direction": "client",
+          "time": 42977.579946541,
+          "raw": {
+            "time": 42977.579946541,
+            "kind": "message",
+            "direction": "client",
+            "message": {
+              "jsonrpc": "2.0",
+              "id": "146",
+              "method": "textDocument/hover",
+              "params": {
+                "textDocument": {
+                  "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go"
+                },
+                "position": {
+                  "line": 4,
+                  "character": 6
+                }
+              }
+            }
+          }
+        },
+        "method": "textDocument/hover",
+        "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+        "observedClientVersion": 4,
+        "observedEpoch": 1,
+        "clientContextTrusted": true
+      },
+      "response": {
+        "line": 390,
+        "session": 1,
+        "direction": "server",
+        "time": 42977.580319208,
+        "raw": {
+          "time": 42977.580319208,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "result": {
+              "contents": {
+                "kind": "markdown",
+                "value": "```go\ntype SyncProbe struct { // size=16 (0x10)\n\tA int `json:\"a,omitempty\" xml:\"first\"`\n\tB int `json:\"b,string\" xml:\"second\"`\n}\n```\n\n---\n\nSyncProbe verifies native multi-caret synchronization.\n\n\n---\n\n[`fixture.SyncProbe` on pkg.go.dev](https://pkg.go.dev/example.org/nativejson#SyncProbe)"
+              },
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 5
+                },
+                "end": {
+                  "line": 4,
+                  "character": 14
+                }
+              }
+            },
+            "id": "146"
+          }
+        }
+      },
+      "cancelEvents": [],
+      "returnedContent": "```go\ntype SyncProbe struct { // size=16 (0x10)\n\tA int `json:\"a,omitempty\" xml:\"first\"`\n\tB int `json:\"b,string\" xml:\"second\"`\n}\n```\n\n---\n\nSyncProbe verifies native multi-caret synchronization.\n\n\n---\n\n[`fixture.SyncProbe` on pkg.go.dev](https://pkg.go.dev/example.org/nativejson#SyncProbe)",
+      "returnedSyncProbe": true,
+      "returnedFields": [
+        {
+          "name": "A",
+          "type": "int",
+          "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+          "tags": [
+            {
+              "key": "json",
+              "rawValue": "a,omitempty"
+            },
+            {
+              "key": "xml",
+              "rawValue": "first"
+            }
+          ]
+        },
+        {
+          "name": "B",
+          "type": "int",
+          "rawTag": "json:\"b,string\" xml:\"second\"",
+          "tags": [
+            {
+              "key": "json",
+              "rawValue": "b,string"
+            },
+            {
+              "key": "xml",
+              "rawValue": "second"
+            }
+          ]
+        }
+      ],
+      "matchingReconstructedSnapshots": [
+        {
+          "epoch": 1,
+          "version": 1,
+          "eventLine": 265,
+          "sourceSHA256": "85aa46d66b186734934e70ea38f467a2cbde855f001098f9b1434e5510a9b2ec"
+        },
+        {
+          "epoch": 1,
+          "version": 2,
+          "eventLine": 291,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425"
+        },
+        {
+          "epoch": 1,
+          "version": 4,
+          "eventLine": 363,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425"
+        },
+        {
+          "epoch": 1,
+          "version": 6,
+          "eventLine": 429,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425"
+        },
+        {
+          "epoch": 1,
+          "version": 8,
+          "eventLine": 473,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425"
+        }
+      ],
+      "logResponsePrecedesRequest": false
+    }
+  ],
+  "otherHoverRequestIds": [
+    "131",
+    "148"
+  ],
+  "actualSelectedServerDiagnostics": [
+    {
+      "event": {
+        "line": 325,
+        "session": 1,
+        "direction": "server",
+        "time": 42901.361044958,
+        "raw": {
+          "time": 42901.361044958,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 3,
+              "diagnostics": []
+            }
+          }
+        }
+      },
+      "serverVersion": 3,
+      "versionPresent": true,
+      "diagnosticCount": 0,
+      "errorCount": 0,
+      "missingProbeTypeErrorCount": 0,
+      "messages": [],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 3,
+          "epoch": 1,
+          "eventLine": 321,
+          "sourceSHA256": "4e6957bcb2a1b5871ed37c4e72fb74b50eaeecca88588b41520087bd05985ac6",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"新😀a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"新😀b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "event": {
+        "line": 342,
+        "session": 1,
+        "direction": "server",
+        "time": 42902.374304791,
+        "raw": {
+          "time": 42902.374304791,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 3,
+              "diagnostics": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 10
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 45
+                    }
+                  },
+                  "severity": 2,
+                  "code": "default",
+                  "codeDescription": {
+                    "href": "https://staticcheck.dev/docs/checks/#SA5008"
+                  },
+                  "source": "SA5008",
+                  "message": "invalid JSON field name \"新😀a\""
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 10
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 43
+                    }
+                  },
+                  "severity": 2,
+                  "code": "default",
+                  "codeDescription": {
+                    "href": "https://staticcheck.dev/docs/checks/#SA5008"
+                  },
+                  "source": "SA5008",
+                  "message": "invalid JSON field name \"新😀b\""
+                }
+              ]
+            }
+          }
+        }
+      },
+      "serverVersion": 3,
+      "versionPresent": true,
+      "diagnosticCount": 2,
+      "errorCount": 0,
+      "missingProbeTypeErrorCount": 0,
+      "messages": [
+        "invalid JSON field name \"新😀a\"",
+        "invalid JSON field name \"新😀b\""
+      ],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 3,
+          "epoch": 1,
+          "eventLine": 321,
+          "sourceSHA256": "4e6957bcb2a1b5871ed37c4e72fb74b50eaeecca88588b41520087bd05985ac6",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"新😀a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"新😀b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "event": {
+        "line": 349,
+        "session": 1,
+        "direction": "server",
+        "time": 42908.709917291,
+        "raw": {
+          "time": 42908.709917291,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 3,
+              "diagnostics": []
+            }
+          }
+        }
+      },
+      "serverVersion": 3,
+      "versionPresent": true,
+      "diagnosticCount": 0,
+      "errorCount": 0,
+      "missingProbeTypeErrorCount": 0,
+      "messages": [],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 3,
+          "epoch": 1,
+          "eventLine": 321,
+          "sourceSHA256": "4e6957bcb2a1b5871ed37c4e72fb74b50eaeecca88588b41520087bd05985ac6",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"新😀a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"新😀b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "event": {
+        "line": 352,
+        "session": 1,
+        "direction": "server",
+        "time": 42909.803522958,
+        "raw": {
+          "time": 42909.803522958,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 3,
+              "diagnostics": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 10
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 45
+                    }
+                  },
+                  "severity": 2,
+                  "code": "default",
+                  "codeDescription": {
+                    "href": "https://staticcheck.dev/docs/checks/#SA5008"
+                  },
+                  "source": "SA5008",
+                  "message": "invalid JSON field name \"新😀a\""
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 10
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 43
+                    }
+                  },
+                  "severity": 2,
+                  "code": "default",
+                  "codeDescription": {
+                    "href": "https://staticcheck.dev/docs/checks/#SA5008"
+                  },
+                  "source": "SA5008",
+                  "message": "invalid JSON field name \"新😀b\""
+                }
+              ]
+            }
+          }
+        }
+      },
+      "serverVersion": 3,
+      "versionPresent": true,
+      "diagnosticCount": 2,
+      "errorCount": 0,
+      "missingProbeTypeErrorCount": 0,
+      "messages": [
+        "invalid JSON field name \"新😀a\"",
+        "invalid JSON field name \"新😀b\""
+      ],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 3,
+          "epoch": 1,
+          "eventLine": 321,
+          "sourceSHA256": "4e6957bcb2a1b5871ed37c4e72fb74b50eaeecca88588b41520087bd05985ac6",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"新😀a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"新😀b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "新😀b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "event": {
+        "line": 409,
+        "session": 1,
+        "direction": "server",
+        "time": 43015.571074916,
+        "raw": {
+          "time": 43015.571074916,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 5,
+              "diagnostics": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 22
+                    }
+                  },
+                  "severity": 1,
+                  "code": "UndeclaredName",
+                  "codeDescription": {
+                    "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredName"
+                  },
+                  "source": "compiler",
+                  "message": "undefined: MissingProbeType"
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 22
+                    }
+                  },
+                  "severity": 1,
+                  "code": "UndeclaredName",
+                  "codeDescription": {
+                    "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredName"
+                  },
+                  "source": "compiler",
+                  "message": "undefined: MissingProbeType"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "serverVersion": 5,
+      "versionPresent": true,
+      "diagnosticCount": 2,
+      "errorCount": 2,
+      "missingProbeTypeErrorCount": 2,
+      "messages": [
+        "undefined: MissingProbeType",
+        "undefined: MissingProbeType"
+      ],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 5,
+          "epoch": 1,
+          "eventLine": 407,
+          "sourceSHA256": "dd70ed942d45eb70de23a5cb0f102dc419edcd457309395458d410bb84db21c3",
+          "missingProbeTypeOccurrences": 2,
+          "fields": [
+            {
+              "name": "A",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "event": {
+        "line": 430,
+        "session": 1,
+        "direction": "server",
+        "time": 43029.207891041,
+        "raw": {
+          "time": 43029.207891041,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 6,
+              "diagnostics": []
+            }
+          }
+        }
+      },
+      "serverVersion": 6,
+      "versionPresent": true,
+      "diagnosticCount": 0,
+      "errorCount": 0,
+      "missingProbeTypeErrorCount": 0,
+      "messages": [],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 6,
+          "epoch": 1,
+          "eventLine": 429,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "event": {
+        "line": 451,
+        "session": 1,
+        "direction": "server",
+        "time": 43042.192175208,
+        "raw": {
+          "time": 43042.192175208,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 7,
+              "diagnostics": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 5,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 5,
+                      "character": 22
+                    }
+                  },
+                  "severity": 1,
+                  "code": "UndeclaredName",
+                  "codeDescription": {
+                    "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredName"
+                  },
+                  "source": "compiler",
+                  "message": "undefined: MissingProbeType"
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 6,
+                      "character": 6
+                    },
+                    "end": {
+                      "line": 6,
+                      "character": 22
+                    }
+                  },
+                  "severity": 1,
+                  "code": "UndeclaredName",
+                  "codeDescription": {
+                    "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredName"
+                  },
+                  "source": "compiler",
+                  "message": "undefined: MissingProbeType"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "serverVersion": 7,
+      "versionPresent": true,
+      "diagnosticCount": 2,
+      "errorCount": 2,
+      "missingProbeTypeErrorCount": 2,
+      "messages": [
+        "undefined: MissingProbeType",
+        "undefined: MissingProbeType"
+      ],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 7,
+          "epoch": 1,
+          "eventLine": 449,
+          "sourceSHA256": "dd70ed942d45eb70de23a5cb0f102dc419edcd457309395458d410bb84db21c3",
+          "missingProbeTypeOccurrences": 2,
+          "fields": [
+            {
+              "name": "A",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "event": {
+        "line": 474,
+        "session": 1,
+        "direction": "server",
+        "time": 43055.654277583,
+        "raw": {
+          "time": 43055.654277583,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON%20%E7%B1%BB%E5%9E%8B%20%F0%9F%98%80/sync.go",
+              "version": 8,
+              "diagnostics": []
+            }
+          }
+        }
+      },
+      "serverVersion": 8,
+      "versionPresent": true,
+      "diagnosticCount": 0,
+      "errorCount": 0,
+      "missingProbeTypeErrorCount": 0,
+      "messages": [],
+      "matchingReconstructedSnapshots": [
+        {
+          "version": 8,
+          "epoch": 1,
+          "eventLine": 473,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "versionedDiagnosticControl": {
+    "observedCompleteSequence": true,
+    "matchedStages": [
+      {
+        "session": 1,
+        "line": 409,
+        "serverVersion": 5,
+        "diagnosticCount": 2,
+        "missingProbeTypeErrorCount": 2,
+        "source": {
+          "version": 5,
+          "epoch": 1,
+          "eventLine": 407,
+          "sourceSHA256": "dd70ed942d45eb70de23a5cb0f102dc419edcd457309395458d410bb84db21c3",
+          "missingProbeTypeOccurrences": 2,
+          "fields": [
+            {
+              "name": "A",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "session": 1,
+        "line": 430,
+        "serverVersion": 6,
+        "diagnosticCount": 0,
+        "missingProbeTypeErrorCount": 0,
+        "source": {
+          "version": 6,
+          "epoch": 1,
+          "eventLine": 429,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "session": 1,
+        "line": 451,
+        "serverVersion": 7,
+        "diagnosticCount": 2,
+        "missingProbeTypeErrorCount": 2,
+        "source": {
+          "version": 7,
+          "epoch": 1,
+          "eventLine": 449,
+          "sourceSHA256": "dd70ed942d45eb70de23a5cb0f102dc419edcd457309395458d410bb84db21c3",
+          "missingProbeTypeOccurrences": 2,
+          "fields": [
+            {
+              "name": "A",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "MissingProbeType",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "session": 1,
+        "line": 474,
+        "serverVersion": 8,
+        "diagnosticCount": 0,
+        "missingProbeTypeErrorCount": 0,
+        "source": {
+          "version": 8,
+          "epoch": 1,
+          "eventLine": 473,
+          "sourceSHA256": "68d3e65ed93700f3b624110364d536882f0a605a6a5a007335465073d9ecb425",
+          "missingProbeTypeOccurrences": 0,
+          "fields": [
+            {
+              "name": "A",
+              "type": "int",
+              "rawTag": "json:\"a,omitempty\" xml:\"first\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "a,omitempty"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "first"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "type": "int",
+              "rawTag": "json:\"b,string\" xml:\"second\"",
+              "tags": [
+                {
+                  "key": "json",
+                  "rawValue": "b,string"
+                },
+                {
+                  "key": "xml",
+                  "rawValue": "second"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "cleanup": {
+    "ownedProcesses": [
+      {
+        "pid": 66884,
+        "ppid": 1,
+        "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea"
+      },
+      {
+        "pid": 66910,
+        "ppid": 66884,
+        "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+      },
+      {
+        "pid": 66942,
+        "ppid": 66884,
+        "comm": "python3"
+      },
+      {
+        "pid": 66943,
+        "ppid": 66942,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls"
+      },
+      {
+        "pid": 66944,
+        "ppid": 66943,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls"
+      },
+      {
+        "pid": 66970,
+        "ppid": 66884,
+        "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+      }
+    ],
+    "ownedPidsAbsentAfterNativeExit": true
+  },
+  "limitations": [
+    "Only captured messages are evidence; absent events do not establish a product defect or successful UI action.",
+    "The forwarding wrapper logs after forwarding; cross-direction log order may differ from transmission order. Requests are paired using actual typed JSON-RPC IDs, not proximity.",
+    "Hover carries no document version. observedClientVersion is log context, not server acknowledgement; returned tags/types are matched against reconstructed source snapshots without claiming a unique version when text repeats.",
+    "Diagnostics without an explicit integer server version are retained but cannot satisfy the versioned diagnostic control.",
+    "The two-field SyncProbe extraction is intentionally bounded to this fixture's raw Go tags; it is not a general Go parser.",
+    "Sessions are delimited by identity records. Simultaneously writing independent wrappers to one untagged trace could make session assignment ambiguous.",
+    "This script does not observe UI highlight counts, prove live class loading, save files, or modify/repair the transport.",
+    "The initial Unicode hover followed auto-save; only Undo-hover and first compiler errors have separate unsaved disk checkpoints",
+    "Unicode JSON tag names provoke two actual SA5008 severity-2 warnings; these differ from the later severity-1 compiler errors",
+    "Matching hover fields/tags is not a full-source server hash acknowledgement or a uniquely versioned hover response",
+    "Native observation of UI counts is independent of analyzer output and is limited to this 2/0/2/0 fixture",
+    "Earlier uncaptured struct-helper 3/5 highlight counts remain unknown; this cohort cannot retrospectively explain them",
+    "Unit-test DocumentContentSynchronizer sends immediately; this standalone trace separately exercises normal grouped/committed-document scheduling",
+    "Full GoLand equivalence, IME behavior, all editor scheduling and deletion/close races remain open"
+  ]
+}

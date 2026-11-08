@@ -153,6 +153,13 @@ native value-start carets for simultaneous input. See the
 [struct helper evidence](docs/verification/struct-helpers.md) and
 [multi-caret boundaries](docs/verification/struct-tag-carets.md).
 
+Code > Generate > **Type from JSON** opens a native JSON editor with a type
+name and numeric policy. **Struct Fields from JSON** and the struct intention
+add selected new fields while retaining existing fields and tags. Analyze /
+Refresh shows inferred fields, nested types and warnings; Preview opens the
+validated native Diff before Apply. Edits to the input invalidate the analysis.
+See [JSON generation and inference boundaries](docs/verification/json-generation.md).
+
 Workspace edits check actual document versions and unsaved changes,
 with a separate verified-disk baseline for closed files. Consult the
 [transaction boundaries](docs/verification/workspace-edit-architecture.md)
@@ -193,9 +200,10 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current verification batch passed all 304 Kotlin tests with no skips,
-the complete Go race suite (198 test events including subtests), and Go vet.
-It includes typed test/interface/struct-helper/tag generation, native tag carets, Unicode project-path persistence, dirty-source and two-file native
+The current verification batch passed all 313 Kotlin tests with no skips,
+the complete Go race suite (240 test events including subtests), and Go vet.
+It includes typed test/interface/struct-helper/tag/JSON generation, native tag carets,
+Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
 clickable interface inlays, immutable settings/connection ownership, and actual
 upstream LSP initialization/deletion/UTF-16 synchronization regressions. Native evidence includes
@@ -203,6 +211,12 @@ an unsaved go.work adding an unopened external caller, stale-preview rejection,
 three-file interface migration, and combined name/parameter/result conversion.
 The [native records](docs/verification/change-signature-native.json) retain
 fixture sources, outputs and the actual build identities.
+
+The current [JSON generation cohort](docs/verification/json-generation-native.json)
+also passed two uncached Go round-trip tests through the standalone IDE.
+A separate [native multi-caret trace](docs/verification/multicaret-gopls.md)
+records actual gopls hover and versioned error/Undo/Redo results, including the
+normal production scheduling path and its remaining coverage limits.
 
 The attach probe starts only its own temporary fixtures and adapters. It verifies
 local PID attach, external `dlv dap` PID attach, and headless multi-client DAP

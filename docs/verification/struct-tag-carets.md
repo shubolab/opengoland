@@ -28,3 +28,8 @@ The [reference record](../reference/struct-helpers-reference.json) establishes
 carets inside values, while exact commercial selection/replacement behavior was
 not observed. Value-start placement without a selection is our independent policy;
 this does not close commercial multi-caret, IME or all editor interaction parity.
+
+A later [standalone gopls probe](multicaret-gopls.md) pairs actual server hover
+and versioned diagnostics with normal grouped native document changes. It keeps
+Unicode tag-name warnings, compiler errors and earlier unexplained UI counts
+separate; it does not close full multi-caret/IME or scheduling parity.

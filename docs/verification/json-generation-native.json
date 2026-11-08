@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": "Independent open Goland native JSON generation; not commercial runtime or full IDE parity",
+  "deliveryBuild": {
+    "sourceDigest": "d2dc3e0755733e55267f3313d80a601634192323d1f230de9036c6a200937d17",
+    "inputFiles": 311,
+    "application": "build/product/open Goland.app",
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "42394d9420c0451e1c42418c0d3f4f66eeb75fb3cf5d78518b22169235842216",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "b19038229ad244847d2bbdc97fec09a230e0e40684bff33a6f9ee919ddb9b962",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "dd5ddfc69932774ad57de69e61bd0a35a4e221c2ef21c08db1e86e1fef60ab63"
+    },
+    "kotlin": {
+      "tests": 313,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goRaceAndVet": {
+      "status": "pass",
+      "testEventsIncludingSubtests": 240,
+      "topLevelTests": 135,
+      "packagePasses": 9,
+      "cachedPackages": [
+        "github.com/shubolab/opengoland/engine/internal/engine",
+        "github.com/shubolab/opengoland/engine/internal/generate/structs",
+        "github.com/shubolab/opengoland/engine/internal/protocol",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature"
+      ],
+      "vet": "pass",
+      "vetLogBytes": 0
+    },
+    "packageCommand": "OPENGOLAND_GOPLS_TEST=<actual gopls> ./scripts/package-product.sh",
+    "goCommand": "cd engine && go test -race -json ./... && go vet ./...",
+    "buildInputVerification": "pass",
+    "pluginStructureVerification": "pass",
+    "codeSignatureAfterNativeUse": "pass",
+    "allManifestPluginArtifactHashesAfterNativeUse": "match",
+    "goVersion": "go1.24.3 darwin/arm64",
+    "goplsVersion": "golang.org/x/tools/gopls v0.21.1"
+  },
+  "fixture": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON 类型 😀",
+    "source": "/Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON 类型 😀/envelope.go",
+    "tests": "/Users/wangshubo/develop/openidea-go/.tools/native-json-generation-_mrq8gg0/JSON 类型 😀/envelope_test.go",
+    "initialSource": "package fixture\n\nimport jsoncodec \"encoding/json\"\n\nvar _ = jsoncodec.Valid\n\n// JSON 中文😀\ntype Envelope struct {\n    Existing string `json:\"existing,omitempty\"`\n}\n",
+    "jsonTypeSample": "{\"id\":9007199254740993,\"label\":\"中文😀\",\"items\":[{\"active\":true},{\"active\":false}],\"notes\":null}",
+    "jsonFieldsSample": "{\"trace_id\":\"中文😀\",\"count\":3,\"extra\":{\"enabled\":true}}",
+    "numericPolicy": "number",
+    "checkpoints": {
+      "diskAfterTypeUndoRedo": "package fixture\n\nimport jsoncodec \"encoding/json\"\n\nvar _ = jsoncodec.Valid\n\n// JSON 中文😀\ntype Envelope struct {\n    Existing string `json:\"existing,omitempty\"`\n}\n",
+      "diskBeforeFieldsApply": "package fixture\n\nimport jsoncodec \"encoding/json\"\n\nvar _ = jsoncodec.Valid\n\n// JSON 中文😀\ntype Envelope struct {\n    Existing string `json:\"existing,omitempty\"`\n}\n",
+      "diskAfterFieldsUndoRedo": "package fixture\n\nimport jsoncodec \"encoding/json\"\n\nvar _ = jsoncodec.Valid\n\n// JSON 中文😀\ntype Envelope struct {\n    Existing string `json:\"existing,omitempty\"`\n}\n",
+      "savedGeneratedSource": "package fixture\n\nimport jsoncodec \"encoding/json\"\n\nvar _ = jsoncodec.Valid\n\n// JSON 中文😀 — 未保存\ntype Envelope struct {\n\tExisting string `json:\"existing,omitempty\"`\n\n\tTraceID string           `json:\"trace_id\"`\n\tCount   jsoncodec.Number `json:\"count\"`\n\tExtra   EnvelopeExtra    `json:\"extra\"`\n}\n\ntype PayloadItemsItem struct {\n\tActive bool `json:\"active\"`\n}\n\ntype Payload struct {\n\tID    jsoncodec.Number     `json:\"id\"`\n\tLabel string               `json:\"label\"`\n\tItems []PayloadItemsItem   `json:\"items\"`\n\tNotes jsoncodec.RawMessage `json:\"notes\"`\n}\n\ntype EnvelopeExtra struct {\n\tEnabled bool `json:\"enabled\"`\n}\n"
+    },
+    "testSource": "// Native workflow draft: copy into the owned fixture only after Payload and\n// Envelope fields have been generated through the actual desktop actions.\npackage fixture\n\nimport (\n\t\"encoding/json\"\n\t\"io\"\n\t\"reflect\"\n\t\"strings\"\n\t\"testing\"\n)\n\n// Compile-time checks reject silently generated float64/int64 fields under the\n// explicit number policy. Both names also prove Go initialism suggestions.\nvar _ json.Number = (Payload{}).ID\nvar _ json.Number = (Envelope{}).Count\nvar _ string = (Envelope{}).TraceID\n\nconst nativeTypeSample = \"{\\\"id\\\":9007199254740993,\\\"label\\\":\\\"中文😀\\\",\\\"items\\\":[{\\\"active\\\":true},{\\\"active\\\":false}],\\\"notes\\\":null}\"\nconst nativeFieldsSample = \"{\\\"trace_id\\\":\\\"中文😀\\\",\\\"count\\\":3,\\\"extra\\\":{\\\"enabled\\\":true}}\"\n\nfunc decodeNativeJSON(t *testing.T, text string) any {\n\tt.Helper()\n\tdecoder := json.NewDecoder(strings.NewReader(text))\n\tdecoder.UseNumber()\n\tvar value any\n\tif err := decoder.Decode(&value); err != nil {\n\t\tt.Fatal(err)\n\t}\n\tvar extra any\n\tif err := decoder.Decode(&extra); err != io.EOF {\n\t\tt.Fatalf(\"trailing JSON: %v\", err)\n\t}\n\treturn value\n}\n\nfunc assertNativeJSONRoundTrip(t *testing.T, sample string, value any) {\n\tt.Helper()\n\tencoded, err := json.Marshal(value)\n\tif err != nil {\n\t\tt.Fatal(err)\n\t}\n\texpected, actual := decodeNativeJSON(t, sample), decodeNativeJSON(t, string(encoded))\n\tif !reflect.DeepEqual(expected, actual) {\n\t\tt.Fatalf(\"JSON value or numeric lexeme changed:\\nwant %s\\ngot  %s\", sample, encoded)\n\t}\n}\n\nfunc TestNativeGeneratedPayloadRoundTripPreservesExactSamples(t *testing.T) {\n\tvar payload Payload\n\tif err := json.Unmarshal([]byte(nativeTypeSample), &payload); err != nil {\n\t\tt.Fatal(err)\n\t}\n\tif payload.ID != json.Number(\"9007199254740993\") {\n\t\tt.Fatalf(\"large ID lost precision: %q\", payload.ID)\n\t}\n\tif payload.Label != \"中文😀\" {\n\t\tt.Fatalf(\"Unicode label changed: %q\", payload.Label)\n\t}\n\tif len(payload.Items) != 2 || !payload.Items[0].Active || payload.Items[1].Active {\n\t\tt.Fatalf(\"nested items changed: %+v\", payload.Items)\n\t}\n\tif !json.Valid(payload.Notes) || string(payload.Notes) != \"null\" {\n\t\tt.Fatalf(\"explicit null changed: %s\", payload.Notes)\n\t}\n\tassertNativeJSONRoundTrip(t, nativeTypeSample, payload)\n}\n\nfunc TestNativeGeneratedEnvelopeFieldsPreserveExistingTagAndRoundTrip(t *testing.T) {\n\texisting, ok := reflect.TypeOf(Envelope{}).FieldByName(\"Existing\")\n\tif !ok || existing.Type != reflect.TypeOf(\"\") || existing.Tag.Get(\"json\") != \"existing,omitempty\" {\n\t\tt.Fatalf(\"original Existing field/type/tag changed: %+v\", existing)\n\t}\n\tvar envelope Envelope\n\tif err := json.Unmarshal([]byte(nativeFieldsSample), &envelope); err != nil {\n\t\tt.Fatal(err)\n\t}\n\tif envelope.Existing != \"\" || envelope.TraceID != \"中文😀\" || envelope.Count != json.Number(\"3\") || !envelope.Extra.Enabled {\n\t\tt.Fatalf(\"generated fields decoded incorrectly: %+v\", envelope)\n\t}\n\tassertNativeJSONRoundTrip(t, nativeFieldsSample, envelope)\n\t// Also prove that the original, unrelated field retains its JSON tag and is\n\t// still serialized once nonempty, rather than being replaced or ignored.\n\tenvelope.Existing = \"kept 原字段😀\"\n\tencoded, err := json.Marshal(envelope)\n\tif err != nil {\n\t\tt.Fatal(err)\n\t}\n\tobject, ok := decodeNativeJSON(t, string(encoded)).(map[string]any)\n\tif !ok || object[\"existing\"] != envelope.Existing {\n\t\tt.Fatalf(\"existing tag stopped working: %s\", encoded)\n\t}\n}\n"
+  },
+  "native": {
+    "trust": "Only this fresh owned project trusted; no parent-folder trust",
+    "type": {
+      "entry": "Cmd+N > Type from JSON…",
+      "dialog": "Generate Go Type from JSON",
+      "rootType": "Payload",
+      "input": "Actual native multiline EditorTextField; Chinese/emoji sample pasted",
+      "firstAnalysisNumericPolicy": "auto",
+      "firstAnalysisIDType": "int64",
+      "changingNumericPolicy": "Previous analysis visibly marked stale; Fields disabled and Preview disabled until Analyze / Refresh",
+      "secondAnalysisIDType": "jsoncodec.Number",
+      "fields": [
+        "ID",
+        "Label",
+        "Items",
+        "Notes"
+      ],
+      "tabsObserved": [
+        "Fields",
+        "Types",
+        "Generated Go"
+      ],
+      "nestedType": "PayloadItemsItem",
+      "nullWarningObserved": "Only null was sampled; RawMessage preserves null without inventing a schema",
+      "finalNativeDiff": "One file, formatted complete candidate, reused existing jsoncodec alias",
+      "applyUndoRedo": "One Undo restores dirty source without either generated type; one Redo restores complete generation"
+    },
+    "fields": {
+      "entry": "Alt+Enter on Envelope > Generate fields from JSON…",
+      "dialog": "Generate Struct Fields from JSON",
+      "existingFieldAndTag": "Existing string `json:\"existing,omitempty\"` retained",
+      "fields": [
+        "TraceID",
+        "Count",
+        "Extra"
+      ],
+      "nestedType": "EnvelopeExtra",
+      "selection": "Count toggled off and back on; all three cells confirmed selected before final Preview",
+      "finalNativeDiff": "One file; retained previous Payload/Items types and original dirty comment",
+      "applyUndoRedo": "One Undo removes only added fields/EnvelopeExtra and retains Payload; one Redo restores complete selected group"
+    },
+    "dirtyDocuments": {
+      "originalComment": "// JSON 中文😀",
+      "dirtyComment": "// JSON 中文😀 — 未保存",
+      "diskStayedOriginalThroughoutBothApplyUndoRedoGroups": true,
+      "explicitSave": "Cmd+S after both generations; saved source retained above"
+    },
+    "actualGoTest": {
+      "entry": "Ctrl+Shift+R from package line in envelope_test.go",
+      "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go test -json .",
+      "passedTests": 2,
+      "exitCode": 0,
+      "cached": false,
+      "elapsedPackageSeconds": 1.04,
+      "elapsedNativeMilliseconds": 1541,
+      "tests": [
+        "TestNativeGeneratedPayloadRoundTripPreservesExactSamples",
+        "TestNativeGeneratedEnvelopeFieldsPreserveExistingTagAndRoundTrip"
+      ],
+      "verifies": [
+        "Actual encoding/json Unmarshal and Marshal, compared through Decoder.UseNumber",
+        "Exact large number 9007199254740993 and number-typed generated fields",
+        "Chinese/emoji strings, nested array objects, explicit null",
+        "Existing field/tag retained and still serializes under original JSON key"
+      ]
+    },
+    "lspProbe": "multicaret-gopls-native.json"
+  },
+  "runtimeIdentity": {
+    "status": "pass",
+    "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+    "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+    "pid": 66884,
+    "name": "open Goland",
+    "bundleId": "dev.opengoland.ide",
+    "vendor": "OpenGoland",
+    "selector": "OpenIDEAGo2026.1",
+    "pluginPaths": [
+      "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+      "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+    ],
+    "loadedPlugins": {
+      "dev.openidea.go": "Go Workbench",
+      "com.redhat.devtools.lsp4ij": "LSP4IJ"
+    },
+    "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+    "platformArtifactChecks": [
+      {
+        "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+        "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+        "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+      }
+    ],
+    "limitations": [
+      "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+    ]
+  },
+  "ownedProcesses": [
+    {
+      "pid": 66884,
+      "ppid": 1,
+      "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea"
+    },
+    {
+      "pid": 66910,
+      "ppid": 66884,
+      "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+    },
+    {
+      "pid": 66942,
+      "ppid": 66884,
+      "comm": "python3"
+    },
+    {
+      "pid": 66943,
+      "ppid": 66942,
+      "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls"
+    },
+    {
+      "pid": 66944,
+      "ppid": 66943,
+      "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls"
+    },
+    {
+      "pid": 66970,
+      "ppid": 66884,
+      "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+    }
+  ],
+  "ownedPidsAbsentAfterNativeExit": true,
+  "harnessIterations": {
+    "status": "Final full suite passes; no production LSP source changed in this cohort",
+    "fixed": [
+      "Test helper used removed legacy TextDocumentContentChangeEvent constructor; replaced with no-arg and stable setters",
+      "Test diagnostic text getter differed between SDK and actual runtime LSP4j; read actual serialized message",
+      "Test wrapper fixture omitted real launcher listening Future; connected the actual running transport so active-server didClose can execute"
+    ],
+    "finalTarget": "com.redhat.devtools.lsp4ij.GoMulticaretGoplsSyncTest",
+    "targetStatus": "pass; real gopls hover, symbols, versioned diagnostics and close-to-disk assertions retained"
+  },
+  "limitations": [
+    "JSON sample inference is not a schema for all future values",
+    "Exact commercial JSON defaults/behavior and full GoLand parity remain unverified",
+    "Automated Go cache reuse is explicitly recorded; native fixture tests were uncached",
+    "Runtime verifier proves identity/plugin loading/on-disk patch identity, not live class origin or feature parity"
+  ]
+}

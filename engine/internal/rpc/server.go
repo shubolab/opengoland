@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
+	jsongen "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct"
 	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
 	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
@@ -205,6 +206,7 @@ func (s *Server) handle(req request) {
 		info["features"].(map[string]bool)["interfaceGeneration"] = true
 		info["features"].(map[string]bool)["structTags"] = true
 		info["features"].(map[string]bool)["structHelpers"] = true
+		info["features"].(map[string]bool)["jsonGeneration"] = true
 		info["project"] = m.Project(s.ctx)
 		info["tools"] = m.Tools(s.ctx)
 		_ = s.result(req.ID, info)
@@ -236,6 +238,28 @@ func (s *Server) handle(req request) {
 	var after func()
 	var err error
 	switch req.Method {
+	case "generate/json/inspect":
+		var params jsongen.Request
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request)
+			if err == nil {
+				defer finish()
+				result, err = jsongen.RunIsolated(ctx, "inspect", params)
+			}
+		}
+	case "generate/json/plan":
+		var params jsongen.PlanRequest
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request.Request)
+			if err == nil {
+				defer finish()
+				result, err = jsongen.RunIsolated(ctx, "plan", params)
+			}
+		}
 	case "generate/structs/inspect":
 		var params structgen.Request
 		if err = decode(req.Params, &params); err == nil {

@@ -159,7 +159,12 @@
       "reference": "localInspection and intentionAction declarations",
       "probe": "Introduce/fix errors in unsaved buffers; accept quick fix; confirm stale diagnostics disappear",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "implementation": "../verification/multicaret-gopls.md",
+        "native_record": "../verification/multicaret-gopls-native.json",
+        "observation": "Actual native two-caret edits produced versioned real gopls compiler diagnostics: versions 5/6/7/8 returned 2/0/2/0 errors across paste/Undo/Redo/Undo, with matching native highlight counts. Actual hover returned Unicode tags and unsaved Undo overlays. SA5008 tag-name warnings were recorded separately. Full inspection/quick-fix behavior, all races and commercial runtime remain open."
+      }
     },
     {
       "id": "LANG-05",
@@ -221,14 +226,16 @@
       "partial_evidence": {
         "implementation": "../verification/test-generation.md",
         "native_record": "../verification/test-generation-native.json",
-        "observation": "Typed tests, interface methods, struct tags and constructors/accessors have native editor/preview/Undo evidence. A generic value constructor plus value getters/pointer setters passed an uncached native Go test; field-only default, existing method conflicts, selected remainder and tag carets with Unicode paste/Undo/Redo passed. JSON-to-struct, native alias/derived entry, readonly SDK entry, all build contexts, commercial runtime and exact/full UI parity remain open.",
+        "observation": "Typed tests, interface methods, struct tags, constructors/accessors and JSON generation have native editor/preview/Undo evidence. JSON type and existing-struct-field generation preserve dirty Unicode source and existing tags/import aliases; two uncached IDE-run encoding/json round-trip tests verify large numbers, nested data and null. Field-only helper defaults, method conflicts, selected remainder and tag carets also have earlier cohort evidence. Native alias/derived entry, readonly SDK entry, all build contexts, commercial runtime and exact/full UI parity remain open.",
         "interface_implementation": "../verification/interface-generation.md",
         "interface_native": "../verification/interface-generation-native.json",
         "struct_tags": "../verification/struct-tags.md",
         "struct_tags_native": "../verification/struct-tags-native.json",
         "struct_helpers": "../verification/struct-helpers.md",
         "struct_helpers_native": "../verification/struct-helpers-native.json",
-        "tag_carets": "../verification/struct-tag-carets.md"
+        "tag_carets": "../verification/struct-tag-carets.md",
+        "json_generation": "../verification/json-generation.md",
+        "json_generation_native": "../verification/json-generation-native.json"
       }
     },
     {
@@ -425,7 +432,10 @@
         "deletion_lifecycle": "../verification/lsp-deletion-lifecycle.json",
         "unicode_persistence": "../verification/unicode-persistence-native.json",
         "generation_continuations": "../verification/struct-helpers-native.json",
-        "queued_ui_cancellation": "Actual platform EDT-queue regressions drop cancelled generation continuations; native task/modal cancellation remains unverified."
+        "queued_ui_cancellation": "Actual platform EDT-queue regressions drop cancelled generation continuations; native task/modal cancellation remains unverified.",
+        "multicaret_sync": "../verification/multicaret-gopls-native.json",
+        "generation_continuations_json": "../verification/json-generation-native.json",
+        "multicaret_observation": "A real-gopls unit regression checks incremental ordering/UTF-16, rapid Undo/Redo, versioned diagnostics and active-server didClose-to-disk. A separate standalone trace verifies grouped production changes and actual server returns. Owned app/engine/wrapper/gopls processes were absent after native exit. Full cancellation/close/deletion/IME races remain open."
       }
     },
     {

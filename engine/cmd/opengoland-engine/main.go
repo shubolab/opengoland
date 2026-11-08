@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
+	jsongen "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct"
 	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
 	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
@@ -14,6 +15,13 @@ import (
 )
 
 func main() {
+	if handled, err := jsongen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		return
+	}
 	if handled, err := structgen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)

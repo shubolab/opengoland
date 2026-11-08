@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
+	jsongen "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct"
 	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
 	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
@@ -101,6 +102,12 @@ func TestSignatureCancellationIsolationDuplicatesAndShutdown(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
+	if handled, err := jsongen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			os.Exit(1)
+		}
+		os.Exit(0)
+	}
 	if handled, err := structgen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			os.Exit(1)
