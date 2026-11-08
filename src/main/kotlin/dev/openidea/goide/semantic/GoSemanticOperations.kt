@@ -106,9 +106,10 @@ class GoSemanticOperations(private val project: Project) : Disposable {
             action = await(server.textDocumentService.resolveCodeAction(unresolved), indicator)
         }
         check(action?.disabled == null) { action?.disabled?.reason ?: "This refactoring is unavailable" }
+        val command = action?.command ?: data.codeAction().takeIf { it.isLeft }?.left
+        check(command?.command != "gopls.change_signature") { "Use Refactor > Change Signature to preview typed Go signature changes." }
         var baseline = request
         action?.edit?.let { baseline = apply(it, title, preview, baseline, indicator) }
-        val command = action?.command ?: data.codeAction().takeIf { it.isLeft }?.left
         if (command != null) execute(item, command, title, preview, baseline, indicator)
     }
 

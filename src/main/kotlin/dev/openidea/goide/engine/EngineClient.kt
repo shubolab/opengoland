@@ -79,15 +79,24 @@ class EngineClient(private val project: Project) : Disposable {
         return ready
     }
 
-    fun request(method: String, params: JsonObject = JsonObject()): CompletableFuture<JsonElement> =
-        try { connect().thenCompose { requestRaw(method, params) } } catch (e: Exception) { CompletableFuture.failedFuture(e) }
+    fun request(method: String, params: JsonObject = JsonObject(), timeoutSeconds: Long = 45): CompletableFuture<JsonElement> =
+        try { connect().thenCompose { requestRaw(method, params, timeoutSeconds = timeoutSeconds) } } catch (e: Exception) { CompletableFuture.failedFuture(e) }
+
+    /** Cancellation must not initialize a new engine or resolve executables on the EDT. */
+    fun cancelOperation(operationId: String) {
+        val child = process ?: return
+        if (disposed) return
+        runCatching { io.execute { runCatching {
+            requestRaw("refactor/cancel", JsonObject().apply { addProperty("operationId", operationId) }, child)
+        } } }
+    }
 
     fun listen(listener: (String, JsonObject) -> Unit): AutoCloseable {
         listeners.add(listener)
         return AutoCloseable { listeners.remove(listener) }
     }
 
-    private fun requestRaw(method: String, params: JsonObject, child: Process? = process): CompletableFuture<JsonElement> {
+    private fun requestRaw(method: String, params: JsonObject, child: Process? = process, timeoutSeconds: Long = 45): CompletableFuture<JsonElement> {
         child ?: return CompletableFuture.failedFuture(IllegalStateException("Go engine is not running"))
         if (process !== child || !child.isAlive) return CompletableFuture.failedFuture(IllegalStateException("Go engine is not running"))
         val id = sequence.incrementAndGet()
@@ -106,7 +115,7 @@ class EngineClient(private val project: Project) : Disposable {
                 child.outputStream.flush()
             }
         } catch (e: Exception) { pending.remove(id)?.completeExceptionally(e) }
-        result.orTimeout(45, TimeUnit.SECONDS).whenComplete { _, error ->
+        result.orTimeout(timeoutSeconds, TimeUnit.SECONDS).whenComplete { _, error ->
             pending.remove(id)
             if (error != null && taskId != null) activeTasks.remove(taskId)
         }
@@ -146,17 +155,23 @@ class EngineClient(private val project: Project) : Disposable {
         process = null; initialized = null; configurationKey = null
         failed.forEach { it.completeExceptionally(error) }
         if (child != null) {
-            // Let the engine cancel its process groups before using owned handles as fallback.
-            val descendants = runCatching { child.descendants().toList() }.getOrDefault(emptyList())
-            runCatching {
-                val payload = JsonObject().apply { addProperty("jsonrpc", "2.0"); addProperty("method", "shutdown"); add("params", JsonObject()) }
-                    .toString().toByteArray(StandardCharsets.UTF_8)
-                synchronized(writeLock) {
-                    child.outputStream.write("Content-Length: ${payload.size}\r\n\r\n".toByteArray(StandardCharsets.US_ASCII))
-                    child.outputStream.write(payload); child.outputStream.flush()
+            // Project disposal can run on the EDT. Enumeration and every pipe
+            // operation stay on workers, with a separate deadline worker so a
+            // blocked writer cannot prevent owned-process cleanup.
+            val descendantsReady = CompletableFuture<List<ProcessHandle>>()
+            io.execute {
+                descendantsReady.complete(runCatching { child.descendants().toList() }.getOrDefault(emptyList()))
+                runCatching {
+                    val payload = JsonObject().apply { addProperty("jsonrpc", "2.0"); addProperty("method", "shutdown"); add("params", JsonObject()) }
+                        .toString().toByteArray(StandardCharsets.UTF_8)
+                    synchronized(writeLock) {
+                        child.outputStream.write("Content-Length: ${payload.size}\r\n\r\n".toByteArray(StandardCharsets.US_ASCII))
+                        child.outputStream.write(payload); child.outputStream.flush()
+                    }
                 }
             }
             io.execute {
+                val descendants = runCatching { descendantsReady.get(1, TimeUnit.SECONDS) }.getOrDefault(emptyList())
                 runCatching { child.waitFor(3, TimeUnit.SECONDS) }
                 val remaining = descendants + runCatching { child.descendants().toList() }.getOrDefault(emptyList())
                 remaining.asReversed().forEach { handle -> if (handle.isAlive) runCatching { handle.destroyForcibly() } }

@@ -1,13 +1,21 @@
 package dev.openidea.goide.engine
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
+import com.intellij.testFramework.LightPlatformTestCase
 import dev.openidea.goide.settings.GoProjectSettings
+import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Proxy
 import java.nio.file.Files
 import java.nio.file.Path
+import java.time.Instant
+import java.util.UUID
+import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -106,5 +114,154 @@ class EngineClientLifecycleTest {
         ProcessHandle.of(pid).ifPresent { it.onExit().get(5, TimeUnit.SECONDS) }
         assertTrue(ProcessHandle.of(pid).map { !it.isAlive }.orElse(true))
         assertFailsWith<java.util.concurrent.ExecutionException> { engine.connect().get(2, TimeUnit.SECONDS) }
+    }
+}
+
+/** Actual platform EDT and project settings, with a deliberately non-reading owned child process. */
+class EngineClientEdtDisposalTest : LightPlatformTestCase() {
+    override fun runInDispatchThread() = false
+
+    fun testDisposalCannotWaitForABlockedEnginePipeOnTheEdt() {
+        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
+        val root = Files.createTempDirectory("opengoland-engine-blocked-pipe-").toRealPath()
+        val script = root.resolve("engine/bin/opengoland-engine")
+        val token = UUID.randomUUID().toString()
+        val previousWorkspace = System.getProperty("openidea.workspace")
+        val realProject = project
+        val effectiveProject = Proxy.newProxyInstance(Project::class.java.classLoader,
+            arrayOf(Project::class.java)) { _, method, arguments ->
+            if (method.name == "getBasePath") root.toString()
+            else try { method.invoke(realProject, *arguments.orEmpty()) }
+                catch (failure: InvocationTargetException) { throw failure.targetException }
+        } as Project
+        val settings = GoProjectSettings.get(realProject)
+        val originalGo = settings.goExecutable
+        val disposed = CompletableFuture<Long>()
+        val writerDone = CompletableFuture<Unit>()
+        var client: EngineClient? = null
+        var owned: OwnedEngine? = null
+        var writer: Thread? = null
+        try {
+            Files.createDirectories(script.parent)
+            // The marker is set before initialization is acknowledged. Afterwards stdin
+            // remains open but is never read again, so a large real pipe write must block.
+            Files.writeString(script, """
+                |#!/usr/bin/env python3
+                |import json, os, pathlib, sys, time
+                |script=pathlib.Path(__file__).resolve()
+                |root=script.parents[2]
+                |token='$token'
+                |record={'pid':os.getpid(),'token':token,'script':str(script)}
+                |(root/'owned.json').write_text(json.dumps(record))
+                |with (root/'launches').open('a') as stream: stream.write(str(os.getpid())+'\n')
+                |length=None
+                |while True:
+                |    line=sys.stdin.buffer.readline()
+                |    if not line: sys.exit(2)
+                |    if line in (b'\r\n',b'\n'): break
+                |    if line.lower().startswith(b'content-length:'): length=int(line.split(b':',1)[1])
+                |message=json.loads(sys.stdin.buffer.read(length))
+                |assert message['method']=='initialize'
+                |(root/'not-reading').write_text(token)
+                |packet=json.dumps({'jsonrpc':'2.0','id':message['id'],'result':record}).encode()
+                |sys.stdout.buffer.write(('Content-Length: %d\r\n\r\n'%len(packet)).encode()+packet)
+                |sys.stdout.buffer.flush()
+                |while True: time.sleep(60)
+            """.trimMargin().trimStart())
+            assertTrue(script.toFile().setExecutable(true))
+            System.setProperty("openidea.workspace", root.toString())
+            // Retain real settings/services but use our own working directory. The
+            // reused light project's basePath may name a deleted earlier fixture.
+            settings.goExecutable = dev.openidea.goide.settings.GoToolchain.resolve("go")
+                ?: throw AssertionError("The Go toolchain required by this repository is unavailable")
+            val engine = EngineClient(effectiveProject)
+            client = engine
+            val ready = engine.connect().get(4, TimeUnit.SECONDS).asJsonObject
+            assertEquals(token, ready.get("token").asString)
+            val pid = ready.get("pid").asLong
+            val handle = ProcessHandle.of(pid).orElseThrow { AssertionError("The owned fake engine exited before the test") }
+            val fixture = OwnedEngine(handle, handle.info().startInstant().orElse(null), root, script, token)
+            owned = fixture
+            assertEquals(token, Files.readString(root.resolve("not-reading")))
+
+            val request = JsonObject().apply { addProperty("payload", "x".repeat(4 * 1024 * 1024)) }
+            val writingThread = Thread({
+                try {
+                    engine.request("test/blocked-pipe", request).handle { _, _ -> Unit }.join()
+                    writerDone.complete(Unit)
+                } catch (failure: Throwable) { writerDone.completeExceptionally(failure) }
+            }, "open-Goland-owned-blocked-pipe-writer").apply { isDaemon = true; start() }
+            writer = writingThread
+            val readyDeadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(2)
+            while (!insidePipeWrite(writingThread) && !writerDone.isDone && System.nanoTime() < readyDeadline) Thread.sleep(5)
+            assertTrue("The regression requires a real blocked pipe write, rather than a timer or fake lock", insidePipeWrite(writingThread))
+
+            val started = System.nanoTime()
+            ApplicationManager.getApplication().invokeLater {
+                try {
+                    assertTrue(ApplicationManager.getApplication().isDispatchThread)
+                    engine.dispose()
+                    disposed.complete(TimeUnit.NANOSECONDS.toMillis(System.nanoTime() - started))
+                } catch (failure: Throwable) { disposed.completeExceptionally(failure) }
+            }
+            val elapsed = try { disposed.get(2, TimeUnit.SECONDS) }
+                catch (timeout: TimeoutException) {
+                    // The old implementation blocks the EDT behind this writer. Kill
+                    // only the exact child before failing, so that regression cannot
+                    // wedge the platform test runner or its subsequent tests.
+                    fixture.killExact()
+                    runCatching { disposed.get(2, TimeUnit.SECONDS) }
+                    throw AssertionError("EDT disposal waited for a blocked engine pipe", timeout)
+                }
+            assertTrue("EDT disposal must return before the process-cleanup deadline; took ${elapsed}ms", elapsed < 2_000)
+            handle.onExit().get(5, TimeUnit.SECONDS)
+            writerDone.get(1, TimeUnit.SECONDS)
+            assertFalse("The deadline worker must terminate the owned non-reading child", handle.isAlive)
+            assertFailsWith<java.util.concurrent.ExecutionException> { engine.connect().get(1, TimeUnit.SECONDS) }
+            assertFailsWith<java.util.concurrent.ExecutionException> { engine.request("project/info").get(1, TimeUnit.SECONDS) }
+            assertEquals(listOf(pid.toString()), Files.readAllLines(root.resolve("launches")), "Late callbacks must not restart a disposed engine")
+        } finally {
+            // Also cover failures before the initialize result was received. The token,
+            // script path, PID and start time constrain cleanup to this test's child.
+            if (owned == null && Files.exists(root.resolve("owned.json"))) {
+                val record = JsonParser.parseString(Files.readString(root.resolve("owned.json"))).asJsonObject
+                if (record.get("token")?.asString == token && record.get("script")?.asString == script.toString()) {
+                    ProcessHandle.of(record.get("pid").asLong).ifPresent { handle ->
+                        owned = OwnedEngine(handle, handle.info().startInstant().orElse(null), root, script, token)
+                    }
+                }
+            }
+            owned?.killExact()
+            if (disposed.isDone) runCatching { disposed.get(1, TimeUnit.SECONDS) }
+            runCatching { client?.dispose() }
+            writer?.join(1_000)
+            settings.goExecutable = originalGo
+            if (previousWorkspace == null) System.clearProperty("openidea.workspace") else System.setProperty("openidea.workspace", previousWorkspace)
+            Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
+        }
+    }
+
+    private fun insidePipeWrite(thread: Thread): Boolean {
+        val stack = thread.stackTrace
+        return stack.any { it.className == EngineClient::class.java.name && it.methodName.startsWith("requestRaw") } &&
+            stack.any { it.className == "java.io.FileOutputStream" && it.methodName.startsWith("write") ||
+                it.className.contains("ProcessPipeOutputStream") && it.methodName.startsWith("write") }
+    }
+
+    private data class OwnedEngine(val handle: ProcessHandle, val start: Instant?, val root: Path, val script: Path, val token: String) {
+        fun killExact() {
+            if (!handle.isAlive) return
+            val record = JsonParser.parseString(Files.readString(root.resolve("owned.json"))).asJsonObject
+            check(record.get("pid").asLong == handle.pid() && record.get("token").asString == token && record.get("script").asString == script.toString())
+            val info = handle.info()
+            check(start == null || info.startInstant().orElse(null) == start) { "The fixture PID was reused" }
+            check(start != null || info.commandLine().map { it.contains(script.toString()) }.orElse(false) ||
+                info.arguments().map { arguments -> arguments.any { it == script.toString() } }.orElse(false)) {
+                "The live fixture process identity cannot be established"
+            }
+            info.commandLine().ifPresent { command -> check(command.contains(script.toString())) { "The fixture command changed" } }
+            handle.destroyForcibly()
+            handle.onExit().get(2, TimeUnit.SECONDS)
+        }
     }
 }

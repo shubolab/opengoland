@@ -29,6 +29,7 @@
         <callHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.callHierarchy.LSPCallHierarchyProvider"/>
         <typeHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.typeHierarchy.LSPTypeHierarchyProvider"/>
         <lang.importOptimizer language="OpenIDEAGo" implementationClass="dev.openidea.goide.semantic.GoImportOptimizer"/>
+        <lang.refactoringSupport language="OpenIDEAGo" implementationClass="dev.openidea.goide.refactor.signature.GoRefactoringSupportProvider"/>
         <renameHandler id="OpenGolandRenameHandler" implementation="dev.openidea.goide.semantic.GoRenameHandler" order="first, before LSPRenameHandler"/>
         <langCodeStyleSettingsProvider implementation="dev.openidea.goide.lang.GoCodeStyleSettingsProvider"/>
         <projectConfigurable id="dev.openidea.go.settings" displayName="Go" instance="dev.openidea.goide.settings.GoSettingsConfigurable"/>

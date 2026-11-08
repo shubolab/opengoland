@@ -1,0 +1,320 @@
+{
+  "schema": 1,
+  "date": "2026-11-09",
+  "product": "open Goland",
+  "status": "Partial native evidence; full GoLand equivalence remains open",
+  "referenceRuntime": "No new commercial GoLand behavior was exercised in this batch",
+  "toolchain": {
+    "go": "1.24.3 darwin/arm64",
+    "gopls": "0.21.1",
+    "platform": "OSS IntelliJ IDEA 2026.1.4 IC-261.26222.65",
+    "lsp4ij": "0.21.0"
+  },
+  "intermediateBuild": {
+    "digest": "2f81aa5947740553f7e006f39a6560a9bfe871578f18186ab5e56629b8547523",
+    "inputs": 177,
+    "appPid": 73740,
+    "goplsPid": 74184,
+    "enginePid": 74346,
+    "stalePreviewRejected": true,
+    "originalDiskFilesUnchangedAfterRejection": true,
+    "dirtyWorkIncludedExternalCaller": true,
+    "readonlyColoredDiffFiles": 2,
+    "usages": 3,
+    "sdkProcBytes": 214687,
+    "sdkFirstAndLastRendered": true,
+    "sdkRangeResponseId": 114,
+    "sdkRangeResponseMillis": 652,
+    "temporaryTraceRestored": "off",
+    "appExited": true
+  },
+  "typedPlannerBuild": {
+    "digest": "ae7475ad3ca625411b277eacde2b6b203ac8fca83224841ab7b5b246a940903f",
+    "inputs": 177,
+    "appPid": 84866,
+    "goplsPid": 84951,
+    "enginePid": 85879,
+    "kotlinTests": 182,
+    "failures": 0,
+    "skipped": 0,
+    "goTopLevelTests": 61,
+    "goIncludingSubtests": 137,
+    "goRace": true,
+    "goVet": true,
+    "appExited": true,
+    "sdkLastLineRendered": 7376,
+    "sdkUnchangedSha256": "9cff4fca76c6778741947fbcf362530a5259b050cc7643838d6feeaa77df905a"
+  },
+  "checks": {
+    "kotlin": {
+      "tests": 182,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0
+    },
+    "go": {
+      "race": true,
+      "vet": true,
+      "topLevel": 61,
+      "includingSubtests": 137,
+      "signaturePackageSeconds": 240.285,
+      "rpcPackageSeconds": 7.001
+    }
+  },
+  "dirtyWorkspaceReorder": {
+    "savedWorkBefore": "go 1.24.0\n\nuse ./api\n",
+    "editorWork": "go 1.24.0\n\nuse (\n\t./api\n\t<caller>\n)\n",
+    "externalCallerNotPreviouslyOpened": true,
+    "stalePreviewNewCallerRejectedBeforeAnyOriginalDiskEdits": true,
+    "readonlyColoredFiles": 2,
+    "usages": 3,
+    "run": {
+      "code": 0,
+      "stdout": "[1 2] 12 34 56\n",
+      "stderr": ""
+    },
+    "oneUndoRestoresAllOriginalGoFiles": true,
+    "workEditPredatesUndoCommandAndSurvivesUndo": true,
+    "oneRedo": {
+      "allExact": true,
+      "stdout": "[1 2] 12 34 56\n",
+      "code": 0
+    },
+    "beforeSources": {
+      "<workspace>/api/implementation.go": "package api\n\ntype Impl struct{}\n\nfunc (Impl) Compute(a, b int) int { return a*10 + b }\n",
+      "<workspace>/api/api.go": "package api\n\n/* 中文 😀 */ func Target(a, b int) int {\n\treturn a*10 + b\n}\n",
+      "<workspace>/api/contract.go": "package api\n\ntype Computer interface {\n\tCompute(a, b int) int\n}\n",
+      "<caller>/main.go": "package main\n\nimport (\n\t\"fmt\"\n\t\"example.org/signature/api\"\n)\n\nvar trace []int\nfunc mark(n int) int { trace = append(trace, n); return n }\n\nfunc main() {\n\tvalue := api.Target(mark(1), mark(2))\n\tfn := api.Target\n\tvar computer api.Computer = api.Impl{}\n\tfmt.Println(trace, value, fn(3, 4), computer.Compute(5, 6))\n}\n",
+      "<workspace>/api/untouched/existing.go": "package untouched\n\nimport \"example.org/signature/api\"\n\nvar Existing api.Impl\n"
+    },
+    "afterSources": {
+      "<workspace>/api/implementation.go": "package api\n\ntype Impl struct{}\n\nfunc (Impl) Compute(a, b int) int { return a*10 + b }\n",
+      "<workspace>/api/api.go": "package api\n\n/* 中文 😀 */\nfunc Target(b int, a int) int {\n\treturn a*10 + b\n}\n",
+      "<workspace>/api/contract.go": "package api\n\ntype Computer interface {\n\tCompute(a, b int) int\n}\n",
+      "<caller>/main.go": "package main\n\nimport (\n\t\"example.org/signature/api\"\n\t\"fmt\"\n)\n\nvar trace []int\n\nfunc mark(n int) int { trace = append(trace, n); return n }\n\nfunc main() {\n\tvalue := func(__openGolandSignature163_callee func(int, int) int, __openGolandSignature163_arg0 int, __openGolandSignature163_arg1 int) int {\n\t\t__openGolandSignature163_result0 := __openGolandSignature163_callee(__openGolandSignature163_arg1, __openGolandSignature163_arg0)\n\t\t_ = __openGolandSignature163_result0\n\t\treturn __openGolandSignature163_result0\n\t}(api.Target, mark(1), mark(2))\n\tfn := func(__openGolandSignature199_callee func(int, int) int) func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\treturn func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\t\t__openGolandSignature199_result0 := __openGolandSignature199_callee(__openGolandSignature199_arg1, __openGolandSignature199_arg0)\n\t\t\t_ = __openGolandSignature199_result0\n\t\t\treturn __openGolandSignature199_result0\n\t\t}\n\t}(api.Target)\n\tvar computer api.Computer = api.Impl{}\n\tfmt.Println(trace, value, fn(3, 4), computer.Compute(5, 6))\n}\n",
+      "<workspace>/api/untouched/existing.go": "package untouched\n\nimport \"example.org/signature/api\"\n\nvar Existing api.Impl\n"
+    }
+  },
+  "interfaceClosure": {
+    "relatedDeclarations": 2,
+    "previewFiles": 3,
+    "beforeSources": {
+      "<workspace>/api/contract.go": "package api\n\ntype Computer interface {\n\tCompute(a, b int) int\n}\n",
+      "<workspace>/api/implementation.go": "package api\n\ntype Impl struct{}\n\nfunc (Impl) Compute(a, b int) int { return a*10 + b }\n",
+      "<caller>/main.go": "package main\n\nimport (\n\t\"example.org/signature/api\"\n\t\"fmt\"\n)\n\nvar trace []int\n\nfunc mark(n int) int { trace = append(trace, n); return n }\n\nfunc main() {\n\tvalue := func(__openGolandSignature163_callee func(int, int) int, __openGolandSignature163_arg0 int, __openGolandSignature163_arg1 int) int {\n\t\t__openGolandSignature163_result0 := __openGolandSignature163_callee(__openGolandSignature163_arg1, __openGolandSignature163_arg0)\n\t\t_ = __openGolandSignature163_result0\n\t\treturn __openGolandSignature163_result0\n\t}(api.Target, mark(1), mark(2))\n\tfn := func(__openGolandSignature199_callee func(int, int) int) func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\treturn func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\t\t__openGolandSignature199_result0 := __openGolandSignature199_callee(__openGolandSignature199_arg1, __openGolandSignature199_arg0)\n\t\t\t_ = __openGolandSignature199_result0\n\t\t\treturn __openGolandSignature199_result0\n\t\t}\n\t}(api.Target)\n\tconvert := api.Convert\n\tfmt.Println(\"convert\", api.Convert(), convert())\n\tvar computer api.Computer = api.Impl{}\n\tfmt.Println(trace, value, fn(3, 4), computer.Compute(5, 6))\n}\n"
+    },
+    "afterSources": {
+      "<workspace>/api/contract.go": "package api\n\ntype Computer interface {\n\tCompute(b int, a int) int\n}\n",
+      "<workspace>/api/implementation.go": "package api\n\ntype Impl struct{}\n\nfunc (Impl) Compute(b int, a int) int { return a*10 + b }\n",
+      "<caller>/main.go": "package main\n\nimport (\n\t\"example.org/signature/api\"\n\t\"fmt\"\n)\n\nvar trace []int\n\nfunc mark(n int) int { trace = append(trace, n); return n }\n\nfunc main() {\n\tvalue := func(__openGolandSignature163_callee func(int, int) int, __openGolandSignature163_arg0 int, __openGolandSignature163_arg1 int) int {\n\t\t__openGolandSignature163_result0 := __openGolandSignature163_callee(__openGolandSignature163_arg1, __openGolandSignature163_arg0)\n\t\t_ = __openGolandSignature163_result0\n\t\treturn __openGolandSignature163_result0\n\t}(api.Target, mark(1), mark(2))\n\tfn := func(__openGolandSignature199_callee func(int, int) int) func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\treturn func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\t\t__openGolandSignature199_result0 := __openGolandSignature199_callee(__openGolandSignature199_arg1, __openGolandSignature199_arg0)\n\t\t\t_ = __openGolandSignature199_result0\n\t\t\treturn __openGolandSignature199_result0\n\t\t}\n\t}(api.Target)\n\tconvert := api.Convert\n\tfmt.Println(\"convert\", api.Convert(), convert())\n\tvar computer api.Computer = api.Impl{}\n\tfmt.Println(trace, value, fn(3, 4), computer.Compute(6, 5))\n}\n"
+    },
+    "run": {
+      "code": 0,
+      "stdout": "convert 1 1\n[1 2] 12 34 56\n",
+      "stderr": "",
+      "oneUndoExact": true,
+      "oneRedoExact": true
+    }
+  },
+  "combinedChange": {
+    "request": {
+      "oldName": "Convert",
+      "newName": "Converted",
+      "newParameter": {
+        "name": "scale",
+        "type": "int",
+        "callerDefault": "3"
+      },
+      "retainedResultConversion": "oldResult0 + 1",
+      "addedResult": {
+        "type": "error",
+        "default": "zero"
+      }
+    },
+    "beforeSources": {
+      "<workspace>/api/convert.go": "package api\n\nfunc Convert() int { return 1 }\n",
+      "<caller>/main.go": "package main\n\nimport (\n\t\"example.org/signature/api\"\n\t\"fmt\"\n)\n\nvar trace []int\n\nfunc mark(n int) int { trace = append(trace, n); return n }\n\nfunc main() {\n\tvalue := func(__openGolandSignature163_callee func(int, int) int, __openGolandSignature163_arg0 int, __openGolandSignature163_arg1 int) int {\n\t\t__openGolandSignature163_result0 := __openGolandSignature163_callee(__openGolandSignature163_arg1, __openGolandSignature163_arg0)\n\t\t_ = __openGolandSignature163_result0\n\t\treturn __openGolandSignature163_result0\n\t}(api.Target, mark(1), mark(2))\n\tfn := func(__openGolandSignature199_callee func(int, int) int) func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\treturn func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\t\t__openGolandSignature199_result0 := __openGolandSignature199_callee(__openGolandSignature199_arg1, __openGolandSignature199_arg0)\n\t\t\t_ = __openGolandSignature199_result0\n\t\t\treturn __openGolandSignature199_result0\n\t\t}\n\t}(api.Target)\n\tconvert := api.Convert\n\tfmt.Println(\"convert\", api.Convert(), convert())\n\tvar computer api.Computer = api.Impl{}\n\tfmt.Println(trace, value, fn(3, 4), computer.Compute(6, 5))\n}\n"
+    },
+    "afterSources": {
+      "<workspace>/api/convert.go": "package api\n\nfunc Converted(scale int) (int, error) {\n\t{\n\t\tvar openGolandReturn0_0 int\n\t\t_ = openGolandReturn0_0\n\t\topenGolandReturn0_0 = 1\n\t\tvar openGolandZero0_1 error\n\t\treturn openGolandReturn0_0 + 1, openGolandZero0_1\n\t}\n}\n",
+      "<caller>/main.go": "package main\n\nimport (\n\t\"example.org/signature/api\"\n\t\"fmt\"\n)\n\nvar trace []int\n\nfunc mark(n int) int { trace = append(trace, n); return n }\n\nfunc main() {\n\tvalue := func(__openGolandSignature163_callee func(int, int) int, __openGolandSignature163_arg0 int, __openGolandSignature163_arg1 int) int {\n\t\t__openGolandSignature163_result0 := __openGolandSignature163_callee(__openGolandSignature163_arg1, __openGolandSignature163_arg0)\n\t\t_ = __openGolandSignature163_result0\n\t\treturn __openGolandSignature163_result0\n\t}(api.Target, mark(1), mark(2))\n\tfn := func(__openGolandSignature199_callee func(int, int) int) func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\treturn func(__openGolandSignature199_arg0 int, __openGolandSignature199_arg1 int) int {\n\t\t\t__openGolandSignature199_result0 := __openGolandSignature199_callee(__openGolandSignature199_arg1, __openGolandSignature199_arg0)\n\t\t\t_ = __openGolandSignature199_result0\n\t\t\treturn __openGolandSignature199_result0\n\t\t}\n\t}(api.Target)\n\tconvert := func(__openGolandSignature1025_callee func(int) (int, error)) func() int {\n\t\treturn func() int {\n\t\t\tvar __openGolandSignature1025_default0 int = 3\n\t\t\t__openGolandSignature1025_result0, __openGolandSignature1025_result1 := __openGolandSignature1025_callee(__openGolandSignature1025_default0)\n\t\t\t_ = __openGolandSignature1025_result0\n\t\t\t_ = __openGolandSignature1025_result1\n\t\t\treturn __openGolandSignature1025_result0\n\t\t}\n\t}(api.Converted)\n\tfmt.Println(\"convert\", func(__openGolandSignature1061_callee func(int) (int, error)) int {\n\t\tvar __openGolandSignature1061_default0 int = 3\n\t\t__openGolandSignature1061_result0, __openGolandSignature1061_result1 := __openGolandSignature1061_callee(__openGolandSignature1061_default0)\n\t\t_ = __openGolandSignature1061_result0\n\t\t_ = __openGolandSignature1061_result1\n\t\treturn __openGolandSignature1061_result0\n\t}(api.Converted), convert())\n\tvar computer api.Computer = api.Impl{}\n\tfmt.Println(trace, value, fn(3, 4), computer.Compute(6, 5))\n}\n"
+    },
+    "run": {
+      "code": 0,
+      "stdout": "convert 2 2\n[1 2] 12 34 56\n",
+      "stderr": "",
+      "oneUndoExact": true,
+      "oneRedoExact": true,
+      "redoRun": {
+        "code": 0,
+        "stdout": "convert 2 2\n[1 2] 12 34 56\n",
+        "stderr": ""
+      }
+    },
+    "postRedoModuleChecks": {
+      "api": "go test ./... passed, api and untouched packages contain no tests",
+      "caller": "go test ./... passed; package contains no tests",
+      "programExecuted": true
+    }
+  },
+  "sdkNative": {
+    "file": "Go 1.24.3 src/runtime/proc.go",
+    "utf8Bytes": 214687,
+    "sha256Unchanged": "9cff4fca76c6778741947fbcf362530a5259b050cc7643838d6feeaa77df905a",
+    "finalCaret": "7376:1",
+    "observations": [
+      "Blue function name doInit1, blue built-in print, type and parameter inlay hints at the file end",
+      "Previous semantic-token size error was not displayed; error reporting remained As notification",
+      "Intermediate verbose trace retained one successful semanticTokens/range reply id 114, 652ms; data begins at line 0",
+      "Temporary trace restored to off before quitting"
+    ],
+    "notEstablished": [
+      "Every native wire range body was not retained",
+      "SDK editing/cancellation was not exercised; the SDK was read-only"
+    ]
+  },
+  "cleanup": {
+    "ownedAppAndChildrenPidsNoLongerAlive": [
+      73740,
+      74184,
+      74346,
+      84866,
+      84951,
+      85879,
+      87875,
+      87899,
+      87957
+    ],
+    "commercialReferenceInstallationsUnmodified": true
+  },
+  "releaseIssue": {
+    "observation": "Post-startup strict signature verification found two newly extracted LSP4IJ bundle files inside the app",
+    "paths": [
+      "Contents/plugins/lsp4ij/bundles/0.21.0/package.json",
+      "Contents/plugins/lsp4ij/bundles/0.21.0/syntaxes/disassembly.json"
+    ],
+    "resolution": "The assembler pre-materializes only the pinned public LSP4IJ resources in its staging app before calculating the artifact manifest and signing. No third-party JAR or signature policy was changed.",
+    "status": "resolved",
+    "runtimeResources": [
+      {
+        "plugin": "com.redhat.devtools.lsp4ij",
+        "version": "0.21.0",
+        "archive": "lib/lsp4ij-0.21.0.jar",
+        "resource": "textmate/package.json",
+        "path": "plugins/lsp4ij/bundles/0.21.0/package.json",
+        "sha256": "2a654090b48f8bcb9d1e4831a3b52d23ee9207624092b08fcb1fd73d95f92323"
+      },
+      {
+        "plugin": "com.redhat.devtools.lsp4ij",
+        "version": "0.21.0",
+        "archive": "lib/lsp4ij-0.21.0.jar",
+        "resource": "textmate/syntaxes/disassembly.json",
+        "path": "plugins/lsp4ij/bundles/0.21.0/syntaxes/disassembly.json",
+        "sha256": "2dae8bb50879164cc61c0b35fa0bfdd38523766e6150448271e0d6c65c2a79fe"
+      }
+    ],
+    "probeCases": [
+      {
+        "name": "actual_pinned_jar_exact_resources_and_idempotent_second_start",
+        "status": "pass"
+      },
+      {
+        "name": "wrong_version",
+        "status": "pass"
+      },
+      {
+        "name": "version_path_traversal",
+        "status": "pass"
+      },
+      {
+        "name": "missing_resource",
+        "status": "pass"
+      },
+      {
+        "name": "unexpected_resource_bytes",
+        "status": "pass"
+      },
+      {
+        "name": "oversized_resource",
+        "status": "pass"
+      },
+      {
+        "name": "selected_zip_symlink",
+        "status": "pass"
+      },
+      {
+        "name": "duplicate_selected_member",
+        "status": "pass"
+      },
+      {
+        "name": "duplicate_plugin_descriptor",
+        "status": "pass"
+      },
+      {
+        "name": "two_plugin_archives",
+        "status": "pass"
+      },
+      {
+        "name": "destination_parent_symlink",
+        "status": "pass"
+      },
+      {
+        "name": "destination_file_symlink",
+        "status": "pass"
+      },
+      {
+        "name": "existing_different_resource",
+        "status": "pass"
+      },
+      {
+        "name": "unselected_zip_path_cannot_escape_or_be_extracted",
+        "status": "pass"
+      }
+    ],
+    "strictSignatureVerification": {
+      "command": "codesign --verify --deep --strict build/product/open Goland.app",
+      "beforeNativeStartExitCode": 0,
+      "whileLspAndEngineActiveExitCode": 0,
+      "afterNativeQuitExitCode": 0,
+      "mode": "ad hoc; notarization is not established"
+    },
+    "postStartArtifactVerification": {
+      "checkedFiles": 32,
+      "changedFiles": [],
+      "extraBundleFiles": []
+    }
+  },
+  "sealedPackageBuild": {
+    "digest": "2960da4418ca4da403eb6b04d56889e38d3d89b5cf70272af2131c352274e961",
+    "inputs": 177,
+    "changedInputsFromTypedPlannerNativeBuild": [
+      "scripts/package-product.py"
+    ],
+    "goAndKotlinSourcesIdentical": true,
+    "kotlinTests": 182,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "verifyPluginStructure": true,
+    "appPid": 87875,
+    "goplsPid": 87899,
+    "enginePid": 87957,
+    "sdkEndCaret": "7376:1",
+    "signatureInspection": {
+      "name": "Converted",
+      "parameters": [
+        {
+          "name": "scale",
+          "type": "int"
+        }
+      ],
+      "results": [
+        "int",
+        "error"
+      ],
+      "functionValueUses": 2,
+      "dialogCancelled": true
+    },
+    "allOwnedPidsExited": true
+  }
+}

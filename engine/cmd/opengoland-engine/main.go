@@ -5,10 +5,18 @@ import (
 	"os"
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
+	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 	"github.com/shubolab/opengoland/engine/internal/rpc"
 )
 
 func main() {
+	if handled, err := signature.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		return
+	}
 	if len(os.Args) > 1 {
 		switch os.Args[1] {
 		case "--version", "version":

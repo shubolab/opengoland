@@ -17,6 +17,7 @@ import com.intellij.refactoring.rename.RenameHandler
 import com.redhat.devtools.lsp4ij.features.codeAction.CodeActionData
 import dev.openidea.goide.lang.GoLanguage
 import dev.openidea.goide.lang.GoTokens
+import dev.openidea.goide.refactor.signature.GoChangeSignatureService
 
 internal object GoIdentifiers {
     fun valid(value: String): Boolean {
@@ -80,18 +81,26 @@ class GoRefactorAction : DumbAwareAction() {
         val service = GoSemanticOperations.get(project)
         service.background("Go Refactor") { indicator ->
             val request = service.edits().captureRequest()
-            val actions = service.actions(context, "refactor", indicator).map(::Choice)
+            val actions = listOf(Choice(null)) + service.actions(context, "refactor", indicator).filter { data ->
+                val command = data.codeAction().let { if (it.isLeft) it.left else it.right.command }
+                command?.command != "gopls.change_signature"
+            }.map(::Choice)
             service.later {
                 if (actions.isEmpty()) Messages.showInfoMessage(project, "gopls has no refactoring for this selection.", "Go Refactor")
                 else JBPopupFactory.getInstance().createPopupChooserBuilder(actions).setTitle("Go Refactor")
-                    .setItemChosenCallback { choice -> service.background(choice.toString()) { progress ->
-                        context.checkCurrent()
-                        service.applyAction(choice.data, choice.toString(), true, request, progress)
-                    } }.createPopup().showInBestPositionFor(editor)
+                    .setItemChosenCallback { choice ->
+                        if (choice.data == null) {
+                            context.checkCurrent()
+                            project.getService(GoChangeSignatureService::class.java).invoke(file, editor)
+                        } else service.background(choice.toString()) { progress ->
+                            context.checkCurrent()
+                            service.applyAction(choice.data, choice.toString(), true, request, progress)
+                        }
+                    }.createPopup().showInBestPositionFor(editor)
             }
         }
     }
-    private class Choice(val data: CodeActionData) {
-        override fun toString(): String = if (data.codeAction().isRight) data.codeAction().right.title else data.codeAction().left.title
+    private class Choice(val data: CodeActionData?) {
+        override fun toString(): String = data?.let { if (it.codeAction().isRight) it.codeAction().right.title else it.codeAction().left.title } ?: "Change Signature…"
     }
 }

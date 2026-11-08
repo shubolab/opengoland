@@ -2,11 +2,14 @@
 """Assemble our IDE from the pinned OSS platform and our prepared plugins."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
+from pathlib import PurePosixPath
 import plistlib
 import re
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -17,6 +20,14 @@ from build_inputs import verify as verify_build_inputs
 ROOT = Path(__file__).resolve().parent.parent
 SDK_ROOT = ROOT / ".tools/platform/idea-2026.1.4"
 REQUIRED_PLUGINS = {"dev.openidea.go", "com.redhat.devtools.lsp4ij"}
+LSP4IJ_VERSION = "0.21.0"
+# DisassemblyTextMateBundleProvider in this pinned OSS release copies these
+# resources into its plugin directory on first use. Materialize their exact
+# shipped bytes before sealing the app, rather than letting startup mutate it.
+LSP4IJ_RUNTIME_RESOURCES = {
+    "package.json": "2a654090b48f8bcb9d1e4831a3b52d23ee9207624092b08fcb1fd73d95f92323",
+    "syntaxes/disassembly.json": "2dae8bb50879164cc61c0b35fa0bfdd38523766e6150448271e0d6c65c2a79fe",
+}
 
 
 def plugin_id(directory: Path):
@@ -28,6 +39,70 @@ def plugin_id(directory: Path):
                 if identifier:
                     return identifier
     return None
+
+
+def prepare_lsp4ij_runtime_resources(directory: Path) -> list:
+    """Preload only the pinned provider's two resources inside our staging app."""
+    if directory.is_symlink() or not directory.is_dir():
+        raise ValueError("The staged LSP4IJ plugin must be a regular directory")
+    directory = directory.resolve()
+    candidates = []
+    for archive in sorted((directory / "lib").glob("*.jar")):
+        with zipfile.ZipFile(archive) as bundle:
+            descriptors = [item for item in bundle.infolist() if item.filename == "META-INF/plugin.xml"]
+            if not descriptors:
+                continue
+            if len(descriptors) != 1:
+                raise ValueError(f"Duplicate plugin descriptors in {archive.name}")
+            descriptor = ET.fromstring(bundle.read(descriptors[0]))
+            if descriptor.findtext("id") == "com.redhat.devtools.lsp4ij":
+                if descriptor.findtext("version") != LSP4IJ_VERSION:
+                    raise ValueError("The LSP4IJ runtime resource pin must match the prepared plugin version")
+                candidates.append(archive)
+    if len(candidates) != 1:
+        raise ValueError("Expected exactly one pinned LSP4IJ plugin descriptor archive")
+
+    archive = candidates[0]
+    resources = []
+    with zipfile.ZipFile(archive) as bundle:
+        for relative, expected_digest in LSP4IJ_RUNTIME_RESOURCES.items():
+            path = PurePosixPath(relative)
+            if path.is_absolute() or any(part in (".", "..") for part in path.parts) or "\\" in relative:
+                raise ValueError("Invalid pinned LSP4IJ runtime resource path")
+            member = "textmate/" + relative
+            entries = [item for item in bundle.infolist() if item.filename == member]
+            if len(entries) != 1:
+                raise ValueError(f"Expected one pinned LSP4IJ resource: {member}")
+            entry = entries[0]
+            mode = entry.external_attr >> 16
+            if entry.is_dir() or (stat.S_IFMT(mode) not in (0, stat.S_IFREG)) or entry.file_size > 65536:
+                raise ValueError(f"Invalid LSP4IJ runtime resource entry: {member}")
+            data = bundle.read(entry)
+            digest = hashlib.sha256(data).hexdigest()
+            if digest != expected_digest:
+                raise ValueError(f"The pinned LSP4IJ runtime resource changed: {member}")
+
+            target = directory / "bundles" / LSP4IJ_VERSION / path
+            current = directory
+            for component in target.relative_to(directory).parts:
+                current = current / component
+                if current.is_symlink():
+                    raise ValueError(f"Symbolic link in staged LSP4IJ bundle path: {current}")
+            if not target.resolve().is_relative_to(directory):
+                raise ValueError("The staged LSP4IJ bundle path escapes its plugin")
+            target.parent.mkdir(parents=True, exist_ok=True)
+            if target.exists():
+                if not target.is_file() or target.read_bytes() != data:
+                    raise ValueError(f"Unexpected existing LSP4IJ runtime resource: {relative}")
+            else:
+                with target.open("xb") as output:
+                    output.write(data)
+            resources.append({
+                "plugin": "com.redhat.devtools.lsp4ij", "version": LSP4IJ_VERSION,
+                "archive": archive.relative_to(directory).as_posix(),
+                "resource": member, "path": target.relative_to(directory).as_posix(), "sha256": digest,
+            })
+    return resources
 
 
 def brand_resources(contents: Path) -> list:
@@ -182,13 +257,14 @@ def assemble(sdk: Path, plugins: Path, output: Path):
                 raise ValueError(f"Plugin directory collides with platform bundle: {identifier}")
             subprocess.run(["ditto", str(directory), str(destination)], check=True)
 
+        lsp4ij = selected["com.redhat.devtools.lsp4ij"]
+        runtime_resources = prepare_lsp4ij_runtime_resources(contents / "plugins" / lsp4ij.name)
         branding = brand_resources(contents)
         verify_build_inputs(build_inputs)
         artifacts = {}
         for directory in selected.values():
             copied = contents / "plugins" / directory.name
             for artifact in sorted(path for path in copied.rglob("*") if path.is_file()):
-                import hashlib
                 artifacts[artifact.relative_to(contents).as_posix()] = hashlib.sha256(artifact.read_bytes()).hexdigest()
         manifest = {
             "name": "open Goland", "version": "0.1.0-SNAPSHOT", "platform": pin,
@@ -196,6 +272,7 @@ def assemble(sdk: Path, plugins: Path, output: Path):
             "pluginLoading": {"property": "plugin.path", "directories": [f"Contents/plugins/{directory.name}" for directory in selected.values()]},
             "buildInputs": build_inputs,
             "pluginArtifactSha256": artifacts,
+            "runtimePluginResources": [{**entry, "path": f"plugins/{lsp4ij.name}/{entry['path']}"} for entry in runtime_resources],
         }
         (contents / "Resources/openidea-product.json").write_text(json.dumps(manifest, indent=2) + "\n")
         subprocess.run(["codesign", "--force", "--sign", "-", "--preserve-metadata=entitlements", str(app)], check=True)

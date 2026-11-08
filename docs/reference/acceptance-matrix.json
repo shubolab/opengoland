@@ -110,7 +110,11 @@
       "reference": "Go/vgo/GoTemplate/GoBuild/GoPlusBuild parser and file-type declarations",
       "probe": "Open valid/incomplete files and verify highlighting, folding, brace navigation, errors and no editor stalls",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/large-file-semantic-tokens.md",
+        "observation": "Real gopls aggregate tests passed for Unicode/CRLF 408904-byte and long-line fixtures; native 214687-byte SDK runtime/proc.go shows semantic highlighting and inlay hints through line 7376 without the earlier size-error notification. Other syntax/template/build-constraint and native cancellation scopes remain unverified."
+      }
     },
     {
       "id": "LANG-02",
@@ -180,7 +184,12 @@
       "reference": "Go refactoring support; exact behavior requires runtime observation",
       "probe": "Add/reorder parameter and return value across packages/interfaces; compile and test after applying; undo",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/change-signature-implementation.md",
+        "native_record": "../verification/change-signature-native.json",
+        "observation": "Typed Go planner and native tables/diff; actual unsaved-workspace cross-module reorder, function-value migration, stale-preview rejection, three-file interface change and combined name/parameter/result conversion passed with single-command Undo/Redo. Full multiple-build-context migration, implementation scope selection, semantic cell editors and remaining advanced scopes are open. Commercial reference runtime remains unverified."
+      }
     },
     {
       "id": "LANG-08",

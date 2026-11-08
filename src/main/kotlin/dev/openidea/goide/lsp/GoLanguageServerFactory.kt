@@ -3,6 +3,7 @@ package dev.openidea.goide.lsp
 import com.intellij.openapi.project.Project
 import com.intellij.psi.PsiFile
 import com.redhat.devtools.lsp4ij.LanguageServerFactory
+import com.redhat.devtools.lsp4ij.ServerStatus
 import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
 import com.redhat.devtools.lsp4ij.client.features.LSPRenameFeature
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
@@ -10,6 +11,10 @@ import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
 import dev.openidea.goide.lang.GoLanguage
 import org.eclipse.lsp4j.InitializeParams
+import org.eclipse.lsp4j.GeneralClientCapabilities
+import org.eclipse.lsp4j.jsonrpc.Launcher
+import org.eclipse.lsp4j.services.LanguageServer
+import java.util.concurrent.atomic.AtomicReference
 
 class GoLanguageServerFactory : LanguageServerFactory {
     override fun createLanguageClient(project: Project) = GoLanguageClient(project)
@@ -18,6 +23,7 @@ class GoLanguageServerFactory : LanguageServerFactory {
         GoTrackedConnectionProvider(GoToolchain.command(project, "gopls", listOf("serve")), GoDocumentSync.get(project))
 
     override fun createClientFeatures(): LSPClientFeatures = object : LSPClientFeatures() {
+        private val semanticServer = AtomicReference<GoSemanticTokensServer?>()
         init {
             // Standard Rename is supplied by our versioned preview/undo handler.
             // Keep the distinct file-operation capabilities used by project-tree renames.
@@ -30,8 +36,21 @@ class GoLanguageServerFactory : LanguageServerFactory {
         override fun getBlockCommentPrefix(file: PsiFile) = "/*"
         override fun getBlockCommentSuffix(file: PsiFile) = "*/"
         override fun keepServerAlive() = true
+        override fun <S : LanguageServer> createLauncherBuilder(): Launcher.Builder<S> =
+            GoSemanticTokensLauncherBuilder(this) { semanticServer.getAndSet(it)?.close() }
+        override fun handleServerStatusChanged(status: ServerStatus) {
+            if (status == ServerStatus.stopping || status == ServerStatus.stopped) semanticServer.getAndSet(null)?.close()
+            super.handleServerStatusChanged(status)
+        }
+        override fun dispose() {
+            semanticServer.getAndSet(null)?.close()
+            super.dispose()
+        }
         override fun initializeParams(params: InitializeParams) {
             super.initializeParams(params)
+            // The document mirror, native editor and chunk boundaries all use UTF-16.
+            val general = params.capabilities.general ?: GeneralClientCapabilities().also { params.capabilities.general = it }
+            general.positionEncodings = listOf("utf-16")
             val settings = GoProjectSettings.get(project)
             val environment = GoToolchain.parseEnvironment(settings.environment).toMutableMap()
             if (settings.goos.isNotEmpty()) environment["GOOS"] = settings.goos

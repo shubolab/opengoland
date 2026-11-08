@@ -32,7 +32,7 @@ engine:
 
 ```sh
 ./scripts/package-product.sh
-open "build/product/open Goland.app" --args "$PWD/fixtures/go-workspace"
+./scripts/launch-product.sh "$PWD/fixtures/go-workspace"
 ```
 
 The packaged product uses separate configuration, cache, plugin, and log paths
@@ -103,15 +103,24 @@ interaction remains open. A later packaged native check also verified local
 Variables recovery, Unicode Watch editing, field modification and stepping;
 see [native debug recovery](docs/verification/native-debug-recovery.md) for exact
 build evidence and the remaining immediate-value-refresh, entry-frame value-edit,
-and paused-Stop limitations. The final `3331c4e` package passed 154 Kotlin tests
-and a native wire/heartbeat check for removing a file's last breakpoint while
-another file retains one. Large Go source files can still exceed gopls's full
-semantic-token limit; that highlighting failure remains open.
+and paused-Stop limitations. The `3331c4e` package passed a native wire/heartbeat
+check for removing a file's last breakpoint while another file retains one.
+The newer semantic-token bridge partitions large Go files into bounded requests;
+real gopls integration and native SDK `runtime/proc.go` display checks have passed.
+See the [large-file evidence](docs/verification/large-file-semantic-tokens.md)
+for the exact snapshots and remaining native cancellation checks.
 
 Code > Optimize Imports uses gopls through the standard native action. Standard
 Rename opens a cross-file Diff preview; approved edits use a single global
-Undo/Redo command. Refactor > Go Refactor offers gopls refactorings for the
-selection. Workspace edits check actual document versions and unsaved changes,
+Undo/Redo command. Refactor > Change Signature provides native parameter/result
+tables and a typed Go engine planner for name, parameter, result, call and
+interface changes, including explicit defaults and migrations. It preserves
+evaluation order and previews the complete file/usage group before applying.
+Native cross-module, interface, added-parameter/result and Undo/Redo checks have
+passed; [implementation and boundaries](docs/verification/change-signature-implementation.md)
+describe conservative conflicts, UI gaps and build-context limitations.
+Refactor > Go Refactor also offers gopls refactorings for the selection.
+Workspace edits check actual document versions and unsaved changes,
 with a separate verified-disk baseline for closed files. Consult the
 [transaction boundaries](docs/verification/workspace-edit-architecture.md)
 for unsupported resource-edit cases and checks still awaiting native evidence.
@@ -141,6 +150,13 @@ workflow. Later snapshots have native coverage, profiling, inspections, immediat
 long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
+
+The current batch passed all 182 Kotlin tests with no skips, the complete Go
+race suite (137 tests including subtests), and Go vet. Native evidence includes
+an unsaved go.work adding an unopened external caller, stale-preview rejection,
+three-file interface migration, and combined name/parameter/result conversion.
+The [native records](docs/verification/change-signature-native.json) retain
+fixture sources, outputs and the actual build identities.
 
 The attach probe starts only its own temporary fixtures and adapters. It verifies
 local PID attach, external `dlv dap` PID attach, and headless multi-client DAP

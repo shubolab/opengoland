@@ -1,5 +1,7 @@
 # LANG-07：open Goland 原生 Change Signature 设计与真实探针
 
+当前产品实现与验证进度见 [Change Signature 当前实现与验证边界](change-signature-implementation.md)。下文保留原始研究基线；其中“没有产品实现”描述该次研究时点，不代表当前仓库状态。
+
 状态：设计和工具验证；没有产品实现，没有修改 `src/`，没有 Gradle 或 GUI 操作。研究基线为 root 指定的 `840a0aa`。本地工具为 **gopls v0.21.1 / Go 1.24.3 darwin/arm64**；gopls 本身由 Go 1.25.8 构建。本文不能作为 LANG-07 已完成的验收证据。
 
 决定：**不把 `gopls.change_signature` 包装成原生入口。** 新增参数、改类型、结果变更、接口关系、函数值和求值副作用由新的 Go engine typed-AST planner 完整建模；Kotlin 提供原生对话框、整组预览和已有原子编辑/Undo。gopls 可继续提供普通语言能力，不作为该重构的写入后端。

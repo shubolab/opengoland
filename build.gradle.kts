@@ -120,5 +120,6 @@ tasks.withType<PrepareSandboxTask>().configureEach {
     }
     from(layout.projectDirectory.dir("engine/licenses")) {
         into(pluginName.map { "$it/license" })
+        filePermissions { unix("rw-r--r--") }
     }
 }

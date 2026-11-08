@@ -69,26 +69,30 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
     }
 
     fun apply(edit: WorkspaceEdit, title: String, preview: Boolean = false, request: GoEditRequestSnapshot? = null,
-              onApplied: ((GoEditRequestSnapshot) -> Unit)? = null): CompletableFuture<ApplyWorkspaceEditResponse> {
+              onApplied: ((GoEditRequestSnapshot) -> Unit)? = null,
+              validation: GoWorkspaceEditValidation? = null,
+              usages: List<GoEditUsage> = emptyList()): CompletableFuture<ApplyWorkspaceEditResponse> {
         val result = GoWorkspaceEditFuture()
         if (disposed || project.isDisposed) { result.complete(rejected("The project is closed")); return result }
         pending += result
         result.whenComplete { _, _ -> pending -= result }
         pooled {
             try {
-                val prepared = prepare(edit, request)
+                validation?.validateBackground()
+                val prepared = prepare(edit, request, validation?.additionalEditableRoots().orEmpty())
                 if (prepared.plan.steps.isEmpty()) {
                     onEdt(result) { onApplied?.invoke(request ?: captureRequest()); result.complete(ApplyWorkspaceEditResponse(true)) }
                     return@pooled
                 }
                 onEdt(result) {
-                    val approved = !preview && !prepared.plan.requiresConfirmation || GoWorkspaceEditPreviewDialog(project, title, prepared.plan.preview).showAndGet()
+                    val approved = !preview && !prepared.plan.requiresConfirmation || GoWorkspaceEditPreviewDialog(project, title, prepared.plan.preview, usages).showAndGet()
                     if (!approved) result.complete(rejected("Workspace edit was cancelled"))
                     else pooled {
                         try {
                             // User interaction is complete. Recheck physical files off the EDT.
                             validateDisk(prepared)
-                            onEdt(result) { commit(prepared, title, request, result, onApplied) }
+                            validation?.validateBackground()
+                            onEdt(result) { commit(prepared, title, request, result, onApplied, validation) }
                         } catch (error: Throwable) { result.complete(rejected(error)) }
                     }
                 }
@@ -107,10 +111,10 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
         val aliases: Set<GoCaseRenameAlias>,
     )
 
-    private fun prepare(edit: WorkspaceEdit, request: GoEditRequestSnapshot?): Prepared {
+    private fun prepare(edit: WorkspaceEdit, request: GoEditRequestSnapshot?, additionalRoots: Set<Path> = emptySet()): Prepared {
         checkOpen()
         val paths = GoWorkspaceEditPlan.paths(edit)
-        val access = editableRoots()
+        val access = editableRoots().let { (roots, excluded) -> (roots + additionalRoots) to excluded }
         fun editable(path: Path) = access.first.any(path::startsWith) && access.second.none(path::startsWith)
         paths.forEach { if (!editable(it)) throw GoWorkspaceEditRejected("Resource is outside the editable Go workspace: $it") }
         val cached = ReadAction.compute<Map<Path, DocumentBaseline>, RuntimeException> {
@@ -282,7 +286,7 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
     }
 
     private fun commit(prepared: Prepared, title: String, request: GoEditRequestSnapshot?, result: GoWorkspaceEditFuture,
-                       onApplied: ((GoEditRequestSnapshot) -> Unit)?) {
+                       onApplied: ((GoEditRequestSnapshot) -> Unit)?, validation: GoWorkspaceEditValidation?) {
         if (!result.beginCommit()) return
         try {
             val ownedChanges = linkedMapOf<Path, Long>()
@@ -290,6 +294,7 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
             WriteCommandAction.writeCommandAction(project).withName(title).withGroupId(UUID.randomUUID().toString())
                 .withGlobalUndo().withUndoConfirmationPolicy(UndoConfirmationPolicy.DO_NOT_REQUEST_CONFIRMATION).run<RuntimeException> {
                     validateDocuments(prepared, request)
+                    validation?.validateDocuments()
                     prepared.files.forEach { (path, baseline) ->
                         if (!baseline.file.isValid || baseline.file.modificationStamp != baseline.stamp)
                             throw GoWorkspaceEditRejected("VFS resource changed before commit: $path")

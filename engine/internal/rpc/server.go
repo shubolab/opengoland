@@ -9,6 +9,7 @@ import (
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
 	"github.com/shubolab/opengoland/engine/internal/protocol"
+	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 )
 
 type request struct {
@@ -24,20 +25,27 @@ type rpcError struct {
 }
 
 type Server struct {
-	writer  *protocol.Writer
-	mu      sync.Mutex
-	engine  *engine.Manager
-	ctx     context.Context
-	cancel  context.CancelFunc
-	done    chan struct{}
-	once    sync.Once
-	wg      sync.WaitGroup
-	closing bool
+	writer                     *protocol.Writer
+	mu                         sync.Mutex
+	engine                     *engine.Manager
+	ctx                        context.Context
+	cancel                     context.CancelFunc
+	done                       chan struct{}
+	once                       sync.Once
+	wg                         sync.WaitGroup
+	closing                    bool
+	signatureRoot              string
+	signatureGo                string
+	signatureOps               map[string]*signatureOperation
+	signatureCancelled         map[string]bool
+	signatureCancellationOrder []string
 }
+
+type signatureOperation struct{ cancel context.CancelFunc }
 
 func New(output io.Writer) *Server {
 	ctx, cancel := context.WithCancel(context.Background())
-	return &Server{writer: protocol.NewWriter(output), ctx: ctx, cancel: cancel, done: make(chan struct{})}
+	return &Server{writer: protocol.NewWriter(output), ctx: ctx, cancel: cancel, done: make(chan struct{}), signatureOps: make(map[string]*signatureOperation), signatureCancelled: make(map[string]bool)}
 }
 
 func (s *Server) notify(method string, params any) {
@@ -154,6 +162,10 @@ func (s *Server) handle(req request) {
 		s.stop()
 		return
 	}
+	if req.Method == "refactor/cancel" {
+		s.cancelSignature(req)
+		return
+	}
 	if req.Method == "initialize" {
 		if len(req.ID) == 0 {
 			return
@@ -175,6 +187,8 @@ func (s *Server) handle(req request) {
 		m, err := engine.New(params.Root, params.GoExecutable, s.notify)
 		if err == nil {
 			s.engine = m
+			s.signatureRoot = params.Root
+			s.signatureGo = params.GoExecutable
 		}
 		s.mu.Unlock()
 		if err != nil {
@@ -182,6 +196,7 @@ func (s *Server) handle(req request) {
 			return
 		}
 		info := m.Capabilities()
+		info["features"].(map[string]bool)["signatureRefactoring"] = true
 		info["project"] = m.Project(s.ctx)
 		info["tools"] = m.Tools(s.ctx)
 		_ = s.result(req.ID, info)
@@ -213,6 +228,28 @@ func (s *Server) handle(req request) {
 	var after func()
 	var err error
 	switch req.Method {
+	case "refactor/signature/inspect":
+		var params signature.Request
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params)
+			if err == nil {
+				defer finish()
+				result, err = signature.RunIsolated(ctx, "inspect", params)
+			}
+		}
+	case "refactor/signature/plan":
+		var params signature.PlanRequest
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request)
+			if err == nil {
+				defer finish()
+				result, err = signature.RunIsolated(ctx, "plan", params)
+			}
+		}
 	case "project/info":
 		result = m.Refresh(s.ctx)
 	case "tools/status":
@@ -251,7 +288,11 @@ func (s *Server) handle(req request) {
 	}
 	if err != nil {
 		if len(req.ID) > 0 {
-			s.failure(req.ID, -32602, err.Error())
+			if errors.Is(err, context.Canceled) {
+				s.failure(req.ID, -32800, err.Error())
+			} else {
+				s.failure(req.ID, -32602, err.Error())
+			}
 		}
 		return
 	}
@@ -267,5 +308,75 @@ func (s *Server) handle(req request) {
 	}
 	if after != nil {
 		after()
+	}
+}
+
+// Each analysis owns its cancellation context. Cancel never affects another
+// refactoring or the engine's build/test tasks, and shutdown cancels them all.
+func (s *Server) signatureContext(req *signature.Request) (context.Context, func(), error) {
+	if req.OperationID == "" || len(req.OperationID) > 200 {
+		return nil, nil, errors.New("signature request requires an operationId of at most 200 characters")
+	}
+	s.mu.Lock()
+	defer s.mu.Unlock()
+	if s.closing || s.ctx.Err() != nil {
+		return nil, nil, errors.New("engine is shutting down")
+	}
+	if s.signatureCancelled[req.OperationID] {
+		return nil, nil, context.Canceled
+	}
+	if s.signatureOps[req.OperationID] != nil {
+		return nil, nil, errors.New("refactor operationId is already active")
+	}
+	req.Root = s.signatureRoot
+	req.GoExecutable = s.signatureGo
+	ctx, cancel := context.WithCancel(s.ctx)
+	op := &signatureOperation{cancel: cancel}
+	s.signatureOps[req.OperationID] = op
+	return ctx, func() {
+		cancel()
+		s.mu.Lock()
+		if s.signatureOps[req.OperationID] == op {
+			delete(s.signatureOps, req.OperationID)
+		}
+		s.mu.Unlock()
+	}, nil
+}
+
+// Remember cancellation even if its earlier transport request has not registered
+// yet. Unique operation UUIDs plus bounded tombstones prevent a delayed start.
+// Caller holds s.mu.
+func (s *Server) rememberSignatureCancellation(id string) {
+	if s.signatureCancelled[id] {
+		return
+	}
+	s.signatureCancelled[id] = true
+	s.signatureCancellationOrder = append(s.signatureCancellationOrder, id)
+	if len(s.signatureCancellationOrder) > 512 {
+		old := s.signatureCancellationOrder[0]
+		s.signatureCancellationOrder = s.signatureCancellationOrder[1:]
+		delete(s.signatureCancelled, old)
+	}
+}
+
+func (s *Server) cancelSignature(req request) {
+	var params struct {
+		OperationID string `json:"operationId"`
+	}
+	if err := decode(req.Params, &params); err != nil || params.OperationID == "" || len(params.OperationID) > 200 {
+		if len(req.ID) > 0 {
+			s.failure(req.ID, -32602, "refactor/cancel requires an operationId of at most 200 characters")
+		}
+		return
+	}
+	s.mu.Lock()
+	op := s.signatureOps[params.OperationID]
+	s.rememberSignatureCancellation(params.OperationID)
+	s.mu.Unlock()
+	if op != nil {
+		op.cancel()
+	}
+	if len(req.ID) > 0 {
+		_ = s.result(req.ID, map[string]any{"operationId": params.OperationID, "cancelled": op != nil})
 	}
 }

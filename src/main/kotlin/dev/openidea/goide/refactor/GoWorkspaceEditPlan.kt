@@ -243,7 +243,7 @@ internal object GoWorkspaceEditPlan {
     }
 
     fun text(node: GoEditNode): String = node.text ?: Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
-        .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(node.bytes)).toString().replace("\r\n", "\n").replace('\r', '\n')
+        .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(node.bytes)).toString().removePrefix("\uFEFF").replace("\r\n", "\n").replace('\r', '\n')
     private fun display(node: GoEditNode): String = if (node.directory) "Directory" else runCatching { text(node) }.getOrDefault("Binary file (${node.bytes.size} bytes)")
     private fun requireEdit(condition: Boolean, message: String) { if (!condition) throw GoWorkspaceEditRejected(message) }
 }
