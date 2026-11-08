@@ -9,6 +9,7 @@ import (
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
 	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
+	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
 	"github.com/shubolab/opengoland/engine/internal/protocol"
@@ -203,6 +204,7 @@ func (s *Server) handle(req request) {
 		info["features"].(map[string]bool)["testGeneration"] = true
 		info["features"].(map[string]bool)["interfaceGeneration"] = true
 		info["features"].(map[string]bool)["structTags"] = true
+		info["features"].(map[string]bool)["structHelpers"] = true
 		info["project"] = m.Project(s.ctx)
 		info["tools"] = m.Tools(s.ctx)
 		_ = s.result(req.ID, info)
@@ -234,6 +236,28 @@ func (s *Server) handle(req request) {
 	var after func()
 	var err error
 	switch req.Method {
+	case "generate/structs/inspect":
+		var params structgen.Request
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request)
+			if err == nil {
+				defer finish()
+				result, err = structgen.RunIsolated(ctx, "inspect", params)
+			}
+		}
+	case "generate/structs/plan":
+		var params structgen.PlanRequest
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request.Request)
+			if err == nil {
+				defer finish()
+				result, err = structgen.RunIsolated(ctx, "plan", params)
+			}
+		}
 	case "generate/tags/inspect":
 		var params taggen.Request
 		if err = decode(req.Params, &params); err == nil {

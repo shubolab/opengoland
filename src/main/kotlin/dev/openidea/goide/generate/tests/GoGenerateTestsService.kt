@@ -71,7 +71,7 @@ class GoGenerateTestsService(private val project: Project) : Disposable {
             checkCurrent(snapshot)
             val prepared = environment(snapshot, indicator)
             val inspection = inspect(prepared, initialScope, initialPackageMode, indicator, snapshot.toolchain)
-            work.later {
+            work.later(indicator) {
                 checkCurrent(snapshot)
                 showEditor(snapshot.copy(wire = prepared), inspection)
             }
@@ -164,7 +164,7 @@ class GoGenerateTestsService(private val project: Project) : Disposable {
             val request = snapshot.wire.deepCopy().apply { selection.entrySet().forEach { (key, value) -> add(key, value.deepCopy()) } }
             val plan = operation("generate/tests/plan", request, indicator, snapshot.toolchain)
             if (GoSignatureCodec.conflicts(plan).isNotEmpty()) {
-                work.later { showConflicts(plan); showEditor(snapshot, initialInspection, savedDraft) }
+                work.later(indicator) { showConflicts(plan); showEditor(snapshot, initialInspection, savedDraft) }
                 return@background
             }
             require(plan.getAsJsonObject("validation")?.bool("typeChecked") == true) { "Generated tests did not pass Go type checking" }
@@ -175,7 +175,7 @@ class GoGenerateTestsService(private val project: Project) : Disposable {
             if (response.isApplied) {
                 val uri = GoTestGenerationCodec.firstEditedUri(plan)
                 val file = uri?.let { LocalFileSystem.getInstance().refreshAndFindFileByNioFile(Path.of(URI(it))) }
-                if (file != null) work.later { FileEditorManager.getInstance(project).openTextEditor(OpenFileDescriptor(project, file), true) }
+                if (file != null) work.later(indicator) { FileEditorManager.getInstance(project).openTextEditor(OpenFileDescriptor(project, file), true) }
             } else if (response.failureReason?.contains("cancel", ignoreCase = true) != true) {
                 error(response.failureReason ?: "The generated tests could not be applied")
             }

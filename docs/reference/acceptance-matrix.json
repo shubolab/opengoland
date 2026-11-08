@@ -36,8 +36,8 @@
       "reference_runtime": "unverified",
       "reconstruction": "unverified",
       "partial_evidence": {
-        "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "Snapshot867caa4 single global Undo/Redo restored a3-file Go rename exactly. General multicaret, dirty-close and complete editor behavior remain open."
+        "native_record": "../verification/struct-helpers-native.json",
+        "observation": "Two native tag value carets, Chinese/emoji paste and one-step Undo/Redo preserved other keys/options and generated methods. This does not prove all multicaret/caret/selection/dirty-close interaction or commercial parity."
       }
     },
     {
@@ -221,11 +221,14 @@
       "partial_evidence": {
         "implementation": "../verification/test-generation.md",
         "native_record": "../verification/test-generation-native.json",
-        "observation": "Typed tests, interface methods and struct tag edits have native editor/preview/global Undo/Redo evidence. One JSON/XML tag update fixture passed an actual uncached native Go test; generic/shared-field/identity/stale boundaries have automated coverage. Constructors/accessors/JSON-to-struct, readonly SDK entry, all build contexts, commercial runtime and full UI/multi-caret parity remain open.",
+        "observation": "Typed tests, interface methods, struct tags and constructors/accessors have native editor/preview/Undo evidence. A generic value constructor plus value getters/pointer setters passed an uncached native Go test; field-only default, existing method conflicts, selected remainder and tag carets with Unicode paste/Undo/Redo passed. JSON-to-struct, native alias/derived entry, readonly SDK entry, all build contexts, commercial runtime and exact/full UI parity remain open.",
         "interface_implementation": "../verification/interface-generation.md",
         "interface_native": "../verification/interface-generation-native.json",
         "struct_tags": "../verification/struct-tags.md",
-        "struct_tags_native": "../verification/struct-tags-native.json"
+        "struct_tags_native": "../verification/struct-tags-native.json",
+        "struct_helpers": "../verification/struct-helpers.md",
+        "struct_helpers_native": "../verification/struct-helpers-native.json",
+        "tag_carets": "../verification/struct-tag-carets.md"
       }
     },
     {
@@ -420,7 +423,9 @@
         "native_record": "../verification/lsp-document-sync.json",
         "observation": "Controlled native initialization edit loss reproduced, fixed with pinned public LSP4IJ source patch, and verified with real gopls. Broader position/pending-change, file deletion/Undo, stop/disconnect and other lifecycle races remain open. Queued deleted-file connects and existing cached native feature ownership have focused real-platform regressions; historical intermittent stat notifications remain unresolved.",
         "deletion_lifecycle": "../verification/lsp-deletion-lifecycle.json",
-        "unicode_persistence": "../verification/unicode-persistence-native.json"
+        "unicode_persistence": "../verification/unicode-persistence-native.json",
+        "generation_continuations": "../verification/struct-helpers-native.json",
+        "queued_ui_cancellation": "Actual platform EDT-queue regressions drop cancelled generation continuations; native task/modal cancellation remains unverified."
       }
     },
     {

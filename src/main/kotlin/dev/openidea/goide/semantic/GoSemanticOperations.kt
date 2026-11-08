@@ -73,9 +73,13 @@ class GoSemanticOperations(private val project: Project) : Disposable {
         }.queue()
     }
 
-    internal fun later(action: () -> Unit) {
+    internal fun later(action: () -> Unit) = later(null, action)
+
+    /** A completed analysis may still have a queued UI continuation when its task is cancelled. */
+    internal fun later(indicator: ProgressIndicator?, action: () -> Unit) {
+        if (indicator?.isCanceled == true) return
         ApplicationManager.getApplication().invokeLater({
-            if (!disposed && !project.isDisposed) WriteIntentReadAction.run {
+            if (!disposed && !project.isDisposed && indicator?.isCanceled != true) WriteIntentReadAction.run {
                 try { action() } catch (error: ProcessCanceledException) { throw error }
                 catch (error: RuntimeException) { Messages.showErrorDialog(project, error.message ?: "The Go action could not finish", "Go Refactoring") }
             }

@@ -32,8 +32,9 @@ contains authenticated descriptor/resource identities and public JetBrains
 help. The reference describes tag add/name-style intentions and **multiple
 carets** for value editing. This implementation's bulk dialog and Remove operation
 are independent interactions; they do not establish commercial runtime parity.
-Constructors, accessors, JSON-to-struct generation, full multi-caret equivalence,
-all build contexts and complete struct-helper coverage remain open.
+JSON-to-struct generation, exact commercial multi-caret behavior, all build
+contexts and complete struct-helper coverage remain open. Later constructor,
+accessor and caret work has its own [evidence](struct-helpers-native.json).
 
 The lexical Alt+Enter availability check is only an entry hint. Go AST/type
 analysis determines the actual nearest struct and fields. Read-only SDK source,
@@ -43,8 +44,15 @@ validation conservatively requires a type-correct active workspace.
 ## Verification
 
 The exact build, native observations and limitations are retained in
-[struct-tags-native.json](struct-tags-native.json). All 285 Kotlin tests, the complete Go race suite (184 test events including
+[struct-tags-native.json](struct-tags-native.json). The initial struct-tag cohort
+passed all 285 Kotlin tests, the complete Go race suite (184 test events including
 subtests; unchanged packages used the Go test cache), Go vet, plugin structure and
-app signature verification passed. Native Alt+Enter/Generate, Diff, unsaved
+app signature verification. Native Alt+Enter/Generate, Diff, unsaved
 application, global Undo/Redo and an uncached JSON/XML test passed. A same-bundle
 restart restored the project/run configuration; its rerun passed using Go cache.
+
+A later shared-snapshot migration reused the same guarded input/application path.
+Its [separate cohort](struct-helpers-native.json) passed 304 Kotlin tests and
+exercised the bulk tag dialog against dirty generic source without applying a
+new tag edit. It also verified the new native multi-caret entry. The older
+full JSON/XML tag-edit proof is retained under its original source digest.

@@ -6,6 +6,7 @@ import (
 
 	"github.com/shubolab/opengoland/engine/internal/engine"
 	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
+	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
@@ -13,6 +14,13 @@ import (
 )
 
 func main() {
+	if handled, err := structgen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		return
+	}
 	if handled, err := taggen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)

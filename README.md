@@ -145,6 +145,14 @@ transaction. This bulk editor is an independent workflow; GoLand's documented
 multi-caret tag-value editing remains a separate parity item. See the
 [struct tag evidence and boundaries](docs/verification/struct-tags.md).
 
+Code > Generate also offers native **Constructor**, **Getter**, **Setter**, and
+**Getter and Setter** dialogs for named structs, with field selection, editable
+names, generic types, pointer/value choices, typed validation and global Undo.
+Alt+Enter on a field defaults to that field. **Edit tag values for key** adds
+native value-start carets for simultaneous input. See the
+[struct helper evidence](docs/verification/struct-helpers.md) and
+[multi-caret boundaries](docs/verification/struct-tag-carets.md).
+
 Workspace edits check actual document versions and unsaved changes,
 with a separate verified-disk baseline for closed files. Consult the
 [transaction boundaries](docs/verification/workspace-edit-architecture.md)
@@ -185,9 +193,9 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current verification batch passed all 285 Kotlin tests with no skips,
-the complete Go race suite (184 test events including subtests), and Go vet.
-It includes typed test/interface/struct-tag generation, Unicode project-path persistence, dirty-source and two-file native
+The current verification batch passed all 304 Kotlin tests with no skips,
+the complete Go race suite (198 test events including subtests), and Go vet.
+It includes typed test/interface/struct-helper/tag generation, native tag carets, Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
 clickable interface inlays, immutable settings/connection ownership, and actual
 upstream LSP initialization/deletion/UTF-16 synchronization regressions. Native evidence includes

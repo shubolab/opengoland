@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	methodgen "github.com/shubolab/opengoland/engine/internal/generate/methods"
+	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
@@ -100,6 +101,12 @@ func TestSignatureCancellationIsolationDuplicatesAndShutdown(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
+	if handled, err := structgen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			os.Exit(1)
+		}
+		os.Exit(0)
+	}
 	if handled, err := taggen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			os.Exit(1)

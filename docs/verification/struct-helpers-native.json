@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": "Independent open Goland reconstruction; not commercial runtime or full parity",
+  "deliveryBuild": {
+    "sourceDigest": "315d0f0e5b74a7c44bb22b870d7298686e36cca565ca1da7bf89defc75f687f4",
+    "inputFiles": 293,
+    "application": "build/product/open Goland.app",
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "217f75c36e37a14c61703b92e464f292823b4eccd01fb8a9f2ed08123fa12b8e",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "809716adbf70d4152cb7f05d83b17c18362c5b7c7720a47da37d4cd74ce0a8f8",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "9255f54e9ba2f59a6234101f477d7966bf98652aa7478d77ced8f60bf7a8283d"
+    },
+    "kotlin": {
+      "tests": 304,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goRaceAndVet": {
+      "status": "pass",
+      "testEventsIncludingSubtests": 198,
+      "topLevelTests": 113,
+      "packagePasses": 8,
+      "cachedPackages": [
+        "github.com/shubolab/opengoland/engine/internal/engine",
+        "github.com/shubolab/opengoland/engine/internal/protocol",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature"
+      ],
+      "vet": "pass",
+      "vetLogBytes": 0
+    },
+    "packageCommand": "./scripts/package-product.sh",
+    "goCommand": "cd engine && go test -race -json ./... && go vet ./...",
+    "buildInputVerification": "pass",
+    "codeSignatureAfterNativeUse": "pass",
+    "pluginStructureVerification": "pass",
+    "pluginArtifactHashesAfterNativeUse": "all match the package manifest"
+  },
+  "fixture": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-struct-helpers-hhawreo6/结构 辅助 😀",
+    "source": "/Users/wangshubo/develop/openidea-go/.tools/native-struct-helpers-hhawreo6/结构 辅助 😀/profile.go",
+    "tests": "/Users/wangshubo/develop/openidea-go/.tools/native-struct-helpers-hhawreo6/结构 辅助 😀/profile_test.go",
+    "initialSource": "package helpers\n\n// 原始 中文😀\ntype Profile[T ~string] struct {\n    name T `json:\"name,omitempty\" xml:\"name\"`\n    Count int `json:\"count,string\" xml:\"count\"`\n}\n",
+    "diskBeforeConstructorApply": "package helpers\n\n// 原始 中文😀\ntype Profile[T ~string] struct {\n    name T `json:\"name,omitempty\" xml:\"name\"`\n    Count int `json:\"count,string\" xml:\"count\"`\n}\n",
+    "diskAfterConstructorUndoRedo": "package helpers\n\n// 原始 中文😀\ntype Profile[T ~string] struct {\n    name T `json:\"name,omitempty\" xml:\"name\"`\n    Count int `json:\"count,string\" xml:\"count\"`\n}\n",
+    "diskAfterAllGenerated": "package helpers\n\n// 原始 中文😀\ntype Profile[T ~string] struct {\n    name T `json:\"name,omitempty\" xml:\"name\"`\n    Count int `json:\"count,string\" xml:\"count\"`\n}\n",
+    "savedGeneratedSource": "package helpers\n\n// 原始 中文😀 — 未保存\ntype Profile[T ~string] struct {\n\tname  T   `json:\"name,omitempty\" xml:\"name\"`\n\tCount int `json:\"count,string\" xml:\"count\"`\n}\n\n// NewProfile constructs a Profile using the selected fields.\nfunc NewProfile[T ~string](name T, count int) Profile[T] {\n\treturn Profile[T]{name: name, Count: count}\n}\n\n// GetName returns the name field.\nfunc (r Profile[T]) GetName() T {\n\treturn r.name\n}\n\n// SetName updates the name field.\nfunc (r *Profile[T]) SetName(name T) {\n\tr.name = name\n}\n\n// GetCount returns the Count field.\nfunc (r Profile[T]) GetCount() int {\n\treturn r.Count\n}\n\n// SetCount updates the Count field.\nfunc (r *Profile[T]) SetCount(count int) {\n\tr.Count = count\n}\n",
+    "testSource": "package helpers\n\nimport \"testing\"\n\nfunc TestGeneratedProfile(t *testing.T) {\n    profile := NewProfile(\"初始😀\", 2)\n    if profile.GetName() != \"初始😀\" || profile.GetCount() != 2 { t.Fatalf(\"constructor: %#v\", profile) }\n    profile.SetName(\"改后中文😀\")\n    profile.SetCount(7)\n    if profile.GetName() != \"改后中文😀\" || profile.GetCount() != 7 { t.Fatalf(\"setters did not write back: %#v\", profile) }\n    var reader interface { GetName() string; GetCount() int } = profile\n    if reader.GetName() != \"改后中文😀\" || reader.GetCount() != 7 { t.Fatal(\"value receiver method set failed\") }\n    t.Logf(\"name=%s count=%d value-method-set=pass\", profile.GetName(), profile.GetCount())\n}\n",
+    "fixtureVetComparison": {
+      "beforeGenerationExit": 1,
+      "beforeGenerationOutput": "# example.org/nativestructhelpers\n./profile.go:5:5: struct field name has json tag but is not exported",
+      "afterGenerationExit": 1,
+      "afterGenerationOutput": "# example.org/nativestructhelpers\n# [example.org/nativestructhelpers]\n./profile.go:5:2: struct field name has json tag but is not exported",
+      "samePreexistingDiagnostic": true,
+      "beforeMessages": [
+        "struct field name has json tag but is not exported"
+      ],
+      "afterMessages": [
+        "struct field name has json tag but is not exported"
+      ]
+    }
+  },
+  "native": {
+    "initialTrust": "Only the fresh owned project was trusted; parent folder trust was not enabled",
+    "constructor": {
+      "entry": "Cmd+N > Constructor",
+      "struct": "Profile[T ~string]",
+      "selectedFields": [
+        "name",
+        "Count"
+      ],
+      "name": "NewProfile",
+      "resultKind": "value",
+      "previewFiles": 1,
+      "applyUndoRedo": "pass; one Undo restores initial dirty text, one Redo restores constructor",
+      "diskUnchangedAfterUndoRedo": true
+    },
+    "currentFieldAccessors": {
+      "entry": "Alt+Enter on name field > Generate getter and setter",
+      "defaultSelectedFields": [
+        "name"
+      ],
+      "countSelected": false,
+      "getterKind": "value",
+      "setterKind": "pointer",
+      "methods": [
+        "GetName",
+        "SetName"
+      ],
+      "previewApplyUndoRedo": "pass; accessor Undo retains earlier constructor"
+    },
+    "remainingFieldAccessors": {
+      "entry": "Cmd+N > Getter and Setter",
+      "existingNameMethodsReported": true,
+      "previewDisabledBySelectedExistingMethods": true,
+      "deselectingNameEnabledPreview": true,
+      "selectedFields": [
+        "Count"
+      ],
+      "getterKind": "value",
+      "setterKind": "pointer",
+      "methods": [
+        "GetCount",
+        "SetCount"
+      ],
+      "previewAndApply": "pass"
+    },
+    "dirtyDocuments": {
+      "comment": "// 原始 中文😀 — 未保存",
+      "diskUnchangedUntilExplicitSave": true,
+      "explicitSave": "Cmd+S before adding the test file"
+    },
+    "migratedBulkTags": {
+      "entry": "Alt+Enter > Edit struct tags",
+      "struct": "Profile",
+      "privateNameInitiallyUnselected": true,
+      "countInitiallySelected": true,
+      "existingJsonXmlTagsPreservedInInspection": true,
+      "result": "cancelled without edits"
+    },
+    "tagCarets": {
+      "entry": "Alt+Enter on json tag > Edit tag values for json",
+      "nativeStatus": "2 carets",
+      "enteringOperationChangedSource": false,
+      "paste": "新😀",
+      "resultingValues": [
+        "新😀name,omitempty",
+        "新😀count,string"
+      ],
+      "xmlValuesUnchanged": [
+        "name",
+        "count"
+      ],
+      "oneStepUndoAndRedo": "pass; all generated methods and original dirty comment retained",
+      "finalState": "Undo input and Escape to one caret before explicit save"
+    },
+    "actualGoTest": {
+      "entry": "Ctrl+Shift+R on TestGeneratedProfile",
+      "command": "go test -json -run ^TestGeneratedProfile$ .",
+      "passedTests": 1,
+      "exitCode": 0,
+      "cached": false,
+      "elapsedPackageSeconds": 0.447,
+      "console": "name=改后中文😀 count=7 value-method-set=pass",
+      "verifies": [
+        "Generic value constructor initializes name and Count",
+        "Pointer setters mutate original value",
+        "Value getters implement the value interface method set"
+      ]
+    },
+    "diagnosticsBoundary": "Highlight counts changed during rapid edits/Undo. Exact LSP diagnostics were not captured; no full synchronization/diagnostic parity conclusion is made. The native fixture retains a confirmed pre-existing private JSON-tag Vet diagnostic."
+  },
+  "runtimeIdentity": {
+    "status": "pass",
+    "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+    "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+    "pid": 51627,
+    "name": "open Goland",
+    "bundleId": "dev.opengoland.ide",
+    "vendor": "OpenGoland",
+    "selector": "OpenIDEAGo2026.1",
+    "pluginPaths": [
+      "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+      "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+    ],
+    "loadedPlugins": {
+      "dev.openidea.go": "Go Workbench",
+      "com.redhat.devtools.lsp4ij": "LSP4IJ"
+    },
+    "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+    "platformArtifactChecks": [
+      {
+        "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+        "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+        "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+      }
+    ],
+    "limitations": [
+      "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+    ]
+  },
+  "automatedNewCoverage": {
+    "structHelpersHeavyNativeTransactions": 3,
+    "dialogSwing": 6,
+    "tagCaretsNativeEditor": 6,
+    "namedHeaderRanges": 2,
+    "queuedUiCancellation": 2
+  },
+  "cleanup": {
+    "applicationExitedNormally": true,
+    "capturedOwnedProcessIds": [
+      51627,
+      51655,
+      51682,
+      51683,
+      51697
+    ],
+    "capturedOwnedPidsRemaining": []
+  },
+  "limitations": [
+    "No installed commercial dialog/source generation was executed",
+    "Default naming and receiver selection are independent suggestions",
+    "Native coverage is generic value constructor plus both-accessor actions; additional modes/scopes have automated coverage",
+    "Native alias/derived direct entry, readonly SDK entry, all build contexts, incomplete candidate workspaces and JSON-to-struct remain open",
+    "Exact commercial caret selection/replacement, IME and full editor parity remain open",
+    "Native fixture Vet flags the same pre-existing unexported JSON-tag field before/after; repository Go vet passed separately",
+    "Full GoLand equivalence remains unverified"
+  ]
+}

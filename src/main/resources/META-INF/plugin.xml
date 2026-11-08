@@ -42,6 +42,26 @@
             <className>dev.openidea.goide.generate.tags.GoStructTagsIntention</className>
             <category>Go</category>
         </intentionAction>
+        <intentionAction>
+            <className>dev.openidea.goide.generate.tags.GoStructTagValuesIntention</className>
+            <category>Go</category>
+        </intentionAction>
+        <intentionAction>
+            <className>dev.openidea.goide.generate.structs.GoGenerateConstructorIntention</className>
+            <category>Go</category>
+        </intentionAction>
+        <intentionAction>
+            <className>dev.openidea.goide.generate.structs.GoGenerateGetterIntention</className>
+            <category>Go</category>
+        </intentionAction>
+        <intentionAction>
+            <className>dev.openidea.goide.generate.structs.GoGenerateSetterIntention</className>
+            <category>Go</category>
+        </intentionAction>
+        <intentionAction>
+            <className>dev.openidea.goide.generate.structs.GoGenerateGetterSetterIntention</className>
+            <category>Go</category>
+        </intentionAction>
         <codeInsight.declarativeInlayProvider language="OpenIDEAGo" providerId="opengoland.implement.interface" implementationClass="dev.openidea.goide.generate.methods.GoImplementInterfaceHints" group="OTHER_GROUP" isEnabledByDefault="true" bundle="messages.GoImplementInterfaceHintsBundle" nameKey="inlay.implement.interface.name" descriptionKey="inlay.implement.interface.description"/>
         <codeInsight.inlayActionHandler handlerId="opengoland.implement.interface.click" implementationClass="dev.openidea.goide.generate.methods.GoImplementInterfaceInlayAction"/>
         <renameHandler id="OpenGolandRenameHandler" implementation="dev.openidea.goide.semantic.GoRenameHandler" order="first, before LSPRenameHandler"/>
@@ -76,6 +96,18 @@
         <debugAdapterServer id="openidea.delve" name="Go (Delve)" factoryClass="dev.openidea.goide.debug.GoDebugAdapterFactory" icon="/icons/go.svg"/>
     </extensions>
     <actions>
+        <action id="OpenIDEA.Go.GenerateConstructor" class="dev.openidea.goide.generate.structs.GoGenerateConstructorAction" text="Constructor…" description="Preview a Go struct constructor">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+        <action id="OpenIDEA.Go.GenerateGetter" class="dev.openidea.goide.generate.structs.GoGenerateGetterAction" text="Getter…" description="Preview Go struct getters">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+        <action id="OpenIDEA.Go.GenerateSetter" class="dev.openidea.goide.generate.structs.GoGenerateSetterAction" text="Setter…" description="Preview Go struct setters">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
+        <action id="OpenIDEA.Go.GenerateGetterSetter" class="dev.openidea.goide.generate.structs.GoGenerateGetterSetterAction" text="Getter and Setter…" description="Preview Go struct getters and setters">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+        </action>
         <action id="OpenIDEA.Go.StructTags" class="dev.openidea.goide.generate.tags.GoStructTagsAction" text="Struct Tags…" description="Preview changes to Go struct field tags">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
         </action>
