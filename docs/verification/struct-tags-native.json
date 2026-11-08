@@ -1,0 +1,239 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": "Native reconstruction observations; not commercial runtime or complete GoLand equivalence",
+  "deliveryBuild": {
+    "sourceDigest": "c303db81572c51b230e034af503491ce870f720b381c6b46baaa0289460d606e",
+    "inputFiles": 267,
+    "application": "build/product/open Goland.app",
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "15ffffe7d239ef3759dbf3eae6377e55849f11b993ca1ad3aa9ae19c210d2f64",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "b6a4eecebab8893c91ab9b27eda8331af709b096b23fcf08bbe867447cfbe8b1",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "b1b4bdd3ecf4b7398feabe71251aba4aaa90ea21063c996bd4d0f30f149560b2"
+    },
+    "platformPatches": [
+      {
+        "marker": "META-INF/open-goland-platform-unicode.json",
+        "upstreamJarRelativePath": "Contents/lib/util-8.jar",
+        "patchedJarSha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+        "classSha256": {
+          "com/intellij/openapi/util/JDOMUtil$ElementInfo.class": "64e2c71492b3986105ab69a7bb0b3722dbaa57826a43ae97e4fb7759d3fd85e7",
+          "com/intellij/openapi/util/JDOMUtil$ElementOutputFilter.class": "97ff0a4899dbbaf7548ceca19f1bd7900e641e6a1dedc12fb517fde3e886a088",
+          "com/intellij/openapi/util/JDOMUtil$LoggerHolder.class": "da8780466c46cca1613756bd87c4d25906ad679bf042731fd3e13d3b40cbd08d",
+          "com/intellij/openapi/util/JDOMUtil$MergeAttribute.class": "6d233c9f4799dd88607d2cbe2cd41cd89517cc75b57048083cced9ce50b0e5aa",
+          "com/intellij/openapi/util/JDOMUtil$MyXMLOutputter.class": "71d7766cbe6ef9af61f82d197f8f5080ba04b06324f99846a26b44bfb84945d3",
+          "com/intellij/openapi/util/JDOMUtil.class": "6d678abec629b2ae55ab8e29d3efa7dd591622d00411b5464f19885d94e0baa3"
+        },
+        "compiler": "javac 25.0.3",
+        "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee",
+        "platformVersion": "2026.1.4",
+        "release": 21,
+        "sources": [
+          {
+            "patchedSha256": "3c6dd6ce4e103f9a466e144d1a9ac0a8e43d9089676eb63ce38241af4b8ecaed",
+            "path": "platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+            "sourceUrl": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+            "upstreamSha256": "b0289509b126f631e964d7bb03c5c1996f9a3536b27ef0134353417d898a438d"
+          }
+        ],
+        "upstreamCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+        "upstreamJarSha256": "ee053200e3d18d0a9b544dcc330c73669d56c3475729a58406cc36798ca2a22f"
+      }
+    ],
+    "kotlin": {
+      "tests": 285,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goRaceAndVet": {
+      "status": "pass",
+      "testEventsIncludingSubtests": 184,
+      "topLevelTests": 102,
+      "packagePasses": 7,
+      "cachedPackages": [
+        "github.com/shubolab/opengoland/engine/internal/engine",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "github.com/shubolab/opengoland/engine/internal/protocol",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature"
+      ],
+      "vet": "pass",
+      "vetLogBytes": 0
+    },
+    "packageCommand": "./scripts/package-product.sh",
+    "goCommand": "cd engine && go test -race -json ./... && go vet ./...",
+    "buildInputVerification": "pass",
+    "codeSignatureVerificationAfterNativeUse": "pass",
+    "pluginStructureVerification": "pass"
+  },
+  "fixture": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀",
+    "source": "/Users/wangshubo/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀/payload.go",
+    "tests": "/Users/wangshubo/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀/payload_test.go",
+    "diskBeforeApply": "package tags\n\n// 标签 中文😀\ntype Payload struct {\n    UserID string `json:\"legacy_id,omitempty\" xml:\"legacy_id,attr\" db:\"原始😀\"`\n    DisplayName string\n    Secret string `json:\"-\"`\n    private string\n}\n",
+    "diskImmediatelyAfterApply": "package tags\n\n// 标签 中文😀\ntype Payload struct {\n    UserID string `json:\"legacy_id,omitempty\" xml:\"legacy_id,attr\" db:\"原始😀\"`\n    DisplayName string\n    Secret string `json:\"-\"`\n    private string\n}\n",
+    "diskAfterUndoRedo": "package tags\n\n// 标签 中文😀\ntype Payload struct {\n    UserID string `json:\"legacy_id,omitempty\" xml:\"legacy_id,attr\" db:\"原始😀\"`\n    DisplayName string\n    Secret string `json:\"-\"`\n    private string\n}\n",
+    "diskAfterNativeTest": "package tags\n\n// 标签 中文😀 — 未保存\ntype Payload struct {\n\tUserID      string `json:\"user_id,omitempty\" xml:\"legacy_id,attr\" db:\"原始😀\"`\n\tDisplayName string `json:\"display_name\"`\n\tSecret      string `json:\"-\"`\n\tprivate     string\n}\n",
+    "testSource": "package tags\n\nimport (\n    \"encoding/json\"\n    \"encoding/xml\"\n    \"strings\"\n    \"testing\"\n)\n\nfunc TestPayloadTags(t *testing.T) {\n    value := Payload{UserID: \"用户😀\", DisplayName: \"中文\", Secret: \"hidden\"}\n    raw, err := json.Marshal(value)\n    if err != nil { t.Fatal(err) }\n    text := string(raw)\n    if !strings.Contains(text, `\"user_id\":\"用户😀\"`) || !strings.Contains(text, `\"display_name\":\"中文\"`) || strings.Contains(text, \"hidden\") { t.Fatalf(\"JSON: %s\", text) }\n    raw, err = xml.Marshal(value)\n    if err != nil { t.Fatal(err) }\n    if !strings.Contains(string(raw), `legacy_id=\"用户😀\"`) { t.Fatalf(\"XML attribute changed: %s\", raw) }\n    t.Logf(\"JSON=%s XML=%s\", text, raw)\n}\n",
+    "persistenceAfterFirstExit": {
+      "trusted-paths.xml": {
+        "containsExactEmojiPath": true,
+        "matchingEntries": [
+          {
+            "key": "$USER_HOME$/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀",
+            "value": "true"
+          }
+        ]
+      },
+      "recentProjects.xml": {
+        "containsExactEmojiPath": true,
+        "matchingEntries": [
+          {
+            "key": "$USER_HOME$/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀"
+          },
+          {
+            "name": "lastOpenedProject",
+            "value": "$USER_HOME$/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀"
+          }
+        ]
+      }
+    }
+  },
+  "native": {
+    "entrypoints": [
+      "Alt+Enter on UserID > Edit struct tags",
+      "Cmd+N standard Generate menu > Struct Tags"
+    ],
+    "dialog": {
+      "struct": "Payload",
+      "selectedFields": [
+        "UserID",
+        "DisplayName",
+        "Secret"
+      ],
+      "privateSelected": false,
+      "key": "json",
+      "mode": "update",
+      "style": "snake",
+      "replaceExistingOptions": false
+    },
+    "preview": {
+      "files": 1,
+      "beforeContainsUnsavedComment": true,
+      "afterPreservesXmlDbOptionsAndIgnore": true
+    },
+    "applyUndoRedo": {
+      "status": "pass",
+      "unsavedComment": "// 标签 中文😀 — 未保存",
+      "diskUnchangedAfterCompletedApplyAndUndoRedo": true,
+      "undo": "one Cmd+Z restores complete original field/tag text and retains the dirty comment",
+      "redo": "one Cmd+Shift+Z restores the entire generated edit"
+    },
+    "actualGoTest": {
+      "entry": "Ctrl+Shift+R on TestPayloadTags",
+      "command": "go test -json -run ^TestPayloadTags$ .",
+      "passedTests": 1,
+      "exitCode": 0,
+      "cached": false,
+      "console": "JSON={\"user_id\":\"用户😀\",\"display_name\":\"中文\"} XML=<Payload legacy_id=\"用户😀\"><DisplayName>中文</DisplayName><Secret>hidden</Secret></Payload>"
+    },
+    "restart": {
+      "launch": "scripts/launch-product.sh without a project argument",
+      "projectRestored": true,
+      "trustPromptRepeated": false,
+      "editor": "payload_test.go",
+      "caret": "10:21",
+      "runConfiguration": "TestPayloadTags in 标签 工程 😀",
+      "rerunPassedTests": 1,
+      "rerunExitCode": 0,
+      "rerunCached": true
+    }
+  },
+  "runtimeIdentityReports": [
+    {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 45326,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "platformArtifactChecks": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+        }
+      ],
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    },
+    {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 45724,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "platformArtifactChecks": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+        }
+      ],
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    }
+  ],
+  "cleanup": {
+    "bothApplicationsExitedNormally": true,
+    "capturedOwnedProcessesRemaining": [],
+    "capturedProcessIds": {
+      "struct-tags-owned.json": [
+        45326,
+        45350,
+        45388,
+        45389,
+        45425
+      ],
+      "struct-tags-restart-owned.json": [
+        45724,
+        45728,
+        45743,
+        45744
+      ]
+    }
+  },
+  "limitations": [
+    "Bulk dialog does not reproduce GoLand multi-caret value editing",
+    "Remove is an independent extension; no selected reference runtime proof",
+    "Constructors/accessors/JSON-to-struct and full struct-helper parity remain open",
+    "One native JSON/XML update fixture; broader combinations have automated coverage, not complete native/commercial parity",
+    "The restart rerun reused Go test result cache; first run was uncached"
+  ]
+}

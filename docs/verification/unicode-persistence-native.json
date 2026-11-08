@@ -1,0 +1,106 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": "Owned open Goland product only",
+  "deliveryBuild": {
+    "sourceDigest": "c303db81572c51b230e034af503491ce870f720b381c6b46baaa0289460d606e",
+    "inputFiles": 267,
+    "patch": {
+      "marker": "META-INF/open-goland-platform-unicode.json",
+      "upstreamJarRelativePath": "Contents/lib/util-8.jar",
+      "patchedJarSha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+      "classSha256": {
+        "com/intellij/openapi/util/JDOMUtil$ElementInfo.class": "64e2c71492b3986105ab69a7bb0b3722dbaa57826a43ae97e4fb7759d3fd85e7",
+        "com/intellij/openapi/util/JDOMUtil$ElementOutputFilter.class": "97ff0a4899dbbaf7548ceca19f1bd7900e641e6a1dedc12fb517fde3e886a088",
+        "com/intellij/openapi/util/JDOMUtil$LoggerHolder.class": "da8780466c46cca1613756bd87c4d25906ad679bf042731fd3e13d3b40cbd08d",
+        "com/intellij/openapi/util/JDOMUtil$MergeAttribute.class": "6d233c9f4799dd88607d2cbe2cd41cd89517cc75b57048083cced9ce50b0e5aa",
+        "com/intellij/openapi/util/JDOMUtil$MyXMLOutputter.class": "71d7766cbe6ef9af61f82d197f8f5080ba04b06324f99846a26b44bfb84945d3",
+        "com/intellij/openapi/util/JDOMUtil.class": "6d678abec629b2ae55ab8e29d3efa7dd591622d00411b5464f19885d94e0baa3"
+      },
+      "compiler": "javac 25.0.3",
+      "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee",
+      "platformVersion": "2026.1.4",
+      "release": 21,
+      "sources": [
+        {
+          "patchedSha256": "3c6dd6ce4e103f9a466e144d1a9ac0a8e43d9089676eb63ce38241af4b8ecaed",
+          "path": "platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+          "sourceUrl": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+          "upstreamSha256": "b0289509b126f631e964d7bb03c5c1996f9a3536b27ef0134353417d898a438d"
+        }
+      ],
+      "upstreamCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+      "upstreamJarSha256": "ee053200e3d18d0a9b544dcc330c73669d56c3475729a58406cc36798ca2a22f"
+    },
+    "kotlinTests": 285
+  },
+  "rootCause": {
+    "publicReleaseCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "chain": [
+      "TrustedPaths.State primitive map key",
+      "MapBinding.serializeKeyOrValue",
+      "JDOMUtil.removeControlChars",
+      "char-based Verifier.isXMLCharacter removes both surrogate units"
+    ],
+    "publicSource": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/util/src/com/intellij/openapi/util/JDOMUtil.java"
+  },
+  "before": {
+    "sameBundleNativeControl": "Exact previously trusted owned emoji fixture prompted again after a normal exit without any rebuild",
+    "savedTrustAndRecentKey": "Path was truncated before final 😀; frame title still preserved it",
+    "isolatedUnpatchedSdkProbe": "Actual pinned SDK public API reproduces lost supplementary emoji and supplementary letter in JDOMUtil and real TrustedPaths.State serialization"
+  },
+  "automated": {
+    "isolatedPatchedClassloaderTests": 3,
+    "status": "pass",
+    "covered": [
+      "Complete outer/nested class set and artifact provenance",
+      "Valid surrogate pairs and U+10FFFF retained",
+      "Illegal XML controls, FFFE/FFFF and unpaired surrogates still filtered",
+      "Real TrustedPaths.State XML roundtrip",
+      "Emoji path YES, truncated sibling explicitly NO, distinct untrusted emoji sibling UNSURE"
+    ],
+    "immutableSourceSdkJarSha256": "ee053200e3d18d0a9b544dcc330c73669d56c3475729a58406cc36798ca2a22f"
+  },
+  "native": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀",
+    "initialOpen": "Fresh owned fixture showed Trust Project; only that project was trusted, not its parent",
+    "afterNormalExit": {
+      "trusted-paths.xml": {
+        "containsExactEmojiPath": true,
+        "matchingEntries": [
+          {
+            "key": "$USER_HOME$/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀",
+            "value": "true"
+          }
+        ]
+      },
+      "recentProjects.xml": {
+        "containsExactEmojiPath": true,
+        "matchingEntries": [
+          {
+            "key": "$USER_HOME$/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀"
+          },
+          {
+            "name": "lastOpenedProject",
+            "value": "$USER_HOME$/develop/openidea-go/.tools/native-struct-tags-r_3eirmw/标签 工程 😀"
+          }
+        ]
+      }
+    },
+    "sameBundleNoArgumentRestart": {
+      "projectAndEditorsRestored": true,
+      "trustPromptRepeated": false,
+      "runConfigurationRestored": true,
+      "nativeRerunExitCode": 0,
+      "nativeRerunCached": true
+    },
+    "cleanup": "Both owned applications and every captured child exited; no remaining captured PIDs"
+  },
+  "boundaries": [
+    "No automatic trust grants or policy changes",
+    "Previously truncated entries are not guessed or migrated",
+    "Source SDK and commercial reference installs are not patched",
+    "Native evidence covers one fresh emoji project restart; full settings/layout and all platforms remain open",
+    "PIN verification describes pre-integration source probes; completed JUnit/native results are in this record"
+  ]
+}

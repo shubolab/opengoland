@@ -32,6 +32,20 @@ val platformPath = providers.gradleProperty("platformPath")
 val lspPatchSdk = platformPath
 
 val buildInputManifest = layout.buildDirectory.file("provenance/build-inputs.json")
+val platformUnicodeManifest = layout.buildDirectory.file("provenance/platform-unicode-patch.json")
+val preparePlatformUnicodePatch by tasks.registering(Exec::class) {
+    description = "Verify and build the product-only public platform Unicode persistence fix."
+    inputs.files("scripts/patch-platform-unicode.py", fileTree("product/patches") { include("platform-unicode*") })
+    outputs.file(platformUnicodeManifest)
+    // Verify cached class bytes even when a prior report exists.
+    outputs.upToDateWhen { false }
+    commandLine("python3", "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
+        "--output", platformUnicodeManifest.get().asFile.absolutePath)
+}
+tasks.test {
+    dependsOn(preparePlatformUnicodePatch)
+    systemProperty("openidea.platformUnicodePatchManifest", platformUnicodeManifest.get().asFile.absolutePath)
+}
 val captureBuildInputs by tasks.registering(Exec::class) {
     inputs.files(fileTree("src"), fileTree("engine") { include("**/*.go", "go.mod", "go.sum", "licenses/**") })
     inputs.files(fileTree("scripts") { include("*.py", "*.sh") })

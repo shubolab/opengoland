@@ -1,0 +1,515 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": {
+    "target": "Installed GoLand 2026.1.4 / GO-261.26222.72",
+    "inspection": "Authenticated ZIP inventory plus selected XML/HTML metadata parsing only.",
+    "excluded": [
+      "No proprietary implementation class reading, loading or decompilation.",
+      "No application launch, CUA, user configuration, license or project changes.",
+      "No archive extraction or copying resource bodies into implementation source."
+    ]
+  },
+  "referenceArtifact": {
+    "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar",
+    "sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0"
+  },
+  "resources": [
+    {
+      "logical_path": "META-INF/plugin.xml",
+      "bytes": 154398,
+      "sha256": "d44228e7f63f725c7c1996d4b1c555650b9b20a14294cc268a8023639337d19f",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_d4c4c25f90c0fbe071a2faf48f019405c1f7718926be4ff6e3fbbe57d8af8f26"
+    },
+    {
+      "logical_path": "liveTemplates/goTags.xml",
+      "bytes": 1373,
+      "sha256": "d9e8fe36f06f51c7c7d2482cda6eb6a23fdcffd6e0d624bfebb99b56f05ccc08",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_36848d4b765e05503b935e637bcee496549a197ab4a1cad033756ab1d149eff3",
+      "templates": [
+        {
+          "name": "xml",
+          "description": "`xml:\"\"`",
+          "description_key": null
+        },
+        {
+          "name": "json",
+          "description": "`json:\"\"`",
+          "description_key": null
+        }
+      ]
+    },
+    {
+      "logical_path": "intentionDescriptions/GoTagAddKeyIntention/description.html",
+      "bytes": 88,
+      "sha256": "f0fa56a8d01e1234e4cf4aad8f1491796e61c5a7b041ae7a1ca1bb3742a3a506",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_351b6e1e21f3a6fe22c71054fdfd285c38a6ac5bc3e373987cf566006e9e1ddc"
+    },
+    {
+      "logical_path": "intentionDescriptions/GoTagUpdateValueIntention/description.html",
+      "bytes": 83,
+      "sha256": "737d6908adb71b04f8638db243a55e75266734251d262bfd3cb361fafc5873cb",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_0516d7a08bb7fdf8774ccb14ebe7b24fc99eb8b4b7779073aacf800ad1f9adbd"
+    },
+    {
+      "logical_path": "intentionDescriptions/GoTagChangeNameStyleIntention/description.html",
+      "bytes": 76,
+      "sha256": "93631895891641ab771b7eccd97f8f98a798ff947d89251d1cf50205d81c3b2a",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_cc7867b093ee2c18bbc63113b43d9b0ca7dbc06038681d513babc9adac89cc71"
+    },
+    {
+      "logical_path": "intentionDescriptions/GoGenerateConstructorIntention/description.html",
+      "bytes": 300,
+      "sha256": "44e42b4bb0c88f3257042dd8ddb116c4d8ad617e4a75db7ffe9a4f2329ce0fc6",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_147490487f0807c40e80c31e0e98908a29f3ee39f7088f093b2d1594c13a69ce"
+    },
+    {
+      "logical_path": "intentionDescriptions/GoCreateFieldGetterIntention/description.html",
+      "bytes": 84,
+      "sha256": "d1d069ce0d5691f8065b49d0148f7448181adb334dadfcd5663f1ea8fcd31bf7",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_648c3fb9be4d3ae5dac10ab5cdba5dd72853ad227e55d7f5c5360fb0629011c3"
+    },
+    {
+      "logical_path": "intentionDescriptions/GoCreateFieldSetterIntention/description.html",
+      "bytes": 84,
+      "sha256": "eb6c77591a18fce404c832d24908d73ab76f90a240fca33e8779eecf6839ad9f",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_27ecfd25b2841b5978ab8dd5831df6930cc37d7a30fc7959af44bc02617eac2a"
+    },
+    {
+      "logical_path": "intentionDescriptions/GoCreateFieldGetterSetterIntention/description.html",
+      "bytes": 94,
+      "sha256": "8db34a7dd48b352c1d5dd3ef66d4bf88849bc1519b0d99603402190b71c52f29",
+      "matches_REA_inventory": true,
+      "occurrence_id": "occ_b59069383a7e22e8674c193cf2f064e8b14825923808eda362f2edb47cae805b"
+    }
+  ],
+  "observations": [
+    {
+      "authority": "shipped-artifact, static descriptor",
+      "module": "intellij.go.impl",
+      "group": {
+        "id": "GoGenerateForStruct",
+        "placement": {
+          "groupId": "GenerateGroup",
+          "anchor": "first"
+        }
+      },
+      "actions": [
+        {
+          "id": "GoGenerateConstructorAction",
+          "class": "com.goide.generate.forstruct.GoGenerateConstructorAction"
+        },
+        {
+          "id": "GoGenerateGetterSetterAction",
+          "class": "com.goide.generate.forstruct.GoGenerateGetterSetterAction"
+        },
+        {
+          "id": "GoGenerateGetterAction",
+          "class": "com.goide.generate.forstruct.GoGenerateGetterAction"
+        },
+        {
+          "id": "GoGenerateSetterAction",
+          "class": "com.goide.generate.forstruct.GoGenerateSetterAction"
+        },
+        {
+          "id": "GoGenerateTypeFromJsonAction",
+          "class": "com.goide.generate.GoGenerateTypeFromJsonAction"
+        },
+        {
+          "id": "GoGenerateMethodAction",
+          "class": "com.goide.generate.GoGenerateMethodAction"
+        },
+        {
+          "id": "GoGenerateStructFieldsFromJsonAction",
+          "class": "com.goide.generate.forstruct.GoGenerateStructFieldsFromJsonAction"
+        }
+      ],
+      "limitation": "These literal registrations establish integration candidates, not availability, exact runtime labels or successful generation."
+    },
+    {
+      "authority": "shipped-artifact, static intention registrations and user-visible descriptions",
+      "language": "go",
+      "intentions": [
+        {
+          "class": "com.goide.inspections.tag.GoTagAddKeyIntention",
+          "descriptionResource": "intentionDescriptions/GoTagAddKeyIntention/description.html",
+          "observation": "Describes adding a tag key using each field name across a struct."
+        },
+        {
+          "class": "com.goide.inspections.tag.GoTagUpdateValueIntention",
+          "descriptionResource": "intentionDescriptions/GoTagUpdateValueIntention/description.html",
+          "observation": "Describes placing a caret inside the same key's value in each struct field; this is a multi-caret editing entry, not proof of a bulk replacement planner."
+        },
+        {
+          "class": "com.goide.inspections.tag.GoTagChangeNameStyleIntention",
+          "descriptionResource": "intentionDescriptions/GoTagChangeNameStyleIntention/description.html",
+          "observation": "Describes changing field-name style inside struct tags."
+        }
+      ]
+    },
+    {
+      "authority": "shipped-artifact, static intention registrations and user-visible descriptions",
+      "language": "go",
+      "intentions": [
+        {
+          "class": "com.goide.intentions.generate.constructor.GoGenerateConstructorIntention",
+          "observation": "Describes a function constructing values of a struct type."
+        },
+        {
+          "class": "com.goide.intentions.GoCreateFieldGetterIntention",
+          "observation": "Describes a getter for the selected struct field."
+        },
+        {
+          "class": "com.goide.intentions.GoCreateFieldSetterIntention",
+          "observation": "Describes a setter for the selected struct field."
+        },
+        {
+          "class": "com.goide.intentions.GoCreateFieldGetterSetterIntention",
+          "observation": "Describes both accessors for the selected struct field."
+        }
+      ]
+    },
+    {
+      "authority": "shipped-artifact, selected user-visible live-template metadata",
+      "resource": "liveTemplates/goTags.xml",
+      "templateNames": [
+        "xml",
+        "json"
+      ],
+      "limitation": "Only this resource's two template names/descriptions were examined; this does not enumerate every available tag key."
+    },
+    {
+      "authority": "bounded negative static observation",
+      "query": "Literal action id/class attributes containing Stringer, GenerateString or ToString in META-INF/plugin.xml and its embedded module XML.",
+      "matches": 0,
+      "limitation": "Dynamic actions, implementation behavior, other descriptors and external generators are outside this search; absence of a dedicated Stringer workflow is not established."
+    }
+  ],
+  "publicDocumentation": [
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/using-the-generate-action.html",
+      "authority": "JetBrains public 2026.1 help",
+      "observations": [
+        "Code > Generate / Alt+Insert exposes Generate constructor; Select Fields chooses constructor inputs.",
+        "A selected struct field's Alt+Enter menu supports Generate getter and setter; separate getter/setter actions are documented."
+      ]
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/working-with-json.html",
+      "authority": "JetBrains public 2026.1 help",
+      "visibleLabels": [
+        "Add key to tags",
+        "Update key value in tags",
+        "Change field name style in tags",
+        "Type from JSON"
+      ],
+      "observations": [
+        "The first two tag actions are documented from a struct field using Alt+Enter; name-style editing is documented from a tag key.",
+        "The help also documents struct-tag key/value completion and JSON-to-struct field/tag generation."
+      ]
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/integration-with-go-tools.html",
+      "authority": "JetBrains public 2026.1 help",
+      "observations": [
+        "Documents go:generate with stringer as an example, invoked through Tools > Go Tools > Go Generate File or a gutter action."
+      ],
+      "limitation": "This external tool example does not prove an IDE-native struct Stringer field-selection generator."
+    }
+  ],
+  "inferences": [
+    "A high-value independent workflow is selecting a struct and fields, choosing one tag key, and previewing a safe add/update edit while preserving unrelated keys and comments.",
+    "The independent bulk-edit dialog should keep original tag options by default; replacing options must be an explicit user choice. This is our design choice, not an observed commercial default.",
+    "Constructor field selection is a separately documented next workflow; getter/setter naming, receiver defaults and collision policy require independent design or further reference evidence."
+  ],
+  "plannedIndependentEntryPoints": {
+    "generate": "Code > Generate > Struct Tags…",
+    "intention": "Alt+Enter > Edit struct tags…",
+    "relationshipToReference": "A single independent bulk-edit workflow, not a reproduction of GoLand's three distinct documented intentions.",
+    "removeMode": "Explicit independent extension; no separate Remove struct tags registration/label was established by this investigation."
+  },
+  "unknowns": [
+    "No installed commercial generation dialog or source mutation was executed or observed.",
+    "Exact GoLand tag-option preservation, malformed/duplicate tag handling, field selection, naming-style algorithms and default settings remain unverified.",
+    "GoLand Update key value multi-caret interaction is not equivalent evidence for our atomic bulk-edit dialog.",
+    "A separate Remove struct tags feature may exist dynamically or elsewhere; this limited negative inventory does not prove absence.",
+    "Dedicated native Stringer generation, generated formatting, receiver semantics and generic/build-variant behavior remain unverified.",
+    "Action display texts omitted from the literal descriptor were not recovered from implementation classes or other unselected bundles."
+  ],
+  "rea": {
+    "inspectionEvidenceId": "ev_1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3",
+    "inventoryEvidenceId": "ev_6e83a4534edd89427f4d3a3376a4298d405d86d086458de6bdecc6149fc82e8c",
+    "selectedOccurrenceEvidenceId": "ev_7142f9e56a540a2c11fc9bb1a689eeb712d18f33465120757a7d6f354cf87044",
+    "selectedOccurrenceEvidence": {
+      "evidence_id": "ev_7142f9e56a540a2c11fc9bb1a689eeb712d18f33465120757a7d6f354cf87044",
+      "subject": {
+        "name": "go-plugin.jar",
+        "digest": {
+          "sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0"
+        },
+        "local_path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar",
+        "format": "zip",
+        "architecture": null
+      },
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "analysis_profile": null,
+      "predicate_type": "rea.analysis-view",
+      "operation": "inspect_analysis_view",
+      "parameters": {
+        "parent_evidence_id": "ev_1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3",
+        "view": {
+          "kind": "inventory",
+          "collection": "occurrences",
+          "logical_paths": [
+            "META-INF/plugin.xml",
+            "liveTemplates/goTags.xml",
+            "intentionDescriptions/GoTagAddKeyIntention/description.html",
+            "intentionDescriptions/GoTagUpdateValueIntention/description.html",
+            "intentionDescriptions/GoTagChangeNameStyleIntention/description.html",
+            "intentionDescriptions/GoGenerateConstructorIntention/description.html",
+            "intentionDescriptions/GoCreateFieldGetterIntention/description.html",
+            "intentionDescriptions/GoCreateFieldSetterIntention/description.html",
+            "intentionDescriptions/GoCreateFieldGetterSetterIntention/description.html"
+          ],
+          "offset": 0,
+          "limit": 9
+        }
+      },
+      "raw_result": null,
+      "normalized_result": {
+        "kind": "inventory",
+        "view": {
+          "kind": "inventory",
+          "collection": "occurrences",
+          "logical_paths": [
+            "META-INF/plugin.xml",
+            "liveTemplates/goTags.xml",
+            "intentionDescriptions/GoTagAddKeyIntention/description.html",
+            "intentionDescriptions/GoTagUpdateValueIntention/description.html",
+            "intentionDescriptions/GoTagChangeNameStyleIntention/description.html",
+            "intentionDescriptions/GoGenerateConstructorIntention/description.html",
+            "intentionDescriptions/GoCreateFieldGetterIntention/description.html",
+            "intentionDescriptions/GoCreateFieldSetterIntention/description.html",
+            "intentionDescriptions/GoCreateFieldGetterSetterIntention/description.html"
+          ],
+          "offset": 0,
+          "limit": 9
+        },
+        "manifest": {
+          "manifest_id": "agm_689ef0a8e81b9f963c841ca6a3e7379acdaa5bc5f2d79d214dbe34106a8e22d3",
+          "root_artifact_id": "art_f61bb4ff9d8dd535f8ff0014263b5986c17ee05819fd45de571fe214677de5ed",
+          "root_sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0",
+          "root_format": "zip",
+          "graph_sha256": "9080c88729b7d761b46026df297eccc6dea8cba711e71c0a50275cd4f0d7ce55",
+          "node_count": 5650,
+          "occurrence_count": 5701,
+          "edge_count": 5700
+        },
+        "inventory_evidence_ids": [
+          "ev_6e83a4534edd89427f4d3a3376a4298d405d86d086458de6bdecc6149fc82e8c"
+        ],
+        "source_complete": true,
+        "items": [
+          {
+            "occurrence_id": "occ_d4c4c25f90c0fbe071a2faf48f019405c1f7718926be4ff6e3fbbe57d8af8f26",
+            "artifact_id": "art_0d71b43d074c33807cb9f2df091d1acc6032af54f36690a04f2b0dac99acf43a",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "META-INF/plugin.xml",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 154398,
+            "compressed_size": 154398,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_648c3fb9be4d3ae5dac10ab5cdba5dd72853ad227e55d7f5c5360fb0629011c3",
+            "artifact_id": "art_67c5f509d3ff22e42feb7fbed2eb910deda97c0c2146bb573a30b5e02d7d7254",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "intentionDescriptions/GoCreateFieldGetterIntention/description.html",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 84,
+            "compressed_size": 84,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_b59069383a7e22e8674c193cf2f064e8b14825923808eda362f2edb47cae805b",
+            "artifact_id": "art_531888a6a66e826243b40001f5a2b0546c7b1b7d193877e5c52482bbd6f1871c",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "intentionDescriptions/GoCreateFieldGetterSetterIntention/description.html",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 94,
+            "compressed_size": 94,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_27ecfd25b2841b5978ab8dd5831df6930cc37d7a30fc7959af44bc02617eac2a",
+            "artifact_id": "art_e10c199e46f581763db1e902fbe872b4c6ce00438ac1e73fc6a806b298d198e8",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "intentionDescriptions/GoCreateFieldSetterIntention/description.html",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 84,
+            "compressed_size": 84,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_147490487f0807c40e80c31e0e98908a29f3ee39f7088f093b2d1594c13a69ce",
+            "artifact_id": "art_34332383e05d744ff8578cc6c9bad4815e0c330ee1ee1e89dc1b7528aab23feb",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "intentionDescriptions/GoGenerateConstructorIntention/description.html",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 300,
+            "compressed_size": 300,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_351b6e1e21f3a6fe22c71054fdfd285c38a6ac5bc3e373987cf566006e9e1ddc",
+            "artifact_id": "art_ebc777f397deb0ad9266689326a42c769b4b8476f5d864ab6a5617880003ef29",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "intentionDescriptions/GoTagAddKeyIntention/description.html",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 88,
+            "compressed_size": 88,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_cc7867b093ee2c18bbc63113b43d9b0ca7dbc06038681d513babc9adac89cc71",
+            "artifact_id": "art_968caa1ae6a2ea2a8d1845e9788523e03ffa4f4a028aab698359f3c4f2d24a9d",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "intentionDescriptions/GoTagChangeNameStyleIntention/description.html",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 76,
+            "compressed_size": 76,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_0516d7a08bb7fdf8774ccb14ebe7b24fc99eb8b4b7779073aacf800ad1f9adbd",
+            "artifact_id": "art_b482d3ed572a27648b4eaf5bbb805aaf003266b039ec9d5aa963ee9903e30d81",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "intentionDescriptions/GoTagUpdateValueIntention/description.html",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 83,
+            "compressed_size": 83,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          },
+          {
+            "occurrence_id": "occ_36848d4b765e05503b935e637bcee496549a197ab4a1cad033756ab1d149eff3",
+            "artifact_id": "art_045c97bb987b25f97f55f8ddc18342cb2c989726f1208e0307aaab302642044d",
+            "parent_occurrence_id": "occ_5f49f52aec52f5ae69c018d51e19694a0d1464cf7729f68d3502ee2297b59b60",
+            "logical_path": "liveTemplates/goTags.xml",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 1373,
+            "compressed_size": 1373,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          }
+        ],
+        "parent_evidence_id": "ev_1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3",
+        "parent_operation": "inspect_artifact",
+        "parent_digest": "1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3",
+        "view_digest": "3de632e09db34ddcbeac7c928f9525ea0cb2074d91a6be97c5b4a83952f2811c",
+        "artifact": {
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar",
+          "sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0"
+        },
+        "coverage": {
+          "status": "page",
+          "examined": 9,
+          "total": 9,
+          "next_offset": null,
+          "exhausted": true
+        },
+        "limitations": [
+          "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+          "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+        ],
+        "unknowns": [
+          "Inventory does not establish application runtime behavior or complete format-specific analysis."
+        ]
+      },
+      "confidence": "derived",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "relationship_coverage": null,
+      "locations": [
+        {
+          "kind": "artifact-path",
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar"
+        }
+      ],
+      "evidence_links": [
+        "ev_1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3"
+      ]
+    }
+  },
+  "lifecycle": {
+    "reaTargetClosed": true
+  }
+}

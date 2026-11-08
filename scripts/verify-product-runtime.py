@@ -2,6 +2,7 @@
 """Verify a live generated app's identity and plugin loading, not IDE feature parity."""
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import plistlib
@@ -52,6 +53,24 @@ def verify(application: Path, pid: int):
     if set(names) != set(metadata["plugins"]):
         raise ValueError("The runtime plugin paths do not contain all product plugin descriptors")
 
+    platform_artifacts = []
+    for patch in metadata.get("platformPatches", []):
+        artifact = (application / patch["upstreamJarRelativePath"]).resolve()
+        if not artifact.is_relative_to(contents):
+            raise ValueError("Platform patch artifact escapes this application")
+        digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+        if digest != patch["patchedJarSha256"]:
+            raise ValueError("The packaged platform patch artifact changed")
+        with zipfile.ZipFile(artifact) as bundle:
+            marker = json.loads(bundle.read(patch["marker"]))
+            for key in ("upstreamCommit", "patchSha256", "classSha256"):
+                if marker[key] != patch[key]:
+                    raise ValueError("The packaged platform patch marker is inconsistent")
+            for member, expected in marker["classSha256"].items():
+                if hashlib.sha256(bundle.read(member)).hexdigest() != expected:
+                    raise ValueError("The packaged platform patch class changed: " + member)
+        platform_artifacts.append({"path": str(artifact), "sha256": digest, "patchSha256": patch["patchSha256"]})
+
     log_path = Path.home() / "Library/Logs/OpenIDEA-Go/idea.log"
     log = log_path.read_text(errors="replace")
     marker = log.rfind("IDE STARTED")
@@ -64,11 +83,12 @@ def verify(application: Path, pid: int):
             raise ValueError(f"The latest startup did not report loading {name}")
     return {
         "status": "pass",
-        "scope": "live process identity, expanded plugin paths, startup plugin loading",
+        "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
         "application": str(application), "pid": pid, "name": metadata["name"], "bundleId": info["CFBundleIdentifier"],
         "vendor": properties["idea.vendor.name"], "selector": properties["idea.paths.selector"],
         "pluginPaths": plugin_paths, "loadedPlugins": names, "log": str(log_path),
-        "limitations": ["Does not prove editing, code intelligence, testing, debugging, or feature parity"],
+        "platformArtifactChecks": platform_artifacts,
+        "limitations": ["Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"],
     }
 
 

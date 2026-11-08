@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "repository": "https://github.com/JetBrains/intellij-community",
+    "tag": "idea/2026.1.4",
+    "commit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "license": "Apache-2.0; complete original source headers and upstream SDK notices retained"
+  },
+  "platformVersion": "2026.1.4",
+  "upstreamJar": {
+    "path": "Contents/lib/util-8.jar",
+    "sha256": "ee053200e3d18d0a9b544dcc330c73669d56c3475729a58406cc36798ca2a22f"
+  },
+  "sources": [
+    {
+      "path": "platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+      "sourceUrl": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+      "upstreamSha256": "b0289509b126f631e964d7bb03c5c1996f9a3536b27ef0134353417d898a438d",
+      "patchedSha256": "3c6dd6ce4e103f9a466e144d1a9ac0a8e43d9089676eb63ce38241af4b8ecaed"
+    }
+  ],
+  "patchFile": "platform-unicode-2026.1.4.patch",
+  "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee",
+  "classPrefixes": [
+    "com/intellij/openapi/util/JDOMUtil"
+  ],
+  "scope": {
+    "zh": "修复OSS平台JDOMUtil.removeControlChars按UTF-16单元过滤导致合法非BMP Unicode字符丢失的问题；按Unicode码点判定XML合法性，仍过滤非法控制符与未配对surrogate。",
+    "preserves": [
+      "Existing XML character validity policy",
+      "Original class and nested-class API/ABI",
+      "Existing trust policy and explicit user decisions"
+    ],
+    "excludes": [
+      "No automatic trust grants",
+      "No migration or inference of previously truncated paths",
+      "No modifications to the upstream SDK or installed reference applications",
+      "No plugin classloader override of platform core classes"
+    ]
+  },
+  "verification": {
+    "status": "Exact pinned source patch replay, standalone javac --release21, and isolated public-API scalar/trust roundtrip probes passed; JUnit and patched native product validation pending",
+    "unpatchedProbe": "The actual pinned SDK removes paired supplementary Unicode from both JDOMUtil.removeControlChars and XmlSerializer.serialize(TrustedPaths.State); ASCII and BMP Chinese remain intact",
+    "nativeControl": "Main task observed repeat Trust Project on the unchanged app bundle and exact same owned emoji fixture after a clean exit; serialized trust/recent keys are truncated",
+    "compiler": "javac 25.0.3",
+    "compiledClassCount": 6,
+    "classSha256": {
+      "com/intellij/openapi/util/JDOMUtil$ElementInfo.class": "64e2c71492b3986105ab69a7bb0b3722dbaa57826a43ae97e4fb7759d3fd85e7",
+      "com/intellij/openapi/util/JDOMUtil$ElementOutputFilter.class": "97ff0a4899dbbaf7548ceca19f1bd7900e641e6a1dedc12fb517fde3e886a088",
+      "com/intellij/openapi/util/JDOMUtil$LoggerHolder.class": "da8780466c46cca1613756bd87c4d25906ad679bf042731fd3e13d3b40cbd08d",
+      "com/intellij/openapi/util/JDOMUtil$MergeAttribute.class": "6d233c9f4799dd88607d2cbe2cd41cd89517cc75b57048083cced9ce50b0e5aa",
+      "com/intellij/openapi/util/JDOMUtil$MyXMLOutputter.class": "71d7766cbe6ef9af61f82d197f8f5080ba04b06324f99846a26b44bfb84945d3",
+      "com/intellij/openapi/util/JDOMUtil.class": "6d678abec629b2ae55ab8e29d3efa7dd591622d00411b5464f19885d94e0baa3"
+    },
+    "isolatedProbe": {
+      "pairedSupplementaryScalarsPreserved": true,
+      "illegalControlsAndUnpairedSurrogatesFiltered": true,
+      "trustedPathsStateXmlRoundTrip": "passed with distinct full/truncated/supplementary keys",
+      "trustedLookup": "emoji YES; explicitly untrusted truncated key NO; different emoji sibling UNSURE",
+      "sourceSdkModified": false,
+      "realUserConfigurationModified": false
+    },
+    "junit": "src/test/kotlin/dev/openidea/goide/platform/PlatformUnicodePersistenceTest.kt; pending root Gradle run via openidea.platformUnicodePatchManifest",
+    "limitations": [
+      "Existing truncated trust/recent-project entries cannot be reconstructed and are intentionally not migrated",
+      "The running sandbox platform remains the immutable SDK; regression probes load the private core classes in an isolated loader",
+      "Native product restart verification is owned by the main task"
+    ],
+    "offlineCacheAndInstallProbe": {
+      "warmCacheWithNetworkDisabled": "passed",
+      "ownedBuildCopyInstallAndRepeat": "passed",
+      "sourceSdkTargetRejected": true,
+      "upstreamSdkJarShaUnchanged": true,
+      "targetModePreserved": "0644",
+      "realUserConfigurationModified": false
+    }
+  },
+  "requiredClassNames": [
+    "com/intellij/openapi/util/JDOMUtil$ElementInfo.class",
+    "com/intellij/openapi/util/JDOMUtil$ElementOutputFilter.class",
+    "com/intellij/openapi/util/JDOMUtil$LoggerHolder.class",
+    "com/intellij/openapi/util/JDOMUtil$MergeAttribute.class",
+    "com/intellij/openapi/util/JDOMUtil$MyXMLOutputter.class",
+    "com/intellij/openapi/util/JDOMUtil.class"
+  ]
+}

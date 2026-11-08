@@ -60,3 +60,19 @@ Canonical selected Evidence, primary public guide, inference and unknowns are
 retained in [method-generation-reference.json](method-generation-reference.json).
 The investigation read no proprietary implementation classes, and the archive
 session was closed. Static registration is not commercial runtime verification.
+
+
+## Struct helper reference scope
+
+The same Go plugin archive was reopened with REA for a bounded descriptor and
+user-visible resource inventory. Selected occurrence view
+`ev_7142f9e56a540a2c11fc9bb1a689eeb712d18f33465120757a7d6f354cf87044`
+retains nine selected resource identities. The separately parsed registrations
+include struct constructors/accessors and tag add/update/name-style intentions.
+[struct-helpers-reference.json](struct-helpers-reference.json) records exact
+SHA-256 identities, public JetBrains documentation, observations, inference and
+unknowns. The reference update-value description concerns placing multiple
+carets, so our bulk tag planner is an independent workflow and does not establish
+that interaction's parity. Remove-key behavior has no selected reference proof.
+No proprietary implementation classes were read, copied or executed; the REA
+archive session was closed. Commercial runtime behavior remains unverified.

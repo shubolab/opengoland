@@ -137,6 +137,14 @@ The complete candidate is checked before Diff preview and grouped Undo/Redo.
 Local aliases and test-package mocks are supported. See the
 [interface-generation evidence and boundaries](docs/verification/interface-generation.md).
 
+Code > Generate > Struct Tags and **Edit struct tags** under Alt+Enter provide
+field selection, custom tag keys, naming styles, and add/update/remove operations.
+Other keys, explicit ignore values, and existing options are retained by default.
+The typed planner previews a complete candidate before one global Undo/Redo
+transaction. This bulk editor is an independent workflow; GoLand's documented
+multi-caret tag-value editing remains a separate parity item. See the
+[struct tag evidence and boundaries](docs/verification/struct-tags.md).
+
 Workspace edits check actual document versions and unsaved changes,
 with a separate verified-disk baseline for closed files. Consult the
 [transaction boundaries](docs/verification/workspace-edit-architecture.md)
@@ -177,9 +185,9 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current generation/synchronization batch passed all 271 Kotlin tests with no skips,
-the complete Go race suite (172 tests including subtests), and Go vet.
-It includes typed test/interface generation, dirty-source and two-file native
+The current verification batch passed all 285 Kotlin tests with no skips,
+the complete Go race suite (184 test events including subtests), and Go vet.
+It includes typed test/interface/struct-tag generation, Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
 clickable interface inlays, immutable settings/connection ownership, and actual
 upstream LSP initialization/deletion/UTF-16 synchronization regressions. Native evidence includes
@@ -221,3 +229,9 @@ provides open-source LSP/DAP integration, gopls Go language analysis, and Delve
 debugging. GoLand-specific semantic and engineering behavior must be reproduced
 and verified independently. The product retains upstream notices and does not
 include the proprietary GoLand Go plugin.
+
+The packaged OSS platform includes a pinned public-source fix for supplementary
+Unicode in persisted map keys. An emoji project path now survives trust/recent
+project serialization and a normal restart. This preserves explicit trust
+decisions; it does not infer or migrate historical truncated paths. See the
+[Unicode persistence evidence](docs/verification/unicode-persistence.md).

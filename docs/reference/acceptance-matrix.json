@@ -65,7 +65,12 @@
       "reference": "Platform keymaps; GoRootConfigurable and GoPluginRootConfigurableProvider",
       "probe": "Change settings, apply/cancel, restart, verify scope and restored values",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "unicode_persistence": "../verification/unicode-persistence.md",
+        "native_record": "../verification/unicode-persistence-native.json",
+        "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open."
+      }
     },
     {
       "id": "PROJECT-01",
@@ -74,7 +79,12 @@
       "reference": "Go application and file actions; GoSdkConfigurable",
       "probe": "New module fixture, existing module, missing SDK, alternate SDK, paths containing spaces",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "unicode_persistence": "../verification/unicode-persistence.md",
+        "native_record": "../verification/unicode-persistence-native.json",
+        "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open."
+      }
     },
     {
       "id": "PROJECT-02",
@@ -211,9 +221,11 @@
       "partial_evidence": {
         "implementation": "../verification/test-generation.md",
         "native_record": "../verification/test-generation-native.json",
-        "observation": "Typed test and interface-method generation, native inlay/standard actions, receiver/interface/new-type/pointer/value choices, preview/global Undo/Redo and dirty buffers exercised. Named Test/Subject chooser and concrete Go run passed. Struct helpers, readonly SDK entry, all build contexts and commercial runtime/full UI parity remain open.",
+        "observation": "Typed tests, interface methods and struct tag edits have native editor/preview/global Undo/Redo evidence. One JSON/XML tag update fixture passed an actual uncached native Go test; generic/shared-field/identity/stale boundaries have automated coverage. Constructors/accessors/JSON-to-struct, readonly SDK entry, all build contexts, commercial runtime and full UI/multi-caret parity remain open.",
         "interface_implementation": "../verification/interface-generation.md",
-        "interface_native": "../verification/interface-generation-native.json"
+        "interface_native": "../verification/interface-generation-native.json",
+        "struct_tags": "../verification/struct-tags.md",
+        "struct_tags_native": "../verification/struct-tags-native.json"
       }
     },
     {
@@ -407,7 +419,8 @@
         "document_sync": "../verification/lsp-document-sync.md",
         "native_record": "../verification/lsp-document-sync.json",
         "observation": "Controlled native initialization edit loss reproduced, fixed with pinned public LSP4IJ source patch, and verified with real gopls. Broader position/pending-change, file deletion/Undo, stop/disconnect and other lifecycle races remain open. Queued deleted-file connects and existing cached native feature ownership have focused real-platform regressions; historical intermittent stat notifications remain unresolved.",
-        "deletion_lifecycle": "../verification/lsp-deletion-lifecycle.json"
+        "deletion_lifecycle": "../verification/lsp-deletion-lifecycle.json",
+        "unicode_persistence": "../verification/unicode-persistence-native.json"
       }
     },
     {

@@ -190,6 +190,13 @@ def assemble(sdk: Path, plugins: Path, output: Path):
     try:
         subprocess.run(["ditto", str(sdk), str(app)], check=True)
         contents = app / "Contents"
+        unicode_patch = json.loads(subprocess.check_output([
+            sys.executable, str(ROOT / "scripts/patch-platform-unicode.py"),
+            "--sdk", str(sdk), "--target-app", str(app),
+        ], text=True))
+        # Keep the distributable record independent of local SDK/cache/staging paths.
+        unicode_patch = {key: value for key, value in unicode_patch.items()
+                         if key not in {"patchJar", "sourceSdk", "installedJar"}}
         info_path = contents / "Info.plist"
         info = plistlib.loads(info_path.read_bytes())
         native_launcher = info["CFBundleExecutable"]
@@ -273,6 +280,7 @@ def assemble(sdk: Path, plugins: Path, output: Path):
             "buildInputs": build_inputs,
             "pluginArtifactSha256": artifacts,
             "runtimePluginResources": [{**entry, "path": f"plugins/{lsp4ij.name}/{entry['path']}"} for entry in runtime_resources],
+            "platformPatches": [unicode_patch],
         }
         (contents / "Resources/openidea-product.json").write_text(json.dumps(manifest, indent=2) + "\n")
         subprocess.run(["codesign", "--force", "--sign", "-", "--preserve-metadata=entitlements", str(app)], check=True)

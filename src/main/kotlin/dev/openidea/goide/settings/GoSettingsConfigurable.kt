@@ -10,6 +10,8 @@ import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import com.redhat.devtools.lsp4ij.LanguageServerManager
 import com.redhat.devtools.lsp4ij.LanguageServersRegistry
+import java.nio.file.InvalidPathException
+import java.nio.file.Path
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JScrollPane
@@ -29,6 +31,7 @@ class GoSettingsConfigurable(private val project: Project) : Configurable {
         .addLabeledComponent("gopls executable:", gopls)
         .addLabeledComponent("Delve executable:", delve)
         .addComponent(com.intellij.ui.components.JBLabel("Leave executable fields empty to discover installed tools."))
+        .addComponent(com.intellij.ui.components.JBLabel("Configured paths are checked when tools start."))
         .addSeparator().addLabeledComponent("Build tags:", tags)
         .addLabeledComponent("Target OS (GOOS):", goos)
         .addLabeledComponent("Target architecture (GOARCH):", goarch)
@@ -50,7 +53,10 @@ class GoSettingsConfigurable(private val project: Project) : Configurable {
         try { GoToolchain.parseEnvironment(env.text) } catch (e: IllegalArgumentException) { throw ConfigurationException(e.message ?: "Invalid environment") }
         if (cgo.text !in listOf("", "0", "1")) throw ConfigurationException("CGO_ENABLED must be empty, 0 or 1")
         listOf("go" to go.text, "gopls" to gopls.text, "dlv" to delve.text).forEach { (tool, path) ->
-            if (path.isNotBlank() && GoToolchain.resolve(tool, path) == null) throw ConfigurationException("The $tool executable does not exist or is not executable: $path")
+            // Configurable.apply runs on the EDT. Existence, permissions and tool
+            // discovery are checked by the background tool launch, not this form.
+            if (path.isNotBlank()) try { Path.of(path.trim()) }
+            catch (error: InvalidPathException) { throw ConfigurationException("Invalid $tool executable path: ${error.reason}") }
         }
         val s = GoProjectSettings.get(project)
         val previousLanguageServerSettings = languageServerSettings(s)

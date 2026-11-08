@@ -1,0 +1,37 @@
+--- a/platform/util/src/com/intellij/openapi/util/JDOMUtil.java
++++ b/platform/util/src/com/intellij/openapi/util/JDOMUtil.java
+@@ -933,25 +933,25 @@
+    * Not required if you use XmlSerializator.
+    *
+    * @see XmlStringUtil#escapeIllegalXmlChars(String)
+    */
+   public static @NotNull String removeControlChars(@NotNull String text) {
+     StringBuilder result = null;
+-    for (int i = 0; i < text.length(); i++) {
+-      char c = text.charAt(i);
+-      if (!Verifier.isXMLCharacter(c)) {
++    // XML validity is defined for Unicode code points, not individual UTF-16 surrogates.
++    for (int i = 0; i < text.length();) {
++      int codePoint = text.codePointAt(i);
++      if (!Verifier.isXMLCharacter(codePoint)) {
+         if (result == null) {
+           result = new StringBuilder(text.length());
+           result.append(text, 0, i);
+         }
+-        continue;
+-      }
+-
+-      if (result != null) {
+-        result.append(c);
+-      }
++      }
++      else if (result != null) {
++        result.appendCodePoint(codePoint);
++      }
++      i += Character.charCount(codePoint);
+     }
+     return result == null ? text : result.toString();
+   }
+ 
+ 
+   public static @Nullable Point getLocation(@Nullable Element element) {
