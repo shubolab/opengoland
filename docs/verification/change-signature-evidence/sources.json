@@ -1,0 +1,37 @@
+[
+  {
+    "source": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/protocol/command/interface.go",
+    "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/protocol/command/interface.go",
+    "sha256": "387c69d880ebd4040fd3ad799b453cc857727456953e7885760b71e397d8b0e3",
+    "pinnedRemoteMatchesCache": true,
+    "savedPath": "source/gopls/internal/protocol/command/interface.go.txt"
+  },
+  {
+    "source": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/server/command.go",
+    "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/server/command.go",
+    "sha256": "b8ca19e6649bf5476c9533fb5608339f38ae0a99fb9c656ee117eb6731bad7a7",
+    "pinnedRemoteMatchesCache": true,
+    "savedPath": "source/gopls/internal/server/command.go.txt"
+  },
+  {
+    "source": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/golang/change_signature.go",
+    "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/golang/change_signature.go",
+    "sha256": "18665a52ae0d8f6a0f68433de11368cb033033c2e7531e34932bbc94de18a810",
+    "pinnedRemoteMatchesCache": true,
+    "savedPath": "source/gopls/internal/golang/change_signature.go.txt"
+  },
+  {
+    "source": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/test/marker/testdata/codeaction/removeparam_satisfies.txt",
+    "url": "https://raw.githubusercontent.com/golang/tools/gopls/v0.21.1/gopls/internal/test/marker/testdata/codeaction/removeparam_satisfies.txt",
+    "sha256": "adb03793fc0c9fdc8c8eeaedf2695f37ecc6ede8dbd87db0cd4e4802d44ebeb6",
+    "pinnedRemoteMatchesCache": true,
+    "savedPath": "source/gopls/internal/test/marker/testdata/codeaction/removeparam_satisfies.txt.txt"
+  },
+  {
+    "source": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools@v0.39.1-0.20260109155911-b69ac100ecb7/internal/refactor/inline/inline.go",
+    "url": "https://raw.githubusercontent.com/golang/tools/b69ac100ecb7/internal/refactor/inline/inline.go",
+    "sha256": "71c13a330031c31258492673095a8425be511bedf5132c1744ed5dfdc6458f18",
+    "pinnedRemoteMatchesCache": true,
+    "savedPath": "source/tools/internal/refactor/inline/inline.go.txt"
+  }
+]

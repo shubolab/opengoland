@@ -202,3 +202,47 @@ verification.
 The expression/Variables defects above remain open. Case-only resource renames
 on case-insensitive filesystems and other transaction restrictions are recorded
 in `workspace-edit-architecture.md`. The broad acceptance matrix remains open.
+
+
+## Later debug-recovery snapshot
+
+The later `7b201d1` packaged snapshot has 149 passing Kotlin tests and native
+local attach evidence for Variables recovery, Unicode Watch editing, actual
+field modification and stepping. Native external DAP configuration, mapped
+source/breakpoint navigation, Unicode Watch evaluation, and a running-target
+detach also passed on loopback. A headless multi-client server passed native
+connection, mapped frame/Watch inspection, and preservation of the paused
+session on disconnect; its native breakpoint interaction remains open. These
+checks supersede the open expression/spinner
+status above for that specific workflow. Exact build identity, observed target
+lifecycle and remaining immediate-refresh/paused-Stop limits are recorded in
+[native-debug-recovery.md](native-debug-recovery.md). The broad acceptance
+matrix remains open.
+
+
+The later `a00249f` review build passed 149 tests and repeated local native
+Variables/Unicode Watch and actual-breakpoint field-edit/step checks. It also
+exposed an entry-frame value-edit failure and a per-file final-breakpoint
+removal failure. Both are retained in the debug-recovery record; the subsequent
+removal correction has separate packaged native evidence below.
+
+
+## Per-file breakpoint regression — snapshot 3331c4e
+
+Source digest `3331c4eeef198e3f141faffa74796b1c1e7f3eaf6200809d66f136e9d8974f34`
+(142 input files, **154 Kotlin tests, zero failures/errors/skips**). Build,
+packaging, plugin structure, strict deep signing, and unchanged-engine Go race
+and vet checks passed. Native PID `40389` passed live identity/plugin checks.
+
+With a separate source's breakpoint retained, removing fixture line 7 emitted
+the required empty per-source `setBreakpoints` replacement and preserved the
+other source's line 15 request. Resume advanced the owned target's heartbeat
+before Stop, without re-hitting the deleted fixture breakpoint. Native Stop
+closed adapter PID `40512`; target PID `38601` survived and its heartbeat kept
+advancing. The exact requests and lifecycle observations are in
+[native-debug-recovery.md](native-debug-recovery.md#per-file-breakpoint-correction--native-process-40389).
+
+The large-file gopls full-semantic-token error recurred while opening runtime
+`proc.go` (214687 bytes against its 100000-byte limit). It remains open, along
+with the other explicitly recorded debug/language limitations and the broad
+acceptance matrix.

@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile
 import org.jetbrains.intellij.platform.gradle.tasks.PrepareSandboxTask
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     kotlin("jvm") version "2.3.21"
@@ -42,6 +43,7 @@ dependencies {
     intellijPlatform {
         local(platformPath)
         plugin("com.redhat.devtools.lsp4ij", "0.21.0")
+        testFramework(TestFrameworkType.Platform)
     }
     testImplementation(kotlin("test-junit"))
 }

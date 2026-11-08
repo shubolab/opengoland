@@ -1,0 +1,2 @@
+# Preserve pinned upstream evidence byte for byte.
+docs/verification/change-signature-evidence/source/** -whitespace

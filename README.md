@@ -63,8 +63,11 @@ Run > Edit Configurations > **+** also provides these attach configurations:
   the local adapter working directory, then Debug the configuration. The selected
   Delve executable starts a local DAP adapter. Attaching does not rebuild the
   target or change its environment; build the target with debug symbols, for
-  example `go build -gcflags='all=-N -l'`, when needed. Stop sends a detach request,
-  closes the local adapter, and leaves the existing target running.
+  example `go build -gcflags='all=-N -l'`, when needed. Stop requests a
+  non-terminating detach and closes the local adapter. A native check found
+  that stopping while paused could leave the surviving target OS-stopped;
+  resume before Stop when the process should keep running. See the current
+  [paused-Stop limitation](docs/verification/native-debug-recovery.md#native-detach).
 - **Go Remote Debug (DAP)**: enter the DAP host and TCP port reachable from the
   IDE, including through an existing tunnel. Select the server type explicitly.
   For **dlv dap — attach to process ID on server**, start an external
@@ -92,9 +95,18 @@ The native debugger uses DAP threads for Go goroutines and evaluates Watches in
 the selected stack frame. The three attach protocol scenarios have passed the
 direct-tool probe below. Native local PID attach, goroutine/frame selection,
 evaluation, and Stop leaving the target alive have also been exercised. Remote
-configuration UI still needs acceptance. The attached Variables pane and a
-debugger expression PSI compatibility issue remain under investigation; see the
-[recorded limitation](docs/verification/dap-expression-compatibility.md).
+`dlv dap` configuration UI, mapped stack/breakpoint navigation and running-target
+detach have since passed a native loopback check. Native headless configuration,
+mapped frame navigation, Unicode Watch evaluation, and preservation of a paused
+multi-client session also passed on loopback; native headless breakpoint
+interaction remains open. A later packaged native check also verified local
+Variables recovery, Unicode Watch editing, field modification and stepping;
+see [native debug recovery](docs/verification/native-debug-recovery.md) for exact
+build evidence and the remaining immediate-value-refresh, entry-frame value-edit,
+and paused-Stop limitations. The final `3331c4e` package passed 154 Kotlin tests
+and a native wire/heartbeat check for removing a file's last breakpoint while
+another file retains one. Large Go source files can still exceed gopls's full
+semantic-token limit; that highlighting failure remains open.
 
 Code > Optimize Imports uses gopls through the standard native action. Standard
 Rename opens a cross-file Diff preview; approved edits use a single global
@@ -146,6 +158,9 @@ evidence is recorded separately from the direct protocol results.
 - [Direct Go tool verification](docs/verification/go-tools.json).
 - [Direct DAP attach verification](docs/verification/go-attach.json).
 - [Native desktop observations](docs/verification/desktop-smoke-2026-11-08.md).
+- [Native debug recovery](docs/verification/native-debug-recovery.md): attached
+  Variables, Unicode Watches, field modification, stepping, external DAP source
+  mapping and detach, and remaining limits.
 - [Engine protocol and tests](engine/README.md).
 - [Pinned platform input](product/platform.lock.json).
 

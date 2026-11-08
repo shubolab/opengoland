@@ -1,0 +1,2707 @@
+{
+  "gopls": {
+    "code": 0,
+    "stdout": "golang.org/x/tools/gopls v0.21.1\n",
+    "stderr": "",
+    "seconds": 0.066
+  },
+  "go": {
+    "code": 0,
+    "stdout": "go version go1.24.3 darwin/arm64\n",
+    "stderr": "",
+    "seconds": 0.032
+  },
+  "goplsSha256": "31cf46d04e3ae04f69a964ed9ca4d1cb074f0922451f471b025c3a4bd4a49427",
+  "cases": [
+    {
+      "name": "reorder_side_effects",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 4,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.244
+      },
+      "runtimeBefore": {
+        "code": 0,
+        "stdout": "[1 2] 12\n",
+        "stderr": "",
+        "seconds": 0.826
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-w19i3fqs/main.go",
+          "range": {
+            "start": {
+              "line": 4,
+              "character": 12
+            },
+            "end": {
+              "line": 4,
+              "character": 12
+            }
+          }
+        },
+        "NewParams": [
+          1,
+          0
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 0,
+        "stdout": "{\n\t\"documentChanges\": [\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-w19i3fqs/main.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"     \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 29\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 29\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 42\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 42\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 12\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 13\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"b\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 15\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"a\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 39\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 39\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 40\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 40\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"              \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 34\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"2\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 36\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 36\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 41\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 42\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 64\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 64\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+        "stderr": "",
+        "seconds": 0.304
+      },
+      "serverMutatedDisk": false,
+      "response": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-w19i3fqs/main.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 21
+                  }
+                },
+                "newText": "     "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 28
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 28
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 29
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 29
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 42
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 42
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 12
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 13
+                  }
+                },
+                "newText": "b"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 15
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 16
+                  }
+                },
+                "newText": "a"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 39
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 39
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 40
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 40
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 11
+                  }
+                },
+                "newText": "              "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 19
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 19
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 21
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 33
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 34
+                  }
+                },
+                "newText": "2"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 36
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 36
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 41
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 42
+                  }
+                },
+                "newText": "1"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 64
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 64
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          }
+        ]
+      },
+      "applied": [
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-w19i3fqs/main.go",
+          "version": 0,
+          "edits": 18
+        }
+      ],
+      "afterFiles": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nvar trace []int\n\nfunc mark(n int) int      { trace = append(trace, n); return n }\nfunc Target(b, a int) int { return a*10 + b }\nfunc main()               { value := Target(mark(2), mark(1)); fmt.Println(trace, value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.097
+      },
+      "runtimeAfter": {
+        "code": 0,
+        "stdout": "[2 1] 12\n",
+        "stderr": "",
+        "seconds": 0.735
+      },
+      "changedFiles": [
+        "main.go"
+      ]
+    },
+    {
+      "name": "remove_unused_side_effect",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, unused int) int { return a }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 4,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.102
+      },
+      "runtimeBefore": {
+        "code": 0,
+        "stdout": "[1 2] 1\n",
+        "stderr": "",
+        "seconds": 0.743
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-xerss5j4/main.go",
+          "range": {
+            "start": {
+              "line": 4,
+              "character": 12
+            },
+            "end": {
+              "line": 4,
+              "character": 12
+            }
+          }
+        },
+        "NewParams": [
+          0
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 0,
+        "stdout": "{\n\t\"documentChanges\": [\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-xerss5j4/main.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"  \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 29\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 29\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 42\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 42\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 13\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 14\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 15\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 22\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"           \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 34\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 42\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 64\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 5,\n\t\t\t\t\t\t\t\"character\": 64\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+        "stderr": "",
+        "seconds": 0.226
+      },
+      "serverMutatedDisk": false,
+      "response": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-xerss5j4/main.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 21
+                  }
+                },
+                "newText": "  "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 28
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 28
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 29
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 29
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 42
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 42
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 13
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 14
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 15
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 22
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 11
+                  }
+                },
+                "newText": "           "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 19
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 19
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 21
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 34
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 42
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 64
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 64
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          }
+        ]
+      },
+      "applied": [
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-xerss5j4/main.go",
+          "version": 0,
+          "edits": 14
+        }
+      ],
+      "afterFiles": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nvar trace []int\n\nfunc mark(n int) int   { trace = append(trace, n); return n }\nfunc Target(a int) int { return a }\nfunc main()            { value := Target(mark(1)); fmt.Println(trace, value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.097
+      },
+      "runtimeAfter": {
+        "code": 0,
+        "stdout": "[1] 1\n",
+        "stderr": "",
+        "seconds": 0.743
+      },
+      "changedFiles": [
+        "main.go"
+      ]
+    },
+    {
+      "name": "remove_used_parameter",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 4,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.097
+      },
+      "runtimeBefore": {
+        "code": 0,
+        "stdout": "[1 2] 12\n",
+        "stderr": "",
+        "seconds": 0.726
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-7tsia6y7/main.go",
+          "range": {
+            "start": {
+              "line": 4,
+              "character": 12
+            },
+            "end": {
+              "line": 4,
+              "character": 12
+            }
+          }
+        },
+        "NewParams": [
+          0
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 2,
+        "stdout": "",
+        "stderr": "gopls: type checking rewritten package: /private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-7tsia6y7/main.go:5:50: undefined: b\n",
+        "seconds": 0.225
+      },
+      "serverMutatedDisk": false,
+      "afterFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.094
+      },
+      "runtimeAfter": {
+        "code": 0,
+        "stdout": "[1 2] 12\n",
+        "stderr": "",
+        "seconds": 0.468
+      },
+      "changedFiles": []
+    },
+    {
+      "name": "add_new_parameter",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 4,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.103
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-dwt_et66/main.go",
+          "range": {
+            "start": {
+              "line": 4,
+              "character": 12
+            },
+            "end": {
+              "line": 4,
+              "character": 12
+            }
+          }
+        },
+        "NewParams": [
+          0,
+          1,
+          "c int"
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 2,
+        "stdout": "",
+        "stderr": "gopls: adding new parameters is currently unsupported\n",
+        "seconds": 0.225
+      },
+      "serverMutatedDisk": false,
+      "afterFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.093
+      },
+      "changedFiles": []
+    },
+    {
+      "name": "swap_results",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nfunc Target(a, b int) (int, error) { return a+b,nil }\nfunc main() { n,err:=Target(1,2);fmt.Println(n,err) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 2,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.112
+      },
+      "runtimeBefore": {
+        "code": 0,
+        "stdout": "3 <nil>\n",
+        "stderr": "",
+        "seconds": 0.765
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-3nez68sh/main.go",
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 12
+            },
+            "end": {
+              "line": 2,
+              "character": 12
+            }
+          }
+        },
+        "NewParams": [
+          0,
+          1
+        ],
+        "NewResults": [
+          1,
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 0,
+        "stdout": "{\n\t\"documentChanges\": [\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-3nez68sh/main.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 45\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 45\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 46\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 46\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 48\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 48\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"                       \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 47\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 47\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+        "stderr": "",
+        "seconds": 0.287
+      },
+      "serverMutatedDisk": false,
+      "response": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-3nez68sh/main.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 45
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 45
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 46
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 46
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 48
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 48
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 11
+                  }
+                },
+                "newText": "                       "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 16
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 16
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 19
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 19
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 21
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 30
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 33
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 33
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 47
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 47
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          }
+        ]
+      },
+      "applied": [
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-3nez68sh/main.go",
+          "version": 0,
+          "edits": 12
+        }
+      ],
+      "afterFiles": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc Target(a, b int) (int, error) { return a + b, nil }\nfunc main()                        { n, err := Target(1, 2); fmt.Println(n, err) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.094
+      },
+      "runtimeAfter": {
+        "code": 0,
+        "stdout": "3 <nil>\n",
+        "stderr": "",
+        "seconds": 0.733
+      },
+      "changedFiles": [
+        "main.go"
+      ]
+    },
+    {
+      "name": "remove_result",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nfunc Target(a, b int) (int, error) { return a+b,nil }\nfunc main() { n,err:=Target(1,2);fmt.Println(n,err) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 2,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.098
+      },
+      "runtimeBefore": {
+        "code": 0,
+        "stdout": "3 <nil>\n",
+        "stderr": "",
+        "seconds": 0.751
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-hmbgud12/main.go",
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 12
+            },
+            "end": {
+              "line": 2,
+              "character": 12
+            }
+          }
+        },
+        "NewParams": [
+          0,
+          1
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 0,
+        "stdout": "{\n\t\"documentChanges\": [\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-hmbgud12/main.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 45\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 45\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 46\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 46\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 48\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 48\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"                       \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 47\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 47\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+        "stderr": "",
+        "seconds": 0.268
+      },
+      "serverMutatedDisk": false,
+      "response": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-hmbgud12/main.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 45
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 45
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 46
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 46
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 48
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 48
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 11
+                  }
+                },
+                "newText": "                       "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 16
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 16
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 19
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 19
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 21
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 30
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 33
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 33
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 47
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 47
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          }
+        ]
+      },
+      "applied": [
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-hmbgud12/main.go",
+          "version": 0,
+          "edits": 12
+        }
+      ],
+      "afterFiles": {
+        "main.go": "package main\n\nimport \"fmt\"\n\nfunc Target(a, b int) (int, error) { return a + b, nil }\nfunc main()                        { n, err := Target(1, 2); fmt.Println(n, err) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.098
+      },
+      "runtimeAfter": {
+        "code": 0,
+        "stdout": "3 <nil>\n",
+        "stderr": "",
+        "seconds": 0.736
+      },
+      "changedFiles": [
+        "main.go"
+      ]
+    },
+    {
+      "name": "function_value_reference",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nvar Ref=Target\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 4,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.097
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-oi0how0x/main.go",
+          "range": {
+            "start": {
+              "line": 4,
+              "character": 12
+            },
+            "end": {
+              "line": 4,
+              "character": 12
+            }
+          }
+        },
+        "NewParams": [
+          1,
+          0
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 2,
+        "stdout": "",
+        "stderr": "gopls: cannot inline: found non-call function reference {file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-oi0how0x/main.go 5:8-5:14}\n",
+        "seconds": 0.234
+      },
+      "serverMutatedDisk": false,
+      "afterFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nvar Ref=Target\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.093
+      },
+      "changedFiles": []
+    },
+    {
+      "name": "interface_dynamic_caller",
+      "beforeFiles": {
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n",
+        "api/api.go": "package api\nimport \"fmt\"\ntype T struct{}\nfunc (T) Target(a int, b string) string { return fmt.Sprint(a)+b }\n",
+        "main.go": "package main\nimport(\"fmt\";\"example.com/cs/api\")\ntype I interface { Target(int,string) string }\nvar _ I=api.T{}\nfunc main(){var i I=api.T{};fmt.Println(api.T{}.Target(7,\"x\"),i.Target(7,\"x\"))}\n"
+      },
+      "targetPosition": {
+        "line": 3,
+        "character": 16
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n?   \texample.com/cs/api\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.114
+      },
+      "runtimeBefore": {
+        "code": 0,
+        "stdout": "7x 7x\n",
+        "stderr": "",
+        "seconds": 0.736
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-jhlau0st/api/api.go",
+          "range": {
+            "start": {
+              "line": 3,
+              "character": 16
+            },
+            "end": {
+              "line": 3,
+              "character": 16
+            }
+          }
+        },
+        "NewParams": [
+          1,
+          0
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 0,
+        "stdout": "{\n\t\"documentChanges\": [\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-jhlau0st/main.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 6\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 6\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\\t\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 8\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 14\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\\t\\\"fmt\\\"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 17\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 46\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 46\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 8\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 8\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 15\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 15\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 12\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 12\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 20\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 20\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 55\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 57\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 60\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 60\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \", 7\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 62\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 62\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 73\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 73\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 78\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 78\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-jhlau0st/api/api.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 17\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"b\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 18\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 18\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"str\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 20\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"g\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 23\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 24\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"a\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 25\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 31\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"t\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 62\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 62\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 63\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 63\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+        "stderr": "",
+        "seconds": 0.228
+      },
+      "serverMutatedDisk": false,
+      "response": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-jhlau0st/main.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 6
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 7
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 7
+                  }
+                },
+                "newText": "\n\t"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 14
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 33
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 33
+                  }
+                },
+                "newText": "\n\t\"fmt\"\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 16
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 17
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 30
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 46
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 46
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 7
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 7
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 8
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 15
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 15
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 11
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 12
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 12
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 19
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 19
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 20
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 20
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 28
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 28
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 55
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 57
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 60
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 60
+                  }
+                },
+                "newText": ", 7"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 62
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 62
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 73
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 73
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 78
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 78
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          },
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-jhlau0st/api/api.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 16
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 17
+                  }
+                },
+                "newText": "b"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 18
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 18
+                  }
+                },
+                "newText": "str"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 20
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 21
+                  }
+                },
+                "newText": "g"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 23
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 24
+                  }
+                },
+                "newText": "a"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 25
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 28
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 31
+                  }
+                },
+                "newText": "t"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 62
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 62
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 63
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 63
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          }
+        ]
+      },
+      "applied": [
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-jhlau0st/main.go",
+          "version": 0,
+          "edits": 22
+        },
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-jhlau0st/api/api.go",
+          "version": 0,
+          "edits": 11
+        }
+      ],
+      "afterFiles": {
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n",
+        "api/api.go": "package api\n\nimport \"fmt\"\n\ntype T struct{}\n\nfunc (T) Target(b string, a int) string { return fmt.Sprint(a) + b }\n",
+        "main.go": "package main\n\nimport (\n\t\"example.com/cs/api\"\n\t\"fmt\"\n)\n\ntype I interface{ Target(int, string) string }\n\nvar _ I = api.T{}\n\nfunc main() { var i I = api.T{}; fmt.Println(api.T{}.Target(\"x\", 7), i.Target(7, \"x\")) }\n"
+      },
+      "compileAfter": {
+        "code": 1,
+        "stdout": "FAIL\texample.com/cs [build failed]\n?   \texample.com/cs/api\t[no test files]\nFAIL\n",
+        "stderr": "# example.com/cs\n./main.go:10:11: cannot use api.T{} (value of struct type api.T) as I value in variable declaration: api.T does not implement I (wrong type for method Target)\n\t\thave Target(string, int) string\n\t\twant Target(int, string) string\n./main.go:12:25: cannot use api.T{} (value of struct type api.T) as I value in variable declaration: api.T does not implement I (wrong type for method Target)\n\t\thave Target(string, int) string\n\t\twant Target(int, string) string\n",
+        "seconds": 0.097
+      },
+      "changedFiles": [
+        "api/api.go",
+        "main.go"
+      ]
+    },
+    {
+      "name": "interface_same_types_silent_semantic_change",
+      "beforeFiles": {
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n",
+        "api/api.go": "package api\ntype T struct{}\nfunc (T) Target(a,b int) int { return a*10+b }\n",
+        "main.go": "package main\nimport(\"fmt\";\"example.com/cs/api\")\ntype I interface { Target(int,int) int }\nvar _ I=api.T{}\nfunc main(){var i I=api.T{};fmt.Println(api.T{}.Target(1,2),i.Target(1,2))}\n"
+      },
+      "targetPosition": {
+        "line": 2,
+        "character": 16
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n?   \texample.com/cs/api\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.101
+      },
+      "runtimeBefore": {
+        "code": 0,
+        "stdout": "12 12\n",
+        "stderr": "",
+        "seconds": 0.713
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-u6m4032f/api/api.go",
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 16
+            },
+            "end": {
+              "line": 2,
+              "character": 16
+            }
+          }
+        },
+        "NewParams": [
+          1,
+          0
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 0,
+        "stdout": "{\n\t\"documentChanges\": [\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-u6m4032f/main.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 6\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 6\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\\t\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 8\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 14\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\\t\\\"fmt\\\"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 17\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 40\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 40\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 8\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 8\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 15\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 3,\n\t\t\t\t\t\t\t\"character\": 15\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 12\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 12\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 20\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 20\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 55\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 55\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"2, \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 56\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 58\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 60\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 60\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 71\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 71\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 74\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 4,\n\t\t\t\t\t\t\t\"character\": 74\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-u6m4032f/api/api.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 16\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 17\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"b\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 18\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 19\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" a\"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+        "stderr": "",
+        "seconds": 0.21
+      },
+      "serverMutatedDisk": false,
+      "response": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-u6m4032f/main.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 6
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 7
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 7
+                  }
+                },
+                "newText": "\n\t"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 14
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 33
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 33
+                  }
+                },
+                "newText": "\n\t\"fmt\"\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 16
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 17
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 30
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 40
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 40
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 7
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 7
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 8
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 15
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 15
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 11
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 12
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 12
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 19
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 19
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 20
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 20
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 28
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 28
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 55
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 55
+                  }
+                },
+                "newText": "2, "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 56
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 58
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 60
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 60
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 71
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 71
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 74
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 74
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          },
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-u6m4032f/api/api.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 16
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 17
+                  }
+                },
+                "newText": "b"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 18
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 19
+                  }
+                },
+                "newText": " a"
+              }
+            ]
+          }
+        ]
+      },
+      "applied": [
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-u6m4032f/main.go",
+          "version": 0,
+          "edits": 22
+        },
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-u6m4032f/api/api.go",
+          "version": 0,
+          "edits": 2
+        }
+      ],
+      "afterFiles": {
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n",
+        "api/api.go": "package api\ntype T struct{}\nfunc (T) Target(b, a int) int { return a*10+b }\n",
+        "main.go": "package main\n\nimport (\n\t\"example.com/cs/api\"\n\t\"fmt\"\n)\n\ntype I interface{ Target(int, int) int }\n\nvar _ I = api.T{}\n\nfunc main() { var i I = api.T{}; fmt.Println(api.T{}.Target(2, 1), i.Target(1, 2)) }\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n?   \texample.com/cs/api\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.098
+      },
+      "runtimeAfter": {
+        "code": 0,
+        "stdout": "12 21\n",
+        "stderr": "",
+        "seconds": 0.721
+      },
+      "changedFiles": [
+        "api/api.go",
+        "main.go"
+      ]
+    },
+    {
+      "name": "workspace_utf16",
+      "beforeFiles": {
+        "go.work": "go 1.24.0\nuse (\n ./a\n ./b\n)\n",
+        "a/go.mod": "module example.com/cs/a\n\ngo 1.24.0\n",
+        "a/api.go": "package api\nimport \"fmt\"\n/*😀中文*/ func Target(a int, b string) string { return fmt.Sprint(a)+b }\n",
+        "b/go.mod": "module example.com/cs/b\n\ngo 1.24.0\nrequire example.com/cs/a v0.0.0\n",
+        "b/main.go": "package main\nimport(\"fmt\";api \"example.com/cs/a\")\nfunc main(){ _ = \"😀中文\"; fmt.Println(api.Target(7,\"中文\")) }\n"
+      },
+      "targetPosition": {
+        "line": 2,
+        "character": 21
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs/a\t[no test files]\n?   \texample.com/cs/b\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.118
+      },
+      "request": {
+        "Location": {
+          "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-8onwux2t/a/api.go",
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 21
+            },
+            "end": {
+              "line": 2,
+              "character": 21
+            }
+          }
+        },
+        "NewParams": [
+          1,
+          0
+        ],
+        "NewResults": [
+          0
+        ],
+        "ResolveEdits": true
+      },
+      "tool": {
+        "code": 0,
+        "stdout": "{\n\t\"documentChanges\": [\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-8onwux2t/b/main.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 6\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 6\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 7\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 13\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\\t\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 34\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 34\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\\"\\n\\t\\\"fmt\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 35\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 35\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 36\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 36\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 11\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 48\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 50\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 54\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 54\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \", 7\"\n\t\t\t\t}\n\t\t\t]\n\t\t},\n\t\t{\n\t\t\t\"textDocument\": {\n\t\t\t\t\"version\": 0,\n\t\t\t\t\"uri\": \"file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-8onwux2t/a/api.go\"\n\t\t\t},\n\t\t\t\"edits\": [\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 1,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 0\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 8\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 9\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\\n\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 21\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 22\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"b\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 23\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 23\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"str\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 25\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 26\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"g\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 28\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 29\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"a\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 30\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 33\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 35\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 36\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \"t\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 67\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 67\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"range\": {\n\t\t\t\t\t\t\"start\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 68\n\t\t\t\t\t\t},\n\t\t\t\t\t\t\"end\": {\n\t\t\t\t\t\t\t\"line\": 2,\n\t\t\t\t\t\t\t\"character\": 68\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t\"newText\": \" \"\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t]\n}\n",
+        "stderr": "",
+        "seconds": 0.244
+      },
+      "serverMutatedDisk": false,
+      "response": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-8onwux2t/b/main.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 6
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 6
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 7
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 13
+                  }
+                },
+                "newText": "\n\t"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 34
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 34
+                  }
+                },
+                "newText": "\"\n\t\"fmt"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 35
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 35
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 36
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 36
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 11
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 48
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 50
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 54
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 54
+                  }
+                },
+                "newText": ", 7"
+              }
+            ]
+          },
+          {
+            "textDocument": {
+              "version": 0,
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-8onwux2t/a/api.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 1,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 1,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 0
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 9
+                  }
+                },
+                "newText": "\n"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 21
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 22
+                  }
+                },
+                "newText": "b"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 23
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 23
+                  }
+                },
+                "newText": "str"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 25
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 26
+                  }
+                },
+                "newText": "g"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 28
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 29
+                  }
+                },
+                "newText": "a"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 33
+                  }
+                },
+                "newText": ""
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 35
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 36
+                  }
+                },
+                "newText": "t"
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 67
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 67
+                  }
+                },
+                "newText": " "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 68
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 68
+                  }
+                },
+                "newText": " "
+              }
+            ]
+          }
+        ]
+      },
+      "applied": [
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-8onwux2t/b/main.go",
+          "version": 0,
+          "edits": 9
+        },
+        {
+          "path": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-8onwux2t/a/api.go",
+          "version": 0,
+          "edits": 11
+        }
+      ],
+      "afterFiles": {
+        "go.work": "go 1.24.0\nuse (\n ./a\n ./b\n)\n",
+        "a/go.mod": "module example.com/cs/a\n\ngo 1.24.0\n",
+        "a/api.go": "package api\n\nimport \"fmt\"\n\n/*😀中文*/\nfunc Target(b string, a int) string { return fmt.Sprint(a) + b }\n",
+        "b/go.mod": "module example.com/cs/b\n\ngo 1.24.0\nrequire example.com/cs/a v0.0.0\n",
+        "b/main.go": "package main\n\nimport (\n\tapi \"example.com/cs/a\"\n\t\"fmt\"\n)\n\nfunc main() { _ = \"😀中文\"; fmt.Println(api.Target(\"中文\", 7)) }\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs/a\t[no test files]\n?   \texample.com/cs/b\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.108
+      },
+      "changedFiles": [
+        "a/api.go",
+        "b/main.go"
+      ]
+    },
+    {
+      "name": "rename_parameter_type",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 4,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.092
+      },
+      "request": {
+        "method": "textDocument/rename",
+        "param": {
+          "textDocument": {
+            "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-qy7fid51/main.go"
+          },
+          "position": {
+            "line": 4,
+            "character": 0
+          },
+          "newName": "func(a string, b int) int"
+        }
+      },
+      "tool": {
+        "code": 2,
+        "stdout": "",
+        "stderr": "gopls: changing types (int to string) not yet supported\n",
+        "seconds": 0.215
+      },
+      "serverMutatedDisk": false,
+      "afterFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.096
+      },
+      "changedFiles": []
+    },
+    {
+      "name": "rename_add_result",
+      "beforeFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "targetPosition": {
+        "line": 4,
+        "character": 12
+      },
+      "compileBefore": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.103
+      },
+      "request": {
+        "method": "textDocument/rename",
+        "param": {
+          "textDocument": {
+            "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-change-signature-pjqg5upb/main.go"
+          },
+          "position": {
+            "line": 4,
+            "character": 0
+          },
+          "newName": "func(a, b int) (int, error)"
+        }
+      },
+      "tool": {
+        "code": 2,
+        "stdout": "",
+        "stderr": "gopls: changing results not yet supported (got 2 results, want 1)\n",
+        "seconds": 0.208
+      },
+      "serverMutatedDisk": false,
+      "afterFiles": {
+        "main.go": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n); return n }\nfunc Target(a, b int) int { return a*10+b }\nfunc main() { value:=Target(mark(1),mark(2)); fmt.Println(trace,value) }\n",
+        "go.mod": "module example.com/cs\n\ngo 1.24.0\n"
+      },
+      "compileAfter": {
+        "code": 0,
+        "stdout": "?   \texample.com/cs\t[no test files]\n",
+        "stderr": "",
+        "seconds": 0.093
+      },
+      "changedFiles": []
+    }
+  ],
+  "assertions": {
+    "caseCount": 12,
+    "allBaselinesCompile": true,
+    "resolveEditsDoesNotWriteDisk": true,
+    "behaviorChangeAndIgnoredResultsVerified": true,
+    "dynamicInterfaceBehaviorChangeVerified": true,
+    "utf16WorkspaceEditsCompile": true
+  }
+}

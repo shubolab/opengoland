@@ -1,0 +1,22 @@
+{
+  "status": "pass",
+  "scope": "live process identity, expanded plugin paths, startup plugin loading",
+  "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+  "pid": 36202,
+  "name": "open Goland",
+  "bundleId": "dev.opengoland.ide",
+  "vendor": "OpenGoland",
+  "selector": "OpenIDEAGo2026.1",
+  "pluginPaths": [
+    "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+    "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+  ],
+  "loadedPlugins": {
+    "dev.openidea.go": "Go Workbench",
+    "com.redhat.devtools.lsp4ij": "LSP4IJ"
+  },
+  "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+  "limitations": [
+    "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+  ]
+}

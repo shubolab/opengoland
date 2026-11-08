@@ -1,0 +1,155 @@
+[
+  {
+    "name": "typed_adapter_reorder",
+    "before": {
+      "code": 0,
+      "stdout": "[1 2] 12\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "[1 2] 12\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": true,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(a,b int)int{return a*10+b}\nfunc main(){v:=Target(mark(1),mark(2));fmt.Println(trace,v)}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(b,a int)int{return a*10+b}\nfunc main(){v:=func(a,b int)int{return Target(b,a)}(mark(1),mark(2));fmt.Println(trace,v)}\n",
+    "afterSha256": "eaa9a56316f53d5f624d4d265fe5e6b72dad0ec1238ead94fef3f1aa6b6e6c6e"
+  },
+  {
+    "name": "typed_adapter_remove",
+    "before": {
+      "code": 0,
+      "stdout": "[1 2] 1\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "[1 2] 1\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": true,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(a,unused int)int{return a}\nfunc main(){v:=Target(mark(1),mark(2));fmt.Println(trace,v)}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(a int)int{return a}\nfunc main(){v:=func(a,unused int)int{return Target(a)}(mark(1),mark(2));fmt.Println(trace,v)}\n",
+    "afterSha256": "09759687b89bc87d89bdfe67d1e48d8a1bf24b08c09f61882ca5889bb365a6f3"
+  },
+  {
+    "name": "typed_nil_context",
+    "before": {
+      "code": 0,
+      "stdout": "[1] 1\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "[1] 1\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": true,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(a int,p *int)int{return a}\nfunc main(){v:=Target(mark(1),nil);fmt.Println(trace,v)}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(p *int,a int)int{return a}\nfunc main(){v:=func(a int,p *int)int{return Target(p,a)}(mark(1),nil);fmt.Println(trace,v)}\n",
+    "afterSha256": "e1386691d78f22ad314bd89e08534157c337fe3585dc547d09dc1ab3411e87db"
+  },
+  {
+    "name": "defer_recover_direct_hoist",
+    "before": {
+      "code": 0,
+      "stdout": "boom [1 2] 1 2\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "boom [1 2] 1 2\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": true,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Catch(a,b int){fmt.Println(recover(),trace,a,b)}\nfunc main(){defer Catch(mark(1),mark(2));panic(\"boom\")}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Catch(b,a int){fmt.Println(recover(),trace,a,b)}\nfunc main(){callee:=Catch;var a int=mark(1);var b int=mark(2);defer callee(b,a);panic(\"boom\")}\n",
+    "afterSha256": "1a65cfb0f4ead3a21c790d763d133bbb45794ead9871532d10fda61dc4843f19"
+  },
+  {
+    "name": "defer_recover_noninline_adapter_breaks",
+    "before": {
+      "code": 0,
+      "stdout": "boom [1 2] 1 2\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 1,
+      "stdout": "<nil> [1 2] 1 2\n",
+      "stderr": "panic: boom\n\ngoroutine 1 [running]:\nmain.main()\n\t/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/opengoland-signature-lowering-wafmfsd_/main.go:8 +0xc8\nexit status 2\n"
+    },
+    "sameObservableOutputExpected": false,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Catch(a,b int){fmt.Println(recover(),trace,a,b)}\nfunc main(){defer Catch(mark(1),mark(2));panic(\"boom\")}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Catch(b,a int){fmt.Println(recover(),trace,a,b)}\n//go:noinline\nfunc adapter(a,b int){Catch(b,a)}\nfunc main(){defer adapter(mark(1),mark(2));panic(\"boom\")}\n",
+    "afterSha256": "85db6236a6ad6f44fb483d4b1d0078932aa2c9866c225c6c823c9561f6fb4252"
+  },
+  {
+    "name": "result_reorder_keeps_lhs_evaluation",
+    "before": {
+      "code": 0,
+      "stdout": "[lhs call] [10 20]\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "[lhs call] [10 20]\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": true,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []string\nfunc next()int{trace=append(trace,\"lhs\");return 1}\nfunc Target()(int,int){trace=append(trace,\"call\");return 10,20}\nfunc main(){var out [2]int;out[0],out[next()]=Target();fmt.Println(trace,out)}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []string\nfunc next()int{trace=append(trace,\"lhs\");return 1}\nfunc Target()(int,int){trace=append(trace,\"call\");return 20,10}\nfunc main(){var out [2]int;out[0],out[next()]=func()(int,int){r1,r0:=Target();return r0,r1}();fmt.Println(trace,out)}\n",
+    "afterSha256": "07cd9034e0e0f6a59cf16d4431da577cc5c362e3fcb25d99cb21acbc9f2f0bce"
+  },
+  {
+    "name": "result_remove_keeps_body_effects",
+    "before": {
+      "code": 0,
+      "stdout": "[1 2] 1\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "[1 2] 1\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": true,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target()(int,int){return mark(1),mark(2)}\nfunc main(){n,_:=Target();fmt.Println(trace,n)}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target()int{a,b:=mark(1),mark(2);_=b;return a}\nfunc main(){n:=Target();fmt.Println(trace,n)}\n",
+    "afterSha256": "36344938b8183fa1f123244c44a9157a740c73103702964e7b59c04db05e4deb"
+  },
+  {
+    "name": "default_after_existing_arguments",
+    "before": {
+      "code": 0,
+      "stdout": "[1 2] 12\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "[1 2 3] 12\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": false,
+    "beforeSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(a,b int)int{return a*10+b}\nfunc main(){v:=Target(mark(1),mark(2));fmt.Println(trace,v)}\n",
+    "afterSource": "package main\nimport \"fmt\"\nvar trace []int\nfunc mark(n int) int { trace=append(trace,n);return n }\nfunc Target(ctx,a,b int)int{return a*10+b}\nfunc main(){v:=func(a,b int)int{ctx:=mark(3);return Target(ctx,a,b)}(mark(1),mark(2));fmt.Println(trace,v)}\n",
+    "afterSha256": "77286d79f68487da1dc79c379ea3579af4248e741bf143a772e31194ebd6bcee"
+  },
+  {
+    "name": "interface_closure",
+    "before": {
+      "code": 0,
+      "stdout": "7x 7x\n",
+      "stderr": ""
+    },
+    "after": {
+      "code": 0,
+      "stdout": "7x 7x\n",
+      "stderr": ""
+    },
+    "sameObservableOutputExpected": true,
+    "beforeSource": "package main\nimport \"fmt\"\ntype T struct{}\nfunc(T)M(a int,b string)string{return fmt.Sprint(a)+b}\ntype I interface{M(int,string)string}\nvar _ I=T{}\nfunc main(){var i I=T{};fmt.Println(T{}.M(7,\"x\"),i.M(7,\"x\"))}\n",
+    "afterSource": "package main\nimport \"fmt\"\ntype T struct{}\nfunc(T)M(b string,a int)string{return fmt.Sprint(a)+b}\ntype I interface{M(string,int)string}\nvar _ I=T{}\nfunc main(){var i I=T{};fmt.Println(T{}.M(\"x\",7),i.M(\"x\",7))}\n",
+    "afterSha256": "a4fa877ca6aba8d621561674e21aa2bb0bee8ae22050f29f7181fd3251095e26"
+  }
+]

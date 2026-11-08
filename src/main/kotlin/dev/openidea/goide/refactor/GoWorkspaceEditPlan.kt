@@ -55,7 +55,7 @@ internal data class GoEditNode(
 internal sealed interface GoEditStep {
     data class Text(val path: Path, val before: String, val after: String, val origin: Path?) : GoEditStep
     data class Create(val path: Path, val overwrite: Boolean) : GoEditStep
-    data class Rename(val old: Path, val new: Path, val overwrite: Boolean) : GoEditStep
+    data class Rename(val old: Path, val new: Path, val overwrite: Boolean, val caseOnly: Boolean = false) : GoEditStep
     data class Delete(val path: Path) : GoEditStep
     data class Directory(val path: Path) : GoEditStep
 }
@@ -85,12 +85,17 @@ internal object GoWorkspaceEditPlan {
         }
     }
 
-    fun build(edit: WorkspaceEdit, initial: Map<Path, GoEditNode>, synchronized: (Path) -> GoSyncedDocument?, editable: (Path) -> Boolean): GoEditPlan {
+    fun build(edit: WorkspaceEdit, initial: Map<Path, GoEditNode>, synchronized: (Path) -> GoSyncedDocument?, editable: (Path) -> Boolean): GoEditPlan =
+        build(edit, initial, synchronized, emptySet(), editable)
+
+    fun build(edit: WorkspaceEdit, initial: Map<Path, GoEditNode>, synchronized: (Path) -> GoSyncedDocument?,
+              aliases: Set<GoCaseRenameAlias>, editable: (Path) -> Boolean): GoEditPlan {
         requireEdit(edit.changes.isNullOrEmpty() || edit.documentChanges.isNullOrEmpty(), "WorkspaceEdit must not mix changes and documentChanges.")
-        val tree = initial.toMutableMap()
+        val tree = GoWorkspaceEditCaseAliases.logicalTree(initial, aliases).toMutableMap()
         val steps = mutableListOf<GoEditStep>()
         val preview = mutableListOf<GoEditPreview>()
         val versionedOrigins = mutableSetOf<Path>()
+        fun logical(path: Path) = GoWorkspaceEditCaseAliases.resolve(path, tree, initial, aliases)
         var confirmation = false
         fun checkAnnotation(id: String?) {
             if (id == null) return
@@ -129,7 +134,7 @@ internal object GoWorkspaceEditPlan {
             tree[p] = node.copy(text = after)
             if (after != before) { steps += GoEditStep.Text(p, before, after, origin); preview += GoEditPreview(p, "Edit", before, after) }
         }
-        edit.changes?.forEach { (uri, changes) -> text(path(uri), null, changes) }
+        edit.changes?.forEach { (uri, changes) -> text(logical(path(uri)), null, changes) }
         edit.documentChanges?.forEachIndexed { index, entry ->
             try {
                 if (entry.isLeft) {
@@ -142,11 +147,11 @@ internal object GoWorkspaceEditPlan {
                             ?: throw GoWorkspaceEditRejected("Snippet workspace edits are not supported")
                         else -> throw GoWorkspaceEditRejected("Unsupported workspace text edit payload")
                     } }
-                    text(path(value.textDocument.uri), value.textDocument.version, changes)
+                    text(logical(path(value.textDocument.uri)), value.textDocument.version, changes)
                 } else when (val op = entry.right) {
                     is CreateFile -> {
                         checkAnnotation(op.annotationId)
-                        val p = path(op.uri); checkPath(p)
+                        val p = logical(path(op.uri)); checkPath(p)
                         val old = tree[p]
                         if (old != null && op.options?.overwrite != true && op.options?.ignoreIfExists == true) return@forEachIndexed
                         requireEdit(old == null || op.options?.overwrite == true, "Create target already exists: $p")
@@ -158,11 +163,16 @@ internal object GoWorkspaceEditPlan {
                     }
                     is RenameFile -> {
                         checkAnnotation(op.annotationId)
-                        val old = path(op.oldUri); val new = path(op.newUri); checkPath(old); checkPath(new)
+                        val old = logical(path(op.oldUri))
+                        val requestedNew = path(op.newUri)
+                        val new = logical(requestedNew.parent).resolve(requestedNew.fileName)
+                        checkPath(old); checkPath(new)
                         if (old == new) return@forEachIndexed
                         val node = tree[old] ?: throw GoWorkspaceEditRejected("Rename source does not exist: $old")
                         requireEdit(!new.startsWith(old) && !old.startsWith(new), "Cannot rename overlapping ancestor/descendant paths")
-                        val target = tree[new]
+                        val targetPath = logical(new)
+                        val caseOnly = targetPath == old && targetPath != new
+                        val target = if (caseOnly) null else tree[targetPath]
                         if (target != null && op.options?.overwrite != true && op.options?.ignoreIfExists == true) return@forEachIndexed
                         requireEdit(target == null || op.options?.overwrite == true, "Rename target already exists: $new")
                         makeParents(new)
@@ -170,12 +180,12 @@ internal object GoWorkspaceEditPlan {
                         val moving = tree.filterKeys { it.startsWith(old) }
                         moving.keys.forEach(tree::remove)
                         moving.forEach { (p, child) -> tree[new.resolve(old.relativize(p))] = child }
-                        steps += GoEditStep.Rename(old, new, target != null)
+                        steps += GoEditStep.Rename(old, new, target != null, caseOnly)
                         preview += GoEditPreview(new, "Rename from $old", display(node), display(node))
                     }
                     is DeleteFile -> {
                         checkAnnotation(op.annotationId)
-                        val p = path(op.uri); checkPath(p)
+                        val p = logical(path(op.uri)); checkPath(p)
                         val old = tree[p]
                         if (old == null && op.options?.ignoreIfNotExists == true) return@forEachIndexed
                         requireEdit(old != null, "Delete target does not exist: $p")

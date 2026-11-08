@@ -104,6 +104,7 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
         val files: Map<Path, FileBaseline>, val documents: Map<Path, DocumentBaseline>,
         val synchronized: Map<Path, GoSyncedDocument?>,
         val closedOrigins: Set<Path>, val expectedPhysical: Map<Path, GoEditDiskStamp>,
+        val aliases: Set<GoCaseRenameAlias>,
     )
 
     private fun prepare(edit: WorkspaceEdit, request: GoEditRequestSnapshot?): Prepared {
@@ -117,9 +118,11 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
         }
         val sync = GoDocumentSync.get(project)
         val opened = ReadAction.compute<Set<Path>, RuntimeException> { openedPaths() }
-        val initial = snapshot(paths).mapValues { (path, node) ->
-            val buffer = cached[path]
-            val closed = !node.directory && node.disk != null && path !in opened && sync.snapshot(uri(path)) == null && buffer?.unsaved != true &&
+        val aliases = GoWorkspaceEditCaseAliases.detect(edit)
+        val initial = snapshot(paths, aliases).mapValues { (path, node) ->
+            val physical = node.origin ?: path
+            val buffer = cached[physical] ?: cached[path]
+            val closed = !node.directory && node.disk != null && physical !in opened && sync.snapshot(uri(physical)) == null && buffer?.unsaved != true &&
                 (buffer == null || runCatching { GoWorkspaceEditPlan.text(node) == buffer.text }.getOrDefault(false))
             node.copy(text = buffer?.text, closedOnDisk = closed)
         }
@@ -127,7 +130,7 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
         val plan = GoWorkspaceEditPlan.build(edit, initial, { path ->
             if (path !in synchronized) synchronized[path] = sync.snapshot(uri(path))
             synchronized[path]
-        }, ::editable)
+        }, aliases, ::editable)
         val textOrigins = plan.steps.filterIsInstance<GoEditStep.Text>().mapNotNull { it.origin }.toSet()
         val files = mutableMapOf<Path, FileBaseline>()
         val documents = cached.filterKeys { it in initial }.toMutableMap()
@@ -171,7 +174,7 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
             val content = if (node.origin == null && node.text != null) node.text.toByteArray(Charsets.UTF_8) else node.bytes
             GoEditDiskStamp(content.size.toLong(), hash(content), node.disk?.modifiedAtMillis ?: 0, node.disk?.fileKey)
         }
-        val prepared = Prepared(paths, plan, files, documents, synchronized, closed, physical)
+        val prepared = Prepared(paths, plan, files, documents, synchronized, closed, physical, aliases)
         ReadAction.run<RuntimeException> { validateDocuments(prepared, request) }
         validateDisk(prepared)
         return prepared
@@ -200,9 +203,10 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
         return roots to excluded
     }
 
-    private fun snapshot(paths: Set<Path>): Map<Path, GoEditNode> {
+    private fun snapshot(paths: Set<Path>, aliases: Set<GoCaseRenameAlias> = emptySet()): Map<Path, GoEditNode> {
         val result = linkedMapOf<Path, GoEditNode>()
         var bytes = 0L
+        var resources = 0
         fun add(path: Path) {
             checkOpen()
             if (path in result || !Files.exists(path, LinkOption.NOFOLLOW_LINKS)) return
@@ -221,10 +225,19 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
                 throw GoWorkspaceEditRejected("File changed while reading its closed-document baseline: $path")
             val disk = after?.let { GoEditDiskStamp(content.size.toLong(), hash(content), it.lastModifiedTime().toMillis(), it.fileKey()?.toString()) }
             result[path] = GoEditNode(directory, content, origin = path, disk = disk)
-            if (result.size > 20_000) throw GoWorkspaceEditRejected("Workspace edit contains too many filesystem resources")
+            if (++resources > 20_000) throw GoWorkspaceEditRejected("Workspace edit contains too many filesystem resources")
         }
         paths.forEach { path ->
-            if (Files.isDirectory(path, LinkOption.NOFOLLOW_LINKS)) Files.walk(path).use { stream -> stream.forEach(::add) } else add(path)
+            val alias = aliases.firstOrNull { it.new == path && it.old in result }
+            if (path !in result && alias != null) {
+                // Reuse the same physical bytes and original document identity for alternate
+                // spellings; directory aliases must not double the backup byte/resource budget.
+                result.filterKeys { it.startsWith(alias.old) }.forEach { (source, node) ->
+                    result[path.resolve(alias.old.relativize(source))] = node
+                }
+            } else if (path !in result) {
+                if (Files.isDirectory(path, LinkOption.NOFOLLOW_LINKS)) Files.walk(path).use { stream -> stream.forEach(::add) } else add(path)
+            }
             var parent = path.parent
             while (parent != null) { add(parent); parent = parent.parent }
         }
@@ -233,7 +246,11 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
 
     private fun validateDisk(prepared: Prepared) {
         checkOpen()
-        val actual = snapshot(prepared.paths)
+        prepared.aliases.forEach { alias ->
+            if (GoWorkspaceEditCaseAliases.actualEntryName(alias.old, alias.new) != alias.originalName)
+                throw GoWorkspaceEditRejected("Case-only rename source identity or filename changed while pending: ${alias.old}")
+        }
+        val actual = snapshot(prepared.paths, prepared.aliases)
         val expected = prepared.plan.before
         if (actual.keys != expected.keys || actual.any { (path, node) -> node.directory != expected[path]?.directory || node.disk != expected[path]?.disk || !node.bytes.contentEquals(expected[path]!!.bytes) })
             throw GoWorkspaceEditRejected("Files changed since this workspace edit was prepared; request it again")
@@ -286,7 +303,7 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
                     if (prepared.documents.isNotEmpty()) CommandProcessor.getInstance().addAffectedDocuments(project, *prepared.documents.values.map { it.document }.toTypedArray())
                     val journal = GoWorkspaceEditJournal()
                     transactionChanges.set(ownedChanges)
-                    try { execute(prepared, journal) }
+                    try { GoWorkspaceEditNativeExecutor(this, prepared.documents.mapValues { it.value.document }).execute(prepared.plan, prepared.aliases, journal) }
                     catch (failure: Throwable) {
                         try { journal.rollback() }
                         catch (rollback: Throwable) {
@@ -325,98 +342,6 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
         return advanced.copy(acceptedDisk = retainedDisk + currentDisk)
     }
 
-    private fun execute(prepared: Prepared, journal: GoWorkspaceEditJournal) {
-        val created = mutableSetOf<Path>()
-        val working = prepared.plan.before.toMutableMap()
-        fun deletedEntries(path: Path) = working.filterKeys { it.startsWith(path) }
-        prepared.plan.steps.forEach { step ->
-            when (step) {
-                is GoEditStep.Directory -> {
-                    val directory = parent(step.path).createChildDirectory(this, step.path.fileName.toString())
-                    journal.record { if (directory.isValid) { check(directory.children.isEmpty()) { "Created directory has unexpected contents: ${step.path}" }; directory.delete(this) } }
-                    working[step.path] = GoEditNode(true)
-                    created.add(step.path)
-                }
-                is GoEditStep.Create -> {
-                    val old = find(step.path)
-                    if (old != null) {
-                        val backup = deletedEntries(step.path)
-                        journal.record { restoreEntries(backup) }
-                        old.delete(this)
-                    }
-                    val file = parent(step.path).createChildData(this, step.path.fileName.toString())
-                    journal.record { if (file.isValid) file.delete(this) }
-                    created.add(step.path)
-                    working[step.path] = GoEditNode(false)
-                }
-                is GoEditStep.Rename -> {
-                    val file = find(step.old) ?: error("Rename source disappeared: ${step.old}")
-                    val target = find(step.new)
-                    if (target != null && target != file) {
-                        val backup = deletedEntries(step.new)
-                        journal.record { restoreEntries(backup) }
-                        target.delete(this)
-                        working.keys.filter { it.startsWith(step.new) }.toList().forEach(working::remove)
-                    }
-                    val originalParent = file.parent
-                    val originalName = file.name
-                    journal.record {
-                        check(file.isValid) { "Moved resource is no longer valid: ${step.old}" }
-                        if (file.parent != originalParent) file.move(this, originalParent)
-                        if (file.name != originalName) file.rename(this, originalName)
-                    }
-                    val newParent = parent(step.new)
-                    if (file.parent != newParent) file.move(this, newParent)
-                    if (file.name != step.new.fileName.toString()) file.rename(this, step.new.fileName.toString())
-                    val relocated = created.filter { it.startsWith(step.old) }.map { step.new.resolve(step.old.relativize(it)) }
-                    created.removeAll { it.startsWith(step.old) }; created += relocated
-                    val entries = deletedEntries(step.old)
-                    entries.keys.forEach(working::remove)
-                    entries.forEach { (path, node) -> working[step.new.resolve(step.old.relativize(path))] = node }
-                }
-                is GoEditStep.Delete -> {
-                    val backup = deletedEntries(step.path)
-                    journal.record { restoreEntries(backup) }
-                    find(step.path)?.delete(this) ?: error("Delete target disappeared: ${step.path}")
-                    backup.keys.forEach(working::remove)
-                }
-                is GoEditStep.Text -> {
-                    val file = find(step.path) ?: error("Text target disappeared: ${step.path}")
-                    val document = step.origin?.let { prepared.documents[it]?.document }?.takeIf { FileDocumentManager.getInstance().getFile(it) == file }
-                    if (document != null) {
-                        check(document.text == step.before) { "Document changed during commit: ${step.path}" }
-                        journal.record {
-                            val current = find(step.path) ?: error("Cannot restore text: ${step.path}")
-                            val doc = if (FileDocumentManager.getInstance().getFile(document) == current) document else
-                                FileDocumentManager.getInstance().getCachedDocument(current) ?: FileDocumentManager.getInstance().getDocument(current)
-                            check(doc != null) { "Cannot restore document: ${step.path}" }
-                            if (doc.text != step.before) doc.setText(step.before)
-                        }
-                        document.setText(step.after)
-                    } else {
-                        check(step.path in created) { "No preloaded document for ${step.path}" }
-                        journal.record { find(step.path)?.setBinaryContent(step.before.toByteArray(Charsets.UTF_8), -1, -1, this) ?: error("Cannot restore created document") }
-                        file.setBinaryContent(step.after.toByteArray(Charsets.UTF_8), -1, -1, this)
-                    }
-                    working[step.path] = working.getValue(step.path).copy(text = step.after)
-                }
-            }
-        }
-    }
-
-    /** Called only for a native delete which actually began; untouched later resources are never rebuilt. */
-    private fun restoreEntries(entries: Map<Path, GoEditNode>) {
-        entries.entries.sortedBy { it.key.nameCount }.forEach { (path, node) ->
-            if (find(path) == null) {
-                val file = if (node.directory) parent(path).createChildDirectory(this, path.fileName.toString()) else parent(path).createChildData(this, path.fileName.toString())
-                if (!node.directory) {
-                    file.setBinaryContent(if (node.origin == null && node.text != null) node.text.toByteArray(Charsets.UTF_8) else node.bytes, -1, -1, this)
-                    if (node.text != null) FileDocumentManager.getInstance().getDocument(file)?.let { if (it.text != node.text) it.setText(node.text) }
-                }
-            }
-        }
-    }
-
     private fun cachedDocuments(): Map<Path, Document> {
         val manager = FileDocumentManager.getInstance()
         val documents = (EditorFactory.getInstance().allEditors.map { it.document } + manager.unsavedDocuments + knownDocuments.values.mapNotNull { it.get() }).distinct()
@@ -426,7 +351,6 @@ class GoWorkspaceEditService(private val project: Project) : Disposable {
         FileDocumentManager.getInstance().getFile(editor.document)?.takeIf { it.isValid && it.isInLocalFileSystem }?.let { Path.of(it.path).toAbsolutePath().normalize() }
     }.toSet()
     private fun find(path: Path): VirtualFile? = LocalFileSystem.getInstance().findFileByNioFile(path)
-    private fun parent(path: Path): VirtualFile = find(path.parent) ?: error("Parent directory disappeared: ${path.parent}")
     private fun uri(path: Path): String = GoDocumentSync.fileUri(path)
     private fun checkOpen() { if (disposed || project.isDisposed) throw GoWorkspaceEditRejected("The project is closed") }
     private fun pooled(action: () -> Unit) = ApplicationManager.getApplication().executeOnPooledThread(action)

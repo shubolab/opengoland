@@ -127,7 +127,7 @@ private class GoConnectionSettingsEditor(private val localAdapter: Boolean) : Se
         if (localAdapter) form.addLabeledComponent("Adapter working directory:", directory)
             .addLabeledComponent("Adapter environment (target is unchanged):", JScrollPane(environment))
         form.addLabeledComponent("Source paths (local prefix => remote prefix):", JScrollPane(mappings)).addComponent(hideSystem)
-        val help = if (localAdapter) "A local dlv dap adapter is started. Stop detaches and leaves the existing target running."
+        val help = if (localAdapter) "A local dlv dap adapter is started. Stop requests a non-terminating detach. Resume before Stop to keep the target running."
         else "<html>DAP protocol only; this does not use Delve JSON-RPC.<br>For dlv dap, specify the target PID on that server.<br>For an existing headless session, start Delve with --headless --accept-multiclient.<br>Stop disconnects; a multi-client server retains the target's running or paused state.<br>Single-client headless servers can terminate targets they launched on disconnect.</html>"
         return form.addComponent(JBLabel(help)).addComponentFillVertically(JPanel(), 0).panel
     }

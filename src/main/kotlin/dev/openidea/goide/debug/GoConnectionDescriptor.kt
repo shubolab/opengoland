@@ -6,9 +6,12 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessListener
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.Disposable
+import com.intellij.openapi.fileTypes.FileType
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.xdebugger.XDebugSession
+import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider
 import com.redhat.devtools.lsp4ij.dap.DAPDebugProcess
 import com.redhat.devtools.lsp4ij.dap.DebugMode
 import com.redhat.devtools.lsp4ij.dap.client.DAPClient
@@ -28,6 +31,9 @@ class GoConnectionDescriptor(options: GoConnectionOptions, environment: Executio
     override fun getDebugMode() = connection.adapterMode
     override fun getDapParameters() = connection.dapParameters(environment.runProfile.name)
     override fun getFileType() = GoFileType.INSTANCE
+    override fun createBreakpointHandler(session: XDebugSession, project: Project) = GoDapBreakpointHandler(session, this, project)
+    override fun createDebuggerEditorsProvider(fileType: FileType?, debugProcess: DAPDebugProcess): XDebuggerEditorsProvider =
+        GoDebuggerEditorsProvider(fileType, debugProcess)
     override fun isDebuggableFile(file: VirtualFile, project: Project) = file.extension == "go"
     override fun getServerReadyConfig(debugMode: DebugMode): ServerReadyConfig = if (connection.localAdapter)
         ServerReadyConfig("DAP server listening at: \${address}:\${port}") else ServerReadyConfig(connection.host, connection.port)
@@ -54,7 +60,7 @@ class GoConnectionDescriptor(options: GoConnectionOptions, environment: Executio
 /** Stop is a DAP detach, irrespective of the outer mode used to spawn the adapter. */
 class GoAttachedDAPClient(debugProcess: DAPDebugProcess, parameters: Map<String, Any>, isDebug: Boolean,
     requestMode: DebugMode, serverTrace: ServerTrace, parentClient: DAPClient?) :
-    DAPClient(debugProcess, parameters, isDebug, requestMode, serverTrace, parentClient) {
+    GoDapClient(debugProcess, parameters, isDebug, requestMode, serverTrace, parentClient) {
     private val disconnecting = AtomicBoolean()
     override fun terminate() {
         if (!disconnecting.compareAndSet(false, true)) return

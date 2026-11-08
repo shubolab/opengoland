@@ -123,12 +123,62 @@ server edit tries to modify that file. If the real didChange notification has
 not caught up yet, the updated stamp does not invent a synchronized version;
 the subsequent edit still has to match the live mirror during planning.
 
+## Case-only file and directory renames
+
+Case-only RenameFile operations use physical identity rather than treating a
+different URI spelling as an overwrite. Background preparation verifies
+`Files.isSameFile` for both the resource and its parent and enumerates the actual
+directory entry. There must be exactly one matching entry. Two case-sensitive
+hard-link names can share an inode but are still two entries, so shared content
+or shared inode alone never authorizes this path.
+
+The planner keeps one logical tree for verified spelling aliases, preserving
+the source document/disk origin. Folder aliases reuse the same backup bytes
+instead of double-counting the transaction limits. Ordered repeated/reversed
+case changes and text edits through the new URI operate on that same resource.
+An alias referenced before its rename also resolves to the existing resource;
+CreateFile cannot mistake it for an empty target. Preview revalidation checks
+both identity and the actual original entry name, including an intervening
+case-only external rename.
+
+The native executor verifies that source and target still resolve to the same
+`VirtualFile` and parent. It calls native `rename`; it neither deletes a target
+nor sets the overwrite flag for a case alias. A distinct unexpected target is
+rejected unless a genuine overwrite was planned. The same native executor is
+used in production and the platform regression tests; no reflection/test-only
+mutation path or additional UndoableAction is introduced.
+
+The pinned SDK's
+[LocalFileSystemBase.renameFile](https://github.com/JetBrains/intellij-community/blob/idea/2026.1.4/platform/platform-impl/src/com/intellij/openapi/vfs/impl/local/LocalFileSystemBase.java)
+explicitly handles case-insensitive equal-name renames and uses an atomic NIO
+move when supported. The public
+[VirtualFile identity contract](https://github.com/JetBrains/intellij-community/blob/idea/2026.1.4/platform/core-api/src/com/intellij/openapi/vfs/VirtualFile.java)
+defines equal instances as representing the same resource during its lifetime.
+This product calls those native APIs and preserves native FileUndoProvider and
+DocumentUndoProvider recording within the existing single global command.
+
+A disposable probe on the current APFS volume confirmed one directory entry
+for `name.go`/`Name.go`, unchanged inode after rename, and corresponding folder
+and child identity. Added regressions cover real temporary filesystem identity,
+hard-link counterexamples, planner aliases, subsequent open-versioned and
+closed-version-zero text edits, repeated/reversed renames, and pre-rename alias
+references. Two new LightPlatformTestCase tests exercise actual local VFS,
+documents, Local History and one global Undo/Redo for file and folder cases,
+including assertions that no delete event occurs. Execution of this new test
+batch has passed all eight planner/temporary-filesystem tests. The first run of
+the two platform tests stopped before mutation because their canonical
+`/private/var/...` temporary directories were outside the test fixture's allowed
+VFS roots. Those tests now register only their own temporary root with the
+standard scoped `VfsRootAccess.allowRootAccess` API and revoke it after cleanup;
+their actual native Undo/Redo rerun remains pending. No production access checks
+were changed. Standalone native acceptance remains separate evidence.
+
 ## Current explicit limits
 
-- Case-only resource renames on a case-insensitive filesystem are conservatively
-  rejected as existing-target collisions. Detecting old/new URI aliases by
-  physical file identity is a follow-up. Ordinary platform Project-tree rename
-  is a different route and is not covered by this transaction service.
+- Case-only aliases require the physical-identity and directory-entry proof
+  described above. A distinct existing target on a case-sensitive filesystem is
+  still a normal target collision. Ordinary platform Project-tree rename is a
+  separate route from this transaction service.
 - A second versioned TextDocumentEdit for the same original document in one
   batch is rejected, including across a resource rename. The client cannot
   prove an intermediate notification version merely by adding one to the
