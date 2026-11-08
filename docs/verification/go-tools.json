@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "scope": "direct-tool-protocol-baseline",
+  "notProven": [
+    "native IDE integration",
+    "UI behavior",
+    "complete GoLand feature equivalence"
+  ],
+  "startedAt": "2026-11-08T12:05:13Z",
+  "platform": "darwin",
+  "fixtureSource": "/Users/wangshubo/develop/openidea-go/fixtures/go-workspace",
+  "fixtureSHA256": {
+    "README.md": "354086bcabf221155d1bb8a97cc1f81133f4759eed0f8783d635c23e1bb648cb",
+    "app/go.mod": "a9c082ccb5d7385e443edab56f43ffbca109aefce2c02af6edf72eefd563874e",
+    "app/main.go": "0501279a7d3546789ede7f39a2875ce1c896833f437a8641eb00e211c18191b8",
+    "catalog/catalog.go": "71e54cab904c60dc3cb922cc6510c0525139e88cfdbcc2c0a369b02dc6d386ba",
+    "catalog/catalog_test.go": "1a6e0fd095c4c4eed200679f1e2b36bcf90863886b7913e641ce50e68e9b9073",
+    "catalog/go.mod": "68364887a250e850ae1f9063d295232319d7cb08c874636b3ef87cf098b69f3b",
+    "go.work": "a25a3e765139be95466b5d53e986725b0cb40b33eb0ed04696eafb65aec8e9ed"
+  },
+  "tools": {
+    "go": {
+      "path": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+      "version": "go version go1.24.3 darwin/arm64"
+    },
+    "gopls": {
+      "path": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls",
+      "version": "golang.org/x/tools/gopls v0.21.1"
+    },
+    "dlv": {
+      "path": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv",
+      "version": "Delve Debugger\nVersion: 1.24.2\nBuild: $Id: 7e679e5860c17d90514f9c440e055355de831ce2 $"
+    }
+  },
+  "results": {
+    "gopls": {
+      "status": "passed",
+      "checks": [
+        {
+          "name": "initialize_utf16_workspace",
+          "status": "passed",
+          "seconds": 0.082,
+          "positionEncoding": "utf-16",
+          "workspaceFolders": 1
+        },
+        {
+          "name": "completion_catalog_members",
+          "status": "passed",
+          "seconds": 0.391,
+          "matchingLabels": [
+            "Cart"
+          ]
+        },
+        {
+          "name": "hover_cart_type",
+          "status": "passed",
+          "seconds": 0.001,
+          "containsCart": true
+        },
+        {
+          "name": "definition_cross_module_utf16_unsaved",
+          "status": "passed",
+          "seconds": 0.001,
+          "position": {
+            "line": 18,
+            "character": 53
+          },
+          "resolvedPath": "catalog/catalog.go",
+          "unsaved": true
+        },
+        {
+          "name": "references_cross_module",
+          "status": "passed",
+          "seconds": 0.012,
+          "paths": [
+            "app/main.go",
+            "catalog/catalog.go",
+            "catalog/catalog_test.go"
+          ]
+        },
+        {
+          "name": "rename_workspace_edit_and_compile",
+          "status": "passed",
+          "seconds": 1.196,
+          "changedPaths": [
+            "app/main.go",
+            "catalog/catalog.go",
+            "catalog/catalog_test.go"
+          ],
+          "goTest": {
+            "catalog": "ok  \texample.com/openidea/catalog\t0.477s",
+            "app": "?   \texample.com/openidea/app\t[no test files]"
+          }
+        },
+        {
+          "name": "organize_imports_unsaved",
+          "status": "passed",
+          "seconds": 0.193,
+          "removedUnusedImport": "strings"
+        },
+        {
+          "name": "format_unsaved_document",
+          "status": "passed",
+          "seconds": 0.004,
+          "editCount": 5
+        },
+        {
+          "name": "unsaved_diagnostics_version_invalidation",
+          "status": "passed",
+          "seconds": 0.154,
+          "badVersion": 8,
+          "clearedVersion": 9,
+          "badDiagnosticCount": 1,
+          "clearedDiagnosticCount": 0,
+          "diskWasUnchanged": true
+        }
+      ],
+      "processExited": true,
+      "stderrTail": []
+    },
+    "delve": {
+      "status": "passed",
+      "checks": [
+        {
+          "name": "listen_loopback_ephemeral",
+          "status": "passed",
+          "seconds": 0.026,
+          "host": "127.0.0.1",
+          "ephemeralPort": 57771
+        },
+        {
+          "name": "initialize_dap_capabilities",
+          "status": "passed",
+          "seconds": 0.002,
+          "supportsConfigurationDoneRequest": true
+        },
+        {
+          "name": "launch_and_verified_breakpoint",
+          "status": "passed",
+          "seconds": 0.788,
+          "line": 15,
+          "reason": "breakpoint",
+          "threadId": 1
+        },
+        {
+          "name": "threads_stack_scopes_variables",
+          "status": "passed",
+          "seconds": 0.012,
+          "threadCount": 5,
+          "stackDepth": 3,
+          "locals": [
+            "cart",
+            "price"
+          ]
+        },
+        {
+          "name": "evaluate_cart_field",
+          "status": "passed",
+          "seconds": 0.002,
+          "expression": "cart.Items[0].Price",
+          "value": "25"
+        },
+        {
+          "name": "step_resume_and_exit",
+          "status": "passed",
+          "seconds": 0.042,
+          "stepReason": "step",
+          "terminated": true
+        }
+      ],
+      "adapterProcessExited": true,
+      "adapterOutputTail": [
+        "DAP server listening at: 127.0.0.1:57771",
+        "你好，Go 开发者 👋",
+        "Total: 37"
+      ],
+      "activeTermination": {
+        "status": "passed",
+        "checks": [
+          {
+            "name": "listen_loopback_ephemeral",
+            "status": "passed",
+            "seconds": 0.017,
+            "host": "127.0.0.1",
+            "ephemeralPort": 57777
+          },
+          {
+            "name": "initialize_dap_capabilities",
+            "status": "passed",
+            "seconds": 0.001,
+            "supportsConfigurationDoneRequest": true
+          },
+          {
+            "name": "launch_and_verified_breakpoint",
+            "status": "passed",
+            "seconds": 0.67,
+            "line": 15,
+            "reason": "breakpoint",
+            "threadId": 1
+          },
+          {
+            "name": "disconnect_terminates_paused_debuggee",
+            "status": "passed",
+            "seconds": 0.157,
+            "observedOwnedDescendantCount": 3,
+            "allObservedDescendantsExited": true,
+            "adapterExited": true,
+            "debuggeeWasPausedAtBreakpoint": true
+          }
+        ],
+        "adapterProcessExited": true,
+        "adapterOutputTail": [
+          "DAP server listening at: 127.0.0.1:57777"
+        ]
+      }
+    }
+  },
+  "fixtureSourceUnchanged": true,
+  "temporaryWorkspacesRemoved": true,
+  "seconds": 4.192,
+  "status": "passed"
+}

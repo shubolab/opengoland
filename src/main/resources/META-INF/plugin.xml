@@ -1,0 +1,79 @@
+<idea-plugin>
+    <id>dev.openidea.go</id>
+    <name>Go Workbench</name>
+    <vendor>open Goland contributors</vendor>
+    <description><![CDATA[
+        Go development tools for the open Goland desktop IDE.
+        The isolated platform sandbox is a development environment;
+        this plugin is not a redistribution of JetBrains GoLand.
+    ]]></description>
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.redhat.devtools.lsp4ij</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileType name="open Goland" language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoFileType" fieldName="INSTANCE" extensions="go"/>
+        <fileType name="open Goland Module" language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModFileType" fieldName="INSTANCE" patterns="go.mod"/>
+        <fileType name="open Goland Workspace" language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkFileType" fieldName="INSTANCE" patterns="go.work"/>
+        <lang.parserDefinition language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoParserDefinition"/>
+        <lang.parserDefinition language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModParserDefinition"/>
+        <lang.parserDefinition language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkParserDefinition"/>
+        <lang.syntaxHighlighterFactory language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
+        <lang.syntaxHighlighterFactory language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
+        <lang.syntaxHighlighterFactory language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
+        <lang.commenter language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoCommenter"/>
+        <lang.braceMatcher language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoBraceMatcher"/>
+        <lang.foldingBuilder language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.foldingRange.LSPFoldingRangeBuilder" order="first"/>
+        <codeBlockProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.codeBlockProvider.LSPCodeBlockProvider" order="first"/>
+        <codeInsight.parameterInfo language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.signatureHelp.LSPParameterInfoHandler"/>
+        <lang.psiStructureViewFactory language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.documentSymbol.LSPDocumentSymbolStructureViewFactory"/>
+        <callHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.callHierarchy.LSPCallHierarchyProvider"/>
+        <typeHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.typeHierarchy.LSPTypeHierarchyProvider"/>
+        <langCodeStyleSettingsProvider implementation="dev.openidea.goide.lang.GoCodeStyleSettingsProvider"/>
+        <projectConfigurable id="dev.openidea.go.settings" displayName="Go" instance="dev.openidea.goide.settings.GoSettingsConfigurable"/>
+        <projectConfigurable id="dev.openidea.go.lint.settings" parentId="dev.openidea.go.settings" displayName="Go Inspections" instance="dev.openidea.goide.settings.GoLintConfigurable"/>
+        <toolWindow id="Go" anchor="left" factoryClass="dev.openidea.goide.engine.GoToolWindowFactory" icon="/icons/go.svg"/>
+        <toolWindow id="Go Coverage" anchor="bottom" factoryClass="dev.openidea.goide.coverage.GoCoverageToolWindowFactory" icon="/icons/go.svg"/>
+        <toolWindow id="Go Profiles" anchor="bottom" factoryClass="dev.openidea.goide.profile.GoProfileToolWindowFactory" icon="/icons/go.svg"/>
+        <toolWindow id="Go Inspections" anchor="bottom" factoryClass="dev.openidea.goide.lint.GoLintToolWindowFactory" icon="/icons/go.svg"/>
+        <configurationType implementation="dev.openidea.goide.debug.GoDebugConfigurationType"/>
+        <configurationType implementation="dev.openidea.goide.run.GoBuildConfigurationType"/>
+        <configurationType implementation="dev.openidea.goide.run.GoTestConfigurationType"/>
+        <programRunner implementation="dev.openidea.goide.run.GoProgramRunner"/>
+        <runConfigurationProducer implementation="dev.openidea.goide.run.GoBuildConfigurationProducer"/>
+        <runConfigurationProducer implementation="dev.openidea.goide.run.GoTestConfigurationProducer"/>
+        <runLineMarkerContributor language="OpenIDEAGo" implementationClass="dev.openidea.goide.run.GoRunLineMarkerContributor"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
+        <server id="openidea.gopls" name="Go (gopls)" factoryClass="dev.openidea.goide.lsp.GoLanguageServerFactory">
+            <description><![CDATA[Go code intelligence using the official Go language server.]]></description>
+        </server>
+        <languageMapping language="OpenIDEAGo" serverId="openidea.gopls" languageId="go"/>
+        <languageMapping language="OpenIDEAGoMod" serverId="openidea.gopls" languageId="go.mod"/>
+        <languageMapping language="OpenIDEAGoWork" serverId="openidea.gopls" languageId="go.work"/>
+        <debugAdapterServer id="openidea.delve" name="Go (Delve)" factoryClass="dev.openidea.goide.debug.GoDebugAdapterFactory" icon="/icons/go.svg"/>
+    </extensions>
+    <actions>
+        <action id="OpenIDEA.NewGoModule" class="dev.openidea.goide.project.NewGoModuleAction" text="Go Module…" description="Create a new Go module">
+            <add-to-group group-id="NewGroup" anchor="first"/>
+            <add-to-group group-id="WelcomeScreen.QuickStart" anchor="first"/>
+        </action>
+        <group id="OpenIDEA.Go.Tools" text="Go" popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+            <action id="OpenIDEA.Go.Tidy" class="dev.openidea.goide.engine.GoTidyAction" text="Go Mod Tidy"/>
+            <action id="OpenIDEA.Go.Download" class="dev.openidea.goide.engine.GoDownloadAction" text="Download Go Modules"/>
+            <action id="OpenIDEA.Go.Vendor" class="dev.openidea.goide.engine.GoVendorAction" text="Vendor Go Dependencies"/>
+            <action id="OpenIDEA.Go.WorkSync" class="dev.openidea.goide.engine.GoWorkSyncAction" text="Sync Go Workspace"/>
+            <separator/>
+            <action id="OpenIDEA.Go.Vet" class="dev.openidea.goide.lint.RunGoVetInspectionAction" text="Go Vet"/>
+            <action id="OpenIDEA.Go.GolangciLint" class="dev.openidea.goide.lint.RunGolangciInspectionAction" text="Run golangci-lint"/>
+            <action id="OpenIDEA.Go.Generate" class="dev.openidea.goide.engine.GoGenerateAction" text="Go Generate"/>
+            <action id="OpenIDEA.Go.Benchmark" class="dev.openidea.goide.engine.GoBenchmarkAction" text="Run Go Benchmarks"/>
+            <separator/>
+            <action id="OpenIDEA.Go.Coverage" class="dev.openidea.goide.coverage.RunGoCoverageAction" text="Run Go Coverage"/>
+            <action id="OpenIDEA.Go.ImportCoverage" class="dev.openidea.goide.coverage.ImportGoCoverageAction" text="Import Go Coverage Profile…"/>
+            <action id="OpenIDEA.Go.HideCoverage" class="dev.openidea.goide.coverage.HideGoCoverageAction" text="Hide Go Coverage"/>
+            <separator/>
+            <action id="OpenIDEA.Go.Profiles" class="dev.openidea.goide.profile.ShowGoProfilesAction" text="Go Profiles…"/>
+            <action id="OpenIDEA.Go.ImportProfile" class="dev.openidea.goide.profile.ImportGoProfileAction" text="Import Go pprof Profile…"/>
+        </group>
+    </actions>
+</idea-plugin>

@@ -1,0 +1,17 @@
+{
+  "schema": "openidea.desktop-evidence.v1",
+  "date": "2026-11-08",
+  "name": "open Goland",
+  "bundleId": "dev.opengoland.ide",
+  "sourceDigest": "67b968fd59441c06ca378cae149426fb892002a7ad4b3f007b5f2c24e15ec157",
+  "sourceFiles": 104,
+  "junit": {
+    "tests": 67,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "packaging": "passed with strict deep signature verification",
+  "profileLicenseBundled": true,
+  "nativeAcceptance": "selected native Coverage executor, CPU profile/source navigation, Vet findings/navigation/recovery passed; full acceptance remains open"
+}

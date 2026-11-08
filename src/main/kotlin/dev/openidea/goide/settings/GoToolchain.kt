@@ -1,0 +1,97 @@
+package dev.openidea.goide.settings
+
+import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.execution.configurations.PathEnvironmentVariableUtil
+import com.intellij.openapi.project.Project
+import java.nio.file.Files
+import java.nio.file.Path
+import java.io.File
+
+object GoToolchain {
+    fun command(project: Project, tool: String, args: List<String>): GeneralCommandLine {
+        val settings = GoProjectSettings.get(project)
+        val configured = when (tool) {
+            "go" -> settings.goExecutable
+            "gopls" -> settings.goplsExecutable
+            "dlv" -> settings.delveExecutable
+            else -> error("Unsupported Go tool: $tool")
+        }
+        val executable = resolve(tool, configured)
+            ?: throw IllegalStateException("$tool was not found. Configure it in Settings > Go.")
+        val cmd = GeneralCommandLine(executable).withParameters(args).withWorkDirectory(project.basePath)
+        val go = resolve("go", settings.goExecutable)
+        val environment = parseEnvironment(settings.environment).toMutableMap()
+        val toolDirectories = listOfNotNull(
+            go?.let { Path.of(it).parent.toString() },
+            resolve("gopls", settings.goplsExecutable)?.let { Path.of(it).parent.toString() },
+            resolve("dlv", settings.delveExecutable)?.let { Path.of(it).parent.toString() },
+            Path.of(System.getProperty("user.home"), "go", "bin").toString(),
+        )
+        val inheritedPath = environment["PATH"] ?: System.getenv("PATH").orEmpty()
+        environment["PATH"] = (toolDirectories + inheritedPath.split(File.pathSeparatorChar))
+            .filter(String::isNotBlank).distinct().joinToString(File.pathSeparator)
+        if (!environment.containsKey("GOROOT") && go != null) {
+            runCatching { Path.of(go).toRealPath().parent.parent }.getOrNull()?.let { sdk ->
+                if (Files.isDirectory(sdk.resolve("src/runtime"))) environment["GOROOT"] = sdk.toString()
+            }
+        }
+        val tags = buildTags(settings.buildTags)
+        if (tags.isNotEmpty()) {
+            environment["GOFLAGS"] = listOfNotNull(
+                environment["GOFLAGS"] ?: System.getenv("GOFLAGS"),
+                "-tags=${tags.joinToString(",")}",
+            ).filter(String::isNotBlank).joinToString(" ")
+        }
+        cmd.withEnvironment(environment)
+        // Dedicated target fields use the same precedence as gopls initialization.
+        if (settings.goos.isNotBlank()) cmd.withEnvironment("GOOS", settings.goos)
+        if (settings.goarch.isNotBlank()) cmd.withEnvironment("GOARCH", settings.goarch)
+        if (settings.cgoEnabled.isNotBlank()) cmd.withEnvironment("CGO_ENABLED", settings.cgoEnabled)
+        return cmd
+    }
+
+    fun resolve(tool: String, configured: String = ""): String? {
+        if (configured.isNotBlank()) {
+            val path = configured.trim().let {
+                if (it.startsWith("~/")) Path.of(System.getProperty("user.home"), it.substring(2)) else runCatching { Path.of(it) }.getOrNull()
+            } ?: return null
+            return path.toAbsolutePath().normalize().takeIf { Files.isRegularFile(it) && Files.isExecutable(it) }?.toString()
+        }
+        PathEnvironmentVariableUtil.findInPath(tool)?.let { return it.absolutePath }
+        val home = Path.of(System.getProperty("user.home"))
+        val filename = if (System.getProperty("os.name").startsWith("Windows")) "$tool.exe" else tool
+        val candidates = mutableListOf(home.resolve("go/bin/$filename"), Path.of("/opt/homebrew/bin/$filename"), Path.of("/usr/local/go/bin/$filename"), Path.of("/usr/local/bin/$filename"))
+        val mise = home.resolve(".local/share/mise/installs/go")
+        if (Files.isDirectory(mise)) Files.list(mise).use { versions ->
+            versions.sorted { a, b -> compareSDKVersions(b.fileName.toString(), a.fileName.toString()) }
+                .forEach { candidates.add(it.resolve("bin/$filename")) }
+        }
+        return candidates.firstOrNull { Files.isRegularFile(it) && Files.isExecutable(it) }?.toString()
+    }
+
+    fun buildTags(text: String): List<String> = text.split(Regex("[,\\s]+")).filter(String::isNotBlank).distinct()
+
+    fun configurationKey(project: Project): List<String> = GoProjectSettings.get(project).let {
+        listOf(it.goExecutable, it.goplsExecutable, it.delveExecutable, it.buildTags, it.goos, it.goarch, it.cgoEnabled, it.environment)
+    }
+
+    private fun compareSDKVersions(a: String, b: String): Int {
+        val av = a.substringBefore('-').split('.').map { it.toIntOrNull() ?: 0 }
+        val bv = b.substringBefore('-').split('.').map { it.toIntOrNull() ?: 0 }
+        for (i in 0 until maxOf(av.size, bv.size)) {
+            val result = (av.getOrElse(i) { 0 }).compareTo(bv.getOrElse(i) { 0 })
+            if (result != 0) return result
+        }
+        return a.compareTo(b)
+    }
+
+    fun parseEnvironment(text: String): Map<String, String> = buildMap {
+        text.lineSequence().map(String::trimStart).filter(String::isNotBlank).forEach { line ->
+            val separator = line.indexOf('=')
+            require(separator > 0 && '\u0000' !in line) { "Environment variables must use NAME=value, one per line." }
+            val key = line.substring(0, separator).trim()
+            require(key.matches(Regex("[A-Za-z_][A-Za-z0-9_]*"))) { "Invalid environment variable name: $key" }
+            put(key, line.substring(separator + 1))
+        }
+    }
+}

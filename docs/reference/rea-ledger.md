@@ -1,0 +1,48 @@
+# REA evidence ledger
+
+Target: installed GoLand and PyCharm 2026.1.4, macOS Apple silicon.
+These are reference applications. No proprietary implementation is included in
+the reconstruction. Static declarations are acceptance candidates, not proof of
+runtime behavior.
+
+| Observation | Authority | Evidence | Scope / limitations |
+| --- | --- | --- | --- |
+| GoLand bundle identity GO-261.26222.72 | shipped-artifact, observed | `ev_f4de67db294b87c7b83c32378d461135a99d4699fc4087ab6c69966fa85e02ba` | Explicit installed `Info.plist`; SHA-256 `9968b91af9d7b7c51c344e56c9e9afbb4d2d448c9ed5d994e1611a03e68fcf0a`. No runtime behavior established. |
+| PyCharm bundle identity PY-261.26222.68 | shipped-artifact, observed | `ev_3a2794bd04161298dbe071a3ea6edb0e4df6b30a3aee9fbccdcfbb506d1b8bab` | Explicit installed `Info.plist`; SHA-256 `40efccabf6681f20d008025d998403b43d0e56dd3ab90479cd372ce1f4e3e260`. No runtime behavior established. |
+
+The exported session is `rea-bundle-initial.json`. It also retains an earlier
+explicit PyCharm plist read made while GoLand's plist was the active target
+(`ev_76f2955650a945a06c9bc508235eb174482e2beba7a74ddab2a4ac0721b9892e`).
+Its parsed source path is PyCharm but its subject inherits the GoLand context;
+use the later, correctly bound PyCharm record above for identity claims.
+
+See `installed-ides.json` for reproducible selected JAR/resource observations,
+and `acceptance-matrix.json` for runtime requirements. None of the latter are
+marked verified by the static inventory.
+
+## Native UI observation
+
+On 2026-11-08 the installed GoLand was launched with Computer Use. Its welcome
+workbench rendered, including native tool-window stripes and Run/Debug controls.
+Attempting to open the disposable Go acceptance workspace encountered an
+activation dialog, so no reference edit/run/debug behavior was established.
+No activation, account, license, or preference changes were performed. This is a
+Computer Use observation, separate from REA's static Evidence above; it does not
+close any runtime feature requirement.
+
+## Go plugin archive
+
+REA inspected the installed `plugins/go-plugin/lib/go-plugin.jar` without
+executing or extracting its implementation. Archive SHA-256:
+`198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0`.
+
+- Inspection: `ev_1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3`.
+- Inventory: `ev_6e83a4534edd89427f4d3a3376a4298d405d86d086458de6bdecc6149fc82e8c`.
+- Manifest: `agm_689ef0a8e81b9f963c841ca6a3e7379acdaa5bc5f2d79d214dbe34106a8e22d3`.
+- Observed 5,701 ZIP entry occurrences, 5,650 content-addressed nodes, and zero
+  reported integrity contradictions within the ZIP inventory.
+
+`rea-bundle-go-plugin.json` retains the canonical archive and selected descriptor
+inventory. Central-directory inventory does not establish runtime behavior or
+the semantics of JVM implementation classes. Resource declarations are further
+parsed by the separate reproducible `inspect_reference.py` investigation.

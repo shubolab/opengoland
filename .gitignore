@@ -1,0 +1,13 @@
+.gradle/
+.intellijPlatform/
+.tools/
+.state/
+build/
+out/
+*.iml
+.idea/
+.DS_Store
+__pycache__/
+*.pyc
+engine/bin/
+engine/coverage.out

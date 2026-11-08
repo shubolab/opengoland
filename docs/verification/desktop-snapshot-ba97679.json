@@ -1,0 +1,419 @@
+{
+  "schema": "openidea.desktop-evidence.v1",
+  "date": "2026-11-08",
+  "sourceDigest": "ba97679d73bedd8ddfd440fc8190c4c8a5f1374e1ba6002b4549964f55bd358a",
+  "sourceFiles": 84,
+  "junit": {
+    "tests": 49,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "packaging": "passed; code signature verified by packaging script",
+  "manifestSha256": "76b2059e7e06c9fa380cc005c4a1a3ebae1693f64d22bd2eb347dbd3df7094d1",
+  "productManifest": {
+    "name": "OpenIDEA Go",
+    "version": "0.1.0-SNAPSHOT",
+    "platform": {
+      "repository": "JetBrains/intellij-community",
+      "release": "idea/2026.1.4",
+      "version": "2026.1.4",
+      "platformBaseline": "261",
+      "source": "https://github.com/JetBrains/intellij-community/releases/tag/idea/2026.1.4",
+      "macOS-aarch64": {
+        "assetId": 464253180,
+        "name": "idea-2026.1.4-aarch64.dmg",
+        "url": "https://github.com/JetBrains/intellij-community/releases/download/idea/2026.1.4/idea-2026.1.4-aarch64.dmg",
+        "size": 792341526,
+        "sha256": "0630e888527119cacdd6abc242e9ea3a0ce802951b46b23d8bcbd6caf0838db2"
+      }
+    },
+    "plugins": [
+      "com.redhat.devtools.lsp4ij",
+      "dev.openidea.go"
+    ],
+    "brandingResources": [
+      "app.jar!/idea/IdeaApplicationInfo.xml"
+    ],
+    "pluginLoading": {
+      "property": "plugin.path",
+      "directories": [
+        "Contents/plugins/openidea-go",
+        "Contents/plugins/lsp4ij"
+      ]
+    },
+    "buildInputs": {
+      "schemaVersion": 1,
+      "algorithm": "sha256",
+      "scope": "Kotlin main/test sources and resources, Go engine sources/tests, Gradle configuration, packaging scripts",
+      "files": [
+        {
+          "path": "build.gradle.kts",
+          "sha256": "37350508a6110cf672caa68082ed06fda43ee816717404be7d7c398dc298be38"
+        },
+        {
+          "path": "engine/cmd/openidea-engine/main.go",
+          "sha256": "5b574aba36a11fa11eb8616a10392ae87ff584974a0f80e129ec59ba82d767f7"
+        },
+        {
+          "path": "engine/go.mod",
+          "sha256": "9741253cd44c572bba29caf800e7f9b8eb959ac4c696a7de87688537784c1b5e"
+        },
+        {
+          "path": "engine/internal/engine/cancel_unix_test.go",
+          "sha256": "1f144df7ec67014af6884d2b7e1acb547e0606614d738340553a547d1dc0a8e6"
+        },
+        {
+          "path": "engine/internal/engine/engine_test.go",
+          "sha256": "809d3823c6db971e52156ea22f90207c2abf9b599aaa7051744c71a4a0cab5c0"
+        },
+        {
+          "path": "engine/internal/engine/process_unix.go",
+          "sha256": "b202b601c365fc37aa6b6ad95d3770f5269bfa0f7db74dd955feb7e75772c0d7"
+        },
+        {
+          "path": "engine/internal/engine/process_windows.go",
+          "sha256": "2f5605d57485bbe15d8e4363f4a35b38d9120e6476f7056276ab68fac40db6e0"
+        },
+        {
+          "path": "engine/internal/engine/project.go",
+          "sha256": "2d286f403931a60184de2b16e34b4a8a56d9edc605d2c01aed1b7c4802522fba"
+        },
+        {
+          "path": "engine/internal/engine/tasks.go",
+          "sha256": "dc1ef12496cae19706b405e3c07212f66cb86006be8b7b5caeb1082a40aeab28"
+        },
+        {
+          "path": "engine/internal/protocol/framing.go",
+          "sha256": "d2bd291d4053c6f0cf2693113659f4f49e82a9a425fa69731c33e6316c20d0ad"
+        },
+        {
+          "path": "engine/internal/protocol/framing_test.go",
+          "sha256": "69264568b3eb7c85f974ad5fed4a6e605a52f24d2eb60016e9199677b7e61ba4"
+        },
+        {
+          "path": "engine/internal/rpc/server.go",
+          "sha256": "88f5ca70e5485ba290fbffc0f72d32d342033660694e74e8fb5f15ffdb736b36"
+        },
+        {
+          "path": "engine/internal/rpc/server_test.go",
+          "sha256": "900cc0cfb2244004aa39a25325b783bc57645325b9c2fba51227aac07a55a2ba"
+        },
+        {
+          "path": "engine/testdata/workspace/app/cmd/wait/main.go",
+          "sha256": "e55c0bc2c1a57a3cce55c0937a080eff85f6b3bf693ddc7ada123ca6d4bb29e0"
+        },
+        {
+          "path": "engine/testdata/workspace/app/go.mod",
+          "sha256": "b0d7f77ba1b6b2b215997e8030d347b653e696880160241af02063008c90fb82"
+        },
+        {
+          "path": "engine/testdata/workspace/app/main.go",
+          "sha256": "9e4feeb73519c76679c467edca5159fd8cd3e8f5a2c7cf4a65b8fa1fbce19c3b"
+        },
+        {
+          "path": "engine/testdata/workspace/app/main_test.go",
+          "sha256": "91e11eb4d38d507e1d9daf56eccda7e441880d37317c4232dfd2efc0a8c53744"
+        },
+        {
+          "path": "engine/testdata/workspace/library/go.mod",
+          "sha256": "1c32ecfefd7a59c6b35d6ef9133fc89676fac2626c4a572f56418536912cea5a"
+        },
+        {
+          "path": "engine/testdata/workspace/library/greet.go",
+          "sha256": "233a73a060898c60e417f205410f94c9d5cb45232f9fcb611ef6073a0f323424"
+        },
+        {
+          "path": "engine/testdata/workspace/library/greet_test.go",
+          "sha256": "f4c8dbbc2ada46a6c5f3a8606b451c8cac17c605b0e642d3c9317b4fc426aacf"
+        },
+        {
+          "path": "gradle.properties",
+          "sha256": "770828b3b4c8a4e7eb20154dd42dd265bf0f41ebcc0f163435ef929b3b227190"
+        },
+        {
+          "path": "product/platform.lock.json",
+          "sha256": "24bdaeb9b0bd7e3dda42eb3a97ebb1498f47f3db3c3d431c90d496b1213338c3"
+        },
+        {
+          "path": "scripts/bootstrap-platform.sh",
+          "sha256": "d0bac322fe9abd36b21632f29db00d388aeba9566830dc42f726153f7e6f4c06"
+        },
+        {
+          "path": "scripts/build.sh",
+          "sha256": "878a5eebd1fcd5c3ec0b9b30e60ac5b75481e337250f213c1afb35120bba584c"
+        },
+        {
+          "path": "scripts/build_inputs.py",
+          "sha256": "71d4ff4d6b478a7a8460c354e55872aae8697fc3a6606bef26ee2ea71d855b68"
+        },
+        {
+          "path": "scripts/dev.sh",
+          "sha256": "80acace26d0f6ea5009dea07c4052b799b26175bff7a1a1d4900a357134052a5"
+        },
+        {
+          "path": "scripts/inspect_reference.py",
+          "sha256": "b8b99998e180132dfa57ebdfb5951d3069ae7ad84445c3ff5027c534477b5b50"
+        },
+        {
+          "path": "scripts/launch-product.sh",
+          "sha256": "8215ee6f5aa10e62034170d5c4e9d0ab2f6f9e9bb6ebf2eb1d70a3d0db3fd0f8"
+        },
+        {
+          "path": "scripts/package-product.py",
+          "sha256": "e9a8fe38715e858a3ffa9853808654534e3d91a7832797d73cb64de12c16b7ce"
+        },
+        {
+          "path": "scripts/package-product.sh",
+          "sha256": "875e43da636fb45c76a0f48cfe82e1df4a2fe394006bbbf7887e4d499bfab15e"
+        },
+        {
+          "path": "scripts/platform-info.py",
+          "sha256": "1c8d7adef7379775cacb07bb358dd0f494f2edf4d960b9e99add376ee846e569"
+        },
+        {
+          "path": "scripts/verify-go-tools.py",
+          "sha256": "a5f81b0db8cd7d18d8bf328bc80c982f88e2e4b9ff13f43d103854a82d0ca6e3"
+        },
+        {
+          "path": "scripts/verify-product-runtime.py",
+          "sha256": "1128699525c4c41832a2a7a4a39336b034f11575a4cdc7cd44f34ee60dac617b"
+        },
+        {
+          "path": "settings.gradle.kts",
+          "sha256": "42fe30c950e973f9cbe4f94039985f8e2d5f4a8d5d6b10b7b95b47983c26c26d"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/coverage/GoCoverageProfile.kt",
+          "sha256": "c35f923b7d783128f53e7bbeda8f4bd011cf062e5a570fada422c7ccb1b1d50a"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/coverage/GoCoverageService.kt",
+          "sha256": "ccd53d527cc342b3942fdb0aef5eaa6cfa8ebde2ccbe6922ba2d75adf936c6e9"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/coverage/GoCoverageToolWindow.kt",
+          "sha256": "5f4ae7fd0610f4835621529267f615c392ff807c4508c9410683c5dba15b5d63"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/debug/GoDebugAdapterFactory.kt",
+          "sha256": "5193aac782dea0b76a392407a3487a13b64a3b7bbbd18d47c344057069cb3630"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/debug/GoDebugConfiguration.kt",
+          "sha256": "cc2a19a11716157e1da7ab15ec028c007336342524844a76c72322defbbc7c9e"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/debug/GoDebugLaunch.kt",
+          "sha256": "9e9aaa47618b22d902d2bae783979c403ca5fde94dc68abfde38c2403370310d"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/debug/GoTestDebugArguments.kt",
+          "sha256": "a2a54896daf19a808b4eff84ac5db74a06c8e0ef7a81ea6ec15a4e66f20553f0"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/engine/EngineClient.kt",
+          "sha256": "47a5a1812ab38b94d03988bd8bc844d353e030e136fa40df8f4119df3bf8f89a"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/engine/GoTaskActions.kt",
+          "sha256": "a79077e18a040404d1fb76be4376156834def6fb51744824ac198e973d0717a4"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/engine/GoToolWindow.kt",
+          "sha256": "d0d5668165fa8870dbef2ad6e26afe099c79fd4b8f29684d79f2c0a38a3870e2"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/lang/GoCodeStyle.kt",
+          "sha256": "65e779d5af512006c04372761140950b9e4a6e8d86e602e664ff8f82ea797768"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/lang/GoLanguage.kt",
+          "sha256": "8ed55b604fa3ce13ace137da7325c39e083654de07c4fbf766b5d5682296d183"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/lang/GoLexer.kt",
+          "sha256": "4ce3a283bca25699976036a6aa2bc7b5804a4a4266ecbdd2ad6ecf918bab61b0"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/lang/GoManifestFileTypes.kt",
+          "sha256": "ff0a119393012ae538d0784c575b45df41616802f5ccb84658c9b4da28054761"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/lang/GoParserDefinition.kt",
+          "sha256": "842e6534470acd3ffea28965c8b582eeb6f2faf2b6c37f2fcdf018da495fa4a4"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/lang/GoSyntaxHighlighter.kt",
+          "sha256": "1d51380d791b9347d0a8e0e4766f69f95a0e9723fdd28ad721f4655dfebef36a"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageServerFactory.kt",
+          "sha256": "76be3f5253f8c49a55c66bfc894c0d316cced40d88096e2d39cfccf7977ae307"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/project/GoModuleGenerator.kt",
+          "sha256": "cbe6c09ce167512b6b768d0f93967c960f845477a9b621593858288a4a130409"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/project/NewGoModuleAction.kt",
+          "sha256": "198bc3ccd40eb63a8726fb15fbf06b1fbd9bd8f8a163eb3fcca30ff56eade47f"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoPackageDirectories.kt",
+          "sha256": "95c824847021e714a33954b127b95514d074db5baefa8a2869c5a550a5c524d0"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoPendingTestOutput.kt",
+          "sha256": "2e6c8f97540197873efaaecb339a4f40a22f80c0df181a86e6ab930e6c2ff9bd"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoProgramRunner.kt",
+          "sha256": "7fb17d4b6795fd28aef52d576a77515749644c87ef128c65adcf578c41c74a62"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoRerunFailedTestsAction.kt",
+          "sha256": "76a52812798e51de06421f7d855db32abe64fc16ce4d6cab1a67cd8ce1e2d413"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoRunConfiguration.kt",
+          "sha256": "da5a5ef92b59ceeb1c8dc0074426d8c69626f426ffb0e541f4aad1746da9118a"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoRunContext.kt",
+          "sha256": "2fd7094e6b36712904205ccd5f4bdaa4bda99c3454ead3322e7db7b2bdab7c30"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoRunParameters.kt",
+          "sha256": "cb79245b0d20564809374315ba194b2d6b6c76b7823794d9b7eda19f9daaa8eb"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoRunSettingsEditor.kt",
+          "sha256": "b1710d62155584546ef4c89b22f6df91c08c4dcdcb904dd6a81c1108e99799d8"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoTestOutput.kt",
+          "sha256": "21c4b3fafeb44694a71513830d19d5353f21ebb092dfea62beae9e2078660847"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/run/GoTestRerunPlan.kt",
+          "sha256": "79f5840d9237cd17aeecb244fb384b4789f3356cdee7ce099d8c17a38d29b0ab"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/settings/GoProjectSettings.kt",
+          "sha256": "59d2e975099dfcf4b26784ebf9f24d89933faa35cfccdc04c865df3db6b6e5df"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/settings/GoSettingsConfigurable.kt",
+          "sha256": "265ada53e55748512ff4d752b59bcedac0fe4c33fc8f9e137c800196b7b7d1bb"
+        },
+        {
+          "path": "src/main/kotlin/dev/openidea/goide/settings/GoToolchain.kt",
+          "sha256": "817f7917d04c2275820d0e86992ffc595f48dcabbc209faf7a8cec708f7477eb"
+        },
+        {
+          "path": "src/main/resources/META-INF/plugin.xml",
+          "sha256": "0c2eaeda8de1359e70922685e5c98a9f321d4e30a50ad09e4c95a376297591f9"
+        },
+        {
+          "path": "src/main/resources/icons/go.svg",
+          "sha256": "c9e980348c93a3c92e40726e884aa35531641746cb7dd821e0aed2f57aa7eaab"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/coverage/GoCoverageIntegrationTest.kt",
+          "sha256": "625b589ce63204a94c8ab1b4a54fbea3a66d1b7a2aac155f1f385b7e8f828661"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/coverage/GoCoverageProfileTest.kt",
+          "sha256": "a137ae9bde8599dfb63c7f329e20483e2fba92e6f94e2de4390fea479ba74818"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/debug/GoDebugLaunchTest.kt",
+          "sha256": "7384d00768bff54c0944822a782c9fae5bb66a34142a130da5d63372956b259a"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/debug/GoDebugRunnerEligibilityTest.kt",
+          "sha256": "76782736e75f3e68393b0c3809491e43f14bf16ceee13a4023343c0568b811ff"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/debug/GoTestDebugArgumentsTest.kt",
+          "sha256": "6ed1efcde60c3d1bba44b8526e4c0f92a0d280f399936c03dc4894a1531e8a1e"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/engine/EngineClientLifecycleTest.kt",
+          "sha256": "77b8df1b6d7a032881e9b9408f07e2a287b729d19e2b81010cccc04d8c98ff4c"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/engine/EngineFramingTest.kt",
+          "sha256": "e752a3feeb9ae3bcb0baf1e9f8596aac26216fd7afec3f0040ee17c8eace024b"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/lang/GoLexerTest.kt",
+          "sha256": "24175f6992a27568c3f4e15c0e3d852f12fe6c60df0639b9401d157c5b013a3e"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/project/GoModuleGeneratorTest.kt",
+          "sha256": "fcfce07ad651b8fdafd6542e2187d22dd0cb6521ad9009c7c3129524aa42fe8c"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/run/GoPackageDirectoriesTest.kt",
+          "sha256": "f4856b834713649ce49e10169536b3445692b22e8a74c8b3b1e6a515a77f247b"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/run/GoRunParametersTest.kt",
+          "sha256": "b964a18d07a12412349b62685e808dc67b2df633d47c1340b916589c9578ec3a"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/run/GoSourceFunctionsTest.kt",
+          "sha256": "622d91abdcb3581910923b55863a738c1128714c0b83bc82a092ec0cf34c67fe"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/run/GoTestOutputTest.kt",
+          "sha256": "76a26642314d72278688aa18eb9bae8f2980006ee4cdef5e58ca99a7410b69ef"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/run/GoTestOwnershipTest.kt",
+          "sha256": "8f19887fc68a19bbef8238ad600efa2a713bff622725510240c235623f8b1548"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/run/GoTestRerunPlanTest.kt",
+          "sha256": "5ddb1105e2e1711d248ae5ede18bd31033feace9165f5e30bebd2575b2011e82"
+        },
+        {
+          "path": "src/test/kotlin/dev/openidea/goide/settings/GoToolchainTest.kt",
+          "sha256": "8ed4d160fd74f0f3c01921268696600502418b493012d7a91371a26f880c6f1e"
+        }
+      ],
+      "digest": "ba97679d73bedd8ddfd440fc8190c4c8a5f1374e1ba6002b4549964f55bd358a"
+    },
+    "pluginArtifactSha256": {
+      "plugins/openidea-go/bin/openidea-engine": "725825df43fc2cc6314d74649169fd74c57c10b7e4d899f108b29031b3399636",
+      "plugins/openidea-go/lib/openidea-go-0.1.0-SNAPSHOT.jar": "327f93174bb28db721137cfaaa64f2ac2044301a7d20eb36e5edd4167033c3ce",
+      "plugins/lsp4ij/lib/annotations-24.0.1.jar": "61666dbce7e42e6c85b43c04fcfb8293a21dcb55b3c80e869270ce42c01a6b35",
+      "plugins/lsp4ij/lib/autolink-0.6.0.jar": "a80be030f6386f18111cad9161c0b6983157352a1b59a59e6002172f0d321c04",
+      "plugins/lsp4ij/lib/flexmark-0.64.8.jar": "3133878d108f0e1964d7d427f379a7433e1b71a45f9f3c1fab7ed0ac0301d3b0",
+      "plugins/lsp4ij/lib/flexmark-ext-autolink-0.64.8.jar": "4850d6f895ec3f2932635829d74ff9a2fb00918965bb91c000ab497d603e11b8",
+      "plugins/lsp4ij/lib/flexmark-ext-gfm-strikethrough-0.64.8.jar": "fc6cad026fbd036b3ffd0448264360a5f1b572756ef3427ff022715b7fc5f1c3",
+      "plugins/lsp4ij/lib/flexmark-ext-tables-0.64.8.jar": "cdf82d26e112e96ade7e370138aeb16920b7e2d411d20c6c15cb1acfacd1ef1f",
+      "plugins/lsp4ij/lib/flexmark-util-0.64.8.jar": "1e24c891dac9532bb722be7122c7026fb47868c3de36c02400eed8e9ad535727",
+      "plugins/lsp4ij/lib/flexmark-util-ast-0.64.8.jar": "a5342f644c6a5f37d502f225c3a0cb699c263621c82e720d9c08eba5a9f3b8d3",
+      "plugins/lsp4ij/lib/flexmark-util-builder-0.64.8.jar": "afb9c88d9f652451e75f1ab069ad7ddd791d712eb211c51d8d2a83494240875d",
+      "plugins/lsp4ij/lib/flexmark-util-collection-0.64.8.jar": "031ff01408d0f54c6235db18d451dc6e6b15b859b0ec1e40ff3429a82375082a",
+      "plugins/lsp4ij/lib/flexmark-util-data-0.64.8.jar": "83ceb5989ab0205054bf1b42446f55cb6da14c10aa7c2bda05d6a2504670f353",
+      "plugins/lsp4ij/lib/flexmark-util-dependency-0.64.8.jar": "e41adb5e8144699b61b78d50eb004eeb7de84f90c4c63626609e6cee5ea28b42",
+      "plugins/lsp4ij/lib/flexmark-util-format-0.64.8.jar": "6c9ac87686474edf0117b3f838d9dcb3b965fa72be4998d2177b598013679f73",
+      "plugins/lsp4ij/lib/flexmark-util-html-0.64.8.jar": "5b19e6506aff7913c74ad725af7c2b8a9f23958e6324bf0710c5a645a4663017",
+      "plugins/lsp4ij/lib/flexmark-util-misc-0.64.8.jar": "74472ca81a9080e51ea1a4f11c270898e3d6c242c92275fab47eb993806c8f2b",
+      "plugins/lsp4ij/lib/flexmark-util-options-0.64.8.jar": "2489f41e9caf1d9f8061833b311b25403925cbb631fff2b8c069192804d6fc88",
+      "plugins/lsp4ij/lib/flexmark-util-sequence-0.64.8.jar": "6e22976fe4e9b8de94fd529991ecb2d79cc482aad94985367470a93be1d82631",
+      "plugins/lsp4ij/lib/flexmark-util-visitor-0.64.8.jar": "d9b3002a833a078c45e139568b306dab0ac117ff9046c6a1f9e180c0154563fc",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0-searchableOptions.jar": "121b6dc3da5f081121804c9acb4f927be249ec7774b24561826771c36e324ace",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j-1.0.0.jar": "ccd78893facc6bfcc359d56cba05d3d5b85eb41e4c40d4b4215ca45db5f416d9",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.debug-0.21.0.jar": "eb32b70bab2f2f7be805ebf467e41ea8cd2ae80ef6801b1b374b355ab27cf32f",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc-1.0.0.jar": "9647feb0524bf763c878e12ab878a684102b81cccb3f77feecbec709d54f9bbb",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc.debug-0.21.0.jar": "82ece72945a352c93694143cdf4cf4cd1eb3e17d8c177c1a8616c78e5e56d165"
+    }
+  },
+  "nativeAcceptance": "Coverage collection/table/gutter/source navigation and duplicate-free passing test console observed in PID 13678; broader acceptance remains open"
+}

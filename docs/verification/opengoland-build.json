@@ -1,0 +1,25 @@
+{
+  "schema": "openidea.desktop-evidence.v1",
+  "date": "2026-11-08",
+  "name": "open Goland",
+  "sourceDigest": "6a91cf0399dccb6e6950e6a99bca33edf587270a538469ab8c4e7feacc4bce89",
+  "sourceFiles": 104,
+  "junit": {
+    "tests": 67,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "packaging": "passed with strict deep signature verification",
+  "nativeWorkflowBaseline": "67b968fd59441c06ca378cae149426fb892002a7ad4b3f007b5f2c24e15ec157",
+  "changesSinceBaseline": [
+    "LaunchServices GUI startup helper",
+    "trailing whitespace removal"
+  ],
+  "nativeStartupRegression": "pass: LaunchServices start and repeated activation retained PID 19805 and the project window",
+  "runtimeEvidence": "opengoland-runtime.json",
+  "goEngineVerification": {
+    "race": "passed all packages",
+    "vet": "passed"
+  }
+}

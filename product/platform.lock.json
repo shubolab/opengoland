@@ -1,0 +1,14 @@
+{
+  "repository": "JetBrains/intellij-community",
+  "release": "idea/2026.1.4",
+  "version": "2026.1.4",
+  "platformBaseline": "261",
+  "source": "https://github.com/JetBrains/intellij-community/releases/tag/idea/2026.1.4",
+  "macOS-aarch64": {
+    "assetId": 464253180,
+    "name": "idea-2026.1.4-aarch64.dmg",
+    "url": "https://github.com/JetBrains/intellij-community/releases/download/idea/2026.1.4/idea-2026.1.4-aarch64.dmg",
+    "size": 792341526,
+    "sha256": "0630e888527119cacdd6abc242e9ea3a0ce802951b46b23d8bcbd6caf0838db2"
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "openidea.desktop-evidence.v1",
+  "date": "2026-11-08",
+  "artifact": {
+    "sourceDigest": "b496a85b4b9443c980d9722ca030ac664149b77946b0db3564980c4b9d5a2c58",
+    "sourceFiles": 78,
+    "pluginArtifacts": 26,
+    "junit": {
+      "tests": 39,
+      "failures": 0,
+      "errors": 0
+    },
+    "pluginName": "Go Workbench",
+    "codeStyleExtension": "langCodeStyleSettingsProvider",
+    "jvmArguments": {
+      "idea.vendor.name": [
+        "-Didea.vendor.name=OpenIDEA"
+      ],
+      "idea.paths.selector": [
+        "-Didea.paths.selector=OpenIDEAGo2026.1"
+      ],
+      "plugin.path": [
+        "-Dplugin.path=$APP_PACKAGE/Contents/plugins/openidea-go,$APP_PACKAGE/Contents/plugins/lsp4ij"
+      ]
+    },
+    "codesign": "verified",
+    "runtimePluginLoading": "pass (PID 11214; separate runtime evidence)"
+  },
+  "runtime": {
+    "status": "pass",
+    "scope": "live process identity, expanded plugin paths, startup plugin loading",
+    "application": "/Users/wangshubo/develop/openidea-go/build/product/OpenIDEA Go.app",
+    "pid": 11214,
+    "vendor": "OpenIDEA",
+    "selector": "OpenIDEAGo2026.1",
+    "pluginPaths": [
+      "/Users/wangshubo/develop/openidea-go/build/product/OpenIDEA Go.app/Contents/plugins/openidea-go",
+      "/Users/wangshubo/develop/openidea-go/build/product/OpenIDEA Go.app/Contents/plugins/lsp4ij"
+    ],
+    "loadedPlugins": {
+      "dev.openidea.go": "Go Workbench",
+      "com.redhat.devtools.lsp4ij": "LSP4IJ"
+    },
+    "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+    "limitations": [
+      "Does not prove editing, code intelligence, testing, debugging, or feature parity"
+    ]
+  },
+  "nativeObservations": "desktop-smoke-2026-11-08.md",
+  "productAcceptance": "incomplete"
+}

@@ -1,0 +1,369 @@
+{
+  "schema": "openidea.acceptance.v1",
+  "objective": "Independent, complete usable Go IDE reproducing GoLand 2026.1.4 as closely as practical; not a rebranded installed GoLand or a UI-only demo.",
+  "reference_inventory": "installed-ides.json",
+  "coverage": "Selected feature obligations from product scope and selected shipped declarations; not exhaustive product equivalence.",
+  "status_policy": "Every row starts unverified for both actual reference behavior and reconstruction. Static declarations are candidate evidence only. Passing narrow tests cannot satisfy broader rows.",
+  "requirements": [
+    {
+      "id": "PRODUCT-01",
+      "area": "distribution",
+      "requirement": "Launch as an independent product without installed GoLand/PyCharm, commercial Go plugin binaries, or user IDE settings",
+      "reference": "product-info identities and plugin dependencies",
+      "probe": "Clean isolated profile; inspect runtime classpath and distribution input manifest; create/open Go project",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "open Goland standalone app launched with its own bundle ID and loaded both custom plugins; final launch/repeated activation passed in PID19805. Clean-machine/full independence acceptance still open."
+      }
+    },
+    {
+      "id": "UI-01",
+      "area": "workbench",
+      "requirement": "Project tree, editor tabs, split editors, tool windows, resize and restored layout reproduce reference workflow",
+      "reference": "IntelliJ Platform shared base; requires runtime observation",
+      "probe": "Same fixture and window size; open files, split, dock, resize, restart and compare screenshots plus persisted layout",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "UI-02",
+      "area": "editor",
+      "requirement": "Caret, selection, multicaret, undo/redo and dirty-document close work reliably",
+      "reference": "Platform editor; requires runtime observation",
+      "probe": "Edit multiple files with Unicode, multi-caret and undo; close/reopen and verify bytes and unsaved prompts",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "UI-03",
+      "area": "editor",
+      "requirement": "Chinese IME composition, emoji, combining text and selection coordinates remain correct",
+      "reference": "Platform editor; requires runtime observation",
+      "probe": "Use actual IME composition, cancel/commit candidates, completion and rename around UTF-16 surrogate pairs",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "UI-04",
+      "area": "navigation",
+      "requirement": "Search Everywhere, file/symbol/action search, recent files and navigation history use reference shortcuts and focus behavior",
+      "reference": "Selected platform keymaps",
+      "probe": "Keyboard-only navigation with matching macOS keymap; escape and focus restoration; verify destinations",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "UI-05",
+      "area": "settings",
+      "requirement": "Theme, font, keymap, settings search and Go settings follow platform conventions",
+      "reference": "Platform keymaps; GoRootConfigurable and GoPluginRootConfigurableProvider",
+      "probe": "Change settings, apply/cancel, restart, verify scope and restored values",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "PROJECT-01",
+      "area": "project",
+      "requirement": "Create/open/import Go module and discover SDK with clear errors",
+      "reference": "Go application and file actions; GoSdkConfigurable",
+      "probe": "New module fixture, existing module, missing SDK, alternate SDK, paths containing spaces",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "PROJECT-02",
+      "area": "modules",
+      "requirement": "go.mod/go.sum/go.work project semantics and local replace dependencies work across modules",
+      "reference": "vgo parser, VgoConfigurable and VgoSyncAction",
+      "probe": "Two-module workspace with external local replace; change dependency and confirm navigation/run/test synchronization",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "PROJECT-03",
+      "area": "toolchain",
+      "requirement": "GOROOT/GOPATH/proxy/module environment/build tags/GOOS/GOARCH/CGO apply consistently",
+      "reference": "GoSdkConfigurable, GoLibrariesConfigurableProvider, GoProjectSettingsConfigurable",
+      "probe": "Tag-specific files and alternate environment; compare diagnostics, build, test and debugger environment",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "PROJECT-04",
+      "area": "dependencies",
+      "requirement": "Tidy, vendor, sync, download and dependency errors have actionable UI",
+      "reference": "VgoTidyAction, VgoVendorAction, VgoSyncAction",
+      "probe": "Run each on a temporary fixture; inspect changed manifests and failure logs; cancel long operation",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-01",
+      "area": "syntax",
+      "requirement": "Go, go.mod/go.work, templates, build constraints and embedded language presentation are usable",
+      "reference": "Go/vgo/GoTemplate/GoBuild/GoPlusBuild parser and file-type declarations",
+      "probe": "Open valid/incomplete files and verify highlighting, folding, brace navigation, errors and no editor stalls",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-02",
+      "area": "completion",
+      "requirement": "Contextual and auto-import completion handles methods, interfaces, generics and incomplete code",
+      "reference": "GoCompletionContributor, GoAutoImportCompletionContributor and related contributors",
+      "probe": "Complete identifiers and unimported types with correct edit ranges/import placement, including unsaved files",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Unsaved fmt.Pr completion request returned three candidates and keyboard selection inserted Println in b496a85. Lookup visual layout and broader contextual/auto-import cases remain unverified."
+      }
+    },
+    {
+      "id": "LANG-03",
+      "area": "navigation",
+      "requirement": "Definition, implementation, references, type navigation, structure and call hierarchy resolve real symbols",
+      "reference": "Go reference, hierarchy and refactoring platform extensions",
+      "probe": "Cross-package generic/interface fixture, local shadowing, SDK/dependency navigation and back/forward history",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Cross-module Cmd+B definition navigation observed in b496a85; other navigation/hierarchy scopes remain unverified."
+      }
+    },
+    {
+      "id": "LANG-04",
+      "area": "diagnostics",
+      "requirement": "Compiler-like errors, Go inspections and quick fixes update correctly after edits",
+      "reference": "localInspection and intentionAction declarations",
+      "probe": "Introduce/fix errors in unsaved buffers; accept quick fix; confirm stale diagnostics disappear",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-05",
+      "area": "formatting",
+      "requirement": "Format, optimize imports and save actions preserve document/undo semantics",
+      "reference": "GoFmtFileAction, GoFmtProjectAction, GoImportsFileAction, GoFormattingModelBuilder",
+      "probe": "Malformed formatting and imports; format/save; verify bytes, cursor and undo across files",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-06",
+      "area": "refactoring",
+      "requirement": "Rename symbols/packages safely with preview, conflicts and undo",
+      "reference": "GoRefactoringSupportProvider and GoNamesValidator",
+      "probe": "Rename exported symbol and package across workspace; include comments/string options and conflicts",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-07",
+      "area": "refactoring",
+      "requirement": "Change signature updates callers and interface relationships with preview",
+      "reference": "Go refactoring support; exact behavior requires runtime observation",
+      "probe": "Add/reorder parameter and return value across packages/interfaces; compile and test after applying; undo",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-08",
+      "area": "refactoring",
+      "requirement": "Extract/inline/move declarations and introduce variable/type behave reliably",
+      "reference": "GoMoveDeclarationDelegate, GoIntroduceTypeAction, GoRefactoringSupportProvider",
+      "probe": "Extract selection, inline function and move exported declaration across packages; verify references and undo",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-09",
+      "area": "generation",
+      "requirement": "Generate interface methods, struct helpers and tests integrates with editor actions",
+      "reference": "GoGenerateMethodAction and GoGenerate* actions",
+      "probe": "Implement missing interface methods, generate helper and test; check focus, formatting and compile",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "LANG-10",
+      "area": "analysis",
+      "requirement": "Build-tag/OS/CGO files and multi-module scopes do not produce misleading references or diagnostics",
+      "reference": "GoProjectSettingsConfigurable and Go parser/completion declarations",
+      "probe": "Switch target environment and tags; check active/inactive files and references without editing wrong platform files",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "RUN-01",
+      "area": "run",
+      "requirement": "Native Go Build configuration supports target, working directory, build flags, program args and environment",
+      "reference": "GoApplicationRunConfigurationType and GoBuildingRunner",
+      "probe": "Run CLI and HTTP app with arguments, env, tags, paths with spaces; verify output, exit status and cancellation",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Native go run . printed the Unicode greeting and Total 37, exit 0, in b496a85; args/env/HTTP/cancellation scope remains unverified."
+      }
+    },
+    {
+      "id": "RUN-02",
+      "area": "run",
+      "requirement": "Context/gutter run configuration creation and persistence match Go workflow",
+      "reference": "GoRunLineMarkerProvider and GoApplicationRunConfigurationProducer",
+      "probe": "Run main from gutter and context menu, edit/save configuration, restart, rerun with same values",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "TEST-01",
+      "area": "tests",
+      "requirement": "Unit tests and table subtests form a navigable test tree with status, output and failure locations",
+      "reference": "GoTestRunConfigurationType and GotestRunConfigurationProducer",
+      "probe": "Passing/failing/skipped tests, nested parallel subtests, same test name in different packages and failed package initialization",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Passing native SM tree and two table subtests observed in b496a85. Root console duplicate output found. Failure/skip/parallel/source-navigation acceptance remains unverified."
+      }
+    },
+    {
+      "id": "TEST-02",
+      "area": "tests",
+      "requirement": "Rerun test and failed tests select correct package/subtest scope",
+      "reference": "Platform test runner and GoTestFinder",
+      "probe": "Fail one nested subtest among packages, rerun failed and verify only intended scope runs",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "TEST-03",
+      "area": "tests",
+      "requirement": "Benchmark and fuzz workflows support correct arguments, output and persistence",
+      "reference": "GobenchRunConfigurationProducer and GoFuzzRunConfigurationProducer",
+      "probe": "Run benchmark and short fuzz fixture, stop fuzz safely, navigate corpus failure",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "TEST-04",
+      "area": "coverage",
+      "requirement": "Coverage runs display file/line results and navigate uncovered code",
+      "reference": "GoCoverageEngine, GoCoverageRunner, GoCoverageProgramRunner",
+      "probe": "Run coverage for multi-package fixture, show/hide results, import coverprofile and compare with go tool cover",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Native Go Test Run with Coverage enabled and executed go test JSON + coverprofile, then automatically displayed 9/9=100% in Go Coverage. Independent panel source navigation/gutter also observed. Cancellation/import/stale cases still open."
+      }
+    },
+    {
+      "id": "DEBUG-01",
+      "area": "debug",
+      "requirement": "Launch/test debugging supports breakpoints, steps, frames, variables and evaluation",
+      "reference": "GoDebuggableProgramRunner",
+      "probe": "Debug HTTP app and unit test, hit line/conditional breakpoint, inspect struct/map/slice and evaluate expression",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Native launch breakpoint main.go:15, locals/interface, expression value 25, step to16 and resume exit0 observed in b496a85. Unit-test/HTTP/conditional-breakpoint scopes remain unverified."
+      }
+    },
+    {
+      "id": "DEBUG-02",
+      "area": "debug",
+      "requirement": "Goroutines, thread filters, watches and variable presentation remain usable",
+      "reference": "DlvFilterGoroutinesAction, DlvToggleThreadsAction, DlvShowTypesToggleAction",
+      "probe": "Concurrent fixture with blocked/running goroutines; select frame, filter, watch and resume",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "DEBUG-03",
+      "area": "debug",
+      "requirement": "Attach and remote debug use explicit target and lifecycle",
+      "reference": "GoRemoteDebugConfigurationType and GoLocalAttachDebuggerProvider",
+      "probe": "Attach to owned fixture process and remote Delve; detach/stop; verify unrelated processes unaffected",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "PROFILE-01",
+      "area": "profiling",
+      "requirement": "CPU/memory/block/mutex pprof profiles can be generated/opened and linked to source",
+      "reference": "intellij.go.performance profiler configuration declarations",
+      "probe": "Collect fixed fixture profiles, open each, navigate hot function, compare reported totals with go tool pprof",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Native CPU benchmark collection displayed structured hotspots and opened Cart.Total at catalog.go:19. Four profile kinds and aggregation have real-tool tests; remaining native metric/import/cancel cases still open."
+      }
+    },
+    {
+      "id": "TOOLS-01",
+      "area": "terminal",
+      "requirement": "Embedded interactive terminal respects project cwd, SDK env, resize and process cleanup",
+      "reference": "intellij.go.terminal module and platform terminal plugin",
+      "probe": "Interactive shell, Ctrl-C, Unicode output, full-screen command, resize and project close",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "TOOLS-02",
+      "area": "vcs",
+      "requirement": "Git status, diff, stage/commit/history and conflict navigation support real project workflow",
+      "reference": "Platform VCS modules; selected Go inventory does not establish behavior",
+      "probe": "Owned temporary Git fixture, untracked/edit/rename, partial stage, commit, history and merge conflict",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "TOOLS-03",
+      "area": "lint",
+      "requirement": "Go vet and golangci-lint results provide navigation and configuration",
+      "reference": "GoVetFileAction and GoLinterConfigurable",
+      "probe": "Known lint finding in fixture, configure command/flags, run/cancel and navigate exact location",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "source": "../verification/desktop-smoke-2026-11-08.md",
+        "observation": "Native two-module Vet displayed a real finding, navigated to line6, and cleared after disposable probe removal. Official golangci v2 JSON was tested directly; golangci settings/run/cancel GUI cases remain open."
+      }
+    },
+    {
+      "id": "TOOLS-04",
+      "area": "supporting-files",
+      "requirement": "Go template, JSON/YAML, Dockerfile, HTTP and SQL workflows used by Go projects have defined coverage",
+      "reference": "Bundled plugin directories and Go template/docker/database module declarations",
+      "probe": "Reference/new product comparison per supporting format and integration; report omitted commercial capabilities explicitly",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "ROBUST-01",
+      "area": "lifecycle",
+      "requirement": "Project close, reload, tool crashes, cancellation and stale results do not lose data or leak workers",
+      "reference": "Behavioral requirement; static descriptor coverage insufficient",
+      "probe": "Cancel during build/test/index, crash language server, switch projects and close app with unsaved files",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    },
+    {
+      "id": "ROBUST-02",
+      "area": "performance",
+      "requirement": "Startup, input, navigation/search/indexing and memory remain acceptable on representative Go repositories",
+      "reference": "No runtime measurements captured yet",
+      "probe": "Same machine/repos/cache state; record cold/warm startup, input p95, symbol search, indexing, memory and shutdown",
+      "reference_runtime": "unverified",
+      "reconstruction": "unverified"
+    }
+  ]
+}
