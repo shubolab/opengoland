@@ -33,8 +33,10 @@ class GoSignatureModelTest {
     }
     @Test fun wireCodecKeepsRealVersionAndUtf16ColumnsThroughNativePlanner() {
         val before = "/* 😀 */ Target(1)\n"
-        val path = Path.of("/workspace/main.go")
-        val plan = JsonParser.parseString("""{"workspaceEdit":{"documentChanges":[{"textDocument":{"uri":"file:///workspace/main.go","version":19},"edits":[{"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":15}},"newText":"Renamed"}]}]}}""").asJsonObject
+        val path = Path.of("workspace fixture 😀/main.go").toAbsolutePath().normalize()
+        val uri = path.toUri().toASCIIString()
+        assertTrue(uri.contains("%20"))
+        val plan = JsonParser.parseString("""{"workspaceEdit":{"documentChanges":[{"textDocument":{"uri":"$uri","version":19},"edits":[{"range":{"start":{"line":0,"character":9},"end":{"line":0,"character":15}},"newText":"Renamed"}]}]}}""").asJsonObject
         val edit = GoSignatureCodec.workspaceEdit(plan)
         assertEquals(19, edit.documentChanges.single().left.textDocument.version)
         val result = GoWorkspaceEditPlan.build(edit, mapOf(path to GoEditNode(false, before.toByteArray(), before, path)),
@@ -42,7 +44,8 @@ class GoSignatureModelTest {
         assertEquals("/* 😀 */ Renamed(1)\n", result.after.getValue(path).text)
     }
     @Test fun absentWireVersionRemainsUnversioned() {
-        val plan = JsonParser.parseString("""{"workspaceEdit":{"documentChanges":[{"textDocument":{"uri":"file:///workspace/main.go","version":null},"edits":[]}]}}""").asJsonObject
+        val uri = Path.of("workspace fixture 😀/main.go").toAbsolutePath().normalize().toUri().toASCIIString()
+        val plan = JsonParser.parseString("""{"workspaceEdit":{"documentChanges":[{"textDocument":{"uri":"$uri","version":null},"edits":[]}]}}""").asJsonObject
         assertNull(GoSignatureCodec.workspaceEdit(plan).documentChanges.single().left.textDocument.version)
     }
 }
