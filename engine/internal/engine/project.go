@@ -162,6 +162,13 @@ func (m *Manager) resolveCWD(path string) (string, error) {
 	if path == "" {
 		path = m.root
 	} else if !filepath.IsAbs(path) {
+		// On Windows, /child and C:child are neither fully qualified nor
+		// project-relative. Joining them would silently change their meaning
+		// (notably, "/" could become the project root). Preserve ordinary
+		// relative traversal; the canonical owned-root check below bounds it.
+		if filepath.VolumeName(path) != "" || os.IsPathSeparator(path[0]) {
+			return "", errors.New("working directory must be project-relative or a fully qualified absolute path")
+		}
 		path = filepath.Join(m.root, path)
 	}
 	abs, err := resolveDirectory(path)
