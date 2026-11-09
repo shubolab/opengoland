@@ -133,7 +133,7 @@ internal class GoSdkDownloadDialog(
                 deliver(ticket) {
                     busy = false; downloading = false
                     onInstalled(sdk)
-                    super.doOKAction()
+                    close(OK_EXIT_CODE)
                 }
             } catch (error: Exception) { failed(ticket, cancellation, error) }
         }

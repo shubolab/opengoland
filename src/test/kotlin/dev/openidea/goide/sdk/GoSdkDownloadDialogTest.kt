@@ -2,6 +2,7 @@ package dev.openidea.goide.sdk
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.ui.ComboBox
+import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.openapi.util.Disposer
 import com.intellij.testFramework.LightPlatformTestCase
 import com.intellij.ui.components.JBTextField
@@ -59,6 +60,11 @@ class GoSdkDownloadDialogTest : LightPlatformTestCase() {
                 assertFalse(dialog.isOKActionEnabled)
             }
             await { installed.get() != null }
+            onEdt {
+                assertTrue("A verified install must automatically close the native dialog", dialog.isDisposed)
+                assertEquals(DialogWrapper.OK_EXIT_CODE, dialog.exitCode)
+                assertTrue(dialog.isOK)
+            }
             assertTrue(edtCallback.get()); assertEquals(2, probeCount.get())
             assertTrue(Files.isRegularFile(installed.get()!!.executable))
             assertEquals(root.resolve("SDK 中文😀").toRealPath(), installed.get()!!.root)
