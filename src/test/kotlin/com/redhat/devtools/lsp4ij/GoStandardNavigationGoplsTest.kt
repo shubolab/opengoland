@@ -29,6 +29,7 @@ import com.redhat.devtools.lsp4ij.server.definition.LanguageServerDefinition
 import dev.openidea.goide.lang.GoLanguage
 import dev.openidea.goide.lsp.GoLanguageServerFactory
 import dev.openidea.goide.navigation.GoTargetElementEvaluator
+import com.intellij.execution.configurations.PathEnvironmentVariableUtil
 import org.eclipse.lsp4j.*
 import org.eclipse.lsp4j.jsonrpc.MessageConsumer
 import org.eclipse.lsp4j.jsonrpc.messages.NotificationMessage
@@ -249,7 +250,12 @@ class GoStandardNavigationGoplsTest : LightPlatformTestCase() {
         Assume.assumeTrue("Install gopls or set OPENGOLAND_GOPLS_TEST", executable != null)
         val root = Files.createTempDirectory("open-goland-standard-gopls-中文😀-").toRealPath()
         val disposable = Disposer.newDisposable("owned standard navigation gopls")
-        VfsRootAccess.allowRootAccess(disposable, root.toString())
+        // The owned gopls process inherits GOROOT (CI selects its authenticated
+        // builder SDK), otherwise it uses Go from PATH. SDK-source navigation is
+        // part of this test, so grant only that SDK in addition to the fixture.
+        val sdk = System.getenv("GOROOT")?.takeIf(String::isNotBlank)?.let(Path::of)
+            ?: requireNotNull(PathEnvironmentVariableUtil.findInPath("go")).toPath().toRealPath().parent.parent
+        VfsRootAccess.allowRootAccess(disposable, root.toString(), sdk.toRealPath().toString())
         val evaluatorExtension = TargetElementUtilBase.TARGET_ELEMENT_EVALUATOR
         val explicit = System.getProperty("openidea.testNavigationEvaluator") == "true"
         val evaluator = GoTargetElementEvaluator()

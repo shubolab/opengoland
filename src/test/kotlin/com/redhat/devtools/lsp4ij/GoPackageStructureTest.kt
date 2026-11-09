@@ -242,7 +242,7 @@ class GoPackageStructureTest : LightPlatformTestCase() {
         assertEquals(1, f.wrapper.packageRequests.size)
         assertTrue("Package mode must consume the authoritative graph rather than merge a second document result", f.wrapper.documentRequests.isEmpty())
         assertEquals(COMMAND, f.wrapper.packageRequests.single().command)
-        assertEquals(f.files.getValue("model.go").virtualFile.url,
+        assertEquals(LSPIJUtils.toUriAsString(f.files.getValue("model.go").virtualFile),
             Gson().toJsonTree(f.wrapper.packageRequests.single().arguments.single()).asJsonObject.get("URI").asString)
     }
 
@@ -332,7 +332,7 @@ class GoPackageStructureTest : LightPlatformTestCase() {
                 read { PsiDocumentManager.getInstance(project).getCachedDocument(foreign) })
             assertFalse(FileEditorManager.getInstance(project).openFiles.contains(foreign.virtualFile))
             val raw = (f.wrapper.packageJson() as JsonObject).deepCopy()
-            raw.getAsJsonArray("Files").add(foreign.virtualFile.url)
+            raw.getAsJsonArray("Files").add(LSPIJUtils.toUriAsString(foreign.virtualFile))
             // A real package_symbols response lists the file but omits its only
             // receiver method when its receiver declaration is missing.
             f.wrapper.nextReply = CompletableFuture.completedFuture(raw)
@@ -752,7 +752,7 @@ class GoPackageStructureTest : LightPlatformTestCase() {
                 fun init(index: Int) = linkedMapOf<String, Any>("name" to "init", "kind" to SymbolKind.Function.value,
                     "detail" to "func()", "range" to Range(Position(1, 0), Position(1, 14)),
                     "selectionRange" to Range(Position(1, 5), Position(1, 9))).apply { if (index != 0) put("file", index) }
-                return Gson().toJsonTree(mapOf("PackageName" to "fixture", "Files" to listOf("methods.go", "model.go").map { files.getValue(it).virtualFile.url },
+                return Gson().toJsonTree(mapOf("PackageName" to "fixture", "Files" to listOf("methods.go", "model.go").map { LSPIJUtils.toUriAsString(files.getValue(it).virtualFile) },
                     "Symbols" to listOf(init(0), init(1))))
             }
             val ordered = listOf("methods.go", "model.go", "private.go")
@@ -771,7 +771,7 @@ class GoPackageStructureTest : LightPlatformTestCase() {
             children += row(methods.single { it.kind == SymbolKind.Method }.apply { name = name.substringAfterLast('.') }, 0)
             record["children"] = children
             val all = types + methods.filter { it.kind != SymbolKind.Method }.map { row(it, 0) } + symbols("private.go", text("private.go")).map { row(it, 2) }
-            return Gson().toJsonTree(mapOf("PackageName" to "fixture", "Files" to ordered.map { files.getValue(it).virtualFile.url }, "Symbols" to all))
+            return Gson().toJsonTree(mapOf("PackageName" to "fixture", "Files" to ordered.map { LSPIJUtils.toUriAsString(files.getValue(it).virtualFile) }, "Symbols" to all))
         }
         override fun start() {}
         override fun getInitializedServer(): CompletableFuture<LanguageServer> = CompletableFuture.completedFuture(remote)

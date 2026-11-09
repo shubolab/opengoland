@@ -112,7 +112,7 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
         val connection = project.messageBus.connect()
         connection.subscribe(VirtualFileManager.VFS_CHANGES, object : BulkFileListener {
             override fun after(events: List<VFileEvent>) {
-                if (events.any { it.path == path.toString() }) delivered.countDown()
+                if (events.any { Path.of(it.path) == path }) delivered.countDown()
             }
         })
         try {

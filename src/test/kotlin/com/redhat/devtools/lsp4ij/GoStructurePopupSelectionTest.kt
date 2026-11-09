@@ -118,7 +118,7 @@ class GoStructurePopupSelectionTest : LightPlatformTestCase() {
         val source get() = SOURCES.getValue("types.go")
 
         fun warmDocumentSymbols() {
-            val future = read { LSPFileSupport.getSupport(file).documentSymbolSupport.getDocumentSymbols(DocumentSymbolParams(TextDocumentIdentifier(file.virtualFile.url))) }
+            val future = read { LSPFileSupport.getSupport(file).documentSymbolSupport.getDocumentSymbols(DocumentSymbolParams(TextDocumentIdentifier(LSPIJUtils.toUriAsString(file.virtualFile)))) }
             val symbols = future.get(10, TimeUnit.SECONDS)
             assertTrue(symbols.any { it.documentSymbol.name == "(*Record).Lookup" })
         }
@@ -274,7 +274,7 @@ class GoStructurePopupSelectionTest : LightPlatformTestCase() {
             val encoded = row(record, 0).toMutableMap()
             @Suppress("UNCHECKED_CAST")
             encoded["children"] = (encoded["children"] as List<Map<String, Any>>) + row(symbols("methods.go").single().apply { name = "Rename" }, 1)
-            return Gson().toJsonTree(mapOf("PackageName" to "fixture", "Files" to listOf("types.go", "methods.go").map { files.getValue(it).virtualFile.url },
+            return Gson().toJsonTree(mapOf("PackageName" to "fixture", "Files" to listOf("types.go", "methods.go").map { LSPIJUtils.toUriAsString(files.getValue(it).virtualFile) },
                 "Symbols" to listOf(encoded)))
         }
         override fun start() {}

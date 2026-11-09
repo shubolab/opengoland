@@ -1,11 +1,12 @@
 package rpc
 
 import (
-	"net/url"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 )
 
 func TestJSONGenerationRPCUsesOwnedWorkerAndNeverWritesDirtyGenericSources(t *testing.T) {
@@ -18,7 +19,7 @@ func TestJSONGenerationRPCUsesOwnedWorkerAndNeverWritesDirtyGenericSources(t *te
 	source := "package sample\n// 中文 😀\ntype Model[T any] struct{Old T `json:\"-\"`}\n"
 	dirty := source + "// unsaved 😀\n"
 	path := filepath.Join(root, "模型 文件.go")
-	uri := (&url.URL{Scheme: "file", Path: filepath.ToSlash(path)}).String()
+	uri := signature.LocalURI(path)
 	for p, text := range map[string]string{filepath.Join(root, "go.mod"): "module example.org/jsonrpc\n\ngo 1.24.0\n", path: source} {
 		if e = os.WriteFile(p, []byte(text), 0600); e != nil {
 			t.Fatal(e)

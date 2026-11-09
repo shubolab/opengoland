@@ -62,14 +62,28 @@ type fileInfo struct {
 
 func hash(data []byte) string { h := sha256.Sum256(data); return hex.EncodeToString(h[:]) }
 func fileURI(path string) string {
-	return (&url.URL{Scheme: "file", Path: filepath.ToSlash(path)}).String()
+	value := filepath.ToSlash(path)
+	// A drive letter belongs to the path, never the URI authority. URL.String
+	// otherwise turns C:/source.go into file://C:/source.go.
+	if len(value) >= 3 && asciiDrive(value[0]) && value[1] == ':' && value[2] == '/' {
+		value = "/" + strings.ToUpper(value[:1]) + value[1:]
+	}
+	return (&url.URL{Scheme: "file", Path: value}).String()
 }
+func asciiDrive(c byte) bool { return c >= 'A' && c <= 'Z' || c >= 'a' && c <= 'z' }
 func uriPath(raw string) (string, error) {
 	u, err := url.Parse(raw)
 	if err != nil || u.Scheme != "file" || u.Host != "" || u.RawQuery != "" || u.Fragment != "" {
 		return "", fmt.Errorf("requires a local file URI: %s", raw)
 	}
-	path := filepath.FromSlash(u.Path)
+	value := u.Path
+	// RFC file URIs spell an absolute Windows drive path /C:/..., whereas
+	// filepath requires C:\... on Windows. Do not reinterpret that spelling on
+	// POSIX, where /C:/... is an ordinary absolute path.
+	if runtime.GOOS == "windows" && len(value) >= 4 && value[0] == '/' && asciiDrive(value[1]) && value[2] == ':' && value[3] == '/' {
+		value = value[1:]
+	}
+	path := filepath.FromSlash(value)
 	if !filepath.IsAbs(path) {
 		return "", errors.New("file URI must be absolute")
 	}

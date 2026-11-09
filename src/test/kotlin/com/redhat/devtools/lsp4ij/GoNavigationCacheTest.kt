@@ -134,7 +134,7 @@ class GoNavigationCacheTest : LightPlatformTestCase() {
     fun testAColdRequestsWatchedDependencyChangeCannotUseAStartupExemption() = fixture { f ->
         val listener = LSPFileListener(f.wrapper)
         listener.registerFileSystemWatchers("owned cold watcher", listOf(FileSystemWatcher().apply {
-            setGlobPattern(RelativePattern().apply { setBaseUri(f.targetFile.virtualFile.parent.url); pattern = "*.go" })
+            setGlobPattern(RelativePattern().apply { setBaseUri(LSPIJUtils.toUriAsString(f.targetFile.virtualFile.parent)); pattern = "*.go" })
             kind = WatchKind.Change
         }))
         f.wrapper.status = ServerStatus.starting
@@ -169,7 +169,7 @@ class GoNavigationCacheTest : LightPlatformTestCase() {
     fun testMatchedWatchedDependencyInvalidatesButAnUnmatchedTraceFileDoesNot() = fixture { f ->
         val listener = LSPFileListener(f.wrapper)
         listener.registerFileSystemWatchers("owned semantic watcher", listOf(FileSystemWatcher().apply {
-            setGlobPattern(RelativePattern().apply { setBaseUri(f.targetFile.virtualFile.parent.url); pattern = "*.go" })
+            setGlobPattern(RelativePattern().apply { setBaseUri(LSPIJUtils.toUriAsString(f.targetFile.virtualFile.parent)); pattern = "*.go" })
             kind = WatchKind.Change
         }))
         val first = f.query("typeDefinition")
@@ -247,7 +247,7 @@ class GoNavigationCacheTest : LightPlatformTestCase() {
             val documents = read { files.map { requireNotNull(PsiDocumentManager.getInstance(project).getDocument(it)) } }
             val tracePath = root.resolve("trace.jsonl"); Files.writeString(tracePath, "")
             val trace = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(tracePath))
-            wrapper.targetDocument = documents[1]; wrapper.otherDocument = documents[2]; wrapper.targetURI = files[1].virtualFile.url
+            wrapper.targetDocument = documents[1]; wrapper.otherDocument = documents[2]; wrapper.targetURI = LSPIJUtils.toUriAsString(files[1].virtualFile)
             synchronized(started) { started.clear(); started.add(wrapper) }
             block(Fixture(files[0], files[1], trace, documents[0], documents[1], documents[2], wrapper))
         } finally {
