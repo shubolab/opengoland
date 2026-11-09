@@ -39,7 +39,7 @@ class GoLspInitializationSyncTest : LightPlatformTestCase() {
         val marker = requireNotNull(loader.getResourceAsStream("META-INF/open-goland-document-sync.json")) {
             "Tests must load the patched private sandbox plugin rather than the downloaded upstream dependency"
         }.bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
-        assertEquals("385d306dda4fe8f7a93f87f4ae34cd57b29cd1a5461c90510e6f289bd03b3dde", marker.get("patchSha256").asString)
+        assertEquals("c3caaafb453e35d5926e5f25e02b299af0bd7d81e624584b657ee2d611ccbd5c", marker.get("patchSha256").asString)
         val classes = marker.getAsJsonObject("classSha256").entrySet()
         assertEquals("The complete eleven-source private patch must be present", 11, marker.getAsJsonArray("sources").size())
         assertTrue("Find Usages outer class must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class" })

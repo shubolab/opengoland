@@ -1,5 +1,12 @@
 # Standard Go navigation and Settings search
 
+This is the historical **338-input 7284c945…** cohort. The later
+[hierarchy and Structure repair](hierarchy-structure.md) synchronizes the four
+navigation parameter gates and adds deterministic four-case RED/GREEN SDK
+regressions. It supersedes the specific untested concurrent-offset boundary below;
+the original cohort's measurements and remaining semantic/lifecycle limits stay
+attributed to their original bytes.
+
 The repaired package passes **404 Kotlin/platform tests across 91 reports**, with
 zero failures, errors or skips. Its **338 captured inputs** have digest
 `7284c94586560bcedf413621a21b7d3e4da9b4cb543a7312827288a3c0ae92e1`.

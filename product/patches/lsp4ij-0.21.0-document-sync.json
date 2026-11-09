@@ -11,9 +11,9 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "385d306dda4fe8f7a93f87f4ae34cd57b29cd1a5461c90510e6f289bd03b3dde",
+  "patchSha256": "c3caaafb453e35d5926e5f25e02b299af0bd7d81e624584b657ee2d611ccbd5c",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
@@ -29,7 +29,10 @@
       "Only definition/declaration/typeDefinition/implementation supports opt into the new semantic cache key; other LSP caches retain their old policy",
       "Stable document, semantic dependency and server epochs retain and reuse the same navigation future",
       "Navigation dependency capture is per generation and server readiness is captured before RPC, never rebaselined at response completion",
-      "checkValid and event callbacks do not resolve target files, load PSI or access the filesystem"
+      "checkValid and event callbacks do not resolve target files, load PSI or access the filesystem",
+      "The same instance monitor now also covers the four public navigation getters parameter gate; no transport wait is added to these getters",
+      "Unchanged-context navigation future reuse, existing offset-change cancellation and dependency epoch validation remain intact",
+      "No new public source prefixes or nested classes; seventeen previous class digests remain exact"
     ],
     "limitations": [
       "Not a claim that all LSP request/editor races are solved",
@@ -88,25 +91,25 @@
       "path": "src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java",
       "upstreamSha256": "e940e288cdd9a3c4cf85c29192c9f5d05b29c2ed81894c4b48535e033238910b",
-      "patchedSha256": "b4050f273d87a9c89bfc67ac04a6c47f8d56f559dbae4f0ab7f28662e3fcd3ac"
+      "patchedSha256": "9d58c58306177c89d68c09a09e391d6e10f15f9ddac23df03055fe325610291e"
     },
     {
       "path": "src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java",
       "upstreamSha256": "332b3d0afb7e041fa20ba02d8b69766db3efdc201a639415b635ca1a49a7e0b5",
-      "patchedSha256": "d8657959d6d489ffa7cdaa2c897a214320eee27ee50940c30312124355ffdc9e"
+      "patchedSha256": "5da768c84de3a4ccd19decd7bfa73ad7abb18c2f193f3efcff74b25159a54368"
     },
     {
       "path": "src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java",
       "upstreamSha256": "7a376f34d8a0110c5237e2d16ad699ca6370b3947bb5378bd70f0e52e10a337d",
-      "patchedSha256": "7a5310f0acd9c808145f336f85762f961fb6d4cb6093904187652521c27047f6"
+      "patchedSha256": "c8f46942b65fbfdda307e40bf44ab4902f52904bb768d176720aa9d849bf9651"
     },
     {
       "path": "src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java",
       "upstreamSha256": "a73bd5e42a15926e5e1dc9cc089626c89df614fd55618d2a96fbad0791b4079c",
-      "patchedSha256": "b2f68451d9f627b6cec554a563df46c403ec71f57b518d2424c54bc242675134"
+      "patchedSha256": "d24bf1df75fbebf5f7613d5f2c65e1fec3032a847e523de462d6c98790a8471a"
     }
   ],
   "initialVerification": {
@@ -380,6 +383,90 @@
       "This does not infer a complete static dependency graph or server full-source acknowledgements",
       "No claim that every possible SDK/build/OS, unobserved external filesystem change or project/server disposal interleaving is closed",
       "Existing transport, flush scheduling and cancellation signaling semantics remain separate; no new general $/cancelRequest guarantee"
+    ]
+  },
+  "navigationParameterGateRevision": {
+    "status": "Exact eleven-source standalone compilation and actual uninstrumented SDK deterministic RED/GREEN passed; new main-task full package/native cohort pending",
+    "previousAcceptedCohort": {
+      "gitCommit": "18cd54c",
+      "sourceDigest": "7284c94586560bcedf413621a21b7d3e4da9b4cb543a7312827288a3c0ae92e1",
+      "patchSha256": "385d306dda4fe8f7a93f87f4ae34cd57b29cd1a5461c90510e6f289bd03b3dde",
+      "privateCompilerAndNativeLspJarSha256": "ff1682a7ded9ebc3fd073144376f74989622874fe6e562ed5dbc246486207829",
+      "scope": "Previous 404-test/native evidence remains attributed to its unchanged archived cohort"
+    },
+    "productionChange": "Only add synchronized to the public declaration/definition/typeDefinition/implementation getters so previousOffset/cancel/key-update and base future publication share the existing instance monitor",
+    "publicSourceCount": 11,
+    "compiledClassCount": 21,
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class": "e16e32f112b30a45466d3c4b28c31533e78a4b654d4e7d148528a511b5ea519d",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f",
+      "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class": "48f97e48ab291690058df55bf190b7a5804885b59a1aacd0eac92cf247726a0c",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker$1.class": "80e442d4c510c09271073188e3cc6062a5af0a0aefe6f6cc08f691555ad0b9fa",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker.class": "e12968f90f076ae1ad86e0da544ccd85cd4be84f41cde34d257b811269ae799c",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationSnapshot.class": "7f0a521e416b928364a054ef21ed92018b1b6aecf98ff0b060524dce1978d087",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.class": "fc869b8a9c3a72fab6e240540258e18877cc44a7131a7a9a532224654bae1a92",
+      "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.class": "644e30ecd201b2826bab834b1edcf0849f1ff9fe666cd7da9c66dc8ef1185f63",
+      "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.class": "7f5833aa512fc487c4797a31b72b10a82d2e62cd5a2442a02d37170eb9fc2ca1",
+      "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.class": "00d9557c63705ded6412232d8e6d9a422f9b3dc562567227501b46f38a023aaa",
+      "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.class": "8357e7ecaf2260e460ff42a699bb087bcd63229513ef3d47f686d54082a347ef",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class": "3c15f73a0c4c0cc67a2e1ae0fb2bc2ab0059a06a8d77d39df43cf133d269e208",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class": "48410c417783fe9bd01932b25341b10b512c07369421ee5f4d966b6f85260074",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport$LSPUsageSupportParams.class": "7d1560681f450bf132547ab6641e6c428d6ef371f012af0d3124be15a4df7e15",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class": "27c04b6a168fa81bb563e11579c7ace3a20cf3cd698a04d7aa1a081db3853811"
+    },
+    "changedClassNames": [
+      "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.class",
+      "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.class",
+      "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.class",
+      "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.class"
+    ],
+    "previousClassesUnchanged": [
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class",
+      "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker$1.class",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker.class",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationSnapshot.class",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport$LSPUsageSupportParams.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class"
+    ],
+    "prefixesChanged": false,
+    "deterministicTests": {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoNavigationParameterGateTest.kt",
+      "sourceSha256": "9250191e87e1e412bbe00212820fb8935f823cc8dd9b46afe6fb81a50e460ba1",
+      "cases": 4,
+      "oldClassFailures": 4,
+      "patchedClassPasses": 4,
+      "patchedSeconds": 4.485,
+      "remote": "Controlled location replies only; real SDK PSI/VFS/accessor/getters and no instrumented classes or production hook",
+      "schedule": "Main thread acquires read access then owns the support monitor; worker A is verified BLOCKED on that exact monitor by ThreadMXBean. Main reentrantly calls B and obtains its Right result, then releases the monitor. A must return Left with its own RPC/future; unchanged A must still reuse its future.",
+      "outcome": "All four old public getters return Right for A instead of Left. All four patched getters dispatch both distinct UTF-16 positions and return their own locations; stable-context reuse remains.",
+      "redLog": ".tools/lsp4ij-navigation-parameters/standalone-red-parameters-final/run.log",
+      "redLogSha256": "fafa8185c88c75a442defc7ba7bd379209b2cb8ddb2831ecacb822a58311b623",
+      "greenLog": ".tools/lsp4ij-navigation-parameters/standalone-green-parameters-final/run.log",
+      "greenLogSha256": "f14045af1be988ef5c5024e185728edb5d1ab9adac7d79e6d1efed1a6e59912a",
+      "workerLifecycle": "Monitor released on every failure path; owned worker interrupt/join bounded; fixture disposes only its own wrapper/roots and restores previous accessor servers"
+    },
+    "boundaries": [
+      "Controlled SDK scheduling is not a native UI concurrency stress result",
+      "Intrinsic monitor acquisition is not a fairness guarantee; existing offset-change cancellation semantics remain",
+      "This does not establish all hover/cancellation/disposal/interleaving or all SDK/build/OS behavior",
+      "Previous accepted native cohort is preserved; the synchronized candidate needs its own main-task package/native evidence"
     ]
   }
 }

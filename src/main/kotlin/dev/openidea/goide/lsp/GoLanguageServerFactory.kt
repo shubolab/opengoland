@@ -26,6 +26,7 @@ class GoLanguageServerFactory : LanguageServerFactory {
     override fun createClientFeatures(): LSPClientFeatures = object : LSPClientFeatures() {
         private val semanticServer = AtomicReference<GoSemanticTokensServer?>()
         init {
+            setDocumentSymbolFeature(GoDocumentSymbolFeature())
             // Find Usages locates references and declarations. Type definitions
             // and implementations remain available through their own actions;
             // gopls legitimately rejects those queries on ordinary functions.

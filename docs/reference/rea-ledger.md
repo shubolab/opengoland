@@ -89,3 +89,17 @@ attributes, primary 2026.1 help and OSS Platform documentation, inferences and
 unknowns. No proprietary implementation classes were read or executed, no
 commercial settings were changed, and the REA session was closed. These static
 registrations do not verify commercial typing or editor parity.
+
+
+## Type/call hierarchy and Structure reference
+
+REA reauthenticated the installed GoLand 2026.1.4 Go plugin and platform archives.
+The bounded descriptor, action and keymap investigation retained exact resource
+occurrences and hashes; all seven selected resources matched the canonical
+archive inventories. [Hierarchy and Structure reference](hierarchy-structure-reference.json)
+records complete Evidence IDs, standard directions/base-navigation actions and
+primary 2026.1 help. Two official help images separately show signatures, field
+types and receiver grouping. These are static resource/public image observations,
+not local commercial runtime or default-setting verification. No proprietary
+implementation classes were read or copied, no reference settings were changed,
+and REA was closed after the investigation. Full runtime parity remains open.

@@ -1,0 +1,476 @@
+{
+  "schema": "open-goland.hierarchy-structure-reference.v1",
+  "recordedAtUtc": "2026-11-09T03:17:11.317711+00:00",
+  "scope": {
+    "authority": "shipped-artifact static metadata + primary public documentation",
+    "target": "/Users/wangshubo/Applications/GoLand.app",
+    "constraints": [
+      "Read-only selected XML/properties/plist resources and ZIP inventories only",
+      "No proprietary implementation class body was read, decompiled, loaded, copied or executed",
+      "No application launch, UI operation, user configuration, license or project changes",
+      "Only ignored .tools/hierarchy-reference-review.* evidence/drafts written; no product source, Gradle or package operation"
+    ],
+    "sessionClosed": true,
+    "reaVersion": "6.5.0"
+  },
+  "identity": {
+    "name": "GoLand",
+    "version": "2026.1.4",
+    "build": "GO-261.26222.72",
+    "bundleId": "com.jetbrains.goland",
+    "path": "/Users/wangshubo/Applications/GoLand.app/Contents/Info.plist",
+    "sha256": "9968b91af9d7b7c51c344e56c9e9afbb4d2d448c9ed5d994e1611a03e68fcf0a",
+    "evidenceId": "ev_f4de67db294b87c7b83c32378d461135a99d4699fc4087ab6c69966fa85e02ba"
+  },
+  "inventories": {
+    "go-plugin": {
+      "evidenceId": "ev_6e83a4534edd89427f4d3a3376a4298d405d86d086458de6bdecc6149fc82e8c",
+      "manifest": {
+        "edge_count": 5700,
+        "graph_sha256": "9080c88729b7d761b46026df297eccc6dea8cba711e71c0a50275cd4f0d7ce55",
+        "manifest_id": "agm_689ef0a8e81b9f963c841ca6a3e7379acdaa5bc5f2d79d214dbe34106a8e22d3",
+        "node_count": 5650,
+        "occurrence_count": 5701,
+        "root_artifact_id": "art_f61bb4ff9d8dd535f8ff0014263b5986c17ee05819fd45de571fe214677de5ed",
+        "root_format": "zip",
+        "root_sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0"
+      },
+      "occurrences": 5701,
+      "integrityContradictions": 0
+    },
+    "platform": {
+      "evidenceId": "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea",
+      "manifest": {
+        "edge_count": 13809,
+        "graph_sha256": "fd7d4df349fd80f2b50d9080300da15e90da27331a6ed8dcfa2cb1eaf5f23043",
+        "manifest_id": "agm_196e4e0920c1604c6e6016493e91a2634af397ad9d11449a197000d719598758",
+        "node_count": 13800,
+        "occurrence_count": 13810,
+        "root_artifact_id": "art_7b1368b2d0a7e24beddcdf35595322c77f3bd5ed8650d0f3c2c241ce69c05e4c",
+        "root_format": "zip",
+        "root_sha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d"
+      },
+      "occurrences": 13810,
+      "integrityContradictions": 0
+    }
+  },
+  "resources": [
+    {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar",
+      "archiveSha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0",
+      "logicalPath": "META-INF/plugin.xml",
+      "bytes": 154398,
+      "sha256": "d44228e7f63f725c7c1996d4b1c555650b9b20a14294cc268a8023639337d19f",
+      "occurrenceId": "occ_d4c4c25f90c0fbe071a2faf48f019405c1f7718926be4ff6e3fbbe57d8af8f26",
+      "artifactId": "art_0d71b43d074c33807cb9f2df091d1acc6032af54f36690a04f2b0dac99acf43a",
+      "inventoryEvidenceId": "ev_6e83a4534edd89427f4d3a3376a4298d405d86d086458de6bdecc6149fc82e8c",
+      "matchesReaCanonicalInventory": true
+    },
+    {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+      "archiveSha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d",
+      "logicalPath": "META-INF/PlatformLangPlugin.xml",
+      "bytes": 9204,
+      "sha256": "2f1e1d5ac07333ddc1c4529cae610514965ec0fb1df7364da79caba73d729da4",
+      "occurrenceId": "occ_04313366701f781bd7fb46152302ef3927b3f2b4a27996b8b3f7158e18bfde57",
+      "artifactId": "art_fb8590f2666d717c1f8219b70bc01be8f3ba3c26edf16ab665f9777d8e289e9d",
+      "inventoryEvidenceId": "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea",
+      "matchesReaCanonicalInventory": true
+    },
+    {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+      "archiveSha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d",
+      "logicalPath": "idea/PlatformActions.xml",
+      "bytes": 127822,
+      "sha256": "27c4178afd478799672b6ea5777e04aac751fc5e5d56fa783cd244e0505e2242",
+      "occurrenceId": "occ_ebb5ce3519602f3ca2e08b3c01fc9b5857b225156c482e56e3b09bad02d51ef1",
+      "artifactId": "art_6d10ddd62362198350903173518a882ec7d90afa43c2e8a0dd81269bca9bbb94",
+      "inventoryEvidenceId": "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea",
+      "matchesReaCanonicalInventory": true
+    },
+    {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+      "archiveSha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d",
+      "logicalPath": "idea/LangActions.xml",
+      "bytes": 62834,
+      "sha256": "e67293beb5ddef256c04a90ce737f82be2f47310ba97fbb34c24be44561a7bab",
+      "occurrenceId": "occ_53928d59fd76a6cfc7b33922644de27f1ae23e7400fd6cadc447a2286c68d279",
+      "artifactId": "art_dd02d85102966a9fb3a0bceedd8ff84a0e28a07762efce70b3fb7cb536f77be9",
+      "inventoryEvidenceId": "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea",
+      "matchesReaCanonicalInventory": true
+    },
+    {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+      "archiveSha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d",
+      "logicalPath": "keymaps/$default.xml",
+      "bytes": 46058,
+      "sha256": "974f29e0994a7dcd85c9de224648e045d4090623d630659eefdc2cf7fd20c4dc",
+      "occurrenceId": "occ_994786c054ea200c80f4c9d953fa9dbc788ee41c1e72098043396d8daf101b51",
+      "artifactId": "art_57d64065eab433891db4fba3f4a65bfd9089f41921eec92ad1e3dab1802e3f57",
+      "inventoryEvidenceId": "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea",
+      "matchesReaCanonicalInventory": true
+    },
+    {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+      "archiveSha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d",
+      "logicalPath": "keymaps/Mac OS X 10.5+.xml",
+      "bytes": 27043,
+      "sha256": "c15f4ddcacbf58359818e5182a2e6274df9b2062436251f0efd41b2ebd8f99cc",
+      "occurrenceId": "occ_7d41fe9867cae9ad02c052d1909fa88140a91dc62f95b90c12bddd023dbf1725",
+      "artifactId": "art_801cee5b35c720a5d5a764c1a55504ead149ef71eb7a61f8304cb71e9cb7d7be",
+      "inventoryEvidenceId": "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea",
+      "matchesReaCanonicalInventory": true
+    },
+    {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+      "archiveSha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d",
+      "logicalPath": "messages/ActionsBundle.properties",
+      "bytes": 180024,
+      "sha256": "db87e59bf8a7eae65a19c0123386ef49aa711febe89d069c7bef1bd92cfa03fa",
+      "occurrenceId": "occ_be02eba9e0ca7b83b0902b1072ac779f183d3c1b6fc566fef46000b8bf045031",
+      "artifactId": "art_f9240fadd1f862d3a9e4a8133f3b1e326ff3e7feb22f7f7320a64338b129b221",
+      "inventoryEvidenceId": "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea",
+      "matchesReaCanonicalInventory": true
+    }
+  ],
+  "observation": {
+    "goExtensionDeclarations": [
+      {
+        "line": 1058,
+        "declaration": "<lang.psiStructureViewFactory language=\"go\" implementationClass=\"com.goide.tree.GoStructureViewFactory\" />"
+      },
+      {
+        "line": 1291,
+        "declaration": "<typeHierarchyProvider language=\"go\" implementationClass=\"com.goide.hierarchy.GoTypeHierarchyProvider\" />"
+      },
+      {
+        "line": 1292,
+        "declaration": "<callHierarchyProvider language=\"go\" implementationClass=\"com.goide.hierarchy.GoCallHierarchyProvider\" />"
+      }
+    ],
+    "goPopupGroups": [
+      {
+        "id": "GoTypeHierarchyPopupMenu",
+        "children": [
+          {
+            "kind": "reference",
+            "ref": "TypeHierarchyBase.BaseOnThisType"
+          },
+          {
+            "kind": "reference",
+            "ref": "TypeHierarchy.Subtypes"
+          },
+          {
+            "kind": "reference",
+            "ref": "TypeHierarchy.Supertypes"
+          },
+          {
+            "kind": "separator"
+          },
+          {
+            "kind": "reference",
+            "ref": "EditSource"
+          },
+          {
+            "kind": "separator"
+          },
+          {
+            "kind": "reference",
+            "ref": "FindUsages"
+          },
+          {
+            "kind": "separator"
+          }
+        ]
+      },
+      {
+        "id": "GoCallHierarchyPopupMenu",
+        "children": [
+          {
+            "kind": "action",
+            "id": "GoCallHierarchyPopupMenu.BaseOnThisDeclaration",
+            "class": "com.goide.hierarchy.GoCallHierarchyBrowser$BaseOnThisDeclarationAction",
+            "use-shortcut-of": "CallHierarchy"
+          },
+          {
+            "kind": "reference",
+            "ref": "EditSource"
+          },
+          {
+            "kind": "separator"
+          },
+          {
+            "kind": "reference",
+            "ref": "FindUsages"
+          }
+        ]
+      }
+    ],
+    "boundedNegative": "No literal methodHierarchyProvider declaration occurs in the selected complete aggregated Go descriptor; this does not rule out dynamic registration or other plugins.",
+    "platformActionDeclarations": [
+      {
+        "kind": "action",
+        "id": "FileStructurePopup",
+        "class": "com.intellij.ide.actions.ViewStructureAction",
+        "parent": {
+          "id": "GoToCodeGroup"
+        }
+      },
+      {
+        "kind": "action",
+        "id": "TypeHierarchy",
+        "class": "com.intellij.ide.hierarchy.actions.BrowseTypeHierarchyAction",
+        "parent": {
+          "id": "HierarchyGroup"
+        }
+      },
+      {
+        "kind": "action",
+        "id": "MethodHierarchy",
+        "class": "com.intellij.ide.hierarchy.actions.BrowseMethodHierarchyAction",
+        "parent": {
+          "id": "HierarchyGroup"
+        }
+      },
+      {
+        "kind": "action",
+        "id": "CallHierarchy",
+        "class": "com.intellij.ide.hierarchy.actions.BrowseCallHierarchyAction",
+        "parent": {
+          "id": "HierarchyGroup"
+        }
+      },
+      {
+        "kind": "action",
+        "class": "com.intellij.ide.hierarchy.actions.ActivateHierarchyToolWindowAction",
+        "id": "ActivateHierarchyToolWindow",
+        "parent": {}
+      }
+    ],
+    "platformActionTextResources": {
+      "action.FileStructurePopup.text": "F_ile Structure",
+      "action.TypeHierarchy.text": "Type _Hierarchy",
+      "action.MethodHierarchy.text": "_Method Hierarchy",
+      "action.CallHierarchy.text": "Call Hierarch_y",
+      "action.TypeHierarchy.Subtypes.text": "Subtypes Hierarchy",
+      "action.TypeHierarchy.Supertypes.text": "Supertypes Hierarchy",
+      "action.TypeHierarchyBase.BaseOnThisType.text": "Base on This Type",
+      "action.CallHierarchy.BaseOnThisMethod.text": "Base on This Method",
+      "action.ActivateHierarchyToolWindow.text": "Hierarchy"
+    },
+    "literalKeymaps": [
+      {
+        "member": "keymaps/$default.xml",
+        "name": "$default",
+        "parent": null,
+        "literalMappings": [
+          {
+            "id": "FileStructurePopup",
+            "entries": [
+              {
+                "first-keystroke": "control F12"
+              }
+            ]
+          },
+          {
+            "id": "MethodHierarchy",
+            "entries": [
+              {
+                "first-keystroke": "control shift H"
+              }
+            ]
+          },
+          {
+            "id": "CallHierarchy",
+            "entries": [
+              {
+                "first-keystroke": "control alt H"
+              }
+            ]
+          },
+          {
+            "id": "TypeHierarchy",
+            "entries": [
+              {
+                "first-keystroke": "control H"
+              }
+            ]
+          },
+          {
+            "id": "ActivateStructureToolWindow",
+            "entries": [
+              {
+                "first-keystroke": "alt 7"
+              }
+            ]
+          },
+          {
+            "id": "ActivateHierarchyToolWindow",
+            "entries": []
+          }
+        ]
+      },
+      {
+        "member": "keymaps/Mac OS X 10.5+.xml",
+        "name": "Mac OS X 10.5+",
+        "parent": "$default",
+        "literalMappings": [
+          {
+            "id": "TypeHierarchy",
+            "entries": [
+              {
+                "first-keystroke": "control H"
+              }
+            ]
+          },
+          {
+            "id": "ActivateStructureToolWindow",
+            "entries": [
+              {
+                "first-keystroke": "meta 7"
+              }
+            ]
+          },
+          {
+            "id": "ActivateHierarchyToolWindow",
+            "entries": []
+          },
+          {
+            "id": "CallHierarchy",
+            "entries": [
+              {
+                "first-keystroke": "control alt H"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "publicDocumentation": [
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/viewing-structure-and-hierarchy-of-the-source-code.html",
+      "versionHeader": "GoLand 2026.1 Help",
+      "publishedDate": "2026-06-17",
+      "paraphrase": "Type navigation relates concrete types and interfaces; call navigation has incoming and outgoing views for functions/methods. The Hierarchy window supports retaining results, refreshing, expanding and opening source. Documented call options include selected search scopes and interface-aware calls. These are public described capabilities, not observed commercial runtime outcomes."
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/viewing-structure-of-a-source-file.html",
+      "versionHeader": "GoLand 2026.1 Help",
+      "publishedDate": "2025-09-12",
+      "paraphrase": "Both a popup and a persistent tool window expose source elements and support typing-based navigation. Go-specific controls include other files in the package, alphabetical/export ordering, and private-element visibility. The page names interfaces, fields, functions, methods, types, variables and constants."
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/structure-tool-window-file-structure-popup.html",
+      "versionHeader": "GoLand 2026.1 Help",
+      "publishedDate": "2025-11-06",
+      "paraphrase": "The Structure pane follows the active editor or selected project file. Its common controls include expansion/collapse, speed search, one-click source navigation and selection following the caret. Language-specific options coexist with general tool-window controls."
+    }
+  ],
+  "inference": [
+    "The Go plugin delegates to standard IntelliJ hierarchy and structure extension points; independent implementations should integrate these native hosts rather than imitate a hierarchy in an unrelated custom list.",
+    "Go type hierarchy must use Go interface satisfaction semantics, including value/pointer receiver differences, rather than Java inheritance assumptions.",
+    "The standard global MethodHierarchy action does not establish a dedicated working Go method-hierarchy provider.",
+    "The shipped macOS literal map gives Ctrl+H for TypeHierarchy, Ctrl+Alt+H for CallHierarchy, and Cmd+7 for Structure. FileStructurePopup was observed only in the default map at Ctrl+F12; effective macOS mapping is not established by this bounded inventory."
+  ],
+  "unknown": [
+    "No reference application runtime was exercised. Actual available targets, dynamic update states, laziness, expansion, selection, titles, progress, cancellation, disposal and persistence are unverified.",
+    "Exact generic/constraint/alias handling, pointer/value presentation and package/library reachability of commercial type hierarchy are unverified.",
+    "Interface-call expansion, recursion/cycle rendering, call-site multiplicity and the exact effects of hierarchy scopes require runtime evidence.",
+    "Commercial dirty-document/version behavior, UTF-16 locations, undo/redo refresh, and handling of removed symbols remain unverified.",
+    "The public private-member example ambiguously suggests an exported item is excluded; do not infer private-only filtering without runtime verification.",
+    "Effective user keymap and platform shortcut patches were not read from user configuration. A literal bundled mapping does not prove the active binding.",
+    "PyCharm is retained in the existing installed-ides inventory as platform comparison only; no new PyCharm artifact or Python behavior claim was investigated."
+  ],
+  "nativeAcceptanceCandidates": [
+    {
+      "id": "structure-entry",
+      "checks": [
+        "Invoke registered File Structure action and Structure tool window on a real Go file",
+        "Verify functions, receiver methods, types, constants, variables and fields are distinguished",
+        "Use native typing search and select an element to reach its UTF-16 position"
+      ]
+    },
+    {
+      "id": "structure-options",
+      "checks": [
+        "Verify alphabetical/export ordering and private visibility with clear fixtures",
+        "Toggle same-package other-file visibility; verify only actual included files appear",
+        "Check active-editor/caret following, dirty edits and renamed/deleted declarations without saving"
+      ]
+    },
+    {
+      "id": "type-hierarchy",
+      "checks": [
+        "Invoke standard Type Hierarchy from type/interface declaration and usage",
+        "Switch interface implementers versus implemented interfaces, checking pointer/value method sets",
+        "Expand, navigate, change base, refresh, pin and reopen results; verify multi-module/library and generic behavior separately"
+      ]
+    },
+    {
+      "id": "call-hierarchy",
+      "checks": [
+        "Invoke standard Call Hierarchy on function and method declarations/usages",
+        "Switch callers/callees and expand at least two levels, including a recursion fixture and multiple call sites",
+        "Verify selected-node navigation, interface-aware calls, search scopes, base change, pin, refresh and cancellation separately"
+      ]
+    },
+    {
+      "id": "lifetimes",
+      "checks": [
+        "Dirty Unicode/supplementary-plane source and target changes must produce current navigation and children",
+        "Source Undo/Redo, file close/deletion, project disposal and cancelled child loads must not publish stale results",
+        "A direct LSP response or provider test does not establish actual native host behavior"
+      ]
+    }
+  ],
+  "evidenceExports": [
+    {
+      "path": ".tools/hierarchy-reference-review.go-plugin-evidence.json",
+      "bytes": 13211836,
+      "sha256": "7f9ea64f3a0ba7432c98a36c85caa77d796d60ed04a3255e93886abd3ab7c2bd"
+    },
+    {
+      "path": ".tools/hierarchy-reference-review.identity-evidence.json",
+      "bytes": 15503,
+      "sha256": "22b96704413587aaa648ef370409a2567b3e5042eb344e2d57c148095a20b8f4"
+    },
+    {
+      "path": ".tools/hierarchy-reference-review.platform-evidence.json",
+      "bytes": 32197272,
+      "sha256": "1c26bf25f203df62e4af5a9f763b4bd9d8792463c415a94d277a40ebe6f77593"
+    }
+  ],
+  "reaSelectedViews": {
+    "goDescriptor": "ev_b5ba1d7cac2f6cb834034e1109f5bd50cdbcc6eebd854c1e2c35829a089dab2d",
+    "platformResources": "ev_3f06f2d7c7129c3b4db60093faf3077c92a606dcd46be70846f06f82b592b274",
+    "langActionsNote": "idea/LangActions.xml was followed from the selected PlatformLangPlugin include and verified against the complete canonical REA inventory exported above; its resource occurrence is retained in resources."
+  },
+  "toolBoundary": {
+    "plistRetry": "Calling inspect_plist with no explicit path on the plist artifact tried an unavailable Contents/Contents/Info.plist. The retry supplied the exact selected Info.plist path and produced the correctly bound identity Evidence. No installation or configuration was changed."
+  },
+  "supplementalPublicImages": [
+    {
+      "url": "https://resources.jetbrains.com/help/img/idea/2026.1/go_structure_popup_window.png",
+      "localEvidence": ".tools/go-structure-details/go_structure_popup_window.png",
+      "sha256": "26dfca52bcb5bcda784c702c9fd3fe1d3a7ee17a42daaa15eee22f127bfd8f00",
+      "authority": "Official public2026.1 help image; root and agent visually inspected, not an installed commercial runtime observation"
+    },
+    {
+      "url": "https://resources.jetbrains.com/help/img/idea/2026.1/go_file_structure_popup.png",
+      "localEvidence": ".tools/go-structure-details/go_file_structure_popup.png",
+      "sha256": "92e245a012e17e464c3fecd0188c315e3c1d9b1c079510c0822bfedf9e7a012d",
+      "authority": "Official public2026.1 help image; root and agent visually inspected, not an installed commercial runtime observation"
+    }
+  ],
+  "publicImageObservations": [
+    "Shown Structure lists function names with parameters/results and fields with their types",
+    "Shown struct ArticleFile and interface Counter display their names without composite type bodies",
+    "Shown CounterSnapshot has underlying int64 type and receiver methods grouped below its type",
+    "Screenshots show source filenames for package-level items in the illustrated package structure view"
+  ],
+  "publicImageUnknowns": [
+    "Images do not prove the local2026.1.4 first-launch defaults, filter state or lifecycle behavior",
+    "Generic, pointer-receiver and cross-file method grouping need separate reconstruction evidence"
+  ]
+}

@@ -809,7 +809,7 @@
          var project = file.getProject();
 --- a/src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java
-@@ -32,13 +32,13 @@
+@@ -32,16 +32,16 @@
   */
  public class LSPDeclarationSupport extends AbstractLSPDocumentFeatureSupport<LSPDeclarationParams, List<LocationData>> {
  
@@ -820,10 +820,14 @@
 +        super(file, true, true);
      }
  
-     public CompletableFuture<List<LocationData>> getDeclarations(LSPDeclarationParams params) {
+-    public CompletableFuture<List<LocationData>> getDeclarations(LSPDeclarationParams params) {
++    public synchronized CompletableFuture<List<LocationData>> getDeclarations(LSPDeclarationParams params) {
          int offset = params.getOffset();
          if (previousOffset != null && !previousOffset.equals(offset)) {
              super.cancel();
+         }
+         previousOffset = offset;
+         return super.getFeatureData(params);
 @@ -50,16 +50,16 @@
      @Override
      protected CompletableFuture<List<LocationData>> doLoad(LSPDeclarationParams params, CancellationSupport cancellationSupport) {
@@ -845,7 +849,7 @@
                      if (languageServers.isEmpty()) {
 --- a/src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java
-@@ -32,13 +32,13 @@
+@@ -32,16 +32,16 @@
   */
  public class LSPDefinitionSupport extends AbstractLSPDocumentFeatureSupport<LSPDefinitionParams, List<LocationData>> {
  
@@ -856,10 +860,14 @@
 +        super(file, true, true);
      }
  
-     public CompletableFuture<List<LocationData>> getDefinitions(LSPDefinitionParams params) {
+-    public CompletableFuture<List<LocationData>> getDefinitions(LSPDefinitionParams params) {
++    public synchronized CompletableFuture<List<LocationData>> getDefinitions(LSPDefinitionParams params) {
          int offset = params.getOffset();
          if (previousOffset != null && !previousOffset.equals(offset)) {
              super.cancel();
+         }
+         previousOffset = offset;
+         return super.getFeatureData(params);
 @@ -50,16 +50,16 @@
      @Override
      protected CompletableFuture<List<LocationData>> doLoad(LSPDefinitionParams params, CancellationSupport cancellationSupport) {
@@ -881,7 +889,7 @@
                      if (languageServers.isEmpty()) {
 --- a/src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java
-@@ -32,13 +32,13 @@
+@@ -32,16 +32,16 @@
   */
  public class LSPTypeDefinitionSupport extends AbstractLSPDocumentFeatureSupport<LSPTypeDefinitionParams, List<LocationData>> {
  
@@ -892,10 +900,14 @@
 +        super(file, true, true);
      }
  
-     public CompletableFuture<List<LocationData>> getTypeDefinitions(LSPTypeDefinitionParams params) {
+-    public CompletableFuture<List<LocationData>> getTypeDefinitions(LSPTypeDefinitionParams params) {
++    public synchronized CompletableFuture<List<LocationData>> getTypeDefinitions(LSPTypeDefinitionParams params) {
          int offset = params.getOffset();
          if (previousOffset != null && !previousOffset.equals(offset)) {
              super.cancel();
+         }
+         previousOffset = offset;
+         return super.getFeatureData(params);
 @@ -50,16 +50,16 @@
      @Override
      protected CompletableFuture<List<LocationData>> doLoad(LSPTypeDefinitionParams params, CancellationSupport cancellationSupport) {
@@ -917,7 +929,7 @@
                      if (languageServers.isEmpty()) {
 --- a/src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java
-@@ -32,13 +32,13 @@
+@@ -32,16 +32,16 @@
   */
  public class LSPImplementationSupport extends AbstractLSPDocumentFeatureSupport<LSPImplementationParams, List<LocationData>> {
  
@@ -928,10 +940,14 @@
 +        super(file, true, true);
      }
  
-     public CompletableFuture<List<LocationData>> getImplementations(LSPImplementationParams params) {
+-    public CompletableFuture<List<LocationData>> getImplementations(LSPImplementationParams params) {
++    public synchronized CompletableFuture<List<LocationData>> getImplementations(LSPImplementationParams params) {
          int offset = params.getOffset();
          if (previousOffset != null && !previousOffset.equals(offset)) {
              super.cancel();
+         }
+         previousOffset = offset;
+         return super.getFeatureData(params);
 @@ -50,16 +50,16 @@
      @Override
      protected CompletableFuture<List<LocationData>> doLoad(LSPImplementationParams params, CancellationSupport cancellationSupport) {
