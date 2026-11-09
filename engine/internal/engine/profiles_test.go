@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os"
+	"os/exec"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -11,6 +12,77 @@ import (
 
 	pprof "github.com/google/pprof/profile"
 )
+
+// Official pprof's filefunctions graph applies filepath.Clean before emitting
+// top-proto filenames. Keep the complete native path identity in this oracle;
+// our profile report deliberately retains the original protobuf source hint.
+func profileOracleFile(file string) string {
+	if file == "" {
+		return ""
+	}
+	return filepath.Clean(file)
+}
+
+func TestProfileFileOracleMatchesOfficialNativePathNormalization(t *testing.T) {
+	root := t.TempDir()
+	if err := os.Mkdir(filepath.Join(root, "nested"), 0700); err != nil {
+		t.Fatal(err)
+	}
+	source := filepath.Join(root, "work.go")
+	if err := os.WriteFile(source, []byte("package fixture\n"+strings.Repeat("// context\n", 5)+"func Work() {}\n"), 0600); err != nil {
+		t.Fatal(err)
+	}
+	// Go profiles use slash-separated source hints on Windows too. Preserve
+	// that raw spelling, including a valid non-canonical source component.
+	rawFile := filepath.ToSlash(root) + "/nested/../work.go"
+	f := &pprof.Function{ID: 1, Name: "fixture.Work", Filename: rawFile, StartLine: 7}
+	l := &pprof.Location{ID: 1, Line: []pprof.Line{{Function: f, Line: 7}}}
+	p := &pprof.Profile{SampleType: []*pprof.ValueType{{Type: "count", Unit: "count"}}, Function: []*pprof.Function{f}, Location: []*pprof.Location{l}, Sample: []*pprof.Sample{{Location: []*pprof.Location{l}, Value: []int64{13}}}}
+	report, err := summarizeProfile(context.Background(), p, ProfileInspectRequest{})
+	if err != nil || len(report.Rows) != 1 {
+		t.Fatal(report, err)
+	}
+	row := report.Rows[0]
+	if row.File != rawFile || row.Line != 7 || row.Flat != 13 || row.Cumulative != 13 {
+		t.Fatal("report lost its original source/metric identity", row)
+	}
+	profilePath := filepath.Join(root, "native.pprof")
+	file, err := os.Create(profilePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if err := p.Write(file); err != nil {
+		file.Close()
+		t.Fatal(err)
+	}
+	if err := file.Close(); err != nil {
+		t.Fatal(err)
+	}
+	goExecutable, err := exec.LookPath("go")
+	if err != nil {
+		t.Fatal(err)
+	}
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	defer cancel()
+	output, err := commandOutput(ctx, goExecutable, root, nil, "tool", "pprof", "-topproto", "-filefunctions", "-symbolize=none", "-nodecount=0", "-nodefraction=0", "-edgefraction=0", "-sample_index=0", "-unit=count", profilePath)
+	if err != nil {
+		t.Fatal(err)
+	}
+	official, err := pprof.ParseData(output)
+	if err != nil || len(official.Sample) != 1 {
+		t.Fatal(official, err)
+	}
+	got := official.Sample[0].Location[0].Line[0].Function
+	if got.Filename != source || profileOracleFile(row.File) != got.Filename {
+		t.Fatalf("native filename oracle differs from actual pprof: raw=%q report=%q official=%q want=%q", rawFile, row.File, got.Filename, source)
+	}
+	if profileOracleFile("") != "" || profileOracleFile(filepath.Join(root, "other", "work.go")) == profileOracleFile(row.File) {
+		t.Fatal("the oracle must retain absent filenames and distinguish same-basename source files")
+	}
+	if got.Name != row.Name || official.Sample[0].Value[0] != row.Cumulative || official.Sample[0].Value[1] != row.Flat {
+		t.Fatal("native filename normalization changed function or metric comparisons", official, row)
+	}
+}
 
 func TestProfileInlineRecursionAndMetricSelection(t *testing.T) {
 	a := &pprof.Function{ID: 1, Name: "inline", Filename: "/exact/source/inline.go", StartLine: 11}
@@ -115,7 +187,7 @@ func TestRealFourProfilesMatchOfficialTopProto(t *testing.T) {
 			for _, row := range report.Rows {
 				// -filefunctions deliberately aggregates away line numbers, while our
 				// navigation keeps the original function's start line.
-				key := fmt.Sprintf("%s\x00%s", row.Name, row.File)
+				key := fmt.Sprintf("%s\x00%s", row.Name, profileOracleFile(row.File))
 				value := actual[key]
 				value.Flat += row.Flat
 				value.Cumulative += row.Cumulative
@@ -124,7 +196,7 @@ func TestRealFourProfilesMatchOfficialTopProto(t *testing.T) {
 			compared := 0
 			for _, sample := range official.Sample {
 				f := sample.Location[0].Line[0].Function
-				key := fmt.Sprintf("%s\x00%s", f.Name, f.Filename)
+				key := fmt.Sprintf("%s\x00%s", f.Name, profileOracleFile(f.Filename))
 				row, ok := actual[key]
 				if !ok {
 					t.Fatalf("missing official hotspot %q", key)
@@ -139,7 +211,7 @@ func TestRealFourProfilesMatchOfficialTopProto(t *testing.T) {
 			}
 			foundSource := false
 			for _, row := range report.Rows {
-				if strings.Contains(row.Name, "example.org/profilefixture.") && row.File == filepath.Join(root, "work.go") && row.Line > 0 {
+				if strings.Contains(row.Name, "example.org/profilefixture.") && profileOracleFile(row.File) == filepath.Join(root, "work.go") && row.Line > 0 {
 					foundSource = true
 				}
 			}
