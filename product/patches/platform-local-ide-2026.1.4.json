@@ -1,0 +1,798 @@
+{
+  "schemaVersion": 1,
+  "platformVersion": "2026.1.4",
+  "purpose": "Local IDE without IDE accounts, cloud settings sync, paid upsell registrations or active Grazie cloud/license plugin; Git/private-repository authentication retained.",
+  "classpathRule": {
+    "kind": "plugin-classpath",
+    "path": "plugins/plugin-classpath.txt",
+    "inputBytes": 3144040,
+    "inputSha256": "b67cfca0af041c999c3c1841e55605bae507132c8fc8d0728a08050ee84ea766",
+    "outputBytes": 3118338,
+    "outputSha256": "39eee2dd86ca8d8e1a4af2747770a7f8d949ba96ee23aeed149e360afddc128d",
+    "pluginCountBefore": 47,
+    "pluginCountAfter": 46,
+    "core": {
+      "kind": "xml",
+      "path": "plugins/plugin-classpath.txt!core",
+      "inputBytes": 1415624,
+      "inputSha256": "036ce94f40e5dd1ef56de3fe317937be7699a3ccb01da9937114fd176ae135f4",
+      "outputBytes": 1409195,
+      "outputSha256": "2a170b9c074b19548ad5418b7365aa21ec49f307dc3a56531bada7cacc87b132",
+      "removals": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.settingsSync.core"
+          },
+          "parent": "content",
+          "bytes": 5849,
+          "sha256": "a305970e9a47853d07852f3541d72411cef88cd222ea6e7744b93d4e5f9d70e9"
+        },
+        {
+          "tag": "openAnotherToolHandler",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler"
+          },
+          "parent": "extensions",
+          "bytes": 148,
+          "sha256": "d396b01b2d0aa969faa38ee954eb5ddf7a3994518ba5fa74b5966ef09fd88514"
+        },
+        {
+          "tag": "editorNotificationProvider",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider"
+          },
+          "parent": "extensions",
+          "bytes": 152,
+          "sha256": "9220db114bb616ef72b4b02effbde7e7f38bc19ebbb5e13927133acc7292fd0c"
+        },
+        {
+          "tag": "backgroundPostStartupActivity",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+          },
+          "parent": "extensions",
+          "bytes": 145,
+          "sha256": "443ff0ced17c157722f5f3240f4fabc4b3b619d8b8750420bb9ea302f32c5c97"
+        },
+        {
+          "tag": "action",
+          "attributes": {
+            "id": "CheckSuggestedPlugins",
+            "class": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
+          },
+          "parent": "actions",
+          "bytes": 135,
+          "sha256": "1a3c854dbc1c0278c808e1fb56ccfb4e9c0b265c5512b78b47b42215e9773938"
+        }
+      ],
+      "absentTokens": [
+        "intellij.settingsSync.core",
+        "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
+        "CheckSuggestedPlugins"
+      ]
+    },
+    "dropPlugins": [
+      {
+        "directory": "grazie",
+        "id": "tanvd.grazi",
+        "recordSha256": "040c30916f60956a073f23c25b1163a0464555d1c847c0872f0a2aebff47395c",
+        "descriptorSha256": "8defabdfbed83992ff6445c433446ae93dae2442ac6d8fc6c7889d9175e53e22"
+      }
+    ],
+    "pluginDescriptors": [
+      {
+        "directory": "maven",
+        "id": "org.jetbrains.idea.maven",
+        "inputRecordSha256": "f0afeea341df816a5e2901f4f3f5db976aa47e3bab3e1908bf9af18412a27080",
+        "outputRecordSha256": "44b67042f0abe2697f3af1197c341b2638933c88ca66902c0683dacb20faddfc",
+        "xml": {
+          "kind": "xml",
+          "path": "plugins/plugin-classpath.txt!plugin[org.jetbrains.idea.maven]",
+          "inputBytes": 63761,
+          "inputSha256": "185cd61c911f0e185b7b52a6956a3d88360b275dc07fae877256b28c8c03a4cf",
+          "outputBytes": 63682,
+          "outputSha256": "3c44f22e4dac7d4476bd148a26ab213ab8a0d8a1552e439135150510b19180c4",
+          "removals": [
+            {
+              "tag": "depends",
+              "attributes": {
+                "optional": "true",
+                "config-file": "grazie-support.xml"
+              },
+              "parent": "idea-plugin",
+              "text": "tanvd.grazi",
+              "bytes": 79,
+              "sha256": "6d062237e551828b042afb58f4bcdb5d79ee4aaadd61f10fb7ee310a1bd03aa2"
+            }
+          ],
+          "absentTokens": [
+            "tanvd.grazi"
+          ]
+        }
+      },
+      {
+        "directory": "toml",
+        "id": "org.toml.lang",
+        "inputRecordSha256": "d6b9b33b4af783760447b77998369d12f04ed0cc024b1d25aa8fbd70285d877a",
+        "outputRecordSha256": "3d417be53e355a348486ac00dde4b05ebc49f50405ff8b3e16e06d2f104e1fee",
+        "xml": {
+          "kind": "xml",
+          "path": "plugins/plugin-classpath.txt!plugin[org.toml.lang]",
+          "inputBytes": 6974,
+          "inputSha256": "6e5f257a2d127e55ea278b80df1379cb77e753baec7d4e1d7c64a61fdfd9b2bc",
+          "outputBytes": 6469,
+          "outputSha256": "53bb68a055ae3c00e99e322bd81507a331d65c665fc2764442cd29ebdd52e4d5",
+          "removals": [
+            {
+              "tag": "module",
+              "attributes": {
+                "name": "intellij.toml.grazie"
+              },
+              "parent": "content",
+              "bytes": 505,
+              "sha256": "fa2a1ce7ed13d184016041ecfd3ce0669ddd015e381834e205217dfcd2f587d4"
+            }
+          ],
+          "absentTokens": [
+            "intellij.toml.grazie"
+          ]
+        }
+      },
+      {
+        "directory": "vcs-github",
+        "id": "org.jetbrains.plugins.github",
+        "inputRecordSha256": "835f73deb5718710d351ebe517b7e7fe1fc3bed25c849e8dcbd4605c2ac3b07b",
+        "outputRecordSha256": "2aa8ca31d74e34b94932aca13ef78d39f3d138fdcd551b2c4ce02d861f81085f",
+        "xml": {
+          "kind": "xml",
+          "path": "plugins/plugin-classpath.txt!plugin[org.jetbrains.plugins.github]",
+          "inputBytes": 22622,
+          "inputSha256": "5d4346b80d68fdf4d5d865df1120e82796b5f0d792d298e3a796691e9a4abc1d",
+          "outputBytes": 22300,
+          "outputSha256": "32f0a0b0348526464d170b2cf4e235c7c2f1c3ac0d262d5c01f689fbf61abde7",
+          "removals": [
+            {
+              "tag": "module",
+              "attributes": {
+                "name": "intellij.vcs.github.ultimatePromo"
+              },
+              "parent": "content",
+              "bytes": 322,
+              "sha256": "a0c38e06e3a8c65b78d53fa71088763f3be3c1baa9d6edf649b43cfd6c8b9602"
+            }
+          ],
+          "absentTokens": [
+            "intellij.vcs.github.ultimatePromo"
+          ]
+        }
+      }
+    ],
+    "absentTokens": [
+      "intellij.settingsSync.core",
+      "intellij.vcs.github.ultimatePromo",
+      "intellij.toml.grazie",
+      "tanvd.grazi",
+      "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler",
+      "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
+      "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
+      "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
+    ]
+  },
+  "xmlRules": [
+    {
+      "kind": "xml",
+      "path": "lib/app.jar!/META-INF/IdeaPlugin.xml",
+      "inputBytes": 1299666,
+      "inputSha256": "bb158dfa10703af21dbadea381b7054947a4fca0463cc86ac7dfe065d1a39e38",
+      "outputBytes": 1294297,
+      "outputSha256": "ae17a169bb672a9744316f7f20a7f0dc369aa47c2569eb2441decedea3f34783",
+      "removals": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.settingsSync.core"
+          },
+          "parent": "content",
+          "bytes": 4789,
+          "sha256": "d309cfedddd7193ddc5e7b4777d1fb637490f87ba99a422f4eae76944252daec"
+        },
+        {
+          "tag": "openAnotherToolHandler",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler"
+          },
+          "parent": "extensions",
+          "bytes": 148,
+          "sha256": "d396b01b2d0aa969faa38ee954eb5ddf7a3994518ba5fa74b5966ef09fd88514"
+        },
+        {
+          "tag": "editorNotificationProvider",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider"
+          },
+          "parent": "extensions",
+          "bytes": 152,
+          "sha256": "9220db114bb616ef72b4b02effbde7e7f38bc19ebbb5e13927133acc7292fd0c"
+        },
+        {
+          "tag": "backgroundPostStartupActivity",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+          },
+          "parent": "extensions",
+          "bytes": 145,
+          "sha256": "443ff0ced17c157722f5f3240f4fabc4b3b619d8b8750420bb9ea302f32c5c97"
+        },
+        {
+          "tag": "action",
+          "attributes": {
+            "id": "CheckSuggestedPlugins",
+            "class": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
+          },
+          "parent": "actions",
+          "bytes": 135,
+          "sha256": "1a3c854dbc1c0278c808e1fb56ccfb4e9c0b265c5512b78b47b42215e9773938"
+        }
+      ],
+      "absentTokens": [
+        "intellij.settingsSync.core",
+        "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
+        "CheckSuggestedPlugins"
+      ],
+      "jar": "lib/app.jar",
+      "entry": "META-INF/IdeaPlugin.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "lib/intellij.platform.ide.impl.jar!/META-INF/PlatformExtensions.xml",
+      "inputBytes": 168880,
+      "inputSha256": "e56ee99d29703f4bc67628e892e19631495ac08ca9fda594c4c0b7265be285ea",
+      "outputBytes": 168426,
+      "outputSha256": "b5743be805a014b16a7c2034ad37b0cf1ce61c1da1a1cd85adceb2ad2eeb2812",
+      "removals": [
+        {
+          "tag": "openAnotherToolHandler",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler"
+          },
+          "parent": "extensions",
+          "bytes": 147,
+          "sha256": "77edba29f36470d9eca7cd35ca1c20a4e9a749d538d11542125e1cbac50770a0"
+        },
+        {
+          "tag": "editorNotificationProvider",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider"
+          },
+          "parent": "extensions",
+          "bytes": 157,
+          "sha256": "38bbab37a4cd8f7f1a67c9e78156bcea56dfd0d3f7d06d7607900df308b3531f"
+        },
+        {
+          "tag": "backgroundPostStartupActivity",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+          },
+          "parent": "extensions",
+          "bytes": 150,
+          "sha256": "2e16b29c96fc0e34baf0d2f7990f073055108b93a5a8ca90a3c30c417351d75b"
+        }
+      ],
+      "absentTokens": [
+        "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+      ],
+      "jar": "lib/intellij.platform.ide.impl.jar",
+      "entry": "META-INF/PlatformExtensions.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "lib/intellij.platform.ide.impl.jar!/META-INF/intellij.moduleSets.ide.common.xml",
+      "inputBytes": 22799,
+      "inputSha256": "e5beda06da632c22f021663294a59736012e54572ad2af91a79c36c976d7b48f",
+      "outputBytes": 22756,
+      "outputSha256": "56d41a443030c25981861014e11ade330f25755077d6d2b3c9d6d5036f8f1c6e",
+      "removals": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.settingsSync.core"
+          },
+          "parent": "content",
+          "bytes": 43,
+          "sha256": "953eebe8b7af91dc7cefce2274835c4ccd60fb48ce43d42ec361a58325efffa7"
+        }
+      ],
+      "absentTokens": [
+        "intellij.settingsSync.core"
+      ],
+      "jar": "lib/intellij.platform.ide.impl.jar",
+      "entry": "META-INF/intellij.moduleSets.ide.common.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "lib/intellij.platform.ide.impl.jar!/idea/PlatformActions.xml",
+      "inputBytes": 127822,
+      "inputSha256": "27c4178afd478799672b6ea5777e04aac751fc5e5d56fa783cd244e0505e2242",
+      "outputBytes": 127688,
+      "outputSha256": "d2a22e8d1b0abc0b42f7f6712045b78de5a4605de40df308824e6f97dc942694",
+      "removals": [
+        {
+          "tag": "action",
+          "attributes": {
+            "id": "CheckSuggestedPlugins",
+            "class": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
+          },
+          "parent": "actions",
+          "bytes": 134,
+          "sha256": "2ed761ad0e85537052f3656e4945310c20e4957a385e616e86d1ae7b52c4b225"
+        }
+      ],
+      "absentTokens": [
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
+        "CheckSuggestedPlugins"
+      ],
+      "jar": "lib/intellij.platform.ide.impl.jar",
+      "entry": "idea/PlatformActions.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "plugins/vcs-github/lib/vcs-github.jar!/META-INF/plugin.xml",
+      "inputBytes": 18472,
+      "inputSha256": "14f6ceb6448a6e8002d26f465da2c34d1d6c45f4509475ea8e5f0f2f4501e229",
+      "outputBytes": 18188,
+      "outputSha256": "238c919cfb471fd57697b8af370beb624d2fd7098aaf7708da8638e15628fb18",
+      "removals": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.vcs.github.ultimatePromo"
+          },
+          "parent": "content",
+          "bytes": 284,
+          "sha256": "a178b3170b2b1108f03f60339d7ba4b8f88f54706a8e1432f0a94257170b0832"
+        }
+      ],
+      "absentTokens": [
+        "intellij.vcs.github.ultimatePromo"
+      ],
+      "jar": "plugins/vcs-github/lib/vcs-github.jar",
+      "entry": "META-INF/plugin.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "plugins/toml/lib/toml.jar!/META-INF/plugin.xml",
+      "inputBytes": 5760,
+      "inputSha256": "950ec987ca9cb9c79dc158269bfb732d6cb1213740ce61f1247786d86bb28b09",
+      "outputBytes": 5357,
+      "outputSha256": "5bc684571c66abcbaccc8415985127c1a8451bdab7557541449da840b0ccc523",
+      "removals": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.toml.grazie"
+          },
+          "parent": "content",
+          "bytes": 403,
+          "sha256": "47f5fa0ae6cf9a9bbbbc46647c756cae75b13627fac2180aef7325985e7d3dc6"
+        }
+      ],
+      "absentTokens": [
+        "intellij.toml.grazie"
+      ],
+      "jar": "plugins/toml/lib/toml.jar",
+      "entry": "META-INF/plugin.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "plugins/maven/lib/maven.jar!/META-INF/plugin.xml",
+      "inputBytes": 63655,
+      "inputSha256": "c4053c51f71322c710bf0846a94ef2f920cae29f74a92a757f721bc7a4266649",
+      "outputBytes": 63576,
+      "outputSha256": "253e73653505092f9038c81b13d6eeac230ecdcd7037bd0a8119746321414e31",
+      "removals": [
+        {
+          "tag": "depends",
+          "attributes": {
+            "optional": "true",
+            "config-file": "grazie-support.xml"
+          },
+          "parent": "idea-plugin",
+          "text": "tanvd.grazi",
+          "bytes": 79,
+          "sha256": "6d062237e551828b042afb58f4bcdb5d79ee4aaadd61f10fb7ee310a1bd03aa2"
+        }
+      ],
+      "absentTokens": [
+        "tanvd.grazi"
+      ],
+      "jar": "plugins/maven/lib/maven.jar",
+      "entry": "META-INF/plugin.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "plugins/Kotlin/lib/kotlin-plugin.jar!/kotlin.plugin.k1.xml",
+      "inputBytes": 5886,
+      "inputSha256": "9eae176211e89ea169fe7ce6f8e60e1b40cc367c8a650477842bddcce05d8ae7",
+      "outputBytes": 5847,
+      "outputSha256": "c99e2e76cdab815441ef5008aebc70dfa95600805da58115889d3da6e2a7d616",
+      "removals": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.kotlin.grazie"
+          },
+          "parent": "content",
+          "bytes": 39,
+          "sha256": "7d35f2ed48841b1c7fcbaab059046c69f7f5e8dfe5ac1a86cb4ccc96fc36397a"
+        }
+      ],
+      "absentTokens": [
+        "intellij.kotlin.grazie"
+      ],
+      "jar": "plugins/Kotlin/lib/kotlin-plugin.jar",
+      "entry": "kotlin.plugin.k1.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "plugins/Kotlin/lib/kotlin-plugin.jar!/kotlin.plugin.k2.xml",
+      "inputBytes": 15554,
+      "inputSha256": "cfaf71b3720a02da9cae3080178b537c1e4b319730409e24523b3c37e8f4db93",
+      "outputBytes": 15515,
+      "outputSha256": "e17ac74938ad940bb0b3898f95230d6220d26893f988459333365e57635c1d39",
+      "removals": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.kotlin.grazie"
+          },
+          "parent": "content",
+          "bytes": 39,
+          "sha256": "7d35f2ed48841b1c7fcbaab059046c69f7f5e8dfe5ac1a86cb4ccc96fc36397a"
+        }
+      ],
+      "absentTokens": [
+        "intellij.kotlin.grazie"
+      ],
+      "jar": "plugins/Kotlin/lib/kotlin-plugin.jar",
+      "entry": "kotlin.plugin.k2.xml"
+    }
+  ],
+  "jarInputs": [
+    {
+      "path": "lib/app.jar",
+      "bytes": 46933409,
+      "sha256": "bb5a705080ccfa5e95f7c46f8378b0cde83e155463f73c3301e5ffbababd7ce9"
+    },
+    {
+      "path": "lib/intellij.platform.ide.impl.jar",
+      "bytes": 73869446,
+      "sha256": "3a63e65997ccdccde255e47559a550777183513a46967b9cc0d2ee49646d530a"
+    },
+    {
+      "path": "plugins/vcs-github/lib/vcs-github.jar",
+      "bytes": 11837473,
+      "sha256": "f18efec11c84eb2e9a67f7ade3399842c27730d9e657610201950fa257a9860a"
+    },
+    {
+      "path": "plugins/toml/lib/toml.jar",
+      "bytes": 280305,
+      "sha256": "4bf9b13bc8c0dc02d80f35603a77f0f82c27d4df24e4d0b59d2991f0f8ecfd58"
+    },
+    {
+      "path": "plugins/maven/lib/maven.jar",
+      "bytes": 12097311,
+      "sha256": "8afecdacf06960aef88a8af961ea20058b532701b8748169cdf7e5630d73fb32"
+    },
+    {
+      "path": "plugins/Kotlin/lib/kotlin-plugin.jar",
+      "bytes": 175258457,
+      "sha256": "02931b49fd2d3978e2920294934ab1ac7eebac5a7ff2a64649174f8822eef6ff"
+    }
+  ],
+  "removedFiles": [
+    {
+      "path": "plugins/grazie/lib/ai.grazie.api.gateway.client.jvm.jar",
+      "bytes": 18454361,
+      "sha256": "b6fae5606c57d115e3b48abf6616949f32913fa2bcdd7cc2706b072756127d81"
+    },
+    {
+      "path": "plugins/grazie/lib/ai.grazie.client.ktor.jvm.jar",
+      "bytes": 215494,
+      "sha256": "d45d45e93172bb83bbab3ac8544fa104922805ae79ca182ce91a5bb35c3e3ab3"
+    },
+    {
+      "path": "plugins/grazie/lib/ai.grazie.gec.util.jar",
+      "bytes": 78278,
+      "sha256": "8480dc5418cb7418fa9f36daac3a968255862eaac86e631d06dd166911a9d1b6"
+    },
+    {
+      "path": "plugins/grazie/lib/ai.grazie.model.ner.jvm.jar",
+      "bytes": 102134,
+      "sha256": "12246bb2b4dd61a775e09951920684d63174a2e1768461dcc0e76eb287907e3d"
+    },
+    {
+      "path": "plugins/grazie/lib/ai.grazie.model.tree.jvm.jar",
+      "bytes": 138697,
+      "sha256": "774080c153322ceb67818e6196dee36c405b2dcba1574037d060c76f2e5aaf63"
+    },
+    {
+      "path": "plugins/grazie/lib/ai.grazie.rule.engine.jar",
+      "bytes": 7611986,
+      "sha256": "247c5832f3c86542fb854898df552f445c0260bfc7ed4484246edd2643d0cfc6"
+    },
+    {
+      "path": "plugins/grazie/lib/ai.grazie.tasks.library.api.jvm.jar",
+      "bytes": 2577289,
+      "sha256": "0e328bf93404d11373e8f297744e9ebb6922b6507238df9b453b9c75dc4a715f"
+    },
+    {
+      "path": "plugins/grazie/lib/ai.grazie.tasks.library.model.jvm.jar",
+      "bytes": 125743,
+      "sha256": "1c9f46067867950e7875c988ba8ccdb5fc62750cd57888338dfbdf53f3e85c64"
+    },
+    {
+      "path": "plugins/grazie/lib/com.carrotsearch-hppc.jar",
+      "bytes": 4985101,
+      "sha256": "a30d75cc582cdc447a316a441288143493bd8f8cfe82afc8db3945e7e2002bdc"
+    },
+    {
+      "path": "plugins/grazie/lib/com.hankcs-aho-corasick-double-array-trie.jar",
+      "bytes": 37694,
+      "sha256": "1d9c5dbb6e9589f58324e7343bc3a5f4d3a7985da3df8ed4aee5c22fe206eef1"
+    },
+    {
+      "path": "plugins/grazie/lib/com.vdurmont-emoji-java.jar",
+      "bytes": 371154,
+      "sha256": "fbd794e2493fac6ce7e9f38c030e0a21cf8b16e4d48f6f910bb7cd5b61a2cfe2"
+    },
+    {
+      "path": "plugins/grazie/lib/grazie.jar",
+      "bytes": 3759067,
+      "sha256": "71475835f226cf2ff3e60425ac5a3d454b4a362b94cc34bfb52d223cff3eec1b"
+    },
+    {
+      "path": "plugins/grazie/lib/intellij.libraries.ai.grazie.spell.gec.engine.local.jar",
+      "bytes": 12787450,
+      "sha256": "e0fa9f210ff1ce34872d09ef632fc19425e28e9cdd6e2796ff2efd0f8b5c3199"
+    },
+    {
+      "path": "plugins/grazie/lib/javax.measure-unit-api.jar",
+      "bytes": 62724,
+      "sha256": "17985b81351c6c8ecdb1cad6644ac9604923812a00949249ef403c6a64a071d3"
+    },
+    {
+      "path": "plugins/grazie/lib/modules/intellij.grazie.java.jar",
+      "bytes": 12708,
+      "sha256": "63683e77707d67e8cfe9ec1701c8c40395e0b01defa060b470a298f72a0712dc"
+    },
+    {
+      "path": "plugins/grazie/lib/modules/intellij.grazie.properties.jar",
+      "bytes": 12515,
+      "sha256": "9f630fd7322950612b7cd61a88825f0f11d876e02cd8479a26c78e1456172c19"
+    },
+    {
+      "path": "plugins/grazie/lib/net.loomchild-segment.jar",
+      "bytes": 182051,
+      "sha256": "7f96a216386578e2803ed4413e1bc446bc493a8dbdfa26b4b123fbad11acb2c8"
+    },
+    {
+      "path": "plugins/grazie/lib/org.carrot2-morfologik-fsa-builders.jar",
+      "bytes": 55358,
+      "sha256": "0d5fd889404871ae50bd71d62871e82959996fc127ef8017595cdc30ffe820e4"
+    },
+    {
+      "path": "plugins/grazie/lib/org.carrot2-morfologik-fsa.jar",
+      "bytes": 33552,
+      "sha256": "aad7f421ee56932f68207fc2f1961b361f0195681e59285744837b8ad645bc16"
+    },
+    {
+      "path": "plugins/grazie/lib/org.carrot2-morfologik-speller.jar",
+      "bytes": 26721,
+      "sha256": "9c1ee009197cc2e38d41ef57aebd6dec1f6c7e1596af69d6c798b98cdf9b7eb1"
+    },
+    {
+      "path": "plugins/grazie/lib/org.carrot2-morfologik-stemming.jar",
+      "bytes": 105726,
+      "sha256": "d7530b62704d57382028161d9a164c89523f49dc2668f661befbb5d30696249d"
+    },
+    {
+      "path": "plugins/grazie/lib/org.jetbrains.intellij.deps.languagetool-language-en.jar",
+      "bytes": 19367480,
+      "sha256": "adcf3efeb55b09e9d76991866edea1291cf7e7dba681f1485fcd1d952374061e"
+    },
+    {
+      "path": "plugins/grazie/lib/org.jetbrains.intellij.deps.languagetool-languagetool-core.jar",
+      "bytes": 5355203,
+      "sha256": "64d214ec74643c84acc740bc2f0546ac205a706050d719a2b33ec23ad1df1101"
+    },
+    {
+      "path": "plugins/grazie/lib/org.json-json.jar",
+      "bytes": 162129,
+      "sha256": "c2d59faff0715c85cc9f1e4391c3593dff3bf287b779c5834a03909b1f371c6a"
+    },
+    {
+      "path": "plugins/grazie/lib/tech.units-indriya.jar",
+      "bytes": 580488,
+      "sha256": "a7a83bc60d29d23047c99410fe89efce71c4d851b431d606f68b95119726b7a1"
+    },
+    {
+      "path": "plugins/grazie/lib/tech.uom.lib-uom-lib-common.jar",
+      "bytes": 23026,
+      "sha256": "6505a85eac98b55daaa237b33b0f0544cdfcfae3398ded2ecd8cf21114f3225f"
+    },
+    {
+      "path": "lib/intellij.settingsSync.core.jar",
+      "bytes": 8281198,
+      "sha256": "38bcf0cfcb5a4d33a33ba02f4219551239e6b8c5e8c205d76b36a50c64c6e1ff"
+    },
+    {
+      "path": "plugins/vcs-github/lib/modules/intellij.vcs.github.ultimatePromo.jar",
+      "bytes": 13189,
+      "sha256": "e893ede9a19ea34780d8eba0d570fd88cc0687739f0ae12e0952eded5c050735"
+    }
+  ],
+  "retainedFiles": [
+    {
+      "path": "plugins/grazie/lib/io.github.oshai.kotlin.logging.jvm.jar",
+      "bytes": 293569,
+      "sha256": "0c18f433cdba6a233f4c6dd15fb0206e1116f11e87d1556dd1c5f14fb948ede3"
+    }
+  ],
+  "inactiveResources": [
+    "plugins/maven/lib/maven.jar!/META-INF/grazie-support.xml",
+    "plugins/Kotlin/lib/kotlin-plugin.jar!/intellij.kotlin.grazie.xml",
+    "plugins/toml/lib/toml.jar!/intellij.toml.grazie.xml"
+  ],
+  "limitations": [
+    "Module repository graph removal/three optional-edge edits are a separate authenticated helper owned by another agent.",
+    "Actual Marketplace UI policy is a separate public-platform patch.",
+    "Resource-key presence alone is not proof an IDE-account or subscription action is registered.",
+    "This pin alone does not establish native startup or UI behavior; see the verification record for the final packaged build."
+  ],
+  "productInfoInventory": {
+    "excludedIds": [
+      "intellij.grazie",
+      "intellij.grazie.core",
+      "intellij.grazie.java",
+      "intellij.grazie.json",
+      "intellij.grazie.markdown",
+      "intellij.grazie.properties",
+      "intellij.grazie.xml",
+      "intellij.grazie.yaml",
+      "intellij.kotlin.grazie",
+      "intellij.libraries.ai.grazie.spell.gec.engine.local",
+      "intellij.settingsSync.core",
+      "intellij.toml.grazie",
+      "intellij.vcs.github.ultimatePromo",
+      "lib.ai.grazie.rule.engine",
+      "tanvd.grazi"
+    ],
+    "beforeCounts": {
+      "bundledPlugins": 48,
+      "modules": 45,
+      "layout": 695
+    },
+    "afterCounts": {
+      "bundledPlugins": 47,
+      "modules": 45,
+      "layout": 682
+    },
+    "removedLayout": [
+      {
+        "name": "intellij.grazie.core",
+        "kind": "moduleV2",
+        "classPath": [
+          "plugins/grazie/lib/modules/intellij.grazie.core.jar"
+        ]
+      },
+      {
+        "name": "intellij.grazie.java",
+        "kind": "moduleV2",
+        "classPath": [
+          "plugins/grazie/lib/modules/intellij.grazie.java.jar"
+        ]
+      },
+      {
+        "name": "intellij.grazie.json",
+        "kind": "moduleV2"
+      },
+      {
+        "name": "intellij.grazie.markdown",
+        "kind": "moduleV2"
+      },
+      {
+        "name": "intellij.grazie.properties",
+        "kind": "moduleV2",
+        "classPath": [
+          "plugins/grazie/lib/modules/intellij.grazie.properties.jar"
+        ]
+      },
+      {
+        "name": "intellij.grazie.xml",
+        "kind": "moduleV2"
+      },
+      {
+        "name": "intellij.grazie.yaml",
+        "kind": "moduleV2"
+      },
+      {
+        "name": "intellij.kotlin.grazie",
+        "kind": "moduleV2"
+      },
+      {
+        "name": "intellij.libraries.ai.grazie.spell.gec.engine.local",
+        "kind": "moduleV2",
+        "classPath": [
+          "plugins/grazie/lib/modules/intellij.libraries.ai.grazie.spell.gec.engine.local.jar"
+        ]
+      },
+      {
+        "name": "intellij.settingsSync.core",
+        "kind": "productModuleV2",
+        "classPath": [
+          "lib/intellij.settingsSync.core.jar"
+        ]
+      },
+      {
+        "name": "intellij.toml.grazie",
+        "kind": "moduleV2"
+      },
+      {
+        "name": "intellij.vcs.github.ultimatePromo",
+        "kind": "moduleV2",
+        "classPath": [
+          "plugins/vcs-github/lib/modules/intellij.vcs.github.ultimatePromo.jar"
+        ]
+      },
+      {
+        "name": "tanvd.grazi",
+        "kind": "plugin",
+        "classPath": [
+          "plugins/grazie/lib/grazie.jar",
+          "plugins/grazie/lib/org.json-json.jar",
+          "plugins/grazie/lib/ai.grazie.gec.util.jar",
+          "plugins/grazie/lib/tech.units-indriya.jar",
+          "plugins/grazie/lib/net.loomchild-segment.jar",
+          "plugins/grazie/lib/com.carrotsearch-hppc.jar",
+          "plugins/grazie/lib/ai.grazie.rule.engine.jar",
+          "plugins/grazie/lib/javax.measure-unit-api.jar",
+          "plugins/grazie/lib/com.vdurmont-emoji-java.jar",
+          "plugins/grazie/lib/ai.grazie.model.ner.jvm.jar",
+          "plugins/grazie/lib/ai.grazie.model.tree.jvm.jar",
+          "plugins/grazie/lib/ai.grazie.client.ktor.jvm.jar",
+          "plugins/grazie/lib/org.carrot2-morfologik-fsa.jar",
+          "plugins/grazie/lib/tech.uom.lib-uom-lib-common.jar",
+          "plugins/grazie/lib/org.carrot2-morfologik-speller.jar",
+          "plugins/grazie/lib/ai.grazie.tasks.library.api.jvm.jar",
+          "plugins/grazie/lib/org.carrot2-morfologik-stemming.jar",
+          "plugins/grazie/lib/ai.grazie.api.gateway.client.jvm.jar",
+          "plugins/grazie/lib/ai.grazie.tasks.library.model.jvm.jar",
+          "plugins/grazie/lib/io.github.oshai.kotlin.logging.jvm.jar",
+          "plugins/grazie/lib/org.carrot2-morfologik-fsa-builders.jar",
+          "plugins/grazie/lib/com.hankcs-aho-corasick-double-array-trie.jar",
+          "plugins/grazie/lib/intellij.libraries.ai.grazie.spell.gec.engine.local.jar",
+          "plugins/grazie/lib/org.jetbrains.intellij.deps.languagetool-language-en.jar",
+          "plugins/grazie/lib/org.jetbrains.intellij.deps.languagetool-languagetool-core.jar"
+        ]
+      }
+    ],
+    "preservedBundledIds": [
+      "Git4Idea",
+      "org.jetbrains.plugins.github",
+      "org.jetbrains.plugins.gitlab",
+      "com.intellij.java",
+      "org.jetbrains.idea.maven",
+      "org.jetbrains.kotlin",
+      "org.toml.lang"
+    ]
+  }
+}

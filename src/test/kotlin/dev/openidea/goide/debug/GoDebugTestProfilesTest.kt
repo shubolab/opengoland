@@ -52,6 +52,9 @@ class GoDebugTestProfilesTest : LightPlatformTestCase() {
             assertTrue(capturedProfile is GoDebugConfiguration)
             config.goOptions.program = "changed"
             assertEquals(".", (capturedProfile as GoDebugConfiguration).goOptions.program)
-        } finally { com.intellij.openapi.util.Disposer.dispose(state.testSession) }
+        } finally {
+            com.intellij.openapi.util.Disposer.dispose(state.consoleBuilder.console)
+            com.intellij.openapi.util.Disposer.dispose(state.testSession)
+        }
     }
 }

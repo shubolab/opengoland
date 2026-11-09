@@ -3,6 +3,9 @@ package com.redhat.devtools.lsp4ij
 import com.intellij.ide.impl.OpenProjectTask
 import com.intellij.ide.util.gotoByName.ChooseByNamePopup
 import com.intellij.ide.util.gotoByName.GotoClassModel2
+import com.intellij.ide.util.gotoByName.DefaultChooseByNameItemProvider
+import com.intellij.openapi.progress.util.ProgressIndicatorBase
+import com.intellij.util.Processor
 import com.intellij.navigation.ChooseByNameContributor
 import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.application.WriteAction
@@ -22,6 +25,8 @@ import com.intellij.testFramework.LightPlatformTestCase
 import dev.openidea.goide.engine.EngineClient
 import dev.openidea.goide.navigation.search.GoTypeSearchContributor
 import dev.openidea.goide.navigation.search.GoTypeSearchItem
+import dev.openidea.goide.navigation.search.GoTypeSearchService
+import com.intellij.psi.search.GlobalSearchScope
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
 import java.nio.file.Files
@@ -34,9 +39,22 @@ class GoTypeSearchEngineTest : LightPlatformTestCase() {
 
     fun testColdDefaultServiceFindsRealTypedDeclarationsAndUnregisteredSdkBuffer() = fixture { f ->
         assertTrue(FileEditorManager.getInstance(f.project).openFiles.none { it.extension == "go" })
+        val started = System.nanoTime()
         assertEquals(listOf("PilotRecord"), f.search("PilotRecord").map { it.name })
+        val loaded = System.nanoTime()
+        val index = GoTypeSearchService.get(f.project)
+        val catalog = index.catalog(GlobalSearchScope.allScope(f.project))
         assertEquals(listOf("Callback"), f.search("Callback").map { it.name })
         assertEquals(listOf("BoxAlias"), f.search("BoxAlias").map { it.name })
+        val projectMatches = mutableListOf<Any>()
+        // calcPopupElements intentionally expands to libraries after an empty
+        // Project result. Test its actual provider's explicit Project scope here.
+        DefaultChooseByNameItemProvider(null).filterElements(f.popup, "bytes.Buffer", false, ProgressIndicatorBase(),
+            Processor { projectMatches += it; true })
+        assertTrue(projectMatches.isEmpty())
+        assertEquals("A real SDK/dependency superset must serve Project without another engine catalog", catalog.catalog.id,
+            index.catalog(GlobalSearchScope.projectScope(f.project)).catalog.id)
+        println("Go type search: actual engine cold ms=${(loaded - started) / 1_000_000}, cached lookups and Project switch ms=${(System.nanoTime() - loaded) / 1_000_000}")
         val buffer = f.search("bytes.Buffer").single { it.qualifiedName == "bytes.Buffer" }
         assertTrue(buffer.canNavigateToSource())
         edt { buffer.navigate(true) }
@@ -71,9 +89,9 @@ class GoTypeSearchEngineTest : LightPlatformTestCase() {
     }
 
     private inner class Fixture(val project: Project, val root: Path, val popup: ChooseByNamePopup) {
-        fun search(pattern: String): List<GoTypeSearchItem> {
+        fun search(pattern: String, everywhere: Boolean = true): List<GoTypeSearchItem> {
             var result = emptyList<GoTypeSearchItem>()
-            edt { result = popup.calcPopupElements(pattern, true).filterIsInstance<GoTypeSearchItem>() }
+            edt { result = popup.calcPopupElements(pattern, everywhere).filterIsInstance<GoTypeSearchItem>() }
             return result
         }
     }

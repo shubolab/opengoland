@@ -47,6 +47,10 @@ class GoProgramRunner : AsyncProgramRunner<RunnerSettings>() {
 
     override fun execute(environment: ExecutionEnvironment, state: RunProfileState): Promise<RunContentDescriptor?> {
         val promise = AsyncPromise<RunContentDescriptor?>()
+        if (state is GoFailedTestsRunState) {
+            state.execute(environment.executor, this)
+            return promise.apply { setResult(null) }
+        }
         val goState = state as? GoCommandLineState ?: return promise.apply { setError("Unsupported Go run state") }
         WriteIntentReadAction.run {
             FileDocumentManager.getInstance().saveAllDocuments()
@@ -137,7 +141,8 @@ class GoCommandLineState(environment: ExecutionEnvironment, private val configur
             val properties = GoTestConsoleProperties(configuration, executor, handler.output)
             val console = SMTestRunnerConnectionUtil.createAndAttachConsole("OpenIDEAGo", handler, properties)
             console.addMessageFilter(properties.fuzzCorpusFilter)
-            val rerun = GoRerunFailedTestsAction(configuration, handler.output, values, handler, executor)
+            val rerun = GoRerunFailedTestsAction(configuration, handler.output, values, handler, executor,
+                console as com.intellij.execution.testframework.sm.runner.ui.SMTRunnerConsoleView)
             return DefaultExecutionResult(console, handler).apply { setRestartActions(rerun) }
         }
         val console = consoleBuilder.console

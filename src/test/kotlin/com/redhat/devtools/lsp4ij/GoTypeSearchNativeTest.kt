@@ -5,6 +5,13 @@ import com.google.gson.JsonObject
 import com.intellij.ide.util.gotoByName.ChooseByNamePopup
 import com.intellij.ide.util.gotoByName.GotoClassModel2
 import com.intellij.ide.util.gotoByName.DefaultChooseByNameItemProvider
+import com.intellij.ide.actions.searcheverywhere.ClassSearchEverywhereContributor
+import com.intellij.ide.actions.GotoClassPresentationUpdater
+import com.intellij.lang.IdeLanguageCustomization
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.actionSystem.impl.SimpleDataContext
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.navigation.ChooseByNameContributor
 import com.intellij.navigation.NavigationItem
 import com.intellij.openapi.application.ReadAction
@@ -24,12 +31,17 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.openapi.vfs.VirtualFileWithId
+import com.intellij.openapi.vfs.VirtualFileManager
+import com.intellij.openapi.vfs.VfsUtil
+import com.intellij.openapi.vfs.newvfs.BulkFileListener
+import com.intellij.openapi.vfs.newvfs.events.VFileEvent
 import com.intellij.openapi.vfs.newvfs.impl.VfsRootAccess
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.ExtensionTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
+import com.intellij.testFramework.replaceService
 import com.intellij.util.Processor
 import com.intellij.util.indexing.FindSymbolParameters
 import com.intellij.util.indexing.IdFilter
@@ -52,6 +64,133 @@ import java.util.concurrent.atomic.AtomicReference
 /** Real GotoClassModel2 + ChooseByNamePopup item provider, with an owned uncapped backend peer. */
 class GoTypeSearchNativeTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = false
+
+    fun testActualStandardSearchHostUsesTheGoIdePrimaryLanguageTitle() = fixture { f ->
+        val owner = Disposer.newDisposable("owned primary language service control")
+        try {
+            val primary = if (java.lang.Boolean.getBoolean("openidea.primaryLanguageBaseline")) IdeLanguageCustomization() else GoIdeLanguageCustomization()
+            edt {
+                ApplicationManager.getApplication().replaceService(IdeLanguageCustomization::class.java, primary, owner)
+                val event = AnActionEvent.createFromDataContext(ActionPlaces.UNKNOWN, null, SimpleDataContext.getProjectContext(project))
+                val host = ClassSearchEverywhereContributor(event)
+                try {
+                    assertEquals("Types", host.groupName)
+                    assertEquals("types", host.fullGroupName)
+                    assertEquals("Type", GotoClassPresentationUpdater.getActionTitle())
+                    assertEquals("A product title must not replace native Go declaration lookup", listOf("PilotRecord"),
+                        f.popup.calcPopupElements("PilotRecord", true).filterIsInstance<GoTypeSearchItem>().map { it.name })
+                } finally { Disposer.dispose(host) }
+            }
+        } finally { edt { Disposer.dispose(owner) } }
+    }
+
+    fun testPublishedAllPlacesCatalogAlsoServesTheStrictProjectScope() = fixture { f ->
+        assertEquals(listOf("SdkBuffer"), f.search("SdkBuffer").map { it.name })
+        assertEquals(listOf("PilotRecord"), ReadAction.compute<List<GoTypeSearchItem>, RuntimeException> { f.search("PilotRecord", everywhere = false) }.map { it.name })
+        assertTrue(f.search("SdkBuffer", everywhere = false).isEmpty())
+        assertEquals("A validated superset must not be rebuilt for a narrower native scope", 1, f.source.requests.size)
+    }
+
+    fun testUnrelatedUnsavedGoDocumentDoesNotDiscardAPublishedCatalog() = fixture { f ->
+        val path = f.base.resolve("unrelated.go")
+        Files.writeString(path, "package unrelated\ntype UnrelatedOne int\n")
+        val file = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(path))
+        val document = ReadAction.compute<Document, RuntimeException> { requireNotNull(FileDocumentManager.getInstance().getDocument(file)) }
+        edt { WriteCommandAction.runWriteCommandAction(project) { document.insertString(document.textLength, "// unsaved one\n") } }
+        val item = f.search("PilotRecord").single()
+        edt { WriteCommandAction.runWriteCommandAction(project) { document.insertString(document.textLength, "// unsaved two\n") } }
+        assertEquals(listOf("PilotRecord"), f.search("PilotRecord").map { it.name })
+        assertTrue("After background alias classification, an unrelated editor cannot discard this declaration", item.canNavigate())
+        assertEquals("The backend excludes unrelated overlays; the native cache must do so too", 1, f.source.requests.size)
+    }
+
+    fun testUnrelatedGoVfsCreationDoesNotDiscardAPublishedCatalog() = fixture { f ->
+        val parent = requireNotNull(LocalFileSystem.getInstance().findFileByNioFile(f.base))
+        parent.children // Establish real cached membership before the native refresh.
+        val path = f.base.resolve("unrelated-vfs.go")
+        val delivered = CountDownLatch(1)
+        val connection = project.messageBus.connect()
+        connection.subscribe(VirtualFileManager.VFS_CHANGES, object : BulkFileListener {
+            override fun after(events: List<VFileEvent>) {
+                if (events.any { it.path == path.toString() }) delivered.countDown()
+            }
+        })
+        try {
+            val item = f.search("PilotRecord").single()
+            Files.writeString(path, "package unrelated\ntype ForeignRecord int\n")
+            VfsUtil.markDirtyAndRefresh(false, true, true, parent)
+            assertTrue("The real native refresh must deliver this VFS change", delivered.await(10, TimeUnit.SECONDS))
+            assertEquals(listOf("PilotRecord"), f.search("PilotRecord").map { it.name })
+            assertTrue("After background physical membership classification, the unrelated VFS change cannot discard this target", item.canNavigate())
+            assertEquals(1, f.source.requests.size)
+        } finally { connection.disconnect() }
+    }
+
+    fun testProjectScopeDoesNotAcquireDependencyRowsInsideAContentRootFromTheSuperset() = fixture { f ->
+        f.source.dependencyFiles = setOf("other.go")
+        assertTrue(ReadAction.compute<Boolean, RuntimeException> { GlobalSearchScope.projectScope(project).contains(f.files.getValue("other.go")) })
+        assertEquals(listOf("OnlyOther"), f.search("OnlyOther").map { it.name })
+        assertTrue(f.search("OnlyOther", everywhere = false).isEmpty())
+        assertEquals(1, f.source.requests.size)
+    }
+
+    fun testRecordedMetadataAndNewWorkspaceDirectoriesStillInvalidateTheCatalog() = fixture { f ->
+        val metadata = f.root.resolve("go.mod")
+        Files.writeString(metadata, "module example.org/probe\n\ngo 1.24.0\n")
+        val file = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(metadata))
+        val document = ReadAction.compute<Document, RuntimeException> { requireNotNull(FileDocumentManager.getInstance().getDocument(file)) }
+        val before = f.search("PilotRecord").single()
+        edt { WriteCommandAction.runWriteCommandAction(project) { document.insertString(document.textLength, "// context changed\n") } }
+        assertFalse(before.canNavigate())
+        val afterMetadata = f.search("PilotRecord").single()
+        assertEquals(2, f.source.requests.size)
+        Files.createDirectory(f.root.resolve("new-package"))
+        LocalFileSystem.getInstance().refreshFiles(listOf(requireNotNull(LocalFileSystem.getInstance().findFileByNioFile(f.root))), false, true, null)
+        edt { }
+        assertFalse("New package membership is never silently ignored", afterMetadata.canNavigate())
+        assertEquals(listOf("PilotRecord"), f.search("PilotRecord").map { it.name })
+        assertEquals(3, f.source.requests.size)
+    }
+
+    fun testAnInitiallyUnobservedSymlinkBufferIsClassifiedBeforeCachedNamesCanBeReused() = fixture { f ->
+        val link = f.base.resolve("late-buffer-alias")
+        Files.createSymbolicLink(link, f.root)
+        val alias = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(link.resolve("types.go")))
+        val old = f.search("PilotRecord").single()
+        val document = ReadAction.compute<Document, RuntimeException> { requireNotNull(FileDocumentManager.getInstance().getDocument(alias)) }
+        val dirty = "// 新缓冲区 😀\n" + f.initial.getValue("types.go").replace("PilotRecord", "AliasPilot")
+        edt { WriteCommandAction.runWriteCommandAction(project) { document.setText(dirty) } }
+        assertEquals(listOf("AliasPilot"), f.search("AliasPilot").map { it.name })
+        assertFalse(old.canNavigate())
+        assertEquals(2, f.source.requests.size)
+        assertEquals(f.initial.getValue("types.go"), Files.readString(f.paths.getValue("types.go")))
+    }
+
+    fun testDisposalDuringUnknownPathClassificationCannotStartAnotherCatalog() {
+        val entered = CountDownLatch(1); val release = CountDownLatch(1); val finished = CountDownLatch(1)
+        try {
+            fixture(pathResolver = { path ->
+                assertFalse(ApplicationManager.getApplication().isDispatchThread)
+                entered.countDown()
+                try { check(release.await(10, TimeUnit.SECONDS)); GoTypeCatalogCodec.physicalPath(Path.of(path)).toString() }
+                finally { finished.countDown() }
+            }) { f ->
+                val path = f.base.resolve("unrelated-pending.go")
+                Files.writeString(path, "package unrelated\n")
+                val file = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(path))
+                val document = ReadAction.compute<Document, RuntimeException> { requireNotNull(FileDocumentManager.getInstance().getDocument(file)) }
+                val old = f.search("PilotRecord").single()
+                edt { WriteCommandAction.runWriteCommandAction(project) { document.insertString(document.textLength, "// changed\n") } }
+                assertTrue(entered.await(10, TimeUnit.SECONDS))
+                assertFalse("Unknown physical membership pauses old navigation", old.canNavigate())
+                edt { Disposer.dispose(f.index) }
+                release.countDown()
+                assertTrue(finished.await(10, TimeUnit.SECONDS))
+                assertFalse(old.canNavigate())
+                assertEquals(1, f.source.requests.size)
+            }
+        } finally { release.countDown(); assertTrue(finished.await(10, TimeUnit.SECONDS)) }
+    }
 
     fun testActualNativeClassProviderFindsColdGoTypesAndUnboundedNames() = fixture { f ->
         assertTrue("No Go editor is open", FileEditorManager.getInstance(project).openFiles.none { it.extension == "go" })
@@ -109,7 +248,8 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
         names.clear()
         f.model.processNames(Processor { names.add(it); true }, FindSymbolParameters("", "", scope, rejected))
         assertTrue(names.isEmpty())
-        assertEquals(2, f.source.requests.map { it.includeExternal }.distinct().size)
+        assertEquals("An All Places snapshot serves Project scope without another metadata build", 1,
+            f.source.requests.map { it.includeExternal }.distinct().size)
     }
 
     fun testNativeContributorRespectsProcessorStopWithoutTruncatingItsCatalog() = fixture { f ->
@@ -310,7 +450,9 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
         }
     }
 
-    private fun fixture(additionalContributors: List<ChooseByNameContributor> = emptyList(), block: (Fixture) -> Unit) {
+    private fun fixture(additionalContributors: List<ChooseByNameContributor> = emptyList(),
+                        pathResolver: (String) -> String = { GoTypeCatalogCodec.physicalPath(Path.of(it)).toString() },
+                        block: (Fixture) -> Unit) {
         val base = Files.createTempDirectory("open-goland-type-search-").toRealPath()
         val root = base.resolve("project").apply { Files.createDirectory(this) }
         val external = base.resolve("sdk").apply { Files.createDirectory(this) }
@@ -323,7 +465,7 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
         val files = paths.mapValues { requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(it.value)) }
         edt { ModuleRootModificationUtil.addContentRoot(module, root.toString()) }
         val peer = CatalogPeer(paths)
-        val index = GoTypeSearchIndex(project, peer) { peer.problems += it }
+        val index = GoTypeSearchIndex(project, peer, pathResolver) { peer.problems += it }
         Disposer.register(disposable, index)
         var fixture: Fixture? = null
         val previous = project.getUserData(ChooseByNamePopup.CURRENT_SEARCH_PATTERN)
@@ -361,6 +503,7 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
         @Volatile var held: CompletableFuture<JsonObject>? = null
         @Volatile var captured: JsonObject? = null
         @Volatile var badUtf16 = false
+        @Volatile var dependencyFiles = emptySet<String>()
         override fun prepare(input: GoTypeSearchInput) {
             preparing.countDown()
             preparation?.let { check(it.await(15, TimeUnit.SECONDS)) { "Owned alias preparation was not released" } }
@@ -371,7 +514,7 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
             val overlays = input.requestWire().getAsJsonArray("overlays").map { it.asJsonObject }
             requests += Request(operationId, includeExternal, overlays)
             val guards = JsonArray(); val types = JsonArray(); val dirs = mutableSetOf<Path>()
-            paths.filterKeys { includeExternal || it != "sdk.go" }.forEach { (name, path) ->
+            paths.filterKeys { includeExternal || it != "sdk.go" && it !in dependencyFiles }.forEach { (name, path) ->
                 val uri = GoDocumentSync.fileUri(path)
                 val disk = Files.readAllBytes(path)
                 val overlay = overlays.firstOrNull { it.get("uri").asString == uri }
@@ -393,7 +536,7 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
                         addProperty("name", type); addProperty("uri", uri); addProperty("packagePath", if (name == "sdk.go") "stdlib/sdk" else "example.org/probe")
                         addProperty("packageName", if (name == "sdk.go") "sdk" else "probe")
                         addProperty("kind", if (type == "Callback") "function" else if (type == "BoxAlias") "alias" else "struct")
-                        addProperty("origin", if (name == "sdk.go") "sdk" else "project")
+                        addProperty("origin", if (name == "sdk.go") "sdk" else if (name in dependencyFiles) "dependency" else "project")
                         add("range", range(start, end)); add("selectionRange", if (badUtf16 && type == "模型") range(text.indexOf("😀") + 1, text.indexOf("😀") + 2) else range(start, start + type.length))
                     })
                 }
@@ -404,7 +547,10 @@ class GoTypeSearchNativeTest : LightPlatformTestCase() {
                 add("directories", JsonArray().apply { dirs.forEach { dir -> add(JsonObject().apply {
                     addProperty("uri", GoDocumentSync.fileUri(dir)); add("entries", JsonArray().apply { GoTypeCatalogCodec.directoryEntries(dir).forEach(::add) })
                 }) } })
-                add("coverage", JsonObject().apply { addProperty("complete", true) }); add("issues", JsonArray())
+                add("coverage", JsonObject().apply {
+                    addProperty("complete", true)
+                    add("modules", JsonArray().apply { paths.filterKeys { it != "sdk.go" && it !in dependencyFiles }.values.map { it.parent }.distinct().forEach { add(it.toString()) } })
+                }); add("issues", JsonArray())
             }
             captured = response; started.countDown()
             return held?.also { held = null } ?: CompletableFuture.completedFuture(response)

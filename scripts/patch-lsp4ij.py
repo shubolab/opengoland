@@ -5,7 +5,6 @@ Never edits the downloaded dependency cache or an installed IDE. The upstream
 JAR, source files and patch are independently SHA-256 pinned before compilation.
 """
 import argparse
-import fcntl
 import hashlib
 import json
 import os
@@ -15,12 +14,13 @@ import subprocess
 import tempfile
 import urllib.request
 import zipfile
+from platform_layout import cache_lock, detect_platform_layout, java_compiler_command
 
 ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
 UPSTREAM_JAR_SHA = "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
 MARKER = "META-INF/open-goland-document-sync.json"
-PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher", "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature", "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport", "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport", "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport", "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport", "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport", "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport")
+PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher", "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature", "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport", "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport", "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport", "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport", "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport", "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport", "com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport", "com/redhat/devtools/lsp4ij/LanguageServiceAccessor")
 
 
 def sha(data):
@@ -85,20 +85,24 @@ def build(args):
                     return
         raise ValueError("Existing private LSP4IJ patch does not match its pinned inputs")
 
-    javac_candidates = [args.sdk / "Contents/jbr/Contents/Home/bin/javac"]
+    layout = detect_platform_layout(args.sdk)
+    javac_candidates = [layout.javac]
     if os.environ.get("JAVA_HOME"):
-        javac_candidates.append(Path(os.environ["JAVA_HOME"]) / "bin/javac")
+        javac_candidates.append(Path(os.environ["JAVA_HOME"]) / "bin" / ("javac.exe" if os.name == "nt" else "javac"))
     if shutil.which("javac"):
         javac_candidates.append(Path(shutil.which("javac")))
     javac = next((p for p in javac_candidates if p.is_file() and os.access(p, os.X_OK)), None)
     if javac is None:
         raise ValueError("A JDK with javac is required to compile the pinned LSP4IJ source patch")
     compiler = subprocess.check_output([str(javac), "-version"], text=True, stderr=subprocess.STDOUT).strip()
-    sdk_lib = args.sdk / "Contents/lib"
+    sdk_lib = layout.lib
     classpath = [original] + sorted(target.parent.glob("*.jar")) + sorted(sdk_lib.rglob("*.jar"))
     classpath = [p for p in classpath if p != target]
-    key = sha(json.dumps({**metadata, "compiler": compiler,
-                          "sdk": json.loads((args.sdk / "Contents/Resources/product-info.json").read_text())["buildNumber"]}, sort_keys=True).encode())
+    identity = {**metadata, "compiler": compiler,
+                "sdk": json.loads(layout.product_info.read_text(encoding="utf-8"))["buildNumber"]}
+    if layout.platform != "macos":
+        identity["sdkPlatform"] = layout.platform
+    key = sha(json.dumps(identity, sort_keys=True).encode())
     work = cache / key
     built = work / "classes"
     class_manifest = work / "classes.json"
@@ -131,8 +135,9 @@ def build(args):
         for source in pin["sources"]:
             if sha((upstream / source["path"]).read_bytes()) != source["patchedSha256"]:
                 raise ValueError(f"Patched source digest mismatch: {source['path']}")
-        command = [str(javac), "--release", "17", "-encoding", "UTF-8", "-classpath", os.pathsep.join(map(str, classpath)), "-d", str(built)]
-        command += [str(upstream / source["path"]) for source in pin["sources"]]
+        compiler_arguments = ["--release", "17", "-encoding", "UTF-8", "-classpath", os.pathsep.join(map(str, classpath)), "-d", str(built)]
+        compiler_arguments += [str(upstream / source["path"]) for source in pin["sources"]]
+        command = java_compiler_command(javac, compiler_arguments, work / "javac.args")
         result = subprocess.run(command, text=True, capture_output=True)
         if result.returncode:
             raise ValueError("Compiling the pinned LSP4IJ patch failed:\n" + result.stderr)
@@ -167,8 +172,7 @@ def main():
     # Development/test sandbox preparation (or separate Gradle invocations)
     # can share a cold compiler cache. Lock its entire verify/build/install
     # transaction; a process exit releases this OS lock without stale markers.
-    with (cache / "build.lock").open("a+b") as guard:
-        fcntl.flock(guard, fcntl.LOCK_EX)
+    with cache_lock(cache / "build.lock"):
         build(args)
 
 

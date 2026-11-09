@@ -1,0 +1,89 @@
+{
+  "schemaVersion": 1,
+  "verifiedAtDate": "2026-11-09",
+  "runtimeSdkVersion": "go1.26.10",
+  "builderVersion": "go1.27.3",
+  "sdk": {
+    "darwin-arm64": {
+      "version": "go1.26.10",
+      "url": "https://go.dev/dl/go1.26.10.darwin-arm64.tar.gz",
+      "filename": "go1.26.10.darwin-arm64.tar.gz",
+      "sha256": "0b5183492292ada170f9b561a834863808dd02edba599e4ad0e89899330020b3",
+      "size": 64669745
+    },
+    "windows-amd64": {
+      "version": "go1.26.10",
+      "url": "https://go.dev/dl/go1.26.10.windows-amd64.zip",
+      "filename": "go1.26.10.windows-amd64.zip",
+      "sha256": "7ecd2d7260e82c59bcbd7f1077a07cee2dea607295b858df67195a1e4e09629b",
+      "size": 75004774
+    }
+  },
+  "builders": {
+    "darwin-arm64": {
+      "version": "go1.27.3",
+      "url": "https://go.dev/dl/go1.27.3.darwin-arm64.tar.gz",
+      "filename": "go1.27.3.darwin-arm64.tar.gz",
+      "sha256": "dd3908cf20959d798c1e06ebe5b72213f0505ce01373b40ce3110975a6cd99c2",
+      "size": 68196737
+    },
+    "windows-amd64": {
+      "version": "go1.27.3",
+      "url": "https://go.dev/dl/go1.27.3.windows-amd64.zip",
+      "filename": "go1.27.3.windows-amd64.zip",
+      "sha256": "f26081f438319757f8a1b46d7d0b2c5ec7583d4038e485e0aa725cfde7885fff",
+      "size": 79010309
+    },
+    "linux-amd64": {
+      "version": "go1.27.3",
+      "url": "https://go.dev/dl/go1.27.3.linux-amd64.tar.gz",
+      "filename": "go1.27.3.linux-amd64.tar.gz",
+      "sha256": "65efbc80fdc1fa2cd2631cad5b481777a68e8725f34e89f50fc6ac714e379b40",
+      "size": 70588678
+    }
+  },
+  "tools": {
+    "gopls": {
+      "module": "golang.org/x/tools/gopls",
+      "version": "v0.24.0",
+      "package": "golang.org/x/tools/gopls",
+      "sum": "h1:nPO/LffYa4sP62Ueuema5PPnZPGaZjGl+vZGvbTek4g=",
+      "goModSum": "h1:abHXJMs6FnwH1z/R1GrYVo/TBfxyDbSFMCKakBQURg0=",
+      "goModSha256": "35fa573842693c872d1f8f0a765f20110d2fcebbc65b4ae63d76e8a462c6b3af",
+      "sumdb": "https://sum.golang.org/lookup/golang.org/x/tools/gopls@v0.24.0"
+    },
+    "dlv": {
+      "module": "github.com/go-delve/delve",
+      "version": "v1.27.2",
+      "package": "github.com/go-delve/delve/cmd/dlv",
+      "sum": "h1:dhcjFjiVoQI53uwsG7EqYiMhdvFuywsBZx4KDOK+sYE=",
+      "goModSum": "h1:nkFriKZ7rywF+tspcCgJeouzq6b0krJlJiGp15T81hA=",
+      "goModSha256": "a051c5064f4deb852b56ddde2b0cc4d14e96a38a3ae413ac7dd62fd8ff7786fc",
+      "sumdb": "https://sum.golang.org/lookup/github.com/go-delve/delve@v1.27.2"
+    }
+  },
+  "compatibility": {
+    "goplsBuildGoMinimum": "go1.27.0",
+    "delveBuildGoMinimum": "go1.25.0",
+    "delveSupportedTargetGoMinor": [
+      "1.25",
+      "1.26",
+      "1.27"
+    ],
+    "defaultSdkReason": "Current supported previous Go minor security patch, independently pinned from the newer tool build compiler.",
+    "sources": [
+      "https://go.dev/dl/?mode=json",
+      "https://go.dev/doc/devel/release#policy",
+      "https://raw.githubusercontent.com/golang/tools/gopls/v0.24.0/gopls/go.mod",
+      "https://raw.githubusercontent.com/go-delve/delve/v1.27.2/go.mod",
+      "https://raw.githubusercontent.com/go-delve/delve/v1.27.2/pkg/goversion/compat.go",
+      "https://go.dev/gopls/#supported-go-versions"
+    ]
+  },
+  "layout": {
+    "sdk": "go",
+    "executables": "bin",
+    "manifest": "manifest.json",
+    "licenses": "licenses"
+  }
+}

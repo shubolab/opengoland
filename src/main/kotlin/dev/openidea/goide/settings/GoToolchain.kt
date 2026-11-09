@@ -2,6 +2,9 @@ package dev.openidea.goide.settings
 
 import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.configurations.PathEnvironmentVariableUtil
+import com.intellij.ide.plugins.PluginManagerCore
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.extensions.PluginId
 import com.intellij.openapi.project.Project
 import java.nio.file.Files
 import java.nio.file.Path
@@ -70,12 +73,22 @@ object GoToolchain {
     }
 
     fun resolve(tool: String, configured: String = ""): String? {
+        // An explicit SDK/tool remains authoritative, including an invalid path.
+        // Resolve the installed plugin only for the empty/default selection.
+        if (configured.isNotBlank()) return resolve(tool, configured, null)
+        val bundled = if (ApplicationManager.getApplication() == null) null else
+            PluginManagerCore.getPlugin(PluginId.getId("dev.openidea.go"))?.pluginPath?.resolve("tools")
+        return resolve(tool, configured, bundled)
+    }
+
+    internal fun resolve(tool: String, configured: String, bundledTools: Path?): String? {
         if (configured.isNotBlank()) {
             val path = configured.trim().let {
                 if (it.startsWith("~/")) Path.of(System.getProperty("user.home"), it.substring(2)) else runCatching { Path.of(it) }.getOrNull()
             } ?: return null
             return path.toAbsolutePath().normalize().takeIf { Files.isRegularFile(it) && Files.isExecutable(it) }?.toString()
         }
+        bundledExecutable(tool, bundledTools)?.let { return it.toString() }
         PathEnvironmentVariableUtil.findInPath(tool)?.let { return it.absolutePath }
         val home = Path.of(System.getProperty("user.home"))
         val filename = if (System.getProperty("os.name").startsWith("Windows")) "$tool.exe" else tool
@@ -86,6 +99,15 @@ object GoToolchain {
                 .forEach { candidates.add(it.resolve("bin/$filename")) }
         }
         return candidates.firstOrNull { Files.isRegularFile(it) && Files.isExecutable(it) }?.toString()
+    }
+
+    /** The same relocatable plugin layout is used by the macOS and Windows installers. */
+    internal fun bundledExecutable(tool: String, tools: Path?, windows: Boolean = System.getProperty("os.name").startsWith("Windows")): Path? {
+        if (tools == null || tool !in setOf("go", "gofmt", "gopls", "dlv")) return null
+        val filename = tool + if (windows) ".exe" else ""
+        val executable = tools.resolve(if (tool == "go" || tool == "gofmt") "go/bin/$filename" else "bin/$filename")
+        if (tool in setOf("go", "gofmt") && !Files.isDirectory(tools.resolve("go/src/runtime"))) return null
+        return executable.toAbsolutePath().normalize().takeIf { Files.isRegularFile(it) && Files.isExecutable(it) }
     }
 
     fun buildTags(text: String): List<String> = text.split(Regex("[,\\s]+")).filter(String::isNotBlank).distinct()

@@ -1,0 +1,35 @@
+{
+  "repository": "JetBrains/intellij-community",
+  "release": "idea/2026.1.4",
+  "version": "2026.1.4",
+  "platformBaseline": "261",
+  "source": "https://github.com/JetBrains/intellij-community/releases/tag/idea/2026.1.4",
+  "windows-x64": {
+    "assetId": 464251219,
+    "name": "idea-2026.1.4.win.zip",
+    "url": "https://github.com/JetBrains/intellij-community/releases/download/idea/2026.1.4/idea-2026.1.4.win.zip",
+    "size": 862304102,
+    "sha256": "da0f2da6bd7e3b113be1a119f44d28efd40758f3249623a636fa8368ec559cc5"
+  },
+  "productPolicies": {
+    "goProduct": "product/patches/platform-go-product-windows-2026.1.4.json",
+    "localIde": "product/patches/platform-local-ide-windows-2026.1.4.json"
+  },
+  "platformPatches": [
+    {
+      "pin": "product/patches/platform-unicode-windows-2026.1.4.json",
+      "marker": "META-INF/open-goland-platform-unicode.json",
+      "cacheName": "platform-unicode-windows"
+    },
+    {
+      "pin": "product/patches/platform-psi-listener-windows-2026.1.4.json",
+      "marker": "META-INF/open-goland-platform-psi-listener.json",
+      "cacheName": "platform-psi-listener-windows"
+    },
+    {
+      "pin": "product/patches/platform-local-plugins-windows-2026.1.4.json",
+      "marker": "META-INF/open-goland-platform-local-plugins.json",
+      "cacheName": "platform-local-plugins-windows"
+    }
+  ]
+}

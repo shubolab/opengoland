@@ -14,6 +14,21 @@
  import com.intellij.openapi.project.Project;
  import com.intellij.openapi.util.Disposer;
  import com.intellij.openapi.util.ModificationTracker;
+@@ -119,13 +120,13 @@
+     private final AtomicInteger keepAliveCounter = new AtomicInteger();
+     protected StreamConnectionProvider lspStreamProvider;
+     private volatile MessageBusConnection messageBusConnection;
+     private Future<?> launcherFuture;
+     private int numberOfRestartAttempts;
+     private @Nullable CompletableFuture<Void> initializeFuture;
+-    private LanguageServer languageServer;
++    private volatile LanguageServer languageServer;
+     private LanguageClientImpl languageClient;
+     private ServerCapabilities serverCapabilities;
+     private volatile @Nullable Alarm stopAlarm = null;
+     private ServerStatus serverStatus;
+     private boolean disposed;
+     private LanguageServerException serverError;
 @@ -719,12 +720,16 @@
       * @return the completable future with the language server instance or null.
       */
@@ -129,6 +144,43 @@
          });
      }
  
+@@ -1043,12 +1051,21 @@
+     public CompletableFuture<LanguageServer> sendNotification(@NotNull Function<LanguageServer, LanguageServer> fn) {
+         // Enqueues a notification on the dispatch thread associated with the wrapped language server. This
+         // ensures the interleaving of document updates and other requests in the UI is mirrored in the
+         // order in which they get dispatched to the server
+         return getInitializedServer()
+                 .thenApplyAsync(fn, this.dispatcher);
++    }
++
++    /**
++     * Dispatch a request for an already initialized connection on the same FIFO
++     * as document notifications. This does not start or restart a server. The
++     * caller must validate its captured connection inside the supplied function.
++     */
++    public <T> CompletableFuture<T> sendRequest(@NotNull Function<LanguageServer, CompletableFuture<T>> fn) {
++        return CompletableFuture.completedFuture(languageServer).thenComposeAsync(fn, this.dispatcher);
+     }
+ 
+     /**
+      * Returns the server capabilities if it is ready and null otherwise.
+      *
+      * @return the server capabilities if it is ready and null otherwise.
+@@ -1504,13 +1521,13 @@
+     /**
+      * Returns the language server wrapper's modification tracker.
+      *
+      * @return the modification tracker
+      */
+     @NotNull
+-    ModificationTracker getModificationTracker() {
++    public ModificationTracker getModificationTracker() {
+         return modificationTracker;
+     }
+ 
+     /**
+      * Increments the language server wrapper's modification tracker.
+      */
 --- a/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java
 @@ -28,26 +28,23 @@
@@ -967,3 +1019,355 @@
                      // Here languageServers is the list of language servers which matches the given file
                      // and which have implementation capability
                      if (languageServers.isEmpty()) {
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport.java
+@@ -7,60 +7,110 @@
+  *
+  * Contributors:
+  * Red Hat, Inc. - initial API and implementation
+  ******************************************************************************/
+ package com.redhat.devtools.lsp4ij.features.highlight;
+ 
++import com.intellij.openapi.application.ReadAction;
++import com.intellij.openapi.editor.ex.DocumentEx;
++import com.intellij.openapi.fileEditor.FileDocumentManager;
++import com.intellij.openapi.progress.ProcessCanceledException;
++import com.intellij.openapi.vfs.VirtualFile;
+ import com.intellij.psi.PsiFile;
+ import com.redhat.devtools.lsp4ij.LSPRequestConstants;
+ import com.redhat.devtools.lsp4ij.LanguageServerItem;
++import com.redhat.devtools.lsp4ij.OpenedDocument;
++import com.redhat.devtools.lsp4ij.LanguageServiceAccessor;
++import com.redhat.devtools.lsp4ij.LanguageServerWrapper;
++import org.eclipse.lsp4j.services.LanguageServer;
++import com.redhat.devtools.lsp4ij.LSPIJUtils;
++import com.redhat.devtools.lsp4ij.client.features.FileUriSupport;
+ import com.redhat.devtools.lsp4ij.features.AbstractLSPDocumentFeatureSupport;
+ import com.redhat.devtools.lsp4ij.internal.CancellationSupport;
+ import org.eclipse.lsp4j.DocumentHighlight;
+ import org.eclipse.lsp4j.DocumentHighlightParams;
++import org.eclipse.lsp4j.Position;
++import org.eclipse.lsp4j.TextDocumentIdentifier;
+ import org.jetbrains.annotations.NotNull;
++import org.jetbrains.annotations.Nullable;
+ 
+ import java.util.ArrayList;
+ import java.util.Collections;
+ import java.util.List;
++import java.util.Map;
++import java.net.URI;
++import java.util.concurrent.ConcurrentHashMap;
+ import java.util.Objects;
+ import java.util.concurrent.CompletableFuture;
++import java.util.concurrent.atomic.AtomicBoolean;
+ 
+ /**
+  * LSP highlight support which loads and caches highlight by consuming:
+  *
+  * <ul>
+  *     <li>LSP 'textDocument/documentHighlight' requests</li>
+  * </ul>
+  */
+ public class LSPHighlightSupport extends AbstractLSPDocumentFeatureSupport<DocumentHighlightParams, List<DocumentHighlight>> {
+ 
+     private Integer previousOffset;
++    private volatile @Nullable HighlightSnapshot snapshot;
+ 
+     public LSPHighlightSupport(@NotNull PsiFile file) {
+         super(file);
+     }
+ 
+     public CompletableFuture<List<DocumentHighlight>> getHighlights(LSPDocumentHighlightParams params) {
+-        int offset = params.getOffset();
+-        if (previousOffset != null && !previousOffset.equals(offset)) {
+-            super.cancel();
+-        }
+-        previousOffset = offset;
+-        return super.getFeatureData(params);
++        // Take read access before the feature monitor: document listeners can
++        // cancel this support while a write action is running.
++        return ReadAction.compute(() -> {
++            synchronized (this) {
++                int offset = params.getOffset();
++                if (previousOffset != null && !previousOffset.equals(offset)) {
++                    cancel();
++                }
++                previousOffset = offset;
++                return super.getFeatureData(params);
++            }
++        });
++    }
++
++    @Override
++    protected boolean checkValid() {
++        HighlightSnapshot current = snapshot;
++        var future = getFuture();
++        return current != null && current.isCurrent(getFile())
++                && (future == null || !future.isDone() || !current.connections.isEmpty())
++                && super.checkValid();
++    }
++
++    @Override
++    public synchronized void cancel() {
++        HighlightSnapshot current = snapshot;
++        if (current != null) {
++            current.active.set(false);
++        }
++        super.cancel();
+     }
+ 
+     @Override
+     protected CompletableFuture<List<DocumentHighlight>> doLoad(DocumentHighlightParams params, CancellationSupport cancellationSupport) {
+         PsiFile file = super.getFile();
+-        return getHighlights(file, params, cancellationSupport);
+-    }
+-
+-    private static @NotNull CompletableFuture<List<DocumentHighlight>> getHighlights(@NotNull PsiFile file,
++        HighlightSnapshot generation = ReadAction.compute(() -> HighlightSnapshot.capture(file, params));
++        snapshot = generation;
++        return getHighlights(file, params, cancellationSupport, generation)
++                .thenApply(result -> ReadAction.compute(() -> {
++                    generation.checkCurrent(file, cancellationSupport);
++                    return result;
++                }));
++    }
++
++    private @NotNull CompletableFuture<List<DocumentHighlight>> getHighlights(@NotNull PsiFile file,
+                                                                                      @NotNull DocumentHighlightParams params,
+-                                                                                     @NotNull CancellationSupport cancellationSupport) {
++                                                                                     @NotNull CancellationSupport cancellationSupport,
++                                                                                     @NotNull HighlightSnapshot generation) {
+         return getLanguageServers(file,
+                 f -> f.getDocumentHighlightFeature().isEnabled(file),
+                 f -> f.getDocumentHighlightFeature().isSupported(file))
+                 .thenComposeAsync(languageServers -> {
+                     // Here languageServers is the list of language servers which matches the given file
+                     // and which have documentHighlights capability
+@@ -68,38 +118,146 @@
+                         return CompletableFuture.completedFuture(Collections.emptyList());
+                     }
+ 
+                     // Collect list of textDocument/highlights future for each language servers
+                     List<CompletableFuture<List<? extends org.eclipse.lsp4j.DocumentHighlight>>> highlightsPerServerFutures = languageServers
+                             .stream()
+-                            .map(languageServer -> getHighlightsFor(params, file, languageServer, cancellationSupport))
++                            .map(languageServer -> getHighlightsFor(file, languageServer, cancellationSupport, generation))
+                             .toList();
+ 
+                     // Merge list of textDocument/highlights future in one future which return the list of highlights
+                     return mergeInOneFuture(highlightsPerServerFutures, cancellationSupport);
+                 });
+     }
+ 
+-    private static CompletableFuture<List<? extends org.eclipse.lsp4j.DocumentHighlight>> getHighlightsFor(@NotNull DocumentHighlightParams params,
+-                                                                                                           @NotNull PsiFile file,
+-                                                                                                           @NotNull LanguageServerItem languageServer,
+-                                                                                                           @NotNull CancellationSupport cancellationSupport) {
+-        // Update textDocument Uri with custom file Uri if needed
+-        updateTextDocumentUri(params.getTextDocument(), file, languageServer);
+-        return cancellationSupport.execute(languageServer
+-                        .getTextDocumentService()
+-                        .documentHighlight(params), languageServer, LSPRequestConstants.TEXT_DOCUMENT_DOCUMENT_HIGHLIGHT)
++    private static CompletableFuture<List<? extends DocumentHighlight>> getHighlightsFor(@NotNull PsiFile file,
++                                                                                      @NotNull LanguageServerItem languageServer,
++                                                                                      @NotNull CancellationSupport cancellationSupport,
++                                                                                      @NotNull HighlightSnapshot generation) {
++        var wrapper = languageServer.getServerWrapper();
++        var uri = FileUriSupport.getFileUri(generation.virtualFile, languageServer.getClientFeatures());
++        // Never force a new connection while handling a queued/cancelled query.
++        var opened = wrapper.getOpenedDocument(uri);
++        if (opened == null) {
++            return CompletableFuture.failedFuture(new ProcessCanceledException());
++        }
++        generation.connections.put(languageServer, Map.entry(uri, opened));
++        generation.connectionEpochs.putIfAbsent(wrapper, wrapper.getModificationTracker().getModificationCount());
++        var synchronizer = opened.getSynchronizer();
++        if (synchronizer != null && synchronizer.getDocument() != generation.document) {
++            return CompletableFuture.failedFuture(new ProcessCanceledException());
++        }
++        // These notification futures are shared with other features. Cancellation
++        // belongs only to this derived request, never to didOpen or didChange.
++        CompletableFuture<?> ready = synchronizer == null
++                ? CompletableFuture.completedFuture(null)
++                : synchronizer.getDidOpenFuture().thenCompose(ignored -> ReadAction.compute(() -> {
++                    generation.checkCurrent(file, cancellationSupport);
++                    return synchronizer.flushPendingChanges();
++                }));
++        return cancellationSupport.execute(ready.thenCompose(ignored -> wrapper.sendRequest(server -> ReadAction.compute(() -> {
++                    generation.checkCurrent(file, cancellationSupport);
++                    if (server == null || server != languageServer.getServer()
++                            || server != wrapper.getLanguageServer() || wrapper.getOpenedDocument(uri) != opened) {
++                        throw new ProcessCanceledException();
++                    }
++                    // Each server gets an independent immutable-position request;
++                    // updating one server's custom URI must not mutate its peers.
++                    var request = new DocumentHighlightParams(new TextDocumentIdentifier(
++                            FileUriSupport.toString(generation.virtualFile, languageServer.getClientFeatures())),
++                            new Position(generation.line, generation.character));
++                    return cancellationSupport.execute(server.getTextDocumentService().documentHighlight(request),
++                            languageServer, LSPRequestConstants.TEXT_DOCUMENT_DOCUMENT_HIGHLIGHT);
++                }))))
+                 .thenApplyAsync(highlights -> {
+                     if (highlights == null) {
+-                        // textDocument/highlight may return null
+                         return Collections.emptyList();
+                     }
+-                    return highlights.stream()
+-                            .filter(Objects::nonNull)
+-                            .toList();
++                    return highlights.stream().filter(Objects::nonNull).toList();
+                 });
++    }
++
++    private static final class HighlightSnapshot {
++        private final DocumentEx document;
++        private final VirtualFile virtualFile;
++        private final long sequence;
++        private final int line;
++        private final int character;
++        private final AtomicBoolean active = new AtomicBoolean(true);
++        private final Map<LanguageServerWrapper, Map.Entry<LanguageServer, OpenedDocument>> initialConnections = new ConcurrentHashMap<>();
++        private final Map<LanguageServerWrapper, Long> connectionEpochs = new ConcurrentHashMap<>();
++        private final Map<LanguageServerItem, Map.Entry<URI, OpenedDocument>> connections = new ConcurrentHashMap<>();
++
++        private HighlightSnapshot(PsiFile file, DocumentEx document, VirtualFile virtualFile, Position position) {
++            this.document = document;
++            this.virtualFile = virtualFile;
++            this.sequence = document.getModificationSequence();
++            this.line = position.getLine();
++            this.character = position.getCharacter();
++            // Capture owners that already exist at invocation, before asynchronous
++            // server selection can observe a replacement. Read existing maps only;
++            // checking an old request never creates/starts a project service.
++            var accessor = file.getProject().getServiceIfCreated(LanguageServiceAccessor.class);
++            if (accessor != null) {
++                for (var wrapper : accessor.getStartedServers()) {
++                    var server = wrapper.getLanguageServer();
++                    if (server != null) {
++                        for (var opened : wrapper.getOpenedDocuments()) {
++                            if (opened.getFile() == virtualFile) {
++                                initialConnections.put(wrapper, Map.entry(server, opened));
++                                connectionEpochs.put(wrapper, wrapper.getModificationTracker().getModificationCount());
++                            }
++                        }
++                    }
++                }
++            }
++        }
++
++        static HighlightSnapshot capture(PsiFile file, DocumentHighlightParams params) {
++            if (!file.isValid() || file.getProject().isDisposed()) {
++                throw new ProcessCanceledException();
++            }
++            VirtualFile virtualFile = file.getVirtualFile();
++            var document = virtualFile == null ? null : FileDocumentManager.getInstance().getCachedDocument(virtualFile);
++            if (!(document instanceof DocumentEx nativeDocument) || !(params instanceof LSPDocumentHighlightParams nativeParams)
++                    || nativeParams.getOffset() < 0 || nativeParams.getOffset() > document.getTextLength()
++                    || !LSPIJUtils.toPosition(nativeParams.getOffset(), document).equals(params.getPosition())) {
++                throw new ProcessCanceledException();
++            }
++            return new HighlightSnapshot(file, nativeDocument, virtualFile, params.getPosition());
++        }
++
++        boolean isCurrent(PsiFile file) {
++            return active.get() && !file.getProject().isDisposed() && file.isValid() && virtualFile.isValid()
++                    && file.getVirtualFile() == virtualFile
++                    && FileDocumentManager.getInstance().getCachedDocument(virtualFile) == document
++                    && document.getModificationSequence() == sequence
++                    && connectionEpochs.entrySet().stream().allMatch(entry -> entry.getKey().getModificationTracker().getModificationCount() == entry.getValue())
++                    && initialConnections.entrySet().stream().allMatch(entry ->
++                        entry.getKey().getLanguageServer() == entry.getValue().getKey()
++                                && entry.getKey().getOpenedDocuments().contains(entry.getValue().getValue())
++                                && sameDocument(entry.getValue().getValue()))
++                    && connections.entrySet().stream().allMatch(entry -> {
++                        var wrapper = entry.getKey().getServerWrapper();
++                        return wrapper.getLanguageServer() == entry.getKey().getServer()
++                                && wrapper.getOpenedDocument(entry.getValue().getKey()) == entry.getValue().getValue()
++                                && sameDocument(entry.getValue().getValue());
++                    });
++        }
++
++        private boolean sameDocument(OpenedDocument opened) {
++            var synchronizer = opened.getSynchronizer();
++            return synchronizer == null || synchronizer.getDocument() == document;
++        }
++
++        void checkCurrent(PsiFile file, CancellationSupport cancellationSupport) {
++            cancellationSupport.checkCanceled();
++            if (!isCurrent(file)) {
++                throw new ProcessCanceledException();
++            }
++        }
+     }
+ 
+     /**
+      * Merge the given futures List<CompletableFuture<List<DocumentHighlight>>> in one future CompletableFuture<List<DocumentHighlight>.
+      *
+      * @param futures             the list of futures which return a List<DocumentHighlight>.
+--- a/src/main/java/com/redhat/devtools/lsp4ij/LanguageServiceAccessor.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/LanguageServiceAccessor.java
+@@ -77,26 +77,26 @@
+         public void handleRemoved(@NotNull LanguageServerDefinitionListener.LanguageServerRemovedEvent event) {
+             // Bump the accessor-level modification tracker
+             modificationTracker.incModificationCount();
+ 
+             // Dispose all servers which are removed
+             // and remove code vision, inlay hints, folding from editors
+-            List<LanguageServerWrapper> serversToDispose = startedServers
++            List<LanguageServerWrapper> serversToDispose = getStartedServers()
+                     .stream()
+                     .filter(server -> event.serverDefinitions.contains(server.getServerDefinition()))
+                     .toList();
+             serversToDispose.forEach(wrapper -> wrapper.dispose(!ApplicationManager.getApplication().isUnitTestMode())); // dispose by removing code vision, inlay hints, folding from editors
+             // Remove all servers which are removed from the cache
+             synchronized (startedServers) {
+                 serversToDispose.forEach(startedServers::remove);
+             }
+         }
+ 
+         @Override
+         public void handleChanged(@NotNull LanguageServerChangedEvent event) {
+-            List<LanguageServerWrapper> languageServerWrappers = startedServers
++            List<LanguageServerWrapper> languageServerWrappers = getStartedServers()
+                     .stream()
+                     .filter(server -> event.serverDefinition.equals(server.getServerDefinition()))
+                     .toList();
+ 
+             // Bump the modification trackers
+             languageServerWrappers.forEach(LanguageServerWrapper::incrementModificationCount);
+@@ -430,13 +430,17 @@
+     /**
+      * Return the started servers.
+      *
+      * @return the started servers.
+      */
+     public Set<LanguageServerWrapper> getStartedServers() {
+-        return Collections.unmodifiableSet(startedServers);
++        synchronized (startedServers) {
++            // Callers iterate outside this monitor. A read-only live view of
++            // the mutable HashSet still permits concurrent iterator failures.
++            return Collections.unmodifiableSet(new HashSet<>(startedServers));
++        }
+     }
+ 
+     public void projectClosing(Project project) {
+         // On project closing, we dispose all language servers
+         disposeAllServers();
+     }
+@@ -514,13 +518,15 @@
+             }
+         }
+     }
+ 
+     public LanguageServerWrapper forceCreateServer(@NotNull LanguageServerDefinition serverDefinition) {
+         LanguageServerWrapper wrapper = new LanguageServerWrapper(project, serverDefinition);
+-        startedServers.add(wrapper);
++        synchronized (startedServers) {
++            startedServers.add(wrapper);
++        }
+         return wrapper;
+     }
+ 
+     /**
+      * Returns the matched language server definitions for the given file.
+      *

@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "repository": "https://github.com/JetBrains/intellij-community",
+    "tag": "idea/2026.1.4",
+    "commit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "license": "Apache-2.0; complete original public source headers and upstream SDK notices retained"
+  },
+  "platformVersion": "2026.1.4",
+  "upstreamJar": {
+    "path": "Contents/lib/intellij.platform.ide.impl.jar",
+    "sha256": "3a63e65997ccdccde255e47559a550777183513a46967b9cc0d2ee49646d530a"
+  },
+  "sources": [
+    {
+      "path": "platform/platform-impl/src/com/intellij/ide/plugins/PluginManagerConfigurablePanel.java",
+      "sourceUrl": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ide/plugins/PluginManagerConfigurablePanel.java",
+      "upstreamSha256": "af369bc7dcf801bb3a7f97b26f78c09a63869cddb26c7328b7a7dd8e65530299",
+      "patchedSha256": "c5459eec9ea368a4f0992b718ef9653f7283f7e0a4ee0ea04a3357efa63febae"
+    }
+  ],
+  "patchFile": "platform-local-plugins-2026.1.4.patch",
+  "patchSha256": "b55e3cc9f61d327217626868756d04ededa801129d75a24f53b095e93f37a1ba",
+  "classPrefixes": [
+    "com/intellij/ide/plugins/PluginManagerConfigurablePanel"
+  ],
+  "requiredClassNames": [
+    "com/intellij/ide/plugins/PluginManagerConfigurablePanel.class",
+    "com/intellij/ide/plugins/PluginManagerConfigurablePanel$LocalPluginUpdatesService.class"
+  ],
+  "scope": {
+    "property": "opengoland.plugins.local.only",
+    "enabledValue": "true",
+    "purpose": "Native Installed/local-disk plugin management without constructing Marketplace or joining remote update consumers.",
+    "preserves": [
+      "Original public/package ABI and native Installed model, disk callback, apply/reset/cancel and disposal",
+      "Legacy upstream panel behavior when the product property is absent"
+    ],
+    "excludes": [
+      "No fabricated licenses or changed authorization outcomes",
+      "No source SDK or commercial reference mutation",
+      "Does not by itself remove independent application-wide update/account/provider registrations or constrain user-supplied third-party plugin code"
+    ]
+  },
+  "verification": {
+    "status": "Same final six-case actual SDK control source: unpatched 6 assertion failures; patched 6 passed. Product integration/native acceptance pending.",
+    "compiledClassCount": 18,
+    "classSha256": {
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$1.class": "149938cf8aca36b4c261251076ba8c2bfd1add7790a63aa5b08ec60eca15a97a",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$2.class": "1345854042b042a832b6a17ac84651f6cd52bf0383ec178ec4aa35c53280712f",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$3.class": "b7b19cac986476ae762f45d28c38a621eafc4350de3c7521a292575b1eaf90d9",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$4.class": "ca4146ee012c602e3f4486f4728c74b38406188d92ac34feb667cd01401d9bad",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$5.class": "46824cb54860408efa67d4947fd6552e102e36812b2cb89e037d975ca97c3286",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$6.class": "7422f422d5307b7b4ac7e05ceeaf51c7825e46c96064f68472e7fbda06855ace",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$ChangePluginStateAction.class": "0b42d32d47a94867fe4ab935d0a97897f4040ca8d3787ed54fc7540b88ec1ba1",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$CustomInstallPluginFromDiskAction.class": "cabd601376da301e36cef6bf1055a108fb51bf46e58b61ea61cce2e0ceaf1ad8",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$GroupByActionGroup.class": "915ca4f2e65dc58c25f8fc6d2ca4388d635916d83caf83d0fc77a40d25d37a58",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$LinkLabelButton$AccessibleLinkLabelButton.class": "450686b10cb579db205622af7f506f75c40837da09eb4cd1ba62aa0bc3f5cf89",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$LinkLabelButton.class": "a2a682ea7765c64207e34d50aba2d90a9dce6ca250418e7a57c5cfd0133a5570",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$LocalPluginUpdatesService.class": "fc8bdfeaf79943ab00a86064f83acf79774fccf881bb6af7fe623f48356fdf08",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$ManagePluginCertificatesAction.class": "77e7bf46cabf51f386bfa03a43cb93cf5c742c4e9684e0150c968de153d15bf4",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$ManagePluginRepositoriesAction.class": "9273e3fa8a2024fe939c01fcd8120ed6168a533314956ff8a786f0126e3ea9d3",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$OpenHttpProxyConfigurableAction.class": "8cb8c17233c13e916c1f5b7a6860c97804040402584e2e0ee59460d27f4e517a",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$ResetConfigurableAction.class": "005ea60978ac71a041b5948775678ceaa2b4159e32b2ff6350493f475731d018",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel$UpdatePluginsAutomaticallyToggleAction.class": "28908ec524c05de333f094e4f0bf3da750e61d27c9f9ec97518f38041396eb29",
+      "com/intellij/ide/plugins/PluginManagerConfigurablePanel.class": "84fde7a67e597d77ca5ce895e07480e394820f369274aed3e4c531afdbadd820"
+    },
+    "controlledTestSource": "src/test/kotlin/dev/openidea/goide/product/GoLocalPluginsManagerTest.kt",
+    "controlledTestSourceSha256": "e1d0ac3b1944ff425dc24348fe05ea070afe356d5497756c8cc373339c607b78",
+    "controls": [
+      "Native Configurable creates Installed header/page without constructing Marketplace",
+      "Marketplace and tag-search public entry paths remain on Installed",
+      "Marketplace request before Panel.init cannot create a remote page",
+      "Detached local update callbacks finish empty and queued delivery is dropped on disposal",
+      "Original native disk installer action and UiDataProvider callback remain; repository/auto-update gear entries absent",
+      "Original no-change apply/reset/cancel/disposal path remains usable"
+    ],
+    "limitations": [
+      "The disk-install action and callback are present; the controls do not install or execute a third-party plugin.",
+      "The legacy SDK baseline also reports suppressed teardown thread-leak assertions from its real Marketplace HTTP work; the six primary failures are the requested local-only behavior assertions.",
+      "No proof of application-wide network silence; independent account/update/provider registration cleanup is outside this one-class patch.",
+      "Headless controls install the actual SDK IntelliJLaf for native widget delegates, restore it afterward, and do not replace the plugin UI.",
+      "No product/native desktop verification in this component."
+    ]
+  }
+}

@@ -81,6 +81,107 @@ def verify(application: Path, pid: int):
     for name in names.values():
         if not any(name in line for line in loaded_lines):
             raise ValueError(f"The latest startup did not report loading {name}")
+    product_policy = metadata.get("goProductPolicy")
+    local_ide = metadata.get("localIdeDistribution")
+    policy_checks = None
+    if product_policy:
+        for item in product_policy["bundledPluginExclusions"]:
+            if (contents / item["relativeDirectory"]).exists():
+                raise ValueError("An excluded IDE customization plugin remains in this app")
+        for directory in product_policy["retainedBundledDirectories"]:
+            if not (contents / directory).is_dir():
+                raise ValueError("A retained language plugin is missing")
+        app_info = product_policy["applicationInfo"]
+        with zipfile.ZipFile(contents / app_info["jar"]) as bundle:
+            data = bundle.read(app_info["entry"])
+        if hashlib.sha256(data).hexdigest() != app_info["brandedSha256"]:
+            raise ValueError("The product application-info policy resource changed")
+        xml = ET.fromstring(data)
+        essential = [node.text.strip() for node in xml if node.tag.rsplit("}", 1)[-1] == "essential-plugin"]
+        if essential != app_info["essentialAfter"]:
+            raise ValueError("The product essential-plugin list is inconsistent")
+        if app_info.get("publisher"):
+            company = next((node for node in xml if node.tag.rsplit("}", 1)[-1] == "company"), None)
+            if company is None or any(company.get(key) != value for key, value in app_info["publisher"].items()):
+                raise ValueError("The product publisher identity is inconsistent")
+        if "Override failed for com.intellij.lang.IdeLanguageCustomization" in startup:
+            raise ValueError("The current startup still reports a primary-language service conflict")
+        distribution = product_policy["metadata"]
+        artifact_checks = {}
+        for relative, expected_digest in distribution["artifactSha256"].items():
+            artifact = contents / relative
+            if artifact.is_symlink() or not artifact.resolve().is_relative_to(contents):
+                raise ValueError("Product metadata artifact escapes this application")
+            actual_digest = hashlib.sha256(artifact.read_bytes()).hexdigest()
+            if actual_digest != expected_digest:
+                raise ValueError("Product metadata artifact changed: " + relative)
+            artifact_checks[relative] = actual_digest
+        inventory = distribution["productInfoInventory"]
+        final_inventory = local_ide["productInfoInventory"] if local_ide else inventory
+        for key, expected_count in final_inventory["afterCounts"].items():
+            if len(product_info[key]) != expected_count:
+                raise ValueError("Product-info inventory size changed: " + key)
+        excluded_ids = {item["id"] for item in product_policy["bundledPluginExclusions"]}
+        excluded_modules = {name for item in product_policy["bundledPluginExclusions"] for name in item["moduleIds"]}
+        if (excluded_ids.intersection(product_info["bundledPlugins"]) or
+                excluded_modules.intersection(product_info["modules"]) or
+                any(entry["name"] in excluded_ids | excluded_modules for entry in product_info["layout"])):
+            raise ValueError("Excluded customization remains in the product-info inventory")
+        if not set(inventory["preservedBundledIds"]).issubset(product_info["bundledPlugins"]):
+            raise ValueError("A retained independent bundled plugin is missing from product-info")
+        policy_checks = {"excludedBundledIds": [item["id"] for item in product_policy["bundledPluginExclusions"]],
+                         "remainingEssentialIds": essential, "applicationInfoSha256": app_info["brandedSha256"],
+                         "metadataArtifactSha256": artifact_checks, "productInfoCounts": final_inventory["afterCounts"],
+                         "startupPrimaryLanguageConflictAbsent": True}
+    local_checks = None
+    if local_ide:
+        if properties.get(local_ide["localPluginManagerProperty"]) != "true":
+            raise ValueError("The local-only plugin manager is not enabled in this process")
+        for entry in local_ide["removedFiles"]:
+            if (contents / entry["path"]).exists():
+                raise ValueError("An excluded account/commercial component remains in this app")
+        for entry in local_ide["retainedFiles"]:
+            path = contents / entry["path"]
+            if path.is_symlink() or not path.resolve().is_relative_to(contents):
+                raise ValueError("Retained shared library escapes this application")
+            if path.stat().st_size != entry["bytes"] or hashlib.sha256(path.read_bytes()).hexdigest() != entry["sha256"]:
+                raise ValueError("A retained shared development library changed")
+        actual_grazie = {path.relative_to(contents).as_posix() for path in (contents / "plugins/grazie").rglob("*") if path.is_file()}
+        expected_grazie = {entry["path"] for entry in local_ide["retainedFiles"] if entry["path"].startswith("plugins/grazie/")}
+        if actual_grazie != expected_grazie:
+            raise ValueError("Unrecognized files remain in the excluded Grazie plugin directory")
+        resources_checked = []
+        for record in local_ide["jars"]:
+            path = contents / record["path"]
+            if path.is_symlink() or not path.resolve().is_relative_to(contents):
+                raise ValueError("A local IDE resource archive escapes this application")
+            if hashlib.sha256(path.read_bytes()).hexdigest() != record["afterSha256"]:
+                raise ValueError("A local IDE resource archive changed")
+            with zipfile.ZipFile(path) as bundle:
+                for resource in record["resources"]:
+                    member = resource["path"].split("!/", 1)[1]
+                    if hashlib.sha256(bundle.read(member)).hexdigest() != resource["after"]["sha256"]:
+                        raise ValueError("A removed account/commercial registration resource changed")
+                    resources_checked.append(resource["path"])
+        excluded = set(local_ide["productInfoInventory"]["excludedIds"])
+        if (excluded.intersection(product_info["bundledPlugins"]) or
+                excluded.intersection(product_info["modules"]) or
+                any(entry["name"] in excluded for entry in product_info["layout"])):
+            raise ValueError("A removed account/commercial component remains in product-info")
+        if not set(local_ide["productInfoInventory"]["preservedBundledIds"]).issubset(product_info["bundledPlugins"]):
+            raise ValueError("A retained development-service plugin is missing")
+        local_checks = {"localPluginManagerEnabled": True, "removedFilesAbsent": len(local_ide["removedFiles"]),
+                        "resourcesChecked": resources_checked, "retainedSharedLibraries": local_ide["retainedFiles"],
+                        "excludedInventoryIds": sorted(excluded), "scope": "Runtime property and packaged registration/resource identity; native UI and feature behavior require their separate observations."}
+    archive_checks = metadata.get("archiveChecks")
+    if archive_checks:
+        if archive_checks["status"] != "pass":
+            raise ValueError("The product did not pass its native archive-reader guard")
+        for record in archive_checks["archives"]:
+            path = contents / record["path"]
+            if (path.is_symlink() or not path.resolve().is_relative_to(contents) or
+                    hashlib.sha256(path.read_bytes()).hexdigest() != record["sha256"]):
+                raise ValueError("An archive changed after native reader verification")
     return {
         "status": "pass",
         "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
@@ -88,6 +189,9 @@ def verify(application: Path, pid: int):
         "vendor": properties["idea.vendor.name"], "selector": properties["idea.paths.selector"],
         "pluginPaths": plugin_paths, "loadedPlugins": names, "log": str(log_path),
         "platformArtifactChecks": platform_artifacts,
+        "goProductPolicyChecks": policy_checks,
+        "localIdeDistributionChecks": local_checks,
+        "archiveReaderChecks": archive_checks,
         "limitations": ["Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"],
     }
 

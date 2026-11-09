@@ -8,6 +8,7 @@ import com.intellij.navigation.NavigationItem
 import com.intellij.notification.NotificationGroupManager
 import com.intellij.notification.NotificationType
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.editor.Document
 import com.intellij.openapi.editor.ex.DocumentEx
 import com.intellij.openapi.fileEditor.OpenFileDescriptor
@@ -70,9 +71,14 @@ class GoTypeSearchContributor private constructor(private val index: (Project) -
         // sources. It cannot narrow canonical All Places. Explicit scopes keep
         // their own contains/id-filter restrictions below.
         if (all) return true
+        val projectOnly = scope == GlobalSearchScope.projectScope(project)
+        // A reused All Places catalog can contain vendored/library sources
+        // physically below a content root. Preserve the backend's workspace
+        // membership instead of broadening the Project catalog's semantics.
+        if (projectOnly && entry.origin != "project") return false
         val file = snapshot.file(entry) ?: return false
-        if (!scope.contains(file)) return false
-        if (scope == GlobalSearchScope.projectScope(project)) return true
+        if (!ReadAction.compute<Boolean, RuntimeException> { scope.contains(file) }) return false
+        if (projectOnly) return true
         return filter == null || file !is VirtualFileWithId || filter.containsFileId(file.id)
     }
     private fun run(parameters: FindSymbolParameters, block: (GoTypeSearchIndex, GoTypeSearchIndex.Snapshot) -> Unit) {

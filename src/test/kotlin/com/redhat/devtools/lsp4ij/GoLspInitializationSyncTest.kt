@@ -39,18 +39,21 @@ class GoLspInitializationSyncTest : LightPlatformTestCase() {
         val marker = requireNotNull(loader.getResourceAsStream("META-INF/open-goland-document-sync.json")) {
             "Tests must load the patched private sandbox plugin rather than the downloaded upstream dependency"
         }.bufferedReader().use { JsonParser.parseReader(it).asJsonObject }
-        assertEquals("c3caaafb453e35d5926e5f25e02b299af0bd7d81e624584b657ee2d611ccbd5c", marker.get("patchSha256").asString)
+        assertEquals("f6e39f0bdc76c522211ddfd607ec451015db152babd07b17698fafba1f3e38d3", marker.get("patchSha256").asString)
         val classes = marker.getAsJsonObject("classSha256").entrySet()
-        assertEquals("The complete eleven-source private patch must be present", 11, marker.getAsJsonArray("sources").size())
+        assertEquals("The complete thirteen-source private patch must be present", 13, marker.getAsJsonArray("sources").size())
         assertTrue("Find Usages outer class must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class" })
         assertTrue("Find Usages local record must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher\$1ElementData.class" })
         assertTrue("Find Usages policy API must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class" })
         assertTrue("Find Usages policy consumer must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class" })
         assertTrue("Find Usages parameters record must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport\$LSPUsageSupportParams.class" })
-        assertEquals("Every outer/nested class from the eleven public sources must be included", 21, classes.size)
+        assertEquals("Every outer/nested class from the thirteen public sources must be included", 26, classes.size)
         for (prefix in listOf("AbstractLSPDocumentFeatureSupport", "declaration/LSPDeclarationSupport", "navigation/LSPDefinitionSupport", "typeDefinition/LSPTypeDefinitionSupport", "implementation/LSPImplementationSupport")) {
             assertTrue("The complete semantic navigation patch must be rebuilt: $prefix", classes.any { it.key == "com/redhat/devtools/lsp4ij/features/$prefix.class" })
         }
+        assertTrue("Highlight support must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport.class" })
+        assertTrue("Highlight generation must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport\$HighlightSnapshot.class" })
+        assertTrue("Started-server snapshot accessor must be rebuilt", classes.any { it.key == "com/redhat/devtools/lsp4ij/LanguageServiceAccessor.class" })
         for ((path, digest) in classes) {
             val bytes = requireNotNull(loader.getResourceAsStream(path)).use { it.readAllBytes() }
             val actual = MessageDigest.getInstance("SHA-256").digest(bytes).joinToString("") { "%02x".format(it) }

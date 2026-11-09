@@ -1,0 +1,568 @@
+{
+  "schema": "open-goland.local-ide-distribution-reference.v1",
+  "recordedAtUtc": "2026-11-09",
+  "scope": "Read-only pinned OSS SDK registrations, resource labels and SPI filenames. This is independent distribution configuration evidence, not a comparison of commercial licensing implementations or a repaired native runtime claim.",
+  "sourceRecord": {
+    "path": ".tools/go-account-billing-audit.json",
+    "bytes": 12676,
+    "sha256": "66fb082f3b0740c21d39dac7834a85de9d957f3a2af41bb283faf9b2782e31a2"
+  },
+  "identity": {
+    "platformVersion": "2026.1.4",
+    "sdkContents": "/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app/Contents",
+    "applicationInfoBuildPrefix": "IC",
+    "referenceApplications": "Installed GoLand/PyCharm and their user/license/project data were not inspected or modified by this pass."
+  },
+  "userScope": {
+    "remove": "IDE-account, cloud-settings-account, subscription/payment and automatic paid-product promotion paths in our independent product.",
+    "retain": "Git, GitHub, GitLab and private-repository credential authentication."
+  },
+  "inventoryBoundary": {
+    "jars": 776,
+    "nonMavenXmlResources": 1151,
+    "nonMavenPropertiesResources": 869,
+    "serviceProviderFiles": 243
+  },
+  "observations": [
+    {
+      "topic": "IDE cloud settings account entry",
+      "owner": "intellij.settingsSync.core",
+      "registrations": [
+        "SettingsSynchronizerApplicationInitializedListener applicationActivity",
+        "SettingsSynchronizer activation listener",
+        "settings.sync configurable",
+        "Backup and Sync History toolwindow",
+        "SettingsSync actions/services/communicator EP"
+      ],
+      "transformation": "Remove entire content/module wrapper in cached core and expanded app XML, fallback module-set declaration, its standalone JAR; graph removal is separate."
+    },
+    {
+      "topic": "Paid-product and plugin promotion producers",
+      "registrations": [
+        "TryUltimateActionHandler openAnotherToolHandler",
+        "GitHubUltimateSuggestionProvider in optional intellij.vcs.github.ultimatePromo module",
+        "PluginAdvertiserEditorNotificationProvider",
+        "PluginsAdvertiserStartupActivity",
+        "CheckSuggestedPlugins action"
+      ],
+      "transformation": "Remove exact registrations in primary cached core, expanded XML and fallback resources; remove GitHub promotion content wrapper/JAR. Keep lazy PluginAdvertiserService API unchanged."
+    },
+    {
+      "topic": "Grazie cloud/license plugin",
+      "owner": "tanvd.grazi / plugins/grazie",
+      "descriptorEvidence": "META-INF/plugin.xml registers cloud.license.LicenseStartupActivity, cloud registry endpoints and grammar/spell features. No implementation read.",
+      "transformation": "Remove active plugin descriptor/record and its files except the exact shared Kotlin logging JAR; remove optional TOML/Kotlin/Maven integration declarations. Entire Grazie grammar/spell additions are intentionally excluded, not converted to free paid functionality."
+    },
+    {
+      "topic": "Engineering authentication preserved",
+      "userScope": "Git/GitHub/private repository credentials are retained.",
+      "evidence": "GitHub/GitLab main plugin records retained, all retained index file lists preserved, GitHub GHPersistentAccounts service remains in transformed descriptor; no GitLab plugin source bytes selected for patch."
+    },
+    {
+      "topic": "Resource-only account/subscription labels",
+      "resources": [
+        "IdeBundle.properties contains JetBrains Account login/trial/paid plugin messages",
+        "ActionsBundle.properties contains ManageSubscriptions/WelcomeScreen.ManageLicense/TrialStateWidget keys"
+      ],
+      "boundary": "Labels exist. This audit did not find corresponding same-name action registrations in the scanned SDK XML; labels alone do not establish an active payment or account mechanism."
+    },
+    {
+      "topic": "Account ServiceLoader hook",
+      "provider": "META-INF/services/com.intellij.ui.JBAccountInfoService",
+      "result": "No matching provider filename found among 243 provider files in the 776 inspected SDK JAR directories. This is a bounded static SPI result, not proof against every possible runtime registration."
+    }
+  ],
+  "inferences": [
+    "Removing complete module/plugin registrations stops their normal platform activation path instead of merely hiding UI actions. Repaired startup still requires native evidence.",
+    "After exact optional integration and runtime-graph cleanup, retaining the shared logging library preserves unrelated MCP consumers without retaining a Grazie plugin descriptor. The runtime graph is independently verified by its owner."
+  ],
+  "unknowns": [
+    "Native runtime after this final registration cleanup has not yet been observed.",
+    "Unused account/trial labels and nullable public licensing/account APIs remain; these are not license bypasses and are not asserted to be active SDK payment implementations.",
+    "Marketplace UI/local-disk plugin policy is a separate public-platform patch, outside this helper evidence.",
+    "This is not exhaustive proof of all future third-party plugins or direct arbitrary runtime code paths."
+  ],
+  "plannedRegistrationTransforms": [
+    {
+      "path": "lib/app.jar!/META-INF/IdeaPlugin.xml",
+      "inputSha256": "bb158dfa10703af21dbadea381b7054947a4fca0463cc86ac7dfe065d1a39e38",
+      "outputSha256": "ae17a169bb672a9744316f7f20a7f0dc369aa47c2569eb2441decedea3f34783",
+      "removed": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.settingsSync.core"
+          },
+          "parent": "content"
+        },
+        {
+          "tag": "openAnotherToolHandler",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler"
+          },
+          "parent": "extensions"
+        },
+        {
+          "tag": "editorNotificationProvider",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider"
+          },
+          "parent": "extensions"
+        },
+        {
+          "tag": "backgroundPostStartupActivity",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+          },
+          "parent": "extensions"
+        },
+        {
+          "tag": "action",
+          "attributes": {
+            "id": "CheckSuggestedPlugins",
+            "class": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
+          },
+          "parent": "actions"
+        }
+      ]
+    },
+    {
+      "path": "lib/intellij.platform.ide.impl.jar!/META-INF/PlatformExtensions.xml",
+      "inputSha256": "e56ee99d29703f4bc67628e892e19631495ac08ca9fda594c4c0b7265be285ea",
+      "outputSha256": "b5743be805a014b16a7c2034ad37b0cf1ce61c1da1a1cd85adceb2ad2eeb2812",
+      "removed": [
+        {
+          "tag": "openAnotherToolHandler",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler"
+          },
+          "parent": "extensions"
+        },
+        {
+          "tag": "editorNotificationProvider",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider"
+          },
+          "parent": "extensions"
+        },
+        {
+          "tag": "backgroundPostStartupActivity",
+          "attributes": {
+            "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+          },
+          "parent": "extensions"
+        }
+      ]
+    },
+    {
+      "path": "lib/intellij.platform.ide.impl.jar!/META-INF/intellij.moduleSets.ide.common.xml",
+      "inputSha256": "e5beda06da632c22f021663294a59736012e54572ad2af91a79c36c976d7b48f",
+      "outputSha256": "56d41a443030c25981861014e11ade330f25755077d6d2b3c9d6d5036f8f1c6e",
+      "removed": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.settingsSync.core"
+          },
+          "parent": "content"
+        }
+      ]
+    },
+    {
+      "path": "lib/intellij.platform.ide.impl.jar!/idea/PlatformActions.xml",
+      "inputSha256": "27c4178afd478799672b6ea5777e04aac751fc5e5d56fa783cd244e0505e2242",
+      "outputSha256": "d2a22e8d1b0abc0b42f7f6712045b78de5a4605de40df308824e6f97dc942694",
+      "removed": [
+        {
+          "tag": "action",
+          "attributes": {
+            "id": "CheckSuggestedPlugins",
+            "class": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
+          },
+          "parent": "actions"
+        }
+      ]
+    },
+    {
+      "path": "plugins/vcs-github/lib/vcs-github.jar!/META-INF/plugin.xml",
+      "inputSha256": "14f6ceb6448a6e8002d26f465da2c34d1d6c45f4509475ea8e5f0f2f4501e229",
+      "outputSha256": "238c919cfb471fd57697b8af370beb624d2fd7098aaf7708da8638e15628fb18",
+      "removed": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.vcs.github.ultimatePromo"
+          },
+          "parent": "content"
+        }
+      ]
+    },
+    {
+      "path": "plugins/toml/lib/toml.jar!/META-INF/plugin.xml",
+      "inputSha256": "950ec987ca9cb9c79dc158269bfb732d6cb1213740ce61f1247786d86bb28b09",
+      "outputSha256": "5bc684571c66abcbaccc8415985127c1a8451bdab7557541449da840b0ccc523",
+      "removed": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.toml.grazie"
+          },
+          "parent": "content"
+        }
+      ]
+    },
+    {
+      "path": "plugins/maven/lib/maven.jar!/META-INF/plugin.xml",
+      "inputSha256": "c4053c51f71322c710bf0846a94ef2f920cae29f74a92a757f721bc7a4266649",
+      "outputSha256": "253e73653505092f9038c81b13d6eeac230ecdcd7037bd0a8119746321414e31",
+      "removed": [
+        {
+          "tag": "depends",
+          "attributes": {
+            "optional": "true",
+            "config-file": "grazie-support.xml"
+          },
+          "parent": "idea-plugin"
+        }
+      ]
+    },
+    {
+      "path": "plugins/Kotlin/lib/kotlin-plugin.jar!/kotlin.plugin.k1.xml",
+      "inputSha256": "9eae176211e89ea169fe7ce6f8e60e1b40cc367c8a650477842bddcce05d8ae7",
+      "outputSha256": "c99e2e76cdab815441ef5008aebc70dfa95600805da58115889d3da6e2a7d616",
+      "removed": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.kotlin.grazie"
+          },
+          "parent": "content"
+        }
+      ]
+    },
+    {
+      "path": "plugins/Kotlin/lib/kotlin-plugin.jar!/kotlin.plugin.k2.xml",
+      "inputSha256": "cfaf71b3720a02da9cae3080178b537c1e4b319730409e24523b3c37e8f4db93",
+      "outputSha256": "e17ac74938ad940bb0b3898f95230d6220d26893f988459333365e57635c1d39",
+      "removed": [
+        {
+          "tag": "module",
+          "attributes": {
+            "name": "intellij.kotlin.grazie"
+          },
+          "parent": "content"
+        }
+      ]
+    }
+  ],
+  "cachedIndex": {
+    "inputAfterBaseJavaFilterSha256": "b67cfca0af041c999c3c1841e55605bae507132c8fc8d0728a08050ee84ea766",
+    "outputSha256": "39eee2dd86ca8d8e1a4af2747770a7f8d949ba96ee23aeed149e360afddc128d",
+    "before": 47,
+    "after": 46,
+    "untouchedRawRecords": 43,
+    "modifiedPluginRecords": [
+      "toml",
+      "maven",
+      "vcs-github"
+    ],
+    "removedPlugin": "grazie"
+  },
+  "physicalScope": {
+    "removeCount": 28,
+    "retained": [
+      {
+        "path": "plugins/grazie/lib/io.github.oshai.kotlin.logging.jvm.jar",
+        "bytes": 293569,
+        "sha256": "0c18f433cdba6a233f4c6dd15fb0206e1116f11e87d1556dd1c5f14fb948ede3"
+      }
+    ],
+    "source": "See authenticated pinDraft; the pure helper itself performs no file operations."
+  },
+  "preservation": {
+    "sharedLogging": [
+      {
+        "path": "plugins/grazie/lib/io.github.oshai.kotlin.logging.jvm.jar",
+        "bytes": 293569,
+        "sha256": "0c18f433cdba6a233f4c6dd15fb0206e1116f11e87d1556dd1c5f14fb948ede3"
+      }
+    ],
+    "lazyPluginAdvertiserService": "Registration/API retained; confirmed startup/editor/manual ad producers removed. No synthetic license or authentication response.",
+    "notices": "OSS license, copyright and legal attribution resources are not removed by these rules.",
+    "billingLabels": "Unused account/trial/subscription resource keys remain. A label is not an active action or an assertion that a payment implementation is present."
+  },
+  "rea": {
+    "receipts": {
+      "path": ".tools/go-account-billing-audit.rea-final.json",
+      "bytes": 121673,
+      "sha256": "38f3c32b4a48b48d944acf766d23138785754689b2c930c220d682bb60c30f5f"
+    },
+    "archives": [
+      {
+        "path": "lib/app.jar",
+        "sha256": "bb5a705080ccfa5e95f7c46f8378b0cde83e155463f73c3301e5ffbababd7ce9",
+        "inspectionEvidenceId": "ev_183843a7e69861eaff1c076a4c84d1d724ec6ffcf3983b8522c28fe3ae14d554",
+        "inventoryEvidenceIds": [
+          "ev_ff94951ae70fdeda1b9da58e50d01e0e6af86158d70bce2a86ff2b9cdf7e12ef"
+        ],
+        "resources": [
+          {
+            "entry": "META-INF/IdeaPlugin.xml",
+            "bytes": 1299666,
+            "occurrenceId": "occ_122d91ee9c25660307947e5b95e5a9699197d93f10c6dd43247c1e9b9d575cc5",
+            "artifactId": "art_609d5f3a6f2f7fdea7d70273f2a9f04075cebac32e2439e37d22d2fc450326be",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "lib/intellij.platform.ide.impl.jar",
+        "sha256": "3a63e65997ccdccde255e47559a550777183513a46967b9cc0d2ee49646d530a",
+        "inspectionEvidenceId": "ev_4865fef1778c4b00c440992f2e424df5cdfcb062e8758c4a1aa9be8214b48c24",
+        "inventoryEvidenceIds": [
+          "ev_57e177fae29a5ea04750ed316d6c6d9d227313e2d2013b0405cdab082afd8a1c"
+        ],
+        "resources": [
+          {
+            "entry": "META-INF/PlatformExtensions.xml",
+            "bytes": 168880,
+            "occurrenceId": "occ_21c2361da12571d80669670f3c48c72c609ca7ec5f8d97206b19a9ffa64858cc",
+            "artifactId": "art_e6b818df39eb1951fe4dff1cd8b9aee48c6d062a05824a3d3dba10365d9b971f",
+            "hashStatus": "verified"
+          },
+          {
+            "entry": "META-INF/intellij.moduleSets.ide.common.xml",
+            "bytes": 22799,
+            "occurrenceId": "occ_8f9b8f61f5612dcd5bbb1d388ed1dc798613a611e2f62ef133c119a49fc003c3",
+            "artifactId": "art_7a1c6103b37fdbb26f252a3e0dd8dbddf7a9f42b9d2fbd7cb640c5c82a006c05",
+            "hashStatus": "verified"
+          },
+          {
+            "entry": "messages/ActionsBundle.properties",
+            "bytes": 180024,
+            "occurrenceId": "occ_6ddaec950c3e3812ff4357b05b23902b67f3a288d3e7f76a429a720b39c16320",
+            "artifactId": "art_f9240fadd1f862d3a9e4a8133f3b1e326ff3e7feb22f7f7320a64338b129b221",
+            "hashStatus": "verified"
+          },
+          {
+            "entry": "idea/PlatformActions.xml",
+            "bytes": 127822,
+            "occurrenceId": "occ_88cef4155747491beedfc69e9b0e8708a58fdf76fcb37003bef68b439bba7bab",
+            "artifactId": "art_6d10ddd62362198350903173518a882ec7d90afa43c2e8a0dd81269bca9bbb94",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "lib/intellij.platform.ide.jar",
+        "sha256": "720656f47aab69ac6954350eee0abee841a0d26daa9049efc455cc3c96fd6e37",
+        "inspectionEvidenceId": "ev_dd62df82ae287aee750f9107061e2f1ec29a1af6a5a808bf9a9f70c18ad4bddf",
+        "inventoryEvidenceIds": [
+          "ev_6a85298ed7145d97552b0939b62089b821654cb9e2aff5a00416bf40963acf62"
+        ],
+        "resources": [
+          {
+            "entry": "messages/IdeBundle.properties",
+            "bytes": 185650,
+            "occurrenceId": "occ_81a7e1b3c6fd8fab87edca6f8bb32e976422aeed191c67ae450a2c3c75008dc2",
+            "artifactId": "art_e96941d40db0843f637eb71744a8ef0d92ba4f33f15867e8cc9b629b18fea677",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "lib/intellij.settingsSync.core.jar",
+        "sha256": "38bcf0cfcb5a4d33a33ba02f4219551239e6b8c5e8c205d76b36a50c64c6e1ff",
+        "inspectionEvidenceId": "ev_33c8032450515602cda52eea98d7666f578c68b13ead68b8d95e44974ff3c3c5",
+        "inventoryEvidenceIds": [
+          "ev_b404a78ac9454e0837f235de209192e97d1ae1f4dc0dbc0091a6023a67807522"
+        ],
+        "resources": [
+          {
+            "entry": "intellij.settingsSync.core.xml",
+            "bytes": 5094,
+            "occurrenceId": "occ_46a7e9e1e528f2e53bf2558aacb10642148354eedededc932319579ddc25f5f5",
+            "artifactId": "art_9f464b166650b9e8288864a9f6e7a738392f1ba0f70c103599ebb4a9332996b3",
+            "hashStatus": "verified"
+          },
+          {
+            "entry": "messages/SettingsSyncBundle.properties",
+            "bytes": 12846,
+            "occurrenceId": "occ_7154549f86e4b4ca78c67be85284f9d097eb8bbc5eaa98feda835126bcf60f3f",
+            "artifactId": "art_3bb10685938408375dd2c7df709a3836aa07cf329e654213bb9690aba9ad291b",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "plugins/grazie/lib/grazie.jar",
+        "sha256": "71475835f226cf2ff3e60425ac5a3d454b4a362b94cc34bfb52d223cff3eec1b",
+        "inspectionEvidenceId": "ev_05ebb8abe581d1f0168279a3e34b409b8aae3d23a663aa2088591aee4de682d2",
+        "inventoryEvidenceIds": [
+          "ev_e024b51ce63b85d0e409eded630f7153c8028f741549f8833c8de8c2905fbd3b"
+        ],
+        "resources": [
+          {
+            "entry": "META-INF/plugin.xml",
+            "bytes": 16271,
+            "occurrenceId": "occ_f5e5fa9cba68899f67a0cd4bc83ea5ef354156cff8e5d825ec34d39b2a2e8544",
+            "artifactId": "art_20aad8931c566b6c226da569dd9df72be553a989132d81c5b13780a6f39a5e2a",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "plugins/vcs-github/lib/vcs-github.jar",
+        "sha256": "f18efec11c84eb2e9a67f7ade3399842c27730d9e657610201950fa257a9860a",
+        "inspectionEvidenceId": "ev_11fa9f1dd459de1f5f6ec109ef3fac9b6b0c7cc5624b36db8c4394f17f513b9f",
+        "inventoryEvidenceIds": [
+          "ev_0895e1ca6e025306c30a08c781072e37743c85222e1dad99197bcce410fbe337"
+        ],
+        "resources": [
+          {
+            "entry": "META-INF/plugin.xml",
+            "bytes": 18472,
+            "occurrenceId": "occ_fcc1f634ed1c9ae3877cd105fc3f359d26c57685ad490be33f7ce398efe04226",
+            "artifactId": "art_929f85f23e56549b592f5392f08368ce50f9bff404ff689f4edca1082ae5e087",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "plugins/toml/lib/toml.jar",
+        "sha256": "4bf9b13bc8c0dc02d80f35603a77f0f82c27d4df24e4d0b59d2991f0f8ecfd58",
+        "inspectionEvidenceId": "ev_f2366c60fe6592bdf6b2c59967771e1f12bf7a4a637514ea322db678c2113547",
+        "inventoryEvidenceIds": [
+          "ev_d30fb45d5bad2ed203637d4ef9e67e59ab3603aedb187de1b01e311f79476af9"
+        ],
+        "resources": [
+          {
+            "entry": "META-INF/plugin.xml",
+            "bytes": 5760,
+            "occurrenceId": "occ_b453aee6af9aeba238c4cd032d2ab5b377fbfe5bc2d73cff5e9adb47ea3d3bdf",
+            "artifactId": "art_eea226289e6afe30ff662ac5b4b875f21ceee8ce44c34fd9d15beff41d930406",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "plugins/Kotlin/lib/kotlin-plugin.jar",
+        "sha256": "02931b49fd2d3978e2920294934ab1ac7eebac5a7ff2a64649174f8822eef6ff",
+        "inspectionEvidenceId": "ev_cc98aaeba9b76dc6d763b1178b46bc139c7d2a83979e85f62694026dc482e595",
+        "inventoryEvidenceIds": [
+          "ev_ea041c607cf3d2980d21b68fa63d828ffe97eb0e31cd33929d3aeebf2182d6e9"
+        ],
+        "resources": [
+          {
+            "entry": "intellij.kotlin.grazie.xml",
+            "bytes": 545,
+            "occurrenceId": "occ_d319529c18be25adc9fb4036c688b6d90e56fd32e47548ac8ed594567e7898d9",
+            "artifactId": "art_04079fa6397835c23f9972aaf3f1995d8c476642de2171bc0d1cc267bf3d5f21",
+            "hashStatus": "verified"
+          },
+          {
+            "entry": "kotlin.plugin.k1.xml",
+            "bytes": 5886,
+            "occurrenceId": "occ_186ae05683a94e55f171944a24c834ec64c7d9ec417c50c6956aa4dbcf6bded4",
+            "artifactId": "art_447cc84e77dd866b46f70d54511a3a1ba1826d3fc18d693efba8fb2ae765b163",
+            "hashStatus": "verified"
+          },
+          {
+            "entry": "kotlin.plugin.k2.xml",
+            "bytes": 15554,
+            "occurrenceId": "occ_602a50a3dacb1d3bbd53ee6e8370dfbd13c7114c1e7ee22c2ca084ff6ae5b9e0",
+            "artifactId": "art_32c5e2fa4f21187a103b6d55535706bd38de5e2176907656b04c0ceba7f440f8",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "plugins/maven/lib/maven.jar",
+        "sha256": "8afecdacf06960aef88a8af961ea20058b532701b8748169cdf7e5630d73fb32",
+        "inspectionEvidenceId": "ev_ff59209ec0a4298494aeb4616be31c205ce9a0c827b90041867e38dd1f978950",
+        "inventoryEvidenceIds": [
+          "ev_3ff5609d2c59303d67fa2f8a18740444aec400a6584153c637dfcf686a066b77"
+        ],
+        "resources": [
+          {
+            "entry": "META-INF/grazie-support.xml",
+            "bytes": 212,
+            "occurrenceId": "occ_25459f81eb8e95a69573f75da78ea66b0fa0609ae309ef1d647f222e455f3497",
+            "artifactId": "art_22b06264915d6b0a22e2b3b04633e2d862ec9fa71cef25887c0dd980da1f6f60",
+            "hashStatus": "verified"
+          },
+          {
+            "entry": "META-INF/plugin.xml",
+            "bytes": 63655,
+            "occurrenceId": "occ_bd7f574f83d45ef5ef7e0ba6ba76bfb834d61de7c3f86c4613cc5897263a62c7",
+            "artifactId": "art_4f6e294d6d6b2f09e761b82c76057abb0ec3486b51cbce3397ebae78ec3775b1",
+            "hashStatus": "verified"
+          }
+        ]
+      },
+      {
+        "path": "plugins/grazie/lib/io.github.oshai.kotlin.logging.jvm.jar",
+        "sha256": "0c18f433cdba6a233f4c6dd15fb0206e1116f11e87d1556dd1c5f14fb948ede3",
+        "inspectionEvidenceId": "ev_c0f832c85f0631efb58b64a08bedec2a4eadd8c67a54e42e6b551cd89c8d8724",
+        "inventoryEvidenceIds": [
+          "ev_4f236134819f9238d015d3925e0f93e53bf989cf6b0a1b2d5531726623504224"
+        ],
+        "resources": [
+          {
+            "entry": "META-INF/MANIFEST.MF",
+            "bytes": 79,
+            "occurrenceId": "occ_b8a1461d2a40c5819b0589633b4a21bf63a5f95aea739246c9863308fafdb6b5",
+            "artifactId": "art_d90514438de089d607ce19c217ccd37f2e48cb2cd3d3cf684ba6df8c5984cf91",
+            "hashStatus": "verified"
+          }
+        ]
+      }
+    ],
+    "sessionClosed": true,
+    "boundary": "REA inventory/occurrence identities anchor the selected shipped JAR resources. XML/properties content, byte digests and dependency/SPI scans were read with ordinary archive/XML tools against those exact archive bytes. Inventories do not prove runtime activation. No .class implementation inspection, target attach or app UI operation."
+  },
+  "publicSources": [
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/core-impl/src/com/intellij/ide/plugins/PluginDescriptorLoader.kt",
+      "retainedPath": ".tools/go-type-search-fidelity/upstream/PluginDescriptorLoader.kt",
+      "sha256": "8a32545bad09ad7faf923d6a3b5264ef97786ab57278a36dd697e7e54e1ff845",
+      "claim": "Distributed index contains inline core/plugin descriptors; descriptor changes must be synchronized with the version-2 cache, not only source JAR XML."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/build-scripts/src/org/jetbrains/intellij/build/classPath/classpath.kt",
+      "retainedPath": ".tools/go-type-search-fidelity/upstream/classpath.kt",
+      "sha256": "0e4a174d31d4970d07c9cc583ea1e6d74e3721c2dcb92e163f466f4ab8ceab31",
+      "claim": "Distributed index contains inline core/plugin descriptors; descriptor changes must be synchronized with the version-2 cache, not only source JAR XML."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ui/JBAccountInfoServiceHolder.java",
+      "retained": {
+        "path": ".tools/go-account-billing-public-source/JBAccountInfoServiceHolder.java",
+        "bytes": 614,
+        "sha256": "4d03721e6edb2debf6797f645c4748221288e2839e8b51f9a649bb483c1e9015"
+      },
+      "claim": "JBAccountInfoServiceHolder uses ServiceLoader, so a plugin XML-only account inventory would be incomplete."
+    }
+  ],
+  "controlledEvidence": {
+    "record": {
+      "path": ".tools/local-ide-metadata-final-evidence.json",
+      "bytes": 3908,
+      "sha256": "c8b7257c10f5fd43e700cdc3642409af743b059f2f0af92df460fe6c594c5454"
+    },
+    "tests": 24,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "javaFormatAndXmlControlExitCode": 0,
+    "source": {
+      "path": "scripts/local_ide_metadata.py",
+      "bytes": 14883,
+      "sha256": "a7899821a14337d30b50945c52b96dc23395f39bfd540f7c3b08286258f5f148"
+    },
+    "boundary": "Private pure-transform controls, including nine SDK resource rules and a closed failed-401 product copy. This is intermediate evidence, not standalone delivery; do not add these totals to the full Gradle suite.",
+    "moduleRepository": "The 16-module/three optional-edge transformation and logging preservation are separately owned and evidenced by .tools/module-repository-local-ide-control/final-evidence.json.",
+    "marketplace": "Installed/local-disk plugin management and Marketplace UI restrictions are a separate public-platform patch; no claim for that patch derives from this metadata-only report."
+  },
+  "nativeStatus": "Pending. Build and native verification belong in docs/verification; the full acceptance matrix remains open."
+}

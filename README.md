@@ -7,6 +7,12 @@ IntelliJ Platform. The product reference is the locally installed GoLand
 2026.1.4. GoLand and PyCharm installations are reference applications, not
 components of the generated product.
 
+Download executable installers from [GitHub Releases](https://github.com/shubolab/opengoland/releases):
+`.dmg` for Apple silicon macOS and `.exe` for Windows x64. The distribution
+includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscription
+is required. Git/GitHub/private-repository authentication remains available.
+See [installation and platform requirements](docs/installation.md).
+
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
 workflows, code intelligence and refactoring, run/test/coverage/benchmark/fuzz,
@@ -15,25 +21,30 @@ tools. Runtime and feature parity remain subject to the acceptance matrix.
 
 ## Build and launch
 
-Prerequisites: macOS Apple silicon for the current app package, Go 1.24 or later,
-Python 3, and network access on the first build. The project pins Gradle,
+Prerequisites for the macOS package: Apple silicon macOS, Python 3.10 or later,
+and network access on the first build. The packaging script downloads and
+authenticates its Go builder and tools. The project pins Gradle,
 LSP4IJ, and the official open-source IntelliJ IDEA 2026.1.4 distribution. The
 platform bootstrap verifies the published SHA-256. No global IDE installation
 is modified.
 
-```sh
-./scripts/bootstrap-platform.sh
-./scripts/build.sh
-./scripts/dev.sh "$PWD/fixtures/go-workspace"
-```
-
 Build the independent app, including its own platform, JVM, plugins, and Go
-engine:
+engine and tools:
 
 ```sh
 ./scripts/package-product.sh
 ./scripts/launch-product.sh "$PWD/fixtures/go-workspace"
 ```
+
+To produce a mounted and installed-copy checked macOS installer:
+
+```sh
+./scripts/package-dmg.sh --version 0.1.0-preview.1 --output build/release
+```
+
+Windows installers are built and exercised on Windows by
+[the release workflow](.github/workflows/release.yml). Plugin sandbox development
+uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm. Initial
@@ -45,12 +56,9 @@ and the macOS bundle ID is `dev.opengoland.ide`. Existing internal plugin IDs an
 the isolated `OpenIDEA-Go` settings directory are retained for configuration
 compatibility. The local checkout directory does not affect the product name.
 
-Install `gopls` and `dlv` with your selected Go SDK if they are not installed:
-
-```sh
-go install golang.org/x/tools/gopls@v0.21.1
-go install github.com/go-delve/delve/cmd/dlv@v1.24.2
-```
+The installers include Go 1.26.10, gopls 0.24.0 and Delve 1.27.2. Settings > Go
+can select another SDK or tool executable; explicit selections take precedence.
+The release builder uses Go 1.27.3 separately from the bundled project SDK.
 
 Settings > Go selects tool executables and project build environment. Tools > Go
 contains module/workspace and engineering actions. File > New > Go Module
@@ -66,9 +74,10 @@ configuration entries to the native test tree and failed-test retry. Each record
 states its supported cases and remaining boundaries.
 The [fresh standalone checks](docs/verification/native-workflows.md) cover cold
 type search, SDK navigation, custom method extraction, two-file Inline All with
-Undo/Redo, both test-debug entries, failed-only retry and Stop cleanup. The search
-host still says Classes and selected searches trigger slow-contributor warnings;
-debug failed retry is currently in the debugger's More menu.
+Undo/Redo, both test-debug entries, failed-only retry and Stop cleanup. The newer [native entry work](docs/verification/native-entry-fidelity.md) adds the
+Go-primary Types title, guarded catalog reuse, synchronized usage highlighting
+and the standard global failed-test action. Each record retains its exact
+build and native verification boundaries; cold catalog performance remains open.
 
 Run > Edit Configurations > **+** also provides these attach configurations:
 

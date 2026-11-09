@@ -546,5 +546,9 @@
         "typing_observation": "CountingText regressions cover long/deep/incomplete delimiter scans. One standalone 32KB nested probe improved from about 1635ms to 18ms after the independent algorithm fix. This is not native input p95, general repository performance, memory, startup or commercial runtime parity evidence."
       }
     }
+  ],
+  "user_constraints": [
+    "The IDE must work locally without an IDE account, sign-in, billing, subscription, trial gate or paid-upgrade promotion.",
+    "Preserve authentication for explicitly used Git/GitHub/private repositories and other development services; confirmed by the user on 2026-11-09."
   ]
 }

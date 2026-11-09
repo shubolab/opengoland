@@ -10,6 +10,9 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.redhat.devtools.lsp4ij</depends>
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceInterface="com.intellij.lang.IdeLanguageCustomization"
+                            serviceImplementation="dev.openidea.goide.navigation.search.GoIdeLanguageCustomization"
+                            overrides="true"/>
         <applicationInitializedListener implementation="dev.openidea.goide.lifecycle.StandaloneProxyWarmup"/>
         <fileType name="open Goland" language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoFileType" fieldName="INSTANCE" extensions="go"/>
         <fileType name="open Goland Module" language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModFileType" fieldName="INSTANCE" patterns="go.mod"/>

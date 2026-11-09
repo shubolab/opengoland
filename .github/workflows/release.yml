@@ -1,0 +1,161 @@
+name: Executable installers
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version without v (for example 0.1.0)'
+        required: true
+        type: string
+      publish:
+        description: 'Publish to an existing vVERSION tag at this exact commit'
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: executable-installers-${{ github.ref }}-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  version:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.version.outputs.tag }}
+      publish: ${{ steps.version.outputs.publish }}
+    steps:
+      - id: version
+        env:
+          EVENT: ${{ github.event_name }}
+          REF: ${{ github.ref }}
+          MANUAL_VERSION: ${{ inputs.version }}
+          MANUAL_PUBLISH: ${{ inputs.publish }}
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os, re
+          version = os.environ['REF'].removeprefix('refs/tags/v') if os.environ['EVENT'] == 'push' else os.environ['MANUAL_VERSION']
+          if not re.fullmatch(r'[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?', version):
+              raise SystemExit('Use a concrete version such as 0.1.0 or 0.1.0-rc.1')
+          publish = os.environ['EVENT'] == 'push' or os.environ['MANUAL_PUBLISH'] == 'true'
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'version={version}\ntag=v{version}\npublish={str(publish).lower()}\n')
+          PY
+
+  windows:
+    needs: version
+    runs-on: windows-2025
+    timeout-minutes: 150
+    steps:
+      - name: Preserve authenticated LF source bytes
+        shell: pwsh
+        run: git config --global core.autocrlf false
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: engine/go.sum
+      - name: Build, install, start and uninstall the Windows product
+        shell: pwsh
+        env:
+          RELEASE_VERSION: ${{ needs.version.outputs.version }}
+        run: ./scripts/windows/build-release.ps1 -Version $env:RELEASE_VERSION -OutputDirectory build/release
+      - name: Retain Windows installers and evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: windows-x64
+          path: build/release/
+          if-no-files-found: error
+          retention-days: 14
+
+  macos:
+    needs: version
+    runs-on: macos-15
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff # v5
+        with:
+          go-version: '1.27.3'
+          cache-dependency-path: engine/go.sum
+      - name: Prepare authenticated SDK and pinned builder
+        shell: bash
+        run: |
+          set -euo pipefail
+          ./scripts/bootstrap-platform.sh
+          python3 scripts/bundle-go-tools.py --target darwin-arm64 --output .tools/release-tools/darwin-arm64 --report .tools/macos-release-tools.json
+          python3 - <<'PY'
+          import json, os
+          builder = json.load(open('.tools/macos-release-tools.json'))['builderGoExecutable']
+          with open(os.environ['GITHUB_ENV'], 'a') as env:
+              env.write(f'OPENGOLAND_GO_BUILDER={builder}\n')
+              env.write(f'GOROOT={os.path.dirname(os.path.dirname(builder))}\nGOTOOLCHAIN=local\n')
+              env.write(f'OPENGOLAND_GOPLS_TEST={os.path.abspath(".tools/release-tools/darwin-arm64/bin/gopls")}\n')
+              env.write(f'OPENGOLAND_GO_TEST={os.path.abspath(".tools/release-tools/darwin-arm64/go/bin/go")}\n')
+          PY
+      - name: Build and verify the macOS installer
+        shell: bash
+        env:
+          RELEASE_VERSION: ${{ needs.version.outputs.version }}
+        run: ./scripts/package-dmg.sh --version "$RELEASE_VERSION" --output build/release
+      - name: Retain macOS installer and evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: macos-arm64
+          path: build/release/
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    needs: [version, windows, macos]
+    if: needs.version.outputs.publish == 'true'
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          pattern: '*'
+          path: release-artifacts
+      - name: Publish both tested installers for the exact version commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RELEASE_VERSION: ${{ needs.version.outputs.version }}
+          RELEASE_TAG: ${{ needs.version.outputs.tag }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git rev-parse "$RELEASE_TAG^{commit}")" = "$GITHUB_SHA"
+          windows="release-artifacts/windows-x64/open-Goland-$RELEASE_VERSION-windows-x64-setup.exe"
+          test -s "$windows"
+          mapfile -d '' dmg < <(find release-artifacts/macos-arm64 -maxdepth 1 -type f -name '*.dmg' -print0)
+          test "${#dmg[@]}" -eq 1
+          mkdir -p assets
+          cp "$windows" "${dmg[0]}" assets/
+          tar -czf assets/windows-provenance.tar.gz -C release-artifacts/windows-x64 windows-provenance
+          tar -czf assets/macos-provenance.tar.gz -C release-artifacts/macos-arm64 mac-provenance
+          (cd assets && sha256sum ./* > SHA256SUMS)
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" assets/* --clobber
+          else
+            release_flags=()
+            if [[ "$RELEASE_VERSION" == *-* ]]; then release_flags+=(--prerelease --latest=false); fi
+            gh release create "$RELEASE_TAG" assets/* --verify-tag --title "open Goland $RELEASE_VERSION" --generate-notes "${release_flags[@]}"
+          fi

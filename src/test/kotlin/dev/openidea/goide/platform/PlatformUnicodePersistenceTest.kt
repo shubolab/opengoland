@@ -79,7 +79,8 @@ class PlatformUnicodePersistenceTest {
         val report = JsonParser.parseString(Files.readString(Path.of(manifest))).asJsonObject
         val patch = Path.of(report.get("patchJar").asString)
         val sdk = Path.of(report.get("sourceSdk").asString)
-        val dependencies = Files.walk(sdk.resolve("Contents/lib")).use { paths -> paths.filter { it.toString().endsWith(".jar") }.sorted().toList() }
+        val libraryRoot = if (Files.isDirectory(sdk.resolve("Contents/lib"))) sdk.resolve("Contents/lib") else sdk.resolve("lib")
+        val dependencies = Files.walk(libraryRoot).use { paths -> paths.filter { it.toString().endsWith(".jar") }.sorted().toList() }
         val urls = (listOf(patch) + dependencies).map { it.toUri().toURL() }.toTypedArray()
         URLClassLoader(urls, ClassLoader.getPlatformClassLoader()).use { loader ->
             val thread = Thread.currentThread()

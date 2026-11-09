@@ -5,7 +5,6 @@ The optional installation target must be an owned app copy below this project's
 build directory. No trust decisions or user configuration files are read/written.
 """
 import argparse
-import fcntl
 import hashlib
 import json
 import os
@@ -16,6 +15,7 @@ import subprocess
 import tempfile
 import urllib.request
 import zipfile
+from platform_layout import cache_lock, detect_platform_layout, java_compiler_command
 
 ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/platform-unicode-2026.1.4.json"
@@ -93,8 +93,9 @@ def build(args):
     pin_path = args.pin.resolve()
     pin = json.loads(pin_path.read_text())
     marker = args.marker
-    sdk = args.sdk.resolve()
-    info = json.loads((sdk / "Contents/Resources/product-info.json").read_text())
+    layout = detect_platform_layout(args.sdk)
+    sdk = layout.sdk_root
+    info = json.loads(layout.product_info.read_text(encoding="utf-8"))
     if info["version"] != pin["platformVersion"]:
         raise ValueError("The platform repair requires the pinned SDK version")
     for output_path in (args.jar_output, args.metadata_output):
@@ -106,7 +107,7 @@ def build(args):
     patch = pin_path.parent / pin["patchFile"]
     if sha(patch.read_bytes()) != pin["patchSha256"]:
         raise ValueError("Platform repair digest mismatch")
-    javac = sdk / "Contents/jbr/Contents/Home/bin/javac"
+    javac = layout.javac
     if not javac.is_file():
         raise ValueError("The selected SDK must include javac")
     compiler = subprocess.check_output([str(javac), "-version"], text=True, stderr=subprocess.STDOUT, timeout=15).strip()
@@ -117,6 +118,8 @@ def build(args):
     }
     cache = ROOT / ".tools" / args.cache_name
     identity = {**expected, "compiler": compiler, "sdkBuild": info["buildNumber"]}
+    if layout.platform != "macos":
+        identity["sdkPlatform"] = layout.platform
     # Preserve the existing default artifact/cache identity byte for byte.
     if marker != MARKER:
         identity["marker"] = marker
@@ -149,10 +152,11 @@ def build(args):
                     raise ValueError("Patched platform source digest mismatch: " + item["path"])
             classes = temporary / "classes"
             classes.mkdir()
-            classpath = sorted((sdk / "Contents/lib").rglob("*.jar"))
-            command = [str(javac), "--release", "21", "-encoding", "UTF-8", "-proc:none", "-classpath",
-                       os.pathsep.join(map(str, classpath)), "-d", str(classes)]
-            command.extend(str(source / item["path"]) for item in pin["sources"])
+            classpath = sorted(layout.lib.rglob("*.jar"))
+            compiler_arguments = ["--release", "21", "-encoding", "UTF-8", "-proc:none", "-classpath",
+                                  os.pathsep.join(map(str, classpath)), "-d", str(classes)]
+            compiler_arguments.extend(str(source / item["path"]) for item in pin["sources"])
+            command = java_compiler_command(javac, compiler_arguments, temporary / "javac.args")
             result = subprocess.run(command, capture_output=True, text=True, timeout=90)
             if result.returncode:
                 raise ValueError("Compiling the public platform repair failed:\n" + result.stderr)
@@ -209,10 +213,9 @@ def main():
     parser.add_argument("--output", "--metadata-output", dest="metadata_output", type=Path)
     args = parser.parse_args()
     cache = ROOT / ".tools" / args.cache_name
-    protect_sdk(cache / "build.lock", args.sdk.resolve())
+    protect_sdk(cache / "build.lock", detect_platform_layout(args.sdk).sdk_root)
     cache.mkdir(parents=True, exist_ok=True)
-    with (cache / "build.lock").open("a+b") as guard:
-        fcntl.flock(guard, fcntl.LOCK_EX)
+    with cache_lock(cache / "build.lock"):
         output = build(args)
     print(json.dumps(output, ensure_ascii=False, indent=2))
 

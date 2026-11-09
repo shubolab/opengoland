@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "platformVersion": "2026.1.4",
+  "purpose": "Independent Go IDE product identity; exclude Java-primary IDE branding while retaining Java language support.",
+  "bundledPluginExclusions": [
+    {
+      "id": "com.intellij.java.ide",
+      "relativeDirectory": "plugins/java-ide-customization",
+      "moduleIds": [
+        "intellij.java.ide.customization",
+        "intellij.java.ide.customization.training"
+      ],
+      "descriptor": {
+        "jar": "lib/java-ide-customization.jar",
+        "entry": "META-INF/plugin.xml",
+        "sha256": "95a5521584e9fb3a8931f749c453cc3582df74d3801c1139f05c78675da4bf5d"
+      },
+      "files": [
+        {
+          "path": "plugins/java-ide-customization/lib/java-ide-customization.jar",
+          "bytes": 3990,
+          "sha256": "e372685a325f750a2ae12618dd045f6724b3e44c067265d86ecee42df3c76f3f"
+        },
+        {
+          "path": "plugins/java-ide-customization/lib/modules/intellij.java.ide.customization.training.jar",
+          "bytes": 3401,
+          "sha256": "26c9c3b7f577598cb03b902597bf4eed9160d785400ee552d123df253d65555e"
+        }
+      ]
+    }
+  ],
+  "applicationInfo": {
+    "jar": "lib/app.jar",
+    "entry": "idea/IdeaApplicationInfo.xml",
+    "upstreamSha256": "b06412c337239fd208f8e77bdbcca17957d2ffe5de974073ae4d29e5e71a168b",
+    "essentialBefore": [
+      "com.intellij.java",
+      "com.intellij.java.ide",
+      "com.intellij.modules.json"
+    ],
+    "essentialAfter": [
+      "com.intellij.java",
+      "com.intellij.modules.json"
+    ]
+  },
+  "retainedBundledDirectories": [
+    "plugins/java"
+  ],
+  "referenceEvidence": {
+    "record": ".tools/go-type-search-fidelity/java-customization-owner.json",
+    "sha256": "2f5b8bbf424925bda1b035bc5ec070e00345b94ca9d400e3c94c148ba688a9fb",
+    "rea": "ev_2a2d9be462a9ea3ceb80b9e32af295dd3fe8ff9e8456c960fdad830948bb1f3c",
+    "scope": "Pinned OSS SDK XML/resource identity and bounded external-dependency inventory; not a repaired runtime claim."
+  },
+  "limitations": [
+    "No changes to source SDK, installed GoLand/PyCharm or user disabled_plugins settings.",
+    "No claim of exhaustive dynamic third-party dependency analysis or complete GoLand equivalence."
+  ],
+  "pluginClasspath": {
+    "path": "plugins/plugin-classpath.txt",
+    "formatVersion": 2,
+    "jarOnly": 1,
+    "upstreamBytes": 3145992,
+    "upstreamSha256": "a4a3a2658c2a8fef3d40c81824595e67bbf04e015a2ce88b7cb44753964aa5a7",
+    "pluginCountBefore": 48,
+    "pluginCountAfter": 47,
+    "coreXmlSha256": "036ce94f40e5dd1ef56de3fe317937be7699a3ccb01da9937114fd176ae135f4",
+    "excludedDirectory": "java-ide-customization",
+    "excludedPluginId": "com.intellij.java.ide",
+    "excludedRecordSha256": "5d36f56f7292035aacf7dda7fc58ca6163dff4db05f1cc54a5723a261a238f1a",
+    "excludedXmlSha256": "6b539ead242b18e27642f583195e219d25453f2192dab95fa2d2f19f58965576",
+    "outputBytes": 3144040,
+    "outputSha256": "b67cfca0af041c999c3c1841e55605bae507132c8fc8d0728a08050ee84ea766"
+  },
+  "productInfoInventory": {
+    "bundledPluginIds": [
+      "com.intellij.java.ide"
+    ],
+    "moduleIds": [
+      "intellij.java.ide.customization",
+      "intellij.java.ide.customization.training"
+    ],
+    "bundledPluginsBeforeCount": 49,
+    "bundledPluginsAfterCount": 48,
+    "modulesBeforeCount": 45,
+    "modulesAfterCount": 45,
+    "layoutBeforeCount": 697,
+    "layoutAfterCount": 695,
+    "excludedLayout": [
+      {
+        "name": "com.intellij.java.ide",
+        "kind": "plugin",
+        "classPath": [
+          "plugins/java-ide-customization/lib/java-ide-customization.jar"
+        ]
+      },
+      {
+        "name": "intellij.java.ide.customization.training",
+        "kind": "moduleV2",
+        "classPath": [
+          "plugins/java-ide-customization/lib/modules/intellij.java.ide.customization.training.jar"
+        ]
+      }
+    ],
+    "preservedBundledIds": [
+      "training",
+      "com.intellij.java"
+    ]
+  },
+  "runtimeModuleRepository": {
+    "compact": "modules/module-descriptors.dat",
+    "jar": "modules/module-descriptors.jar",
+    "upstreamCompactSha256": "ccfbc2d268c4550c028bfeaf3edd411d14769c6943a18685a476605d92e01d53",
+    "upstreamJarSha256": "2f453eda0ae0a2f690fab75db89130854927893e7ae17a759ad677af0501c2f8",
+    "excludedModuleIds": [
+      "intellij.grazie",
+      "intellij.grazie.core",
+      "intellij.grazie.java",
+      "intellij.grazie.json",
+      "intellij.grazie.markdown",
+      "intellij.grazie.properties",
+      "intellij.grazie.xml",
+      "intellij.grazie.yaml",
+      "intellij.java.ide.customization",
+      "intellij.java.ide.customization.training",
+      "intellij.kotlin.grazie",
+      "intellij.libraries.ai.grazie.spell.gec.engine.local",
+      "intellij.settingsSync.core",
+      "intellij.toml.grazie",
+      "intellij.vcs.github.ultimatePromo",
+      "lib.ai.grazie.rule.engine"
+    ],
+    "excludedJarEntries": [
+      "intellij.grazie.xml",
+      "intellij.grazie.core.xml",
+      "intellij.grazie.java.xml",
+      "intellij.grazie.json.xml",
+      "intellij.grazie.markdown.xml",
+      "intellij.grazie.properties.xml",
+      "intellij.grazie.xml.xml",
+      "intellij.grazie.yaml.xml",
+      "intellij.java.ide.customization.xml",
+      "intellij.java.ide.customization.training.xml",
+      "intellij.kotlin.grazie.xml",
+      "intellij.libraries.ai.grazie.spell.gec.engine.local.xml",
+      "intellij.settingsSync.core.xml",
+      "intellij.toml.grazie.xml",
+      "intellij.vcs.github.ultimatePromo.xml",
+      "lib.ai.grazie.rule.engine.xml"
+    ],
+    "formatVersion": 2,
+    "generatorVersion": 3,
+    "moduleCountBefore": 1087,
+    "moduleCountAfter": 1071,
+    "bootstrapModule": "intellij.platform.bootstrap",
+    "bootstrapClasspathCount": 121,
+    "helper": "product/patches/GoProductModuleRepository.java",
+    "boundary": "Available-module graph consistency for Go identity and the local IDE; three optional Grazie integration edges are removed with their registrations. This graph is not the plugin activation index.",
+    "unresolvedDependenciesBefore": 7,
+    "unresolvedDependenciesAfter": 6,
+    "removedUnresolvedDependencyIds": [
+      "intellij.notebooks.visualization"
+    ],
+    "outputCompactBytes": 148653,
+    "outputCompactSha256": "14a704b279143ed63bb4fc40f4ad393d77bbbc856f3c48298d81bd0ad47d99db",
+    "outputJarBytes": 435992,
+    "outputJarSha256": "a29e06d5f6715b243dee977524fef5a262328d83a855fbd50036cb080fd6f5f0",
+    "removedOptionalEdges": [
+      {
+        "module": "intellij.maven",
+        "dependency": "intellij.grazie.core"
+      },
+      {
+        "module": "kotlin.plugin.k1",
+        "dependency": "intellij.kotlin.grazie"
+      },
+      {
+        "module": "kotlin.plugin.k2",
+        "dependency": "intellij.kotlin.grazie"
+      }
+    ],
+    "changedJarEntries": [
+      {
+        "entry": "intellij.maven.xml",
+        "afterSha256": "d3da1ae75c61f2e6d98983f7eb2d87f543e4b53962a8610336514111344ca2a2",
+        "beforeSha256": "1d65cdd72b5640fe11f611ad217af5874fe19ec79a47c714082c8161bf50b91b"
+      },
+      {
+        "entry": "kotlin.plugin.k1.xml",
+        "afterSha256": "1d35f3f5362665a1d922bdfc086977c2a5c4b9fc8944a7cc29814a8a3be63d4a",
+        "beforeSha256": "5805a6155812b4fe8eacc911b0c8afb1cf39c534e25f12684264e9bca126c911"
+      },
+      {
+        "entry": "kotlin.plugin.k2.xml",
+        "afterSha256": "1853feea3639dd7e36defcc30838035ef5e31c9cdace88f68e35de0cb134f894",
+        "beforeSha256": "daadd1cd8b64db114a21f3dc6a7f815b4a3dbc0ab201ecf93f9d220809b05545"
+      }
+    ],
+    "retainedSharedLoggingModule": "lib.io.github.oshai.kotlin.logging.jvm"
+  },
+  "metadataBoundary": "The fast plugin-classpath inline descriptor is an activation input and must be filtered. Runtime module repository and product-info inventories are independently kept consistent; they are not asserted as the observed activation cause.",
+  "targetPlatform": "windows-x64",
+  "windowsVerification": {
+    "status": "requires full Windows archive identity and Windows CI before release",
+    "assetLock": "product/platform-windows.lock.json",
+    "productInfoRelativePath": "product-info.json",
+    "productInfoUpstreamSha256": "d3642e45fdcbdb50b832cc5d71421f9991883bb865d7e0edd0e4607183e0cbd6",
+    "basis": ".tools/windows-sdk-pin-basis-pending.json",
+    "boundary": "Observed index/module graphs/product inventory arrays match the Mac SDK exactly; each source JAR/file still has a complete SHA guard. No Windows-native launch claim."
+  }
+}

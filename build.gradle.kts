@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "dev.openidea"
-version = "0.1.0-SNAPSHOT"
+version = providers.gradleProperty("releaseVersion").orElse("0.1.0-SNAPSHOT").get()
 
 repositories {
     maven {
@@ -30,6 +30,16 @@ val platformPath = providers.gradleProperty("platformPath")
         else "${System.getProperty("user.home")}/Applications/PyCharm.app"
     })
 val lspPatchSdk = platformPath
+val platformContentsPath = platformPath.map { path ->
+    val root = file(path)
+    if (root.resolve("Contents/Resources/product-info.json").isFile) root.resolve("Contents").absolutePath
+    else root.absolutePath
+}
+val engineExecutableName = if (System.getProperty("os.name").startsWith("Windows")) "opengoland-engine.exe" else "opengoland-engine"
+val pythonCommand = if (System.getProperty("os.name").startsWith("Windows")) "python" else "python3"
+val goBuilder = providers.gradleProperty("goBuilder").orElse("go")
+val platformPinSuffix = if (System.getProperty("os.name").startsWith("Windows")) "-windows" else ""
+fun platformRepairPin(name: String) = "product/patches/platform-$name$platformPinSuffix-2026.1.4.json"
 
 // Compile against the same pinned public-source API that is shipped at runtime.
 // The downloaded plugin and SDK stay read-only; only an owned build copy is patched.
@@ -53,7 +63,7 @@ val prepareLspCompilePatch by tasks.registering(Exec::class) {
             into(lspCompilePlugins.get().dir("lsp4ij/lib"))
         }
     }
-    commandLine("python3", "scripts/patch-lsp4ij.py", "--sdk", lspPatchSdk.get(),
+    commandLine(pythonCommand, "scripts/patch-lsp4ij.py", "--sdk", lspPatchSdk.get(),
         "--plugins", lspCompilePlugins.get().asFile.absolutePath)
 }
 sourceSets.named("main") {
@@ -73,7 +83,9 @@ val preparePlatformUnicodePatch by tasks.registering(Exec::class) {
     outputs.file(platformUnicodeManifest)
     // Verify cached class bytes even when a prior report exists.
     outputs.upToDateWhen { false }
-    commandLine("python3", "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
+    commandLine(pythonCommand, "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
+        "--pin", platformRepairPin("unicode"),
+        "--cache-name", "platform-unicode$platformPinSuffix",
         "--output", platformUnicodeManifest.get().asFile.absolutePath)
 }
 val platformPsiListenerManifest = layout.buildDirectory.file("provenance/platform-psi-listener-patch.json")
@@ -84,33 +96,61 @@ val preparePlatformPsiListenerPatch by tasks.registering(Exec::class) {
     inputs.property("platformPath", platformPath)
     outputs.files(platformPsiListenerManifest, platformPsiListenerJar)
     outputs.upToDateWhen { false }
-    commandLine("python3", "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
-        "--pin", "product/patches/platform-psi-listener-2026.1.4.json",
+    commandLine(pythonCommand, "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
+        "--pin", platformRepairPin("psi-listener"),
         "--marker", "META-INF/open-goland-platform-psi-listener.json",
-        "--cache-name", "platform-psi-listener",
+        "--cache-name", "platform-psi-listener$platformPinSuffix",
         "--jar-output", platformPsiListenerJar.get().asFile.absolutePath,
         "--output", platformPsiListenerManifest.get().asFile.absolutePath)
 }
+val platformLocalPluginsManifest = layout.buildDirectory.file("provenance/platform-local-plugins-patch.json")
+val platformLocalPluginsJar = layout.buildDirectory.file("platform-patches/local-plugins/intellij.platform.ide.impl.jar")
+val preparePlatformLocalPluginsPatch by tasks.registering(Exec::class) {
+    description = "Build the public platform local-only plugin manager for this distribution."
+    inputs.files("scripts/patch-platform-unicode.py", fileTree("product/patches") { include("platform-local-plugins*") })
+    inputs.property("platformPath", platformPath)
+    outputs.files(platformLocalPluginsManifest, platformLocalPluginsJar)
+    outputs.upToDateWhen { false }
+    commandLine(pythonCommand, "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
+        "--pin", platformRepairPin("local-plugins"),
+        "--marker", "META-INF/open-goland-platform-local-plugins.json",
+        "--cache-name", "platform-local-plugins$platformPinSuffix",
+        "--jar-output", platformLocalPluginsJar.get().asFile.absolutePath,
+        "--output", platformLocalPluginsManifest.get().asFile.absolutePath)
+}
 tasks.test {
-    dependsOn(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch)
+    dependsOn(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch, preparePlatformLocalPluginsPatch)
     systemProperty("openidea.platformUnicodePatchManifest", platformUnicodeManifest.get().asFile.absolutePath)
     systemProperty("openidea.platformPsiListenerPatchManifest", platformPsiListenerManifest.get().asFile.absolutePath)
-    inputs.file(platformPsiListenerManifest)
+    systemProperty("openidea.platformLocalPluginsPatchManifest", platformLocalPluginsManifest.get().asFile.absolutePath)
+    systemProperty("opengoland.plugins.local.only", "true")
+    inputs.files(platformPsiListenerManifest, platformLocalPluginsManifest)
     val originalRuntime = classpath
     classpath = files(originalRuntime.elements.map { locations ->
-        val upstream = file("${platformPath.get()}/Contents/lib/intellij.platform.lang.impl.jar").canonicalFile
+        val upstream = file("${platformContentsPath.get()}/lib/intellij.platform.lang.impl.jar").canonicalFile
         val runtime = locations.map { it.asFile }
         check(runtime.count { it.canonicalFile == upstream } == 1) { "Expected exactly one pinned platform language implementation JAR" }
-        runtime.map { if (it.canonicalFile == upstream) platformPsiListenerJar.get().asFile else it }
-    }).builtBy(preparePlatformPsiListenerPatch)
+        val ideUpstream = file("${platformContentsPath.get()}/lib/intellij.platform.ide.impl.jar").canonicalFile
+        check(runtime.count { it.canonicalFile == ideUpstream } == 1) { "Expected exactly one pinned platform IDE implementation JAR" }
+        runtime.map {
+            when (it.canonicalFile) {
+                upstream -> platformPsiListenerJar.get().asFile
+                ideUpstream -> platformLocalPluginsJar.get().asFile
+                else -> it
+            }
+        }
+    }).builtBy(preparePlatformPsiListenerPatch, preparePlatformLocalPluginsPatch)
 }
 val captureBuildInputs by tasks.registering(Exec::class) {
     inputs.files(fileTree("src"), fileTree("engine") { include("**/*.go", "go.mod", "go.sum", "licenses/**") })
-    inputs.files(fileTree("scripts") { include("*.py", "*.sh") })
+    inputs.files(fileTree("scripts") { include("**/*.py", "**/*.sh", "**/*.ps1", "**/*.iss") })
+    inputs.files(fileTree(".github/workflows") { include("**/*.yml", "**/*.yaml") })
     inputs.files(fileTree("product/patches"))
-    inputs.files("build.gradle.kts", "settings.gradle.kts", "gradle.properties", "product/platform.lock.json")
+    inputs.files("build.gradle.kts", "settings.gradle.kts", "gradle.properties", "product/platform.lock.json", ".gitattributes")
+    inputs.files("product/go-tools.lock.json")
+    inputs.files(fileTree("product") { include("**/*windows*.json") })
     outputs.file(buildInputManifest)
-    commandLine("python3", "scripts/build_inputs.py", "capture", buildInputManifest.get().asFile)
+    commandLine(pythonCommand, "scripts/build_inputs.py", "capture", buildInputManifest.get().asFile)
 }
 
 dependencies {
@@ -169,13 +209,14 @@ val buildEngine by tasks.registering(Exec::class) {
     description = "Build the Go tooling service for the host architecture."
     workingDir(layout.projectDirectory.dir("engine"))
     inputs.files(fileTree("engine") { exclude("bin/**") })
-    outputs.file(layout.projectDirectory.file("engine/bin/opengoland-engine"))
-    commandLine("go", "build", "-o", "bin/opengoland-engine", "./cmd/opengoland-engine")
+    inputs.property("goBuilder", goBuilder)
+    outputs.file(layout.projectDirectory.file("engine/bin/$engineExecutableName"))
+    commandLine(goBuilder.get(), "build", "-o", "bin/$engineExecutableName", "./cmd/opengoland-engine")
 }
 
 val verifyBuildInputs by tasks.registering(Exec::class) {
     dependsOn(captureBuildInputs, tasks.compileKotlin, buildEngine)
-    commandLine("python3", "scripts/build_inputs.py", "verify", buildInputManifest.get().asFile)
+    commandLine(pythonCommand, "scripts/build_inputs.py", "verify", buildInputManifest.get().asFile)
 }
 
 tasks.jar {
@@ -188,7 +229,7 @@ tasks.jar {
 
 tasks.withType<PrepareSandboxTask>().configureEach {
     dependsOn(buildEngine)
-    from(layout.projectDirectory.file("engine/bin/opengoland-engine")) {
+    from(layout.projectDirectory.file("engine/bin/$engineExecutableName")) {
         into(pluginName.map { "$it/bin" })
         filePermissions { unix("rwxr-xr-x") }
     }
@@ -199,7 +240,7 @@ tasks.withType<PrepareSandboxTask>().configureEach {
     inputs.files(fileTree("product/patches"), "scripts/patch-lsp4ij.py")
     doLast {
         providers.exec {
-            commandLine("python3", "scripts/patch-lsp4ij.py", "--sdk", lspPatchSdk.get(),
+            commandLine(pythonCommand, "scripts/patch-lsp4ij.py", "--sdk", lspPatchSdk.get(),
                 "--plugins", sandboxPluginsDirectory.get().asFile.absolutePath)
         }.result.get().assertNormalExitValue()
     }

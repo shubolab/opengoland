@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 from pathlib import PurePosixPath
 import plistlib
@@ -16,6 +17,10 @@ import tempfile
 import xml.etree.ElementTree as ET
 import zipfile
 from build_inputs import verify as verify_build_inputs
+from product_metadata import filter_plugin_classpath
+from local_ide_metadata import filter_local_ide_metadata
+from platform_layout import detect_platform_layout
+from product_archives import rewritten_zip_comment, verify_product_archives
 
 ROOT = Path(__file__).resolve().parent.parent
 SDK_ROOT = ROOT / ".tools/platform/idea-2026.1.4"
@@ -105,10 +110,61 @@ def prepare_lsp4ij_runtime_resources(directory: Path) -> list:
     return resources
 
 
-def brand_resources(contents: Path) -> list:
-    """Change product names only in copied open-source application resources."""
+def go_product_policy(contents: Path, pin_path: Path | None = None,
+                      product_info_relative: str = "Resources/product-info.json") -> dict:
+    """Authenticate the Java-specific product customization before excluding it."""
+    if not contents.resolve().is_relative_to((ROOT / "build").resolve()):
+        raise ValueError("Go product policy applies only to an owned build copy")
+    policy_path = pin_path or ROOT / "product/patches/platform-go-product-2026.1.4.json"
+    policy = json.loads(policy_path.read_text())
+    version = json.loads((contents / product_info_relative).read_text())["version"]
+    if version != policy["platformVersion"]:
+        raise ValueError("The Go product policy requires its pinned platform version")
+    excluded = policy["bundledPluginExclusions"]
+    if [item["id"] for item in excluded] != ["com.intellij.java.ide"]:
+        raise ValueError("Unexpected Go product plugin exclusion")
+    for item in excluded:
+        if item["relativeDirectory"] != "plugins/java-ide-customization":
+            raise ValueError("Unexpected Java IDE customization directory")
+        directory = contents / item["relativeDirectory"]
+        if (not directory.resolve().is_relative_to(contents.resolve()) or directory.is_symlink()
+                or not directory.is_dir() or any(p.is_symlink() for p in directory.rglob("*"))):
+            raise ValueError("The copied customization plugin must contain regular pinned files")
+        actual = {p.relative_to(contents).as_posix(): p for p in directory.rglob("*") if p.is_file()}
+        expected = {entry["path"]: entry for entry in item["files"]}
+        if actual.keys() != expected.keys():
+            raise ValueError("The copied customization plugin has an unexpected file set")
+        for name, path in actual.items():
+            data = path.read_bytes()
+            if len(data) != expected[name]["bytes"] or hashlib.sha256(data).hexdigest() != expected[name]["sha256"]:
+                raise ValueError("Pinned Java IDE customization file changed: " + name)
+        with zipfile.ZipFile(directory / item["descriptor"]["jar"]) as bundle:
+            data = bundle.read(item["descriptor"]["entry"])
+        if (hashlib.sha256(data).hexdigest() != item["descriptor"]["sha256"] or
+                ET.fromstring(data).findtext("id") != item["id"]):
+            raise ValueError("Java IDE customization descriptor identity changed")
+    for name in policy["retainedBundledDirectories"]:
+        if not (contents / name).is_dir():
+            raise ValueError("A retained language plugin is missing: " + name)
+    app_info = policy["applicationInfo"]
+    archive = contents / app_info["jar"]
+    if archive.is_symlink() or not archive.resolve().is_relative_to(contents.resolve()):
+        raise ValueError("Application-info archive must remain in the owned copy")
+    with zipfile.ZipFile(archive) as bundle:
+        data = bundle.read(app_info["entry"])
+    if hashlib.sha256(data).hexdigest() != app_info["upstreamSha256"]:
+        raise ValueError("Pinned upstream application-info resource changed")
+    return policy
+
+
+def brand_resources(contents: Path, policy: dict) -> list:
+    """Brand copied resources and retain only this Go product's essential IDs."""
+    if not contents.resolve().is_relative_to((ROOT / "build").resolve()):
+        raise ValueError("Product resources must belong to an owned build copy")
     changed = []
     for archive in (contents / "lib").glob("app.jar"):
+        if archive.is_symlink() or not archive.resolve().is_relative_to(contents.resolve()):
+            raise ValueError("Branding archive must remain in the owned copy")
         with zipfile.ZipFile(archive) as source:
             names = [name for name in source.namelist() if re.fullmatch(r"idea/[^/]*ApplicationInfo\.xml", name)]
             if not names:
@@ -128,6 +184,23 @@ def brand_resources(contents: Path) -> list:
                 names_node.set("script", "opengoland")
                 names_node.set("motto", "An independent IDE for Go development")
                 names_node.attrib.pop("edition", None)
+                company = xml.find(tag("company"))
+                if company is None:
+                    company = ET.SubElement(xml, tag("company"))
+                company.set("name", "open Goland contributors")
+                company.set("shortName", "open Goland")
+                company.set("url", "https://github.com/shubolab/opengoland")
+                if name == policy["applicationInfo"]["entry"]:
+                    before = [item.text.strip() for item in xml.findall(tag("essential-plugin"))]
+                    if before != policy["applicationInfo"]["essentialBefore"]:
+                        raise ValueError("Unexpected upstream essential-plugin policy")
+                    excluded = {item["id"] for item in policy["bundledPluginExclusions"]}
+                    for item in list(xml.findall(tag("essential-plugin"))):
+                        if item.text.strip() in excluded:
+                            xml.remove(item)
+                    after = [item.text.strip() for item in xml.findall(tag("essential-plugin"))]
+                    if after != policy["applicationInfo"]["essentialAfter"]:
+                        raise ValueError("Go product essential-plugin policy mismatch")
                 if namespace:
                     ET.register_namespace("", namespace)
                 replacements[name] = ET.tostring(xml, encoding="utf-8", xml_declaration=True)
@@ -136,7 +209,7 @@ def brand_resources(contents: Path) -> list:
                 continue
             staging = archive.with_suffix(".jar.openidea")
             with zipfile.ZipFile(staging, "w") as target:
-                target.comment = source.comment
+                target.comment = rewritten_zip_comment(source)
                 for item in source.infolist():
                     target.writestr(item, replacements.get(item.filename, source.read(item.filename)))
         staging.replace(archive)
@@ -145,7 +218,237 @@ def brand_resources(contents: Path) -> list:
     return changed
 
 
-def assemble(sdk: Path, plugins: Path, output: Path):
+def specialize_go_metadata(contents: Path, sdk_contents: Path, policy: dict,
+                           product_info_relative: str = "Resources/product-info.json") -> dict:
+    """Keep the copied distribution's activation index and inventories consistent."""
+    def owned_file(relative):
+        path = contents / relative
+        if path.is_symlink() or not path.resolve().is_relative_to(contents.resolve()) or not path.is_file():
+            raise ValueError("Product metadata must be a regular owned file: " + relative)
+        return path
+
+    cache = owned_file(policy["pluginClasspath"]["path"])
+    filtered_cache, cache_record = filter_plugin_classpath(cache.read_bytes(), policy["pluginClasspath"])
+    repository = policy["runtimeModuleRepository"]
+    compact = owned_file(repository["compact"])
+    xml_jar = owned_file(repository["jar"])
+    for path, key in [(compact, "upstreamCompactSha256"), (xml_jar, "upstreamJarSha256")]:
+        if hashlib.sha256(path.read_bytes()).hexdigest() != repository[key]:
+            raise ValueError("Pinned runtime-module repository changed: " + path.name)
+    helper = ROOT / repository["helper"]
+    layout = detect_platform_layout(sdk_contents)
+    java = layout.java
+    classpath = os.pathsep.join(str(layout.lib / name) for name in ("platform-loader.jar", "annotations.jar"))
+    output_dat = compact.with_name("module-descriptors.opengoland.dat")
+    output_jar = xml_jar.with_name("module-descriptors.opengoland.jar")
+    if output_dat.exists() or output_jar.exists():
+        raise ValueError("Unexpected existing module-repository staging output")
+
+    def run_helper(operation):
+        command = [str(java), "--class-path", classpath, str(helper), operation,
+                   "--input-dat", str(compact), "--input-jar", str(xml_jar),
+                   "--output-dat", str(output_dat), "--output-jar", str(output_jar),
+                   "--owned-root", str(contents)]
+        result = subprocess.run(command, cwd=ROOT, check=True, text=True, capture_output=True, timeout=60)
+        report = json.loads(result.stdout)
+        report.pop("outputDat", None)
+        report.pop("outputJar", None)
+        return report
+
+    filtered = run_helper("filter")
+    verified = run_helper("verify")
+    for path, kind in [(output_dat, "Compact"), (output_jar, "Jar")]:
+        if (path.stat().st_size != repository["output" + kind + "Bytes"] or
+                hashlib.sha256(path.read_bytes()).hexdigest() != repository["output" + kind + "Sha256"]):
+            raise ValueError("Filtered runtime repository does not match its pinned output: " + kind)
+
+    metadata_path = owned_file(product_info_relative)
+    metadata = json.loads(metadata_path.read_text())
+    inventory = policy["productInfoInventory"]
+    before = {key: metadata[key] for key in ("bundledPlugins", "modules", "layout")}
+    ids = set(inventory["bundledPluginIds"]) | set(inventory["moduleIds"])
+    removed_layout = [entry for entry in before["layout"] if entry["name"] in ids]
+    if removed_layout != inventory["excludedLayout"]:
+        raise ValueError("Unexpected product-info customization layout")
+    after = {
+        "bundledPlugins": [name for name in before["bundledPlugins"] if name not in ids],
+        "modules": [name for name in before["modules"] if name not in ids],
+        "layout": [entry for entry in before["layout"] if entry["name"] not in ids],
+    }
+    for key in before:
+        if (len(before[key]) != inventory[key + "BeforeCount"] or len(after[key]) != inventory[key + "AfterCount"]):
+            raise ValueError("Unexpected product-info inventory size: " + key)
+    if not set(inventory["preservedBundledIds"]).issubset(after["bundledPlugins"]):
+        raise ValueError("An independent retained plugin was removed")
+    metadata.update(after)
+    cache.write_bytes(filtered_cache)
+    output_dat.replace(compact)
+    output_jar.replace(xml_jar)
+    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n")
+    return {"pluginClasspath": cache_record, "runtimeModuleRepository": {"filter": filtered, "verify": verified},
+            "artifactSha256": {path.relative_to(contents).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
+                               for path in (cache, compact, xml_jar)},
+            "productInfoInventory": {"removedLayout": removed_layout,
+                                     "beforeCounts": {key: len(value) for key, value in before.items()},
+                                     "afterCounts": {key: len(value) for key, value in after.items()},
+                                     "preservedBundledIds": inventory["preservedBundledIds"]}}
+
+
+def specialize_go_product(contents: Path, sdk_contents: Path, pin_path: Path | None = None,
+                          product_info_relative: str = "Resources/product-info.json") -> tuple:
+    policy = go_product_policy(contents, pin_path, product_info_relative)
+    metadata = specialize_go_metadata(contents, sdk_contents, policy, product_info_relative)
+    branding = brand_resources(contents, policy)
+    for item in policy["bundledPluginExclusions"]:
+        shutil.rmtree(contents / item["relativeDirectory"])
+    with zipfile.ZipFile(contents / policy["applicationInfo"]["jar"]) as bundle:
+        branded_app_info = bundle.read(policy["applicationInfo"]["entry"])
+    policy_path = pin_path or ROOT / "product/patches/platform-go-product-2026.1.4.json"
+    record = {
+        "pin": policy_path.relative_to(ROOT).as_posix(),
+        "pinSha256": hashlib.sha256(policy_path.read_bytes()).hexdigest(),
+        "bundledPluginExclusions": policy["bundledPluginExclusions"],
+        "applicationInfo": {**policy["applicationInfo"],
+                            "brandedSha256": hashlib.sha256(branded_app_info).hexdigest(),
+                            "publisher": {"name": "open Goland contributors", "shortName": "open Goland",
+                                          "url": "https://github.com/shubolab/opengoland"}},
+        "retainedBundledDirectories": policy["retainedBundledDirectories"],
+        "metadata": metadata,
+    }
+    return branding, record
+
+
+def specialize_local_ide(contents: Path, sdk_contents: Path, product_policy: dict, platform_patches: list,
+                         pin_path: Path | None = None,
+                         product_info_relative: str = "Resources/product-info.json") -> dict:
+    """Remove the pinned IDE-account/commercial registrations from our copy."""
+    if not contents.resolve().is_relative_to((ROOT / "build").resolve()):
+        raise ValueError("Local IDE changes apply only to an owned build copy")
+    pin_path = pin_path or ROOT / "product/patches/platform-local-ide-2026.1.4.json"
+    pin = json.loads(pin_path.read_text())
+
+    def owned(relative):
+        pure = PurePosixPath(relative)
+        if pure.is_absolute() or "\\" in relative or any(part in ("", ".", "..") for part in pure.parts):
+            raise ValueError("Invalid local IDE resource path")
+        path = contents
+        for part in pure.parts:
+            path = path / part
+            if path.is_symlink():
+                raise ValueError("A local IDE resource must not be a symbolic link")
+        if not path.is_file() or not path.resolve().is_relative_to(contents.resolve()):
+            raise ValueError("Local IDE resource must be an owned regular file: " + relative)
+        return path
+
+    def authenticate(path, expected):
+        data = path.read_bytes()
+        if len(data) != expected["bytes"] or hashlib.sha256(data).hexdigest() != expected["sha256"]:
+            raise ValueError("Pinned local IDE input changed: " + expected["path"])
+
+    metadata_path = owned(product_info_relative)
+    metadata = json.loads(metadata_path.read_text())
+    if metadata["version"] != pin["platformVersion"]:
+        raise ValueError("Local IDE cleanup requires the pinned platform version")
+    patches_by_path = {item["upstreamJarRelativePath"].removeprefix("Contents/"): item for item in platform_patches}
+    rules_by_jar = {}
+    for rule in pin["xmlRules"]:
+        rules_by_jar.setdefault(rule["jar"], []).append(rule)
+    if set(rules_by_jar) != {item["path"] for item in pin["jarInputs"]}:
+        raise ValueError("Local IDE XML rules and authenticated JARs disagree")
+    for item in pin["jarInputs"]:
+        source = sdk_contents / item["path"]
+        authenticate(source, item)
+        target = owned(item["path"])
+        patch = patches_by_path.get(item["path"])
+        if patch is not None:
+            if hashlib.sha256(target.read_bytes()).hexdigest() != patch["patchedJarSha256"]:
+                raise ValueError("The local plugin manager source rebuild changed before resource cleanup")
+        elif item["path"] == product_policy["applicationInfo"]["jar"]:
+            app_info = product_policy["applicationInfo"]
+            with zipfile.ZipFile(source) as before, zipfile.ZipFile(target) as after:
+                if before.namelist() != after.namelist():
+                    raise ValueError("Unexpected entries in branded application-info JAR")
+                for name in before.namelist():
+                    data = after.read(name)
+                    if name == app_info["entry"]:
+                        if hashlib.sha256(data).hexdigest() != app_info["brandedSha256"]:
+                            raise ValueError("The branded application-info resource changed")
+                    elif data != before.read(name):
+                        raise ValueError("Unexpected change before local IDE cleanup: " + name)
+        else:
+            authenticate(target, item)
+    for item in pin["removedFiles"] + pin["retainedFiles"]:
+        authenticate(owned(item["path"]), item)
+    grazie_files = {path.relative_to(contents).as_posix() for path in (contents / "plugins/grazie").rglob("*") if path.is_file()}
+    expected_grazie = {item["path"] for item in pin["removedFiles"] + pin["retainedFiles"] if item["path"].startswith("plugins/grazie/")}
+    if grazie_files != expected_grazie or any(path.is_symlink() for path in (contents / "plugins/grazie").rglob("*")):
+        raise ValueError("Unexpected files in the copied Grazie plugin")
+
+    cache = owned(pin["classpathRule"]["path"])
+    filtered_cache, cache_record = filter_local_ide_metadata(cache.read_bytes(), pin["classpathRule"])
+    inventory = pin["productInfoInventory"]
+    ids = set(inventory["excludedIds"])
+    before_inventory = {key: metadata[key] for key in ("bundledPlugins", "modules", "layout")}
+    removed_layout = [entry for entry in metadata["layout"] if entry["name"] in ids]
+    if removed_layout != inventory["removedLayout"]:
+        raise ValueError("Local IDE product-info removals changed")
+    after_inventory = {key: [value for value in values if (value["name"] if isinstance(value, dict) else value) not in ids]
+                       for key, values in before_inventory.items()}
+    for key in before_inventory:
+        if (len(before_inventory[key]) != inventory["beforeCounts"][key] or
+                len(after_inventory[key]) != inventory["afterCounts"][key]):
+            raise ValueError("Local IDE product-info count changed: " + key)
+    if not set(inventory["preservedBundledIds"]).issubset(after_inventory["bundledPlugins"]):
+        raise ValueError("A retained development plugin is missing")
+
+    jar_records = []
+    for relative, rules in rules_by_jar.items():
+        target = owned(relative)
+        before_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        replacements, records = {}, []
+        with zipfile.ZipFile(target) as source:
+            if len(source.namelist()) != len(set(source.namelist())):
+                raise ValueError("Duplicate JAR entries before local IDE cleanup")
+            for rule in rules:
+                data, record = filter_local_ide_metadata(source.read(rule["entry"]), rule)
+                if rule["entry"] in replacements:
+                    raise ValueError("Repeated local IDE resource transformation")
+                replacements[rule["entry"]] = data
+                records.append(record)
+            staging = target.with_suffix(".jar.local-ide")
+            if staging.exists():
+                raise ValueError("Unexpected existing local IDE staging JAR")
+            with zipfile.ZipFile(staging, "w") as output:
+                output.comment = rewritten_zip_comment(source)
+                for entry in source.infolist():
+                    output.writestr(entry, replacements.get(entry.filename, source.read(entry.filename)))
+        staging.replace(target)
+        after_digest = hashlib.sha256(target.read_bytes()).hexdigest()
+        jar_records.append({"path": relative, "beforeSha256": before_digest, "afterSha256": after_digest,
+                            "resources": records, "otherEntryContentsPreserved": True})
+        if relative in patches_by_path:
+            patch = patches_by_path[relative]
+            patch["rebuiltJarSha256"] = patch["patchedJarSha256"]
+            patch["distributionResourceChanges"] = records
+            patch["patchedJarSha256"] = after_digest
+    for item in pin["removedFiles"]:
+        owned(item["path"]).unlink()
+    for item in pin["retainedFiles"]:
+        authenticate(owned(item["path"]), item)
+    cache.write_bytes(filtered_cache)
+    metadata.update(after_inventory)
+    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n")
+    # This manifest map describes final on-disk bytes; the two index-stage
+    # records independently retain their intermediate authenticated identities.
+    product_policy["metadata"]["artifactSha256"][cache.relative_to(contents).as_posix()] = hashlib.sha256(filtered_cache).hexdigest()
+    return {"pin": pin_path.relative_to(ROOT).as_posix(), "pinSha256": hashlib.sha256(pin_path.read_bytes()).hexdigest(),
+            "pluginClasspath": cache_record, "jars": jar_records, "removedFiles": pin["removedFiles"],
+            "retainedFiles": pin["retainedFiles"], "productInfoInventory": inventory,
+            "localPluginManagerProperty": "opengoland.plugins.local.only", "localPluginManagerEnabled": True,
+            "scope": "Bundled IDE-account, settings-sync, Grazie license/cloud and paid-promotion registrations; local plugin management without Marketplace. Development-service credentials remain available."}
+
+
+def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None):
     sdk = sdk.expanduser().resolve()
     plugins = plugins.expanduser().resolve()
     output = output.expanduser().resolve()
@@ -175,13 +478,21 @@ def assemble(sdk: Path, plugins: Path, output: Path):
     if not (selected["dev.openidea.go"] / "bin/opengoland-engine").is_file():
         raise ValueError("The prepared plugin does not contain the Go engine")
     build_inputs = None
+    compiled_version = None
     for archive in (selected["dev.openidea.go"] / "lib").glob("*.jar"):
         with zipfile.ZipFile(archive) as bundle:
+            if "META-INF/plugin.xml" in bundle.namelist():
+                descriptor = ET.fromstring(bundle.read("META-INF/plugin.xml"))
+                if descriptor.findtext("id") == "dev.openidea.go":
+                    compiled_version = descriptor.findtext("version")
             if "META-INF/openidea-build-inputs.json" in bundle.namelist():
                 build_inputs = json.loads(bundle.read("META-INF/openidea-build-inputs.json"))
                 break
     if build_inputs is None:
         raise ValueError("The compiled plugin has no embedded build-input provenance")
+    if not compiled_version or (version is not None and version != compiled_version):
+        raise ValueError("The requested product version must match the compiled Go plugin")
+    version = compiled_version
     verify_build_inputs(build_inputs)
 
     output.parent.mkdir(parents=True, exist_ok=True)
@@ -206,13 +517,23 @@ def assemble(sdk: Path, plugins: Path, output: Path):
         ], text=True))
         psi_listener_patch = {key: value for key, value in psi_listener_patch.items()
                               if key not in {"patchJar", "sourceSdk", "installedJar"}}
+        local_plugins_patch = json.loads(subprocess.check_output([
+            sys.executable, str(ROOT / "scripts/patch-platform-unicode.py"),
+            "--sdk", str(sdk), "--target-app", str(app),
+            "--pin", str(ROOT / "product/patches/platform-local-plugins-2026.1.4.json"),
+            "--marker", "META-INF/open-goland-platform-local-plugins.json",
+            "--cache-name", "platform-local-plugins",
+        ], text=True))
+        local_plugins_patch = {key: value for key, value in local_plugins_patch.items()
+                               if key not in {"patchJar", "sourceSdk", "installedJar"}}
         info_path = contents / "Info.plist"
         info = plistlib.loads(info_path.read_bytes())
         native_launcher = info["CFBundleExecutable"]
         info["CFBundleName"] = "open Goland"
         info["CFBundleDisplayName"] = "open Goland"
         info["CFBundleIdentifier"] = "dev.opengoland.ide"
-        info["CFBundleGetInfoString"] = "open Goland 0.1.0, based on the open-source IntelliJ Platform; upstream notices retained"
+        info["CFBundleGetInfoString"] = f"open Goland {version}, based on the open-source IntelliJ Platform; upstream notices retained"
+        info["CFBundleShortVersionString"] = version.split("-", 1)[0]
         info["CFBundleURLTypes"] = [{"CFBundleTypeRole": "Editor", "CFBundleURLName": "open Goland", "CFBundleURLSchemes": ["opengoland"]}]
         info_path.write_bytes(plistlib.dumps(info, sort_keys=False))
 
@@ -231,13 +552,15 @@ def assemble(sdk: Path, plugins: Path, output: Path):
         vm_options = (metadata_path.parent / launch["vmOptionsFilePath"]).resolve()
         own_vm_options = contents / "bin/opengoland.vmoptions"
         inherited_vm_options = [line for line in vm_options.read_text().splitlines() if not line.startswith(("-Didea.paths.selector=", "-Didea.vendor.name=", "-Dplugin.path="))]
-        own_vm_options.write_text("\n".join(inherited_vm_options) + "\n-Didea.no.platform.update=true\n")
+        own_vm_options.write_text("\n".join(inherited_vm_options) +
+                                  "\n-Didea.no.platform.update=true\n-Dopengoland.plugins.local.only=true\n")
         vm_options.write_text(own_vm_options.read_text())
         launch["vmOptionsFilePath"] = "../bin/opengoland.vmoptions"
         overrides = {
             "idea.vendor.name": "OpenGoland",
             "idea.paths.selector": "OpenIDEAGo2026.1",
             "intellij.platform.load.app.info.from.resources": "true",
+            "opengoland.plugins.local.only": "true",
             "plugin.path": ",".join(f"$APP_PACKAGE/Contents/plugins/{directory.name}" for directory in selected.values()),
         }
         arguments = [argument for argument in launch.get("additionalJvmArguments", []) if not any(argument.startswith(f"-D{key}=") for key in overrides)]
@@ -273,9 +596,35 @@ def assemble(sdk: Path, plugins: Path, output: Path):
                 raise ValueError(f"Plugin directory collides with platform bundle: {identifier}")
             subprocess.run(["ditto", str(directory), str(destination)], check=True)
 
+        tools_report_path = temporary / "bundled-tools-report.json"
+        subprocess.run([
+            sys.executable, str(ROOT / "scripts/bundle-go-tools.py"), "--target", "darwin-arm64",
+            "--output", str(contents / "plugins" / selected["dev.openidea.go"].name / "tools"),
+            "--report", str(tools_report_path),
+        ], check=True, stdout=subprocess.DEVNULL)
+        tools_report = json.loads(tools_report_path.read_text())
+        engine_relative = f"plugins/{selected['dev.openidea.go'].name}/bin/opengoland-engine"
+        engine_info = subprocess.check_output([
+            tools_report["builderGoExecutable"], "version", "-m", str(contents / engine_relative),
+        ], text=True)
+        expected_builder = json.loads((ROOT / "product/go-tools.lock.json").read_text())["builderVersion"]
+        if not engine_info.splitlines()[0].endswith(expected_builder):
+            raise ValueError("The engine must be compiled with the authenticated Go builder: " + expected_builder)
+        engine_info = engine_relative + engine_info[engine_info.index(":"):]
+
         lsp4ij = selected["com.redhat.devtools.lsp4ij"]
         runtime_resources = prepare_lsp4ij_runtime_resources(contents / "plugins" / lsp4ij.name)
-        branding = brand_resources(contents)
+        branding, product_policy = specialize_go_product(contents, sdk / "Contents")
+        platform_patches = [unicode_patch, psi_listener_patch, local_plugins_patch]
+        local_ide = specialize_local_ide(contents, sdk / "Contents", product_policy, platform_patches)
+        archive_paths = [record["path"] for record in local_ide["jars"]]
+        archive_paths += [patch["upstreamJarRelativePath"].removeprefix("Contents/") for patch in platform_patches]
+        archive_paths += [path for path in product_policy["metadata"]["artifactSha256"] if path.endswith(".jar")]
+        archive_paths += [path.relative_to(contents).as_posix()
+                          for identifier, directory in selected.items()
+                          for path in (contents / "plugins" / directory.name / "lib").glob("*.jar")
+                          if identifier == "dev.openidea.go" or path.name == "lsp4ij-0.21.0.jar"]
+        archive_checks = verify_product_archives(sdk, contents, archive_paths)
         verify_build_inputs(build_inputs)
         artifacts = {}
         for directory in selected.values():
@@ -283,17 +632,25 @@ def assemble(sdk: Path, plugins: Path, output: Path):
             for artifact in sorted(path for path in copied.rglob("*") if path.is_file()):
                 artifacts[artifact.relative_to(contents).as_posix()] = hashlib.sha256(artifact.read_bytes()).hexdigest()
         manifest = {
-            "name": "open Goland", "version": "0.1.0-SNAPSHOT", "platform": pin,
+            "name": "open Goland", "version": version, "platform": pin,
             "plugins": sorted(selected), "brandingResources": branding,
             "pluginLoading": {"property": "plugin.path", "directories": [f"Contents/plugins/{directory.name}" for directory in selected.values()]},
             "buildInputs": build_inputs,
             "pluginArtifactSha256": artifacts,
             "runtimePluginResources": [{**entry, "path": f"plugins/{lsp4ij.name}/{entry['path']}"} for entry in runtime_resources],
-            "platformPatches": [unicode_patch, psi_listener_patch],
+            "platformPatches": platform_patches,
+            "goProductPolicy": product_policy,
+            "localIdeDistribution": local_ide,
+            "archiveChecks": archive_checks,
+            "bundledTools": json.loads((contents / "plugins" / selected["dev.openidea.go"].name / "tools/manifest.json").read_text()),
+            "engineBuildInfo": engine_info,
         }
         (contents / "Resources/openidea-product.json").write_text(json.dumps(manifest, indent=2) + "\n")
         subprocess.run(["codesign", "--force", "--sign", "-", "--preserve-metadata=entitlements", str(app)], check=True)
         subprocess.run(["codesign", "--verify", "--deep", "--strict", str(app)], check=True)
+        for relative, expected in artifacts.items():
+            if hashlib.sha256((contents / relative).read_bytes()).hexdigest() != expected:
+                raise ValueError("Signing changed a sealed plugin or bundled-tool file: " + relative)
         if output.exists():
             if not (output / "Contents/Resources/openidea-product.json").is_file():
                 raise ValueError("Existing output is not a generated open Goland product")
@@ -309,9 +666,10 @@ if __name__ == "__main__":
     parser.add_argument("--sdk", type=Path, default=SDK_ROOT / "IntelliJ IDEA.app")
     parser.add_argument("--plugins", type=Path, required=True)
     parser.add_argument("--output", type=Path, default=ROOT / "build/product/open Goland.app")
+    parser.add_argument("--version", help="Must match the compiled Go plugin version")
     args = parser.parse_args()
     try:
-        assemble(args.sdk, args.plugins, args.output)
+        assemble(args.sdk, args.plugins, args.output, args.version)
     except (OSError, ValueError, RuntimeError, subprocess.CalledProcessError) as error:
         print(str(error), file=sys.stderr)
         sys.exit(1)

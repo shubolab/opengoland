@@ -1,4 +1,18 @@
-# Preserve pinned upstream evidence byte for byte.
-docs/verification/change-signature-evidence/source/** -whitespace
-# Unified diff context lines include a required space for empty upstream lines.
-product/patches/*.patch whitespace=-blank-at-eol
+*.java text eol=lf
+*.kt text eol=lf
+*.kts text eol=lf
+*.go text eol=lf
+*.py text eol=lf
+*.sh text eol=lf
+*.ps1 text eol=lf
+*.iss text eol=lf
+*.json text eol=lf
+*.xml text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.properties text eol=lf
+.gitattributes text eol=lf
+# Preserve pinned upstream evidence byte for byte, including original line ends.
+docs/verification/change-signature-evidence/source/** -text -whitespace
+# Unified diff context includes a required space on empty upstream lines.
+product/patches/*.patch -text whitespace=-blank-at-eol

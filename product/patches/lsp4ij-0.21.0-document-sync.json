@@ -11,9 +11,9 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "c3caaafb453e35d5926e5f25e02b299af0bd7d81e624584b657ee2d611ccbd5c",
+  "patchSha256": "f6e39f0bdc76c522211ddfd607ec451015db152babd07b17698fafba1f3e38d3",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。；高亮请求等待已打开文档的didOpen/didChange，通过同一FIFO发送，并以原生文档序列及已连接服务器/文档身份保护排队、交付与缓存；取消只影响请求自己的future。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
@@ -26,13 +26,16 @@
       "The previous twelve compiled classes other than LSPFileListener retain their exact bytes; its recognized-watcher epoch bump is intentional",
       "Default aggregate policy for other LSP clients remains unchanged; Go opts out only for Find Usages typeDefinition/implementation",
       "Independent implementation/type-definition/type-hierarchy navigation and original references error notification handling",
-      "Only definition/declaration/typeDefinition/implementation supports opt into the new semantic cache key; other LSP caches retain their old policy",
       "Stable document, semantic dependency and server epochs retain and reuse the same navigation future",
       "Navigation dependency capture is per generation and server readiness is captured before RPC, never rebaselined at response completion",
       "checkValid and event callbacks do not resolve target files, load PSI or access the filesystem",
       "The same instance monitor now also covers the four public navigation getters parameter gate; no transport wait is added to these getters",
       "Unchanged-context navigation future reuse, existing offset-change cancellation and dependency epoch validation remain intact",
-      "No new public source prefixes or nested classes; seventeen previous class digests remain exact"
+      "Existing semantic navigation cache policy is unchanged; highlight separately adds native DocumentEx sequence and connection-owner validity.",
+      "Highlight changes are rebuilt from thirteen pinned public sources including an immutable started-server snapshot; previous navigation parameter-gate evidence remains historical.",
+      "Notifications and initialized-only highlight requests share the owned FIFO dispatcher; no fixed delay or EDT wait is added.",
+      "Cancellation never propagates to shared initialization, didOpen or didChange futures.",
+      "No service creation occurs while checking captured highlight owners; wrapper server publication is volatile and its modification tracker is read-only."
     ],
     "limitations": [
       "Not a claim that all LSP request/editor races are solved",
@@ -41,7 +44,9 @@
       "Existing stop/disconnect versus asynchronous connect lifecycle behavior is preserved; this patch does not claim to close all disposal races",
       "Original intermittent native stat-missing notification is not root-causally closed by this lifecycle fix; ordinary single/two-file and held-server controls did not reproduce it",
       "Find Usages still uses the server-provided locations and does not add Go-specific interface selection or read/write classification",
-      "This revision does not establish full native navigation/hierarchy parity; standalone desktop verification is owned by the main task"
+      "This revision does not establish full native navigation/hierarchy parity; standalone desktop verification is owned by the main task",
+      "The request FIFO and native-generation fence added here apply to documentHighlight. Other position-sensitive LSP features have not all been migrated.",
+      "Native standalone verification and complete build evidence remain separate from pinned-source compilation and controlled SDK regressions."
     ]
   },
   "sources": [
@@ -49,7 +54,7 @@
       "path": "src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
       "upstreamSha256": "df1ab61afecedf04c5c4b75df0dd4d3e5eb5535362b26e069e04530318bfad69",
-      "patchedSha256": "799730ac34c1946547b3541c36d47ae535c4f3909e604642e410a77e240b05ca"
+      "patchedSha256": "c2e62f661ed81a43c23e674778ae28826cd9853faa001cc31beea8d03b6cf34f"
     },
     {
       "path": "src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java",
@@ -110,6 +115,18 @@
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java",
       "upstreamSha256": "a73bd5e42a15926e5e1dc9cc089626c89df614fd55618d2a96fbad0791b4079c",
       "patchedSha256": "d24bf1df75fbebf5f7613d5f2c65e1fec3032a847e523de462d6c98790a8471a"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport.java",
+      "upstreamSha256": "e2c8f3c5b09cce8ddd2ab58ac62ea02083663cbe17314a3c4c0341ebd26ca0c1",
+      "patchedSha256": "5b99c325895d87f41aba884b9730568c3c090472e5941afebe5f0f83f0fe2d81"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/LanguageServiceAccessor.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LanguageServiceAccessor.java",
+      "upstreamSha256": "e595287fc865180e72ea554f6a787cadc78219ffe7a710b63de8d8a385cd4319",
+      "patchedSha256": "c37d07b1c4f848af9917fbbeae18ff4c411c0cfad7826680dd199094e6a691b3"
     }
   ],
   "initialVerification": {
@@ -468,5 +485,33 @@
       "This does not establish all hover/cancellation/disposal/interleaving or all SDK/build/OS behavior",
       "Previous accepted native cohort is preserved; the synchronized candidate needs its own main-task package/native evidence"
     ]
+  },
+  "highlightOrderingRevision": {
+    "status": "Pinned source candidate replay/compilation verified; controlled/native/full-build evidence recorded separately.",
+    "previousPatchSha256": "c3caaafb453e35d5926e5f25e02b299af0bd7d81e624584b657ee2d611ccbd5c",
+    "observedBaselineTrace": {
+      "sha256": "8da9f618c42c2f38d06f745e90fd4b4767177c69c42775c2d996392ae5194ec0",
+      "errorLogRecordsOneBased": [
+        70,
+        73
+      ],
+      "requestRecordsOneBased": [
+        68,
+        71
+      ],
+      "pastedDidChangeRecordOneBased": 74,
+      "boundary": "Error-level window/logMessage notifications, not JSON-RPC errors; concurrent wrapper log ordinals are not a strict wire clock."
+    },
+    "sourceFiles": 13,
+    "compiledClasses": 26,
+    "design": [
+      "Snapshot native cached DocumentEx identity/sequence and exact offset-position pair.",
+      "Capture existing connection owners before async server selection; retain connection server/opened-document identity and configuration epoch.",
+      "Wait on derived didOpen/flush futures, then dispatch the owned RPC in notification FIFO order without starting a server.",
+      "Reject cancelled or stale source/connection generations before dispatch, before delivery and before cache reuse.",
+      "Keep per-server URI/Position parameters independent; do not cache completed no-server queries."
+    ],
+    "registrySnapshot": "Copy the started-server set under its mutation monitor; forceCreate uses the same monitor, and definition-listener readers use immutable snapshots. This is not a proof of every server lifetime race.",
+    "verificationBoundary": "No claim that every LSP feature race or server lifecycle is solved."
   }
 }

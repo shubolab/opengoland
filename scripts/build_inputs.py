@@ -10,6 +10,12 @@ import sys
 ROOT = Path(__file__).resolve().parent.parent
 
 
+def ordered_sources(sources, root):
+    # Native WindowsPath comparison ignores case; provenance must have the same
+    # byte ordering on every build host.
+    return sorted(sources, key=lambda path: path.relative_to(root).as_posix())
+
+
 def snapshot(root: Path = ROOT) -> dict:
     sources = set()
     for folder in ["src/main", "src/test"]:
@@ -17,11 +23,17 @@ def snapshot(root: Path = ROOT) -> dict:
     for path in (root / "engine").rglob("*"):
         if path.is_file() and (path.suffix == ".go" or path.name in {"go.mod", "go.sum"} or "licenses" in path.relative_to(root / "engine").parts):
             sources.add(path)
-    sources.update(path for path in (root / "scripts").iterdir() if path.is_file() and path.suffix in {".py", ".sh"})
+    sources.update(path for path in (root / "scripts").rglob("*") if path.is_file() and path.suffix in {".py", ".sh", ".ps1", ".iss"})
+    sources.update(path for path in (root / ".github/workflows").rglob("*") if path.is_file() and path.suffix in {".yml", ".yaml"})
+    sources.update(path for path in (root / "product").rglob("*windows*.json") if path.is_file())
     sources.update(path for path in (root / "product/patches").rglob("*") if path.is_file())
     for name in ["build.gradle.kts", "settings.gradle.kts", "gradle.properties", "product/platform.lock.json"]:
         sources.add(root / name)
-    entries = [{"path": path.relative_to(root).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()} for path in sorted(sources)]
+    if (root / "product/go-tools.lock.json").is_file():
+        sources.add(root / "product/go-tools.lock.json")
+    if (root / ".gitattributes").is_file():
+        sources.add(root / ".gitattributes")
+    entries = [{"path": path.relative_to(root).as_posix(), "sha256": hashlib.sha256(path.read_bytes()).hexdigest()} for path in ordered_sources(sources, root)]
     canonical = "".join(f"{entry['sha256']}  {entry['path']}\n" for entry in entries)
     return {
         "schemaVersion": 1, "algorithm": "sha256",

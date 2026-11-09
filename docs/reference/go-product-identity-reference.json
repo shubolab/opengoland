@@ -1,0 +1,144 @@
+{
+  "schema": "open-goland.go-product-identity-reference.v1",
+  "scope": "Read-only XML resource/descriptor inventory of pinned OSS SDK lib and all bundled plugin JARs. No commercial implementation class inspection, SDK/live app/user configuration modification, app attach or UI.",
+  "sourceRecord": {
+    "path": ".tools/go-type-search-fidelity/java-customization-owner.json",
+    "sha256": "2f5b8bbf424925bda1b035bc5ec070e00345b94ca9d400e3c94c148ba688a9fb",
+    "bytes": 15073
+  },
+  "owner": {
+    "pluginId": "com.intellij.java.ide",
+    "directory": "Contents/plugins/java-ide-customization",
+    "jar": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app/Contents/plugins/java-ide-customization/lib/java-ide-customization.jar",
+      "bytes": 3990,
+      "sha256": "e372685a325f750a2ae12618dd045f6724b3e44c067265d86ecee42df3c76f3f"
+    },
+    "descriptor": {
+      "jar": "/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app/Contents/plugins/java-ide-customization/lib/java-ide-customization.jar",
+      "entry": "META-INF/plugin.xml",
+      "bytes": 1810,
+      "sha256": "95a5521584e9fb3a8931f749c453cc3582df74d3801c1139f05c78675da4bf5d",
+      "lines": [
+        {
+          "line": 2,
+          "text": "<id>com.intellij.java.ide</id>"
+        },
+        {
+          "line": 20,
+          "text": "<startPagePromoter id=\"JavaOnboardingTourPromoter\" implementation=\"com.intellij.java.ide.customization.training.JavaOnboardingTourPromoter\" />"
+        }
+      ],
+      "exactPluginDependencyTokens": 0
+    },
+    "moduleIds": [
+      "intellij.java.ide.customization.training"
+    ],
+    "allDirectoryFiles": [
+      {
+        "path": "plugins/java-ide-customization/lib/java-ide-customization.jar",
+        "bytes": 3990,
+        "sha256": "e372685a325f750a2ae12618dd045f6724b3e44c067265d86ecee42df3c76f3f"
+      },
+      {
+        "path": "plugins/java-ide-customization/lib/modules/intellij.java.ide.customization.training.jar",
+        "bytes": 3401,
+        "sha256": "26c9c3b7f577598cb03b902597bf4eed9160d785400ee552d123df253d65555e"
+      }
+    ],
+    "serviceDeclaration": [
+      {
+        "line": 29,
+        "text": "<applicationService serviceInterface=\"com.intellij.lang.IdeLanguageCustomization\" serviceImplementation=\"com.intellij.ide.customization.java.JavaIdeLanguageCustomization\" overrides=\"true\" />"
+      }
+    ]
+  },
+  "inventorySummary": {
+    "jarCount": 776,
+    "xmlResourcesScanned": 1482,
+    "pluginDescriptorResourcesDetected": 877,
+    "descriptorResourceInventoryDigest": "4027f75aaa0413ddde8b0e20406b93785a86e7759b93b1f057033aa90ce6690c",
+    "exactDependencyTokensOutsideOwner": 0,
+    "moduleReferencesOutsideOwnerDirectory": 0,
+    "sourceDeclaredMainAndContentModuleIdsScanned": [
+      "intellij.java.ide.customization",
+      "intellij.java.ide.customization.training"
+    ],
+    "exactMainAndContentModuleReferencesOutsideOwnerDirectory": 0
+  },
+  "applicationInfoPolicy": {
+    "sdkJar": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app/Contents/lib/app.jar",
+      "sha256": "bb5a705080ccfa5e95f7c46f8378b0cde83e155463f73c3301e5ffbababd7ce9"
+    },
+    "resource": "idea/IdeaApplicationInfo.xml",
+    "bytes": 766,
+    "sha256": "b06412c337239fd208f8e77bdbcca17957d2ffe5de974073ae4d29e5e71a168b",
+    "essentialBefore": [
+      "com.intellij.java",
+      "com.intellij.java.ide",
+      "com.intellij.modules.json"
+    ],
+    "essentialAfterProposedOwnedChange": [
+      "com.intellij.java",
+      "com.intellij.modules.json"
+    ],
+    "boundary": "This is the proposed owned staging transformation, not an observed repaired native launch. SDK/live application unchanged."
+  },
+  "rea": {
+    "ownerInspectionEvidence": "ev_2a2d9be462a9ea3ceb80b9e32af295dd3fe8ff9e8456c960fdad830948bb1f3c",
+    "ownerInventoryEvidence": "ev_e06d2b87fb6b481235e98f288623524c1fe0fd47903c847f5769b28edcba39b9",
+    "ownerOccurrenceEvidence": "ev_9b78ed8fe450bbaa097c352dfca98c668cbd6f059e7ffb452b84d964b4bee0ca",
+    "ownerDescriptorOccurrence": "occ_861480c9f525f4ed3d304888703f3e225d51b854e5100661e8cc92e4365fd383",
+    "ownerDescriptorArtifact": "art_5d5114b6f2fc0f2e785ddf4f49ec565f148a7ac90cd7179988561291cad02c3f",
+    "ownerDescriptorSha256": "95a5521584e9fb3a8931f749c453cc3582df74d3801c1139f05c78675da4bf5d",
+    "ownerDescriptorBytes": 1810,
+    "appInfoInspectionEvidence": "ev_183843a7e69861eaff1c076a4c84d1d724ec6ffcf3983b8522c28fe3ae14d554",
+    "appInfoInventoryEvidence": "ev_ff94951ae70fdeda1b9da58e50d01e0e6af86158d70bce2a86ff2b9cdf7e12ef",
+    "appInfoOccurrenceEvidence": "ev_c09ac902cc69510787175a0b31d9a071b3c861034a39392251b33cdf17144a48",
+    "appInfoOccurrence": "occ_6e5a9cee26b99ae8100790cfe955436f9996a583569a808ae4cc7b8e4ffdb8fe",
+    "appInfoArtifact": "art_7fea93f0e9ad6b8610b9059b1c5c92be3780cd59e8c317f699262e70d8f5604d",
+    "appInfoBytes": 766,
+    "sessionClosed": true,
+    "boundary": "REA observed resource occurrence/byte identity and complete-within-container inventories. XML content and the whole-SDK reverse-dependency scan were read without execution using standard archive/XML tools against these exact bytes. No decompilation, running-app attach or proprietary implementation reads. Raw inspection receipts are retained separately for closed-session replay; closed REA evidence IDs are not live session handles.",
+    "receipts": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/go-type-search-fidelity/java-customization-rea.json",
+      "sha256": "7b22e7fc0d27b118f7e03479efd447f9f8a99f0f576622d6c317971f4e6ccb10",
+      "bytes": 27186
+    }
+  },
+  "publicSources": [
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/ide-customization/resources/META-INF/plugin.xml",
+      "retainedPath": "/Users/wangshubo/develop/openidea-go/.tools/go-type-search-fidelity/upstream/plugin.xml",
+      "bytes": 1373,
+      "sha256": "f8177c12bb7d1b6af04126fde7fadb88d2d673ea1458e6ce4e6da2945575bfa3"
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/ide-customization/plugin-content.yaml",
+      "retainedPath": "/Users/wangshubo/develop/openidea-go/.tools/go-type-search-fidelity/upstream/plugin-content.yaml",
+      "bytes": 225,
+      "sha256": "75b60cab7f8aa301691b6c2801e52753be60f10758d9df41e1e97c055b27238d"
+    }
+  ],
+  "publicSourceBoundary": "Pinned public source describes the same plugin/primary-language override and the build module mapping. Shipped descriptor has build-expanded version/content XML and therefore a distinct SHA; it is bound separately by REA.",
+  "observations": [
+    "The Java-primary IDE customization service descriptor and own content module are shipped separately from Java language plugins.",
+    "No external exact plugin dependency or owner module-ID reference was found in all scanned SDK XML resources.",
+    "The SDK ApplicationInfo declares com.intellij.java.ide essential, so directory exclusion alone is insufficient.",
+    "Root current native PID77883 logs a Java customization override conflict and observed Classes title; this does not prove which service instance ultimately won."
+  ],
+  "inference": [
+    "Exclude only the owned copied directory and remove only its essential-plugin element from copied ApplicationInfo; preserve Java language plugin and the remaining essential IDs."
+  ],
+  "unknowns": [
+    "Dynamic code dependencies or user-installed third-party plugins are not exhaustively established.",
+    "The repaired startup and Types title are pending a new root-built/native cohort."
+  ],
+  "policyPin": "../../product/patches/platform-go-product-2026.1.4.json",
+  "boundaries": [
+    "This record is an authenticated OSS SDK resource/declaration inventory, not commercial GoLand implementation or matched feature runtime evidence.",
+    "The400/a1ed desktop startup shows a registration conflict and Classes title; it does not establish which service instance won.",
+    "Post-specialization native behavior belongs to a subsequent package cohort."
+  ]
+}

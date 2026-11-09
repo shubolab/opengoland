@@ -140,3 +140,11 @@ receiver-text IIFE shape control exposes same-name type capture. These are
 implementation inputs and regressions, not commercial implementation evidence.
 The unchanged prior standalone package's missing type-search/menu/test-tree
 behavior is retained as its own baseline; new package results cannot inherit it.
+
+[Go product identity](go-product-identity-reference.json) records a read-only REA
+inventory of the pinned OSS Java-IDE-customization JAR and ApplicationInfo resource.
+The exact owner is separate from Java language support. A bounded whole-SDK XML
+reverse-dependency scan and public source explain the owned-product exclusion and
+essential-plugin policy. Static inventories do not prove repaired startup; the
+400-input desktop title failure and later package observations remain separate.
+No commercial implementation classes or installed IDE user state were read.

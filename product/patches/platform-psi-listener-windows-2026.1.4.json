@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "repository": "https://github.com/JetBrains/intellij-community",
+    "tag": "idea/2026.1.4",
+    "commit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "license": "Apache-2.0; complete original public source headers and upstream SDK notices retained"
+  },
+  "platformVersion": "2026.1.4",
+  "upstreamJar": {
+    "path": "lib/intellij.platform.lang.impl.jar",
+    "sha256": "91d51056718b24c9f15241b04faf8a7f922c0a548e3993eac60d2a5ef7947542"
+  },
+  "sources": [
+    {
+      "path": "platform/lang-impl/src/com/intellij/codeInsight/daemon/impl/PsiChangeHandler.java",
+      "sourceUrl": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/lang-impl/src/com/intellij/codeInsight/daemon/impl/PsiChangeHandler.java",
+      "upstreamSha256": "2d55ab1eb0766ef3acf8b38b5c5fa5ff20a32544e0abe44ff82a8e76a3b667e4",
+      "patchedSha256": "2ddd7029c246ee9b8f31b8e126e291be6d0c2f8acaca7702c389bf2541e3dfb7"
+    }
+  ],
+  "patchFile": "platform-psi-listener-2026.1.4.patch",
+  "patchSha256": "089b0292b4d44fe15d19460d9dd76de28cc06fc2c4bb622ca6b907f7b0b76f3b",
+  "classPrefixes": [
+    "com/intellij/codeInsight/daemon/impl/PsiChangeHandler"
+  ],
+  "requiredClassNames": [
+    "com/intellij/codeInsight/daemon/impl/PsiChangeHandler$1.class",
+    "com/intellij/codeInsight/daemon/impl/PsiChangeHandler$Change.class",
+    "com/intellij/codeInsight/daemon/impl/PsiChangeHandler.class"
+  ],
+  "scope": {
+    "zh": "\u4ec5\u5c06PsiChangeHandler\u5df2\u6709final Alarm\u521d\u59cb\u5316\u63d0\u524d\u5230\u6587\u6863\u63d0\u4ea4\u76d1\u542c\u5668\u53d1\u5e03this\u4e4b\u524d\uff0c\u907f\u514d\u6784\u9020\u4e2d\u65ad\u540e\u5df2\u6ce8\u518c\u76d1\u542c\u5668\u8bbf\u95ee\u672a\u521d\u59cb\u5316\u5b57\u6bb5\u3002",
+    "preserves": [
+      "Original public and package API/ABI",
+      "Existing document/PSI commit behavior and highlighting scheduling",
+      "Original listener and Alarm ownership/disposal policy"
+    ],
+    "excludes": [
+      "No suppression of initialization or commit exceptions",
+      "No change to service creation/cancellation/lifecycle policy",
+      "No mutation of the upstream SDK or installed commercial references",
+      "No plugin classloader override of platform core classes"
+    ]
+  },
+  "verification": {
+    "status": "Historical macOS SDK controls only; native Windows compilation and controls must run in Windows CI.",
+    "compiledClassCount": 3,
+    "classSha256": {
+      "com/intellij/codeInsight/daemon/impl/PsiChangeHandler$1.class": "8ef95e86a6b40822938ef17936213f8e619148ffd0a831723bb020ad22479731",
+      "com/intellij/codeInsight/daemon/impl/PsiChangeHandler$Change.class": "1f5c1e878f54a28680d76dba8a576755e71e001172a79a6511aa5a496fdb8d6d",
+      "com/intellij/codeInsight/daemon/impl/PsiChangeHandler.class": "796447b9a42f0488ee18741c0192c15972e463632591f37a75ae14d6514d2fbc"
+    },
+    "control": "Temporary delegating EditorFactory registers the actual first DocumentAfterCommitListener, interrupts only the target constructor second listener registration with PCE, restores the real factory, then executes a real WriteCommandAction and PsiDocumentManager.commitDocument.",
+    "unpatchedResult": "Actual SDK commit fails at PsiChangeHandler.updateChangesForDocument line113: myUpdateFileStatusAlarm is null.",
+    "patchedResult": "Same actual SDK control passes after moving the existing Alarm assignment before publication.",
+    "limitations": [
+      "The initial exception/cancellation causing the complete Gradle cohort partial construction was not captured; this deterministic injected interruption proves the vulnerability, not that exact historical trigger.",
+      "Sequential private Events->Corpus controls did not reproduce the original complete-suite failure.",
+      "No claim all daemon/lifecycle races are resolved.",
+      "Root task owns standalone product/core artifact integration and native verification."
+    ]
+  },
+  "targetPlatform": "windows-x64",
+  "windowsVerification": {
+    "status": "requires Windows CI before release",
+    "assetLock": "product/platform-windows.lock.json",
+    "basis": ".tools/windows-sdk-pin-basis-pending.json",
+    "boundary": "Mac-controlled Java source/class evidence is historical. This pin fails closed unless actual Windows source JAR bytes match. Local complete archive verification is tracked separately."
+  }
+}

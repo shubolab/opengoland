@@ -37,7 +37,7 @@ internal data class GoTypeGuard(val uri: String, val path: Path, val exists: Boo
 internal data class GoTypeDirectory(val path: Path, val entries: List<String>)
 internal data class GoTypeCatalog(val id: String, val configuration: String, val types: List<GoTypeEntry>,
                                  val guards: Map<String, GoTypeGuard>, val directories: List<GoTypeDirectory>,
-                                 val complete: Boolean, val issues: List<String>)
+                                 val complete: Boolean, val issues: List<String>, val moduleRoots: Set<String>)
 
 /** Pure native input capture: no active editor, file discovery or executable resolution is required. */
 internal class GoTypeSearchInput private constructor(val project: Project, val settings: GoToolchain.Settings,
@@ -46,6 +46,8 @@ internal class GoTypeSearchInput private constructor(val project: Project, val s
     @Volatile private var prepared: JsonObject? = null
     @Volatile private var aliases: Map<String, Observed> = emptyMap()
     @Volatile private var overlayTexts: Map<String, String> = emptyMap()
+    @Volatile private var currentObserved: List<Observed> = observed
+    @Volatile private var physicalRoot: String? = null
 
     /** Resolve physical aliases only in background; the frontend never guesses an LSP version. */
     fun prepareAliases() {
@@ -64,6 +66,7 @@ internal class GoTypeSearchInput private constructor(val project: Project, val s
             val previous = mapped.putIfAbsent(uri, entry)
             require(previous == null || previous.document === entry.document) { "Two editor buffers refer to the same Go source. Save or close one before searching." }
         }
+        physicalRoot = GoTypeCatalogCodec.path(canonical(GoDocumentSync.fileUri(Path.of(wire.get("root").asString)))).toString()
         val request = wire.deepCopy()
         val texts = mutableMapOf<String, String>()
         request.getAsJsonArray("overlays").forEach { element ->
@@ -76,12 +79,18 @@ internal class GoTypeSearchInput private constructor(val project: Project, val s
     fun requestWire(): JsonObject = requireNotNull(prepared).deepCopy()
     fun overlay(uri: String): String? = overlayTexts[uri]
     fun document(uri: String): Pair<VirtualFile, Document>? = aliases[uri]?.let { it.file to it.document }
+    /** Backend guards are the authoritative overlay membership, after metadata discovery. */
+    fun retainSources(uris: Set<String>) {
+        currentObserved = aliases.filterKeys { it in uris }.values.distinct()
+    }
+    fun sourceAliases(uris: Set<String>): Set<String> = aliases.filterKeys { it in uris }.values.mapTo(mutableSetOf()) { it.file.path }
+    fun projectRoots(): Set<String> = setOfNotNull(wire.get("root").asString, physicalRoot)
 
     fun isCurrent(): Boolean {
         if (project.isDisposed || project.basePath != wire.get("root").asString) return false
         if (runCatching { GoToolchain.capture(project).key }.getOrNull() != settings.key) return false
         val manager = FileDocumentManager.getInstance()
-        return observed.all { it.file.isValid && manager.getCachedDocument(it.file) === it.document &&
+        return currentObserved.all { it.file.isValid && manager.getCachedDocument(it.file) === it.document &&
             it.document.modificationStamp == it.stamp && (it.document as? DocumentEx)?.modificationSequence == it.sequence }
     }
 
@@ -187,8 +196,14 @@ internal object GoTypeCatalogCodec {
             GoTypeDirectory(path(canonical(string(directory, "uri"))), array(directory, "entries").map { it.asString }.sorted())
         }
         val issues = array(value, "issues").mapNotNull { it.asJsonObject.get("message")?.asString?.takeIf(String::isNotBlank) }
+        val coverage = value.getAsJsonObject("coverage")
+        val moduleRoots = coverage?.let { array(it, "modules") }?.mapTo(mutableSetOf()) {
+            val root = Path.of(it.asString)
+            require(root.isAbsolute) { "A Go module root must be absolute" }
+            root.normalize().toString()
+        }.orEmpty()
         return GoTypeCatalog(id, configuration, types, guards, directories,
-            value.getAsJsonObject("coverage")?.get("complete")?.asBoolean ?: false, issues)
+            coverage?.get("complete")?.asBoolean ?: false, issues, moduleRoots)
     }
 
     private fun range(value: JsonObject?): Range {
@@ -209,6 +224,15 @@ internal object GoTypeCatalogCodec {
         val parsed = URI(uri)
         require(parsed.scheme == "file" && parsed.authority.isNullOrEmpty() && parsed.query == null && parsed.fragment == null) { "A Go type requires a local source URI" }
         return Path.of(parsed).toAbsolutePath().normalize()
+    }
+    /** Existing-parent resolution also classifies new or deleted paths below a symlink. Background only. */
+    fun physicalPath(path: Path): Path {
+        check(!ApplicationManager.getApplication().isDispatchThread)
+        var existing: Path? = path.toAbsolutePath().normalize()
+        val suffix = mutableListOf<Path>()
+        while (existing != null && !Files.exists(existing)) { suffix.add(existing.fileName); existing = existing.parent }
+        val real = requireNotNull(existing).toRealPath()
+        return suffix.asReversed().fold(real) { parent, name -> parent.resolve(name) }
     }
     fun hash(bytes: ByteArray): String = java.util.HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes))
     fun text(bytes: ByteArray): String = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)

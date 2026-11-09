@@ -16,7 +16,6 @@ import com.intellij.execution.runners.AsyncProgramRunner
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ProgramRunner
 import com.intellij.execution.ui.RunContentDescriptor
-import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteIntentReadAction
 import com.intellij.openapi.fileEditor.FileDocumentManager
@@ -26,11 +25,13 @@ import com.intellij.xdebugger.XDebugProcess
 import com.intellij.xdebugger.XDebugProcessStarter
 import com.intellij.xdebugger.XDebugSession
 import com.intellij.xdebugger.XDebuggerManager
+import com.intellij.xdebugger.impl.XDebugSessionImpl
 import com.redhat.devtools.lsp4ij.dap.DebugAdapterManager
 import com.redhat.devtools.lsp4ij.dap.DAPDebugProcess
 import com.redhat.devtools.lsp4ij.dap.DAPServerReadyTracker
 import com.redhat.devtools.lsp4ij.dap.configurations.DAPCommandLineState
 import dev.openidea.goide.run.GoRerunFailedTestsAction
+import dev.openidea.goide.run.GoFailedTestsRunState
 import dev.openidea.goide.run.GoRunConfiguration
 import dev.openidea.goide.run.GoRunKind
 import org.jetbrains.concurrency.AsyncPromise
@@ -45,12 +46,16 @@ internal class GoDebugTestState(
 ) : DAPCommandLineState(GoDebugDescriptor(GoDebugTestOptions(testSession), environment, DebugAdapterManager.getInstance().getDebugAdapterServerById("openidea.delve")),
     GoDebugTestOptions(testSession), environment) {
     private var preparedAdapter: ProcessHandler? = null
+    private val testConsole by lazy {
+        testSession.createConsole(environment.executor) as com.intellij.execution.testframework.sm.runner.ui.SMTRunnerConsoleView
+    }
     val rerunFailedAction by lazy {
-        GoRerunFailedTestsAction(testSession.profileSnapshot, testSession.output, testSession.values, testSession.events, environment.executor)
+        GoRerunFailedTestsAction(testSession.profileSnapshot, testSession.output, testSession.values, testSession.events, environment.executor,
+            testConsole)
     }
     init {
         consoleBuilder = object : TextConsoleBuilderImpl(environment.project) {
-            override fun createConsole() = testSession.createConsole(environment.executor)
+            override fun createConsole() = testConsole
         }
     }
 
@@ -88,6 +93,10 @@ internal class GoDebugTestState(
     override fun execute(executor: Executor, runner: ProgramRunner<*>): ExecutionResult =
         DefaultExecutionResult(consoleBuilder.console, startProcess()).apply { setRestartActions(rerunFailedAction) }
 
+    /** The platform snapshots these actions while constructing the native debug descriptor. */
+    fun installSessionActions(session: XDebugSession, execution: ExecutionResult) {
+        (session as XDebugSessionImpl).addRestartActions(*(execution as DefaultExecutionResult).restartActions)
+    }
 }
 
 /** Only test Debug uses this runner; application/attach debugging keeps the upstream runner. */
@@ -98,6 +107,10 @@ class GoDebugTestRunner : AsyncProgramRunner<RunnerSettings>() {
 
     override fun execute(environment: ExecutionEnvironment, state: RunProfileState): Promise<RunContentDescriptor?> {
         val result = AsyncPromise<RunContentDescriptor?>()
+        if (state is GoFailedTestsRunState) {
+            state.execute(environment.executor, this)
+            return result.apply { setResult(null) }
+        }
         val testState = state as? GoDebugTestState ?: return result.apply { setError("Unsupported Go Debug Test state") }
         WriteIntentReadAction.run { FileDocumentManager.getInstance().saveAllDocuments() }
         AppExecutorUtil.getAppExecutorService().execute {
@@ -110,12 +123,8 @@ class GoDebugTestRunner : AsyncProgramRunner<RunnerSettings>() {
                         val starter = object : XDebugProcessStarter() {
                             override fun start(session: XDebugSession): XDebugProcess {
                                 val execution = testState.execute(environment.executor, this@GoDebugTestRunner)
-                                return object : DAPDebugProcess(testState, session, execution, true) {
-                                    override fun registerAdditionalActions(left: DefaultActionGroup, top: DefaultActionGroup, settings: DefaultActionGroup) {
-                                        super.registerAdditionalActions(left, top, settings)
-                                        left.add(testState.rerunFailedAction)
-                                    }
-                                }
+                                testState.installSessionActions(session, execution)
+                                return DAPDebugProcess(testState, session, execution, true)
                             }
                         }
                         val started = XDebuggerManager.getInstance(environment.project).newSessionBuilder(starter)
