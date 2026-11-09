@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261109.1",
+  "status": "published-preview",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261109.1",
+  "publishedAtUtc": "2026-11-09T19:46:04Z",
+  "installerSource": {
+    "commit": "faf279f02bd7414352bfe4b388b5493776dd6868",
+    "tag": "v0.1.0-preview.20261109.1",
+    "inputFiles": 446,
+    "inputDigest": "b39ed2d8c48c51ef8cabae1819046223b897882199e31f52a3aa78fba5ce41fe"
+  },
+  "publication": {
+    "workflowRun": "https://github.com/shubolab/opengoland/actions/runs/42686265594",
+    "controlPlaneCommit": "2edfd0194aa346b369d4fad8084088ef6ddd544d",
+    "installerSourceIsSeparateFromPublicationCode": true,
+    "exactAssetCount": 5,
+    "publicChecksumsMatchAllFourAssetDigests": true,
+    "reviewedChineseNotesPreserved": true
+  },
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261109.1/macos-provenance.tar.gz",
+      "bytes": 3872690,
+      "sha256": "4d4c9aa348169e22fe3056cf7a13662e434410545a5a2e351702a6253dc42d8b"
+    },
+    "open-Goland-0.1.0-preview.20261109.1-macos-arm64.dmg": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261109.1/open-Goland-0.1.0-preview.20261109.1-macos-arm64.dmg",
+      "bytes": 1025421969,
+      "sha256": "3862e9449afd2c11b97d98516330579d4bd84626ae48e9516ef0377279fdd090"
+    },
+    "open-Goland-0.1.0-preview.20261109.1-windows-x64-setup.exe": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261109.1/open-Goland-0.1.0-preview.20261109.1-windows-x64-setup.exe",
+      "bytes": 870370151,
+      "sha256": "41bdbdabf78fed5715542e1af7460aca84db1e49f09c5322a0e78af15cea73e4"
+    },
+    "SHA256SUMS": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261109.1/SHA256SUMS",
+      "bytes": 426,
+      "sha256": "e112416427fca1342bcbf12317c0055925bd86b090dd04013563048a5bf52a36"
+    },
+    "windows-provenance.tar.gz": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261109.1/windows-provenance.tar.gz",
+      "bytes": 6048447,
+      "sha256": "b9e4e3b9d30e8f8a4be240a12316c09cabd6c982c33c095ad5ae93a1b933835b"
+    }
+  },
+  "macosArm64": {
+    "artifactOrigin": "Local macOS full driver and actual installed native UI; not the separate CI Mac DMG",
+    "go": {
+      "kind": "fresh",
+      "testPassEvents": 341,
+      "topLevelTests": 198,
+      "testPackagesPassed": 11,
+      "cachedPackages": 0,
+      "vetExitCode": 0
+    },
+    "kotlin": {
+      "reports": 114,
+      "tests": 570,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "installerChecks": [
+      "DMG CRC verification",
+      "Mounted and copied installed app",
+      "Deep strict signature and sealed file hashes",
+      "Native launcher and bundled tool versions",
+      "One uncached installed-engine Go test"
+    ],
+    "nativeChecks": [
+      "Cold Types search before first Go editor",
+      "Default bundled tools with empty selections and own empty caches",
+      "Current-file Debug: intentional fixture one failed and one passed, two total, 5.165s",
+      "Built-in Rerun Failed Tests: only failed subtest, one total, 1.390s",
+      "Normal exit, all seven known owned PIDs gone, zero ERROR/SEVERE log lines"
+    ],
+    "temporaryProfileScope": "Import wizard flags only; project trust used actual UI",
+    "rawEvidenceAsset": "macos-provenance.tar.gz"
+  },
+  "windowsX64": {
+    "artifactOrigin": "Windows CI run42675203904 job129354759638, native Windows build/install/start/uninstall",
+    "sourceRun": "https://github.com/shubolab/opengoland/actions/runs/42675203904",
+    "artifactId": 13703250719,
+    "downloadedArchiveSha256": "90610316e90805e788872d6d78939021e74a77901d01731887163c4c4eca7e7b",
+    "go": {
+      "testPassEvents": 333,
+      "topLevelTests": 184,
+      "testPackagesPassed": 11,
+      "failures": 0,
+      "cachedPackages": 0,
+      "vet": "Successful driver exit guard; zero-output Tee-Object did not create a go-vet.log file"
+    },
+    "kotlin": {
+      "reports": 114,
+      "tests": 570,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 12,
+      "skipScope": "Existing platform-specific skips retained, not counted as executed passes"
+    },
+    "installerChecks": [
+      "Install and uninstall exit0",
+      "17000 installed files verified",
+      "Owned visible SunAwtFrame for actual Go project",
+      "Normal native exit0",
+      "Installed Go1.26.10/gopls0.24.0/Delve1.27.2 versions",
+      "Installed-engine uncached Go test exit0"
+    ],
+    "logScope": "Zero ERROR/SEVERE lines, four WARN lines; not warning-free",
+    "interactiveEditorAndDebuggerParityVerified": false,
+    "rawEvidenceAsset": "windows-provenance.tar.gz"
+  },
+  "publicDownloadVerification": {
+    "repositoryVisibility": "PUBLIC",
+    "checksumFileDownloadedWithoutAuthentication": true,
+    "installers": [
+      {
+        "name": "open-Goland-0.1.0-preview.20261109.1-macos-arm64.dmg",
+        "unauthenticatedPublicHTTP": 206,
+        "advertisedBytes": 1025421969,
+        "first512MatchesTestedInstaller": true
+      },
+      {
+        "name": "open-Goland-0.1.0-preview.20261109.1-windows-x64-setup.exe",
+        "unauthenticatedPublicHTTP": 206,
+        "advertisedBytes": 870370151,
+        "first512MatchesTestedInstaller": true
+      }
+    ],
+    "scope": "Both installer URLs returned HTTP206 without authentication, advertised exact full sizes and matching first512bytes; full GitHub asset SHA256 receipts match independently tested local installer bytes. This check does not claim a second full public installer download."
+  },
+  "duplicateTagBuild": {
+    "run": "https://github.com/shubolab/opengoland/actions/runs/42684764472",
+    "status": "intentionally-cancelled",
+    "reason": "Reuse the successful CI10 Windows installer and locally native-checked Mac installer; not a test assertion failure."
+  },
+  "limitations": [
+    "Complete GoLand36x2 acceptance matrix remains open.",
+    "macOS ad-hoc signed, not notarized; Windows installer unsigned. System signing policies can restrict preview installation.",
+    "macOS debugging needs Apple Command Line Tools or Xcode debugserver.",
+    "Arbitrarily long Windows project working directories remain unsupported; see installation.md.",
+    "External SDK readiness, clean-OS debugging and complete interactive Windows parity require further evidence."
+  ],
+  "acceptanceMatrix": "../../reference/acceptance-matrix.json"
+}

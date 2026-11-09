@@ -13,6 +13,9 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
+[Download preview 0.1.0-preview.20261109.1](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261109.1).
+Both installers include checksums and platform verification records.
+
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
 workflows, code intelligence and refactoring, run/test/coverage/benchmark/fuzz,
@@ -47,9 +50,10 @@ Windows installers are built and exercised on Windows by
 uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 
 The packaged product uses separate configuration, cache, plugin, and log paths
-under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm. Initial
-distribution, signing, platform startup, and native workflow checks are still
-in progress; consult current verification evidence before relying on a build.
+under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
+The preview installers have passed actual build, installation and startup checks;
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261109.1.json).
+Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,
 and the macOS bundle ID is `dev.opengoland.ide`. Existing internal plugin IDs and
