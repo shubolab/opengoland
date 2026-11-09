@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Compile the pinned public JDOMUtil Unicode fix without changing the source SDK.
+"""Compile a pinned public platform repair without changing the source SDK.
 
 The optional installation target must be an owned app copy below this project's
 build directory. No trust decisions or user configuration files are read/written.
@@ -10,6 +10,7 @@ import hashlib
 import json
 import os
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import tempfile
@@ -42,13 +43,32 @@ def atomic_bytes(path, data):
             candidate.unlink(missing_ok=True)
 
 
-def verify_jar(candidate, original, expected, prefixes, required):
+def cache_name(value):
+    if re.fullmatch(r"[a-z0-9-]+", value) is None:
+        raise argparse.ArgumentTypeError("Platform repair cache name must use only a-z, 0-9 and hyphens")
+    return value
+
+
+def marker_name(value):
+    if (not value or value.startswith("/") or "\\" in value or
+            any(part in ("", ".", "..") for part in value.split("/")) or
+            any(ord(character) < 32 or ord(character) == 127 for character in value)):
+        raise argparse.ArgumentTypeError("Platform repair marker must be a clean relative JAR entry path")
+    return value
+
+
+def protect_sdk(path, sdk):
+    if path.resolve().is_relative_to(sdk):
+        raise ValueError("Platform repair outputs must not modify the source SDK")
+
+
+def verify_jar(candidate, original, expected, prefixes, required, marker=MARKER):
     try:
         with zipfile.ZipFile(original) as before, zipfile.ZipFile(candidate) as after:
             names = after.namelist()
             if len(names) != len(set(names)):
                 return None
-            saved = json.loads(after.read(MARKER))
+            saved = json.loads(after.read(marker))
             if not isinstance(saved, dict):
                 return None
             if any(saved.get(k) != value for k, value in expected.items()):
@@ -62,7 +82,7 @@ def verify_jar(candidate, original, expected, prefixes, required):
             if any(sha(after.read(name)) != digest for name, digest in records.items()):
                 return None
             untouched = {name for name in before.namelist() if not replaced(name, prefixes)}
-            if set(names) - actual - {MARKER} != untouched or any(before.read(name) != after.read(name) for name in untouched):
+            if set(names) - actual - {marker} != untouched or any(before.read(name) != after.read(name) for name in untouched):
                 return None
             return saved
     except (OSError, ValueError, KeyError, zipfile.BadZipFile):
@@ -70,17 +90,22 @@ def verify_jar(candidate, original, expected, prefixes, required):
 
 
 def build(args):
-    pin = json.loads(PIN.read_text())
+    pin_path = args.pin.resolve()
+    pin = json.loads(pin_path.read_text())
+    marker = args.marker
     sdk = args.sdk.resolve()
     info = json.loads((sdk / "Contents/Resources/product-info.json").read_text())
     if info["version"] != pin["platformVersion"]:
-        raise ValueError("The platform Unicode patch requires the pinned SDK version")
+        raise ValueError("The platform repair requires the pinned SDK version")
+    for output_path in (args.jar_output, args.metadata_output):
+        if output_path is not None:
+            protect_sdk(output_path, sdk)
     original = sdk / pin["upstreamJar"]["path"]
     if sha(original.read_bytes()) != pin["upstreamJar"]["sha256"]:
         raise ValueError("Pinned upstream platform JAR digest mismatch")
-    patch = PIN.parent / pin["patchFile"]
+    patch = pin_path.parent / pin["patchFile"]
     if sha(patch.read_bytes()) != pin["patchSha256"]:
-        raise ValueError("Platform Unicode patch digest mismatch")
+        raise ValueError("Platform repair digest mismatch")
     javac = sdk / "Contents/jbr/Contents/Home/bin/javac"
     if not javac.is_file():
         raise ValueError("The selected SDK must include javac")
@@ -90,12 +115,17 @@ def build(args):
         "upstreamJarSha256": pin["upstreamJar"]["sha256"], "patchSha256": pin["patchSha256"],
         "sources": pin["sources"], "release": 21,
     }
-    cache = ROOT / ".tools/platform-unicode"
-    key = sha(json.dumps({**expected, "compiler": compiler, "sdkBuild": info["buildNumber"]}, sort_keys=True).encode())
+    cache = ROOT / ".tools" / args.cache_name
+    identity = {**expected, "compiler": compiler, "sdkBuild": info["buildNumber"]}
+    # Preserve the existing default artifact/cache identity byte for byte.
+    if marker != MARKER:
+        identity["marker"] = marker
+    key = sha(json.dumps(identity, sort_keys=True).encode())
     work = cache / key
+    protect_sdk(work, sdk)
     work.mkdir(parents=True, exist_ok=True)
     artifact = work / original.name
-    metadata = verify_jar(artifact, original, expected, pin["classPrefixes"], pin["requiredClassNames"])
+    metadata = verify_jar(artifact, original, expected, pin["classPrefixes"], pin["requiredClassNames"], marker)
     if metadata is None:
         with tempfile.TemporaryDirectory(prefix="compile-", dir=work) as directory:
             temporary = Path(directory)
@@ -107,6 +137,7 @@ def build(args):
                         data = response.read()
                     if sha(data) != item["upstreamSha256"]:
                         raise ValueError("Pinned platform source digest mismatch: " + item["path"])
+                    protect_sdk(saved, sdk)
                     atomic_bytes(saved, data)
                 target = source / item["path"]
                 target.parent.mkdir(parents=True, exist_ok=True)
@@ -124,7 +155,7 @@ def build(args):
             command.extend(str(source / item["path"]) for item in pin["sources"])
             result = subprocess.run(command, capture_output=True, text=True, timeout=90)
             if result.returncode:
-                raise ValueError("Compiling the public platform Unicode fix failed:\n" + result.stderr)
+                raise ValueError("Compiling the public platform repair failed:\n" + result.stderr)
             records = {p.relative_to(classes).as_posix(): sha(p.read_bytes()) for p in sorted(classes.rglob("*.class"))}
             if not set(pin["requiredClassNames"]).issubset(records) or not all(replaced(n, pin["classPrefixes"]) for n in records):
                 raise ValueError("The platform source rebuild produced an incomplete/unexpected class set")
@@ -136,11 +167,18 @@ def build(args):
                         after.writestr(entry, before.read(entry.filename))
                 for name in sorted(records):
                     after.writestr(name, (classes / name).read_bytes())
-                after.writestr(MARKER, json.dumps(metadata, ensure_ascii=False, sort_keys=True, indent=2))
-            if verify_jar(candidate, original, expected, pin["classPrefixes"], pin["requiredClassNames"]) is None:
+                after.writestr(marker, json.dumps(metadata, ensure_ascii=False, sort_keys=True, indent=2))
+            if verify_jar(candidate, original, expected, pin["classPrefixes"], pin["requiredClassNames"], marker) is None:
                 raise ValueError("Built platform patch failed complete class/entry verification")
             os.replace(candidate, artifact)
-    output = {"patchJar": str(artifact), "sourceSdk": str(sdk), "marker": MARKER, "upstreamJarRelativePath": pin["upstreamJar"]["path"],
+    published = artifact
+    if args.jar_output is not None:
+        published = args.jar_output.resolve()
+        if published != artifact.resolve():
+            atomic_bytes(published, artifact.read_bytes())
+        if verify_jar(published, original, expected, pin["classPrefixes"], pin["requiredClassNames"], marker) is None:
+            raise ValueError("Exported platform repair failed complete class/entry verification")
+    output = {"patchJar": str(published), "sourceSdk": str(sdk), "marker": marker, "upstreamJarRelativePath": pin["upstreamJar"]["path"],
               "patchedJarSha256": sha(artifact.read_bytes()), **metadata}
     if args.target_app is not None:
         target_app = args.target_app.resolve()
@@ -151,7 +189,7 @@ def build(args):
         if not resolved_target.is_relative_to(target_app) or resolved_target == original.resolve():
             raise ValueError("Target app platform directory must not point outside the owned copy")
         if sha(target.read_bytes()) != pin["upstreamJar"]["sha256"] and verify_jar(
-                target, original, expected, pin["classPrefixes"], pin["requiredClassNames"]) is None:
+                target, original, expected, pin["classPrefixes"], pin["requiredClassNames"], marker) is None:
             raise ValueError("Target app platform JAR is neither pinned upstream nor the verified private patch")
         atomic_bytes(target, artifact.read_bytes())
         output["installedJar"] = str(target)
@@ -163,10 +201,15 @@ def build(args):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sdk", type=Path, required=True)
+    parser.add_argument("--pin", type=Path, default=PIN)
+    parser.add_argument("--marker", type=marker_name, default=MARKER)
+    parser.add_argument("--cache-name", type=cache_name, default="platform-unicode")
+    parser.add_argument("--jar-output", type=Path)
     parser.add_argument("--target-app", type=Path)
     parser.add_argument("--output", "--metadata-output", dest="metadata_output", type=Path)
     args = parser.parse_args()
-    cache = ROOT / ".tools/platform-unicode"
+    cache = ROOT / ".tools" / args.cache_name
+    protect_sdk(cache / "build.lock", args.sdk.resolve())
     cache.mkdir(parents=True, exist_ok=True)
     with (cache / "build.lock").open("a+b") as guard:
         fcntl.flock(guard, fcntl.LOCK_EX)

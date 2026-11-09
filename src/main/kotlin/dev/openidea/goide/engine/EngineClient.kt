@@ -127,13 +127,17 @@ class EngineClient(private val project: Project) : Disposable {
         child ?: return CompletableFuture.failedFuture(IllegalStateException("Go engine is not running"))
         if (process !== child || !child.isAlive) return CompletableFuture.failedFuture(IllegalStateException("Go engine is not running"))
         val id = sequence.incrementAndGet()
+        val packet = JsonObject().apply {
+            addProperty("jsonrpc", "2.0"); addProperty("id", id); addProperty("method", method); add("params", params)
+        }.toString().toByteArray(StandardCharsets.UTF_8)
+        // Enforce the wire limit on the complete encoded envelope, before a
+        // header, pending request, or task becomes visible to the shared engine.
+        if (packet.size > EngineFraming.MAX_MESSAGE_BYTES) return CompletableFuture.failedFuture(
+            IllegalArgumentException("Go engine request exceeds the 16 MiB UTF-8 message limit (${packet.size} bytes)"))
         val result = CompletableFuture<JsonElement>()
         pending[id] = result
         val taskId = if (method == "task/start" || method == "task/prepare") params.get("id")?.asString else null
         if (taskId != null) activeTasks.add(taskId)
-        val packet = JsonObject().apply {
-            addProperty("jsonrpc", "2.0"); addProperty("id", id); addProperty("method", method); add("params", params)
-        }.toString().toByteArray(StandardCharsets.UTF_8)
         try {
             synchronized(writeLock) {
                 check(process === child && child.isAlive) { "Go engine was disconnected" }
@@ -228,6 +232,8 @@ class EngineClient(private val project: Project) : Disposable {
 }
 
 object EngineFraming {
+    const val MAX_MESSAGE_BYTES = 16 * 1024 * 1024
+
     fun read(input: BufferedInputStream): ByteArray? {
         var length: Int? = null
         var headerBytes = 0
@@ -254,7 +260,7 @@ object EngineFraming {
             }
         }
         val size = requireNotNull(length) { "Missing Content-Length" }
-        require(size in 0..16_777_216) { "Engine message length is out of range" }
+        require(size in 0..MAX_MESSAGE_BYTES) { "Engine message length is out of range" }
         val bytes = input.readNBytes(size)
         require(bytes.size == size) { "Truncated engine message body" }
         return bytes

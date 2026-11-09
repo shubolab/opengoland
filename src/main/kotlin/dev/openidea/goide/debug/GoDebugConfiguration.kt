@@ -4,6 +4,10 @@ import com.intellij.execution.configurations.ConfigurationFactory
 import com.intellij.execution.configurations.ConfigurationType
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.configurations.RunConfigurationOptions
+import com.intellij.execution.configurations.RunProfileState
+import com.intellij.execution.Executor
+import com.intellij.execution.ExecutionException
+import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.configurations.RuntimeConfigurationError
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.openapi.options.SettingsEditor
@@ -65,10 +69,22 @@ class GoDebugConfiguration(project: Project, factory: ConfigurationFactory, name
     val goOptions: GoDebugOptions get() = options as GoDebugOptions
     override fun getOptionsClass(): Class<out RunConfigurationOptions> = GoDebugOptions::class.java
     override fun getDebugAdapterServer() = DebugAdapterManager.getInstance().getDebugAdapterServerById("openidea.delve")
-    override fun canRun(executorId: String) = executorId == DefaultDebugExecutor.EXECUTOR_ID
+    override fun canRun(executorId: String) = executorId == DefaultDebugExecutor.EXECUTOR_ID && goOptions.mode != "test"
+    override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState? {
+        if (executor.id != DefaultDebugExecutor.EXECUTOR_ID || goOptions.mode != "test") return super.getState(executor, environment)
+        return try { GoDebugTestState(environment, this) }
+        catch (failure: IllegalArgumentException) { throw ExecutionException(failure.message.orEmpty(), failure) }
+    }
     override fun getConfigurationEditor(): SettingsEditor<GoDebugConfiguration> = GoDebugSettingsEditor()
     override fun checkConfiguration() {
-        try { GoDebugLaunch.fromOptions(goOptions, project.basePath.orEmpty()) }
+        try {
+            if (goOptions.mode == "test") {
+                val values = GoDebugTestProfiles.parameters(this)
+                values.validate()
+                GoTestDebugArguments.create(com.intellij.util.execution.ParametersListUtil.parse(values.buildFlags, false, true),
+                    com.intellij.util.execution.ParametersListUtil.parse(values.arguments, false, true), "", true)
+            } else GoDebugLaunch.fromOptions(goOptions, project.basePath.orEmpty())
+        }
         catch (error: IllegalArgumentException) { throw RuntimeConfigurationError(error.message.orEmpty()) }
     }
     override fun readExternal(element: Element) {

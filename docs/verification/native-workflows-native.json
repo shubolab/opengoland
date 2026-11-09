@@ -1,0 +1,715 @@
+{
+  "schema": "open-goland.native-workflows-desktop.v1",
+  "status": "bounded-native-observations-complete-full-acceptance-open",
+  "source": {
+    "inputs": 395,
+    "digest": "625e694e114ab354abdbf57a55bf39fb995b7cb603f0f6d0d7e2072a081d1347",
+    "build": "native-workflows-build.json",
+    "baseCommit": "fd5c7035e6edcf8101774538e05da94f0fbd7e74"
+  },
+  "product": {
+    "path": "build/product/open Goland.app",
+    "pid": 67080,
+    "bundleId": "dev.opengoland.ide",
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 67080,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "platformArtifactChecks": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+        },
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/intellij.platform.lang.impl.jar",
+          "sha256": "477aba3ad240b13c2676a0011198ce867d6947dc4153afa290131be0b98c04aa",
+          "patchSha256": "089b0292b4d44fe15d19460d9dd76de28cc06fc2c4bb622ca6b907f7b0b76f3b"
+        }
+      ],
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    },
+    "runtimeRecord": {
+      "path": ".tools/native-workflows-final-runtime.json",
+      "sha256": "4b71c6d44bba562e10ab15a96d01dd035355de342de8a134510993c5934b0303",
+      "bytes": 1534
+    }
+  },
+  "operator": "root via CUA; AX and actual screenshots in task transcript",
+  "fixture": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-xsm1fv86/类型搜索 重构 调试 😀",
+    "initialFiles": {
+      "go.mod": "module example.org/nativeworkflows\n\ngo 1.24.0\n",
+      "types.go": "package workflows\n\ntype PilotRecord struct{ Name string }\ntype PilotCallback func(int) int\ntype PilotAlias = PilotRecord\n\nfunc PilotValue(value int) int { return value * 2 }\nfunc Calculate(value int) int {\n\tamount := PilotValue(value) + 3\n\treturn amount\n}\n\ntype Worker struct{}\n\nfunc (Worker) newMethod() {}\nfunc (worker Worker) Work(value int) int {\n\tresult := value * 2\n\tresult += 3\n\treturn result\n}\n",
+      "inline.go": "package workflows\n\nfunc InlineCandidate(value int) int {\n\treturn value*2 + 1\n}\nfunc InlineFirst() int { return InlineCandidate(3) }\n",
+      "inline_other.go": "package workflows\n\nfunc InlineSecond() int { return InlineCandidate(4) }\n",
+      "workflows_test.go": "package workflows\n\nimport (\n\t\"os\"\n\t\"testing\"\n)\n\nvar FailEnabled = true\n\nfunc TestMain(m *testing.M) {\n\tmarker := 42\n\tif marker != 42 {\n\t\tos.Exit(2)\n\t}\n\tos.Exit(m.Run())\n}\nfunc TestNativeDebug(t *testing.T) {\n\tt.Run(\"passes\", func(t *testing.T) {\n\t\tif Calculate(2) != 7 {\n\t\t\tt.Fatal(\"calculation\")\n\t\t}\n\t})\n\tt.Run(\"fails\", func(t *testing.T) {\n\t\tif FailEnabled {\n\t\t\tt.Fatal(\"intentional fixture failure\")\n\t\t}\n\t})\n}\nfunc TestInlineResults(t *testing.T) {\n\tif InlineFirst() != 7 || InlineSecond() != 9 {\n\t\tt.Fatal(\"inline results\")\n\t}\n}\n"
+    },
+    "catalogueGenerator": "package workflows\\n\\n followed by type CatalogueNeedle%03d struct{}\\n for integers0 through239",
+    "initialSHA256": {
+      "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+      "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+      "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+      "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+      "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+      "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+    },
+    "prelaunchGoControls": [
+      {
+        "command": [
+          "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+          "test",
+          "-count=1",
+          "-run",
+          "^TestInlineResults$",
+          "."
+        ],
+        "exitCode": 0,
+        "stdout": "ok  \texample.org/nativeworkflows\t0.588s\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+          "test",
+          "-count=1",
+          "-run",
+          "^TestNativeDebug$",
+          "."
+        ],
+        "exitCode": 1,
+        "stdout": "--- FAIL: TestNativeDebug (0.00s)\n    --- FAIL: TestNativeDebug/fails (0.00s)\n        workflows_test.go:25: intentional fixture failure\nFAIL\nFAIL\texample.org/nativeworkflows\t0.380s\nFAIL\n",
+        "stderr": ""
+      }
+    ],
+    "localMetadata": {
+      "path": ".tools/native-workflows-final.json",
+      "sha256": "d1412bdb6121c5cd51207571052ae0f52cc9ad8ec523445bf3264581e0777645",
+      "bytes": 11655
+    }
+  },
+  "observations": {
+    "schema": "open-goland.native-workflows-desktop-observations.v1",
+    "pid": 67080,
+    "sourceDigest": "625e694e114ab354abdbf57a55bf39fb995b7cb603f0f6d0d7e2072a081d1347",
+    "inputCount": 395,
+    "operator": "root via CUA",
+    "trust": "own fixture only; parent checkbox left unchecked",
+    "typeSearch": {
+      "coldBeforeAnyGoEditor": {
+        "scope": "Project Files",
+        "observedResults": [
+          "PilotRecord",
+          "PilotCallback",
+          "CatalogueNeedle239",
+          "PilotAlias"
+        ],
+        "preNavigationTraceExists": false
+      },
+      "sdkNavigation": {
+        "query": "bytes.Buffer",
+        "scope": "All Places",
+        "file": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/src/bytes/buffer.go",
+        "uiPosition": "20:6"
+      },
+      "observedTabTitle": "Classes; pluralized Go contributor does not replace this native host tab label in this desktop run",
+      "closedBuffer": {
+        "paste": "// 未保存 😀 + type DirtyPilot struct{}",
+        "close": "Cmd+W actual editor switched to buffer.go",
+        "query": "DirtyPilot",
+        "hitAfterClose": true,
+        "navigation": "types.go 23:6",
+        "undo": [
+          {
+            "press": 1,
+            "uiPosition": "24:1",
+            "declarationStillPresent": true
+          },
+          {
+            "press": 2,
+            "uiPosition": "21:1",
+            "declarationStillPresent": false
+          }
+        ],
+        "freshQueryAfterUndo": "No results shown in actual All Places screenshot",
+        "diskCheckBoundary": "Disk checkpoints before close and after Undo, no separate disk capture between close and query."
+      }
+    },
+    "checkpoints": [
+      {
+        "label": "after-UI-dirty-type-paste-before-close",
+        "atUtc": "2026-11-09T08:51:36.622405+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+          "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "allSourceDiskInitial": true
+      },
+      {
+        "label": "after-second-native-undo-and-no-results",
+        "atUtc": "2026-11-09T08:53:47.726588+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+          "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "allSourceDiskInitial": true
+      },
+      {
+        "label": "after-method-preview-cancel",
+        "atUtc": "2026-11-09T08:59:43.758716+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+          "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "allSourceDiskInitial": true
+      },
+      {
+        "label": "after-method-apply-undo-redo-final-undo",
+        "atUtc": "2026-11-09T09:02:14.982468+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+          "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "allSourceDiskInitial": true
+      },
+      {
+        "label": "inline-all-one-undo-from-second-file-and-save",
+        "atUtc": "2026-11-09T09:10:11.229155+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+          "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "allSourceDiskInitial": true
+      },
+      {
+        "label": "inline-all-one-redo-from-second-file-and-save",
+        "atUtc": "2026-11-09T09:10:27.118679+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "95e47617dec2bba0bb9532401cfd523df9231f2a1f1daa60ffe04fb4028de1de",
+          "inline_other.go": "21b089aa0ec727f6efa68f08d724ed6562a563f65c92936ef44a6264a423e075",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "matchAppliedSnapshot": true
+      },
+      {
+        "label": "before-debug-after-final-inline-undo-save",
+        "atUtc": "2026-11-09T09:10:44.667676+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+          "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "allSourceDiskInitial": true
+      },
+      {
+        "label": "after-fourth-stop-before-normal-quit",
+        "atUtc": "2026-11-09T09:47:33.579413+00:00",
+        "diskSHA256": {
+          "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+          "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+          "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+          "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+          "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+          "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+        },
+        "allSourceDiskInitial": true,
+        "allRecordedDebugSessionPidsAbsent": true,
+        "remainingSessionPids": []
+      }
+    ],
+    "status": "completed bounded native observations; full GoLand acceptance remains open",
+    "refactor": {
+      "standardMenuObserved": [
+        "Extract/Introduce → Variable",
+        "Constant",
+        "Method",
+        "Inline Go"
+      ],
+      "selection": "types.go 17:2 to18:16 (UI reports33chars,1linebreak)",
+      "automationRetries": [
+        {
+          "cause": "Clicked the chooser row, which already committed the choice, then sent an extra Return to the editor; the selected33chars were replaced by an Enter command.",
+          "traceEvidence": "codeAction/resolve55 followed by didChange record168 deleting33chars and inserting newline/tab; no workspace/applyEdit request.",
+          "observedGuard": "An analyzed editor changed or closed. Run Go Refactoring again.",
+          "recovery": "Dismissed error and one native Undo restored the original2statements and selected33chars.",
+          "boundary": "Automation input error with a correct stale-input rejection; not a failed stable-input extraction and not an intentional test retroactively claimed."
+        }
+      ],
+      "methodPreviewCancel": {
+        "customName": "ComputeWork",
+        "preview": "Before has existing (Worker).newMethod and2selectedstatements; After retains oldnewMethod andadds(worker).ComputeWork call+newhelper",
+        "files": 1,
+        "usages": 1,
+        "cancel": "Actual Cancel clicked; source editor has no ComputeWork",
+        "allDiskInitial": true
+      },
+      "methodApply": {
+        "entry": "standard Cmd+Option+M; Choose Go Refactoring → Extract method",
+        "name": "ComputeWork",
+        "observedApplied": "worker.ComputeWork(value) and func (Worker) ComputeWork(value int) int; original func(Worker)newMethod() preserved",
+        "undo": "One native Cmd+Z removes helper/call and restores original2statements",
+        "redo": "One native Cmd+Shift+Z restores helper/call",
+        "restore": "One further Cmd+Z restores original source for remaining checks",
+        "diskAllInitialAfterRestore": true
+      },
+      "inlineAll": {
+        "entry": "standard Cmd+Option+N at InlineCandidate declaration inline.go3:8",
+        "scope": "All workspace references",
+        "references": 2,
+        "disposition": "Remove now-unused declaration",
+        "previewFiles": [
+          "inline.go",
+          "inline_other.go"
+        ],
+        "previewUsages": 2,
+        "previewAfter": "InlineFirst uses immediately invoked function with3; InlineSecond uses same body with4; declaration absent",
+        "appliedNativeFirstAndSecondEditors": true,
+        "savedActualGoRuntime": ".tools/native-workflows-inline-runtime.json",
+        "firstUndoFromSecondFile": {
+          "presses": 1,
+          "secondEditorRestoredCall": true,
+          "savedDiskAll6Initial": true
+        },
+        "automationRetries": [
+          "AX row click elementHasNoFrame and list cannotClickOffscreenElement; no source effect. Actual visible second row selected by screenshot coordinate345,250."
+        ],
+        "redoFromSecondFile": {
+          "presses": 1,
+          "savedAll6MatchAppliedRuntimeSnapshot": true
+        },
+        "finalUndoAndSaveAll6Initial": true
+      }
+    },
+    "debug": {
+      "standard": {
+        "configuration": "Native Debug Tree",
+        "nativeRunningSmTree": true,
+        "breakpoint": {
+          "file": "workflows_test.go",
+          "uiLine": 12,
+          "frame": "nativeworkflows.TestMain:12",
+          "locals": "marker = 42"
+        },
+        "resume": "Native Find Action → Resume Program; UI shortcut shown⌥⌘R",
+        "result": {
+          "passed": 1,
+          "failed": 1,
+          "childrenVisiblyVerified": [
+            "passes, Passed",
+            "fails, Failed"
+          ]
+        },
+        "console": {
+          "targetPid": 68694,
+          "adapterOsCode": 0,
+          "adapterPrefix": "Delve adapter: Process finished with exit code 0",
+          "targetDiagnostic": "Process 68694 has exited with status 1",
+          "targetSummary": "Go test exited with code 1.",
+          "executionResult": "Process finished with exit code 1"
+        },
+        "failureSourceNavigation": "actual double-click fails → workflows_test.go25:13",
+        "durationBoundary": "Displayed4min40 includes breakpoint pause and UI operation time; not Go runtime performance."
+      },
+      "failedRetry": {
+        "entry": "Actual Debug toolbar More → Rerun Failed Go Tests (blue selected screenshot), Return once",
+        "newDebugTab": "TestNativeDebug/fails in example.org/nativeworkflows",
+        "verification": "completed",
+        "breakpoint": "actual native TestMain12, marker42 again",
+        "resume": "observed shortcut Cmd+Option+R",
+        "result": {
+          "failed": 1,
+          "total": 1
+        },
+        "consoleRunLines": [
+          "TestNativeDebug",
+          "TestNativeDebug/fails"
+        ],
+        "passedSiblingRunLineAbsent": true,
+        "targetPid": 69064,
+        "targetExit": 1,
+        "executionExit": 1,
+        "adapterOsExit": 0,
+        "durationBoundary": "Displayed1min10 includes native breakpoint pause."
+      },
+      "entryBoundary": "Custom session action is in new Debugger More; it is not globally registered as the platform AbstractRerunFailedTestsAction delegate.",
+      "manual": {
+        "configuration": "Manual Passing Debug",
+        "type": "OpenIDEAGoDebug",
+        "mode": "test",
+        "arguments": "-test.run=^TestNativeDebug$/^passes$",
+        "nativeRunningSmTree": true,
+        "breakpoint": {
+          "frame": "nativeworkflows.TestMain:12",
+          "uiLine": 12,
+          "locals": "marker = 42",
+          "evidence": "actual screenshot; AX renderer misleading frame label not used"
+        },
+        "result": {
+          "passed": 1,
+          "total": 1
+        },
+        "consoleRunLines": [
+          "TestNativeDebug",
+          "TestNativeDebug/passes"
+        ],
+        "failedSiblingRunLineAbsent": true,
+        "targetPid": 69141,
+        "targetExit": 0,
+        "executionExit": 0,
+        "adapterOsExit": 0,
+        "durationBoundary": "Displayed4min59 includes breakpoint pause and CUA operations."
+      },
+      "stopBeforeTests": {
+        "configuration": "Manual Passing Debug",
+        "entry": "Control+D then actual top Stop button at TestMain:12",
+        "nativeLocals": "marker = 42",
+        "targetPid": 69291,
+        "adapterPid": 69257,
+        "nativeTree": "example.org/nativeworkflows, Ignored.",
+        "console": "Go test debugging was stopped.",
+        "executionConsole": "Process finished with exit code 0",
+        "boundary": "Cancellation sentinel is execution process code0; no Go test exitedwithcode0 or natural target status asserted; no test RUN occurred."
+      }
+    },
+    "automationRetries": [
+      "Native menu child Resume AX invalidUIElement; Escape did not close the native menu root. Explicit exposed Cancel succeeded; Find Action resumed correctly.",
+      "Several wrong toolbar coordinate attempts and stale AX configuration/filter states were refreshed; actual More menu was opened at current screenshot coordinate574,1287. No product failure inferred from those CUA targeting errors."
+    ],
+    "normalQuit": {
+      "cuaObservedIsRunning": false,
+      "atUtc": "2026-11-09T09:48:01.487598+00:00",
+      "allRecordedPidsAbsent": true,
+      "remainingPids": []
+    },
+    "closedTrace": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-sealed-trace.jsonl",
+      "originalPath": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-xsm1fv86/类型搜索 重构 调试 😀/trace.jsonl",
+      "sha256": "8da9f618c42c2f38d06f745e90fd4b4767177c69c42775c2d996392ae5194ec0",
+      "bytes": 443286,
+      "records": 582
+    },
+    "finalSourceSHA256": {
+      "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+      "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+      "inline.go": "f87f1c737671e598ad40b68df35a5fe03f92e25d448a1484b4f238cd56012cc0",
+      "inline_other.go": "f35285a12832799574d1926f310db3a7e3444b12c7dc5aae1f7586ffcc7329bb",
+      "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+      "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+    },
+    "allSourceDiskInitialAtExit": true
+  },
+  "nativeAppliedInlineRuntime": {
+    "atUtc": "2026-11-09T09:09:18.252281+00:00",
+    "command": [
+      "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+      "test",
+      "-count=1",
+      "-run",
+      "^TestInlineResults$",
+      "."
+    ],
+    "cwd": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-xsm1fv86/类型搜索 重构 调试 😀",
+    "exitCode": 0,
+    "stdout": "ok  \texample.org/nativeworkflows\t0.984s\n",
+    "stderr": "",
+    "beforeSHA256": {
+      "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+      "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+      "inline.go": "95e47617dec2bba0bb9532401cfd523df9231f2a1f1daa60ffe04fb4028de1de",
+      "inline_other.go": "21b089aa0ec727f6efa68f08d724ed6562a563f65c92936ef44a6264a423e075",
+      "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+      "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+    },
+    "afterSHA256": {
+      "go.mod": "20ea5a5bc93fb627b59218eebdad755509db0eb283a32dcfe3fbe24bd9fc8f35",
+      "types.go": "c04dccb3eaae3d083693b67128962017f76f42497e7bb18b35911703eb320c14",
+      "inline.go": "95e47617dec2bba0bb9532401cfd523df9231f2a1f1daa60ffe04fb4028de1de",
+      "inline_other.go": "21b089aa0ec727f6efa68f08d724ed6562a563f65c92936ef44a6264a423e075",
+      "catalogue.go": "e727a2b0b415ca14f5c0e0b8f6193c997684adf4fbaf77f700d2a6c3198b9b54",
+      "workflows_test.go": "044f41776d64dfe62ba18134b01cbce3e6691f219a74180652327830e929c2c5"
+    },
+    "sourceUnchangedByTool": true,
+    "boundary": "Actual Go runtime of source saved by native cross-file Inline All; separate from native test UI evidence."
+  },
+  "processCleanup": {
+    "recordedCount": 30,
+    "processes": [
+      {
+        "pid": 67080,
+        "ppid": 1,
+        "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea"
+      },
+      {
+        "pid": 67257,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+      },
+      {
+        "pid": 67375,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+      },
+      {
+        "pid": 67509,
+        "ppid": 67080,
+        "comm": "python3"
+      },
+      {
+        "pid": 67510,
+        "ppid": 67509,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls"
+      },
+      {
+        "pid": 67511,
+        "ppid": 67510,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls"
+      },
+      {
+        "pid": 68655,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go"
+      },
+      {
+        "pid": 68656,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 68657,
+        "ppid": 68655,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/pkg/tool/darwin_arm64/test2json"
+      },
+      {
+        "pid": 68660,
+        "ppid": 68656,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 68693,
+        "ppid": 68656,
+        "comm": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver"
+      },
+      {
+        "pid": 68694,
+        "ppid": 68693,
+        "comm": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-xsm1fv86/类型搜索 重构 调试 😀/__debug_bin3810383333"
+      },
+      {
+        "pid": 69028,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go"
+      },
+      {
+        "pid": 69030,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 69031,
+        "ppid": 69028,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/pkg/tool/darwin_arm64/test2json"
+      },
+      {
+        "pid": 69033,
+        "ppid": 69030,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 69063,
+        "ppid": 69030,
+        "comm": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver"
+      },
+      {
+        "pid": 69064,
+        "ppid": 69063,
+        "comm": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-xsm1fv86/类型搜索 重构 调试 😀/__debug_bin3720984913"
+      },
+      {
+        "pid": 69102,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go"
+      },
+      {
+        "pid": 69104,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 69105,
+        "ppid": 69102,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/pkg/tool/darwin_arm64/test2json"
+      },
+      {
+        "pid": 69107,
+        "ppid": 69104,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 69140,
+        "ppid": 69104,
+        "comm": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver"
+      },
+      {
+        "pid": 69141,
+        "ppid": 69140,
+        "comm": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-xsm1fv86/类型搜索 重构 调试 😀/__debug_bin1473482849"
+      },
+      {
+        "pid": 69255,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go"
+      },
+      {
+        "pid": 69257,
+        "ppid": 67080,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 69258,
+        "ppid": 69255,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/pkg/tool/darwin_arm64/test2json"
+      },
+      {
+        "pid": 69260,
+        "ppid": 69257,
+        "comm": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/dlv"
+      },
+      {
+        "pid": 69290,
+        "ppid": 69257,
+        "comm": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver"
+      },
+      {
+        "pid": 69291,
+        "ppid": 69290,
+        "comm": "/Users/wangshubo/develop/openidea-go/.tools/native-workflows-final-xsm1fv86/类型搜索 重构 调试 😀/__debug_bin2607886723"
+      }
+    ],
+    "afterNormalQuit": {
+      "atUtc": "2026-11-09T09:48:01.487598+00:00",
+      "allRecordedPidsAbsent": true,
+      "remainingPids": []
+    },
+    "localRecord": {
+      "path": ".tools/native-workflows-final-owned-pids.json",
+      "sha256": "ed942155b728cedd3cad3c33ad47d94f0ec9417e3ba88705ed95021ad0977b32",
+      "bytes": 8332
+    }
+  },
+  "sessionLog": {
+    "source": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+    "path": ".tools/native-workflows-final-session.log",
+    "sha256": "3d6821398f87b5e5d54386b825b8d52a3a4caf325620b9e4d426dc031a8e2a0c",
+    "bytes": 86780,
+    "lines": 491,
+    "errorOrSevere": [],
+    "warnCount": 94,
+    "boundary": "Session slice from last IDE STARTED marker; warning-free status is not asserted."
+  },
+  "localEvidence": {
+    "observations": {
+      "path": ".tools/native-workflows-final-observations.json",
+      "sha256": "5015d4c48a99237a115eed1c1ab62be9cabc95aa6d43601b8c3921b6737dc121",
+      "bytes": 15652
+    },
+    "closedTrace": {
+      "path": ".tools/native-workflows-final-sealed-trace.jsonl",
+      "sha256": "8da9f618c42c2f38d06f745e90fd4b4767177c69c42775c2d996392ae5194ec0",
+      "bytes": 443286
+    },
+    "inlineRuntime": {
+      "path": ".tools/native-workflows-inline-runtime.json",
+      "sha256": "00e08e9a9a9713f73e199804dc2beb5eafd0958017223069d6db35ed9721fc33",
+      "bytes": 1674
+    }
+  },
+  "limitations": [
+    "AX renderer labels can be stale; actual screenshots ground the selected native frame and tree assertions.",
+    "Independent replay can check retained bytes, source guards and process absence, but cannot independently authenticate the UI observation transcript.",
+    "The closed gopls trace is language-protocol evidence; it does not contain or prove the native DAP test UI.",
+    "No full matched runtime comparison with commercial GoLand is claimed. All36 acceptance rows remain unverified on both axes.",
+    "Local .tools logs are retained untracked; hashes identify those records without publishing the complete raw logs."
+  ],
+  "protocolLogBoundary": {
+    "jsonRpcErrorResponses": 0,
+    "windowLogMessageErrors": [
+      {
+        "oneBasedRecord": 70,
+        "type": 1,
+        "message": "no highlight: line number 23 out of range 0-21"
+      },
+      {
+        "oneBasedRecord": 73,
+        "type": 1,
+        "message": "no highlight: line number 23 out of range 0-21"
+      }
+    ],
+    "pastedTextDidChangeOneBasedRecord": 74,
+    "status": "Document highlight logs report line23 against server lines0–21; the pasted-text didChange is logged later. Highlight/synchronization coordination gap remains open. Concurrent bidirectional log ordinals do not strictly prove wire-arrival order; IDE log ERROR absence is not all-LSP-log error absence.",
+    "observationRecordIndexConvention": "Original refactor automation note record168 is zero-based, equivalent to one-based169.",
+    "pairedRequests": 197,
+    "clientRequests": 193,
+    "serverRequests": 4,
+    "unansweredRequests": 0,
+    "validatedRangeLengths": 19,
+    "validatedIncrementalAndResolveEditRanges": 22,
+    "shutdownMessages": 0,
+    "exitMessages": 0,
+    "workspaceApplyEditMessages": 0,
+    "cancelRequestMessages": 0,
+    "lifecycleBoundary": "Normal app Quit and process absence do not establish an LSP shutdown/exit handshake, which was not captured."
+  },
+  "independentAudit": {
+    "record": {
+      "path": ".tools/native-workflows-native-independent.json",
+      "sha256": "515146a82b9427cd865d879d86407e40a6e86974dcd52770a0dee9cb59a1fe0d",
+      "bytes": 74916
+    },
+    "status": "verified-bounded-protocol-cohort-source-and-owned-process-cleanup",
+    "issues": [],
+    "scope": "Current 395-input cohort, 32 plugin artifacts, two platform patches with nine classes, 21 LSP classes/pin/marker, signature, 197 typed/directional request pairs, UTF-16 changes/resolve ranges, six source baselines and 30 owned processes. Native UI observations belong to root CUA only.",
+    "corrections": "Initial local auditor assumptions about nested codeAction Location and concurrent bidirectional log order were corrected; they were not product failures."
+  }
+}

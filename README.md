@@ -57,6 +57,19 @@ contains module/workspace and engineering actions. File > New > Go Module
 creates a module through the actual Go toolchain. Go Build, Go Test, and Go
 Debug configurations use the platform's native execution and debugger UI.
 
+[Native type search](docs/verification/type-search.md) supplies the standard
+Go To Type / Search Everywhere Types catalog, including selected SDK and
+dependency declarations. [Extract and Inline](docs/verification/native-refactor.md)
+use typed plans, native naming and preview, and global Undo/Redo.
+[Debug test results](docs/verification/debug-test-trees.md) connect both test
+configuration entries to the native test tree and failed-test retry. Each record
+states its supported cases and remaining boundaries.
+The [fresh standalone checks](docs/verification/native-workflows.md) cover cold
+type search, SDK navigation, custom method extraction, two-file Inline All with
+Undo/Redo, both test-debug entries, failed-only retry and Stop cleanup. The search
+host still says Classes and selected searches trigger slow-contributor warnings;
+debug failed retry is currently in the debugger's More menu.
+
 Run > Edit Configurations > **+** also provides these attach configurations:
 
 - **Go Attach to Process**: enter the PID of an existing local Go process and
@@ -200,10 +213,11 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current verification batch passed all 472 Kotlin/platform tests across 98
-reports, with zero failures, errors or skips. The Go race command passed 271 test
-events including subtests (all nine packages cached), and Go vet passed.
-All engine inputs remained unchanged through the hierarchy and package Structure repair.
+The latest complete build passed all 524 Kotlin/platform tests across 108
+reports, with zero failures, errors or skips. The uncached Go race command passed
+329 test events, including 192 top-level tests, across 11 test packages; Go vet
+passed. Its 395 frozen inputs and two earlier failed build attempts are recorded
+separately in the [native-workflows build record](docs/verification/native-workflows-build.json).
 It includes typed test/interface/struct-helper/tag/JSON generation, native tag carets,
 Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,

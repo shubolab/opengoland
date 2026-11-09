@@ -10,11 +10,27 @@ import (
 	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
+	nativerefactor "github.com/shubolab/opengoland/engine/internal/refactor/native"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 	"github.com/shubolab/opengoland/engine/internal/rpc"
+	typesearch "github.com/shubolab/opengoland/engine/internal/search/types"
 )
 
 func main() {
+	if handled, err := nativerefactor.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		return
+	}
+	if handled, err := typesearch.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+			os.Exit(1)
+		}
+		return
+	}
 	if handled, err := jsongen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)

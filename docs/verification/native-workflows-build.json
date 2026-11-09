@@ -1,0 +1,427 @@
+{
+  "schema": "open-goland.native-workflows-build.v1",
+  "status": "complete-build-pass-native-observations-separate",
+  "successfulAttempt": 3,
+  "source": {
+    "baseCommit": "fd5c7035e6edcf8101774538e05da94f0fbd7e74",
+    "inputs": 395,
+    "digest": "625e694e114ab354abdbf57a55bf39fb995b7cb603f0f6d0d7e2072a081d1347",
+    "frozenManifest": {
+      "path": ".tools/native-workflows-final-package-inputs.json",
+      "sha256": "bd532885cd21988e407bd6d67683dbb5cce4001123fd18239e47c35115a17968",
+      "bytes": 68280
+    },
+    "buildProvenance": {
+      "path": "build/provenance/build-inputs.json",
+      "sha256": "bd532885cd21988e407bd6d67683dbb5cce4001123fd18239e47c35115a17968",
+      "bytes": 68280
+    },
+    "currentDiskAndEmbeddedPluginAndAppManifestsMatch": true
+  },
+  "execution": {
+    "command": "OPENGOLAND_GOPLS_TEST=/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls OPENGOLAND_GO_TEST=/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go ./scripts/package-product.sh",
+    "startedAtUtc": "2026-11-09T08:43:14.694947+00:00",
+    "completedAtUtc": "2026-11-09T08:45:25.949649+00:00",
+    "exitCode": 0,
+    "log": {
+      "path": ".tools/native-workflows-package.log",
+      "sha256": "e79f67be85e5e49cac4acb0055f22870bea4eea7394de5b42751ce6a67c89812",
+      "bytes": 92864
+    },
+    "facts": {
+      "path": ".tools/native-workflows-build-facts.json",
+      "sha256": "f21b56e1e4f1c3dba7a852c99fe349753e93a5b5fe9fdfc47a72eab981652c5b",
+      "bytes": 51278
+    }
+  },
+  "kotlin": {
+    "reports": 108,
+    "tests": 524,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "allReportBytesAndTestcaseCountsIndependentlyMatched": true,
+    "selectedSuites": [
+      {
+        "name": "com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest",
+        "tests": 14,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest.xml",
+          "sha256": "38b13171b086b0754149839032d15799751308473655596e5615c174b3ee9cdf",
+          "bytes": 8677
+        }
+      },
+      {
+        "name": "com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest.xml",
+          "sha256": "209dfb8d9dcba0551a989d43f6bb41ff6c5d12efa44564cb736103429adec5b1",
+          "bytes": 3523
+        }
+      },
+      {
+        "name": "dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest.xml",
+          "sha256": "dc5dd59f2988ef15248c1294ba81b153368c0e73ad5014ee663d45ec325d0925",
+          "bytes": 1369
+        }
+      },
+      {
+        "name": "dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest.xml",
+          "sha256": "0087708f45079c91b2aa85ab49a3291d0482163324a6fc5f4702c7a36389cbbf",
+          "bytes": 1109
+        }
+      },
+      {
+        "name": "dev.openidea.goide.debug.GoDebugTestEventsTest",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.debug.GoDebugTestEventsTest.xml",
+          "sha256": "0430bfb76c72f83feb26ef3c437540d0cbe04e7d759f4c0783c6da739be0ab78",
+          "bytes": 8253
+        }
+      },
+      {
+        "name": "dev.openidea.goide.debug.GoDebugTestProfilesTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.debug.GoDebugTestProfilesTest.xml",
+          "sha256": "aa7a8dfae297bce8fb1886b50612f49fa8dde268a22efe2f1e3abd31b16b58a5",
+          "bytes": 669
+        }
+      },
+      {
+        "name": "dev.openidea.goide.engine.EngineClientOutboundTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.engine.EngineClientOutboundTest.xml",
+          "sha256": "3a35680bd76c04e034b00ed0b0263000f4d4f9b02740846b39c203b2cc87af0e",
+          "bytes": 739
+        }
+      },
+      {
+        "name": "dev.openidea.goide.platform.PlatformPsiListenerInitializationTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.platform.PlatformPsiListenerInitializationTest.xml",
+          "sha256": "eeda1715a37bd60b475b669c3b8c5f974c5746b1f995e3aee34081206c066903",
+          "bytes": 924
+        }
+      },
+      {
+        "name": "dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest",
+        "tests": 8,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest.xml",
+          "sha256": "21ee07255ad9c74463c373ff6d142d5159de5e1ea466e9e10258a9e1acfd3bcd",
+          "bytes": 1677
+        }
+      },
+      {
+        "name": "dev.openidea.goide.run.GoRunContextNativeTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "xml": {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.run.GoRunContextNativeTest.xml",
+          "sha256": "9d887845f7cfc07563f9926528017fda976fdac68e7bf16e91ca8d468c847168",
+          "bytes": 1316
+        }
+      }
+    ],
+    "countingPolicy": "Selected suites are subsets of the 524 tests. Component/private reruns and expected RED controls are not added to the complete-suite total."
+  },
+  "go": {
+    "toolchain": "go version go1.24.3 darwin/arm64",
+    "raceExitCode": 0,
+    "vetExitCode": 0,
+    "passTestEvents": 329,
+    "topLevelTests": 192,
+    "packagePasses": 11,
+    "failures": 0,
+    "cachedMarkers": 0,
+    "raceWarningMarkers": 0,
+    "raceTrace": {
+      "path": ".tools/native-workflows-go-race.jsonl",
+      "sha256": "f2ba3330a82105b68633dd9d8e8637e8eb6529b562588f94c298a1b5ecc64786",
+      "bytes": 349540
+    },
+    "vetLog": {
+      "path": ".tools/native-workflows-go-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "sourceGuards": {
+      "path": ".tools/native-workflows-go-checks.json",
+      "sha256": "694eb976a89254d9d997df1047b46a3f41b7126149b94144315ade2c423091e5",
+      "bytes": 28901
+    },
+    "allFinalGoSourcesMatchGuardedRaceAndVetCohort": true,
+    "countingPolicy": "329 pass events include subtests; 192 top-level tests and 11 package passes are separate views, not additional tests."
+  },
+  "product": {
+    "application": "build/product/open Goland.app",
+    "manifest": {
+      "path": "build/product/open Goland.app/Contents/Resources/openidea-product.json",
+      "sha256": "5679e6e884b1237b8895dc78218735b1eb015506aef7a45f95d098e406a5e33b",
+      "bytes": 80652
+    },
+    "pluginArtifacts": {
+      "count": 32,
+      "exactFileSetAndAllHashesMatch": true,
+      "fullMapRef": ".tools/native-workflows-build-facts.json#/artifacts/pluginArtifactSha256",
+      "selected": {
+        "plugins/opengoland/bin/opengoland-engine": "91a3a7560cb4ba18e6ff522e3546f40107bd18fa02525949de91609c179c11e3",
+        "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "e0f62605591bc38569c3f3757e8758130174d4042b3c40f728772eea921b097d",
+        "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "ec6f92576b2d62caf4a9298ec859bcd8c7cc82b4cdde5abe6426f2b607675b44"
+      }
+    },
+    "platformPatches": {
+      "count": 2,
+      "totalClasses": 9,
+      "records": [
+        {
+          "jar": "Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "marker": "META-INF/open-goland-platform-unicode.json",
+          "classCount": 6,
+          "classBytesMatchPinAndMarker": true,
+          "sourceSdkUnchanged": true,
+          "pin": {
+            "path": "product/patches/platform-unicode-2026.1.4.json",
+            "sha256": "33a84919bdecc7312ed03d8e9ca4ed7708cd52c6b6744ddd2eb894034be3a60f",
+            "bytes": 4949
+          }
+        },
+        {
+          "jar": "Contents/lib/intellij.platform.lang.impl.jar",
+          "sha256": "477aba3ad240b13c2676a0011198ce867d6947dc4153afa290131be0b98c04aa",
+          "marker": "META-INF/open-goland-platform-psi-listener.json",
+          "classCount": 3,
+          "classBytesMatchPinAndMarker": true,
+          "sourceSdkUnchanged": true,
+          "pin": {
+            "path": "product/patches/platform-psi-listener-2026.1.4.json",
+            "sha256": "50c9b849ec823b7689b1515a8bbff733674a6e1aec910e184f4c795364388f6c",
+            "bytes": 3938
+          }
+        }
+      ]
+    },
+    "lspPublicPatch": {
+      "jar": "Contents/plugins/lsp4ij/lib/lsp4ij-0.21.0.jar",
+      "sha256": "ec6f92576b2d62caf4a9298ec859bcd8c7cc82b4cdde5abe6426f2b607675b44",
+      "marker": "META-INF/open-goland-document-sync.json",
+      "patchSha256": "c3caaafb453e35d5926e5f25e02b299af0bd7d81e624584b657ee2d611ccbd5c",
+      "classCount": 21,
+      "classBytesMatchFinalPinAndMarker": true,
+      "pin": {
+        "path": "product/patches/lsp4ij-0.21.0-document-sync.json",
+        "sha256": "901e9fa85b49bc35487dbfacc59f11b0469aab65b884a05ea5af498b8d2c47f6",
+        "bytes": 38744
+      }
+    },
+    "signature": {
+      "command": "codesign --verify --deep --strict build/product/open Goland.app",
+      "exitCode": 0,
+      "detailsRef": ".tools/native-workflows-build-independent.json#/codesign"
+    }
+  },
+  "independentAudit": {
+    "record": {
+      "path": ".tools/native-workflows-build-independent.json",
+      "sha256": "6df25762b388307df88a82d59a01eb3d193cb0c0ea3456e49eb09c55297b512a",
+      "bytes": 16543
+    },
+    "status": "verified-build-only-native-not-assessed",
+    "issues": [],
+    "scope": "Current disk inputs, embedded provenance, XML counts/hashes, guarded Go sources and logs, complete plugin artifact set, platform/LSP class entries, immutable SDK hashes and strict signature verification."
+  },
+  "historicalFailedAttempts": [
+    {
+      "attempt": 1,
+      "status": "failed",
+      "sourceInputs": 392,
+      "sourceDigest": "41fc748432833a65bb88a02a7e15ea77a4ef7b7d51c625afd0ce800919a9b164",
+      "manifest": {
+        "path": ".tools/native-workflows-initial-build/build-inputs.json",
+        "sha256": "e71457e0ae98b843c4788e549d1c5daea5efc230a642fb3ab2bfa571fd8aa320",
+        "bytes": 67751
+      },
+      "facts": {
+        "path": ".tools/native-workflows-initial-build/facts.json",
+        "sha256": "ed83e37e73d4abf7c315e0465cdd3bac29450b06695e987258f80751f9f5d92d",
+        "bytes": 84834
+      },
+      "command": {
+        "path": ".tools/native-workflows-initial-build/command.json",
+        "sha256": "c0fbc22f4afff9a2afd3d5b23fbbcbab1802c674f53c8ad3a86d0ce268303cff",
+        "bytes": 341
+      },
+      "log": {
+        "path": ".tools/native-workflows-initial-build/package.log",
+        "sha256": "c7874ec4b3ae71aebec7b1c81f4f453231003339779aa3f1b663574b511d154e",
+        "bytes": 23076
+      },
+      "kotlin": {
+        "reports": 107,
+        "tests": 520,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "boundary": "Historical failed build; its inputs, reports and failures are preserved separately and are not the successful third cohort."
+    },
+    {
+      "attempt": 2,
+      "status": "failed",
+      "sourceInputs": 392,
+      "sourceDigest": "c83d5e623610b4ce3b46a51f0fefed0d3c2d0adca63170f7d0cb8276b92ac834",
+      "manifest": {
+        "path": ".tools/native-workflows-second-build/build-inputs.json",
+        "sha256": "966e3e8c08bc3219eace064a76f7b241cfa8e8665a0cf71c6ebf665df30a90e0",
+        "bytes": 67751
+      },
+      "facts": {
+        "path": ".tools/native-workflows-second-build/facts.json",
+        "sha256": "2e9bd3eb9cd78ea2d650dd3cfff32b4950d63d874614a8d3b45696625f80fa3f",
+        "bytes": 872635
+      },
+      "command": {
+        "path": ".tools/native-workflows-second-build/command.json",
+        "sha256": "8f5bd3ec928dc34e1f5cd8923809c0088559072d535ac1fc55ca424cc30be919",
+        "bytes": 413
+      },
+      "log": {
+        "path": ".tools/native-workflows-second-build/package.log",
+        "sha256": "29acaf7dd9e56bf2f6a303a8413b2479985e0721cf7001badf49c5723a639fb0",
+        "bytes": 25194
+      },
+      "kotlin": {
+        "reports": 107,
+        "tests": 521,
+        "failures": 62,
+        "errors": 0,
+        "skipped": 0
+      },
+      "boundary": "Historical failed build; its inputs, reports and failures are preserved separately and are not the successful third cohort."
+    }
+  ],
+  "componentProofIndex": {
+    "records": [
+      {
+        "scope": "go-type-catalog",
+        "record": {
+          "path": ".tools/type-catalog/evidence.json",
+          "sha256": "61a4712b8ca213cb6c85ef01aa56ec7a8b49904be8cd4d1fae52a157a3822ce2",
+          "bytes": 3628
+        }
+      },
+      {
+        "scope": "native-type-search",
+        "record": {
+          "path": ".tools/go-type-search/evidence.json",
+          "sha256": "6909a90e4e2f33446b26f65e3173d6730e42e32368fe8c09bfc47724830884cf",
+          "bytes": 68373
+        }
+      },
+      {
+        "scope": "native-refactoring",
+        "record": {
+          "path": ".tools/native-refactor/final-evidence.json",
+          "sha256": "33e48dfeb4685a010f5ed46aeeb1f442b93c9192bef87d31fbd1af6070b06749",
+          "bytes": 8122
+        }
+      },
+      {
+        "scope": "debug-test-controls",
+        "record": {
+          "path": ".tools/debug-test/final-evidence.json",
+          "sha256": "8ebd1d9394b903c3040e8ef9b6f0390e8e423de61588707c1fb9972a84414754",
+          "bytes": 31468
+        }
+      },
+      {
+        "scope": "debug-events-read-access",
+        "record": {
+          "path": ".tools/debug-test/events-read-lock-evidence.json",
+          "sha256": "ac1646cacdf6b7370c71adc258e011b74484c1e35abf561304a6b5fdc14d3662",
+          "bytes": 3345
+        }
+      },
+      {
+        "scope": "shared-engine-outbound-framing",
+        "record": {
+          "path": ".tools/debug-test/outbound-final-evidence.json",
+          "sha256": "39614a353f5020af24d8c057e659e9cba265d709965d28968f235f068a9ebb54",
+          "bytes": 6203
+        }
+      },
+      {
+        "scope": "native-gutter-indexing-fixture",
+        "record": {
+          "path": ".tools/native-gutter-indexing/evidence.json",
+          "sha256": "217c4c6d597bc722fae05a4aa0617aaa5d25bb0456543472babc024a5efebda5",
+          "bytes": 4963
+        }
+      },
+      {
+        "scope": "platform-listener-constructor-mechanism",
+        "record": {
+          "path": ".tools/psi-change-init/evidence.json",
+          "sha256": "987677357db09a6018d04821d44cef346b3fa508f6a816cb030adaeffdeef4b1",
+          "bytes": 4780
+        }
+      },
+      {
+        "scope": "default-platform-loader-artifact",
+        "record": {
+          "path": ".tools/native-gutter-indexing/platform-origin-final-known-runtime-resource-uri/evidence.json",
+          "sha256": "6403f213c2bb8a0571688d0b9e9aaaee9de2cf88ec330fc8c13fae240228373f",
+          "bytes": 5190
+        }
+      }
+    ],
+    "countingPolicy": "The corresponding formal Kotlin/Go suites are already represented in the complete-suite totals above. Private repeated controls, independent gopls/Delve sessions and expected-failure baselines are supplemental evidence and are neither extra suite passes nor native desktop acceptance."
+  },
+  "boundary": [
+    "The three build attempts retain distinct source digests and report sets; neither failed attempt is relabeled as the successful final cohort.",
+    "This record covers the successful complete build and read-only artifact audit. Fresh native observations are recorded separately.",
+    "A passed build, local controls and signature verification do not establish complete GoLand equivalence, exhaustive concurrency safety, all scopes/build contexts or final acceptance-matrix completion."
+  ],
+  "nativeDesktopRecord": "native-workflows-native.json"
+}

@@ -28,7 +28,8 @@ class GoDebugRunnerEligibilityTest {
         val dap = DAPDebugRunner()
         for (kind in GoRunKind.entries) {
             val configuration = GoRunConfiguration(project, factory, "Go ${kind.name}", kind)
-            assertTrue(dap.canRun(DefaultDebugExecutor.EXECUTOR_ID, configuration))
+            assertTrue(dap.canRun(DefaultDebugExecutor.EXECUTOR_ID, configuration) == (kind != GoRunKind.TEST))
+            assertTrue(GoDebugTestRunner().canRun(DefaultDebugExecutor.EXECUTOR_ID, configuration) == (kind == GoRunKind.TEST))
             assertFalse(dap.canRun(DefaultRunExecutor.EXECUTOR_ID, configuration))
             assertFalse(dap.canRun("Coverage", configuration))
             assertTrue(GoProgramRunner().canRun(DefaultRunExecutor.EXECUTOR_ID, configuration))

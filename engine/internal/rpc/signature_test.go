@@ -11,7 +11,9 @@ import (
 	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
+	nativerefactor "github.com/shubolab/opengoland/engine/internal/refactor/native"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
+	typesearch "github.com/shubolab/opengoland/engine/internal/search/types"
 )
 
 func TestSignatureRPCInspectPlanAndNativeBaselines(t *testing.T) {
@@ -102,6 +104,20 @@ func TestSignatureCancellationIsolationDuplicatesAndShutdown(t *testing.T) {
 }
 
 func TestMain(m *testing.M) {
+	if handled, err := nativerefactor.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			os.Stderr.WriteString(err.Error())
+			os.Exit(1)
+		}
+		return
+	}
+	if handled, err := typesearch.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
+		if err != nil {
+			os.Stderr.WriteString(err.Error())
+			os.Exit(1)
+		}
+		return
+	}
 	if handled, err := jsongen.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			os.Exit(1)

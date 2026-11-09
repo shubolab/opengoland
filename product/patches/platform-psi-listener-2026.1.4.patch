@@ -1,0 +1,18 @@
+--- a/platform/lang-impl/src/com/intellij/codeInsight/daemon/impl/PsiChangeHandler.java
++++ b/platform/lang-impl/src/com/intellij/codeInsight/daemon/impl/PsiChangeHandler.java
+@@ -62,6 +62,7 @@
+   PsiChangeHandler(@NotNull Project project, @NotNull DaemonCodeAnalyzerEx daemonCodeAnalyzerEx, @NotNull Disposable parentDisposable) {
+     myProject = project;
+     myFileStatusMap = daemonCodeAnalyzerEx.getFileStatusMap();
++    myUpdateFileStatusAlarm = new Alarm(Alarm.ThreadToUse.POOLED_THREAD, parentDisposable);
+     DocumentAfterCommitListener.listen(project, parentDisposable, document -> updateChangesForDocument(document));
+     EditorFactory.getInstance().getEventMulticaster().addDocumentListener(ProjectDisposeAwareDocumentListener.create(project, new DocumentListener() {
+       @Override
+@@ -69,7 +70,6 @@
+         myFileStatusMap.addDocumentCompositeDirtyRange(event);
+       }
+     }), parentDisposable);
+-    myUpdateFileStatusAlarm = new Alarm(Alarm.ThreadToUse.POOLED_THREAD, parentDisposable);
+   }
+ 
+   private void updateChangesForDocument(@NotNull Document document) {

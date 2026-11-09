@@ -1,0 +1,232 @@
+{
+  "scope": "Captured parent-owned real gopls v0.21.1 responses; planners do not contact gopls in these replay regressions. Source/candidates independently compile-tested by parent before capture.",
+  "reportSHA256": "bb8864bafa5e4c9e679351bef7f66196e014916c2b909d7c7b1601a02b7cc9e2",
+  "files": {
+    "go.mod": "module example.org/nativerefactor\n\ngo 1.24.0\n",
+    "model_test.go": "package sample\nimport \"testing\"\nfunc TestBaseline(t *testing.T) { if T(4).Keep()!=5 || Compute()!=10 { t.Fatal(\"baseline\") } }\n",
+    "model.go": "package sample\n\ntype T int\nfunc(t T) newMethod() {}\nfunc(t T) Keep() int {\n result := int(t)+1\n println(result)\n return result\n}\nfunc Compute() int {\n return len(\"前😀\") + 3\n}\n"
+  },
+  "cases": [
+    {
+      "label": "method-conflict",
+      "kind": "extract.function",
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 1
+        },
+        "end": {
+          "line": 6,
+          "character": 16
+        }
+      },
+      "edit": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 1,
+              "uri": "file:///fixture/model.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 8,
+                    "character": 1
+                  }
+                },
+                "newText": "func(t T) Keep() int {\n result := newFunction(t)\n return result\n}\n\nfunc newFunction(t T) int {\n\tresult := int(t) + 1\n\tprintln(result)\n\treturn result\n}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "method-conflict",
+      "kind": "extract.method",
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 1
+        },
+        "end": {
+          "line": 6,
+          "character": 16
+        }
+      },
+      "edit": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 1,
+              "uri": "file:///fixture/model.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 8,
+                    "character": 1
+                  }
+                },
+                "newText": "func(t T) Keep() int {\n result := t.newMethod()\n return result\n}\n\nfunc (t T) newMethod() int {\n\tresult := int(t) + 1\n\tprintln(result)\n\treturn result\n}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "constant",
+      "kind": "extract.constant",
+      "selection": {
+        "start": {
+          "line": 10,
+          "character": 8
+        },
+        "end": {
+          "line": 10,
+          "character": 22
+        }
+      },
+      "edit": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 1,
+              "uri": "file:///fixture/model.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 10,
+                    "character": 1
+                  },
+                  "end": {
+                    "line": 10,
+                    "character": 1
+                  }
+                },
+                "newText": "const newConst = len(\"前😀\") + 3\n "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 10,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 10,
+                    "character": 22
+                  }
+                },
+                "newText": "newConst"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "variable",
+      "kind": "extract.variable",
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 11
+        },
+        "end": {
+          "line": 5,
+          "character": 19
+        }
+      },
+      "edit": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 1,
+              "uri": "file:///fixture/model.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 1
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 1
+                  }
+                },
+                "newText": "newVar := int(t) + 1\n "
+              },
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 11
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 19
+                  }
+                },
+                "newText": "newVar"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "inline-local",
+      "kind": "inline.variable",
+      "selection": {
+        "start": {
+          "line": 7,
+          "character": 8
+        },
+        "end": {
+          "line": 7,
+          "character": 14
+        }
+      },
+      "edit": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 1,
+              "uri": "file:///fixture/model.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 7,
+                    "character": 8
+                  },
+                  "end": {
+                    "line": 7,
+                    "character": 14
+                  }
+                },
+                "newText": "int(t) + 1"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -76,9 +76,33 @@ val preparePlatformUnicodePatch by tasks.registering(Exec::class) {
     commandLine("python3", "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
         "--output", platformUnicodeManifest.get().asFile.absolutePath)
 }
+val platformPsiListenerManifest = layout.buildDirectory.file("provenance/platform-psi-listener-patch.json")
+val platformPsiListenerJar = layout.buildDirectory.file("platform-patches/psi-listener/intellij.platform.lang.impl.jar")
+val preparePlatformPsiListenerPatch by tasks.registering(Exec::class) {
+    description = "Verify and build the public platform listener initialization repair."
+    inputs.files("scripts/patch-platform-unicode.py", fileTree("product/patches") { include("platform-psi-listener*") })
+    inputs.property("platformPath", platformPath)
+    outputs.files(platformPsiListenerManifest, platformPsiListenerJar)
+    outputs.upToDateWhen { false }
+    commandLine("python3", "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
+        "--pin", "product/patches/platform-psi-listener-2026.1.4.json",
+        "--marker", "META-INF/open-goland-platform-psi-listener.json",
+        "--cache-name", "platform-psi-listener",
+        "--jar-output", platformPsiListenerJar.get().asFile.absolutePath,
+        "--output", platformPsiListenerManifest.get().asFile.absolutePath)
+}
 tasks.test {
-    dependsOn(preparePlatformUnicodePatch)
+    dependsOn(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch)
     systemProperty("openidea.platformUnicodePatchManifest", platformUnicodeManifest.get().asFile.absolutePath)
+    systemProperty("openidea.platformPsiListenerPatchManifest", platformPsiListenerManifest.get().asFile.absolutePath)
+    inputs.file(platformPsiListenerManifest)
+    val originalRuntime = classpath
+    classpath = files(originalRuntime.elements.map { locations ->
+        val upstream = file("${platformPath.get()}/Contents/lib/intellij.platform.lang.impl.jar").canonicalFile
+        val runtime = locations.map { it.asFile }
+        check(runtime.count { it.canonicalFile == upstream } == 1) { "Expected exactly one pinned platform language implementation JAR" }
+        runtime.map { if (it.canonicalFile == upstream) platformPsiListenerJar.get().asFile else it }
+    }).builtBy(preparePlatformPsiListenerPatch)
 }
 val captureBuildInputs by tasks.registering(Exec::class) {
     inputs.files(fileTree("src"), fileTree("engine") { include("**/*.go", "go.mod", "go.sum", "licenses/**") })

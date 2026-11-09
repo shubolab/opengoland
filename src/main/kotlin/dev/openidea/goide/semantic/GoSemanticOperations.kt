@@ -7,6 +7,7 @@ import com.intellij.openapi.application.WriteIntentReadAction
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.Document
+import com.intellij.openapi.editor.ex.DocumentEx
 import com.intellij.openapi.progress.ProcessCanceledException
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.openapi.progress.Task
@@ -39,11 +40,13 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
 import java.util.concurrent.locks.ReentrantLock
 
-internal data class GoSemanticContext(val file: PsiFile, val editor: Editor?, val document: Document, val uri: String, val range: Range, val stamp: Long, val word: String) {
+internal data class GoSemanticContext(val file: PsiFile, val editor: Editor?, val document: Document, val uri: String, val range: Range, val stamp: Long, val word: String,
+                                     val sequence: Int? = (document as? DocumentEx)?.modificationSequence) {
     fun checkCurrent() {
         ReadAction.run<RuntimeException> {
             check(file.isValid && editor?.isDisposed != true) { "The Go editor was closed" }
             check(document.modificationStamp == stamp) { "The document changed. Run the action again." }
+            check(sequence == null || (document as DocumentEx).modificationSequence == sequence) { "The document changed, including an edit followed by Undo. Run the action again." }
         }
     }
 }
@@ -96,7 +99,9 @@ class GoSemanticOperations(private val project: Project) : Disposable {
 
     internal fun actions(context: GoSemanticContext, kind: String, indicator: ProgressIndicator): List<CodeActionData> {
         context.checkCurrent()
-        val params = CodeActionParams(TextDocumentIdentifier(context.uri), context.range, CodeActionContext(emptyList(), listOf(kind)))
+        val params = CodeActionParams(TextDocumentIdentifier(context.uri), context.range, CodeActionContext(emptyList(), listOf(kind)).apply {
+            triggerKind = org.eclipse.lsp4j.CodeActionTriggerKind.Invoked
+        })
         return await(LSPIntentionCodeActionSupport(context.file).getCodeActions(params), indicator)
             .filter { it.languageServer().serverDefinition.id == "openidea.gopls" && (it.codeAction().isLeft || it.codeAction().right.disabled == null) }
     }

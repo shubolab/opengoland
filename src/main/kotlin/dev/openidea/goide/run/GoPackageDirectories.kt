@@ -18,7 +18,10 @@ data class GoPackageMetadata(val directories: Map<String, String>, val modules: 
 object GoPackageDirectories {
     fun load(project: Project, values: GoRunParameters, cwd: Path): Map<String, String> = loadMetadata(project, values, cwd).directories
 
-    fun loadMetadata(project: Project, values: GoRunParameters, cwd: Path): GoPackageMetadata {
+    fun loadMetadata(project: Project, values: GoRunParameters, cwd: Path): GoPackageMetadata =
+        loadMetadata(project, values, cwd, GoToolchain.capture(project))
+
+    fun loadMetadata(project: Project, values: GoRunParameters, cwd: Path, settings: GoToolchain.Settings): GoPackageMetadata {
         return runCatching {
             val options = ParametersListUtil.parse(values.buildFlags, false, true)
             val metadataFlags = mutableListOf<String>()
@@ -31,11 +34,11 @@ object GoPackageDirectories {
                 } else if (listOf("-tags=", "-mod=", "-modfile=", "-overlay=", "-compiler=").any(flag::startsWith)) metadataFlags += flag
             }
             if (metadataFlags.none { it == "-tags" || it.startsWith("-tags=") }) {
-                val tags = GoProjectSettings.get(project).buildTags.split(Regex("[,\\s]+")).filter(String::isNotBlank)
+                val tags = settings.buildTags.split(Regex("[,\\s]+")).filter(String::isNotBlank)
                 if (tags.isNotEmpty()) metadataFlags += "-tags=${tags.joinToString(",")}"
             }
             val targets = ParametersListUtil.parse(values.target, false, true).ifEmpty { listOf(".") }
-            val command = GoToolchain.command(project, "go", listOf("list", "-e", "-json=ImportPath,Dir,Module") + metadataFlags + targets)
+            val command = GoToolchain.command(project, "go", listOf("list", "-e", "-json=ImportPath,Dir,Module") + metadataFlags + targets, settings)
                 .withWorkingDirectory(cwd).withEnvironment(values.environment)
             if (!values.passParentEnvironment) command.withParentEnvironmentType(GeneralCommandLine.ParentEnvironmentType.NONE)
             val handler = CapturingProcessHandler(command)

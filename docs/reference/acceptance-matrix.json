@@ -45,7 +45,11 @@
         "observation": "Two native tag value carets, Chinese/emoji paste and one-step Undo/Redo preserved other keys/options and generated methods. This does not prove all multicaret/caret/selection/dirty-close interaction or commercial parity.",
         "editor_typing": "../verification/editor-typing.md",
         "editor_typing_native": "../verification/editor-typing-native.json",
-        "typing_observation": "Native quote pair/delete/overtype, Chinese/emoji paste, nested/call Enter, typed case/closer alignment, comment split and one-step Undo/Redo passed in the d4b5eabb standalone cohort. Full selection, multicaret, IME and dirty-close parity remain open."
+        "typing_observation": "Native quote pair/delete/overtype, Chinese/emoji paste, nested/call Enter, typed case/closer alignment, comment split and one-step Undo/Redo passed in the d4b5eabb standalone cohort. Full selection, multicaret, IME and dirty-close parity remain open.",
+        "native_workflows": "../verification/native-workflows.md",
+        "native_workflows_native": "../verification/native-workflows-native.json",
+        "native_workflows_build": "../verification/native-workflows-build.json",
+        "native_workflows_observation": "Native extraction and two-file Inline All support one-step Undo/Redo in the 395-input 625e694e standalone cohort. Dirty type close/reopen and subsequent Undo are observed; disk checkpoints do not prove an unsaved disk state immediately after close. Full editor/IME/multicaret/close parity remains open."
       }
     },
     {
@@ -64,7 +68,13 @@
       "reference": "Selected platform keymaps",
       "probe": "Keyboard-only navigation with matching macOS keymap; escape and focus restoration; verify destinations",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "type_search": "../verification/native-workflows.md",
+        "type_search_native": "../verification/native-workflows-native.json",
+        "type_search_build": "../verification/native-workflows-build.json",
+        "type_search_observation": "Cold Cmd+O finds a struct, named function type, alias and CatalogueNeedle239. All Places bytes.Buffer opens SDK source at 20:6. Closed edited-type navigation and fresh no-result after Undo pass. The host tab still says Classes; slow-contributor warnings and all search/focus/history parity remain open."
+      }
     },
     {
       "id": "UI-05",
@@ -196,7 +206,11 @@
         "package_structure": "../verification/structure-package.md",
         "package_structure_native": "../verification/structure-package-native.json",
         "package_structure_reference": "structure-package-reference.json",
-        "package_structure_observation": "The later351-input920334cb package passes472 controlled tests including27 package,8 grouping,6 controls and7 actual-popup-selection cases. Fresh native PID26222 passes first/reopened/body Lookup and TestOnly selection, package/current-file and private filtering, cross-file Rename3:18, dirty unresolved receiver closed-buffer reopening9:16/Undo7:1, external-test isolation and2 uncached Go tests including CGO. Initial350-input92f0de1a PID22681 parent-Record preselectionFAIL is retained independently. Initial toolwindow Alpha/export toggles are not relabeled as final native evidence. Syntax-based gopls grouping, all options/build contexts/scopes and commercial runtime equivalence remain open."
+        "package_structure_observation": "The later351-input920334cb package passes472 controlled tests including27 package,8 grouping,6 controls and7 actual-popup-selection cases. Fresh native PID26222 passes first/reopened/body Lookup and TestOnly selection, package/current-file and private filtering, cross-file Rename3:18, dirty unresolved receiver closed-buffer reopening9:16/Undo7:1, external-test isolation and2 uncached Go tests including CGO. Initial350-input92f0de1a PID22681 parent-Record preselectionFAIL is retained independently. Initial toolwindow Alpha/export toggles are not relabeled as final native evidence. Syntax-based gopls grouping, all options/build contexts/scopes and commercial runtime equivalence remain open.",
+        "type_search": "../verification/native-workflows.md",
+        "type_search_native": "../verification/native-workflows-native.json",
+        "type_search_build": "../verification/native-workflows-build.json",
+        "type_search_observation": "The 395-input 625e694e native catalog finds types before any Go editor/gopls launch, opens selected SDK bytes.Buffer and refreshes a closed edited type after Undo. Fourteen native chooser and two engine integration cases are included in 524; complete scope/build/performance/navigation parity remains open."
       }
     },
     {
@@ -260,7 +274,13 @@
       "reference": "GoMoveDeclarationDelegate, GoIntroduceTypeAction, GoRefactoringSupportProvider",
       "probe": "Extract selection, inline function and move exported declaration across packages; verify references and undo",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "native_refactor": "../verification/native-workflows.md",
+        "native_refactor_native": "../verification/native-workflows-native.json",
+        "native_refactor_build": "../verification/native-workflows-build.json",
+        "native_refactor_observation": "Standard Extract Method previews custom ComputeWork while preserving old newMethod; Cancel/Apply/Undo/Redo pass. Declaration Inline All previews two files, removes the unused helper, and the saved result passes actual Go TestInlineResults. One Undo/Redo from the second file restores both. Conservative conflicts, move/introduce-type and complete semantics/UX parity remain open."
+      }
     },
     {
       "id": "LANG-09",
@@ -331,7 +351,11 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "Native blocking test showed running node and Unicode output before finish; dynamic/parallel children yielded8 passed. Snapshot867caa4 corrected suite/root duration. Failure navigation/rerun full scope remains open."
+        "observation": "Native blocking test showed running node and Unicode output before finish; dynamic/parallel children yielded8 passed. Snapshot867caa4 corrected suite/root duration. Failure navigation/rerun full scope remains open.",
+        "debug_test_tree": "../verification/native-workflows.md",
+        "debug_test_tree_native": "../verification/native-workflows-native.json",
+        "debug_test_tree_build": "../verification/native-workflows-build.json",
+        "debug_test_tree_observation": "Fresh native standard Go Test Debug shows a running tree, one passed/one failed and failure jump to 25:13. Manual Go Debug mode=test shows one passed. Failing target/execution 1 remains distinct from adapter 0. All nested/parallel/package errors and complete parity remain open."
       }
     },
     {
@@ -345,7 +369,11 @@
       "partial_evidence": {
         "source": "../verification/native-test-workflows.md",
         "native_record": "../verification/native-test-workflows.json",
-        "observation": "Real mutation JSON now binds its saved input by package/function and failure confirmation; real Go rerun test executes only the new hash. Native context Run independently reproduced one saved failure. Mutation-result toolbar rerun and complete cross-package/nested cases remain open."
+        "observation": "Real mutation JSON now binds its saved input by package/function and failure confirmation; real Go rerun test executes only the new hash. Native context Run independently reproduced one saved failure. Mutation-result toolbar rerun and complete cross-package/nested cases remain open.",
+        "debug_failed_retry": "../verification/native-workflows.md",
+        "debug_failed_retry_native": "../verification/native-workflows-native.json",
+        "debug_failed_retry_build": "../verification/native-workflows-build.json",
+        "debug_failed_retry_observation": "Actual new Debugger More → Rerun Failed Go Tests creates a fresh fails-only Debug session with one failed/one total; console RUN excludes the passing sibling. The custom action is not a global AbstractRerunFailedTestsAction delegate. Cross-package/all shortcut/scope parity remains open."
       }
     },
     {
@@ -385,7 +413,11 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "Native launch breakpoint main.go:15, locals/interface, expression value 25, step to16 and resume exit0 observed in b496a85. Unit-test/HTTP/conditional-breakpoint scopes remain unverified."
+        "observation": "Native launch breakpoint main.go:15, locals/interface, expression value 25, step to16 and resume exit0 observed in b496a85. Unit-test/HTTP/conditional-breakpoint scopes remain unverified.",
+        "debug_test_tree": "../verification/native-workflows.md",
+        "debug_test_tree_native": "../verification/native-workflows-native.json",
+        "debug_test_tree_build": "../verification/native-workflows-build.json",
+        "debug_test_tree_observation": "Standard, failed-only and manual test Debug show native TestMain:12/marker=42, Continue and actual target/execution codes 1, 1 and 0. Stop before tests marks Ignored with an explicit stopped diagnostic; cancellation execution 0 is not natural target 0. All other breakpoint/step/evaluation and full test/debug parity remain open."
       }
     },
     {
@@ -493,7 +525,11 @@
         "navigation_cache_native": "../verification/standard-navigation-native.json",
         "navigation_cache_observation": "Final 7284c945 native repeated same-source/caret queries refresh for only a moved dirty target and for a newly compatible third-file implementation. Final 11 controlled cache and 5 actual-gopls regressions are included in 404. Normal native exit left six recorded owned PIDs absent and all 12 fixture files at initial hashes. Broad cancellation, project/server disposal, unobserved dependency/build/SDK changes and all modal/queued lifetimes remain open. Its concurrent-offset boundary is superseded by the later parameter-gate record.",
         "navigation_parameter_gate": "../verification/hierarchy-structure.md",
-        "navigation_parameter_gate_observation": "Four navigation getters now share the base future monitor across previousOffset/cancellation/publication. Deterministic actual-SDK baseline4/4 RED and repair4/4 GREEN verify distinct positions/targets and stable reuse. Included in final424 tests;21 pinned classes match,17 unchanged. This is controlled concurrency evidence, not native simultaneous-query or complete race coverage."
+        "navigation_parameter_gate_observation": "Four navigation getters now share the base future monitor across previousOffset/cancellation/publication. Deterministic actual-SDK baseline4/4 RED and repair4/4 GREEN verify distinct positions/targets and stable reuse. Included in final424 tests;21 pinned classes match,17 unchanged. This is controlled concurrency evidence, not native simultaneous-query or complete race coverage.",
+        "native_workflows": "../verification/native-workflows.md",
+        "native_workflows_native": "../verification/native-workflows-native.json",
+        "native_workflows_build": "../verification/native-workflows-build.json",
+        "native_workflows_observation": "The final 395-input package passes 524 platform tests after a pinned public PSI listener constructor-order repair. A deterministic interruption baseline RED/fix GREEN does not identify the original full-suite trigger. Oversized UTF-8 envelopes reject before write and preserve the shared engine in controlled cases. Native Stop cleans recorded debug descendants; normal Quit leaves all 30 recorded owned PIDs absent and six source hashes initial. Full race/lifecycle/close/SDK scope parity remains open. The sealed LSP trace has two error-level documentHighlight logs reporting the old line range after paste; synchronization/highlight coordination remains open. Concurrent trace ordinals are not a strict wire-arrival clock."
       }
     },
     {

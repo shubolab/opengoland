@@ -1,0 +1,146 @@
+{
+  "schema": "open-goland.native-workflows-reference.v1",
+  "classification": "Separate static reference declarations, official documentation, public-source contracts and owned backend/native controls; no commercial implementation or runtime reconstruction proof",
+  "recordedAtUtc": "2026-11-09T07:39:28.319201+00:00",
+  "installedReference": {
+    "application": "/Users/wangshubo/Applications/GoLand.app",
+    "version": "2026.1.4",
+    "build": "GO-261.26222.72",
+    "frontendArchive": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+    "frontendArchiveSHA256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536",
+    "reaInventoryEvidenceId": "ev_dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4",
+    "resource": "messages/GoBundle.properties",
+    "resourceSHA256": "e042135ed9a5159235b144ac919a1ba083778f8e4b6296261049d64d67c8b3e1",
+    "selectedEntries": [
+      {
+        "line": 1388,
+        "key": "go.refactoring.inline.options.dialog.all.remove",
+        "value": "Inline &all invocations and remove declaration"
+      },
+      {
+        "line": 1389,
+        "key": "go.refactoring.inline.options.dialog.all.keep",
+        "value": "Inline all invocations and &keep declaration"
+      },
+      {
+        "line": 1390,
+        "key": "go.refactoring.inline.options.dialog.this.keep",
+        "value": "Inline &this invocation only and keep declaration"
+      },
+      {
+        "line": 1425,
+        "key": "go.refactoring.introduce.extract.function.title",
+        "value": "Extract Function"
+      },
+      {
+        "line": 1428,
+        "key": "go.refactoring.introduce.extract.variable.command",
+        "value": "Extract variable"
+      },
+      {
+        "line": 1429,
+        "key": "go.refactoring.introduce.extract.method.or.function.title",
+        "value": "Extract Method Or Function"
+      }
+    ],
+    "identityBoundary": "The current archive/resource hashes match the previously authenticated retained REA inventory. Only selected resource text was read; no proprietary implementation classes, user settings, license data or reference projects were read or modified. No new reference app runtime was launched."
+  },
+  "publicDocumentation": [
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/searching-everywhere.html",
+      "observation": "The versioned help documents native type/file/symbol search and extension to non-project places. It does not prove current installed runtime or every native scope/default."
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/extract-method.html",
+      "observation": "The Go-specific article describes selection/caret extraction and naming through the standard Extract Method action, with early-return behavior. It does not establish the reconstruction implements every control-flow case."
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/extract-variable.html",
+      "observation": "The Go-specific article describes caret/selection extraction, occurrence scope and naming. These obligations exceed merely invoking an arbitrary LSP action."
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/inline.html",
+      "observation": "The Go examples distinguish all uses with declaration removal/retention and this-use-only retention. One stray CLion sentence is not used as Go behavior evidence."
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/performing-tests.html",
+      "observation": "The versioned article documents test results, failed-test rerun, debugging and Stop. Cross-language JUnit/TestNG material and outdated platform-support lists are not imported as Go contracts."
+    }
+  ],
+  "ownedBackendControls": {
+    "goplsTypeSearch": {
+      "path": ".tools/gopls-type-search-d5yny0s2/report.json",
+      "sha256": "02f18cc3081db92c48b3452a7ea43744c065e927540dc5b67ea03b9441ba36f8"
+    },
+    "goplsExtraction": {
+      "path": ".tools/gopls-native-refactor-invoked-4x0gn4f9/report.json",
+      "sha256": "bb8864bafa5e4c9e679351bef7f66196e014916c2b909d7c7b1601a02b7cc9e2"
+    },
+    "rawCandidateCompilation": {
+      "path": ".tools/gopls-native-refactor-invoked-4x0gn4f9/candidate-checks.json",
+      "sha256": "c53e66c0332ca15b98b82dbccf08bd507d4dcb3f1b8b5bd3d8adc5bc54d64ff9"
+    },
+    "unknownTriggerSameRanges": {
+      "path": ".tools/gopls-native-refactor-unknown-4s1xvrte/report.json",
+      "sha256": "7c79ecc4016abb4d608611708cfc23a76ce3672a3daa3e189419f8806d4e1e91"
+    },
+    "extractionRuntimeEffects": {
+      "path": ".tools/gopls-extract-effects-4i7a4u4l/report.json",
+      "sha256": "e709f4010eef8a91c70fedf4a582c19bef821e1054fb10236aa679d1da181a8a"
+    },
+    "observations": [
+      "Actual gopls returns named function types as Function, while ordinary upstream class filtering excludes that kind. A broad query returns100 entries; its type remains present in this fixture, so this control does not demonstrate a particular missing type.",
+      "Exact same ranges/capabilities with explicit Invoked versus omitted trigger both return the tested extraction/inline actions. First changed-range emptiness is not attributed solely to trigger or literal-kind capability leaves.",
+      "Raw method extraction can add duplicate newMethod; original and other candidates compile/pass, while that candidate fails compilation.",
+      "Raw function extraction of selected defer/recover regions compiles but changes defer order or fails recovery in actual Go runtime controls. Candidate type-check success alone cannot establish behavior preservation."
+    ],
+    "boundary": "These are owned stdio and disposable Go runtime controls, not native IDE or commercial runtime evidence.",
+    "receiverBindingShape": {
+      "path": ".tools/inline-receiver-binding-ywaczvho/report.json",
+      "sha256": "a60f58d7b96fe8b35a8ce02453e704283c575f45fc58a3a742d5cbfdb3fe6add",
+      "boundary": "Actual Go runtime of independently constructed current receiver-text IIFE shape, not a frozen engine response or native IDE result; original passes and copied local same-name receiver type candidate fails the global type assertion despite compiling."
+    }
+  },
+  "ownPackagedBaseline": {
+    "metadata": {
+      "path": ".tools/native-workflows-base.json",
+      "sha256": "f70ef918d5e3843f97fbed7fbaf2d14c5796dfb999bc5b62cc51b4f3aeb81edf"
+    },
+    "observations": {
+      "path": ".tools/native-workflows-base-observations.json",
+      "sha256": "e9763a39853b1eb298227c1f7c20d9c59699c0a99280cea598439ee0e94b5db1"
+    },
+    "runtimeIdentity": {
+      "path": ".tools/native-workflows-base-runtime.json",
+      "sha256": "dc920d2df9db39f3e62bc92aec55f724dbc6fa9c7e9a16a9c238119b6e62a2fc"
+    },
+    "inputCount": 351,
+    "sourceDigest": "920334cbb15377ac2d838481da768b9a8be97631263737cd4cb621e813864c23",
+    "pid": 28661,
+    "observed": [
+      "Cold and warmed Classes/AllPlaces did not find PilotRecord; the closed gopls trace has no workspace/symbol query.",
+      "The actual Refactor menu on a Go selection had no Extract/Introduce or Inline entry. This is a bounded menu observation, not every possible action/shortcut.",
+      "Actual Debug GoTest produced a plain console, target exit1 followed by adapter exit0, without an SM subtest tree.",
+      "Normal Quit observed; all7 recorded owned PIDs absent and all3 fixture source files initial."
+    ],
+    "boundary": "Prior unchanged packaged351 bytes. New evolving source or future acceptance cannot inherit these results.",
+    "independentAudit": {
+      "path": ".tools/native-workflows-base-independent.json",
+      "sha256": "dcc6b639fd22b69ff2b13858edba9895da6c3479462b34bffa597cd299109ed8",
+      "scope": "Closed trace framing/request pairing/source sync, frozen historical input identity, fixture source hashes and absence of recorded owned PIDs; UI observations remain attributed to root."
+    },
+    "sealedTrace": {
+      "path": ".tools/native-workflows-base-sealed-trace.jsonl",
+      "sha256": "01f8666dc71b6017755f88a25dc5fbded16a6bc280c8d76bf20db6464213218e",
+      "bytes": 48005,
+      "records": 85,
+      "atUtc": "2026-11-09T08:46:23.634853+00:00",
+      "boundary": "Closed85-record baseline archived before another standalone startup can restore the prior project and append its active trace path. This archive retains the exact bytes audited above."
+    }
+  },
+  "unknown": [
+    "Installed commercial runtime/defaults, exact colors/icons/layout and complete GoLand behavior remain unverified.",
+    "Full declaration refactoring semantics, all scopes/build contexts/SDKs, every lifecycle interleaving, large-repository performance and all36 acceptance rows remain open."
+  ],
+  "sourceOwnership": "Our Kotlin native integrations and Go catalog/planners are independently implemented on the public OSS platform/tool APIs."
+}

@@ -197,6 +197,15 @@ def assemble(sdk: Path, plugins: Path, output: Path):
         # Keep the distributable record independent of local SDK/cache/staging paths.
         unicode_patch = {key: value for key, value in unicode_patch.items()
                          if key not in {"patchJar", "sourceSdk", "installedJar"}}
+        psi_listener_patch = json.loads(subprocess.check_output([
+            sys.executable, str(ROOT / "scripts/patch-platform-unicode.py"),
+            "--sdk", str(sdk), "--target-app", str(app),
+            "--pin", str(ROOT / "product/patches/platform-psi-listener-2026.1.4.json"),
+            "--marker", "META-INF/open-goland-platform-psi-listener.json",
+            "--cache-name", "platform-psi-listener",
+        ], text=True))
+        psi_listener_patch = {key: value for key, value in psi_listener_patch.items()
+                              if key not in {"patchJar", "sourceSdk", "installedJar"}}
         info_path = contents / "Info.plist"
         info = plistlib.loads(info_path.read_bytes())
         native_launcher = info["CFBundleExecutable"]
@@ -280,7 +289,7 @@ def assemble(sdk: Path, plugins: Path, output: Path):
             "buildInputs": build_inputs,
             "pluginArtifactSha256": artifacts,
             "runtimePluginResources": [{**entry, "path": f"plugins/{lsp4ij.name}/{entry['path']}"} for entry in runtime_resources],
-            "platformPatches": [unicode_patch],
+            "platformPatches": [unicode_patch, psi_listener_patch],
         }
         (contents / "Resources/openidea-product.json").write_text(json.dumps(manifest, indent=2) + "\n")
         subprocess.run(["codesign", "--force", "--sign", "-", "--preserve-metadata=entitlements", str(app)], check=True)

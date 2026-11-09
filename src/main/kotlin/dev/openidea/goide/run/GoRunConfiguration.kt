@@ -15,6 +15,7 @@ import com.redhat.devtools.lsp4ij.dap.configurations.DAPRunConfigurationBase
 import dev.openidea.goide.debug.GoDebugDescriptor
 import dev.openidea.goide.debug.GoDebugLaunch
 import dev.openidea.goide.debug.GoDebugSessionOptions
+import dev.openidea.goide.debug.GoDebugTestState
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.options.SettingsEditor
 import com.intellij.openapi.project.Project
@@ -51,10 +52,11 @@ class GoRunConfiguration(
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> = GoRunSettingsEditor(kind)
     // LSP4IJ's generic runner must not claim Run/Coverage, which use native consoles.
-    override fun canRun(executorId: String) = executorId == DefaultDebugExecutor.EXECUTOR_ID
+    override fun canRun(executorId: String) = executorId == DefaultDebugExecutor.EXECUTOR_ID && kind != GoRunKind.TEST
     override fun getDebugAdapterServer() = DebugAdapterManager.getInstance().getDebugAdapterServerById("openidea.delve")
     override fun getState(executor: Executor, environment: ExecutionEnvironment): RunProfileState {
         if (executor.id != DefaultDebugExecutor.EXECUTOR_ID) return GoCommandLineState(environment, this)
+        if (kind == GoRunKind.TEST) return GoDebugTestState(environment, this)
         val launch = try { GoDebugLaunch.fromRun(kind, parameters.independentCopy(), project.basePath.orEmpty()) }
             catch (error: IllegalArgumentException) { throw ExecutionException(error.message.orEmpty(), error) }
         val sessionOptions = GoDebugSessionOptions(launch)

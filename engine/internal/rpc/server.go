@@ -14,7 +14,9 @@ import (
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
 	"github.com/shubolab/opengoland/engine/internal/protocol"
+	nativerefactor "github.com/shubolab/opengoland/engine/internal/refactor/native"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
+	typesearch "github.com/shubolab/opengoland/engine/internal/search/types"
 )
 
 type request struct {
@@ -206,6 +208,8 @@ func (s *Server) handle(req request) {
 		info["features"].(map[string]bool)["interfaceGeneration"] = true
 		info["features"].(map[string]bool)["structTags"] = true
 		info["features"].(map[string]bool)["structHelpers"] = true
+		info["features"].(map[string]bool)["typeCatalog"] = true
+		info["features"].(map[string]bool)["nativeRefactoring"] = true
 		info["features"].(map[string]bool)["jsonGeneration"] = true
 		info["features"].(map[string]bool)["taskTargets"] = true
 		info["project"] = m.Project(s.ctx)
@@ -239,6 +243,39 @@ func (s *Server) handle(req request) {
 	var after func()
 	var err error
 	switch req.Method {
+	case "refactor/native/inspect":
+		var params nativerefactor.Request
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request)
+			if err == nil {
+				defer finish()
+				result, err = nativerefactor.RunIsolated(ctx, "inspect", params)
+			}
+		}
+	case "refactor/native/plan":
+		var params nativerefactor.PlanRequest
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request.Request)
+			if err == nil {
+				defer finish()
+				result, err = nativerefactor.RunIsolated(ctx, "plan", params)
+			}
+		}
+	case "search/types/catalog":
+		var params typesearch.Request
+		if err = decode(req.Params, &params); err == nil {
+			var ctx context.Context
+			var finish func()
+			ctx, finish, err = s.signatureContext(&params.Request)
+			if err == nil {
+				defer finish()
+				result, err = typesearch.RunIsolated(ctx, "catalog", params)
+			}
+		}
 	case "generate/json/inspect":
 		var params jsongen.Request
 		if err = decode(req.Params, &params); err == nil {

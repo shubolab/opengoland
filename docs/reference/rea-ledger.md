@@ -123,3 +123,20 @@ child-file indices; it is not a typed receiver proof or native UI evidence. The
 reconstruction's recovery for omitted receiver methods and its build/native checks
 are tracked in [Structure package verification](../verification/structure-package.md).
 Commercial runtime defaults and complete feature parity remain unverified.
+
+[Native search/refactoring/test workflows](native-workflows-reference.json)
+reuses the retained authenticated frontend inventory after comparing the current
+archive and resource hashes. Six selected resource entries identify extraction
+titles and inline all/this keep/remove labels. Only resource text was read; no
+proprietary implementation classes, reference user settings, license data or
+reference project files were read or modified. The current REA session reports
+no open target. There was no new commercial feature runtime observation.
+
+The record separately cites official versioned documentation and owned actual
+gopls/Go controls. The controls demonstrate a symbol-query result cap and named
+function-type kind, a raw generated-method name collision, and runtime changes
+from extracting direct defer/recover despite successful compilation. A separate
+receiver-text IIFE shape control exposes same-name type capture. These are
+implementation inputs and regressions, not commercial implementation evidence.
+The unchanged prior standalone package's missing type-search/menu/test-tree
+behavior is retained as its own baseline; new package results cannot inherit it.

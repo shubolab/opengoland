@@ -42,6 +42,9 @@
         <targetElementEvaluator language="OpenIDEAGo" implementationClass="dev.openidea.goide.navigation.GoTargetElementEvaluator"/>
         <lang.importOptimizer language="OpenIDEAGo" implementationClass="dev.openidea.goide.semantic.GoImportOptimizer"/>
         <lang.refactoringSupport language="OpenIDEAGo" implementationClass="dev.openidea.goide.refactor.signature.GoRefactoringSupportProvider"/>
+        <inlineActionHandler implementation="dev.openidea.goide.refactor.native.GoInlineActionHandler"/>
+        <gotoClassContributor id="OpenGolandGoTypeSearchContributor" implementation="dev.openidea.goide.navigation.search.GoTypeSearchContributor"/>
+        <notificationGroup id="open Goland Type Search" displayType="BALLOON" isLogByDefault="true"/>
         <testCreator language="OpenIDEAGo" implementationClass="dev.openidea.goide.generate.tests.GoTestCreator"/>
         <testFinder implementation="dev.openidea.goide.generate.tests.GoTestFinder"/>
         <gotoTargetPresentationProvider implementation="dev.openidea.goide.generate.tests.GoTestNavigationPresentationProvider"/>
@@ -91,6 +94,7 @@
         <configurationType implementation="dev.openidea.goide.run.GoBuildConfigurationType"/>
         <configurationType implementation="dev.openidea.goide.run.GoTestConfigurationType"/>
         <programRunner implementation="dev.openidea.goide.run.GoProgramRunner"/>
+        <programRunner implementation="dev.openidea.goide.debug.GoDebugTestRunner"/>
         <runConfigurationProducer implementation="dev.openidea.goide.run.GoBuildConfigurationProducer"/>
         <runConfigurationProducer implementation="dev.openidea.goide.run.GoTestConfigurationProducer"/>
         <runConfigurationProducer implementation="dev.openidea.goide.run.GoBenchmarkConfigurationProducer"/>

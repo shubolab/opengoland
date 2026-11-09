@@ -9,10 +9,14 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.refactoring.changeSignature.ChangeSignatureHandler
 import dev.openidea.goide.lang.GoLanguage
+import dev.openidea.goide.refactor.native.GoNativeExtractHandler
 
 class GoRefactoringSupportProvider : RefactoringSupportProvider() {
     override fun isAvailable(context: PsiElement) = context.containingFile?.language == GoLanguage || context is PsiFile && context.language == GoLanguage
     override fun getChangeSignatureHandler(): ChangeSignatureHandler = GoChangeSignatureHandler()
+    override fun getIntroduceVariableHandler() = GoNativeExtractHandler("extract.variable")
+    override fun getIntroduceConstantHandler() = GoNativeExtractHandler("extract.constant")
+    override fun getExtractMethodHandler() = GoNativeExtractHandler("extract.function")
 }
 
 /** Fast local availability; Go type/package work begins only after the native action is invoked. */

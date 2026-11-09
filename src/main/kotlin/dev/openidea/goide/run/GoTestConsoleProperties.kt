@@ -1,6 +1,7 @@
 package dev.openidea.goide.run
 
 import com.intellij.execution.Executor
+import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.Location
 import com.intellij.execution.testframework.TestConsoleProperties
 import com.intellij.execution.testframework.sm.FileUrlProvider
@@ -19,8 +20,9 @@ import com.intellij.psi.util.PsiModificationTracker
 import jetbrains.buildServer.messages.serviceMessages.ServiceMessage
 import dev.openidea.goide.run.corpus.GoFuzzCorpusConsoleFilter
 
-class GoTestConsoleProperties(configuration: GoRunConfiguration, executor: Executor, private val output: GoTestOutput) :
+class GoTestConsoleProperties(configuration: RunConfiguration, executor: Executor, private val output: GoTestOutput) :
     SMTRunnerConsoleProperties(configuration, "OpenIDEAGo", executor), SMCustomMessagesParsing {
+    constructor(configuration: GoRunConfiguration, executor: Executor, output: GoTestOutput) : this(configuration as RunConfiguration, executor, output)
     val fuzzCorpusFilter = GoFuzzCorpusConsoleFilter(output.corpusPackageDirectory())
     init {
         isIdBasedTestTree = true

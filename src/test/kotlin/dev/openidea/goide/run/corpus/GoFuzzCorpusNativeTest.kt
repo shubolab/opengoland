@@ -8,7 +8,12 @@ import com.intellij.codeInsight.multiverse.CodeInsightContextManager
 import com.intellij.execution.actions.ConfigurationContext
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.executors.DefaultRunExecutor
+import com.intellij.execution.lineMarker.ExecutorAction
 import com.intellij.execution.lineMarker.RunLineMarkerProvider
+import com.intellij.openapi.actionSystem.ActionWithDelegate
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.actionSystem.impl.SimpleDataContext
 import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.application.WriteIntentReadAction
 import com.intellij.openapi.command.WriteCommandAction
@@ -16,7 +21,9 @@ import com.intellij.openapi.editor.colors.EditorColorsManager
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.fileEditor.FileEditorManagerListener
+import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.project.DumbService
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.ProperTextRange
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -25,6 +32,8 @@ import com.intellij.openapi.vfs.newvfs.impl.VfsRootAccess
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
 import com.intellij.testFramework.EdtTestUtil
+import com.intellij.testFramework.DumbModeTestUtils
+import com.intellij.testFramework.IndexingTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
 import dev.openidea.goide.run.GoRunConfiguration
 import dev.openidea.goide.run.GoRunKind
@@ -126,6 +135,41 @@ class GoFuzzCorpusNativeTest : LightPlatformTestCase() {
             assertEquals("^FuzzDecode$/^817e8c7d02cb3556$", parameters.testPattern)
             assertFalse(parameters.testRuntimeArguments().any { it.startsWith("-fuzz") })
         }
+    }
+
+    fun testNativeCorpusContextActionsRespectThePlatformIndexingGate() = fixture { file ->
+        IndexingTestUtil.waitUntilIndexesAreReady(project)
+        val document = ReadAction.compute<com.intellij.openapi.editor.Document, RuntimeException> {
+            requireNotNull(FileDocumentManager.getInstance().getDocument(file.virtualFile))
+        }
+        var editor: com.intellij.openapi.editor.Editor? = null
+        try {
+            onEdt { editor = EditorFactory.getInstance().createEditor(document, project) }
+            fun checkActions(enabled: Boolean) = onEdt {
+                val data = SimpleDataContext.builder()
+                    .add(CommonDataKeys.PROJECT, project)
+                    .add(CommonDataKeys.EDITOR, requireNotNull(editor))
+                    .add(CommonDataKeys.VIRTUAL_FILE, file.virtualFile)
+                    .build()
+                val marker = requireNotNull(RunLineMarkerProvider().getLineMarkerInfo(requireNotNull(file.findElementAt(0))))
+                val actions = requireNotNull(marker.createGutterRenderer()?.popupMenuActions).getChildren(null)
+                assertEquals(2, actions.size)
+                for (executor in listOf(DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID)) {
+                    val action = actions.single { ((it as? ActionWithDelegate<*>)?.delegate as? ExecutorAction)?.executor?.id == executor }
+                    val event = AnActionEvent.createFromAnAction(action, null, "ICON_NAVIGATION_SECONDARY_BUTTON", data)
+                    action.update(event)
+                    assertEquals("Actual $executor context action enabled state", enabled, event.presentation.isEnabled)
+                    assertEquals("Actual $executor context action visibility", enabled, event.presentation.isVisible)
+                }
+            }
+            checkActions(true)
+            DumbModeTestUtils.runInDumbModeSynchronously(project) {
+                assertTrue("The SDK owns a real indexing interval", DumbService.isDumb(project))
+                checkActions(false)
+            }
+            IndexingTestUtil.waitUntilIndexesAreReady(project)
+            checkActions(true)
+        } finally { onEdt { editor?.let(EditorFactory.getInstance()::releaseEditor) } }
     }
 
     fun testConsoleHyperlinkOpensTheActualCorpusInANativeEditor() = fixture { file ->

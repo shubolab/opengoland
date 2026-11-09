@@ -24,30 +24,40 @@ import dev.openidea.goide.lang.GoFileType
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
 
-class GoDebugDescriptor(options: RunConfigurationOptions, environment: ExecutionEnvironment, definition: DebugAdapterServerDefinition?) : DebugAdapterDescriptor(options, environment, definition) {
+class GoDebugDescriptor(private val launchOptions: RunConfigurationOptions, environment: ExecutionEnvironment, definition: DebugAdapterServerDefinition?) : DebugAdapterDescriptor(launchOptions, environment, definition) {
     override fun createClient(debugProcess: com.redhat.devtools.lsp4ij.dap.DAPDebugProcess, dapParameters: MutableMap<String, Any>, isDebug: Boolean,
         debugMode: DebugMode, serverTrace: ServerTrace, parentClient: DAPClient?): DAPClient =
-        GoDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, parentClient)
-    private val launch: GoDebugLaunch = when (options) {
-        is GoDebugSessionOptions -> options.launch
-        is GoDebugOptions -> GoDebugLaunch.fromOptions(options, environment.project.basePath.orEmpty())
+        if (launchOptions is GoDebugTestOptions && parentClient == null)
+            GoTestDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, parentClient, launchOptions.testSession)
+        else GoDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, parentClient)
+    private val launch: GoDebugLaunch get() = when (launchOptions) {
+        is GoDebugTestOptions -> launchOptions.testSession.launch
+        is GoDebugSessionOptions -> launchOptions.launch
+        is GoDebugOptions -> GoDebugLaunch.fromOptions(launchOptions, environment.project.basePath.orEmpty())
         else -> error("Unsupported Go debug configuration")
     }
     override fun startServer(): ProcessHandler {
-        val command = GoToolchain.command(environment.project, "dlv", listOf("dap", "--listen=127.0.0.1:0"))
+        val command = GoToolchain.command(environment.project, "dlv", listOf("dap", "--listen=127.0.0.1:0"),
+            (launchOptions as? GoDebugTestOptions)?.testSession?.settings ?: GoToolchain.capture(environment.project))
             .withWorkDirectory(launch.workingDirectory).withEnvironment(launch.environment)
         if (!launch.passParentEnvironment) command.withParentEnvironmentType(GeneralCommandLine.ParentEnvironmentType.NONE)
         val handler = startServer(command)
         handler.setShouldDestroyProcessRecursively(true)
         val cleanup = Disposable { if (!handler.isProcessTerminated) handler.destroyProcess() }
-        Disposer.register(environment.project, cleanup)
-        handler.addProcessListener(object : ProcessListener {
-            override fun processTerminated(event: ProcessEvent) { Disposer.dispose(cleanup) }
-        })
+        try {
+            Disposer.register(environment.project, cleanup)
+            handler.addProcessListener(object : ProcessListener {
+                override fun processTerminated(event: ProcessEvent) { Disposer.dispose(cleanup) }
+            })
+        } catch (failure: Throwable) {
+            handler.destroyProcess()
+            throw failure
+        }
         return handler
     }
     override fun getDapParameters(): Map<String, Any> {
         val project = environment.project
+        if (launchOptions is GoDebugTestOptions) return launchOptions.testSession.dapParameters()
         val settings = GoProjectSettings.get(project)
         return launch.dapParameters(environment.runProfile.name, GoToolchain.command(project, "go", emptyList()).environment, settings.buildTags)
     }

@@ -1,0 +1,96 @@
+{
+  "provenance": {
+    "controlReportSha256": "e709f4010eef8a91c70fedf4a582c19bef821e1054fb10236aa679d1da181a8a",
+    "gopls": "v0.21.1",
+    "baselineTestsPass": true,
+    "rawCandidateRuntimeFails": [
+      "defer runs before remaining parent statements",
+      "recover no longer directly called by deferred function"
+    ]
+  },
+  "files": {
+    "go.mod": "module example.org/extracteffects\n\ngo 1.24.0\n",
+    "model_test.go": "package sample\nimport (\"testing\"; \"strings\")\nfunc TestDeferRuntime(t *testing.T) { Events=nil; WorkDefer(); if got:=strings.Join(Events,\",\"); got!=\"selected,after,defer\" { t.Fatalf(\"defer order: %s\",got) } }\nfunc TestRecoverRuntime(t *testing.T) { if WorkRecover()!=\"marker\" {t.Fatal(\"recover changed\")} }\n",
+    "model.go": "package sample\nvar Events []string\nfunc WorkDefer() {\n defer func() { Events = append(Events,\"defer\") }()\n Events = append(Events,\"selected\")\n Events = append(Events,\"after\")\n}\nfunc WorkRecover() any {\n var recovered any\n func() {\n  defer func() {\n   recovered = recover()\n   Events = append(Events,\"recovered\")\n  }()\n  panic(\"marker\")\n }()\n return recovered\n}\n"
+  },
+  "cases": [
+    {
+      "label": "defer",
+      "kind": "extract.function",
+      "selection": {
+        "start": {
+          "line": 3,
+          "character": 1
+        },
+        "end": {
+          "line": 4,
+          "character": 35
+        }
+      },
+      "edit": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 1,
+              "uri": "file:///fixture/model.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 6,
+                    "character": 1
+                  }
+                },
+                "newText": "func WorkDefer() {\n newFunction()\n Events = append(Events,\"after\")\n}\n\nfunc newFunction() {\n\tdefer func() { Events = append(Events, \"defer\") }()\n\tEvents = append(Events, \"selected\")\n}"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "label": "recover",
+      "kind": "extract.function",
+      "selection": {
+        "start": {
+          "line": 11,
+          "character": 3
+        },
+        "end": {
+          "line": 12,
+          "character": 38
+        }
+      },
+      "edit": {
+        "documentChanges": [
+          {
+            "textDocument": {
+              "version": 1,
+              "uri": "file:///fixture/model.go"
+            },
+            "edits": [
+              {
+                "range": {
+                  "start": {
+                    "line": 7,
+                    "character": 0
+                  },
+                  "end": {
+                    "line": 17,
+                    "character": 1
+                  }
+                },
+                "newText": "func WorkRecover() any {\n var recovered any\n func() {\n  defer func() {\n   recovered = newFunction(recovered)\n  }()\n  panic(\"marker\")\n }()\n return recovered\n}\n\nfunc newFunction(recovered any) any {\n\trecovered = recover()\n\tEvents = append(Events, \"recovered\")\n\treturn recovered\n}"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

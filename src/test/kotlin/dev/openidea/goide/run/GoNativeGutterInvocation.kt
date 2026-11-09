@@ -19,6 +19,7 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.EdtTestUtil
+import com.intellij.testFramework.IndexingTestUtil
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
@@ -32,6 +33,10 @@ internal fun invokeNativeGoGutter(file: PsiFile, anchor: PsiElement, executorId:
     assertTrue(ApplicationManager.getApplication().isUnitTestMode)
     assertFalse(AppMode.isRunningFromDevBuild(), "The SDK unit-test execution guard must prevent launching Go processes")
     val project = file.project
+    // A freshly detected corpus file queues VFS property-push/indexing work.
+    // Context actions legitimately hide non-dumb-aware configuration types then.
+    // Settle that fixture work before checking the ordinary action workflow.
+    IndexingTestUtil.waitUntilIndexesAreReady(project)
     val manager = RunManager.getInstance(project)
     val document = ReadAction.compute<com.intellij.openapi.editor.Document, RuntimeException> {
         requireNotNull(PsiDocumentManager.getInstance(project).getDocument(file))

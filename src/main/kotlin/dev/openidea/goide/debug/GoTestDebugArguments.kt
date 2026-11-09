@@ -16,7 +16,10 @@ internal data class GoTestDebugArguments(val buildFlags: List<String>, val argum
             "pkgdir", "tags", "toolexec", "vet",
         )
 
-        fun create(buildFlags: List<String>, arguments: List<String>, testPattern: String = ""): GoTestDebugArguments {
+        fun create(buildFlags: List<String>, arguments: List<String>, testPattern: String = ""): GoTestDebugArguments =
+            create(buildFlags, arguments, testPattern, false)
+
+        fun create(buildFlags: List<String>, arguments: List<String>, testPattern: String, framed: Boolean): GoTestDebugArguments {
             val build = mutableListOf<String>()
             val runtime = mutableListOf<String>()
             var coverageProfile = false
@@ -26,6 +29,9 @@ internal data class GoTestDebugArguments(val buildFlags: List<String>, val argum
                 while (index < input.size) {
                     val token = input[index++]
                     if (token == "-args" || token == "--args" || token == "--") {
+                        require(!framed || token == "--" || input.subList(index, input.size).takeWhile { it != "--" }.none {
+                            it.trimStart('-').substringBefore('=') in setOf("v", "test.v")
+                        }) { "Debug test results manage -test.v; put verbosity flags before -args." }
                         if (token == "--") runtime.add(token)
                         runtime.addAll(input.subList(index, input.size))
                         return
@@ -35,6 +41,7 @@ internal data class GoTestDebugArguments(val buildFlags: List<String>, val argum
                     val isFlag = token.startsWith('-') && token != "-"
                     val hasValue = '=' in token
                     if (isFlag && name in booleanTestFlags + valueTestFlags) {
+                        if (framed && name == "v") continue
                         runtime.add("-test.$name" + if (hasValue) "=" + token.substringAfter('=') else "")
                         if (name in valueTestFlags && !hasValue) {
                             require(index < input.size) { "Go test flag $token requires a value." }
@@ -61,7 +68,7 @@ internal data class GoTestDebugArguments(val buildFlags: List<String>, val argum
             consume(arguments, false)
             // Unlike profiles used only at runtime, coverage also needs compiler instrumentation.
             if (coverageProfile) build.add("-cover")
-            return GoTestDebugArguments(build.toList(), runtime.toList())
+            return GoTestDebugArguments(build.toList(), if (framed) listOf("-test.v=test2json") + runtime else runtime.toList())
         }
     }
 }

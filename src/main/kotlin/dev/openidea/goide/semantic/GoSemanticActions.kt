@@ -18,6 +18,7 @@ import com.redhat.devtools.lsp4ij.features.codeAction.CodeActionData
 import dev.openidea.goide.lang.GoLanguage
 import dev.openidea.goide.lang.GoTokens
 import dev.openidea.goide.refactor.signature.GoChangeSignatureService
+import dev.openidea.goide.refactor.native.GoNativeRefactorService
 
 internal object GoIdentifiers {
     fun valid(value: String): Boolean {
@@ -85,13 +86,16 @@ class GoRefactorAction : DumbAwareAction() {
                 val command = data.codeAction().let { if (it.isLeft) it.left else it.right.command }
                 command?.command != "gopls.change_signature"
             }.map(::Choice)
-            service.later {
+            service.later(indicator) {
                 if (actions.isEmpty()) Messages.showInfoMessage(project, "gopls has no refactoring for this selection.", "Go Refactor")
                 else JBPopupFactory.getInstance().createPopupChooserBuilder(actions).setTitle("Go Refactor")
                     .setItemChosenCallback { choice ->
                         if (choice.data == null) {
                             context.checkCurrent()
                             project.getService(GoChangeSignatureService::class.java).invoke(file, editor)
+                        } else if (GoNativeRefactorService.recognizes(choice.data)) {
+                            context.checkCurrent()
+                            GoNativeRefactorService.get(project).invokeAction(file, editor, choice.data, context)
                         } else service.background(choice.toString()) { progress ->
                             context.checkCurrent()
                             service.applyAction(choice.data, choice.toString(), true, request, progress)
