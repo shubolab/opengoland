@@ -1,0 +1,362 @@
+{
+  "schema": "open-goland.structure-package-native.v1",
+  "status": "listed-native-workflows-passed-closed-independent-audit-passed-full-parity-open",
+  "buildRecord": "structure-package-build.json",
+  "referenceRecord": "../reference/structure-package-reference.json",
+  "sourceDigest": "920334cbb15377ac2d838481da768b9a8be97631263737cd4cb621e813864c23",
+  "inputFiles": 351,
+  "application": "build/product/open Goland.app",
+  "pid": 26222,
+  "runtimeIdentity": {
+    "evidence": {
+      "path": ".tools/structure-final-runtime.json",
+      "sha256": "9f94f4c73deeddb341ee3434f6cdf5bf763b6163f33edbe25bee142700559f9a",
+      "bytes": 1220
+    },
+    "observedWhileLive": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 26222,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "platformArtifactChecks": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+        }
+      ],
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    }
+  },
+  "fixture": {
+    "initialFiles": {
+      "go.mod": "module example.org/structurefixture\n\ngo 1.24.0\n",
+      "types.go": "// Package structure exercises source-preserving native Structure views.\npackage structure\n\nconst PublicConst = 1\nconst hiddenConst = 2\nvar PublicValue = \"public\"\nvar hiddenValue = \"private\"\n\ntype Record struct {\n Name string\n secret string\n 名称 string\n}\nfunc (r *Record) Lookup(value string) (int, bool) { return len(value), true }\ntype Counter int64\nfunc (c Counter) Count() int64 { return int64(c) }\ntype Callback func(value string) (int, error)\nfunc (c Callback) Invoke(value string) (int, error) { return c(value) }\ntype Table[T any] struct { Item T }\ntype Alias = Record\ntype privateType struct { hidden string }\nfunc Alpha() int { return 1 }\nfunc zebra() int { return 2 }\nfunc Ωmega() int { return 3 }\nfunc ǅelta() int { return 4 }\nfunc 𐐀Count() int { return 5 }\n",
+      "methods.go": "package structure\n\nfunc (r *Record) Rename(name string) { r.Name = name }\nfunc (r Record) hiddenMethod() string { return r.secret }\nfunc (t Table[T]) ItemValue() T { return t.Item }\nvar _ = \"前😀\"; func AfterUnicode() int { return 6 }\n",
+      "cgo.go": "package structure\n/*\nint structure_answer(void) { return 42; }\n*/\nimport \"C\"\n\nfunc CgoAnswer() int { return int(C.structure_answer()) }\n",
+      "structure_test.go": "package structure\n\nimport \"testing\"\n\nfunc (r Record) TestOnly() bool { return true }\nfunc TestStructureFixture(t *testing.T) {\n r := Record{Name: \"before\", secret: \"hidden\"}\n r.Rename(\"after\")\n n, ok := r.Lookup(\"word\")\n callback := Callback(func(value string) (int, error) { return len(value), nil })\n count, err := callback.Invoke(\"go\")\n if r.Name != \"after\" || n != 4 || !ok || Counter(7).Count() != 7 || (Table[int]{Item: 9}).ItemValue() != 9 || count != 2 || err != nil || !r.TestOnly() || CgoAnswer() != 42 || AfterUnicode() != 6 { t.Fatal(\"structure fixture semantics\") }\n}\n",
+      "external_test.go": "package structure_test\nimport (\n \"testing\"\n fixture \"example.org/structurefixture\"\n)\nfunc ExternalOnly() int { return fixture.PublicConst }\nfunc TestExternal(t *testing.T) { if ExternalOnly() != 1 { t.Fatal(\"external\") } }\n",
+      "special.go": "//go:build special\n\npackage structure\nfunc SpecialOnly() int { return 8 }\n",
+      "platform_windows.go": "package structure\nfunc WindowsOnly() int { return 9 }\n",
+      "sub/other.go": "package other\nfunc SubpackageOnly() int { return 10 }\n"
+    },
+    "initialSHA256": {
+      "go.mod": "46ef044914129e6294917ed6a5ae2a34e5fb38a2001ea09683c8db860268f54c",
+      "types.go": "56cfaca1dc36e8c9484653fd82628d0b8809a4d87ab4a391f38ae31f1dcf3b5d",
+      "methods.go": "00edb89bd65e9bc61ea6c3028a6cfd6380185022936f398337baff77e168270a",
+      "cgo.go": "7a760bab65256c9b2974ec4f179b9311c60e3d01b8ada484c30eb52025483a48",
+      "structure_test.go": "44d84ab4603740b4631666d263cbe7ae79054fc71abdabd881a57671603ea9b3",
+      "external_test.go": "e762d62b1f4fff4665b31f9b14c6d83b9d0171056bc0898bbea75b1bf7f70573",
+      "special.go": "36ba4b60867d2516fffe29ec7e4ae5fc473dbc261bff684e6d45f58ddf8d2259",
+      "platform_windows.go": "9da17f0137dfd61ef7457d5d1777de685219b2329fbb52f832e818adb77247df",
+      "sub/other.go": "5d65878b2f5e12e7fda3b0d32acfce60d43accd34f7c2443ab56ad9ebac2bf82"
+    },
+    "goExecutable": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+    "goplsExecutable": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls",
+    "wrapper": "/Users/wangshubo/develop/openidea-go/.tools/gopls-trace-wrapper.py",
+    "wrapperSHA256": "5a1bd0efa667b9c75d000e927f23bc5f666fa1e45d4f55bfb51270f5e807e282",
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-structure-final-6la8m2fy/结构与预选 😀",
+    "base": "/Users/wangshubo/develop/openidea-go/.tools/native-structure-final-6la8m2fy",
+    "trace": "/Users/wangshubo/develop/openidea-go/.tools/native-structure-final-6la8m2fy/结构与预选 😀/trace.jsonl",
+    "purpose": "Fresh repaired popup-selection candidate; PID/digest only assigned after final package/startup",
+    "sameFixtureSourceBytesAsInitial": true,
+    "sourceDigest": "920334cbb15377ac2d838481da768b9a8be97631263737cd4cb621e813864c23",
+    "inputCount": 351,
+    "pid": 26222
+  },
+  "rootNativeObservations": {
+    "evidence": {
+      "path": ".tools/structure-final-native-observations.json",
+      "sha256": "7964766824127cd229e857e3f2e608aee3363e77b1192d05777c6cb31f31e760",
+      "bytes": 7316
+    },
+    "observed": {
+      "schema": "open-goland.structure-package-native.v1",
+      "cohort": "repaired-final",
+      "classification": "Root-observed native actions/screenshots plus separately captured local files/processes; not commercial runtime equivalence",
+      "sourceDigest": "920334cbb15377ac2d838481da768b9a8be97631263737cd4cb621e813864c23",
+      "inputFiles": 351,
+      "pid": 26222,
+      "root": "/Users/wangshubo/develop/openidea-go/.tools/native-structure-final-6la8m2fy/结构与预选 😀",
+      "completedAtUtc": "2026-11-09T06:06:47.330562+00:00",
+      "cases": [
+        {
+          "case": "first native Cmd+F12 from Lookup name",
+          "status": "pass",
+          "observed": "Before opening Structure toolwindow, cursor at types.go14:18; actual screenshot highlights Lookup, not parent Record. New popup model; language-server/ordinary symbol caches are not asserted fully cold."
+        },
+        {
+          "case": "package checkbox and reopen selection",
+          "status": "pass",
+          "observed": "Package ON adds AfterUnicode, CgoAnswer, cross-file Rename/hiddenMethod and ItemValue with filenames. Escape returns14:18; fresh Cmd+F12 retains package setting and actual Lookup selection."
+        },
+        {
+          "case": "private filter",
+          "status": "pass",
+          "observed": "Private OFF screenshot removes hiddenConst/hiddenValue/privateType/hiddenMethod/secret/名称/zebra/ǅelta; public Go names including Ωmega and astral Lu 𐐀Count remain. Restored PrivateON."
+        },
+        {
+          "case": "method body preselection",
+          "status": "pass",
+          "observed": "Cursor before return len(value), types.go14:53, Cmd+F12 selects actual Lookup. Header/body/reopen covered on real desktop; controlled fullycold timing separately tested."
+        },
+        {
+          "case": "cross-file popup navigation",
+          "status": "pass",
+          "observed": "From actual tree Lookup selection, Down2 selects Rename; Return opens methods.go3:18."
+        },
+        {
+          "case": "Structure toolwindow package graph",
+          "status": "pass",
+          "observed": "methods.go root shows cross-file Record children, Counter.Count, Callback.Invoke and named function type suffix. Package ON/private ON; no assertions of new sorter/default changes."
+        },
+        {
+          "case": "missing receiver dirty and closed buffer",
+          "status": "pass",
+          "observed": "Native paste at EOF appends unresolved (Missing).Draft; visible tree retains it flat. CmdW closes methods.go; types.go tree shows Draft with methods.go suffix. All9disk hashes stay initial. Doubleclick visible Draft reopens actual unsaved text at9:16."
+        },
+        {
+          "case": "native Undo removes dirty method",
+          "status": "pass",
+          "observed": "First CmdZ caret-only9:16→10:1; second CmdZ restores original text and removes visible Draft, caret7:1. All9disk hashes initial."
+        },
+        {
+          "case": "internal test receiver popup",
+          "status": "pass",
+          "observed": "Structure TestOnly under foreign types.go Record. Actual source click→CmdF12 highlights TestOnly. Package OFF screenshot retains only Record ancestor/TestOnly and TestStructureFixture."
+        },
+        {
+          "case": "native Go package test",
+          "status": "pass",
+          "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go test -json .",
+          "observed": "Native CtrlShiftR fromTestOnly5:21 starts wholepackage; actual Run UI2tests passed, TestStructureFixture and TestExternal; package0.968s, no cached marker, exit0. First test asserts actual CGO42. No function-specific run claim."
+        },
+        {
+          "case": "external test package isolation",
+          "status": "pass",
+          "observed": "external_test.go visible Structure root has ExternalOnly and TestExternal only, no baseRecord/CgoAnswer."
+        },
+        {
+          "case": "normal quit",
+          "status": "pass",
+          "observed": "CmdQ→ConfirmExit→Exit; CUA Appquit observed, then completion_summary issued. All6recordedownedPIDs absent."
+        }
+      ],
+      "automationBoundaries": [
+        "GoToFile early during initial index showed Searching and no result; escaped and opened project row.",
+        "After checkbox click keyboard focus can change; attemptedDown2/Return landedName10:2. Actual crossfile pass is separately observed from fresh sourcepopup and selected Rename screenshot.",
+        "selectText on newly opened structure_test.go reported text unavailable; visible source coordinate click then actual popup selectedTestOnly.",
+        "AX reports cached/offscreen nodes and selected flags; visibility and actual selection claims use screenshots.",
+        "Toolwindow Alpha/Export toggles were verified on initial350 bytes; not repeated/relabeled as final351 native results."
+      ],
+      "wire": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/native-structure-final-6la8m2fy/结构与预选 😀/trace.jsonl",
+        "bytes": 281521,
+        "records": 251,
+        "sha256": "ceebcfb926ab31e88368770a484887a909461c408c84a54c37498d96a74dfea1",
+        "closed": true
+      },
+      "sessionLog": {
+        "path": ".tools/structure-final-native-session.log",
+        "bytes": 62667,
+        "sha256": "83aacdaa62cdde44a674af3bc492388edc66c7aea4898bf9bc5234539077a13b",
+        "errorOrSevereLines": 0,
+        "warningsExcluded": false
+      },
+      "finalFiles": {
+        "go.mod": {
+          "sha256": "46ef044914129e6294917ed6a5ae2a34e5fb38a2001ea09683c8db860268f54c",
+          "equalsInitial": true
+        },
+        "types.go": {
+          "sha256": "56cfaca1dc36e8c9484653fd82628d0b8809a4d87ab4a391f38ae31f1dcf3b5d",
+          "equalsInitial": true
+        },
+        "methods.go": {
+          "sha256": "00edb89bd65e9bc61ea6c3028a6cfd6380185022936f398337baff77e168270a",
+          "equalsInitial": true
+        },
+        "cgo.go": {
+          "sha256": "7a760bab65256c9b2974ec4f179b9311c60e3d01b8ada484c30eb52025483a48",
+          "equalsInitial": true
+        },
+        "structure_test.go": {
+          "sha256": "44d84ab4603740b4631666d263cbe7ae79054fc71abdabd881a57671603ea9b3",
+          "equalsInitial": true
+        },
+        "external_test.go": {
+          "sha256": "e762d62b1f4fff4665b31f9b14c6d83b9d0171056bc0898bbea75b1bf7f70573",
+          "equalsInitial": true
+        },
+        "special.go": {
+          "sha256": "36ba4b60867d2516fffe29ec7e4ae5fc473dbc261bff684e6d45f58ddf8d2259",
+          "equalsInitial": true
+        },
+        "platform_windows.go": {
+          "sha256": "9da17f0137dfd61ef7457d5d1777de685219b2329fbb52f832e818adb77247df",
+          "equalsInitial": true
+        },
+        "sub/other.go": {
+          "sha256": "5d65878b2f5e12e7fda3b0d32acfce60d43accd34f7c2443ab56ad9ebac2bf82",
+          "equalsInitial": true
+        }
+      },
+      "ownedPids": {
+        "capture": ".tools/structure-final-native-owned-pids.json",
+        "recorded": [
+          26222,
+          26253,
+          26340,
+          26341,
+          26342,
+          26510
+        ],
+        "allAbsent": true
+      },
+      "checkpoints": [
+        ".tools/structure-checkpoint-final-orphan-before-close.json",
+        ".tools/structure-checkpoint-final-orphan-closed-buffer.json",
+        ".tools/structure-checkpoint-final-orphan-undo.json",
+        ".tools/structure-checkpoint-final-before-quit.json"
+      ],
+      "limitations": [
+        "No commercial UI runtime comparison or all36requirement closure.",
+        "Controlled SDK selection cases explicitly hold package replies; the seven-case suite also covers generic-client compatibility and lifecycle controls.",
+        "No desktop cancellation race assertion, no allscope/buildtag/OS/performance/IME parity.",
+        "Package replies carry no source version; wire source candidates not fullserver ACK."
+      ]
+    },
+    "controlScopeClarification": "The raw hashed root observation is preserved. Its shorthand about7held-response cases is narrowed in this portable summary: Controlled SDK selection cases explicitly hold package replies; the seven-case suite also covers generic-client compatibility and lifecycle controls."
+  },
+  "independentProtocolAudit": {
+    "summary": {
+      "path": ".tools/structure-package-final-wire-summary.json",
+      "sha256": "6dde3d38fd2ec87149d6cf8b7ca4e57199f44abbb029251a8b8fe46d1d64d12b",
+      "bytes": 260786
+    },
+    "rawAudit": {
+      "path": ".tools/structure-package-final-protocol-audit.json",
+      "sha256": "7eb00b2844884b5358c638d80cde876613b72db1cad6b2e43377fac0ffa65ac5",
+      "bytes": 1326234
+    },
+    "counts": {
+      "sessions": 1,
+      "packageSymbols": 14,
+      "documentSymbol": 12,
+      "pairedRPCs": 104,
+      "orphanResponses": 0,
+      "unansweredRequests": 0,
+      "responseErrors": 0,
+      "documentSyncAndStructuralIssues": 0,
+      "diagnosticNotifications": 19,
+      "eligiblePackageSourceNodes": 374,
+      "excludedAuxiliaryOrExternalNodes": 169,
+      "documentSymbolSourceNodes": 85
+    },
+    "sourceRangeValidationCounts": {
+      "atRequest:range:valid-in-explicit-source-candidate": 459,
+      "atRequest:selectionRange:valid-in-explicit-source-candidate": 459,
+      "atResponse:range:valid-in-explicit-source-candidate": 459,
+      "atResponse:selectionRange:valid-in-explicit-source-candidate": 459
+    },
+    "trace": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/native-structure-final-6la8m2fy/结构与预选 😀/trace.jsonl",
+      "snapshotBytes": 281521,
+      "snapshotRecords": 251,
+      "snapshotSHA256": "ceebcfb926ab31e88368770a484887a909461c408c84a54c37498d96a74dfea1",
+      "fullReadBytes": 281521,
+      "ignoredIncompleteTailBytes": 0,
+      "closedAssertion": true,
+      "selectedPrefixStableDuringAudit": true
+    },
+    "closedBufferSequence": "117 didClose →118 didOpen with dirtyv1 →119 package stringID44 →122 documentSymbol stringID45 containsDraft; record158 incrementalUndo,162 documentSymbol64 noDraft.",
+    "documentCloseBoundary": "All4distinct opened fixture URIs have final didClose. Reopen numeric-version reset epochs retained. No shutdown,exit,$/cancelRequest observed.",
+    "sourceBoundary": "Range and selectionRange validated against explicit initial/client request/response source candidates; source-less compiler auxiliary ranges deliberately not read or validated. No full-source server ACK."
+  },
+  "initialNativeCohort": {
+    "pid": 22681,
+    "inputFiles": 350,
+    "sourceDigest": "92f0de1aca190610aeec5cfd3206a4cf0d9e2982b40f8a0c1334a79f2e28e0d7",
+    "rootObservations": {
+      "path": ".tools/structure-native-initial-observations.json",
+      "sha256": "837680c95044bf82a91a460f19b29d69802727c7b77a4636695c89f6fcb9791f",
+      "bytes": 8145
+    },
+    "wireSummary": {
+      "path": ".tools/structure-package-initial-wire-summary.json",
+      "sha256": "129fbe52bda2eb934aaf8dc2e76227f64bd9f79bea9f5d53e04984b6f4a70301",
+      "bytes": 264540
+    },
+    "independentChecks": {
+      "path": ".tools/structure-package-initial-independent-checks.json",
+      "sha256": "f676f9aca4b38991cc9ec195b67cf9bde41dd84ca5e572393dee74e620d3152b",
+      "bytes": 138882
+    },
+    "selection": "FAIL: actual popup selected parentRecord instead ofLookup; original4realSDKpopup tests reproduce4FAIL.",
+    "boundary": "Positive initial350 sort/filter/navigation/dirty/test results remain historical; final351 repeats only its named cases."
+  },
+  "limitations": [
+    "No commercial UI runtime comparison or all36requirement closure.",
+    "Controlled SDK selection cases explicitly hold package replies; the seven-case suite also covers generic-client compatibility and lifecycle controls.",
+    "No desktop cancellation race assertion, no allscope/buildtag/OS/performance/IME parity.",
+    "Package replies carry no source version; wire source candidates not fullserver ACK.",
+    "No desktop Alpha/Exportability retest on final351; initial350 actual toggles retained separately.",
+    "Controlled SDK selection cases explicitly hold package replies; the seven-case suite also covers generic-client compatibility and lifecycle controls.",
+    "Root UI selection evidence comes from actual screenshots, not cached AX selected labels.",
+    "Trace has no shutdown,exit or $/cancelRequest; numeric diagnostic versions after reopen can match multiple epochs.",
+    "All4observed fixture document URIs eventually closed; not a claim about every project/server lifecycle."
+  ],
+  "independentReadOnlyChecks": {
+    "evidence": {
+      "path": ".tools/structure-package-final-independent-checks.json",
+      "sha256": "88697bcb23f1c4416b57622022415c6ce82b6ca07b55b847e861a1ff5df0d14a",
+      "bytes": 71875
+    },
+    "status": "closed-independent-read-only-checks-pass",
+    "sourceInputs": 351,
+    "allCapturedAndCurrentSourceHashesMatch": true,
+    "allCapturedAndCurrentArtifactHashesMatch": true,
+    "platformPatchClassCount": 6,
+    "lspPatchClassCount": 21,
+    "all9FixtureDiskFilesInitial": true,
+    "all6RecordedOwnedPidsAbsent": true,
+    "boundary": "Independent file/protocol/process/signature checks are distinct from root native screenshots and cannot prove commercial equivalence."
+  },
+  "dirtyCheckpoints": [
+    {
+      "path": ".tools/structure-checkpoint-final-orphan-before-close.json",
+      "sha256": "91709d94a18f0dc25322347f34d14cd168fac6ebb9513fcdb20d71529baf5c73",
+      "bytes": 6169
+    },
+    {
+      "path": ".tools/structure-checkpoint-final-orphan-closed-buffer.json",
+      "sha256": "68e8d358ae5226600e5e237ed8dcb687ce873ac4071a16e092efd02ce456e384",
+      "bytes": 6903
+    },
+    {
+      "path": ".tools/structure-checkpoint-final-orphan-undo.json",
+      "sha256": "c4a4cfd185d5b5e8e005d08eb6556964b51753d96bffae78ad3b20aca5028993",
+      "bytes": 8697
+    },
+    {
+      "path": ".tools/structure-checkpoint-final-before-quit.json",
+      "sha256": "4973a7d27c98d281b1c6d9cecfaccfe6ad2c33f851b580cc03ed5893024971a8",
+      "bytes": 12186
+    }
+  ]
+}

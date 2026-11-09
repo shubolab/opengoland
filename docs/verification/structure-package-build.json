@@ -1,0 +1,263 @@
+{
+  "schema": "open-goland.structure-package-build.v1",
+  "status": "terminal-repaired-package-passed-native-record-separate",
+  "source": {
+    "baseCommit": "16e26a0ce9455b796284e857f8a6fd5d70a507ec",
+    "inputFiles": 351,
+    "sourceDigest": "920334cbb15377ac2d838481da768b9a8be97631263737cd4cb621e813864c23",
+    "manifest": {
+      "path": ".tools/structure-final-package-inputs.json",
+      "sha256": "0f4e8206694b113b51b0da1b9119b9b4f2582998fe0da5cd44c192c26fae264b",
+      "bytes": 60739
+    },
+    "boundary": "Frozen main/test/resource/engine/scripts/public-patch input digest. Docs and ignored local evidence excluded; historical bytes not relabeled."
+  },
+  "command": "OPENGOLAND_GOPLS_TEST=/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls ./scripts/package-product.sh",
+  "exitCode": 0,
+  "packageLog": {
+    "path": ".tools/structure-final-package.log",
+    "sha256": "4947b0b1b6db4c896c0e5bf2b331fa6fe8413785c1bbf0778cb4452819bea7c7",
+    "bytes": 82363
+  },
+  "platform": {
+    "product": "IntelliJ IDEA Community",
+    "version": "2026.1.4",
+    "build": "IC-261.26222.65",
+    "runtime": "bundled JBR25.0.3",
+    "boundary": "Not the commercial GoLand GO-261.26222.72 runtime"
+  },
+  "kotlin": {
+    "reports": 98,
+    "tests": 472,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "selectedSuites": [
+      {
+        "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoPackageStructureTest.xml",
+        "sha256": "27b8604480dce1f6a7bbfdd4c8b3086fc261810ec6d2d151efbcc2e3e19cdf56",
+        "name": "com.redhat.devtools.lsp4ij.GoPackageStructureTest",
+        "tests": "27",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-11-09T05:59:51.984Z",
+        "hostname": "wangshubodeMacBook-Pro.local",
+        "time": "1.716"
+      },
+      {
+        "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoStructureControlsTest.xml",
+        "sha256": "f3dc11df155e944e79d15449d9c1fb2b24183834fd1f4b6b07b34a43dce70455",
+        "name": "com.redhat.devtools.lsp4ij.GoStructureControlsTest",
+        "tests": "6",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-11-09T05:59:59.559Z",
+        "hostname": "wangshubodeMacBook-Pro.local",
+        "time": "0.364"
+      },
+      {
+        "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoStructureGroupingTest.xml",
+        "sha256": "cc2d52f754eabd41359d9b8303758c89824ef8320beee43be434f68dd93dab00",
+        "name": "com.redhat.devtools.lsp4ij.GoStructureGroupingTest",
+        "tests": "8",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-11-09T05:59:59.926Z",
+        "hostname": "wangshubodeMacBook-Pro.local",
+        "time": "0.424"
+      },
+      {
+        "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest.xml",
+        "sha256": "ec08b26500c5e667584ea9e42ad03a6a3f01b74739e94492110c665f9911e7af",
+        "name": "com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest",
+        "tests": "7",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-11-09T06:00:00.356Z",
+        "hostname": "wangshubodeMacBook-Pro.local",
+        "time": "0.379"
+      },
+      {
+        "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoStructurePresentationTest.xml",
+        "sha256": "b0e00699cdad0fbe0f3bad211f416a5ab1a8a885a014a7ad59e9badcfc589e9e",
+        "name": "com.redhat.devtools.lsp4ij.GoStructurePresentationTest",
+        "tests": "5",
+        "skipped": "0",
+        "failures": "0",
+        "errors": "0",
+        "timestamp": "2026-11-09T06:00:00.741Z",
+        "hostname": "wangshubodeMacBook-Pro.local",
+        "time": "0.186"
+      }
+    ]
+  },
+  "artifacts": {
+    "manifestCount": 32,
+    "allMatch": true,
+    "pluginArtifactSHA256": {
+      "plugins/opengoland/bin/opengoland-engine": "a4fcedc5a1273a98ba79387dd4134d902c5e8040a93dd84cf882dc537fea28a3",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "181d0a9d5e0e600286d40fd624da51d33cdcc8aeb6b78c5b1448c28a758290b3",
+      "plugins/opengoland/license/pprof-LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "plugins/opengoland/license/x-mod-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/opengoland/license/x-sync-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/opengoland/license/x-tools-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/lsp4ij/bundles/0.21.0/package.json": "2a654090b48f8bcb9d1e4831a3b52d23ee9207624092b08fcb1fd73d95f92323",
+      "plugins/lsp4ij/bundles/0.21.0/syntaxes/disassembly.json": "2dae8bb50879164cc61c0b35fa0bfdd38523766e6150448271e0d6c65c2a79fe",
+      "plugins/lsp4ij/lib/annotations-24.0.1.jar": "61666dbce7e42e6c85b43c04fcfb8293a21dcb55b3c80e869270ce42c01a6b35",
+      "plugins/lsp4ij/lib/autolink-0.6.0.jar": "a80be030f6386f18111cad9161c0b6983157352a1b59a59e6002172f0d321c04",
+      "plugins/lsp4ij/lib/flexmark-0.64.8.jar": "3133878d108f0e1964d7d427f379a7433e1b71a45f9f3c1fab7ed0ac0301d3b0",
+      "plugins/lsp4ij/lib/flexmark-ext-autolink-0.64.8.jar": "4850d6f895ec3f2932635829d74ff9a2fb00918965bb91c000ab497d603e11b8",
+      "plugins/lsp4ij/lib/flexmark-ext-gfm-strikethrough-0.64.8.jar": "fc6cad026fbd036b3ffd0448264360a5f1b572756ef3427ff022715b7fc5f1c3",
+      "plugins/lsp4ij/lib/flexmark-ext-tables-0.64.8.jar": "cdf82d26e112e96ade7e370138aeb16920b7e2d411d20c6c15cb1acfacd1ef1f",
+      "plugins/lsp4ij/lib/flexmark-util-0.64.8.jar": "1e24c891dac9532bb722be7122c7026fb47868c3de36c02400eed8e9ad535727",
+      "plugins/lsp4ij/lib/flexmark-util-ast-0.64.8.jar": "a5342f644c6a5f37d502f225c3a0cb699c263621c82e720d9c08eba5a9f3b8d3",
+      "plugins/lsp4ij/lib/flexmark-util-builder-0.64.8.jar": "afb9c88d9f652451e75f1ab069ad7ddd791d712eb211c51d8d2a83494240875d",
+      "plugins/lsp4ij/lib/flexmark-util-collection-0.64.8.jar": "031ff01408d0f54c6235db18d451dc6e6b15b859b0ec1e40ff3429a82375082a",
+      "plugins/lsp4ij/lib/flexmark-util-data-0.64.8.jar": "83ceb5989ab0205054bf1b42446f55cb6da14c10aa7c2bda05d6a2504670f353",
+      "plugins/lsp4ij/lib/flexmark-util-dependency-0.64.8.jar": "e41adb5e8144699b61b78d50eb004eeb7de84f90c4c63626609e6cee5ea28b42",
+      "plugins/lsp4ij/lib/flexmark-util-format-0.64.8.jar": "6c9ac87686474edf0117b3f838d9dcb3b965fa72be4998d2177b598013679f73",
+      "plugins/lsp4ij/lib/flexmark-util-html-0.64.8.jar": "5b19e6506aff7913c74ad725af7c2b8a9f23958e6324bf0710c5a645a4663017",
+      "plugins/lsp4ij/lib/flexmark-util-misc-0.64.8.jar": "74472ca81a9080e51ea1a4f11c270898e3d6c242c92275fab47eb993806c8f2b",
+      "plugins/lsp4ij/lib/flexmark-util-options-0.64.8.jar": "2489f41e9caf1d9f8061833b311b25403925cbb631fff2b8c069192804d6fc88",
+      "plugins/lsp4ij/lib/flexmark-util-sequence-0.64.8.jar": "6e22976fe4e9b8de94fd529991ecb2d79cc482aad94985367470a93be1d82631",
+      "plugins/lsp4ij/lib/flexmark-util-visitor-0.64.8.jar": "d9b3002a833a078c45e139568b306dab0ac117ff9046c6a1f9e180c0154563fc",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0-searchableOptions.jar": "121b6dc3da5f081121804c9acb4f927be249ec7774b24561826771c36e324ace",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "ec6f92576b2d62caf4a9298ec859bcd8c7cc82b4cdde5abe6426f2b607675b44",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j-1.0.0.jar": "ccd78893facc6bfcc359d56cba05d3d5b85eb41e4c40d4b4215ca45db5f416d9",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.debug-0.21.0.jar": "eb32b70bab2f2f7be805ebf467e41ea8cd2ae80ef6801b1b374b355ab27cf32f",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc-1.0.0.jar": "9647feb0524bf763c878e12ab878a684102b81cccb3f77feecbec709d54f9bbb",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc.debug-0.21.0.jar": "82ece72945a352c93694143cdf4cf4cd1eb3e17d8c177c1a8616c78e5e56d165"
+    },
+    "inputVerificationExitCode": 0,
+    "localDeepStrictCodesignExitCode": 0,
+    "productManifest": {
+      "path": ".tools/structure-final-package-manifest.json",
+      "sha256": "a6de780394d3f6abffea1e1e0e30c64f60e8220fef85e8bae3cf55321505bd10",
+      "bytes": 71151
+    }
+  },
+  "publicLspPin": {
+    "file": "product/patches/lsp4ij-0.21.0-document-sync.json",
+    "sha256": "901e9fa85b49bc35487dbfacc59f11b0469aab65b884a05ea5af498b8d2c47f6",
+    "patchSHA256": "c3caaafb453e35d5926e5f25e02b299af0bd7d81e624584b657ee2d611ccbd5c",
+    "sourceCount": 11,
+    "classCount": 21,
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class": "e16e32f112b30a45466d3c4b28c31533e78a4b654d4e7d148528a511b5ea519d",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f",
+      "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class": "48f97e48ab291690058df55bf190b7a5804885b59a1aacd0eac92cf247726a0c",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker$1.class": "80e442d4c510c09271073188e3cc6062a5af0a0aefe6f6cc08f691555ad0b9fa",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker.class": "e12968f90f076ae1ad86e0da544ccd85cd4be84f41cde34d257b811269ae799c",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationSnapshot.class": "7f0a521e416b928364a054ef21ed92018b1b6aecf98ff0b060524dce1978d087",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.class": "fc869b8a9c3a72fab6e240540258e18877cc44a7131a7a9a532224654bae1a92",
+      "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.class": "644e30ecd201b2826bab834b1edcf0849f1ff9fe666cd7da9c66dc8ef1185f63",
+      "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.class": "7f5833aa512fc487c4797a31b72b10a82d2e62cd5a2442a02d37170eb9fc2ca1",
+      "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.class": "00d9557c63705ded6412232d8e6d9a422f9b3dc562567227501b46f38a023aaa",
+      "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.class": "8357e7ecaf2260e460ff42a699bb087bcd63229513ef3d47f686d54082a347ef",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class": "3c15f73a0c4c0cc67a2e1ae0fb2bc2ab0059a06a8d77d39df43cf133d269e208",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class": "48410c417783fe9bd01932b25341b10b512c07369421ee5f4d966b6f85260074",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport$LSPUsageSupportParams.class": "7d1560681f450bf132547ab6641e6c428d6ef371f012af0d3124be15a4df7e15",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class": "27c04b6a168fa81bb563e11579c7ace3a20cf3cd698a04d7aa1a081db3853811"
+    },
+    "boundary": "Unchanged pinned public-source patch and21 classes; this batch changes only independently implemented Go client/model sources."
+  },
+  "go": {
+    "goExecutable": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+    "version": "go version go1.24.3 darwin/arm64",
+    "startedAtUtc": "2026-11-09T05:11:40.026105+00:00",
+    "raceExitCode": 0,
+    "vetExitCode": 0,
+    "completedAtUtc": "2026-11-09T05:11:47.112638+00:00",
+    "passTestEvents": 271,
+    "topLevelTests": 155,
+    "packagePasses": 9,
+    "cachedPackages": 9,
+    "failures": 0,
+    "vetOutputBytes": 0,
+    "freshPackages": 0,
+    "raceTrace": {
+      "path": ".tools/structure-go-race.jsonl",
+      "sha256": "080e15534325584d751aa8e276b31bfe2c6f8c59c9069aa78fb38f5af3d0ed82",
+      "bytes": 286652
+    },
+    "vetLog": {
+      "path": ".tools/structure-go-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    "engineInputsEqualInitial350": true,
+    "boundary": "Go checks performed before initial350 package; all engine inputs remain identical in repaired351. All9 race packages cached,0fresh; not a new uncached engine run."
+  },
+  "controlledIndependent": {
+    "packageFinal27": {
+      "path": ".tools/package-structure/popup-final-model-evidence.json",
+      "sha256": "20c69eb83fbd73d2fa80f8ea2716910aa6589a2e0f879c2e7b49968a5565ced5",
+      "bytes": 7498
+    },
+    "cgo27AndOld25Control": {
+      "path": ".tools/package-structure/cgo-final-evidence.json",
+      "sha256": "625a505ef42bdf0e99021bb15ca98daa919612ff426ac0e7c93e6b4db1d0cee5",
+      "bytes": 16729
+    },
+    "nativeControls6": {
+      "path": ".tools/go-structure-controls/evidence.json",
+      "sha256": "cdb7238e104704f35420b110a774277373b0609e6c7ca106acf59c4d3dcb5254",
+      "bytes": 1803
+    },
+    "groupingOriginal8": {
+      "path": ".tools/go-structure-grouping/evidence.json",
+      "sha256": "37bc4ebbf786cc79b687f28c990b593a33bf4f643ac348eee15701632e703298",
+      "bytes": 38674
+    },
+    "popupSelectionFinal7Grouping8Presentation5": {
+      "path": ".tools/go-structure-popup-selection/final-evidence.json",
+      "sha256": "047a33efb5865e09d9f1f8f25310af12b6a92af05760bbcd111e2a7dc13093b3",
+      "bytes": 38861
+    },
+    "boundary": "Subsets already included in472, never added again. Original grouping8 evidence has historical pre-selection-fix Model; final selection record binds updatedGrouping8/finalModel. Final7 tests against old350 yield6 failures, generic case passes; original4 all fail."
+  },
+  "initialPackage": {
+    "inputFiles": 350,
+    "sourceDigest": "92f0de1aca190610aeec5cfd3206a4cf0d9e2982b40f8a0c1334a79f2e28e0d7",
+    "kotlin": {
+      "reports": 97,
+      "tests": 465,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "facts": {
+      "path": ".tools/structure-package-build-facts.json",
+      "sha256": "39712fa51948b0876162f1adf97e0e977424b8713532e44045982c4b8713f3af",
+      "bytes": 8455
+    },
+    "archivedIndependentChecks": {
+      "path": ".tools/structure-package-initial-independent-checks.json",
+      "sha256": "f676f9aca4b38991cc9ec195b67cf9bde41dd84ca5e572393dee74e620d3152b",
+      "bytes": 138882
+    },
+    "nativeStatus": "confirmed-current-method-preselection-failed-other-bounded-positives-retained",
+    "boundary": "Initial350 input/product bytes archived before final Model edit. Not the repaired351 native result."
+  },
+  "limitations": [
+    "All36x2 full acceptance cells remain unverified.",
+    "ActualSDK controlled selection/lifetime tests do not prove every native race, commercial defaults or full semantic parity.",
+    "Package symbols are a syntax graph; omitted unmatched methods supplemented only when detected, not a substitute for full Go type/alias semantics.",
+    "Local signing is not Apple notarization/distribution acceptance."
+  ],
+  "independentFinalChecks": {
+    "path": ".tools/structure-package-final-independent-checks.json",
+    "sha256": "88697bcb23f1c4416b57622022415c6ce82b6ca07b55b847e861a1ff5df0d14a",
+    "bytes": 71875
+  }
+}

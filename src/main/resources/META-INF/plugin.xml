@@ -36,7 +36,7 @@
         <lang.foldingBuilder language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.foldingRange.LSPFoldingRangeBuilder" order="first"/>
         <codeBlockProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.codeBlockProvider.LSPCodeBlockProvider" order="first"/>
         <codeInsight.parameterInfo language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.signatureHelp.LSPParameterInfoHandler"/>
-        <lang.psiStructureViewFactory language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.documentSymbol.LSPDocumentSymbolStructureViewFactory"/>
+        <lang.psiStructureViewFactory language="OpenIDEAGo" implementationClass="dev.openidea.goide.lsp.GoStructureViewFactory"/>
         <callHierarchyProvider language="OpenIDEAGo" implementationClass="dev.openidea.goide.navigation.GoCallHierarchyProvider"/>
         <typeHierarchyProvider language="OpenIDEAGo" implementationClass="dev.openidea.goide.navigation.GoTypeHierarchyProvider"/>
         <targetElementEvaluator language="OpenIDEAGo" implementationClass="dev.openidea.goide.navigation.GoTargetElementEvaluator"/>

@@ -1,0 +1,851 @@
+{
+  "schema": "open-goland.structure-package-reference.v1",
+  "recordedAtUtc": "2026-11-09",
+  "scope": "Read-only installed GoLand resource entries and REA archive identity, existing official 2026.1 screenshots, official documentation and pinned OSS Platform APIs; no commercial implementation class bytes or runtime inspection; independent gopls source/stdio control is retained in a separate authority lane and is not native product or commercial runtime evidence",
+  "existingReference": "docs/reference/hierarchy-structure-reference.json",
+  "identity": {
+    "name": "GoLand",
+    "version": "2026.1.4",
+    "build": "GO-261.26222.72",
+    "infoPlistSha256": "9968b91af9d7b7c51c344e56c9e9afbb4d2d448c9ed5d994e1611a03e68fcf0a",
+    "authority": "Previously authenticated installed artifact identity; this pass revalidated the selected archive hashes"
+  },
+  "rea": {
+    "goPlugin": {
+      "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar",
+      "sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0",
+      "inventoryEvidenceId": "ev_6e83a4534edd89427f4d3a3376a4298d405d86d086458de6bdecc6149fc82e8c",
+      "summaryEvidenceId": "ev_68443be455b8d84d551704177c4148c37f90e10793189dbf35f976735a1a2773",
+      "boundary": "Inventory and META-INF/plugin.xml resource only; no .class contents read"
+    },
+    "frontendSummary": {
+      "evidence_id": "ev_8f0c66c7a23fee14d7260ef4ff1e7772876199fe95a8526c75a67a787246c60a",
+      "subject": {
+        "name": "go-plugin-frontend.jar",
+        "digest": {
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "local_path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+        "format": "zip",
+        "architecture": null
+      },
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "analysis_profile": null,
+      "predicate_type": "rea.analysis-view",
+      "operation": "inspect_analysis_view",
+      "parameters": {
+        "parent_evidence_id": "ev_dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4",
+        "view": {
+          "kind": "summary"
+        }
+      },
+      "raw_result": null,
+      "normalized_result": {
+        "kind": "summary",
+        "view": {
+          "kind": "summary"
+        },
+        "parent_evidence_id": "ev_dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4",
+        "parent_operation": "inspect_artifact",
+        "parent_digest": "dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4",
+        "view_digest": "9a54f9ee12924dcfcbaf88c88a5e4db5819819ad996af071f5dac649d78c8a36",
+        "artifact": {
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "coverage": {
+          "status": "complete-within-view",
+          "examined": 378,
+          "total": 378,
+          "next_offset": null,
+          "exhausted": true
+        },
+        "limitations": [
+          "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+          "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+        ],
+        "unknowns": [
+          "Inventory does not establish application runtime behavior or complete format-specific analysis."
+        ],
+        "summary": {
+          "manifest": {
+            "manifest_id": "agm_51792fc2ac090abe41b74ca7dfa5a70d08b01ffa778bf1864c1c498c87cc1ba7",
+            "root_artifact_id": "art_d5d74c993b37ffd41156e35193b021f3c2f2357ca23273fa1e098ce3f0ac003e",
+            "root_sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536",
+            "root_format": "zip",
+            "graph_sha256": "d19193ddf0a4900b05dd6ceb685fa0ea1a75eba5d2b9d8b63b390596f691196f",
+            "node_count": 125,
+            "occurrence_count": 127,
+            "edge_count": 126
+          },
+          "available_counts": {
+            "nodes": 125,
+            "occurrences": 127,
+            "edges": 126,
+            "integrity_contradictions": 0
+          },
+          "observed_entry_kind_counts": {
+            "file": 127,
+            "directory": 0,
+            "symlink": 0,
+            "slice": 0
+          },
+          "source_complete": true,
+          "inventory_evidence_ids": [
+            "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e"
+          ],
+          "inspection": {
+            "coverage": {
+              "status": "complete-within-substeps",
+              "substeps_completed": 1,
+              "observations_retained": 1,
+              "observations_omitted": 0,
+              "hypotheses_retained": 0,
+              "hypotheses_omitted": 0,
+              "unexplored_branches_retained": 0,
+              "unexplored_branches_omitted": 0,
+              "next_probes_retained": 0,
+              "next_probes_omitted": 0
+            },
+            "unexplored_branches": []
+          },
+          "limitation_count": 2
+        }
+      },
+      "confidence": "derived",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "relationship_coverage": null,
+      "locations": [
+        {
+          "kind": "artifact-path",
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar"
+        }
+      ],
+      "evidence_links": [
+        "ev_dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4"
+      ]
+    },
+    "selectedGoBundleResource": {
+      "evidence_id": "ev_4fdfe5aeeece2537846aaf4b287e3fbb4cfaa393d819daedd4e5567766953d50",
+      "subject": {
+        "name": "go-plugin-frontend.jar",
+        "digest": {
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "local_path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+        "format": "zip",
+        "architecture": null
+      },
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "analysis_profile": null,
+      "predicate_type": "rea.analysis-view",
+      "operation": "inspect_analysis_view",
+      "parameters": {
+        "parent_evidence_id": "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e",
+        "view": {
+          "kind": "inventory",
+          "collection": "occurrences",
+          "logical_paths": [
+            "messages/GoBundle.properties"
+          ],
+          "offset": 0,
+          "limit": 4
+        }
+      },
+      "raw_result": null,
+      "normalized_result": {
+        "kind": "inventory",
+        "view": {
+          "kind": "inventory",
+          "collection": "occurrences",
+          "logical_paths": [
+            "messages/GoBundle.properties"
+          ],
+          "offset": 0,
+          "limit": 4
+        },
+        "manifest": {
+          "manifest_id": "agm_51792fc2ac090abe41b74ca7dfa5a70d08b01ffa778bf1864c1c498c87cc1ba7",
+          "root_artifact_id": "art_d5d74c993b37ffd41156e35193b021f3c2f2357ca23273fa1e098ce3f0ac003e",
+          "root_sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536",
+          "root_format": "zip",
+          "graph_sha256": "d19193ddf0a4900b05dd6ceb685fa0ea1a75eba5d2b9d8b63b390596f691196f",
+          "node_count": 125,
+          "occurrence_count": 127,
+          "edge_count": 126
+        },
+        "inventory_evidence_ids": [
+          "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e"
+        ],
+        "source_complete": true,
+        "items": [
+          {
+            "occurrence_id": "occ_f523a3b3165a4cd071b62e6976628f0b1b7ba5698c26c03d394751d14d80be3d",
+            "artifact_id": "art_34a206c52ee6509baeb791ccd15da4d42f6c78d596d29a376b8f84218cfa82f5",
+            "parent_occurrence_id": "occ_32fa004cb59742aaf1abb4b5d40b425e6d68e5920e12ba294920375de26ba337",
+            "logical_path": "messages/GoBundle.properties",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 182913,
+            "compressed_size": 182913,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          }
+        ],
+        "parent_evidence_id": "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e",
+        "parent_operation": "inventory_artifact",
+        "parent_digest": "7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e",
+        "view_digest": "e7b0fe0f4a9e0aeae57b2ee413f851aaec304c02816137b51df680ed696d0d5c",
+        "artifact": {
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "coverage": {
+          "status": "page",
+          "examined": 1,
+          "total": 1,
+          "next_offset": null,
+          "exhausted": true
+        },
+        "limitations": [
+          "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+        ],
+        "unknowns": [
+          "Inventory does not establish application runtime behavior or complete format-specific analysis."
+        ]
+      },
+      "confidence": "derived",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "relationship_coverage": null,
+      "locations": [
+        {
+          "kind": "artifact-path",
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar"
+        }
+      ],
+      "evidence_links": [
+        "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e"
+      ]
+    },
+    "platformSummary": {
+      "evidence_id": "ev_1981bbd5818fe208740ea4efe15cb4a416c92c50996c6387f6dc20dccef7f30f",
+      "subject": {
+        "name": "intellij.platform.ide.impl.jar",
+        "digest": {
+          "sha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d"
+        },
+        "local_path": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+        "format": "zip",
+        "architecture": null
+      },
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "analysis_profile": null,
+      "predicate_type": "rea.analysis-view",
+      "operation": "inspect_analysis_view",
+      "parameters": {
+        "parent_evidence_id": "ev_b0be7b88c933a497fbb5f6224e5ab55f768296aca227b54b440436318faf547b",
+        "view": {
+          "kind": "summary"
+        }
+      },
+      "raw_result": null,
+      "normalized_result": {
+        "kind": "summary",
+        "view": {
+          "kind": "summary"
+        },
+        "parent_evidence_id": "ev_b0be7b88c933a497fbb5f6224e5ab55f768296aca227b54b440436318faf547b",
+        "parent_operation": "inspect_artifact",
+        "parent_digest": "b0be7b88c933a497fbb5f6224e5ab55f768296aca227b54b440436318faf547b",
+        "view_digest": "d535b836aa02cf0aa0df7f23a6c4e7db9dd4e8f7946c3412214828e6e47ed47b",
+        "artifact": {
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar",
+          "sha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d"
+        },
+        "coverage": {
+          "status": "complete-within-view",
+          "examined": 41419,
+          "total": 41419,
+          "next_offset": null,
+          "exhausted": true
+        },
+        "limitations": [
+          "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+          "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+        ],
+        "unknowns": [
+          "Inventory does not establish application runtime behavior or complete format-specific analysis."
+        ],
+        "summary": {
+          "manifest": {
+            "manifest_id": "agm_196e4e0920c1604c6e6016493e91a2634af397ad9d11449a197000d719598758",
+            "root_artifact_id": "art_7b1368b2d0a7e24beddcdf35595322c77f3bd5ed8650d0f3c2c241ce69c05e4c",
+            "root_sha256": "9297f929fefa7e998d9499f73d6ea806d57150779546c68f195116ab22e6356d",
+            "root_format": "zip",
+            "graph_sha256": "fd7d4df349fd80f2b50d9080300da15e90da27331a6ed8dcfa2cb1eaf5f23043",
+            "node_count": 13800,
+            "occurrence_count": 13810,
+            "edge_count": 13809
+          },
+          "available_counts": {
+            "nodes": 13800,
+            "occurrences": 13810,
+            "edges": 13809,
+            "integrity_contradictions": 0
+          },
+          "observed_entry_kind_counts": {
+            "file": 13810,
+            "directory": 0,
+            "symlink": 0,
+            "slice": 0
+          },
+          "source_complete": true,
+          "inventory_evidence_ids": [
+            "ev_c0510cb251cb2d2cd9d2266ca9348ae6acf2b131ff8aef5ff5c1345237d266ea"
+          ],
+          "inspection": {
+            "coverage": {
+              "status": "complete-within-substeps",
+              "substeps_completed": 1,
+              "observations_retained": 1,
+              "observations_omitted": 0,
+              "hypotheses_retained": 0,
+              "hypotheses_omitted": 0,
+              "unexplored_branches_retained": 0,
+              "unexplored_branches_omitted": 0,
+              "next_probes_retained": 0,
+              "next_probes_omitted": 0
+            },
+            "unexplored_branches": []
+          },
+          "limitation_count": 2
+        }
+      },
+      "confidence": "derived",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "relationship_coverage": null,
+      "locations": [
+        {
+          "kind": "artifact-path",
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/lib/intellij.platform.ide.impl.jar"
+        }
+      ],
+      "evidence_links": [
+        "ev_b0be7b88c933a497fbb5f6224e5ab55f768296aca227b54b440436318faf547b"
+      ]
+    },
+    "closed": true,
+    "limitation": "Archive inventory authenticates packaged entry identity and coverage, not loaded runtime behavior or first-launch settings. Initial retained lookup found no current-session record; the same named archives were therefore revalidated. A nodes-view projection could not be consumed; it was not used as evidence."
+  },
+  "resources": [
+    {
+      "archive": "go-plugin-frontend.jar",
+      "logicalPath": "messages/GoBundle.properties",
+      "bytes": 182913,
+      "sha256": "e042135ed9a5159235b144ac919a1ba083778f8e4b6296261049d64d67c8b3e1",
+      "classification": "observed resource literals",
+      "entries": [
+        {
+          "line": 1869,
+          "key": "go.structure.view.show.package.structure.checkbox.text",
+          "value": "Show package structure"
+        },
+        {
+          "line": 1870,
+          "key": "go.structure.view.show.package.structure.action.text",
+          "value": "Show Package Structure"
+        },
+        {
+          "line": 1871,
+          "key": "go.structure.view.private.members.filter.text",
+          "value": "Show Private Members"
+        },
+        {
+          "line": 1872,
+          "key": "go.structure.view.exportability.sorter.text",
+          "value": "By Exportability"
+        },
+        {
+          "line": 1873,
+          "key": "go.structure.view.method.location",
+          "value": "of {0}"
+        }
+      ],
+      "boundary": "These are UI/resource names. No getName/property identifier, implementation, defaults or interpolation argument meaning is inferred."
+    }
+  ],
+  "publicDocumentation": [
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/viewing-structure-of-a-source-file.html",
+      "authority": "Official 2026.1 documentation, fetched this pass",
+      "observations": [
+        "Go view names: Show Package Structure, Alphabetically, Sort by Exportability, Show Private Members.",
+        "Package view includes code elements from other files in the current package; source does not specify all build variants or test file/package inclusion."
+      ]
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/structure-tool-window-file-structure-popup.html",
+      "authority": "Official 2026.1 documentation, fetched this pass",
+      "observations": [
+        "Go table labels By Exportability, Alphabetically, Show Private Members and Show Package Structure.",
+        "Show Fields and Group Methods by Defining Type are described under JavaScript/TypeScript/CoffeeScript, not the Go section.",
+        "The Go table qualifies non-exported constructs as current-file only when package structure is off."
+      ],
+      "ambiguity": "Its foo/Foo2 private-member example is internally surprising. It does not establish that enabling private members hides exported members."
+    }
+  ],
+  "publicImages": [
+    {
+      "url": "https://resources.jetbrains.com/help/img/idea/2026.1/go_file_structure_popup.png",
+      "localPath": ".tools/go-structure-details/go_file_structure_popup.png",
+      "sha256": "92e245a012e17e464c3fecd0188c315e3c1d9b1c079510c0822bfedf9e7a012d",
+      "classification": "visually observed official screenshot, not installed runtime",
+      "observations": [
+        "Show package structure checkbox is pictured unchecked.",
+        "Counter interface contains Clear, Count, Dec, Inc, Snapshot children.",
+        "CounterSnapshot: int64 contains the same receiver-method names; method rows omit receiver prefix."
+      ],
+      "unknowns": [
+        "The screenshot does not establish fresh local defaults or source/receiver declaration files.",
+        "Pointer and generic receiver normalization and alias ownership are not established."
+      ]
+    },
+    {
+      "url": "https://resources.jetbrains.com/help/img/idea/2026.1/go_structure_popup_window.png",
+      "localPath": ".tools/go-structure-details/go_structure_popup_window.png",
+      "sha256": "26dfca52bcb5bcda784c702c9fd3fe1d3a7ee17a42daaa15eee22f127bfd8f00",
+      "classification": "visually observed official screenshot, not installed runtime",
+      "observations": [
+        "Top-level code elements from content.go and files.go share one flat list, with gray filename suffixes on multiple rows.",
+        "ArticleFile has directly nested typed field rows; there are no visible source-file container rows.",
+        "Both private and exported declarations are pictured, with closed/open visibility decorations."
+      ],
+      "inference": [
+        "The pictured list is consistent with package view plus filename provenance, not a file-container tree."
+      ],
+      "unknowns": [
+        "The screenshot has no open option menu establishing exact selected filter/sorter states.",
+        "No universal all-layout or default-setting conclusion follows."
+      ]
+    }
+  ],
+  "publicPlatformApi": {
+    "revision": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "repository": "https://github.com/JetBrains/intellij-community",
+    "sourceCache": ".tools/structure-grouping-reference-public/",
+    "apiNames": [
+      "TreeModel.getGroupers()",
+      "TreeModel.getSorters()",
+      "TreeModel.getFilters()",
+      "Filter.isVisible(TreeElement)",
+      "Filter.isReverted()",
+      "Sorter.ALPHA_SORTER",
+      "Sorter.getAlphaSorterId() returns ALPHA_COMPARATOR",
+      "TreeAction.getName()",
+      "TreeActionWithDefaultState.isEnabledByDefault()"
+    ],
+    "sources": [
+      {
+        "path": "platform/editor-ui-api/src/com/intellij/ide/util/treeView/smartTree/Sorter.java",
+        "sha256": "96b7cb36db6fc0117a4a5ba0993085c28e1fac59aa711164430e92fcf4b04eb3"
+      },
+      {
+        "path": "platform/editor-ui-api/src/com/intellij/ide/util/treeView/smartTree/Filter.java",
+        "sha256": "9b36cba5149ec117f9d1d7576a48de4e579428a003cd14b83460152b9acc09dc"
+      },
+      {
+        "path": "platform/lang-impl/src/com/intellij/ide/structureView/impl/StructureViewFactoryImpl.java",
+        "sha256": "3a55c1b8ab19e25bd5c85f0abe7b647b0d97eb04ccafea9c928d95bc8e0b29a4"
+      },
+      {
+        "path": "platform/lang-impl/src/com/intellij/ide/util/FileStructurePopup.java",
+        "sha256": "4b515e35ad30067016d3bf07f06968398072f3fb6510caa0562a90f4ecc11d7f"
+      },
+      {
+        "path": "platform/lang-impl/src/com/intellij/ide/structureView/newStructureView/TreeModelWrapper.java",
+        "sha256": "e66bdc5ef8cdbbb7f84be0a80cc887cb3fb44631cec1cc8394c036d1f286c593"
+      },
+      {
+        "path": "platform/lang-impl/src/com/intellij/ide/structureView/newStructureView/TreeActionWrapper.java",
+        "sha256": "570b875b71124c7ea6cda52d01a595fe1e188e081e98d90e3f1b6f348f3c421b"
+      }
+    ],
+    "declaredBehavior": [
+      "The tool window builds native sort/filter/group actions from the model's arrays.",
+      "StructureViewFactoryImpl.State declares ACTIVE_ACTIONS empty, AUTOSCROLL_MODE true and AUTOSCROLL_FROM_SOURCE false.",
+      "TreeModelWrapper always includes invisible sorters; visible sorters/filters are included by active action name. Reverted filters reverse the displayed toggle state.",
+      "FileStructurePopup independently enables alpha in its owner. Its persisted default-value calculation treats alpha as enabled and otherwise consults TreeActionWithDefaultState; saved properties can override the default."
+    ],
+    "boundary": "These are pinned OSS platform contracts and source declarations, not installed commercial Go model defaults. showFields/showNonPublic/sortByVisibility/sortByKind/showPackageStructure exact Go API names or values were not established by allowed resource inspection.",
+    "selectionVersionContract": {
+      "classification": "Observed pinned public OSS interface, independently verified alongside the reconstruction SDK regression; not commercial Go implementation or runtime",
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/core-impl/src/com/intellij/openapi/editor/ex/DocumentEx.java#L91-L96",
+      "physicalLines": [
+        91,
+        96
+      ],
+      "finding": "DocumentEx documents a per-change increasing modification sequence distinct from modificationStamp, which may be assigned arbitrary values. The public interface default returns zero; the actual editor document implementation and its behavior must therefore be verified separately.",
+      "reconstructionVerification": "The actual SDK editor/Undo regression verifies that its native document sequence changes across edit and Undo even when text and modificationStamp are restored. The reconstruction binds its captured source origin to that sequence as well as cached source stamp and model/editor lifetime.",
+      "bounds": "This does not establish arbitrary alternative Document/DocumentEx implementations, every concurrency schedule or commercial editor behavior."
+    }
+  },
+  "inference": [
+    "Receiver grouping belongs in the independent Go structure tree or a model grouper integrated with the native host; the screenshots alone do not dictate internal implementation.",
+    "A flat package-level symbol list with filename provenance matches the pictured official layout. Adding per-file container nodes would be an independent design choice, not a reconstructed observation.",
+    "Go-specific exportability sorting is reference-supported. A distinct visibility or kind sorting toggle is not established by the bounded Go resources/documentation.",
+    "Fields and non-public entries can be pictured visible without proving fresh-install defaults. Product defaults should be labeled independent choices until runtime evidence exists.",
+    "The reconstruction can use the native model/filter/sorter interfaces and gopls syntax graph while keeping commercial implementation details unknown.",
+    "Show Private Members and By Exportability are reference-supported Go labels. Show Fields/Group Methods by Defining Type in the cited cross-language help are not evidence of Go-specific controls.",
+    "Package origin, private-member visibility and sorting are distinct client presentation choices; response membership must follow the selected backend metadata context rather than guessed same-directory enumeration."
+  ],
+  "unknown": [
+    "Installed GoLand first-launch or current effective defaults for all Structure toggles.",
+    "Whether showFields/showNonPublic or visibility/kind sort identifiers exist in the proprietary Go model; no implementation classes were read.",
+    "What the of {0} resource argument represents and when it is displayed.",
+    "Package inclusion rules for excluded/build-tagged/platform/test/external-test files and unsaved cross-file edits.",
+    "Generic, pointer receiver, alias and cross-file method grouping policy; duplicate, invalid receiver and partial parse behavior.",
+    "Persistence, cancellation, asynchronous refresh and disposal behavior of the installed reference.",
+    "No complete new-build/native acceptance follows from the backend control or private SDK regressions; those verification stages remain independently attributed.",
+    "Full typed receiver/alias equivalence, every metadata/build/tag/cgo/generated context, virtual-URI integration and complete GoLand parity are not established."
+  ],
+  "sourceRecords": [
+    {
+      "path": ".tools/structure-grouping-reference.json",
+      "bytes": 24626,
+      "sha256": "b4fc6dd76db593b60a75d07df70ef2b0727ff898d029f12e378a45e7495fe0b8"
+    },
+    {
+      "path": ".tools/gopls-package-symbols-analysis.json",
+      "bytes": 8323,
+      "sha256": "871bb12e1d976a13d0da7f52dcf0d420e2d5ab2c56f73d2551838c798700df80"
+    }
+  ],
+  "authorityBoundaries": {
+    "commercialShippedResources": "REA-authenticated selected inventories/resources only. UI literal names and registration candidates do not reveal proprietary implementation, active states or runtime behavior.",
+    "officialPublicImages": "Published 2026.1 screenshots establish only the pictured layout/presentation. They do not establish installed 2026.1.4 first-launch defaults, exact receiver ownership, build contexts or lifecycle.",
+    "publicOssPlatform": "Pinned source declarations describe native model/filter/sorter/popup APIs. They are not proprietary Go model implementation or commercial product defaults.",
+    "backendProtocolControl": "Owned actual gopls v0.21.1 stdio sessions and pinned public source describe syntax symbols in selected metadata/build/test contexts. They do not prove native actions, visual rendering, cancellation or the reconstruction integration.",
+    "newProductRuntime": "New package/source digest, complete build and native acceptance are recorded separately in verification documents. No such new runtime pass is inferred from this reference record."
+  },
+  "backendProtocolControl": {
+    "schema": "open-goland.gopls-package-symbols-control.v1",
+    "scope": "Independent owned stdio control and public pinned source, not production/native UI evidence",
+    "protocolReport": {
+      "path": ".tools/gopls-package-symbols-dnofkt2v/report.json",
+      "sha256": "5ce67b990bf87db087441b110907f2b7ba2ee80d3ddf1d0eb47c80d47c99e2d4"
+    },
+    "harness": {
+      "path": ".tools/probe-gopls-package-symbols.py",
+      "sha256": "3ab1293ef55f20a9b3d89b14a26ac00b8cf2e753bdec9618fe1c8a06db2ab8e1"
+    },
+    "publicSources": [
+      {
+        "path": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/protocol/command/interface.go",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/protocol/command/interface.go",
+        "sha256": "387c69d880ebd4040fd3ad799b453cc857727456953e7885760b71e397d8b0e3"
+      },
+      {
+        "path": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/protocol/command/command_gen.go",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/protocol/command/command_gen.go",
+        "sha256": "467d50e2cbc0e20132311a1b351539b82c3013a9677da24461ec21e76de6ea50"
+      },
+      {
+        "path": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/server/command.go",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/server/command.go",
+        "sha256": "b8ca19e6649bf5476c9533fb5608339f38ae0a99fb9c656ee117eb6731bad7a7"
+      },
+      {
+        "path": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/golang/symbols.go",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/golang/symbols.go",
+        "sha256": "28f8bb77630523a6e0061afeb1a8cb57cdab653ef37df9818d2a35b23637d6b0"
+      },
+      {
+        "path": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/cache/snapshot.go",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/cache/snapshot.go",
+        "sha256": "4db5960d64628563e0f7b65b6072f797e28f0dac8bc30900b794af56bb56eaa5"
+      },
+      {
+        "path": "/Users/wangshubo/go/pkg/mod/golang.org/x/tools/gopls@v0.21.1/internal/cache/fs_overlay.go",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/cache/fs_overlay.go",
+        "sha256": "d3fca03e1f4c3ff1f196d4461d9f88a20493a45e8fdb7146583d970d333c5772"
+      }
+    ],
+    "request": {
+      "method": "workspace/executeCommand",
+      "params": {
+        "command": "gopls.package_symbols",
+        "arguments": [
+          {
+            "URI": "<query file URI>"
+          }
+        ]
+      }
+    },
+    "resultContract": {
+      "outerFields": [
+        "PackageName",
+        "Files",
+        "Symbols"
+      ],
+      "symbolFields": [
+        "name",
+        "detail",
+        "kind",
+        "tags",
+        "range",
+        "selectionRange",
+        "children",
+        "file"
+      ],
+      "fileIndex": "Each symbol/child independently indexes Files; omitted file means zero. Never inherit parent file index.",
+      "version": "Result has no document version; valid client snapshots remain necessary.",
+      "semantics": "Syntactic symbols from the narrowest metadata CompiledGoFiles; methods grouped by unpacked receiver base name; server sorts top-level symbols by name."
+    },
+    "observed": [
+      "Both actual v0.21.1 sessions advertised gopls.package_symbols.",
+      "Base URI selected methods.go/model.go/private.go; private symbols returned, while internal/external tests were excluded.",
+      "Internal test URI selected base files plus model_test.go, including Record.TestOnly and TestSmoke.",
+      "External test URI selected sample_test/external_test.go only.",
+      "Record type from model.go had Lookup method from methods.go, whose omitted file index zero differed from parent index one.",
+      "Generic Box[T] receiver method ValueCopy grouped under Box; symbol name excluded receiver prefix.",
+      "A same-line Chinese identifier after emoji returned valid UTF-16 selection (4,19)..(4,21); all recursively returned symbol selections were decoded against their own file.",
+      "Dirty didChange of methods.go changed Lookup to DirtyLookup in a subsequent command querying unchanged model.go, while disk stayed initial.",
+      "New didOpen overlay unsaved.go appeared as OverlayOnly in the package response without creating a disk file.",
+      "Default query excluded active/absent build tags, windows suffix, underscore-prefixed file, and subpackage. A second session with -tags=active added ActiveOnly.",
+      "Querying excluded absent.go directly yielded a singleton containing AbsentOnly; this is not evidence it belongs to the normal selected build package.",
+      "Missing command arguments returned error code0 with DecodeArgs expected1/got0; notes.txt query returned empty package name, singleton Files and no symbols rather than an error."
+    ],
+    "knownSourceBounds": [
+      "NarrowestMetadataForFile picks the fewest-file package; test variants are possible, intermediate test variants are removed.",
+      "PackageSymbols falls back to the query URI when metadata lookup fails. No same-directory enumeration fallback is required client-side.",
+      "OverlayFS checks open-document overlays before delegate disk reads.",
+      "Top-level blank declarations are skipped; grouping is syntax-based and is not proof of alias canonicalization or receiver semantic validity."
+    ],
+    "integrationPlan": [
+      "Check the matched initialized server executeCommandProvider command capability; retain document-only behavior when unsupported.",
+      "Use actual client URI mapping and normal LSP4IJ initialized/document-connect ordering; issue the command off EDT with cancellation and immutable query/semantic generation ownership.",
+      "Treat the package result as the whole selected package symbol dataset, including current file, to avoid NodeProvider duplication.",
+      "Map every node through its own file index and validate bounds/URI/range; perform required VFS/PSI/document discovery only in background.",
+      "Use current versioned documents for UTF-16 navigation and reject stale completions when relevant package/metadata inputs change; do not treat response arrival as source acknowledgement.",
+      "Keep standard native Structure model/tree actions/renderers; show current package symbols with optional filename suffixes, not invented file containers.",
+      "Retain public/private filtering and sorting as client presentation state; package_symbols does not enforce export visibility."
+    ],
+    "lifecycle": {
+      "sessions": [
+        {
+          "pid": 17931,
+          "exitCode": 0,
+          "protocolShutdownExit": true,
+          "recordedOwnedPids": [
+            17931,
+            17934,
+            17940,
+            17941,
+            17948,
+            17949,
+            17950,
+            17951,
+            17952,
+            17953,
+            17954,
+            17955,
+            17964,
+            17970,
+            17971,
+            17974,
+            17975,
+            18020,
+            18027,
+            18043,
+            18046,
+            18075
+          ],
+          "recordedOwnedPidsAbsent": true,
+          "ownedProcessGroupAbsent": true,
+          "trace": "/Users/wangshubo/develop/openidea-go/.tools/gopls-package-symbols-dnofkt2v/default.jsonl",
+          "traceSha256": "30ea7d5383eee55ab26b74f72e04c433b15e50549c69cf4ca4e88ab1afc1b624"
+        },
+        {
+          "pid": 18103,
+          "exitCode": 0,
+          "protocolShutdownExit": true,
+          "recordedOwnedPids": [
+            18103,
+            18111,
+            18112
+          ],
+          "recordedOwnedPidsAbsent": true,
+          "ownedProcessGroupAbsent": true,
+          "trace": "/Users/wangshubo/develop/openidea-go/.tools/gopls-package-symbols-dnofkt2v/active-tag.jsonl",
+          "traceSha256": "fa07c696565d74b65961aec03d137479252aab476dcfa4ad84a02efc83548714"
+        }
+      ],
+      "diskFilesUnchanged": true,
+      "unsavedOverlayWasNotWritten": true
+    },
+    "unknown": [
+      "All platform/build-tag combinations, cgo/generated files, go.work multi-view interactions and malformed receiver/alias/generic parse cases were not exhaustively tested.",
+      "No cancellation, project-disposal, stale in-flight or native model integration proof follows from these transport controls.",
+      "All disk fixture files were unchanged and recorded process IDs/groups absent. Sampling is not a complete history of every short-lived descendant.",
+      "A backend overlay-only URI in this control is not proof that every native scratch/temporary-file URI has a matching navigable VFS/PsiFile in the reconstruction.",
+      "The initial two stdio sessions do not establish orphan-method supplementation, native filtered grouping or all later controlled SDK hardening cases."
+    ],
+    "additionalPublicSourceFindings": [
+      {
+        "classification": "observed pinned public source, not commercial implementation",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/golang/symbols.go#L89-L171",
+        "finding": "PackageSymbols stores receiver methods separately and attaches them only when a matching receiver base-name type symbol exists. A method with an unresolved/missing receiver declaration can therefore be omitted from this helper result. This is syntax grouping, not receiver type validation or alias canonicalization.",
+        "integrationBoundary": "The reconstruction detects uncovered lexical receiver-method selections and asks textDocument/documentSymbol only for affected files, merging by file/kind/selection identity. That independently implemented recovery and its tests belong in verification, not proof that the commercial reference or helper has the same behavior."
+      },
+      {
+        "classification": "observed pinned public source",
+        "url": "https://github.com/golang/tools/blob/gopls/v0.21.1/gopls/internal/server/command.go#L1777-L1803",
+        "finding": "The server command handler stably sorts top-level results by name and then start line. The client may restore deterministic file/source order before optional native sorters; the helper itself is not a type-checked schema."
+      }
+    ]
+  },
+  "additionalBackendProtocolControls": [
+    {
+      "classification": "Owned actual gopls stdio control of one CGO fixture; not commercial runtime, native product UI or complete CGO parity",
+      "report": {
+        "path": ".tools/gopls-package-cgo-9gs7r12l/report.json",
+        "bytes": 31889,
+        "sha256": "e787269000f92d3aba4fcb0ff173ee56d4aa4eb59481f35523e63ec811f4c24b"
+      },
+      "server": {
+        "name": "gopls",
+        "version": "v0.21.1",
+        "builtWith": "go1.25.8"
+      },
+      "request": {
+        "method": "workspace/executeCommand",
+        "params": {
+          "command": "gopls.package_symbols",
+          "arguments": [
+            {
+              "URI": "<source.go or plain.go URI in the same CGO package>"
+            }
+          ]
+        }
+      },
+      "observed": [
+        {
+          "fact": "Both source.go and plain.go queries return the same package graph",
+          "equalResults": true
+        },
+        {
+          "fact": "Files preserves a compiler-cache auxiliary entry at raw index zero, followed by ordinary package source files",
+          "rawFiles": [
+            "file:///Users/wangshubo/Library/Caches/go-build/39/39e8c6af6b8a07c700aedca9bd0e0681d876a29ebffbc2b2fd2f4c38fbd8f284-d",
+            "file:///Users/wangshubo/develop/openidea-go/.tools/gopls-package-cgo-9gs7r12l/CGO%20%E5%8C%85%20%F0%9F%98%80/plain.go",
+            "file:///Users/wangshubo/develop/openidea-go/.tools/gopls-package-cgo-9gs7r12l/CGO%20%E5%8C%85%20%F0%9F%98%80/source.go"
+          ]
+        },
+        {
+          "fact": "Raw package symbols include source declarations and compiler internals",
+          "topLevelNames": [
+            "Answer",
+            "Plain",
+            "Record",
+            "_Cfunc_answer",
+            "_Cgo_always_false",
+            "_Cgo_keepalive",
+            "_Cgo_no_callback",
+            "_Cgo_ptr",
+            "_Cgo_use",
+            "_Ctype_int",
+            "_Ctype_void",
+            "__cgofn__cgo_14e1b323cbc1_Cfunc_answer",
+            "_cgoCheckPointer",
+            "_cgoCheckResult",
+            "_cgo_14e1b323cbc1_Cfunc_answer",
+            "_cgo_runtime_cgocall"
+          ]
+        },
+        {
+          "fact": "A source textDocument/documentSymbol request returns source declarations only in this fixture",
+          "names": [
+            "Record",
+            "(Record).Read",
+            "Answer"
+          ]
+        },
+        {
+          "fact": "The three initial fixture files remain unchanged",
+          "unchanged": true,
+          "files": [
+            "go.mod",
+            "source.go",
+            "plain.go"
+          ]
+        }
+      ],
+      "lifecycle": {
+        "pid": 20013,
+        "exitCode": 0,
+        "protocolShutdownExit": true,
+        "recordedOwnedPids": [
+          20013,
+          20022,
+          20036,
+          20038,
+          20046,
+          20052,
+          20053,
+          20057,
+          20058,
+          20064,
+          20072,
+          20073,
+          20075,
+          20076,
+          20094,
+          20095
+        ],
+        "recordedOwnedPidsAbsent": true,
+        "ownedProcessGroupAbsent": true,
+        "trace": {
+          "path": ".tools/gopls-package-cgo-9gs7r12l/cgo.jsonl",
+          "bytes": 21754,
+          "sha256": "ffa8dfe705bcfc1910f8b0845fa5895dbcb68c231bf8b65857202ed588f6a7e1"
+        }
+      },
+      "integrationBoundary": "The reconstruction independently filters compiler auxiliary entries outside the query source directory while retaining original file-index slots. Its source preservation, controlled SDK regressions, packaged integration and native acceptance are separate verification stages.",
+      "unknown": [
+        "The installed commercial product CGO membership, presentation and defaults remain unknown.",
+        "This one fixture does not establish every generated-file, cgo, build-context or URI mapping case.",
+        "Recorded PID sampling is not a complete history of every short-lived descendant."
+      ]
+    }
+  ]
+}

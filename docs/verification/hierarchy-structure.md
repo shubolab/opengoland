@@ -1,5 +1,11 @@
 # Go hierarchy and Structure workflows
 
+A subsequent [package Structure batch](structure-package.md) adds receiver grouping,
+package symbols and native Go filters/sorting, then repairs asynchronous popup
+preselection. Its 351-input/472-test package and native PID26222 are separate
+from this historical 343-input/424-test record. The later result supersedes the
+receiver-grouping/package-view limitation below; full parity remains open.
+
 The repaired package passes **424 Kotlin/platform tests across 94 reports**, with
 zero failures, errors or skips. Its **343 frozen inputs** have digest
 `edfe8d6a92f915c908a3872af65c74ea5d8ee310a108644f3d0258c7b425ab1c`.
@@ -302,10 +308,11 @@ UI or prove visual rendering from a reply alone.
 - Type hierarchy remains the upstream subtype/supertype views; the combined view
   is not implemented. Generic matching follows each actual backend query rather
   than an assumed universal candidate set.
-- Structure still uses document symbols over flat lexical Go PSI. Receiver-method
-  grouping, package-wide Structure, export/private sorting/filtering, complete
-  generic parameter display and every GoLand display option are not established
-  by this presentation change. No missing type information is invented.
+- This historical presentation change used document symbols over flat lexical Go
+  PSI. Receiver grouping, package Structure and export/private controls were not
+  established by that cohort; see the subsequent [package Structure record](structure-package.md).
+  Complete generic parameter display and every GoLand option remain open. No
+  missing type information is invented.
 - Commercial descriptors and public screenshots define reference evidence only.
   They do not establish commercial runtime defaults, full behavior equivalence or
   closure of any of the 36 complete acceptance requirements.

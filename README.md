@@ -200,10 +200,10 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current verification batch passed all 424 Kotlin/platform tests across 94
+The current verification batch passed all 472 Kotlin/platform tests across 98
 reports, with zero failures, errors or skips. The Go race command passed 271 test
 events including subtests (all nine packages cached), and Go vet passed.
-All engine inputs remained unchanged through the hierarchy and Structure repair.
+All engine inputs remained unchanged through the hierarchy and package Structure repair.
 It includes typed test/interface/struct-helper/tag/JSON generation, native tag carets,
 Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
@@ -241,8 +241,12 @@ test and exact-label Go Settings search. The subsequent
 passes native type/call trees, Base On actions, unsaved target movement,
 recursive-call termination, and function/type signatures in Structure and File
 Structure. It also closes the four navigation getters' concurrent parameter-gate
-regression in actual-SDK tests. Receiver-method grouping, complete hierarchy
-scope semantics and full navigation parity remain open.
+regression in actual-SDK tests. The later [package Structure batch](docs/verification/structure-package.md)
+adds receiver grouping across files, package/current-file views, private-member
+filtering and exportability sorting. Its repaired standalone package passes native
+method preselection, cross-file navigation, unsaved closed-buffer/Undo handling
+and two uncached Go tests including CGO. Complete hierarchy scope semantics,
+all Structure options and full navigation parity remain open.
 [Build identities and cohort boundaries](docs/verification/module-usages-build.json)
 keep these checks separate from earlier delivery evidence and full IDE acceptance.
 
@@ -280,6 +284,7 @@ evidence is recorded separately from the direct protocol results.
 - [Initialization document synchronization](docs/verification/lsp-document-sync.md).
 - [Standard navigation, cache invalidation and Settings search](docs/verification/standard-navigation.md).
 - [Hierarchy, Structure signatures and concurrent navigation parameters](docs/verification/hierarchy-structure.md).
+- [Package Structure, receiver groups, native filters and popup selection](docs/verification/structure-package.md).
 - [Attach Stop ordering](docs/verification/debug-stop-ordering.md).
 - [Engine protocol and tests](engine/README.md).
 - [Pinned platform input](product/platform.lock.json).

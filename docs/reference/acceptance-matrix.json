@@ -192,7 +192,11 @@
         "hierarchy_structure": "../verification/hierarchy-structure.md",
         "hierarchy_structure_native": "../verification/hierarchy-structure-native.json",
         "hierarchy_structure_reference": "hierarchy-structure-reference.json",
-        "hierarchy_structure_observation": "Final 343-input edfe8d6a native package passes Source subtype/supertype and actual Base On actions, dirty Unicode-prefix re-root/navigation, caller/callee trees and self/mutual recursive leaves. Structure and Cmd+F12 show signatures/type suffixes, unsaved symbol refresh/Undo and Chinese-field navigation. Old 7284c945 PID12124 Base On missing-client crash is retained as FAIL; new PID15944 repeats that action successfully. 424 controlled tests include11 hierarchy and5 presentation cases. Receiver-method grouping, all filters/scopes/counts, combined trees and commercial runtime equivalence remain open."
+        "hierarchy_structure_observation": "Final 343-input edfe8d6a native package passes Source subtype/supertype and actual Base On actions, dirty Unicode-prefix re-root/navigation, caller/callee trees and self/mutual recursive leaves. Structure and Cmd+F12 show signatures/type suffixes, unsaved symbol refresh/Undo and Chinese-field navigation. Old 7284c945 PID12124 Base On missing-client crash is retained as FAIL; new PID15944 repeats that action successfully. 424 controlled tests include11 hierarchy and5 presentation cases. Receiver-method grouping, all filters/scopes/counts, combined trees and commercial runtime equivalence remain open.",
+        "package_structure": "../verification/structure-package.md",
+        "package_structure_native": "../verification/structure-package-native.json",
+        "package_structure_reference": "structure-package-reference.json",
+        "package_structure_observation": "The later351-input920334cb package passes472 controlled tests including27 package,8 grouping,6 controls and7 actual-popup-selection cases. Fresh native PID26222 passes first/reopened/body Lookup and TestOnly selection, package/current-file and private filtering, cross-file Rename3:18, dirty unresolved receiver closed-buffer reopening9:16/Undo7:1, external-test isolation and2 uncached Go tests including CGO. Initial350-input92f0de1a PID22681 parent-Record preselectionFAIL is retained independently. Initial toolwindow Alpha/export toggles are not relabeled as final native evidence. Syntax-based gopls grouping, all options/build contexts/scopes and commercial runtime equivalence remain open."
       }
     },
     {

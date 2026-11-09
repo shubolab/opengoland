@@ -103,3 +103,23 @@ types and receiver grouping. These are static resource/public image observations
 not local commercial runtime or default-setting verification. No proprietary
 implementation classes were read or copied, no reference settings were changed,
 and REA was closed after the investigation. Full runtime parity remains open.
+
+
+## Structure package view, receiver grouping and Go controls
+
+[Structure package reference](structure-package-reference.json) preserves a further
+bounded REA resource pass: the unchanged Go archives were authenticated and five
+selected `messages/GoBundle.properties` entries identify package visibility, private
+members, exportability ordering and a method-location literal. The frontend resource
+SHA-256 is `e042135ed9a5159235b144ac919a1ba083778f8e4b6296261049d64d67c8b3e1`.
+No proprietary implementation class contents or reference feature runtime were read,
+and the REA session was closed. Literal labels do not establish internal property
+IDs, effective defaults or the meaning of the `of {0}` interpolation.
+
+The same record separates published 2026.1 screenshots, pinned OSS model/filter/
+sorter contracts, and an owned actual gopls v0.21.1 stdio control. The backend command
+returns a syntax-based graph for its selected metadata context, including independent
+child-file indices; it is not a typed receiver proof or native UI evidence. The
+reconstruction's recovery for omitted receiver methods and its build/native checks
+are tracked in [Structure package verification](../verification/structure-package.md).
+Commercial runtime defaults and complete feature parity remain unverified.

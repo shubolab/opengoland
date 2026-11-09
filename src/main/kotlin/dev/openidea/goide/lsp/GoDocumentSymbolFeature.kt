@@ -12,11 +12,11 @@ import org.eclipse.lsp4j.SymbolKind
 /** Carries gopls signature/type details into the native Structure presentation. */
 class GoDocumentSymbolFeature : LSPDocumentSymbolFeature() {
     override fun getPresentableText(documentSymbol: DocumentSymbol, psiFile: PsiFile): String? =
-        if (psiFile.language == GoLanguage) formattedText(documentSymbol) ?: super.getPresentableText(documentSymbol, psiFile)
+        if (psiFile.language == GoLanguage) formattedText(documentSymbol, psiFile) ?: super.getPresentableText(documentSymbol, psiFile)
         else super.getPresentableText(documentSymbol, psiFile)
 
     override fun getLocationString(documentSymbol: DocumentSymbol, psiFile: PsiFile): String? =
-        if (psiFile.language == GoLanguage && (formattedText(documentSymbol) != null ||
+        if (psiFile.language == GoLanguage && (formattedText(documentSymbol, psiFile) != null ||
                 documentSymbol.kind == SymbolKind.Struct || documentSymbol.kind == SymbolKind.Interface)) null
         else super.getLocationString(documentSymbol, psiFile)
 
@@ -24,11 +24,13 @@ class GoDocumentSymbolFeature : LSPDocumentSymbolFeature() {
         if (documentSymbol.containingFile?.language == GoLanguage) GoDocumentSymbolTreeElement(documentSymbol)
         else super.getStructureViewTreeElement(documentSymbol)
 
-    private fun formattedText(symbol: DocumentSymbol): String? {
+    private fun formattedText(symbol: DocumentSymbol, file: PsiFile): String? {
         val detail = symbol.detail?.takeIf { it.isNotBlank() } ?: return null
         return when (symbol.kind) {
             SymbolKind.Function, SymbolKind.Method, SymbolKind.Constructor ->
-                if (detail.startsWith("func(")) symbol.name + detail.removePrefix("func") else null
+                if (symbol.kind == SymbolKind.Function && symbol.range?.start == symbol.selectionRange?.start &&
+                    GoStructureSource.create(file)?.typeAlias(symbol) != null) "${symbol.name}: $detail"
+                else if (detail.startsWith("func(")) symbol.name + detail.removePrefix("func") else null
             SymbolKind.Field, SymbolKind.Variable, SymbolKind.Constant, SymbolKind.Class, SymbolKind.TypeParameter ->
                 "${symbol.name}: $detail"
             else -> null
