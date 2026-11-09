@@ -1,0 +1,110 @@
+name: Publish tested installers
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Existing private release version, without v'
+        required: true
+        type: string
+      run_id:
+        description: 'release.yml run with a successful Windows job'
+        required: true
+        type: string
+      source_sha:
+        description: 'Exact 40-character installer source commit; existing tag must point here'
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    concurrency:
+      group: open-goland-release-v${{ inputs.version }}
+      cancel-in-progress: false
+    permissions:
+      contents: write
+      actions: read
+    env:
+      GH_TOKEN: ${{ github.token }}
+      RELEASE_VERSION: ${{ inputs.version }}
+      SOURCE_RUN_ID: ${{ inputs.run_id }}
+      SOURCE_SHA: ${{ inputs.source_sha }}
+    steps:
+      # Keep the new control-plane validator, rather than checking out the older
+      # installer commit. Its captured source is checked against SOURCE_SHA below.
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          fetch-depth: 0
+      - name: Verify source run and existing private Mac assets
+        id: context
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import os, sys
+          sys.path.insert(0, 'scripts')
+          from publish_tested_installers import validate_inputs
+          validate_inputs(os.environ['GITHUB_REPOSITORY'], os.environ['RELEASE_VERSION'], int(os.environ['SOURCE_RUN_ID']), os.environ['SOURCE_SHA'])
+          PY
+          python3 -m unittest discover -s scripts/tests -p test_publish_tested_installers.py -v
+          tag="v$RELEASE_VERSION"
+          test "$(git rev-parse "$tag^{commit}")" = "$SOURCE_SHA"
+          mkdir -p publish-work/mac
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID" > publish-work/run.json
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID/jobs?filter=latest&per_page=100" > publish-work/jobs.json
+          gh api "repos/$GITHUB_REPOSITORY/actions/runs/$SOURCE_RUN_ID/artifacts?per_page=100" > publish-work/artifacts.json
+          release_id="$(gh release view "$tag" --json databaseId --jq .databaseId)"
+          [[ "$release_id" =~ ^[0-9]+$ ]]
+          gh api "repos/$GITHUB_REPOSITORY/releases/$release_id" > publish-work/release.json
+          artifact_id="$(python3 scripts/publish_tested_installers.py context --repo "$GITHUB_REPOSITORY" --version "$RELEASE_VERSION" --run-id "$SOURCE_RUN_ID" --source "$SOURCE_SHA" --run publish-work/run.json --jobs publish-work/jobs.json --artifacts publish-work/artifacts.json --release publish-work/release.json --output publish-work/context.json)"
+          echo "artifact-id=$artifact_id" >> "$GITHUB_OUTPUT"
+          echo "release-id=$release_id" >> "$GITHUB_OUTPUT"
+          gh release download "$tag" --pattern macos-provenance.tar.gz --dir publish-work/mac
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          artifact-ids: ${{ steps.context.outputs.artifact-id }}
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ inputs.run_id }}
+          path: publish-work/windows
+          merge-multiple: true
+      - name: Validate installed evidence and prepare only Windows assets and checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 scripts/publish_tested_installers.py prepare --context publish-work/context.json --windows publish-work/windows --mac-proof publish-work/mac/macos-provenance.tar.gz --output publish-work/assets --receipt publish-work/receipt.json --repo-root "$GITHUB_WORKSPACE"
+      - name: Verify five assets and publish last, preserving reviewed notes
+        env:
+          RELEASE_ID: ${{ steps.context.outputs.release-id }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          tag="v$RELEASE_VERSION"
+          gh api "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" > publish-work/before-upload.json
+          python3 scripts/publish_tested_installers.py verify-private --receipt publish-work/receipt.json --release publish-work/before-upload.json
+          gh release upload "$tag" publish-work/assets/* --clobber
+          gh api "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" > publish-work/final-release.json
+          python3 scripts/publish_tested_installers.py verify --receipt publish-work/receipt.json --release publish-work/final-release.json
+          remote_commit="$(git ls-remote --tags origin "refs/tags/$tag" "refs/tags/$tag^{}" |
+            awk '$2 ~ /\^\{\}$/ { peeled=$1 } $2 !~ /\^\{\}$/ { direct=$1 } END { print peeled ? peeled : direct }')"
+          test "$remote_commit" = "$SOURCE_SHA"
+          if [[ "$RELEASE_VERSION" == *-* ]]; then
+            gh release edit "$tag" --draft=false --prerelease --latest=false
+          else
+            gh release edit "$tag" --draft=false --prerelease=false --latest
+          fi
+      - name: Retain publication receipts
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: tested-installer-publication-${{ github.run_id }}
+          path: |
+            publish-work/*.json
+            publish-work/assets/SHA256SUMS
+          if-no-files-found: warn
+          retention-days: 30
