@@ -46,7 +46,7 @@ class GoFuzzCorpusToolTest {
                 val values = GoRunParameters(target = ".", workingDirectory = root.toString(), testMode = GoTestMode.TEST, testPattern = corpus.testPattern)
                 val arguments = values.commandArguments(GoRunKind.TEST, "")
                 assertFalse(arguments.any { it.startsWith("-fuzz") })
-                val (exit, output) = run(listOf(go!!) + arguments, root)
+                val (exit, output) = run(listOf(go!!) + arguments, root, go)
                 assertEquals(code, exit, output)
                 val ran = output.lineSequence().mapNotNull { line -> runCatching { JsonParser.parseString(line).asJsonObject }.getOrNull() }
                     .filter { it.get("Action")?.asString == "run" }.mapNotNull { it.get("Test")?.asString }.toList()
@@ -57,7 +57,7 @@ class GoFuzzCorpusToolTest {
             // Delve uses a compiled test binary. Exercise the exact same -test.run
             // selector directly, independently of the go test frontend's selection.
             val binary = root.resolve(if (System.getProperty("os.name").startsWith("Windows")) "corpus.test.exe" else "corpus.test")
-            assertEquals(0, run(listOf(go!!, "test", "-c", "-o", binary.toString()), root).first)
+            assertEquals(0, run(listOf(go!!, "test", "-c", "-o", binary.toString()), root, go).first)
             val pattern = GoFuzzCorpusPath.fromPath(bad)!!.testPattern
             val (code, output) = run(listOf(binary.toString(), "-test.v", "-test.run", pattern), root)
             assertEquals(1, code, output)
@@ -69,9 +69,10 @@ class GoFuzzCorpusToolTest {
         }
     }
 
-    private fun run(command: List<String>, root: Path): Pair<Int, String> {
+    private fun run(command: List<String>, root: Path, go: String? = null): Pair<Int, String> {
         val capture = Files.createTempFile(root, "owned-corpus-command-", ".log")
         val child = ProcessBuilder(command).directory(root.toFile()).redirectErrorStream(true).redirectOutput(capture.toFile()).apply {
+            if (go != null) environment().putAll(mapOf("GOROOT" to Path.of(go).toRealPath().parent.parent.toString(), "GOOS" to "", "GOARCH" to ""))
             environment()["GOTOOLCHAIN"] = "local"
             environment()["GOPROXY"] = "off"
             environment()["GOWORK"] = "off"

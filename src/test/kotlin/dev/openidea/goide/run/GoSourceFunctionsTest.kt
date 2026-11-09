@@ -2,6 +2,7 @@ package dev.openidea.goide.run
 
 import dev.openidea.goide.settings.GoToolchain
 import java.nio.file.Files
+import java.nio.file.Path
 import java.util.concurrent.TimeUnit
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -206,7 +207,8 @@ class GoSourceFunctionsTest {
             // Vet separately diagnoses the deliberately non-test lowercase name;
             // this probe compares the driver's executable entry selection.
             process = ProcessBuilder(go, "test", "-vet=off", "-list", ".").directory(root.toFile()).redirectErrorStream(true).apply {
-                environment().putAll(mapOf("GOWORK" to "off", "GOTOOLCHAIN" to "local", "GOPROXY" to "off", "GOTELEMETRY" to "off", "GOFLAGS" to ""))
+                environment().putAll(mapOf("GOWORK" to "off", "GOTOOLCHAIN" to "local", "GOPROXY" to "off", "GOTELEMETRY" to "off", "GOFLAGS" to "",
+                    "GOROOT" to Path.of(go).toRealPath().parent.parent.toString(), "GOOS" to "", "GOARCH" to ""))
             }.start()
             assertTrue(process.waitFor(45, TimeUnit.SECONDS), "The owned Go naming probe timed out")
             val output = process.inputStream.bufferedReader().readText()

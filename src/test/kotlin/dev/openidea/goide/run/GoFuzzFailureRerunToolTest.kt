@@ -49,7 +49,7 @@ class GoFuzzFailureRerunToolTest : LightPlatformTestCase() {
         val values = GoRunParameters(testMode = GoTestMode.FUZZ, fuzzPattern = "^FuzzExact$", fuzzTime = "",
             fuzzMinimizeTime = "0", fuzzParallelism = "1", workingDirectory = root.toString())
         val command = GeneralCommandLine(listOf(go) + values.commandArguments(GoRunKind.TEST, ""))
-            .withWorkingDirectory(root).withEnvironment(toolEnvironment())
+            .withWorkingDirectory(root).withEnvironment(toolEnvironment(go))
         val handler = GoTestProcessHandler(command, root.toString(), mapOf(module(root) to root.toString()))
         handler.setShouldDestroyProcessRecursively(true)
         val started = CompletableFuture<Unit>()
@@ -88,7 +88,7 @@ class GoFuzzFailureRerunToolTest : LightPlatformTestCase() {
     private fun run(root: Path, arguments: List<String>): Result {
         val capture = Files.createTempFile(root, "owned-fuzz-retry-command-", ".log")
         val child = ProcessBuilder(arguments).directory(root.toFile()).redirectErrorStream(true).redirectOutput(capture.toFile()).apply {
-            environment().putAll(toolEnvironment())
+            environment().putAll(toolEnvironment(arguments.first()))
         }.start()
         try {
             assertTrue("Owned Go fixture timed out", child.waitFor(45, TimeUnit.SECONDS))
@@ -105,7 +105,7 @@ class GoFuzzFailureRerunToolTest : LightPlatformTestCase() {
         runCatching { JsonParser.parseString(line).asJsonObject }.getOrNull()
     }.filter { it.get("Action")?.asString == "run" }.mapNotNull { it.get("Test")?.asString }.toList()
 
-    private fun toolEnvironment() = mapOf("GOWORK" to "off", "GOPROXY" to "off", "GOTOOLCHAIN" to "local", "GOTELEMETRY" to "off")
+    private fun toolEnvironment(go: String) = mapOf("GOROOT" to Path.of(go).toRealPath().parent.parent.toString(), "GOOS" to "", "GOARCH" to "", "GOWORK" to "off", "GOPROXY" to "off", "GOTOOLCHAIN" to "local", "GOTELEMETRY" to "off")
 
     private fun fixture(failing: Boolean, action: (Path, String) -> Unit) {
         val root = Files.createTempDirectory("opengoland-fuzz-failure-rerun-").toRealPath()

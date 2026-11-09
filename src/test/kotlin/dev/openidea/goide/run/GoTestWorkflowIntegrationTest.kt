@@ -20,7 +20,7 @@ class GoTestWorkflowIntegrationTest : LightPlatformTestCase() {
         withFixture { root, go ->
             val benchmark = GoRunParameters(testMode = GoTestMode.BENCHMARK,
                 benchmarkPattern = "^BenchmarkEcho$/^small$", benchmarkTime = "3x", workingDirectory = root.toString())
-            val bench = run(root, listOf(go) + benchmark.commandArguments(GoRunKind.TEST, ""))
+            val bench = run(root, listOf(go) + benchmark.commandArguments(GoRunKind.TEST, ""), go)
             assertEquals(bench.text, 0, bench.exit)
             assertTrue(bench.text.contains("ns/op") && bench.text.contains("B/op") && bench.text.contains("allocs/op"))
             assertFalse(bench.text.contains("BenchmarkOther"))
@@ -33,7 +33,7 @@ class GoTestWorkflowIntegrationTest : LightPlatformTestCase() {
 
             val fuzz = GoRunParameters(testMode = GoTestMode.FUZZ, fuzzPattern = "^FuzzEcho$", fuzzTime = "100x",
                 fuzzMinimizeTime = "0", fuzzParallelism = "1", arguments = "-v", workingDirectory = root.toString())
-            val fuzzed = run(root, listOf(go) + fuzz.commandArguments(GoRunKind.TEST, ""))
+            val fuzzed = run(root, listOf(go) + fuzz.commandArguments(GoRunKind.TEST, ""), go)
             assertEquals(fuzzed.text, 0, fuzzed.exit)
             assertTrue(fuzzed.text.contains("fuzz:") && fuzzed.text.contains("FuzzEcho"))
             assertFalse(fuzzed.text.contains("TestOrdinary"))
@@ -44,7 +44,7 @@ class GoTestWorkflowIntegrationTest : LightPlatformTestCase() {
             // This is the binary Delve's test mode launches. Its seed execution
             // must work without go test's fuzz-worker instrumentation.
             val binary = root.resolve(if (System.getProperty("os.name").startsWith("Windows")) "fixture.test.exe" else "fixture.test")
-            val compiled = run(root, listOf(go, "test", "-c", "-o", binary.toString(), "."))
+            val compiled = run(root, listOf(go, "test", "-c", "-o", binary.toString(), "."), go)
             assertEquals(compiled.text, 0, compiled.exit)
             val seedLaunch = GoDebugLaunch.fromRun(GoRunKind.TEST, fuzz, root.toString())
             val seed = run(root, listOf(binary.toString()) + seedLaunch.arguments)
@@ -78,7 +78,7 @@ class GoTestWorkflowIntegrationTest : LightPlatformTestCase() {
 
     private fun stopAfterOutput(root: Path, go: String, parameters: GoRunParameters, marker: String): List<String> {
             val line = GeneralCommandLine(listOf(go) + parameters.commandArguments(GoRunKind.TEST, ""))
-                .withWorkingDirectory(root).withEnvironment(toolEnvironment())
+                .withWorkingDirectory(root).withEnvironment(toolEnvironment(go))
             val handler = GoTestProcessHandler(line, root.toString(), mapOf("example.org/workflowfixture" to root.toString()))
             handler.setShouldDestroyProcessRecursively(true)
             val started = CompletableFuture<Unit>()
@@ -113,9 +113,9 @@ class GoTestWorkflowIntegrationTest : LightPlatformTestCase() {
     }
 
     private data class Result(val exit: Int, val text: String)
-    private fun run(root: Path, arguments: List<String>): Result {
+    private fun run(root: Path, arguments: List<String>, go: String? = null): Result {
         val builder = ProcessBuilder(arguments).directory(root.toFile()).redirectErrorStream(true)
-        builder.environment().putAll(toolEnvironment())
+        builder.environment().putAll(toolEnvironment(go))
         val child = builder.start()
         val output = CompletableFuture.supplyAsync { child.inputStream.bufferedReader().use { it.readText() } }
         try {
@@ -129,7 +129,8 @@ class GoTestWorkflowIntegrationTest : LightPlatformTestCase() {
         }
     }
 
-    private fun toolEnvironment() = mapOf("GOWORK" to "off", "GOPROXY" to "off", "GOTOOLCHAIN" to "local", "GOTELEMETRY" to "off")
+    private fun toolEnvironment(go: String? = null) = mapOf("GOWORK" to "off", "GOPROXY" to "off", "GOTOOLCHAIN" to "local", "GOTELEMETRY" to "off") +
+        (go?.let { mapOf("GOROOT" to Path.of(it).toRealPath().parent.parent.toString(), "GOOS" to "", "GOARCH" to "") } ?: emptyMap())
 
     private fun withFixture(test: (Path, String) -> Unit) {
         val root = Files.createTempDirectory("opengoland-real-test-workflows-").toRealPath()
