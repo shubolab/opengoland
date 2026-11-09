@@ -256,9 +256,91 @@
      /**
       * Handles a file rename (or move) before it occurs, preparing a {@code workspace/willRenameFiles} request.
       *
+@@ -155,13 +181,13 @@
+         if (languageServerWrapper.isDidCreateFilesSupported(createdFile)) {
+             // Add file create event to send a workspace/didCreateFiles
+             fileCreates.add(new FileCreate(languageServerWrapper.toUriString(uri)));
+         }
+         if (isMatchFilePatterns(uri, WatchKind.Create)) {
+             // Add file event to send a workspace/didChangeWatchedFiles with 'Created' file change type.
+-            fileEvents.add(fe(uri, FileChangeType.Created));
++            fileEvents.add(navigationFileEvent(uri, FileChangeType.Created));
+         }
+     }
+ 
+     /**
+      * Handles a file deletion event after it occurs.
+      * <p>Adds events for {@code workspace/didDeleteFiles} and {@code workspace/didChangeWatchedFiles}.</p>
+@@ -178,13 +204,13 @@
+         if (languageServerWrapper.isDidDeleteFilesSupported(deletedFile)) {
+             // Add file create event to send a workspace/didDeleteFiles
+             fileDeletes.add(new FileDelete(languageServerWrapper.toUriString(uri)));
+         }
+         if (isMatchFilePatterns(uri, WatchKind.Delete)) {
+             // Add file event to send a workspace/didChangeWatchedFiles with 'Deleted' file change type.
+-            fileEvents.add(fe(uri, FileChangeType.Deleted));
++            fileEvents.add(navigationFileEvent(uri, FileChangeType.Deleted));
+         }
+     }
+ 
+     /**
+      * Handles file content changes after they occur.
+      * <p>
+@@ -204,13 +230,13 @@
+         if (openedDocument != null && openedDocument.getSynchronizer() != null) {
+             // 1. Send a textDocument/didSave for the saved file
+             openedDocument.getSynchronizer().documentSaved();
+         }
+         if (isMatchFilePatterns(fileChangedUri, WatchKind.Change)) {
+             // Add file event to send a workspace/didChangeWatchedFiles with 'Changed' file change type.
+-            fileEvents.add(fe(fileChangedUri, FileChangeType.Changed));
++            fileEvents.add(navigationFileEvent(fileChangedUri, FileChangeType.Changed));
+         }
+     }
+ 
+     /**
+      * Handles file rename or move events after they occur.
+      * <p>
+@@ -261,17 +287,30 @@
+             fileRenames.add(new FileRename(languageServerWrapper.toUriString(oldFileUri),
+                     languageServerWrapper.toUriString(newFileUri)));
+         }
+ 
+         // 3. Prepare file events to send workspace/didChangeWatchedFiles
+         if (isMatchFilePatterns(newFileUri, WatchKind.Create)) {
+-            fileEvents.add(fe(newFileUri, FileChangeType.Created));
++            fileEvents.add(navigationFileEvent(newFileUri, FileChangeType.Created));
+         }
+         if (isMatchFilePatterns(oldFileUri, WatchKind.Delete)) {
+-            fileEvents.add(fe(oldFileUri, FileChangeType.Deleted));
+-        }
++            fileEvents.add(navigationFileEvent(oldFileUri, FileChangeType.Deleted));
++        }
++    }
++
++    private FileEvent navigationFileEvent(@NotNull URI uri, @NotNull FileChangeType type) {
++        // This event has already matched this server's actual watcher patterns.
++        // Bump its semantic key without scanning files or treating trace/log
++        // writes as dependencies of every navigation cache.
++        var project = languageServerWrapper.getProject();
++        if (!project.isDisposed()) {
++            project.getService(com.redhat.devtools.lsp4ij.features.AbstractLSPDocumentFeatureSupport.NavigationModificationTracker.class)
++                    .incrementWatchedDependency();
++        }
++        languageServerWrapper.incrementModificationCount();
++        return fe(uri, type);
+     }
+ 
+     /**
+      * Resolves a new file URI from a parent directory and a file name.
+      *
+      * @param parentFile the parent directory
 --- a/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java
-@@ -21,6 +21,8 @@
+@@ -18,12 +18,14 @@
+ import com.intellij.openapi.project.Project;
+ import com.intellij.openapi.util.TextRange;
+ import com.intellij.openapi.vfs.VirtualFile;
  import com.intellij.psi.PsiElement;
  import com.intellij.psi.PsiFile;
  import com.intellij.psi.search.SearchScope;
@@ -267,7 +349,13 @@
  import com.intellij.usageView.UsageInfo;
  import com.intellij.usages.Usage;
  import com.intellij.usages.UsageInfo2UsageAdapter;
-@@ -35,6 +37,7 @@
+ import com.intellij.util.Processor;
+ import com.intellij.util.containers.ContainerUtil;
+ import com.redhat.devtools.lsp4ij.LSPIJUtils;
+@@ -32,12 +34,13 @@
+ import org.jetbrains.annotations.Nullable;
+ import org.slf4j.Logger;
+ import org.slf4j.LoggerFactory;
  
  import java.util.ArrayList;
  import java.util.List;
@@ -275,7 +363,13 @@
  import java.util.concurrent.CompletableFuture;
  
  import com.intellij.openapi.progress.util.ProgressIndicatorUtils;
-@@ -140,18 +143,16 @@
+ 
+ import static com.redhat.devtools.lsp4ij.internal.ApplicationUtils.runCancellableReadAction;
+ import static com.redhat.devtools.lsp4ij.usages.LSPFindUsagesHandlerFactory.isUsageSupportedByLanguageServer;
+@@ -137,24 +140,22 @@
+ 
+         SearchScope searchScope = options.searchScope;
+ 
          // Fast path: return cached references if available (avoids redundant LSP requests)
          if (element instanceof LSPUsageTriggeredPsiElement elt) {
              if (elt.getLSPReferences() != null) {
@@ -304,7 +398,13 @@
                  return;
              }
          }
-@@ -169,34 +170,7 @@
+ 
+         // 2. Dispatch the async LSP request OUTSIDE of the ReadAction
+         LSPUsageSupport usageSupport = new LSPUsageSupport(file);
+@@ -166,40 +167,13 @@
+             // to resolve the PSI elements during mapping!
+             ProgressIndicatorUtils.awaitWithCheckCanceled(usagesFuture);
+             if (usagesFuture.isDone()) {
                  List<LSPUsagePsiElement> usages = usagesFuture.getNow(null);
                  if (usages != null && !usages.isEmpty()) {
                      // 4. Process the results (requires ReadAction again for VFS/PSI mapping)
@@ -340,7 +440,13 @@
                  }
              }
          } catch (ProcessCanceledException pce) {
-@@ -211,6 +185,47 @@
+             throw pce;
+         } catch (Exception e) {
+             LOGGER.error("Error while collection LSP Usages", e);
+@@ -208,12 +182,53 @@
+         LSPExternalReferencesFinder.processExternalReferences(
+                 file,
+                 data.textOffset(),
                  searchScope,
                  reference -> processor.process(new UsageInfo2UsageAdapter(new UsageInfo(reference)))
          );
@@ -388,6 +494,9 @@
      }
  
      /**
+      * Computes the LSP position to use for querying usages of the given element.
+      * <p>
+      * The position is calculated as {@code startOffset + 1}, clamped to not exceed {@code endOffset}.
 --- a/src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java
 @@ -30,12 +30,35 @@
@@ -458,3 +567,387 @@
                                      cancellationSupport.execute(ls
                                                      .getTextDocumentService()
                                                      .implementation(implementationParams), ls, LSPRequestConstants.TEXT_DOCUMENT_IMPLEMENTATION)
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.java
+@@ -8,21 +8,33 @@
+  * Contributors:
+  * Red Hat, Inc. - initial API and implementation
+  ******************************************************************************/
+ package com.redhat.devtools.lsp4ij.features;
+ 
+ import com.intellij.psi.PsiFile;
++import com.intellij.psi.util.PsiModificationTracker;
++import com.intellij.openapi.components.Service;
++import com.intellij.openapi.editor.EditorFactory;
++import com.intellij.openapi.editor.event.DocumentEvent;
++import com.intellij.openapi.editor.event.DocumentListener;
++import com.intellij.openapi.project.Project;
++import com.intellij.openapi.progress.ProcessCanceledException;
++import com.intellij.openapi.util.ModificationTracker;
++
+ import com.redhat.devtools.lsp4ij.LanguageServerItem;
+ import com.redhat.devtools.lsp4ij.LanguageServiceAccessor;
+ import com.redhat.devtools.lsp4ij.client.features.FileUriSupport;
+ import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures;
+ import org.eclipse.lsp4j.TextDocumentIdentifier;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
+ 
+ import java.util.List;
++import java.util.Map;
++import java.util.LinkedHashMap;
++import java.util.concurrent.atomic.AtomicLong;
+ import java.util.concurrent.CompletableFuture;
+ import java.util.function.Predicate;
+ 
+ /**
+  * Base class to consume LSP requests (ex : textDocument/codeLens) from all language servers applying to a given Psi file.
+  *
+@@ -36,20 +48,32 @@
+     // The current modification stamp of the Psi file
+     private long modificationStamp;
+ 
+     // true if the future must be canceled when the Psi file is modified and false otherwise.
+     private final boolean cancelWhenFileModified;
+ 
++    // Only location-navigation supports opt in. Other document feature caches
++    // retain their existing source-document lifetime and API behavior.
++    private final boolean navigationDependencies;
++    private @Nullable NavigationSnapshot navigationSnapshot;
++
+     public AbstractLSPDocumentFeatureSupport(@NotNull PsiFile file) {
+         this(file, true);
+     }
+ 
+     public AbstractLSPDocumentFeatureSupport(@NotNull PsiFile file, boolean cancelWhenFileModified) {
++        this(file, cancelWhenFileModified, false);
++    }
++
++    protected AbstractLSPDocumentFeatureSupport(@NotNull PsiFile file,
++                                                boolean cancelWhenFileModified,
++                                                boolean navigationDependencies) {
+         this.file = file;
+         this.modificationStamp = -1;
+         this.cancelWhenFileModified = cancelWhenFileModified;
++        this.navigationDependencies = navigationDependencies;
+     }
+ 
+     /**
+      * Returns the Psi file.
+      *
+      * @return the Psi file.
+@@ -57,26 +81,170 @@
+     public @NotNull PsiFile getFile() {
+         return file;
+     }
+ 
+     @Override
+     protected boolean checkValid() {
++        if (navigationDependencies) {
++            var snapshot = navigationSnapshot;
++            if (!file.isValid() || file.getProject().isDisposed() || snapshot == null || !snapshot.validForReuse()) {
++                return false;
++            }
++        }
+         return !cancelWhenFileModified || this.file.getModificationStamp() == modificationStamp;
++    }
++
++    @Override
++    public @Nullable CompletableFuture<Result> getFeatureData(Params params) {
++        if (navigationDependencies) {
++            // Publish the generation's future and dependency snapshot together.
++            // The upstream getter assigns its future after load() returns.
++            synchronized (this) {
++                return super.getFeatureData(params);
++            }
++        }
++        return super.getFeatureData(params);
++    }
++
++    @Override
++    protected boolean isValidLSPFuture() {
++        if (navigationDependencies) {
++            synchronized (this) {
++                return super.isValidLSPFuture();
++            }
++        }
++        return super.isValidLSPFuture();
++    }
++
++    @Override
++    public void cancel() {
++        if (navigationDependencies) {
++            synchronized (this) {
++                super.cancel();
++            }
++            return;
++        }
++        super.cancel();
+     }
+ 
+     /**
+      * Cancel previous LSP requests and load the LSP requests for all language servers applying to a given Psi file by using the given cancellation support.
+      *
+      * @param params the LSP parameters expected to execute LSP requests.
+      * @return the LSP response results.
+      */
+     protected synchronized CompletableFuture<Result> load(Params params) {
++        NavigationSnapshot snapshot = null;
++        if (navigationDependencies) {
++            if (isValidLSPFuture()) {
++                return getFuture();
++            }
++            // Clear an old future before installing the next generation's key;
++            // otherwise super.load() could accept old data with the new key.
++            super.cancel();
++            snapshot = NavigationSnapshot.capture(file);
++            navigationSnapshot = snapshot;
++        }
+         CompletableFuture<Result> future = super.load(params);
+         // Update the modification stamp with the current modification stamp of the Psi file
+         this.modificationStamp = this.file.getModificationStamp();
++        if (snapshot != null) {
++            NavigationSnapshot generation = snapshot;
++            return future.thenApply(result -> {
++                if (!file.isValid() || file.getProject().isDisposed() || !generation.validForDelivery()) {
++                    throw new ProcessCanceledException();
++                }
++                return result;
++            });
++        }
+         return future;
++    }
++
++
++    /** Monotonic editor changes without PSI resolution or filesystem access. */
++    @Service(Service.Level.PROJECT)
++    public static final class NavigationModificationTracker implements ModificationTracker {
++        private final AtomicLong count = new AtomicLong();
++
++        public NavigationModificationTracker(@NotNull Project project) {
++            EditorFactory.getInstance().getEventMulticaster().addDocumentListener(new DocumentListener() {
++                @Override
++                public void documentChanged(@NotNull DocumentEvent event) {
++                    count.incrementAndGet();
++                }
++            }, project);
++        }
++
++        public void incrementWatchedDependency() {
++            count.incrementAndGet();
++        }
++
++        @Override
++        public long getModificationCount() {
++            return count.get();
++        }
++    }
++
++    private record NavigationSnapshot(@NotNull Map<ModificationTracker, Long> documentAndPsi,
++                                      @NotNull CompletableFuture<Map<ModificationTracker, Long>> dispatchServers) {
++        static NavigationSnapshot capture(@NotNull PsiFile file) {
++            Project project = file.getProject();
++            Map<ModificationTracker, Long> semantic = new LinkedHashMap<>();
++            ModificationTracker documents = project.getService(NavigationModificationTracker.class);
++            semantic.put(documents, documents.getModificationCount());
++            ModificationTracker psi = PsiModificationTracker.getInstance(project);
++            semantic.put(psi, psi.getModificationCount());
++            return new NavigationSnapshot(Map.copyOf(semantic), new CompletableFuture<>());
++        }
++
++        void serversReady(@NotNull PsiFile file) {
++            // Called after initialization/connect, before the actual RPC. In
++            // particular this is not a completion-time rebaseline of old data.
++            Map<ModificationTracker, Long> counts = new LinkedHashMap<>();
++            for (var tracker : LanguageServiceAccessor.getInstance(file.getProject()).getModificationTrackers(file)) {
++                counts.put(tracker, tracker.getModificationCount());
++            }
++            dispatchServers.complete(Map.copyOf(counts));
++        }
++
++        boolean validForReuse() {
++            var servers = dispatchServers.getNow(null);
++            // While initialization is pending, reuse the one pending generation
++            // if its document/dependency epoch has not changed.
++            return unchanged(documentAndPsi) && (servers == null || unchanged(servers));
++        }
++
++        boolean validForDelivery() {
++            var servers = dispatchServers.getNow(null);
++            return unchanged(documentAndPsi) && servers != null && unchanged(servers);
++        }
++
++        private static boolean unchanged(Map<ModificationTracker, Long> counts) {
++            for (var entry : counts.entrySet()) {
++                if (entry.getKey().getModificationCount() != entry.getValue()) {
++                    return false;
++                }
++            }
++            return true;
++        }
++    }
++
++    protected final CompletableFuture<List<LanguageServerItem>> getNavigationLanguageServers(
++            @NotNull PsiFile file,
++            @Nullable Predicate<LSPClientFeatures> beforeStartingServerFilter,
++            @Nullable Predicate<LSPClientFeatures> afterStartingServerFilter) {
++        NavigationSnapshot generation = navigationSnapshot;
++        return getLanguageServers(file, beforeStartingServerFilter, afterStartingServerFilter)
++                .thenApply(servers -> {
++                    if (generation == null || !file.isValid() || file.getProject().isDisposed()
++                            || !NavigationSnapshot.unchanged(generation.documentAndPsi())) {
++                        throw new ProcessCanceledException();
++                    }
++                    generation.serversReady(file);
++                    return servers;
++                });
+     }
+ 
+     protected static CompletableFuture<List<LanguageServerItem>> getLanguageServers(@NotNull PsiFile file,
+                                                                   @Nullable Predicate<LSPClientFeatures> beforeStartingServerFilter,
+                                                                   @Nullable Predicate<LSPClientFeatures> afterStartingServerFilter) {
+         var project = file.getProject();
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java
+@@ -32,13 +32,13 @@
+  */
+ public class LSPDeclarationSupport extends AbstractLSPDocumentFeatureSupport<LSPDeclarationParams, List<LocationData>> {
+ 
+     private Integer previousOffset;
+ 
+     public LSPDeclarationSupport(@NotNull PsiFile file) {
+-        super(file);
++        super(file, true, true);
+     }
+ 
+     public CompletableFuture<List<LocationData>> getDeclarations(LSPDeclarationParams params) {
+         int offset = params.getOffset();
+         if (previousOffset != null && !previousOffset.equals(offset)) {
+             super.cancel();
+@@ -50,16 +50,16 @@
+     @Override
+     protected CompletableFuture<List<LocationData>> doLoad(LSPDeclarationParams params, CancellationSupport cancellationSupport) {
+         PsiFile file = super.getFile();
+         return collectDeclarations(file, params, cancellationSupport);
+     }
+ 
+-    private static @NotNull CompletableFuture<List<LocationData>> collectDeclarations(@NotNull PsiFile file,
++    private @NotNull CompletableFuture<List<LocationData>> collectDeclarations(@NotNull PsiFile file,
+                                                                                   @NotNull LSPDeclarationParams params,
+                                                                                   @NotNull CancellationSupport cancellationSupport) {
+-        return getLanguageServers(file,
++        return getNavigationLanguageServers(file,
+                 f -> f.getDeclarationFeature().isEnabled(file),
+                 f -> f.getDeclarationFeature().isSupported(file))
+                 .thenComposeAsync(languageServers -> {
+                     // Here languageServers is the list of language servers which matches the given file
+                     // and which have declaration capability
+                     if (languageServers.isEmpty()) {
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java
+@@ -32,13 +32,13 @@
+  */
+ public class LSPDefinitionSupport extends AbstractLSPDocumentFeatureSupport<LSPDefinitionParams, List<LocationData>> {
+ 
+     private Integer previousOffset;
+ 
+     public LSPDefinitionSupport(@NotNull PsiFile file) {
+-        super(file);
++        super(file, true, true);
+     }
+ 
+     public CompletableFuture<List<LocationData>> getDefinitions(LSPDefinitionParams params) {
+         int offset = params.getOffset();
+         if (previousOffset != null && !previousOffset.equals(offset)) {
+             super.cancel();
+@@ -50,16 +50,16 @@
+     @Override
+     protected CompletableFuture<List<LocationData>> doLoad(LSPDefinitionParams params, CancellationSupport cancellationSupport) {
+         PsiFile file = super.getFile();
+         return collectDefinitions(file, params, cancellationSupport);
+     }
+ 
+-    private static @NotNull CompletableFuture<List<LocationData>> collectDefinitions(@NotNull PsiFile file,
++    private @NotNull CompletableFuture<List<LocationData>> collectDefinitions(@NotNull PsiFile file,
+                                                                                  @NotNull LSPDefinitionParams params,
+                                                                                  @NotNull CancellationSupport cancellationSupport) {
+-        return getLanguageServers(file,
++        return getNavigationLanguageServers(file,
+                 f -> f.getDefinitionFeature().isEnabled(file),
+                 f -> f.getDefinitionFeature().isSupported(file))
+                 .thenComposeAsync(languageServers -> {
+                     // Here languageServers is the list of language servers which matches the given file
+                     // and which have definition capability
+                     if (languageServers.isEmpty()) {
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java
+@@ -32,13 +32,13 @@
+  */
+ public class LSPTypeDefinitionSupport extends AbstractLSPDocumentFeatureSupport<LSPTypeDefinitionParams, List<LocationData>> {
+ 
+     private Integer previousOffset;
+ 
+     public LSPTypeDefinitionSupport(@NotNull PsiFile file) {
+-        super(file);
++        super(file, true, true);
+     }
+ 
+     public CompletableFuture<List<LocationData>> getTypeDefinitions(LSPTypeDefinitionParams params) {
+         int offset = params.getOffset();
+         if (previousOffset != null && !previousOffset.equals(offset)) {
+             super.cancel();
+@@ -50,16 +50,16 @@
+     @Override
+     protected CompletableFuture<List<LocationData>> doLoad(LSPTypeDefinitionParams params, CancellationSupport cancellationSupport) {
+         PsiFile file = super.getFile();
+         return collectTypeDefinitions(file, params, cancellationSupport);
+     }
+ 
+-    private static @NotNull CompletableFuture<List<LocationData>> collectTypeDefinitions(@NotNull PsiFile file,
++    private @NotNull CompletableFuture<List<LocationData>> collectTypeDefinitions(@NotNull PsiFile file,
+                                                                                      @NotNull LSPTypeDefinitionParams params,
+                                                                                      @NotNull CancellationSupport cancellationSupport) {
+-        return getLanguageServers(file,
++        return getNavigationLanguageServers(file,
+                 f -> f.getTypeDefinitionFeature().isEnabled(file),
+                 f -> f.getTypeDefinitionFeature().isSupported(file))
+                 .thenComposeAsync(languageServers -> {
+                     // Here languageServers is the list of language servers which matches the given file
+                     // and which have typeDefinition capability
+                     if (languageServers.isEmpty()) {
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java
+@@ -32,13 +32,13 @@
+  */
+ public class LSPImplementationSupport extends AbstractLSPDocumentFeatureSupport<LSPImplementationParams, List<LocationData>> {
+ 
+     private Integer previousOffset;
+ 
+     public LSPImplementationSupport(@NotNull PsiFile file) {
+-        super(file);
++        super(file, true, true);
+     }
+ 
+     public CompletableFuture<List<LocationData>> getImplementations(LSPImplementationParams params) {
+         int offset = params.getOffset();
+         if (previousOffset != null && !previousOffset.equals(offset)) {
+             super.cancel();
+@@ -50,16 +50,16 @@
+     @Override
+     protected CompletableFuture<List<LocationData>> doLoad(LSPImplementationParams params, CancellationSupport cancellationSupport) {
+         PsiFile file = super.getFile();
+         return collectImplementations(file, params, cancellationSupport);
+     }
+ 
+-    private static @NotNull CompletableFuture<List<LocationData>> collectImplementations(@NotNull PsiFile file,
++    private @NotNull CompletableFuture<List<LocationData>> collectImplementations(@NotNull PsiFile file,
+                                                                                      @NotNull LSPImplementationParams params,
+                                                                                      @NotNull CancellationSupport cancellationSupport) {
+-        return getLanguageServers(file,
++        return getNavigationLanguageServers(file,
+                 f -> f.getImplementationFeature().isEnabled(file),
+                 f -> f.getImplementationFeature().isSupported(file))
+                 .thenComposeAsync(languageServers -> {
+                     // Here languageServers is the list of language servers which matches the given file
+                     // and which have implementation capability
+                     if (languageServers.isEmpty()) {

@@ -11,21 +11,25 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "967ebb91e97f3f9f60e863bd8f10663717110956a1ea4fc45cf479fa27a85604",
+  "patchSha256": "385d306dda4fe8f7a93f87f4ae34cd57b29cd1a5461c90510e6f289bd03b3dde",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
       "LSP4IJ transport, queue observation, cancellation and notification futures",
       "Existing waitForDidOpen return behavior, including returning without waiting when false",
       "Workspace folder I/O outside the document critical section",
-      "The existing three document-sync/lifecycle patched source files retain their exact previous bytes",
+      "Existing document-sync ordering and deletion-cancellation behavior is retained; LSPFileListener now also advances navigation epochs for recognized watched dependencies",
       "Native GlobalSearchScope semantics and LocalSearchScope.containsRange for synthetic LSP PSI elements",
       "Same-file strictly-contained range preference; partial overlaps and equal ranges remain intact",
-      "All previous four patched source files and ten compiled class digests remain unchanged",
+      "The previous twelve compiled classes other than LSPFileListener retain their exact bytes; its recognized-watcher epoch bump is intentional",
       "Default aggregate policy for other LSP clients remains unchanged; Go opts out only for Find Usages typeDefinition/implementation",
-      "Independent implementation/type-definition/type-hierarchy navigation and original references error notification handling"
+      "Independent implementation/type-definition/type-hierarchy navigation and original references error notification handling",
+      "Only definition/declaration/typeDefinition/implementation supports opt into the new semantic cache key; other LSP caches retain their old policy",
+      "Stable document, semantic dependency and server epochs retain and reuse the same navigation future",
+      "Navigation dependency capture is per generation and server readiness is captured before RPC, never rebaselined at response completion",
+      "checkValid and event callbacks do not resolve target files, load PSI or access the filesystem"
     ],
     "limitations": [
       "Not a claim that all LSP request/editor races are solved",
@@ -54,7 +58,7 @@
       "path": "src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java",
       "upstreamSha256": "f3128832177a89ea7bd8212b657818690d26128e2a57297c96ae7bcbde499ac3",
-      "patchedSha256": "fd8b086041ecf9b7f04146aab3027f0ce6f70f00b66c1a32eff28a4c316f9243"
+      "patchedSha256": "d8d6c164a1047c4e885e1cfd69d6145daa481ac250cf3165a3167b625f5b3373"
     },
     {
       "path": "src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java",
@@ -73,6 +77,36 @@
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.java",
       "upstreamSha256": "a36dcea72cf6790961b92bb9104b4ceeb8ff934bfc8d895b79f356769a35a265",
       "patchedSha256": "9ccd4d778ce2b4d8705abb4646ecd348772a4bf0731351ab06ba0a4ffd0fcef4"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.java",
+      "upstreamSha256": "6959100dfdfec729ff1b0f9e47b6403399b75a9af82aff1c40f7f2c65d3fa409",
+      "patchedSha256": "051abfbe3f6c6b75fb606917c4e1aeeaf9099a1c83bde447688e72244dc96f2d"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java",
+      "upstreamSha256": "e940e288cdd9a3c4cf85c29192c9f5d05b29c2ed81894c4b48535e033238910b",
+      "patchedSha256": "b4050f273d87a9c89bfc67ac04a6c47f8d56f559dbae4f0ab7f28662e3fcd3ac"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java",
+      "upstreamSha256": "332b3d0afb7e041fa20ba02d8b69766db3efdc201a639415b635ca1a49a7e0b5",
+      "patchedSha256": "d8657959d6d489ffa7cdaa2c897a214320eee27ee50940c30312124355ffdc9e"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java",
+      "upstreamSha256": "7a376f34d8a0110c5237e2d16ad699ca6370b3947bb5378bd70f0e52e10a337d",
+      "patchedSha256": "7a5310f0acd9c808145f336f85762f961fb6d4cb6093904187652521c27047f6"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java",
+      "upstreamSha256": "a73bd5e42a15926e5e1dc9cc089626c89df614fd55618d2a96fbad0791b4079c",
+      "patchedSha256": "b2f68451d9f627b6cec554a563df46c403ec71f57b518d2424c54bc242675134"
     }
   ],
   "initialVerification": {
@@ -274,5 +308,78 @@
       "previousFourSourceAndTenClassDigestsUnchanged": true,
       "scope": "Owned .tools private dependency JAR only; shared sandbox, SDK and delivered application were not modified"
     }
+  },
+  "navigationCacheRevision": {
+    "status": "Final eleven-source patch replay and javac --release17 passed; final controlled SDK eleven cases passed; main-task official private-JAR/full package and final owned-gopls/native verification pending",
+    "scope": "Conservative semantic dependency epochs for only four location-navigation caches, with unchanged-epoch reuse and stale generation rejection",
+    "publicSourceCount": 11,
+    "compiledClassCount": 21,
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class": "e16e32f112b30a45466d3c4b28c31533e78a4b654d4e7d148528a511b5ea519d",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f",
+      "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class": "48f97e48ab291690058df55bf190b7a5804885b59a1aacd0eac92cf247726a0c",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker$1.class": "80e442d4c510c09271073188e3cc6062a5af0a0aefe6f6cc08f691555ad0b9fa",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker.class": "e12968f90f076ae1ad86e0da544ccd85cd4be84f41cde34d257b811269ae799c",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationSnapshot.class": "7f0a521e416b928364a054ef21ed92018b1b6aecf98ff0b060524dce1978d087",
+      "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.class": "fc869b8a9c3a72fab6e240540258e18877cc44a7131a7a9a532224654bae1a92",
+      "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.class": "d04ab33a6f6360e5e3e6e414c47ca44e7c1049c9b67ddcc505003d79af9758e3",
+      "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.class": "298cc4aea166a9cec394d4ed246218cb459883dfb3476de23483101d766851c2",
+      "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.class": "9fce6eafe83bd149daa0867c7256b05bcf77a2e49cce45afd1057f6efbc27594",
+      "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.class": "77f7defc0ad17a8b95f97da08365bf1db7afdb17c964416b01c7fe7af182bd8a",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class": "3c15f73a0c4c0cc67a2e1ae0fb2bc2ab0059a06a8d77d39df43cf133d269e208",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class": "48410c417783fe9bd01932b25341b10b512c07369421ee5f4d966b6f85260074",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport$LSPUsageSupportParams.class": "7d1560681f450bf132547ab6641e6c428d6ef371f012af0d3124be15a4df7e15",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class": "27c04b6a168fa81bb563e11579c7ace3a20cf3cd698a04d7aa1a081db3853811"
+    },
+    "previousCompiledClassesUnchanged": [
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport$LSPUsageSupportParams.class",
+      "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class"
+    ],
+    "previousCompiledClassIntentionallyChanged": "com/redhat/devtools/lsp4ij/LSPFileListener.class",
+    "changedWatcherBehavior": "Only events already matching the language server watcher patterns bump its wrapper tracker and the navigation semantic tracker; unmatched trace/log events do not count",
+    "coldStartContract": "Document/PSI/matched-watch epochs are immutable from generation start. A per-generation readiness future captures server/config tracker references and values once after initialization/connect and before RPC. Every delivery checks both epochs; there is no cold-start exemption or response-time rebaseline.",
+    "threading": "Nav getFeatureData/isValid/cancel publish future and immutable generation key under the same monitor. Event callbacks increment AtomicLong only. checkValid reads captured counters only; no target filesystem or PSI lookup.",
+    "controlledTests": {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoNavigationCacheTest.kt",
+      "sha256": "deeb15afd1765b7b32267687631903eb6fbf5731295e9257d962717df7663adb",
+      "cases": 11,
+      "passed": 11,
+      "seconds": 4.147,
+      "log": ".tools/lsp4ij-navigation-cache/standalone-green-cache-frozen/run.log",
+      "logSha256": "cb0a51494ed6ff7865047570b817874ad07d4b74eb4c05c3f59bd6539241ff18",
+      "coverage": [
+        "unchanged-epoch same-future reuse across all four supports",
+        "target-only unsaved movement and third-file semantic changes",
+        "server configuration changes without document edits",
+        "stale inflight replies and replacement-generation publication",
+        "cold first reply and first-future reuse",
+        "held cold matched-watcher change and held cold config change reject stale replies",
+        "unmatched trace file does not invalidate, actual matched watcher does",
+        "non-navigation usage cache policy remains unchanged",
+        "cold-start server/config baseline captured before dispatch; first completed future remains reusable"
+      ]
+    },
+    "limitations": [
+      "Semantic document events are conservatively counted for editor buffers, including unrelated open projects; this can cause extra navigation cache misses without disabling stable-epoch reuse",
+      "This does not infer a complete static dependency graph or server full-source acknowledgements",
+      "No claim that every possible SDK/build/OS, unobserved external filesystem change or project/server disposal interleaving is closed",
+      "Existing transport, flush scheduling and cancellation signaling semantics remain separate; no new general $/cancelRequest guarantee"
+    ]
   }
 }

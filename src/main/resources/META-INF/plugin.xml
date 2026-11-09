@@ -39,6 +39,7 @@
         <lang.psiStructureViewFactory language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.documentSymbol.LSPDocumentSymbolStructureViewFactory"/>
         <callHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.callHierarchy.LSPCallHierarchyProvider"/>
         <typeHierarchyProvider language="OpenIDEAGo" implementationClass="com.redhat.devtools.lsp4ij.features.typeHierarchy.LSPTypeHierarchyProvider"/>
+        <targetElementEvaluator language="OpenIDEAGo" implementationClass="dev.openidea.goide.navigation.GoTargetElementEvaluator"/>
         <lang.importOptimizer language="OpenIDEAGo" implementationClass="dev.openidea.goide.semantic.GoImportOptimizer"/>
         <lang.refactoringSupport language="OpenIDEAGo" implementationClass="dev.openidea.goide.refactor.signature.GoRefactoringSupportProvider"/>
         <testCreator language="OpenIDEAGo" implementationClass="dev.openidea.goide.generate.tests.GoTestCreator"/>
@@ -79,6 +80,7 @@
         <langCodeStyleSettingsProvider implementation="dev.openidea.goide.lang.GoCodeStyleSettingsProvider"/>
         <projectConfigurable id="dev.openidea.go.settings" displayName="Go" instance="dev.openidea.goide.settings.GoSettingsConfigurable"/>
         <projectConfigurable id="dev.openidea.go.lint.settings" parentId="dev.openidea.go.settings" displayName="Go Inspections" instance="dev.openidea.goide.settings.GoLintConfigurable"/>
+        <search.optionContributor implementation="dev.openidea.goide.settings.GoSettingsSearchContributor"/>
         <toolWindow id="Go" anchor="left" factoryClass="dev.openidea.goide.engine.GoToolWindowFactory" icon="/icons/go.svg"/>
         <toolWindow id="Go Coverage" anchor="bottom" factoryClass="dev.openidea.goide.coverage.GoCoverageToolWindowFactory" icon="/icons/go.svg"/>
         <toolWindow id="Go Profiles" anchor="bottom" factoryClass="dev.openidea.goide.profile.GoProfileToolWindowFactory" icon="/icons/go.svg"/>

@@ -80,7 +80,10 @@
         "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open.",
         "editor_typing": "../verification/editor-typing.md",
         "editor_typing_native": "../verification/editor-typing-native.json",
-        "raw_string_preference": "Native Go checkbox changes raw Enter from LF-only to exact four-space continuation, with Undo; normal-exit persistence is recorded separately. Exact-label Settings search did not locate this new checkbox; it was reached through Other Settings > Go. Full settings search and restart parity remain open."
+        "raw_string_preference": "Native Go checkbox changes raw Enter from LF-only to exact four-space continuation, with Undo; normal-exit persistence is recorded separately. Exact-label Settings search did not locate this new checkbox; it was reached through Other Settings > Go. Full settings search and restart parity remain open.",
+        "settings_content_search": "../verification/standard-navigation.md",
+        "settings_search_native": "../verification/standard-navigation-native.json",
+        "search_observation": "Later native exact raw-string-label search locates and spotlights the actual Go checkbox in the final 7284c945 package; Apply remained disabled and settings were cancelled. Separate initial 8e390503 Settings cohort also located CGO_ENABLED and highlighted golangci-lint flags. Registered real-index integration passed within the final 404 tests. Every settings query, scope, persistence and reference-equivalence case remains open."
       }
     },
     {
@@ -182,7 +185,10 @@
         "scope_observation": "Real gopls returned declaration plus three call sites across two modules; native Project Files and Current File filtering and cross-module result jump passed. Fresh/cached global/local filtering and same-file strict containment have six real-platform controlled regressions. Native cached scope, all hierarchy/relations and broader notification UX remain open.",
         "find_usages_policy": "../verification/find-usages-policy.md",
         "find_usages_policy_native": "../verification/find-usages-policy-native.json",
-        "query_policy_observation": "The d4b5eabb standalone trace retains definition/references for ordinary function Find Usages and sends no unrelated typeDefinition/implementation. Explicit LSP Type Definition and LSP Implementation actions navigate Current to Reader and Reader to Value. Standard platform type-declaration/implementation actions did not dispatch queries in this native check and remain an integration gap; hierarchy and full symbol/navigation parity remain open."
+        "query_policy_observation": "The d4b5eabb standalone trace retains definition/references for ordinary function Find Usages and sends no unrelated typeDefinition/implementation. Explicit LSP Type Definition and LSP Implementation actions navigate Current to Reader and Reader to Value. Standard platform type-declaration/implementation actions did not dispatch queries in this native check and were an integration gap in that cohort. The later standard_navigation entry records its repair; hierarchy and full symbol/navigation parity remain open.",
+        "standard_navigation": "../verification/standard-navigation.md",
+        "standard_navigation_native": "../verification/standard-navigation-native.json",
+        "standard_entry_observation": "A later independent evaluator connects the real standard implementation/type-declaration actions. Initial 337-input native chooser/method/alias/SDK/history observations remain separate from its target-only cache failure. Final 338-input 7284c945 package passed standard Source 6→dirty third-file 7→Undo 6, Unicode Type Declaration versus Cmd+B, unsaved target movement 6:6→7:6 with new RPCs and Undo/Redo. Native hierarchy/Structure and full relationships/scope parity remain open."
       }
     },
     {
@@ -474,7 +480,10 @@
         "module_task_observation": "Paused prepare/final EDT document guard/resume/stale guards and cancellation have real engine/platform regressions. Native Stop of active Generate removed all recorded task descendants while app/engine/gopls survived. Does not prove all modal/queued/lifetime races.",
         "editor_typing": "../verification/editor-typing.md",
         "editor_typing_native": "../verification/editor-typing-native.json",
-        "typing_observation": "Native UTF-16 document changes, versioned diagnostics, raw preference Undo and gopls connection continuity are recorded in d4b5eabb; no synchronous tool work is added to local keystrokes. All modal/cancellation/close/IME races remain open."
+        "typing_observation": "Native UTF-16 document changes, versioned diagnostics, raw preference Undo and gopls connection continuity are recorded in d4b5eabb; no synchronous tool work is added to local keystrokes. All modal/cancellation/close/IME races remain open.",
+        "navigation_cache": "../verification/standard-navigation.md",
+        "navigation_cache_native": "../verification/standard-navigation-native.json",
+        "navigation_cache_observation": "Final 7284c945 native repeated same-source/caret queries refresh for only a moved dirty target and for a newly compatible third-file implementation. Final 11 controlled cache and 5 actual-gopls regressions are included in 404. Normal native exit left six recorded owned PIDs absent and all 12 fixture files at initial hashes. Broad cancellation, project/server disposal, unobserved dependency/build/SDK changes and all modal/queued lifetimes remain open. Existing same-file concurrent different-offset parameter gating remains a source-derived, untested boundary documented in the navigation record."
       }
     },
     {

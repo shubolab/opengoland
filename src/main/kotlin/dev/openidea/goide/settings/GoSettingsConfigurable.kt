@@ -2,7 +2,7 @@ package dev.openidea.goide.settings
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.diagnostic.Logger
-import com.intellij.openapi.options.Configurable
+import com.intellij.openapi.options.SearchableConfigurable
 import com.intellij.openapi.options.ConfigurationException
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBTextArea
@@ -17,7 +17,7 @@ import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JScrollPane
 
-class GoSettingsConfigurable(private val project: Project) : Configurable {
+class GoSettingsConfigurable(private val project: Project) : SearchableConfigurable {
     private val go = JBTextField()
     private val gopls = JBTextField()
     private val delve = JBTextField()
@@ -27,6 +27,7 @@ class GoSettingsConfigurable(private val project: Project) : Configurable {
     private val cgo = JBTextField()
     private val env = JBTextArea(5, 40)
     private val rawStringIndent = JBCheckBox("Indent on Enter in raw strings")
+    override fun getId() = ID
     override fun getDisplayName() = "Go"
     override fun createComponent(): JComponent = FormBuilder.createFormBuilder()
         .addLabeledComponent("Go executable:", go)
@@ -88,4 +89,6 @@ class GoSettingsConfigurable(private val project: Project) : Configurable {
 
     private fun languageServerSettings(s: GoProjectSettings.Data) =
         listOf(s.goExecutable, s.goplsExecutable, s.buildTags, s.goos, s.goarch, s.cgoEnabled, s.environment)
+
+    companion object { const val ID = "dev.openidea.go.settings" }
 }

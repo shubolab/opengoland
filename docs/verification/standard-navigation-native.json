@@ -1,0 +1,2290 @@
+{
+  "schema": "open-goland.standard-navigation-native.v1",
+  "date": "2026-11-09",
+  "recordedAtUtc": "2026-11-09T03:06:51.372561+00:00",
+  "status": "Listed repaired native workflows passed; complete GoLand parity and all races remain open",
+  "buildRecord": "standard-navigation-build.json",
+  "finalCohort": {
+    "sourceDigest": "7284c94586560bcedf413621a21b7d3e4da9b4cb543a7312827288a3c0ae92e1",
+    "inputFiles": 338,
+    "pid": 10650,
+    "application": "build/product/open Goland.app",
+    "bundleId": "dev.opengoland.ide",
+    "runtimeIdentity": {
+      "path": ".tools/standard-navigation-cache-runtime.json",
+      "sha256": "5b78c5a35b41295262645545f8d4f8494cf46de86214d67407fc45386e58280b",
+      "bytes": 1220
+    },
+    "identityBoundary": "Runtime verifier proves process/plugin-path/on-disk artifact identity; UI actions and actual wire queries below establish their narrower behavior",
+    "nativeObservationRecord": {
+      "path": ".tools/standard-navigation-cache-native-observations.json",
+      "sha256": "f3ca6e51f2b7af5496d91994db76f5307236ea9251ebb19473b58f1d2b79d40d",
+      "bytes": 6041
+    },
+    "nativeActions": [
+      {
+        "action": "Standard Cmd+Alt+B, Source at contracts.go 4:7",
+        "result": "6-item chooser; Escape retained source"
+      },
+      {
+        "action": "Only dirty new_implementation.go changes incompatible Read int to Read string; same Source query",
+        "result": "7-item chooser includes NewImplementation; click only navigates new_implementation.go 3:6; pre/post all12 disk hashes unchanged",
+        "checkpoints": [
+          "navigation-cache-third-file-pre-dispatch.json",
+          "navigation-cache-third-file-post-dispatch.json"
+        ]
+      },
+      {
+        "action": "Undo third-file edit, then same Source query",
+        "result": "6-item chooser restored; first Cmd+Z restored caret, second changed actual text"
+      },
+      {
+        "action": "Cmd+Shift+B at Unicode Use.current, UI15:39",
+        "result": "contracts.go Source4:6; Back returned source"
+      },
+      {
+        "action": "Cmd+B at Use return current, UI15:80",
+        "result": "use.go local current declaration15:36, distinct from type declaration"
+      },
+      {
+        "action": "Dirty Use variable uses Pointer; dirty pointer.go prefix // 未保存的目标 😀",
+        "result": "standard Type Declaration from UI15:37 opened Pointer6:6; all12diskinitial before dispatch",
+        "checkpoint": "navigation-cache-dirty-first-pre-dispatch.json"
+      },
+      {
+        "action": "ONLY target adds // 再次移动; same source query/UI15:37",
+        "result": "Pointer7:6, AX plus screenshot; fresh RPC83; pre/post all12diskinitial",
+        "checkpoints": [
+          "navigation-cache-target-only-pre-dispatch.json",
+          "navigation-cache-target-only-post-dispatch.json"
+        ]
+      },
+      {
+        "action": "Undo target prefix; same query; redo prefix; same query",
+        "result": "Pointer6:6 then7:6 with fresh RPC103/117. Each undo/redo first restored caret and second changed actual text; not claimed as one-key text Undo",
+        "checkpoint": "navigation-cache-target-undo-redo-post-dispatch.json"
+      },
+      {
+        "action": "Undo source Pointer type edit; same query; redo type edit; same query",
+        "result": "Source4:6 then Pointer7:6. First key restored caret; second changed text"
+      },
+      {
+        "action": "Restore original source/target texts natively; Cmd+Shift+B at Standard.std17:28",
+        "result": "selected SDK /Users/wangshubo/.local/share/mise/installs/go/1.24.3/src/io/io.go Reader86:6; Back returned source. Did not test SDK read-only enforcement"
+      },
+      {
+        "action": "Native Ctrl+Shift+R at TestNavigationFixture",
+        "result": "1 test passed; selected Go1.24.3 go test -json -run ^TestNavigationFixture$ .; ok example.org/nav/client 0.669s; no cached marker; exit0",
+        "observedRunPid": 10904
+      },
+      {
+        "action": "Settings search exact Indent on Enter in raw strings",
+        "result": "Other Settings > Go result; checkbox visibly spotlighted; Apply disabled; Escape cancelled settings; no preference applied",
+        "automationBoundary": "Initial batched shortcut ran before Settings ready and opened an editor find bar. Actual Settings field was then selected and exact phrase pasted. Expanding settings tree transiently returned noWindowsAvailable; rebinding app recovered. No inspection checkboxes clicked in this cohort."
+      },
+      {
+        "action": "Cmd+Q, Confirm Exit, Exit",
+        "result": "CUA observed App quit; completion_summary recorded"
+      }
+    ],
+    "trace": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/native-navigation-cache-g3l7qajg/导航 缓存验收 😀/trace.jsonl",
+      "bytes": 332644,
+      "lines": 452,
+      "sha256": "293d49f8abc46ed13e25ceb2f652dd05a2dc2c8f4c3e1619886d5add9c8ac73f",
+      "allRawQueryAndInitPairsMatchTrace": true,
+      "pairedRawRecords": 26,
+      "rawNavigationQueries": 12,
+      "allTypedIdsAreStrings": true,
+      "navigationResponseErrors": 0,
+      "summary": ".tools/standard-navigation-cache-wire-summary.json",
+      "summarySHA256": "af41d023cf70fda70a6ec61592d33e48b7265e66d9d54e82a4f040547046585b"
+    },
+    "queries": [
+      {
+        "method": "textDocument/implementation",
+        "requestId": "13",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "core/api/contracts.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+        "queryPosition0BasedUTF16": {
+          "line": 3,
+          "character": 5
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 6,
+        "error": null,
+        "requestTraceRecord": 43,
+        "responseTraceRecord": 44,
+        "candidates": [
+          {
+            "relativeFile": "client/use.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 10,
+                "character": 5
+              },
+              "end": {
+                "line": 10,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Remote",
+            "displayStart1Based": {
+              "line": 11,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 19
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "ExtendedSource",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Embedded",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Extended",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/memory.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "2ef561efdb606e11fe25adfbe544b50cd79d3bc5feb8e23480e73f44aa458ac7",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Memory",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "dc014de14dc8eb887929429138c50e2b7c59c2f03f831fe6d770d5ed46d31358",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/implementation",
+        "requestId": "24",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "core/api/contracts.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+        "queryPosition0BasedUTF16": {
+          "line": 3,
+          "character": 5
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 7,
+        "error": null,
+        "requestTraceRecord": 85,
+        "responseTraceRecord": 86,
+        "candidates": [
+          {
+            "relativeFile": "client/use.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 10,
+                "character": 5
+              },
+              "end": {
+                "line": 10,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Remote",
+            "displayStart1Based": {
+              "line": 11,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 19
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "ExtendedSource",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Embedded",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Extended",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/memory.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "2ef561efdb606e11fe25adfbe544b50cd79d3bc5feb8e23480e73f44aa458ac7",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Memory",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/new_implementation.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 2,
+                "character": 5
+              },
+              "end": {
+                "line": 2,
+                "character": 22
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 2,
+              "epoch": 1,
+              "sourceSHA256": "42df0733e0557dfdc1a34f90082e81bbd93d29ddea259af6b47ebf4b4975966a",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "NewImplementation",
+            "displayStart1Based": {
+              "line": 3,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "dc014de14dc8eb887929429138c50e2b7c59c2f03f831fe6d770d5ed46d31358",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/implementation",
+        "requestId": "41",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "core/api/contracts.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+        "queryPosition0BasedUTF16": {
+          "line": 3,
+          "character": 5
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 6,
+        "error": null,
+        "requestTraceRecord": 132,
+        "responseTraceRecord": 133,
+        "candidates": [
+          {
+            "relativeFile": "client/use.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 10,
+                "character": 5
+              },
+              "end": {
+                "line": 10,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Remote",
+            "displayStart1Based": {
+              "line": 11,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 19
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "ExtendedSource",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Embedded",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Extended",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/memory.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "2ef561efdb606e11fe25adfbe544b50cd79d3bc5feb8e23480e73f44aa458ac7",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Memory",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "dc014de14dc8eb887929429138c50e2b7c59c2f03f831fe6d770d5ed46d31358",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "46",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 39
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 144,
+        "responseTraceRecord": 145,
+        "candidates": [
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 3,
+                "character": 5
+              },
+              "end": {
+                "line": 3,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Source",
+            "displayStart1Based": {
+              "line": 4,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/definition",
+        "requestId": "49",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 80
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 151,
+        "responseTraceRecord": 152,
+        "candidates": [
+          {
+            "relativeFile": "client/use.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 14,
+                "character": 36
+              },
+              "end": {
+                "line": 14,
+                "character": 43
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "current",
+            "displayStart1Based": {
+              "line": 15,
+              "column": 37
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "71",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 2,
+        "observedClientSourceSHA256": "ab4991f873c2693054e1213eabef52b9677e5cf38fb72ae940238857bdd1b0b0",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 207,
+        "responseTraceRecord": 208,
+        "candidates": [
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 2,
+              "epoch": 1,
+              "sourceSHA256": "4aec4f8d43c7d728a6e306701b84320e27cd3792f39feae72025c4cb7336992b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "83",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 2,
+        "observedClientSourceSHA256": "ab4991f873c2693054e1213eabef52b9677e5cf38fb72ae940238857bdd1b0b0",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 234,
+        "responseTraceRecord": 235,
+        "candidates": [
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 6,
+                "character": 5
+              },
+              "end": {
+                "line": 6,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 3,
+              "epoch": 1,
+              "sourceSHA256": "6cff86db695718e0d1d38b8dc07a19efbbecfc0978fb6567d0dcaacd0a78078b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 7,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "103",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 2,
+        "observedClientSourceSHA256": "ab4991f873c2693054e1213eabef52b9677e5cf38fb72ae940238857bdd1b0b0",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 277,
+        "responseTraceRecord": 278,
+        "candidates": [
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 4,
+              "epoch": 1,
+              "sourceSHA256": "4aec4f8d43c7d728a6e306701b84320e27cd3792f39feae72025c4cb7336992b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "117",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 2,
+        "observedClientSourceSHA256": "ab4991f873c2693054e1213eabef52b9677e5cf38fb72ae940238857bdd1b0b0",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 308,
+        "responseTraceRecord": 309,
+        "candidates": [
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 6,
+                "character": 5
+              },
+              "end": {
+                "line": 6,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 5,
+              "epoch": 1,
+              "sourceSHA256": "6cff86db695718e0d1d38b8dc07a19efbbecfc0978fb6567d0dcaacd0a78078b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 7,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "123",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 3,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 324,
+        "responseTraceRecord": 325,
+        "candidates": [
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 3,
+                "character": 5
+              },
+              "end": {
+                "line": 3,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Source",
+            "displayStart1Based": {
+              "line": 4,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "132",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 4,
+        "observedClientSourceSHA256": "ab4991f873c2693054e1213eabef52b9677e5cf38fb72ae940238857bdd1b0b0",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 345,
+        "responseTraceRecord": 346,
+        "candidates": [
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 6,
+                "character": 5
+              },
+              "end": {
+                "line": 6,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 5,
+              "epoch": 1,
+              "sourceSHA256": "6cff86db695718e0d1d38b8dc07a19efbbecfc0978fb6567d0dcaacd0a78078b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 7,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "146",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 5,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 16,
+          "character": 27
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 383,
+        "responseTraceRecord": 384,
+        "candidates": [
+          {
+            "relativeFile": "file:///Users/wangshubo/.local/share/mise/installs/go/1.24.3/src/io/io.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 85,
+                "character": 5
+              },
+              "end": {
+                "line": 85,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "later native didOpen/didChange target document, not text observed at response time",
+              "observedLine": 385,
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "f1039eba161e42d9d76a3c8954cc2e2ab841ea26c6a5d762c8d6a0815e2e548b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Reader",
+            "displayStart1Based": {
+              "line": 86,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      }
+    ],
+    "semanticRequery": {
+      "implementationIds": [
+        "13",
+        "24",
+        "41"
+      ],
+      "sameQuerySourceVersionAndSHAAndPosition": true,
+      "rawCandidateCounts": [
+        6,
+        7,
+        6
+      ],
+      "onlyMiddleResultAddsNewImplementation": true,
+      "targetMovementIds": [
+        "71",
+        "83",
+        "103",
+        "117"
+      ],
+      "sameQuerySourceVersionAndSHAAndPositionForTargetOnlyEdits": true,
+      "observedSourceVersion": 2,
+      "targetDocumentVersions": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "rawTargetStartLines0Based": [
+        5,
+        6,
+        5,
+        6
+      ],
+      "allFreshRpcRequests": true,
+      "sourceUndoId": "123",
+      "sourceRedoId": "132",
+      "sdkTypeId": "146",
+      "limitation": "These are actual bounded server responses and unique client document histories, not full-source ACKs or a proof of all dependency graphs."
+    },
+    "utf16Replay": {
+      "documentEvents": 22,
+      "validationIssues": [],
+      "allTrackedIncrementalRangesAndVersionsValid": true
+    },
+    "diagnostics": {
+      "events": 61,
+      "nonemptyEvents": 32,
+      "serverVersionPresence": {
+        "versioned": 35,
+        "unversioned": 26
+      },
+      "diagnosticItemSeverityCounts": {
+        "2": 34,
+        "4": 2
+      },
+      "uniqueActualMessages": [
+        {
+          "severity": 2,
+          "source": "ST1000",
+          "code": "default",
+          "message": "at least one file in a package should have a package comment",
+          "occurrences": 27
+        },
+        {
+          "severity": 4,
+          "source": "QF1011",
+          "code": "default",
+          "message": "could omit type *impl.Pointer from declaration; it will be inferred from the right-hand side",
+          "occurrences": 2
+        },
+        {
+          "severity": 2,
+          "source": "ST1023",
+          "code": "default",
+          "message": "should omit type *impl.Pointer from declaration; it will be inferred from the right-hand side",
+          "occurrences": 2
+        },
+        {
+          "severity": 2,
+          "source": "ST1000",
+          "code": "default",
+          "message": "package comment should be of the form \"Package impl...\"",
+          "occurrences": 4
+        },
+        {
+          "severity": 2,
+          "source": "ST1012",
+          "code": "default",
+          "message": "error var EOF should have name of the form ErrFoo",
+          "occurrences": 1
+        }
+      ],
+      "noSeverity1DiagnosticItemObserved": true,
+      "limitation": "Warnings/hints are present, including package comments, redundant explicit type suggestions and the SDK EOF style warning. A message containing the word error is not reclassified as severity 1. Unversioned reports are not bound to source versions by receipt order."
+    },
+    "dirtyCheckpoints": [
+      {
+        "path": ".tools/navigation-cache-dirty-first-pre-dispatch.json",
+        "sha256": "4601bec4a27828b3b6bbc0c809abec910f411d00e7b6aa847ec8aa4b6208b670",
+        "prefix": {
+          "bytes": 109071,
+          "records": 206,
+          "sha256": "0a5c3027e0f7574b284b7593a94001a952485628ec4e914f86c9b16b987ab442"
+        },
+        "all12DiskHashesMatchInitial": true,
+        "openVersionRecordsMatchRawTrace": true
+      },
+      {
+        "path": ".tools/navigation-cache-restored-before-native-test.json",
+        "sha256": "2397babbae994c1491dc2492d75e862585a648a03a178f872c6e0374116bf69c",
+        "prefix": {
+          "bytes": 330991,
+          "records": 447,
+          "sha256": "be5c23e81c23f17c576f7dd4639dac6c05eaa218e7519273dabcf81885240bb4"
+        },
+        "all12DiskHashesMatchInitial": true,
+        "openVersionRecordsMatchRawTrace": true
+      },
+      {
+        "path": ".tools/navigation-cache-target-only-post-dispatch.json",
+        "sha256": "bd03d1c4d8cce090953c9968e663bfa1c13a77ce64d2f9ebcfe436f6e2155992",
+        "prefix": {
+          "bytes": 125534,
+          "records": 251,
+          "sha256": "9ea25ab22ee10223141ac127f202e67644f24b9e29d440bb98e8a64c13af3668"
+        },
+        "all12DiskHashesMatchInitial": true,
+        "openVersionRecordsMatchRawTrace": true
+      },
+      {
+        "path": ".tools/navigation-cache-target-only-pre-dispatch.json",
+        "sha256": "becbc9a14213de44068fa1b0bc1c6b33e90b08a029d706a9a720166b78291e80",
+        "prefix": {
+          "bytes": 118831,
+          "records": 233,
+          "sha256": "c11222af5d6f6913acf96dc1043bd65d255a7a239f9e548e09b1e32ee1589b89"
+        },
+        "all12DiskHashesMatchInitial": true,
+        "openVersionRecordsMatchRawTrace": true
+      },
+      {
+        "path": ".tools/navigation-cache-target-undo-redo-post-dispatch.json",
+        "sha256": "300dab54e7dd18c58e86e36ce5175eb73b5a8f8a9fa9f53dad2a874a07ba6af7",
+        "prefix": {
+          "bytes": 148518,
+          "records": 313,
+          "sha256": "4d95b0d58453c2f46918c1f83ce6a40981f5c3b0834a1f4b3f81ca7ffa5499df"
+        },
+        "all12DiskHashesMatchInitial": true,
+        "openVersionRecordsMatchRawTrace": true
+      },
+      {
+        "path": ".tools/navigation-cache-third-file-post-dispatch.json",
+        "sha256": "604da2971f9f4cfcd2c2bafde6fc6977e18ef27345d6f6a5b6dfe1fe285a4d9c",
+        "prefix": {
+          "bytes": 58861,
+          "records": 104,
+          "sha256": "a94140e180574d25d7385d10205647e8bfda96f55ad2a687cf8238bebe6a1a52"
+        },
+        "all12DiskHashesMatchInitial": true,
+        "openVersionRecordsMatchRawTrace": true
+      },
+      {
+        "path": ".tools/navigation-cache-third-file-pre-dispatch.json",
+        "sha256": "c3ada2a254355a3c2165eb807b70daccae4fc13d1842320c006620ef1e6b56df",
+        "prefix": {
+          "bytes": 50515,
+          "records": 84,
+          "sha256": "9fa18ddaea7894dd75d16a56962844ff9f244defb6e56d6e06b6914475a62e90"
+        },
+        "all12DiskHashesMatchInitial": true,
+        "openVersionRecordsMatchRawTrace": true
+      }
+    ],
+    "didClose": {
+      "observed": [
+        {
+          "line": 448,
+          "relativeFile": "core/api/contracts.go"
+        },
+        {
+          "line": 449,
+          "relativeFile": "client/use.go"
+        },
+        {
+          "line": 450,
+          "relativeFile": "client/navigation_test.go"
+        },
+        {
+          "line": 451,
+          "relativeFile": "file:///Users/wangshubo/.local/share/mise/installs/go/1.24.3/src/io/io.go"
+        },
+        {
+          "line": 452,
+          "relativeFile": "core/impl/pointer.go"
+        }
+      ],
+      "boundary": "Only the five listed document-close messages are asserted. Other documents can remain open in the trace model when the owned processes exit; no universal close/ACK guarantee is inferred."
+    },
+    "cleanup": {
+      "ownedPids": [
+        10650,
+        10672,
+        10698,
+        10699,
+        10702,
+        10904
+      ],
+      "remainingProcessRows": [],
+      "allSixRecordedOwnedPidsAbsent": true,
+      "fixtureFiles": [
+        {
+          "relativeFile": "go.work",
+          "sha256": "784e9c2f89db9b254e9f2b886edca6c8afae249e4085be9f6aa07c9cb2de4e72",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/go.mod",
+          "sha256": "55e342793224385f1d09f6a055d208dd5a567b4c74c5ae25454ed7b076500afb",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "client/go.mod",
+          "sha256": "a4b5155f4dc8918d62b3713396078b208ccb533ead8b68fdf3cf1ef29881f6cf",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/api/contracts.go",
+          "sha256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/impl/memory.go",
+          "sha256": "2ef561efdb606e11fe25adfbe544b50cd79d3bc5feb8e23480e73f44aa458ac7",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/impl/pointer.go",
+          "sha256": "dc014de14dc8eb887929429138c50e2b7c59c2f03f831fe6d770d5ed46d31358",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/impl/extended.go",
+          "sha256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/impl/generic.go",
+          "sha256": "f6ef6798f9b7e55b9eaccc69d1a5b26462aeffccccc3e9416ae62acce4dd2948",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/graph/functions.go",
+          "sha256": "0ebbf99a5addd3357c7e8cfa418522ce5c0d2ac0edc13e8736a4d241a4db8447",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "client/use.go",
+          "sha256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "client/navigation_test.go",
+          "sha256": "4332cb622e9c8271dc3aaa85fdbf56226436a4d73a36621a769c180c5a14bbc0",
+          "equalsInitial": true
+        },
+        {
+          "relativeFile": "core/impl/new_implementation.go",
+          "sha256": "90146bafad625ba2781bf1375a21d91c4ec17aa0ac3d79548bf6e279b9fb9c51",
+          "equalsInitial": true
+        }
+      ],
+      "all12FinalDiskHashesMatchInitial": true,
+      "nativeQuitAndSingleGoTestUIRecord": ".tools/standard-navigation-cache-native-observations.json",
+      "nativeUIRecordSHA256": "f3ca6e51f2b7af5496d91994db76f5307236ea9251ebb19473b58f1d2b79d40d",
+      "nativeTestObservedByMainTask": "TestNavigationFixture 1 pass, 0.669s, uncached, selected Go1.24.3, exit0",
+      "scope": "This read-only process check confirms the recorded PIDs, not every unrecorded process."
+    },
+    "sessionLog": {
+      "path": ".tools/standard-navigation-cache-native-session.log",
+      "sha256": "8d9b3d1cd149ba3debd03530d18d270654284eade71387d8b89bc281f09aa5fb",
+      "errorOrSevereLines": []
+    },
+    "independentAudit": {
+      "path": ".tools/standard-navigation-cache-final-audit.json",
+      "sha256": "d7f59304a0c00f844efa5c903b25e69af2042700b56df4a0e193aa4976614d7e",
+      "bytes": 21233
+    },
+    "fixture": {
+      "root": "/Users/wangshubo/develop/openidea-go/.tools/native-navigation-cache-g3l7qajg/导航 缓存验收 😀",
+      "goExecutable": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+      "goVersion": "go version go1.24.3 darwin/arm64",
+      "goplsExecutable": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls",
+      "goplsVersion": "golang.org/x/tools/gopls v0.21.1",
+      "network": "Fixture-specific GOPROXY=off, GOTOOLCHAIN=local, GOTELEMETRY=off; no remote modules",
+      "wrapper": "/Users/wangshubo/develop/openidea-go/.tools/gopls-trace-wrapper.py",
+      "wrapperSHA256": "5a1bd0efa667b9c75d000e927f23bc5f666fa1e45d4f55bfb51270f5e807e282",
+      "initialFiles": {
+        "go.work": "go 1.24.0\n\nuse (\n\t./core\n\t./client\n)\n",
+        "core/go.mod": "module example.org/nav/core\n\ngo 1.24.0\n",
+        "client/go.mod": "module example.org/nav/client\n\ngo 1.24.0\n\nrequire example.org/nav/core v0.0.0\nreplace example.org/nav/core => ../core\n",
+        "core/api/contracts.go": "package api\n\n// Source is intentionally implemented in several packages and both modules.\ntype Source interface { Read() string }\ntype ExtendedSource interface { Source; Close() error }\ntype Getter[T any] interface { Get() T }\ntype IntGetter = Getter[int]\ntype Missing interface { NeverImplemented() }\n\nfunc Read(s Source) string { return s.Read() }\nfunc GenericUse[G Getter[int]](g G) int { return g.Get() }\n",
+        "core/impl/memory.go": "package impl\n\nimport \"example.org/nav/core/api\"\n\ntype Memory struct{}\nfunc (Memory) Read() string { return \"memory\" }\nvar _ api.Source = Memory{}\n",
+        "core/impl/pointer.go": "package impl\n\nimport \"example.org/nav/core/api\"\n\ntype Pointer struct{}\nfunc (*Pointer) Read() string { return \"pointer\" }\nvar _ api.Source = (*Pointer)(nil)\n",
+        "core/impl/extended.go": "package impl\n\nimport \"example.org/nav/core/api\"\n\ntype Embedded struct { Memory }\ntype Extended struct { Memory }\nfunc (Extended) Close() error { return nil }\ntype WrongSignature struct{}\nfunc (WrongSignature) Read() int { return 0 }\nvar _ api.Source = Embedded{}\nvar _ api.ExtendedSource = Extended{}\n",
+        "core/impl/generic.go": "package impl\n\nimport \"example.org/nav/core/api\"\n\ntype Box[T any] struct { Value T }\nfunc (b Box[T]) Get() T { return b.Value }\ntype IntBox struct{}\nfunc (IntBox) Get() int { return 1 }\ntype StringBox struct{}\nfunc (StringBox) Get() string { return \"string\" }\nvar _ api.Getter[int] = Box[int]{}\nvar _ api.Getter[int] = IntBox{}\nvar _ api.Getter[string] = StringBox{}\n",
+        "core/graph/functions.go": "package graph\n\nfunc Leaf() int { return 1 }\nfunc Left() int { return Leaf() }\nfunc Right() int { return Leaf() + Left() }\n",
+        "client/use.go": "package client\n\nimport (\n \"io\"\n \"strings\"\n \"example.org/nav/core/api\"\n \"example.org/nav/core/graph\"\n \"example.org/nav/core/impl\"\n)\n\ntype Remote struct{}\nfunc (Remote) Read() string { return \"remote\" }\nvar _ api.Source = Remote{}\n\nfunc Use() string { _ = \"前😀\"; var  current api.Source = impl.Memory{}; return current.Read() }\nfunc Generic() int { var getter api.IntGetter = impl.Box[int]{Value: 7}; return getter.Get() }\nfunc Standard() int { var std io.Reader = strings.NewReader(\"stdlib\"); n, _ := std.Read(make([]byte, 8)); return n }\nfunc Calls() int { return graph.Left() + graph.Right() }\nfunc Shadow() string { current := \"shadow\"; _ = current; { var current api.Source = Remote{}; return current.Read() } }\n",
+        "client/navigation_test.go": "package client\n\nimport \"testing\"\n\nfunc TestNavigationFixture(t *testing.T) {\n if Use() != \"memory\" || Generic() != 7 || Standard() != 6 || Calls() != 3 || Shadow() != \"remote\" { t.Fatal(\"fixture semantics\") }\n}\n",
+        "core/impl/new_implementation.go": "package impl\n\ntype NewImplementation struct{}\nfunc (NewImplementation) Read() int { return 0 }\n"
+      },
+      "initialSHA256": {
+        "go.work": "784e9c2f89db9b254e9f2b886edca6c8afae249e4085be9f6aa07c9cb2de4e72",
+        "core/go.mod": "55e342793224385f1d09f6a055d208dd5a567b4c74c5ae25454ed7b076500afb",
+        "client/go.mod": "a4b5155f4dc8918d62b3713396078b208ccb533ead8b68fdf3cf1ef29881f6cf",
+        "core/api/contracts.go": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+        "core/impl/memory.go": "2ef561efdb606e11fe25adfbe544b50cd79d3bc5feb8e23480e73f44aa458ac7",
+        "core/impl/pointer.go": "dc014de14dc8eb887929429138c50e2b7c59c2f03f831fe6d770d5ed46d31358",
+        "core/impl/extended.go": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+        "core/impl/generic.go": "f6ef6798f9b7e55b9eaccc69d1a5b26462aeffccccc3e9416ae62acce4dd2948",
+        "core/graph/functions.go": "0ebbf99a5addd3357c7e8cfa418522ce5c0d2ac0edc13e8736a4d241a4db8447",
+        "client/use.go": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "client/navigation_test.go": "4332cb622e9c8271dc3aaa85fdbf56226436a4d73a36621a769c180c5a14bbc0",
+        "core/impl/new_implementation.go": "90146bafad625ba2781bf1375a21d91c4ec17aa0ac3d79548bf6e279b9fb9c51"
+      },
+      "offlineMemberControl": {
+        "log": {
+          "path": ".tools/navigation-cache-fixture-control.log",
+          "sha256": "95f7c99380883fb221c03c0ff4854221c2811bfb0a90e4179997459b6053ef34",
+          "bytes": 196
+        },
+        "coreExitCode": 0,
+        "clientExitCode": 0,
+        "scope": "Separate CLI fixture control; not counted as native Go test"
+      }
+    }
+  },
+  "initialFailedCohort": {
+    "sourceDigest": "8e3905032b1cea34c09f879dc28e634b4ecf5be61dadf5f1e46e41cba2ac63db",
+    "inputFiles": 337,
+    "pid": 6081,
+    "tests": 391,
+    "reports": 90,
+    "status": "Historical automated package passed; repeated target-only native navigation failed",
+    "trace": {
+      "metadata": ".tools/native-navigation.json",
+      "metadataSHA256": "198d0cc57bde5f09f50b64a7535ad61974594d62c14ee12a8d0b84ece2e3df96",
+      "trace": "/Users/wangshubo/develop/openidea-go/.tools/native-navigation-m1zxgfdu/导航 验收 😀/trace.jsonl",
+      "completeSnapshotBytes": 330361,
+      "completeSnapshotLines": 393,
+      "completeSnapshotSHA256": "3b1ef070927f9a313b804f11c5212aac5a3a2b72097f3de27a80f6de71edf25a",
+      "fullReadBytes": 330361,
+      "trailingIncompleteBytesIgnored": 0,
+      "wrapper": "/Users/wangshubo/develop/openidea-go/.tools/gopls-trace-wrapper.py",
+      "wrapperSHA256": "5a1bd0efa667b9c75d000e927f23bc5f666fa1e45d4f55bfb51270f5e807e282",
+      "notUsedAsNativeEvidence": ".tools/navigation-protocol-control.json",
+      "archivedMetadata": ".tools/standard-navigation-initial-cohort/native-navigation.json",
+      "archivedTrace": ".tools/standard-navigation-initial-cohort/trace.jsonl"
+    },
+    "standardChooserObservations": [
+      {
+        "entry": "standard Go to Implementation(s) shortcut Cmd+Alt+B",
+        "origin": "contracts.go Source 4:7",
+        "chooser": "Choose Implementation of Source (6 found)",
+        "rows": [
+          "Embedded (extended.go)",
+          "Extended (extended.go)",
+          "ExtendedSource (contracts.go)",
+          "Memory (memory.go)",
+          "Pointer (pointer.go)",
+          "Remote (use.go)"
+        ],
+        "selected": "Remote (use.go)",
+        "target": "client/use.go 11:6",
+        "history": [
+          "Back -> contracts.go 4:7",
+          "Forward -> use.go 11:6"
+        ]
+      },
+      {
+        "entry": "standard Find Action Go to Implementation(s), Alt+Cmd+B label",
+        "origin": "contracts.go Source.Read 4:26",
+        "chooser": "Choose Implementation of Read (3 found)",
+        "rows": [
+          "Read (memory.go)",
+          "Read (pointer.go)",
+          "Read (use.go)"
+        ],
+        "selected": "Read (pointer.go)",
+        "target": "core/impl/pointer.go 6:17",
+        "history": [
+          "Back -> contracts.go 4:26"
+        ]
+      },
+      {
+        "entry": "standard Cmd+Alt+B on IntGetter",
+        "origin": "contracts.go 7:7",
+        "chooser": "Choose Implementation of IntGetter (3 found)",
+        "rows": [
+          "Box (generic.go)",
+          "Getter (contracts.go)",
+          "IntBox (generic.go)"
+        ],
+        "cancel": "Escape restores editor at contracts.go 7:7 without navigation",
+        "repeat": "same three chooser rows; selected IntBox",
+        "target": "core/impl/generic.go 7:6"
+      },
+      {
+        "entry": "standard Cmd+Shift+B",
+        "origin": "client/use.go current after same-line 前😀, UI15:39",
+        "target": "core/api/contracts.go Source 4:6",
+        "history": "Back returns use.go15:39"
+      },
+      {
+        "entry": "actual standard Cmd+B",
+        "origin": "client/use.go return current.Read receiver",
+        "target": "same use.go current variable declaration, UI15:36",
+        "distinction": "definition points to the local variable; type declaration points to api.Source"
+      },
+      {
+        "entry": "standard Cmd+Shift+B at returned identifier start after two spaces",
+        "origin": "use.go UI15:36",
+        "target": "contracts.go Source4:6"
+      },
+      {
+        "entry": "standard Cmd+Shift+B on generic getter variable",
+        "origin": "use.go UI16:31",
+        "target": "contracts.go IntGetter7:6"
+      },
+      {
+        "entry": "standard Cmd+Shift+B on std variable",
+        "target": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/src/io/io.go Reader86:6",
+        "history": "Back returns use.go17:28",
+        "readonlyScope": "Target SDK path was observed; editability/read-only enforcement was not tested"
+      },
+      {
+        "entry": "actual standard Cmd+B on strings.NewReader",
+        "target": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/src/strings/reader.go NewReader160:6"
+      },
+      {
+        "entry": "standard Cmd+Shift+B with two unsaved files",
+        "sourceEdit": "Use current *impl.Pointer = &impl.Pointer{}",
+        "destinationEdit": "leading // 未保存的目标 😀 newline",
+        "preAndPostDiskProof": "both source and destination equal initial disk hashes",
+        "firstTarget": "pointer.go6:6, matches live Pointer",
+        "subsequentTargetOnlyEdit": "added // 再次移动 newline before existing first comment",
+        "sourceUnchanged": "same source version and caret UI15:37",
+        "repeatActualTarget": "pointer.go5:34 on import string",
+        "expectedLiveTarget": "Pointer7:6",
+        "status": "FAIL - stale cached typeDefinition after target-only change",
+        "cleanup": "native Undo removed later comment; remaining comment removed by native selection/Backspace; source native paste restored initial type. Both editor texts visibly initial before Quit."
+      }
+    ],
+    "additionalRootObservedPositiveRoutes": [
+      "Unicode current Type Declaration -> Source4:6; Cmd+B -> local variable15:36",
+      "Generic getter -> IntGetter7:6",
+      "Selected SDK Type Declaration -> io.Reader86:6; Cmd+B strings.NewReader -> NewReader160:6",
+      "First two-unsaved-file query -> live Pointer6:6 with original disk hashes"
+    ],
+    "queries": [
+      {
+        "method": "textDocument/implementation",
+        "requestId": "16",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "core/api/contracts.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+        "queryPosition0BasedUTF16": {
+          "line": 3,
+          "character": 5
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 6,
+        "error": null,
+        "requestTraceRecord": 48,
+        "responseTraceRecord": 49,
+        "candidates": [
+          {
+            "relativeFile": "client/use.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 10,
+                "character": 5
+              },
+              "end": {
+                "line": 10,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Remote",
+            "displayStart1Based": {
+              "line": 11,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 19
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "ExtendedSource",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Embedded",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/extended.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 13
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "bb590065c6f57f31f6dce9b723915b6229136539ed9711257a2645c35c865b68",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Extended",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/memory.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "2ef561efdb606e11fe25adfbe544b50cd79d3bc5feb8e23480e73f44aa458ac7",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Memory",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "dc014de14dc8eb887929429138c50e2b7c59c2f03f831fe6d770d5ed46d31358",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/implementation",
+        "requestId": "43",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "core/api/contracts.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+        "queryPosition0BasedUTF16": {
+          "line": 3,
+          "character": 24
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 3,
+        "error": null,
+        "requestTraceRecord": 112,
+        "responseTraceRecord": 113,
+        "candidates": [
+          {
+            "relativeFile": "client/use.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 11,
+                "character": 14
+              },
+              "end": {
+                "line": 11,
+                "character": 18
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 3,
+              "epoch": 1,
+              "sourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Read",
+            "displayStart1Based": {
+              "line": 12,
+              "column": 15
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/memory.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 14
+              },
+              "end": {
+                "line": 5,
+                "character": 18
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "2ef561efdb606e11fe25adfbe544b50cd79d3bc5feb8e23480e73f44aa458ac7",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Read",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 15
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 16
+              },
+              "end": {
+                "line": 5,
+                "character": 20
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "dc014de14dc8eb887929429138c50e2b7c59c2f03f831fe6d770d5ed46d31358",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Read",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 17
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/implementation",
+        "requestId": "53",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "core/api/contracts.go",
+        "queryObservedClientVersion": 1,
+        "observedClientSourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+        "queryPosition0BasedUTF16": {
+          "line": 6,
+          "character": 5
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 3,
+        "error": null,
+        "requestTraceRecord": 138,
+        "responseTraceRecord": 139,
+        "candidates": [
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Getter",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/generic.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 4,
+                "character": 5
+              },
+              "end": {
+                "line": 4,
+                "character": 8
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "f6ef6798f9b7e55b9eaccc69d1a5b26462aeffccccc3e9416ae62acce4dd2948",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Box",
+            "displayStart1Based": {
+              "line": 5,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          },
+          {
+            "relativeFile": "core/impl/generic.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 6,
+                "character": 5
+              },
+              "end": {
+                "line": 6,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "fixture initial metadata; not proof target disk/overlay was unchanged",
+              "sourceSHA256": "f6ef6798f9b7e55b9eaccc69d1a5b26462aeffccccc3e9416ae62acce4dd2948",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "IntBox",
+            "displayStart1Based": {
+              "line": 7,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "65",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 3,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 39
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 171,
+        "responseTraceRecord": 172,
+        "candidates": [
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 3,
+                "character": 5
+              },
+              "end": {
+                "line": 3,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Source",
+            "displayStart1Based": {
+              "line": 4,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/definition",
+        "requestId": "68",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 3,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 80
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 177,
+        "responseTraceRecord": 178,
+        "candidates": [
+          {
+            "relativeFile": "client/use.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 14,
+                "character": 36
+              },
+              "end": {
+                "line": 14,
+                "character": 43
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 3,
+              "epoch": 1,
+              "sourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "current",
+            "displayStart1Based": {
+              "line": 15,
+              "column": 37
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "70",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 3,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 36
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 181,
+        "responseTraceRecord": 182,
+        "candidates": [
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 3,
+                "character": 5
+              },
+              "end": {
+                "line": 3,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Source",
+            "displayStart1Based": {
+              "line": 4,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "72",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 3,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 15,
+          "character": 30
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 185,
+        "responseTraceRecord": 186,
+        "candidates": [
+          {
+            "relativeFile": "core/api/contracts.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 6,
+                "character": 5
+              },
+              "end": {
+                "line": 6,
+                "character": 14
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "9ddb9adfe188ec8249c482300144b68d746a3d063ab4bc9a3a49f70fa7e28d05",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "IntGetter",
+            "displayStart1Based": {
+              "line": 7,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "76",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 3,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 16,
+          "character": 27
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 193,
+        "responseTraceRecord": 194,
+        "candidates": [
+          {
+            "relativeFile": "$GOROOT/src/io/io.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 85,
+                "character": 5
+              },
+              "end": {
+                "line": 85,
+                "character": 11
+              }
+            },
+            "excerptSource": {
+              "kind": "later native didOpen/didChange target document, not text observed at response time",
+              "observedLine": 195,
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "f1039eba161e42d9d76a3c8954cc2e2ab841ea26c6a5d762c8d6a0815e2e548b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Reader",
+            "displayStart1Based": {
+              "line": 86,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/definition",
+        "requestId": "86",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 3,
+        "observedClientSourceSHA256": "919c92d0eaab3d8c2097701e98aae0fb682dba89b5689cd377a417d3e91ce252",
+        "queryPosition0BasedUTF16": {
+          "line": 16,
+          "character": 51
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 215,
+        "responseTraceRecord": 216,
+        "candidates": [
+          {
+            "relativeFile": "$GOROOT/src/strings/reader.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 159,
+                "character": 5
+              },
+              "end": {
+                "line": 159,
+                "character": 14
+              }
+            },
+            "excerptSource": {
+              "kind": "later native didOpen/didChange target document, not text observed at response time",
+              "observedLine": 217,
+              "version": 1,
+              "epoch": 1,
+              "sourceSHA256": "bbc3680c82f304b89219b856f9fc37df02f7231576c3135f492a3ac818038736",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "NewReader",
+            "displayStart1Based": {
+              "line": 160,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      {
+        "method": "textDocument/typeDefinition",
+        "requestId": "115",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 4,
+        "observedClientSourceSHA256": "ab4991f873c2693054e1213eabef52b9677e5cf38fb72ae940238857bdd1b0b0",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 286,
+        "responseTraceRecord": 287,
+        "candidates": [
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 2,
+              "epoch": 1,
+              "sourceSHA256": "4aec4f8d43c7d728a6e306701b84320e27cd3792f39feae72025c4cb7336992b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      }
+    ],
+    "confirmedFailure": {
+      "lastActualTypeQuery": {
+        "method": "textDocument/typeDefinition",
+        "requestId": "115",
+        "requestIdJSONType": "str",
+        "relativeQueryFile": "client/use.go",
+        "queryObservedClientVersion": 4,
+        "observedClientSourceSHA256": "ab4991f873c2693054e1213eabef52b9677e5cf38fb72ae940238857bdd1b0b0",
+        "queryPosition0BasedUTF16": {
+          "line": 14,
+          "character": 37
+        },
+        "queryPositionValidInObservedClientDocument": true,
+        "returnedCount": 1,
+        "error": null,
+        "requestTraceRecord": 286,
+        "responseTraceRecord": 287,
+        "candidates": [
+          {
+            "relativeFile": "core/impl/pointer.go",
+            "lspUTF16Range0Based": {
+              "start": {
+                "line": 5,
+                "character": 5
+              },
+              "end": {
+                "line": 5,
+                "character": 12
+              }
+            },
+            "excerptSource": {
+              "kind": "observed client document history at or before response",
+              "version": 2,
+              "epoch": 1,
+              "sourceSHA256": "4aec4f8d43c7d728a6e306701b84320e27cd3792f39feae72025c4cb7336992b",
+              "notServerSnapshotACK": true
+            },
+            "excerpt": "Pointer",
+            "displayStart1Based": {
+              "line": 6,
+              "column": 6
+            },
+            "rangeValidInSelectedExcerptSource": true
+          }
+        ]
+      },
+      "targetChangeTraceRecord": 297,
+      "targetChangeVersion": 3,
+      "targetSourceSHA256": "6cff86db695718e0d1d38b8dc07a19efbbecfc0978fb6567d0dcaacd0a78078b",
+      "nativeRepeat": {
+        "source": "client/use.go",
+        "unchangedSourceVersion": 4,
+        "reportedSameCaretLabel": "15:37",
+        "actualTarget": "core/impl/pointer.go 5:34 (import string)",
+        "expectedLiveTarget": "core/impl/pointer.go Pointer 7:6",
+        "freshTypeDefinitionRequestsAfterTargetChange": 0
+      },
+      "assessment": "Actual native repeat reused source-only navigation data: last raw Location range was valid for target v2, target became v3, and no new typeDefinition request appeared. Public support cache checks query-source stamp/offset, not target or semantic dependency changes. Subsequent independent real-SDK/gopls RED reproduces this separately."
+    },
+    "cleanup": {
+      "recordedPids": [
+        6081,
+        6104,
+        6146,
+        6147,
+        6148
+      ],
+      "stillPresent": [],
+      "allRecordedOwnedGone": true,
+      "finalFixtureHashesMatchInitial": {
+        "go.work": true,
+        "core/go.mod": true,
+        "client/go.mod": true,
+        "core/api/contracts.go": true,
+        "core/impl/memory.go": true,
+        "core/impl/pointer.go": true,
+        "core/impl/extended.go": true,
+        "core/impl/generic.go": true,
+        "core/graph/functions.go": true,
+        "client/use.go": true,
+        "client/navigation_test.go": true
+      },
+      "sessionLogSha256": "bcc38732a0e3906715b934910ec3a265207cf9df042a32f0a8b94730f5101f3e",
+      "sessionErrorOrSevereLines": []
+    },
+    "archive": ".tools/standard-navigation-initial-cohort",
+    "boundary": "These are earlier immutable package facts, not repeated final-package native method/generic chooser/NewReader checks. Its intermediate pending list is not final cleanup state."
+  },
+  "separateInitialSettingsCohort": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-settings-search-smgjmdkb/设置 搜索 😀",
+    "sourceDigest": "8e3905032b1cea34c09f879dc28e634b4ecf5be61dadf5f1e46e41cba2ac63db",
+    "purpose": "Settings search on immutable first navigation bundle while separate cache fix is being developed; not cache-fix native proof",
+    "pid": 6914,
+    "observations": {
+      "CGO_ENABLED": "Go page visible",
+      "Indent on Enter in raw strings": "Go page checkbox highlighted in screenshot",
+      "golangci-lint flags": "Go Inspections page flags label and field highlighted in screenshot",
+      "apply": "never applied; Apply disabled at final screenshot; Escape closed Settings",
+      "exit": "Cmd+Q / Confirm Exit / Exit; CUA observed App quit",
+      "automationBoundary": "cached app binding timed out after Escape closed Settings; rebind by bundle ID returned responsive project window. EDT dump was waiting for next event, not blocked."
+    },
+    "log": {
+      "path": ".tools/native-settings-search-session.log",
+      "sha256": "e547fd71f81eb6f664544cc763a176e71d2010ae6404df34b358be4add2dfdb3",
+      "errorLines": []
+    },
+    "ownedPids": [
+      6914,
+      6942
+    ],
+    "remainingPids": [],
+    "completedAt": "2026-11-09T02:35:43.943516+00:00"
+  },
+  "independentProtocolControl": {
+    "record": {
+      "path": ".tools/navigation-protocol-control.json",
+      "sha256": "dc4f407d8a9d058939f8f321cd8aa9ba2424f3f5e4911cf28084946eed749334",
+      "bytes": 103510
+    },
+    "scope": "Separate direct gopls process, not native chooser/hierarchy/Structure or final-package evidence"
+  },
+  "limitations": [
+    "All36 complete IDE/reference acceptance rows remain unverified",
+    "Observed client versions and matching source hashes are not server full-source acknowledgements",
+    "Current standard-action tests and native cases do not establish all hierarchy/Structure, scope, SDK/build/OS, cancellation or disposal behavior",
+    "The native Undo/Redo sequences first restored caret and changed text on a second key; no one-key text Undo claim",
+    "Preexisting upstream previousOffset checks/assignment remain outside the base cache monitor: concurrent different-offset calls for the same PsiFile can theoretically reuse the other query future. Static interleaving confirmed, no deterministic/native reproduction in this cohort; this patch does not claim to fix it",
+    "Only observed child/Run PIDs are included in cleanup; no unrelated IDE or reference process was terminated"
+  ]
+}

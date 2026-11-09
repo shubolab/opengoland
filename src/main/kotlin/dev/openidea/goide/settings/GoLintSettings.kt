@@ -4,7 +4,7 @@ import com.intellij.openapi.components.PersistentStateComponent
 import com.intellij.openapi.components.Service
 import com.intellij.openapi.components.State
 import com.intellij.openapi.components.Storage
-import com.intellij.openapi.options.Configurable
+import com.intellij.openapi.options.SearchableConfigurable
 import com.intellij.openapi.options.ConfigurationException
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBLabel
@@ -30,10 +30,11 @@ class GoLintSettings : PersistentStateComponent<GoLintSettings.Data> {
     companion object { fun get(project: Project): Data = project.getService(GoLintSettings::class.java).state }
 }
 
-class GoLintConfigurable(private val project: Project) : Configurable {
+class GoLintConfigurable(private val project: Project) : SearchableConfigurable {
     private val executable = JBTextField()
     private val vet = JBTextField()
     private val golangci = JBTextField()
+    override fun getId() = ID
     override fun getDisplayName() = "Go Inspections"
     override fun createComponent(): JComponent = FormBuilder.createFormBuilder()
         .addLabeledComponent("golangci-lint executable:", executable)
@@ -53,4 +54,6 @@ class GoLintConfigurable(private val project: Project) : Configurable {
         } catch (error: IllegalArgumentException) { throw ConfigurationException(error.message ?: "Invalid inspection flags") }
         GoLintSettings.get(project).let { it.golangciExecutable = executable.text.trim(); it.vetFlags = vet.text.trim(); it.golangciFlags = golangci.text.trim() }
     }
+
+    companion object { const val ID = "dev.openidea.go.lint.settings" }
 }

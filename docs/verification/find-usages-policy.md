@@ -138,3 +138,12 @@ particular, a controlled support test must not be relabeled as proof of the
 platform's standard Go to Implementation shortcut or menu action. References
 error reporting is covered by the automated test; a deliberately failing native
 references request has not been injected into the production session.
+
+## Later standard-action repair
+
+The standard-action gap above is an observation of the historical `d4b5eabb`
+cohort. A later [navigation repair](standard-navigation.md) connects the actual
+standard actions and records native choosers, type/declaration distinctions and
+semantic cache invalidation. Its separate [native record](standard-navigation-native.json)
+preserves the intermediate cache failure and the repaired package evidence; it
+does not change this older query-policy cohort or close full LANG-03.

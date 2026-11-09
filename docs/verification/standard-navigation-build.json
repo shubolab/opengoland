@@ -1,0 +1,475 @@
+{
+  "schema": "open-goland.standard-navigation-build.v2",
+  "date": "2026-11-09",
+  "recordedAtUtc": "2026-11-09T02:56:28.158733+00:00",
+  "scope": "Final repaired package and automated evidence. Native observations and the failed earlier cohort remain explicitly separate in standard-navigation-native.json.",
+  "deliveryBuild": {
+    "sourceDigest": "7284c94586560bcedf413621a21b7d3e4da9b4cb543a7312827288a3c0ae92e1",
+    "inputFiles": 338,
+    "application": "build/product/open Goland.app",
+    "platform": {
+      "product": "IntelliJ IDEA Community",
+      "version": "2026.1.4",
+      "build": "IC-261.26222.65",
+      "upstreamCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5"
+    },
+    "packageCommand": "OPENGOLAND_GOPLS_TEST=/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls ./scripts/package-product.sh",
+    "gradleTasks": [
+      "test",
+      "buildPlugin",
+      "prepareSandbox",
+      "verifyPluginStructure"
+    ],
+    "packageExitCode": 0,
+    "exitCodeEvidence": "Root terminal session35429 completed0; retained log contains BUILD SUCCESSFUL and final product manifest",
+    "buildInputVerification": "pass: all338 frozen inputs match after package and native run",
+    "pluginStructureVerification": "pass",
+    "codesign": {
+      "command": "codesign --verify --deep --strict build/product/open Goland.app",
+      "exitCode": 0
+    },
+    "manifest": {
+      "path": ".tools/standard-navigation-cache-manifest.json",
+      "sha256": "980e1acd5f818121f5309ab00f99686c3a50c820d12f50cf2778a7e6822be6b3",
+      "bytes": 68686
+    },
+    "packageLog": {
+      "path": ".tools/standard-navigation-cache-package.log",
+      "sha256": "055b492c8a67ba20fc0d0d6e175392ccf80d1b3ff3a7c94ebcf212d0a0449890",
+      "bytes": 85644
+    },
+    "kotlin": {
+      "reports": 91,
+      "tests": 404,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "selectedSuites": [
+        {
+          "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoNavigationCacheTest.xml",
+          "sha256": "49a18e6b557eb942fb1e531af1272b3a31f2f34ef9d102141a637d2e65aa539b",
+          "name": "com.redhat.devtools.lsp4ij.GoNavigationCacheTest",
+          "tests": "11",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-09T02:45:04.002Z",
+          "hostname": "wangshubodeMacBook-Pro.local",
+          "time": "0.523"
+        },
+        {
+          "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest.xml",
+          "sha256": "36e134bd12fd5a8f9ca2a395d891b19eff10348b3b4860399e88c78de5f7af78",
+          "name": "com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest",
+          "tests": "5",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-09T02:45:04.528Z",
+          "hostname": "wangshubodeMacBook-Pro.local",
+          "time": "8.268"
+        },
+        {
+          "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationTest.xml",
+          "sha256": "7a4183c64ab6a9e1ea50377efeb2dbea755ffbc1d11d018e2e0a0a2549f201f8",
+          "name": "com.redhat.devtools.lsp4ij.GoStandardNavigationTest",
+          "tests": "9",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-09T02:45:12.801Z",
+          "hostname": "wangshubodeMacBook-Pro.local",
+          "time": "1.223"
+        },
+        {
+          "path": "build/test-results/test/TEST-dev.openidea.goide.settings.GoSettingsSearchTest.xml",
+          "sha256": "cb2d77c6d5bd52a07f67ddebbdce3e76a58f5d083b581e40fd37a952dca7277a",
+          "name": "dev.openidea.goide.settings.GoSettingsSearchTest",
+          "tests": "1",
+          "skipped": "0",
+          "failures": "0",
+          "errors": "0",
+          "timestamp": "2026-11-09T02:46:17.148Z",
+          "hostname": "wangshubodeMacBook-Pro.local",
+          "time": "1.684"
+        }
+      ]
+    },
+    "subsetCountsIncludedInTotal": true,
+    "buildSearchableOptions": "skipped; registered runtime contributor supplies Go labels",
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "a4fcedc5a1273a98ba79387dd4134d902c5e8040a93dd84cf882dc537fea28a3",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "da1b37f9a0ffcaef350d2e8bfb05aa3e7da611487046691d90e23060c803e67f",
+      "plugins/opengoland/license/pprof-LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "plugins/opengoland/license/x-mod-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/opengoland/license/x-sync-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/opengoland/license/x-tools-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/lsp4ij/bundles/0.21.0/package.json": "2a654090b48f8bcb9d1e4831a3b52d23ee9207624092b08fcb1fd73d95f92323",
+      "plugins/lsp4ij/bundles/0.21.0/syntaxes/disassembly.json": "2dae8bb50879164cc61c0b35fa0bfdd38523766e6150448271e0d6c65c2a79fe",
+      "plugins/lsp4ij/lib/annotations-24.0.1.jar": "61666dbce7e42e6c85b43c04fcfb8293a21dcb55b3c80e869270ce42c01a6b35",
+      "plugins/lsp4ij/lib/autolink-0.6.0.jar": "a80be030f6386f18111cad9161c0b6983157352a1b59a59e6002172f0d321c04",
+      "plugins/lsp4ij/lib/flexmark-0.64.8.jar": "3133878d108f0e1964d7d427f379a7433e1b71a45f9f3c1fab7ed0ac0301d3b0",
+      "plugins/lsp4ij/lib/flexmark-ext-autolink-0.64.8.jar": "4850d6f895ec3f2932635829d74ff9a2fb00918965bb91c000ab497d603e11b8",
+      "plugins/lsp4ij/lib/flexmark-ext-gfm-strikethrough-0.64.8.jar": "fc6cad026fbd036b3ffd0448264360a5f1b572756ef3427ff022715b7fc5f1c3",
+      "plugins/lsp4ij/lib/flexmark-ext-tables-0.64.8.jar": "cdf82d26e112e96ade7e370138aeb16920b7e2d411d20c6c15cb1acfacd1ef1f",
+      "plugins/lsp4ij/lib/flexmark-util-0.64.8.jar": "1e24c891dac9532bb722be7122c7026fb47868c3de36c02400eed8e9ad535727",
+      "plugins/lsp4ij/lib/flexmark-util-ast-0.64.8.jar": "a5342f644c6a5f37d502f225c3a0cb699c263621c82e720d9c08eba5a9f3b8d3",
+      "plugins/lsp4ij/lib/flexmark-util-builder-0.64.8.jar": "afb9c88d9f652451e75f1ab069ad7ddd791d712eb211c51d8d2a83494240875d",
+      "plugins/lsp4ij/lib/flexmark-util-collection-0.64.8.jar": "031ff01408d0f54c6235db18d451dc6e6b15b859b0ec1e40ff3429a82375082a",
+      "plugins/lsp4ij/lib/flexmark-util-data-0.64.8.jar": "83ceb5989ab0205054bf1b42446f55cb6da14c10aa7c2bda05d6a2504670f353",
+      "plugins/lsp4ij/lib/flexmark-util-dependency-0.64.8.jar": "e41adb5e8144699b61b78d50eb004eeb7de84f90c4c63626609e6cee5ea28b42",
+      "plugins/lsp4ij/lib/flexmark-util-format-0.64.8.jar": "6c9ac87686474edf0117b3f838d9dcb3b965fa72be4998d2177b598013679f73",
+      "plugins/lsp4ij/lib/flexmark-util-html-0.64.8.jar": "5b19e6506aff7913c74ad725af7c2b8a9f23958e6324bf0710c5a645a4663017",
+      "plugins/lsp4ij/lib/flexmark-util-misc-0.64.8.jar": "74472ca81a9080e51ea1a4f11c270898e3d6c242c92275fab47eb993806c8f2b",
+      "plugins/lsp4ij/lib/flexmark-util-options-0.64.8.jar": "2489f41e9caf1d9f8061833b311b25403925cbb631fff2b8c069192804d6fc88",
+      "plugins/lsp4ij/lib/flexmark-util-sequence-0.64.8.jar": "6e22976fe4e9b8de94fd529991ecb2d79cc482aad94985367470a93be1d82631",
+      "plugins/lsp4ij/lib/flexmark-util-visitor-0.64.8.jar": "d9b3002a833a078c45e139568b306dab0ac117ff9046c6a1f9e180c0154563fc",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0-searchableOptions.jar": "121b6dc3da5f081121804c9acb4f927be249ec7774b24561826771c36e324ace",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "ff1682a7ded9ebc3fd073144376f74989622874fe6e562ed5dbc246486207829",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j-1.0.0.jar": "ccd78893facc6bfcc359d56cba05d3d5b85eb41e4c40d4b4215ca45db5f416d9",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.debug-0.21.0.jar": "eb32b70bab2f2f7be805ebf467e41ea8cd2ae80ef6801b1b374b355ab27cf32f",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc-1.0.0.jar": "9647feb0524bf763c878e12ab878a684102b81cccb3f77feecbec709d54f9bbb",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc.debug-0.21.0.jar": "82ece72945a352c93694143cdf4cf4cd1eb3e17d8c177c1a8616c78e5e56d165"
+    },
+    "allArtifactChecks": {
+      "count": 32,
+      "passed": 32
+    },
+    "lsp4ijPatch": {
+      "classSha256": {
+        "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+        "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+        "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+        "com/redhat/devtools/lsp4ij/LSPFileListener.class": "e16e32f112b30a45466d3c4b28c31533e78a4b654d4e7d148528a511b5ea519d",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f",
+        "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class": "48f97e48ab291690058df55bf190b7a5804885b59a1aacd0eac92cf247726a0c",
+        "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker$1.class": "80e442d4c510c09271073188e3cc6062a5af0a0aefe6f6cc08f691555ad0b9fa",
+        "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationModificationTracker.class": "e12968f90f076ae1ad86e0da544ccd85cd4be84f41cde34d257b811269ae799c",
+        "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport$NavigationSnapshot.class": "7f0a521e416b928364a054ef21ed92018b1b6aecf98ff0b060524dce1978d087",
+        "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.class": "fc869b8a9c3a72fab6e240540258e18877cc44a7131a7a9a532224654bae1a92",
+        "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.class": "d04ab33a6f6360e5e3e6e414c47ca44e7c1049c9b67ddcc505003d79af9758e3",
+        "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.class": "298cc4aea166a9cec394d4ed246218cb459883dfb3476de23483101d766851c2",
+        "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.class": "9fce6eafe83bd149daa0867c7256b05bcf77a2e49cce45afd1057f6efbc27594",
+        "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.class": "77f7defc0ad17a8b95f97da08365bf1db7afdb17c964416b01c7fe7af182bd8a",
+        "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class": "3c15f73a0c4c0cc67a2e1ae0fb2bc2ab0059a06a8d77d39df43cf133d269e208",
+        "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class": "48410c417783fe9bd01932b25341b10b512c07369421ee5f4d966b6f85260074",
+        "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport$LSPUsageSupportParams.class": "7d1560681f450bf132547ab6641e6c428d6ef371f012af0d3124be15a4df7e15",
+        "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class": "27c04b6a168fa81bb563e11579c7ace3a20cf3cd698a04d7aa1a081db3853811"
+      },
+      "compiler": "javac 25.0.3",
+      "patchSha256": "385d306dda4fe8f7a93f87f4ae34cd57b29cd1a5461c90510e6f289bd03b3dde",
+      "sources": [
+        {
+          "patchedSha256": "799730ac34c1946547b3541c36d47ae535c4f3909e604642e410a77e240b05ca",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
+          "upstreamSha256": "df1ab61afecedf04c5c4b75df0dd4d3e5eb5535362b26e069e04530318bfad69"
+        },
+        {
+          "patchedSha256": "873923102b2df09616a7dcf802f3dc9ab743f211dc9006d7f597a282314622c4",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java",
+          "upstreamSha256": "df53ffc46779af67e3cbdc97b7df736eb18541453abda6bcfaed0cb1e15313a3"
+        },
+        {
+          "patchedSha256": "d8d6c164a1047c4e885e1cfd69d6145daa481ac250cf3165a3167b625f5b3373",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java",
+          "upstreamSha256": "f3128832177a89ea7bd8212b657818690d26128e2a57297c96ae7bcbde499ac3"
+        },
+        {
+          "patchedSha256": "19bce0f1443b68e53b839a911c3c7a7a8eaabbe98d250c8e104d5fd227855553",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java",
+          "upstreamSha256": "67c15fc1f7f73bbf6af87d7219a671a43134f478a457bec8579affbc05f1e21a"
+        },
+        {
+          "patchedSha256": "16f2ae3b230f8da0b18386c7e205fd793eaa72a2704eb202a5158c14f323a506",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java",
+          "upstreamSha256": "b4564c3467462576944dac54ebd24f517a15205a69ecc1aae01dd15126d6b057"
+        },
+        {
+          "patchedSha256": "9ccd4d778ce2b4d8705abb4646ecd348772a4bf0731351ab06ba0a4ffd0fcef4",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.java",
+          "upstreamSha256": "a36dcea72cf6790961b92bb9104b4ceeb8ff934bfc8d895b79f356769a35a265"
+        },
+        {
+          "patchedSha256": "051abfbe3f6c6b75fb606917c4e1aeeaf9099a1c83bde447688e72244dc96f2d",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport.java",
+          "upstreamSha256": "6959100dfdfec729ff1b0f9e47b6403399b75a9af82aff1c40f7f2c65d3fa409"
+        },
+        {
+          "patchedSha256": "b4050f273d87a9c89bfc67ac04a6c47f8d56f559dbae4f0ab7f28662e3fcd3ac",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport.java",
+          "upstreamSha256": "e940e288cdd9a3c4cf85c29192c9f5d05b29c2ed81894c4b48535e033238910b"
+        },
+        {
+          "patchedSha256": "d8657959d6d489ffa7cdaa2c897a214320eee27ee50940c30312124355ffdc9e",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport.java",
+          "upstreamSha256": "332b3d0afb7e041fa20ba02d8b69766db3efdc201a639415b635ca1a49a7e0b5"
+        },
+        {
+          "patchedSha256": "7a5310f0acd9c808145f336f85762f961fb6d4cb6093904187652521c27047f6",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport.java",
+          "upstreamSha256": "7a376f34d8a0110c5237e2d16ad699ca6370b3947bb5378bd70f0e52e10a337d"
+        },
+        {
+          "patchedSha256": "b2f68451d9f627b6cec554a563df46c403ec71f57b518d2424c54bc242675134",
+          "path": "src/main/java/com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport.java",
+          "upstreamSha256": "a73bd5e42a15926e5e1dc9cc089626c89df614fd55618d2a96fbad0791b4079c"
+        }
+      ],
+      "upstreamCommit": "b30f69dd1285f201d53ce360b7fad0bba96f0d58",
+      "upstreamJarSha256": "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900",
+      "upstreamVersion": "0.21.0"
+    },
+    "platformPatches": [
+      {
+        "marker": "META-INF/open-goland-platform-unicode.json",
+        "upstreamJarRelativePath": "Contents/lib/util-8.jar",
+        "patchedJarSha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+        "classSha256": {
+          "com/intellij/openapi/util/JDOMUtil$ElementInfo.class": "64e2c71492b3986105ab69a7bb0b3722dbaa57826a43ae97e4fb7759d3fd85e7",
+          "com/intellij/openapi/util/JDOMUtil$ElementOutputFilter.class": "97ff0a4899dbbaf7548ceca19f1bd7900e641e6a1dedc12fb517fde3e886a088",
+          "com/intellij/openapi/util/JDOMUtil$LoggerHolder.class": "da8780466c46cca1613756bd87c4d25906ad679bf042731fd3e13d3b40cbd08d",
+          "com/intellij/openapi/util/JDOMUtil$MergeAttribute.class": "6d233c9f4799dd88607d2cbe2cd41cd89517cc75b57048083cced9ce50b0e5aa",
+          "com/intellij/openapi/util/JDOMUtil$MyXMLOutputter.class": "71d7766cbe6ef9af61f82d197f8f5080ba04b06324f99846a26b44bfb84945d3",
+          "com/intellij/openapi/util/JDOMUtil.class": "6d678abec629b2ae55ab8e29d3efa7dd591622d00411b5464f19885d94e0baa3"
+        },
+        "compiler": "javac 25.0.3",
+        "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee",
+        "platformVersion": "2026.1.4",
+        "release": 21,
+        "sources": [
+          {
+            "patchedSha256": "3c6dd6ce4e103f9a466e144d1a9ac0a8e43d9089676eb63ce38241af4b8ecaed",
+            "path": "platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+            "sourceUrl": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/util/src/com/intellij/openapi/util/JDOMUtil.java",
+            "upstreamSha256": "b0289509b126f631e964d7bb03c5c1996f9a3536b27ef0134353417d898a438d"
+          }
+        ],
+        "upstreamCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+        "upstreamJarSha256": "ee053200e3d18d0a9b544dcc330c73669d56c3475729a58406cc36798ca2a22f"
+      }
+    ],
+    "reviewedSourceInputs": [
+      {
+        "path": "product/patches/lsp4ij-0.21.0-document-sync.json",
+        "sha256": "7f21c6dd49ead8bfa2048cac8fc906e8fd94f698df02b9867b33b56818e1dfd9"
+      },
+      {
+        "path": "product/patches/lsp4ij-0.21.0-document-sync.patch",
+        "sha256": "385d306dda4fe8f7a93f87f4ae34cd57b29cd1a5461c90510e6f289bd03b3dde"
+      },
+      {
+        "path": "scripts/patch-lsp4ij.py",
+        "sha256": "dafafb691434d2b09e68178baaf010cdc84911eb67b7b3581e9bd984f0ff39f0"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/navigation/GoTargetElementEvaluator.kt",
+        "sha256": "d6e7d530975eec12ed3dcb6bba49100bf8946559935dc1e3902c35cc15328558"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/settings/GoLintSettings.kt",
+        "sha256": "69202015b281d1c657f098846ecb9120df7e588f3bab4c99a8c013d83b82b934"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/settings/GoSettingsConfigurable.kt",
+        "sha256": "e964153283031f07facbd45408ba450844fa13d43743631b06eea5b7b483ecde"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/settings/GoSettingsSearchContributor.kt",
+        "sha256": "05fd4bc8f7d1c3a2ca43de6672d8d851e3cfd4a6651ee8ff6ea96b91a6657f27"
+      },
+      {
+        "path": "src/main/resources/META-INF/plugin.xml",
+        "sha256": "de88d05339df1d621047e44f5bc37b328da8a845b1f4c4ef190cd2e3f9fb09aa"
+      },
+      {
+        "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspInitializationSyncTest.kt",
+        "sha256": "cfc93adeedd28fb1f8248e89b80b725deb50cf4bec875d606b9329c58db817a0"
+      },
+      {
+        "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoNavigationCacheTest.kt",
+        "sha256": "deeb15afd1765b7b32267687631903eb6fbf5731295e9257d962717df7663adb"
+      },
+      {
+        "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoStandardNavigationGoplsTest.kt",
+        "sha256": "bd05439ef0412e3518e6bed434aa72916c7b6e98da80e0973c591103e3525674"
+      },
+      {
+        "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoStandardNavigationTest.kt",
+        "sha256": "ee9310dfdd2a5fffb12dceb1d0f3f3ea4a1309e13f9e68b28958deee7f0daf50"
+      },
+      {
+        "path": "src/test/kotlin/dev/openidea/goide/settings/GoSettingsSearchTest.kt",
+        "sha256": "abc83d64341b437c4b99619c61a5c97a52956fdc3a1c2d74bd5173317a5c20ea"
+      }
+    ]
+  },
+  "goEngine": {
+    "race": {
+      "command": "cd engine && go test -race -json ./...",
+      "exitCode": 0,
+      "exitCodeEvidence": "Root terminal observation",
+      "testPassEvents": 271,
+      "topLevelTests": 155,
+      "packagePasses": 9,
+      "cachedPackages": 1,
+      "freshPackages": 8,
+      "report": {
+        "path": ".tools/navigation-go-race.jsonl",
+        "sha256": "f190edb8327382d65033a9dde027521dac44f9f59698c27a5153daf171a7e436",
+        "bytes": 286654
+      }
+    },
+    "vet": {
+      "command": "cd engine && go vet ./...",
+      "exitCode": 0,
+      "exitCodeEvidence": "Root terminal observation",
+      "outputBytes": 0,
+      "report": {
+        "path": ".tools/navigation-go-vet.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "bytes": 0
+      }
+    },
+    "toolchain": {
+      "engineTestCommandGo": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+      "ambientGo": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+      "ambientGoVersion": "go version go1.24.3 darwin/arm64"
+    },
+    "relationshipToFinalBuild": "Race/vet completed earlier in this logical verification batch; all 103 captured engine inputs are identical in initial and final package. Race counts are event/package metrics, separate from404Kotlin and native1Go test."
+  },
+  "settingsSearchIndependentRegression": {
+    "scope": "Independent real SDK settings index regression before unified Gradle/package; isolated copied plugin descriptor registers contributor for green run. Not native desktop proof.",
+    "evidence": {
+      "path": ".tools/settings-search-evidence.json",
+      "sha256": "e9ea5b5345f95e8186f435b82c6ea1cdcc07b80c8329d1b6d8296aa4f2d1d5c9",
+      "bytes": 2546
+    },
+    "green": {
+      "tests": 1,
+      "failures": 0,
+      "seconds": 4.982
+    },
+    "red": {
+      "tests": 1,
+      "failures": 1,
+      "seconds": 6.081,
+      "expectedFailure": "Exact raw-string label contentHits empty with prior compiled configurables/descriptor"
+    },
+    "logs": {
+      ".tools/settings-search-tests/run.log": "3d90e8d78268b86cddad74447a63e31aa09e48c5b7cfaa134b1dd29ca5edcd70",
+      ".tools/settings-search-red/run.log": "468216ea93ed9cce773ff4b06954572d8d822c4ad84d85b2bed8bcf37f27add4"
+    },
+    "interpretation": "Independent index RED/GREEN, not native UI proof; the final registered 1-test suite is included in 404. Separate native Settings cohorts are in standard-navigation-native.json."
+  },
+  "cacheRegressions": {
+    "oldDependencyActualGoplsRed": {
+      "evidence": {
+        "path": ".tools/standard-navigation-gopls/cache-red-evidence.json",
+        "sha256": "c46fa3977f225bf76d129c8483f8e890ad50d5b3ad6a0354c4b59546f69b88a0",
+        "bytes": 2575
+      },
+      "tests": 5,
+      "failures": 2,
+      "interpretation": "Exactly target-only movement and third-file semantic addition fail; original3 pass"
+    },
+    "prototypeOverlayActualGoplsGreen": {
+      "evidence": {
+        "path": ".tools/standard-navigation-gopls/cache-green-evidence.json",
+        "sha256": "8f93fdbc56ebaba9a25ba2d0f4bd829af3f44e022508f9f8a069d267c9f829d9",
+        "bytes": 6060
+      },
+      "tests": 5,
+      "failures": 0,
+      "seconds": 13.928,
+      "boundary": "21-class intermediate prototype only; final source differs for cold/watch handling. Final5actualgopls in404 passed against final compiled dependency, not inferred from this run."
+    },
+    "finalControlledStandalone": {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoNavigationCacheTest.kt",
+      "sha256": "deeb15afd1765b7b32267687631903eb6fbf5731295e9257d962717df7663adb",
+      "cases": 11,
+      "passed": 11,
+      "seconds": 4.147,
+      "log": ".tools/lsp4ij-navigation-cache/standalone-green-cache-frozen/run.log",
+      "logSha256": "cb0a51494ed6ff7865047570b817874ad07d4b74eb4c05c3f59bd6539241ff18",
+      "coverage": [
+        "unchanged-epoch same-future reuse across all four supports",
+        "target-only unsaved movement and third-file semantic changes",
+        "server configuration changes without document edits",
+        "stale inflight replies and replacement-generation publication",
+        "cold first reply and first-future reuse",
+        "held cold matched-watcher change and held cold config change reject stale replies",
+        "unmatched trace file does not invalidate, actual matched watcher does",
+        "non-navigation usage cache policy remains unchanged",
+        "cold-start server/config baseline captured before dispatch; first completed future remains reusable"
+      ]
+    },
+    "finalControlledAndActualGopls": "11 controlled and5 real-gopls tests included and passing in final404 XML, with zero skips"
+  },
+  "runtimeIdentity": {
+    "record": {
+      "path": ".tools/standard-navigation-cache-runtime.json",
+      "sha256": "5b78c5a35b41295262645545f8d4f8494cf46de86214d67407fc45386e58280b",
+      "bytes": 1220
+    },
+    "result": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 10650,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "platformArtifactChecks": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+        }
+      ],
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    },
+    "boundary": "Process/plugin path/on-disk artifact identity only; semantic behavior comes from actual native UI and wire record"
+  },
+  "initialFailedCohort": {
+    "sourceDigest": "8e3905032b1cea34c09f879dc28e634b4ecf5be61dadf5f1e46e41cba2ac63db",
+    "inputFiles": 337,
+    "tests": 391,
+    "reports": 90,
+    "nativePid": 6081,
+    "lsp4ijJarSHA256": "9c7f4b2b3a8372c2130a0057f12071ec969a06dca7c6141bef6d306b0fab4bb1",
+    "status": "Automated/package passed; native target-only repeated navigation failed and was repaired before this delivery",
+    "archive": ".tools/standard-navigation-initial-cohort",
+    "nativeRecord": "standard-navigation-native.json"
+  },
+  "nativeRecord": "standard-navigation-native.json",
+  "publicSourcePins": {
+    "platform": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "lsp4ij": "b30f69dd1285f201d53ce360b7fad0bba96f0d58",
+    "navigationPatchSHA256": "385d306dda4fe8f7a93f87f4ae34cd57b29cd1a5461c90510e6f289bd03b3dde",
+    "publicSources": 11,
+    "compiledLspClasses": 21
+  },
+  "limitations": [
+    "All36 full acceptance rows remain unverified for both reference runtime and reconstruction",
+    "Native standard actions do not prove hierarchy/Structure parity or a structural Go PSI",
+    "Controlled held-response/editor tests have their documented cancellation/disposal limits; no general wire cancellation guarantee",
+    "Cache epoch is conservative and can cause misses from unrelated editor buffers; it does not model all SDK/build/environment/server disposal interleavings",
+    "Historical initial/Settings cohorts are not relabeled as final-package native runs",
+    "Preexisting four navigation getters keep previousOffset checks outside the base monitor. Same-PsiFile concurrent different-offset callers have a source-derived possible wrong-future interleaving, not deterministically/native reproduced or repaired in this cohort."
+  ]
+}

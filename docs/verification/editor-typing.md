@@ -173,3 +173,11 @@ or exact keystroke output.
 - IME composition, every overwrite/virtual-space mode and preference combination,
   all malformed syntax, large-file latency and complete reference runtime parity
   remain open. The full acceptance matrix stays open.
+
+## Later Settings-search integration
+
+The exact-label search miss recorded in this typing cohort was addressed in the
+later [standard navigation and Settings-search batch](standard-navigation.md).
+The real index regression and native exact-phrase spotlight are tied to their
+own package identities in the [new native record](standard-navigation-native.json);
+the older typing/preference observations retain their original scope.

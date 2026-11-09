@@ -200,9 +200,10 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current verification batch passed all 378 Kotlin tests with no skips,
-the complete Go race command (271 test events including subtests; unchanged
-engine package results were cached), and Go vet.
+The current verification batch passed all 404 Kotlin/platform tests across 91
+reports, with zero failures, errors or skips. The Go race run passed 271 test
+events including subtests (one package cached, eight fresh), and Go vet passed.
+All engine inputs remained unchanged through the final navigation repair.
 It includes typed test/interface/struct-helper/tag/JSON generation, native tag carets,
 Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
@@ -229,8 +230,14 @@ Current File filtering were observed. The native toolbar's hover-popup interacti
 remains open. A later [Find Usages policy check](docs/verification/find-usages-policy.md)
 removes unrelated type-definition/implementation queries while retaining real
 reference errors and explicit LSP navigation. Standard platform implementation
-and type-declaration actions did not dispatch queries in that desktop check and
-remain an integration gap.
+and type-declaration actions did not dispatch queries in that older desktop check.
+The later [standard navigation repair](docs/verification/standard-navigation.md)
+connects the real platform actions, native multi-target choosers and Type
+Declaration. The final standalone package passed Unicode and selected-SDK
+navigation, unsaved target-only movement, third-file semantic changes, and
+Undo/Redo queries with fresh actual gopls requests. It also passed a native Go
+test and exact-label Go Settings search. Hierarchy, Structure and full navigation
+parity remain open.
 [Build identities and cohort boundaries](docs/verification/module-usages-build.json)
 keep these checks separate from earlier delivery evidence and full IDE acceptance.
 
@@ -266,6 +273,7 @@ evidence is recorded separately from the direct protocol results.
 - [Native interface-method generation](docs/verification/interface-generation.md).
 - [Deletion lifecycle controls](docs/verification/lsp-deletion-lifecycle.json).
 - [Initialization document synchronization](docs/verification/lsp-document-sync.md).
+- [Standard navigation, cache invalidation and Settings search](docs/verification/standard-navigation.md).
 - [Attach Stop ordering](docs/verification/debug-stop-ordering.md).
 - [Engine protocol and tests](engine/README.md).
 - [Pinned platform input](product/platform.lock.json).
