@@ -222,7 +222,7 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The latest complete build passed all 524 Kotlin/platform tests across 108
+The historical 395-input native-workflows build passed all 524 Kotlin/platform tests across 108
 reports, with zero failures, errors or skips. The uncached Go race command passed
 329 test events, including 192 top-level tests, across 11 test packages; Go vet
 passed. Its 395 frozen inputs and two earlier failed build attempts are recorded
