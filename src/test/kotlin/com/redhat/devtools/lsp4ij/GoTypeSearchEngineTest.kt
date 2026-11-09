@@ -15,6 +15,9 @@ import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.openapi.fileEditor.FileEditorManager
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.module.EmptyModuleType
+import com.intellij.openapi.module.ModuleManager
+import com.intellij.openapi.roots.ModuleRootModificationUtil
 import com.intellij.openapi.project.ex.ProjectManagerEx
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -22,6 +25,7 @@ import com.intellij.openapi.vfs.newvfs.impl.VfsRootAccess
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.ExtensionTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
+import com.intellij.testFramework.IndexingTestUtil
 import dev.openidea.goide.engine.EngineClient
 import dev.openidea.goide.navigation.search.GoTypeSearchContributor
 import dev.openidea.goide.navigation.search.GoTypeSearchItem
@@ -44,7 +48,23 @@ class GoTypeSearchEngineTest : LightPlatformTestCase() {
         val loaded = System.nanoTime()
         val index = GoTypeSearchService.get(f.project)
         val catalog = index.catalog(GlobalSearchScope.allScope(f.project))
-        assertEquals(listOf("Callback"), f.search("Callback").map { it.name })
+        // All Places uses native fuzzy matching: other platforms' SDKs can
+        // legitimately contribute callbackArgs/winCallback and similar names.
+        val callback = f.search("Callback").single { it.qualifiedName == "example.org/typesearchnative.Callback" }
+        assertEquals("Callback", callback.name)
+        val callbackEntry = catalog.catalog.types.single {
+            it.name == "Callback" && it.packagePath == "example.org/typesearchnative"
+        }
+        assertEquals("function", callbackEntry.kind)
+        val callbackSource = ReadAction.compute<Pair<Path, Int>, RuntimeException> {
+            Path.of(callback.containingFile.virtualFile.path).toAbsolutePath().normalize() to callback.textOffset
+        }
+        assertEquals(f.root.resolve("model.go"), callbackSource.first)
+        assertEquals(SOURCE.indexOf("type Callback") + "type ".length, callbackSource.second)
+        val projectCallbacks = mutableListOf<GoTypeSearchItem>()
+        DefaultChooseByNameItemProvider(null).filterElements(f.popup, "Callback", false, ProgressIndicatorBase(),
+            Processor { item -> if (item is GoTypeSearchItem) projectCallbacks += item; true })
+        assertEquals(listOf(callback.qualifiedName), projectCallbacks.map { it.qualifiedName })
         assertEquals(listOf("BoxAlias"), f.search("BoxAlias").map { it.name })
         val projectMatches = mutableListOf<Any>()
         // calcPopupElements intentionally expands to libraries after an empty
@@ -116,12 +136,20 @@ class GoTypeSearchEngineTest : LightPlatformTestCase() {
                 preloadServices = false; createModule = false
             }))
             owner = project
+            val content = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(root))
             edt {
+                // Project scope must describe this owned project, rather than
+                // an empty module model. No Go editor or catalog is opened.
+                WriteAction.run<RuntimeException> {
+                    val module = ModuleManager.getInstance(project).newNonPersistentModule("native-type-search", EmptyModuleType.EMPTY_MODULE)
+                    ModuleRootModificationUtil.addContentRoot(module, content.path)
+                }
                 GoProjectSettings.get(project).apply {
                     goExecutable = go.toString()
                     environment = "GOENV=off\nGOPROXY=off\nGOSUMDB=off\nGOTOOLCHAIN=local\nGOTELEMETRY=off\nGOWORK=off"
                 }
             }
+            IndexingTestUtil.waitUntilIndexesAreReady(project)
             ExtensionTestUtil.maskExtensions(ChooseByNameContributor.CLASS_EP_NAME, listOf(GoTypeSearchContributor()), disposable)
             edt { popup = ChooseByNamePopup.createPopup(project, GotoClassModel2(project), null as com.intellij.psi.PsiElement?, "") }
             block(Fixture(project, root, requireNotNull(popup)))
