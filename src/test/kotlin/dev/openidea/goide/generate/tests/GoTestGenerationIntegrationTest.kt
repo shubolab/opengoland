@@ -37,7 +37,7 @@ class GoTestGenerationIntegrationTest : HeavyPlatformTestCase() {
     override fun runInDispatchThread() = false
     override fun isCreateDirectoryBasedProject() = true
     override fun getProjectDirOrFile(isDirectoryBased: Boolean): Path =
-        super.getProjectDirOrFile(true).resolve("生成 测试 😀")
+        tempDir.newPath("project").resolve("生成 测试 😀")
 
     fun testRealPlanCreatesBothFilesAndOneGlobalUndoRedoPreservesTheDirtySource() = fixture { state ->
         val plan = state.plan()
@@ -146,6 +146,8 @@ class GoTestGenerationIntegrationTest : HeavyPlatformTestCase() {
         // The heavy fixture can open an unsaved directory project before its
         // storage directory exists. Materialize it on this test worker first.
         val root = Files.createDirectories(Path.of(requireNotNull(project.basePath))).toRealPath()
+        assertTrue("The native process fixture must keep its cwd below Windows MAX_PATH: $root", root.toString().length < 260)
+        println("Owned native fixture cwd UTF-16 length=${root.toString().length}: $root")
         assertTrue(root.toString(), root.toString().contains("生成 测试 😀"))
         val disposable = Disposer.newDisposable("native generated test roots")
         VfsRootAccess.allowRootAccess(disposable, root.toString())

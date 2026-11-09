@@ -42,7 +42,7 @@ import java.util.concurrent.TimeUnit
 class GoNativeRefactorIntegrationTest : HeavyPlatformTestCase() {
     override fun runInDispatchThread() = false
     override fun isCreateDirectoryBasedProject() = true
-    override fun getProjectDirOrFile(isDirectoryBased: Boolean): Path = super.getProjectDirOrFile(true).resolve("原生 重构 😀")
+    override fun getProjectDirOrFile(isDirectoryBased: Boolean): Path = tempDir.newPath("project").resolve("原生 重构 😀")
 
     fun testNamedMethodCollisionPlanHasOneGlobalUndoRedoAndDoesNotSaveDirtySource() = fixture { f ->
         val plan = f.plan()
@@ -197,6 +197,8 @@ class GoNativeRefactorIntegrationTest : HeavyPlatformTestCase() {
         val workspace = System.getProperty("opengoland.testNativeRefactorWorkspace") ?: System.getProperty("user.dir")
         System.setProperty("openidea.workspace", workspace)
         val root = Files.createDirectories(Path.of(requireNotNull(project.basePath))).toRealPath()
+        assertTrue("The native process fixture must keep its cwd below Windows MAX_PATH: $root", root.toString().length < 260)
+        println("Owned native fixture cwd UTF-16 length=${root.toString().length}: $root")
         val disposable = Disposer.newDisposable("native refactor integration roots")
         VfsRootAccess.allowRootAccess(disposable, root.toString())
         var editor: Editor? = null; var document: Document? = null

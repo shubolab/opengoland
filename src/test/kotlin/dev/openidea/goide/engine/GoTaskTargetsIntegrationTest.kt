@@ -24,7 +24,7 @@ class GoTaskTargetsIntegrationTest : HeavyPlatformTestCase() {
     override fun runInDispatchThread() = false
     override fun isCreateDirectoryBasedProject() = true
     override fun getProjectDirOrFile(isDirectoryBased: Boolean): Path =
-        super.getProjectDirOrFile(true).resolve("模块任务 中文 😀")
+        tempDir.newPath("project").resolve("模块任务 中文 😀")
 
     fun testEditingASubmoduleFileTidiesThatModuleAndRetainsTheOtherModule() = fixture { state ->
         val inspection = state.inspect()
@@ -110,6 +110,8 @@ class GoTaskTargetsIntegrationTest : HeavyPlatformTestCase() {
         val repository = Path.of(System.getProperty("user.dir")).toAbsolutePath().normalize()
         System.setProperty("openidea.workspace", repository.toString())
         val root = Files.createDirectories(Path.of(requireNotNull(project.basePath))).toRealPath()
+        assertTrue("The native process fixture must keep its cwd below Windows MAX_PATH: $root", root.toString().length < 260)
+        println("Owned native fixture cwd UTF-16 length=${root.toString().length}: $root")
         val owned = Disposer.newDisposable("task scope fixture")
         VfsRootAccess.allowRootAccess(owned, root.toString())
         val engine = project.getService(EngineClient::class.java)

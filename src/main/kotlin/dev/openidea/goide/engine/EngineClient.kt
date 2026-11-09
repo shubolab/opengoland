@@ -57,7 +57,11 @@ class EngineClient(private val project: Project) : Disposable {
         initialized = ready
         configurationKey = key
         val builder = ProcessBuilder(executable.toString()).directory(java.io.File(root))
-        builder.environment().putAll(command.environment)
+        // Preserve the platform's complete environment merge. On Windows a
+        // raw ProcessBuilder map can otherwise retain both inherited Path and
+        // overridden PATH, selecting a different Go SDK in the child.
+        builder.environment().clear()
+        builder.environment().putAll(command.effectiveEnvironment)
         val child = try { builder.start() } catch (error: Exception) {
             initialized = null; configurationKey = null
             ready.completeExceptionally(error)

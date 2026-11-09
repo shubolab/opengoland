@@ -26,3 +26,8 @@ C 工具链、依赖源及访问凭据。
 自动发布流程要求 Windows 与 macOS 两端构建及安装检查成功。
 安装包、校验值和验证记录上传完整后，Release 才会公开；已公开版本的安装包不覆盖更新，
 后续修改使用新版本号。
+
+Windows 启动子进程仍受系统工作目录长度限制；项目根目录超过 `MAX_PATH` 时，
+可能出现 `CreateProcess 267`。当前尚未验证任意超长项目路径支持，建议将项目放在较短路径下。
+构建测试仅缩短框架重复生成的目录前缀，保留中文、空格、文件内容及相对路径验证。
+参见 [Microsoft 的工作目录说明](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setcurrentdirectory#parameters)。
