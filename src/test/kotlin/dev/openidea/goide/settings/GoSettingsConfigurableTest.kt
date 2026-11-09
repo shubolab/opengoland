@@ -4,6 +4,7 @@ import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.options.ConfigurationException
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
+import dev.openidea.goide.sdk.GoSdkSelector
 import java.awt.Component
 import java.awt.Container
 import java.nio.file.Files
@@ -15,6 +16,7 @@ import javax.swing.JTextArea
 import javax.swing.JTextField
 
 class GoSettingsConfigurableTest : LightPlatformTestCase() {
+    private val configurables = mutableListOf<GoSettingsConfigurable>()
     override fun runInDispatchThread() = false
 
     fun testApplyOnEdtAcceptsUninstalledPathsAndBackgroundLaunchReportsTheMissingTool() = withSettings {
@@ -26,7 +28,7 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
             settings.goExecutable = missing.getValue("go")
             settings.goplsExecutable = missing.getValue("gopls")
             // Keep language-server settings unchanged so Apply need not start a server.
-            val configurable = GoSettingsConfigurable(project)
+            val configurable = configurable()
             val panel = configurable.createComponent() as Container
             configurable.reset()
             field(panel, "Delve executable:").text = "  ${missing.getValue("dlv")}  "
@@ -49,7 +51,7 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
 
     fun testApplyRetainsPureValidationAndLeavesSettingsUnchangedOnErrors() = withSettings {
         onEdt {
-            val configurable = GoSettingsConfigurable(project)
+            val configurable = configurable()
             val panel = configurable.createComponent() as Container
             configurable.reset()
             val before = GoToolchain.capture(project)
@@ -61,7 +63,7 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
                 assertTrue(failure!!.message.orEmpty(), failure.message.orEmpty().contains(message))
                 assertEquals(before, GoToolchain.capture(project))
             }
-            rejects("Invalid go executable path") { field(panel, "Go executable:").text = "bad\u0000path" }
+            rejects("Invalid go executable path") { selector(configurable).configuredExecutable = "bad\u0000path" }
             rejects("CGO_ENABLED") { field(panel, "CGO_ENABLED (empty, 0 or 1):").text = "2" }
             rejects("NAME=value") { components(panel).filterIsInstance<JTextArea>().single().text = "MISSING_EQUALS" }
             configurable.reset()
@@ -77,7 +79,7 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
         onEdt {
             val settings = GoProjectSettings.get(project)
             val toolchain = GoToolchain.capture(project)
-            val configurable = GoSettingsConfigurable(project)
+            val configurable = configurable()
             val panel = configurable.createComponent() as Container
             configurable.reset()
             val option = components(panel).filterIsInstance<JCheckBox>().single { it.text == "Indent on Enter in raw strings" }
@@ -103,6 +105,23 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
         }
     }
 
+    fun testChangingSdkRequiresItsBackgroundVerificationBeforeApply() = withSettings {
+        onEdt {
+            val configurable = configurable()
+            configurable.createComponent()
+            configurable.reset()
+            val previous = GoProjectSettings.get(project).goExecutable
+            val missing = Path.of(System.getProperty("java.io.tmpdir"), "missing SDK ${UUID.randomUUID()}", "bin", "go").toAbsolutePath().toString()
+            selector(configurable).configuredExecutable = missing
+            val failure = runCatching { configurable.apply() }.exceptionOrNull()
+            assertTrue("A newly selected SDK cannot apply before its reply reaches the EDT", failure is ConfigurationException)
+            assertEquals(previous, GoProjectSettings.get(project).goExecutable)
+            configurable.reset()
+            assertEquals(previous, selector(configurable).configuredExecutable)
+            assertFalse(configurable.isModified())
+        }
+    }
+
     private fun withSettings(action: () -> Unit) {
         val original = GoToolchain.capture(project)
         val originalRawIndent = GoProjectSettings.get(project).indentRawStringsOnEnter
@@ -112,12 +131,19 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
                 GoProjectSettings.get(project).indentRawStringsOnEnter = false
             }
             action()
-        } finally { onEdt { restore(original); GoProjectSettings.get(project).indentRawStringsOnEnter = originalRawIndent } }
+        } finally { onEdt {
+            configurables.forEach { it.disposeUIResources() }; configurables.clear()
+            restore(original); GoProjectSettings.get(project).indentRawStringsOnEnter = originalRawIndent
+        } }
     }
 
     private fun restore(value: GoToolchain.Settings) = GoProjectSettings.get(project).apply {
         goExecutable = value.goExecutable; goplsExecutable = value.goplsExecutable; delveExecutable = value.delveExecutable
         buildTags = value.buildTags; goos = value.goos; goarch = value.goarch; cgoEnabled = value.cgoEnabled; environment = value.environment
+    }
+    private fun configurable() = GoSettingsConfigurable(project).also { configurables.add(it) }
+    private fun selector(configurable: GoSettingsConfigurable) = GoSettingsConfigurable::class.java.getDeclaredField("sdkSelector").let {
+        it.isAccessible = true; it.get(configurable) as GoSdkSelector
     }
     private fun field(panel: Container, label: String) = components(panel).filterIsInstance<JLabel>().single { it.text == label }.labelFor as JTextField
     private fun components(container: Container): List<Component> = container.components.flatMap { listOf(it) + if (it is Container) components(it) else emptyList() }
