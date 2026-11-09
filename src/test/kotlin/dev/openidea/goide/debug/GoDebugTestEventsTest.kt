@@ -10,10 +10,12 @@ import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.psi.PsiManager
 import com.intellij.psi.search.GlobalSearchScope
 import com.intellij.execution.DefaultExecutionResult
+import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.execution.configurations.RunConfiguration
 import com.intellij.execution.executors.DefaultDebugExecutor
 import com.intellij.execution.process.NopProcessHandler
+import com.intellij.execution.process.CapturingProcessHandler
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironmentBuilder
 import com.intellij.execution.testframework.sm.runner.ui.SMTRunnerConsoleView
@@ -251,6 +253,9 @@ class GoDebugTestEventsTest : LightPlatformTestCase() {
 
     private inner class Fixture(private val ownerProject: Project = project, private val mutateAfterCapture: Boolean = false, private val versionString: String = "1.24.2", private val manualProfile: Boolean = false) : AutoCloseable {
         val directory = Files.createTempDirectory("open-goland-debug-test-空 格😀-")
+        private val executable = GoToolchain.resolve("go", System.getenv("OPENGOLAND_GO_TEST").orEmpty())
+            ?: error("Go is required for the actual test2json integration")
+        private val version = controlledDelveVersion(directory, executable, versionString)
         private val vfs = Disposer.newDisposable("debug test source access")
         private val previous = GoProjectSettings.Data().also { XmlSerializerUtil.copyBean(GoProjectSettings.get(ownerProject), it) }
         private val workers = Executors.newCachedThreadPool()
@@ -268,10 +273,6 @@ class GoDebugTestEventsTest : LightPlatformTestCase() {
             VfsRootAccess.allowRootAccess(vfs, directory.toString())
             Files.writeString(directory.resolve("go.mod"), "module example.test/debug\n\ngo 1.24\n")
             Files.writeString(directory.resolve("probe_test.go"), "package probe\nimport \"testing\"\nfunc TestReal(t *testing.T) {}\n\n// 中文😀\n// location\n")
-            val executable = GoToolchain.resolve("go", System.getenv("OPENGOLAND_GO_TEST").orEmpty()) ?: error("Go is required for the actual test2json integration")
-            val version = directory.resolve("controlled-dlv-version")
-            Files.writeString(version, "#!/bin/sh\nprintf '%s\\n' 'Delve Debugger' 'Version: $versionString'\n")
-            check(version.toFile().setExecutable(true))
             GoProjectSettings.get(ownerProject).apply {
                 goExecutable = executable; delveExecutable = version.toString(); goos = ""; goarch = ""; cgoEnabled = "0"; buildTags = ""
                 environment = "GOPROXY=off\nGOTELEMETRY=off\nGOTOOLCHAIN=local"
@@ -355,6 +356,49 @@ class GoDebugTestEventsTest : LightPlatformTestCase() {
             if (!ownerProject.isDisposed) XmlSerializerUtil.copyBean(previous, GoProjectSettings.get(ownerProject))
             Disposer.dispose(vfs)
             directory.toFile().deleteRecursively()
+        }
+    }
+
+    /** A real host executable: Windows cannot execute a POSIX shebang fixture. */
+    private fun controlledDelveVersion(directory: Path, go: String, version: String): Path {
+        check(!ApplicationManager.getApplication().isDispatchThread)
+        require(version.matches(Regex("[0-9]+\\.[0-9]+\\.[0-9]+")))
+        val tools = Files.createDirectories(directory.resolve(".controlled-tools"))
+        val source = tools.resolve("version.go")
+        val binary = tools.resolve("controlled-dlv-version" + if (System.getProperty("os.name").startsWith("Windows")) ".exe" else "")
+        Files.writeString(source, """
+            package main
+            import "os"
+            func main() {
+                if len(os.Args) != 2 || os.Args[1] != "version" { os.Exit(2) }
+                _, err := os.Stdout.WriteString("Delve Debugger\nVersion: $version\n")
+                if err != nil { os.Exit(3) }
+            }
+        """.trimIndent())
+        val sdk = Path.of(go).toRealPath().parent.parent
+        val command = GeneralCommandLine(go, "build", "-trimpath", "-buildvcs=false", "-o", binary.toString(), source.toString())
+            .withWorkDirectory(directory.toFile()).withEnvironment("GOROOT", sdk.toString())
+            .withEnvironment("GOTOOLCHAIN", "local").withEnvironment("GOWORK", "off")
+            .withEnvironment("GOENV", "off").withEnvironment("GOPROXY", "off").withEnvironment("GOSUMDB", "off")
+            .withEnvironment("CGO_ENABLED", "0").withEnvironment("GOFLAGS", "").withEnvironment("GOEXPERIMENT", "")
+            .withEnvironment("GOOS", "").withEnvironment("GOARCH", "")
+        val compiler = CapturingProcessHandler(command).apply { setShouldDestroyProcessRecursively(true) }
+        try {
+            val output = compiler.runProcess(60_000, true)
+            check(!output.isTimeout && !output.isCancelled && output.exitCode == 0) {
+                "The owned native Delve-version fixture did not compile: ${output.stdout}${output.stderr}"
+            }
+            check(Files.isRegularFile(binary) && Files.isExecutable(binary))
+            return binary
+        } catch (failure: Throwable) {
+            if (!compiler.isProcessTerminated) {
+                compiler.destroyProcess()
+                check(compiler.waitFor(5_000)) { "The owned fixture compiler did not terminate." }
+            }
+            directory.toFile().deleteRecursively()
+            throw failure
+        } finally {
+            if (!compiler.isProcessTerminated) compiler.destroyProcess()
         }
     }
 
