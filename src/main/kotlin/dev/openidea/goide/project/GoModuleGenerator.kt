@@ -11,7 +11,7 @@ import javax.swing.SwingUtilities
 
 data class GoModuleRequest(val modulePath: String, val directory: Path, val goExecutable: String, val createExample: Boolean = true) {
     fun validate() {
-        require(modulePath.isNotBlank() && modulePath.none { it.isWhitespace() || it == '\u0000' }) { "Enter a module path without whitespace, for example example.com/hello." }
+        require(modulePath.isNotBlank() && !modulePath.startsWith('-') && modulePath.none { it.isWhitespace() || it == '\u0000' }) { "Enter a module import path without command flags or whitespace, for example example.com/hello." }
         require(directory.isAbsolute && directory.normalize().parent != null) { "Choose an absolute project directory below a parent folder." }
         require(goExecutable.isNotBlank() && '\u0000' !in goExecutable) { "Choose a Go executable." }
     }
@@ -39,7 +39,7 @@ object GoModuleGenerator {
         var reserved = false
         var completed = false
         try {
-            GoModuleProcesses.run(sdk.executable.toString(), listOf("mod", "init", request.modulePath), staging, cancelled, onOutput = onOutput)
+            GoModuleProcesses.run(sdk.executable.toString(), listOf("mod", "init", "--", request.modulePath), staging, cancelled, onOutput = onOutput)
             checkCancelled(cancelled)
             if (request.createExample) {
                 Files.writeString(staging.resolve("main.go"), MAIN, StandardCharsets.UTF_8)

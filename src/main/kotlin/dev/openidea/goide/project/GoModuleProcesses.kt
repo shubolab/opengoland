@@ -31,13 +31,7 @@ internal object GoModuleProcesses {
         checkCancelled(cancelled)
         require(executable.isNotBlank() && '\u0000' !in executable && arguments.none { '\u0000' in it }) { "Invalid Go command arguments." }
         val command = listOf(executable) + arguments
-        val environment = System.getenv().toMutableMap().apply {
-            // Probe and creation must use the selected SDK, not an ambient workspace,
-            // persisted toolchain override or an automatic toolchain download.
-            put("GOWORK", "off"); put("GOENV", "off"); put("GOTOOLCHAIN", "local"); put("GO111MODULE", "on"); put("GOTELEMETRY", "off")
-            remove("GOROOT"); remove("GOFLAGS")
-            put("TERM", "dumb")
-        }
+        val environment = creationEnvironment(System.getenv(), windows)
         val process = if (windows) ProcessBuilder(command).directory(directory.toFile()).apply {
             environment().clear(); environment().putAll(environment)
         }.start() else {
@@ -106,6 +100,18 @@ internal object GoModuleProcesses {
                 readers.forEach { runCatching { it.join(1000) } }
             } finally { if (interrupted) Thread.currentThread().interrupt() }
         }
+    }
+
+    /** Preserve unrelated environment entries while replacing only creation-owned settings. */
+    internal fun creationEnvironment(inherited: Map<String, String>, windows: Boolean): Map<String, String> {
+        val overrides = mapOf("GOWORK" to "off", "GOENV" to "off", "GOTOOLCHAIN" to "local",
+            "GO111MODULE" to "on", "GOTELEMETRY" to "off", "TERM" to "dumb")
+        val managed = overrides.keys + setOf("GOROOT", "GOFLAGS")
+        val result = inherited.filterKeys { key -> managed.none { it.equals(key, ignoreCase = windows) } }.toMutableMap()
+        // The selected executable establishes GOROOT; no inherited setting may
+        // redirect the SDK, workspace or module initialization flags on Windows.
+        result.putAll(overrides)
+        return result
     }
 
     private fun terminate(process: Process, pid: Long, descendants: List<ProcessHandle>) {
