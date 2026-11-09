@@ -146,7 +146,7 @@ with cache_lock(Path(sys.argv[2])):
     def test_posix_compiler_keeps_argv_and_inherited_working_directory(self):
         with patch.object(platform_layout, "os", SimpleNamespace(name="posix")):
             invocation = platform_layout.java_compiler_invocation(Path("relative/javac"), ["-d", "relative/classes"], Path("unused.args"))
-        self.assertEqual(["relative/javac", "-d", "relative/classes"], invocation.command)
+        self.assertEqual([str(Path("relative/javac")), "-d", "relative/classes"], invocation.command)
         self.assertIsNone(invocation.cwd)
 
     def test_internal_windows_argfile_name_cannot_enter_native_ansi_path(self):
