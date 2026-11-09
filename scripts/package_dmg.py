@@ -139,7 +139,12 @@ def package(version, output, reuse_go=None):
         run([builder, "vet", "./..."], proof / "go-vet.log", env, ROOT / "engine")
         go_checks = record_success(ROOT, builder, env, prepared, before_go, proof, frozen,
                                    race_exit_code=0, vet_exit_code=0)
-    run([ROOT / "scripts/package-product.sh", "--version", version], proof / "product-build.log", env)
+    try:
+        run([ROOT / "scripts/package-product.sh", "--version", version], proof / "product-build.log", env)
+    finally:
+        test_results = ROOT / "build/test-results/test"
+        if test_results.is_dir():
+            shutil.copytree(test_results, proof / "kotlin-test-results")
     verify(frozen)
     app = ROOT / "build/product/open Goland.app"
     manifest_path = Path("Contents/Resources/openidea-product.json")

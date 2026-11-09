@@ -1,7 +1,7 @@
 {
   "schema": "open-goland.local-ide-distribution-reference.v1",
   "recordedAtUtc": "2026-11-09",
-  "scope": "Read-only pinned OSS SDK registrations, resource labels and SPI filenames. This is independent distribution configuration evidence, not a comparison of commercial licensing implementations or a repaired native runtime claim.",
+  "scope": "Pinned OSS SDK registrations/resource/SPI evidence, public independent-vendor startup and consent guards, and pure controls. Historical native observations and the ff68e00 candidate are separate; no repaired-candidate native runtime or complete IDE parity is claimed.",
   "sourceRecord": {
     "path": ".tools/go-account-billing-audit.json",
     "bytes": 12676,
@@ -70,23 +70,42 @@
       "topic": "Account ServiceLoader hook",
       "provider": "META-INF/services/com.intellij.ui.JBAccountInfoService",
       "result": "No matching provider filename found among 243 provider files in the 776 inspected SDK JAR directories. This is a bounded static SPI result, not proof against every possible runtime registration."
+    },
+    {
+      "topic": "Inapplicable upstream Data Sharing configurable",
+      "owner": "com.intellij.ide.gdpr.ConsentConfigurable",
+      "registrations": [
+        "Cached core applicationConfigurable instance/id=consents/parentId=preferences.general",
+        "lib/app.jar!/META-INF/IdeaPlugin.xml applicationConfigurable",
+        "lib/intellij.platform.ide.impl.jar!/META-INF/PlatformExtensions.xml applicationConfigurable"
+      ],
+      "transformation": "Remove only the exact authenticated configurable spans (180 bytes in cached core and IdeaPlugin.xml,237 bytes in PlatformExtensions.xml). Keep consent APIs/services, stored choices, legal notices and runtime-module graph unchanged.",
+      "reason": "Old435 native Settings throws UnsupportedOperationException because ConsentOptions returns List.of() for empty defaults and AppUIUtil.loadConsentsForEditing calls removeIf on that list. Own-vendor branding is preserved."
+    },
+    {
+      "topic": "Legitimate independent-vendor startup branch",
+      "observation": "Public eua.kt23–32 checks explicit idea.vendor.name, otherwise ApplicationInfo.isVendorJetBrains, and returns NonJbVendor before obtaining the upstream agreement. The product uses its own publisher metadata; no accepted-consent/license state is created.",
+      "boundary": "This source guard does not suppress normal product import onboarding, nor prove every possible agreement or third-party UI route."
     }
   ],
   "inferences": [
     "Removing complete module/plugin registrations stops their normal platform activation path instead of merely hiding UI actions. Repaired startup still requires native evidence.",
-    "After exact optional integration and runtime-graph cleanup, retaining the shared logging library preserves unrelated MCP consumers without retaining a Grazie plugin descriptor. The runtime graph is independently verified by its owner."
+    "After exact optional integration and runtime-graph cleanup, retaining the shared logging library preserves unrelated MCP consumers without retaining a Grazie plugin descriptor. The runtime graph is independently verified by its owner.",
+    "The old435 empty-list stack matches the public default-consent path and its immutable return value. Omitting this inapplicable configurable avoids that activation path without changing branding, APIs or consent results; the rebuilt candidate still needs native Settings verification."
   ],
   "unknowns": [
-    "Native runtime after this final registration cleanup has not yet been observed.",
+    "Native runtime after the ff68e00 consent-configurable and isolated-smoke changes is unverified. The earlier435 cohort has a confirmed native Settings failure and is archived separately.",
     "Unused account/trial labels and nullable public licensing/account APIs remain; these are not license bypasses and are not asserted to be active SDK payment implementations.",
     "Marketplace UI/local-disk plugin policy is a separate public-platform patch, outside this helper evidence.",
-    "This is not exhaustive proof of all future third-party plugins or direct arbitrary runtime code paths."
+    "This is not exhaustive proof of all future third-party plugins or direct arbitrary runtime code paths.",
+    "No consents-open Goland.json was present in the inspected core resources. Ordinary release collect/send guards require accepted permission; this is not exhaustive no-egress proof, and does not cover plugin-specific collectors, prior choices or headless/TeamCity/local-test/forced-provider overrides.",
+    "The public orchestrator dispatches bundled ideStartupWizard adapters. The registered import implementation was not located in the complete pinned public platform source tree; no proprietary implementation was read. Complete account/promotion page behavior remains unknown."
   ],
   "plannedRegistrationTransforms": [
     {
       "path": "lib/app.jar!/META-INF/IdeaPlugin.xml",
       "inputSha256": "bb158dfa10703af21dbadea381b7054947a4fca0463cc86ac7dfe065d1a39e38",
-      "outputSha256": "ae17a169bb672a9744316f7f20a7f0dc369aa47c2569eb2441decedea3f34783",
+      "outputSha256": "f96e7cc9ff9f4d5453d7a3dc397ab62ba4a152df0f26d86723a0007f7cee52d0",
       "removed": [
         {
           "tag": "module",
@@ -123,13 +142,24 @@
             "class": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
           },
           "parent": "actions"
+        },
+        {
+          "tag": "applicationConfigurable",
+          "attributes": {
+            "parentId": "preferences.general",
+            "instance": "com.intellij.ide.gdpr.ConsentConfigurable",
+            "id": "consents",
+            "bundle": "messages.IdeBundle",
+            "key": "consent.configurable"
+          },
+          "parent": "extensions"
         }
       ]
     },
     {
       "path": "lib/intellij.platform.ide.impl.jar!/META-INF/PlatformExtensions.xml",
       "inputSha256": "e56ee99d29703f4bc67628e892e19631495ac08ca9fda594c4c0b7265be285ea",
-      "outputSha256": "b5743be805a014b16a7c2034ad37b0cf1ce61c1da1a1cd85adceb2ad2eeb2812",
+      "outputSha256": "2dc9c68147c5fe4db0f9e078e86ca5dfe189d492153385d098be11aeb521e2a2",
       "removed": [
         {
           "tag": "openAnotherToolHandler",
@@ -149,6 +179,17 @@
           "tag": "backgroundPostStartupActivity",
           "attributes": {
             "implementation": "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+          },
+          "parent": "extensions"
+        },
+        {
+          "tag": "applicationConfigurable",
+          "attributes": {
+            "parentId": "preferences.general",
+            "instance": "com.intellij.ide.gdpr.ConsentConfigurable",
+            "id": "consents",
+            "bundle": "messages.IdeBundle",
+            "key": "consent.configurable"
           },
           "parent": "extensions"
         }
@@ -222,7 +263,8 @@
             "optional": "true",
             "config-file": "grazie-support.xml"
           },
-          "parent": "idea-plugin"
+          "parent": "idea-plugin",
+          "text": "tanvd.grazi"
         }
       ]
     },
@@ -257,7 +299,7 @@
   ],
   "cachedIndex": {
     "inputAfterBaseJavaFilterSha256": "b67cfca0af041c999c3c1841e55605bae507132c8fc8d0728a08050ee84ea766",
-    "outputSha256": "39eee2dd86ca8d8e1a4af2747770a7f8d949ba96ee23aeed149e360afddc128d",
+    "outputSha256": "18b298bc75d780d197a8dea17aaa637aa783e947a40753c6699c68ef91fc3089",
     "before": 47,
     "after": 46,
     "untouchedRawRecords": 43,
@@ -266,7 +308,18 @@
       "maven",
       "vcs-github"
     ],
-    "removedPlugin": "grazie"
+    "removedPlugin": "grazie",
+    "outputBytes": 3118158,
+    "priorOutputBeforeConsentExclusion": {
+      "sha256": "39eee2dd86ca8d8e1a4af2747770a7f8d949ba96ee23aeed149e360afddc128d",
+      "bytes": 3118338
+    },
+    "core": {
+      "inputBytes": 1415624,
+      "outputBytes": 1409015,
+      "outputSha256": "b6aa81088795da4928a272256e4172f625465f1323b92d6274d0085b8990e602",
+      "removedElements": 6
+    }
   },
   "physicalScope": {
     "removeCount": 28,
@@ -289,7 +342,8 @@
     ],
     "lazyPluginAdvertiserService": "Registration/API retained; confirmed startup/editor/manual ad producers removed. No synthetic license or authentication response.",
     "notices": "OSS license, copyright and legal attribution resources are not removed by these rules.",
-    "billingLabels": "Unused account/trial/subscription resource keys remain. A label is not an active action or an assertion that a payment implementation is present."
+    "billingLabels": "Unused account/trial/subscription resource keys remain. A label is not an active action or an assertion that a payment implementation is present.",
+    "consentApisAndChoices": "Consent service registrations/APIs and stored choices remain unchanged; only the upstream configurable registration is excluded. No fabricated consent, license, entitlement or authentication result."
   },
   "rea": {
     "receipts": {
@@ -519,7 +573,23 @@
       }
     ],
     "sessionClosed": true,
-    "boundary": "REA inventory/occurrence identities anchor the selected shipped JAR resources. XML/properties content, byte digests and dependency/SPI scans were read with ordinary archive/XML tools against those exact archive bytes. Inventories do not prove runtime activation. No .class implementation inspection, target attach or app UI operation."
+    "boundary": "REA inventory/occurrence identities anchor the selected shipped JAR resources. XML/properties content, byte digests and dependency/SPI scans were read with ordinary archive/XML tools against those exact archive bytes. Inventories do not prove runtime activation. No .class implementation inspection, target attach or app UI operation.",
+    "consentSupplement": {
+      "appReceipt": {
+        "path": ".tools/consent-configurable/rea-app-receipts.json",
+        "bytes": 15448,
+        "sha256": "9718a3ca7fdc3a6d4455053957e7d656e2d9c56f3225e1c490eadb0db56bd516"
+      },
+      "ideReceipt": {
+        "path": ".tools/consent-configurable/rea-ide-receipts.json",
+        "bytes": 16953,
+        "sha256": "7a82a53babba1ba64bb35705bcd9f50480146590b5c3795af133917daf1e2ca1"
+      },
+      "appResourceEvidenceId": "ev_56aa710d60a3768fe9b0a18ba3aa97666e70a579fa1a9c215e0a964e811d91e6",
+      "ideResourceEvidenceId": "ev_80ec14f2d940a56c5adbdd936c4ba1e1039635686abe9784a2fd96390294ac1d",
+      "coreConsentResources": "app.jar has no selected consent JSON; ide.impl has consents.json. Neither exact core inventory contains consents-open Goland.json. Top-level SDK lib/*.jar name scan also found only ide.impl/consents.json. This is static resource coverage, not a read of user consent state.",
+      "sessionClosed": true
+    }
   },
   "publicSources": [
     {
@@ -542,9 +612,195 @@
         "sha256": "4d03721e6edb2debf6797f645c4748221288e2839e8b51f9a649bb483c1e9015"
       },
       "claim": "JBAccountInfoServiceHolder uses ServiceLoader, so a plugin XML-only account inventory would be incomplete."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ide/gdpr/ConsentOptions.java",
+      "retained": {
+        "path": ".tools/windows-first-run-public/ConsentOptions.java",
+        "bytes": 24428,
+        "sha256": "071e11cd8b85b630ddabf2c5c0ef0d9fa5936e7caac9a812c7cbb782c55afb1c"
+      },
+      "rawSourceLines": [
+        158,
+        167,
+        385,
+        386
+      ],
+      "claim": "Independent-vendor defaults use consents-<shortCompanyName>.json. Empty defaults return immutable List.of() and no confirmation requirement."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ui/AppUIUtil.kt",
+      "retained": {
+        "path": ".tools/windows-first-run-public/AppUIUtil.kt",
+        "bytes": 21915,
+        "sha256": "bf615e2d73b886083876c27d9f6bc245af024229bc58cf42cb2f3621ca5913e5"
+      },
+      "rawSourceLines": [
+        208,
+        213,
+        365,
+        382
+      ],
+      "claim": "The configurable path mutates the returned list; this explains the exact empty-list stack without changing vendor identity."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ide/gdpr/ConsentOptionsProviderImpl.java",
+      "retained": {
+        "path": ".tools/windows-first-run-public/ConsentOptionsProviderImpl.java",
+        "bytes": 3838,
+        "sha256": "07e59a0eb65f9f5547ea3dde278ac197e1935669217076de60cb1c48156ab8af"
+      },
+      "rawSourceLines": [
+        14,
+        34,
+        42,
+        52
+      ],
+      "claim": "Sending requires explicit Permission.YES. Free-license forced-consent product set excludes IC."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/statistics/src/com/intellij/internal/statistic/utils/StatisticsUploadAssistant.java",
+      "retained": {
+        "path": ".tools/windows-first-run-public/StatisticsUploadAssistant.java",
+        "bytes": 7344,
+        "sha256": "428cbcae457277d37d7021f22ec0ca7a16c2599d5cadaa72c41f5ecb8d77aefc"
+      },
+      "rawSourceLines": [
+        37,
+        100
+      ],
+      "claim": "Normal release collect/send uses consent guard. Headless/TeamCity/local-test/forced-provider behavior is separate; this is not a no-network or all-provider runtime claim."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/bootstrap/src/com/intellij/platform/ide/bootstrap/eua.kt",
+      "retained": {
+        "path": ".tools/windows-first-run-public/eua.kt",
+        "bytes": 2963,
+        "sha256": "5262d3a6e6cf46525b4ec0ea887b528675e24b037bd051e65c8970ca9e8b0955"
+      },
+      "rawSourceLines": [
+        24,
+        32
+      ],
+      "claim": "Explicit vendor property, else AppInfo vendor identity, can select legitimate NonJbVendor branch before upstream document lookup; no acceptance state is manufactured."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/openapi/application/InitialConfigImportState.kt",
+      "retained": {
+        "path": ".tools/windows-first-run-public/InitialConfigImportState.kt",
+        "bytes": 2948,
+        "sha256": "893a510280af476d69493747237a2e93fdbbecc1a6e90a9b2c3998e2fe5f9159"
+      },
+      "rawSourceLines": [
+        52,
+        56
+      ],
+      "claim": "Startup wizard uses intellij.startup.wizard defaulttrue, independent of the legacy import-dialog property."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/initial-config-import/src/com/intellij/openapi/application/ConfigImportHelper.java",
+      "retained": {
+        "path": ".tools/windows-first-run-public/ConfigImportHelper.java",
+        "bytes": 73351,
+        "sha256": "9aa6f3096665866f853234b421a914c6eb856bcab3dac102c25ea17b1c84e346"
+      },
+      "rawSourceLines": [
+        254,
+        269
+      ],
+      "claim": "Legacy import path recognizes literal never; false alone does not suppress every import UI path."
+    },
+    {
+      "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/bootstrap/src/com/intellij/platform/ide/bootstrap/IdeStartupWizard.kt",
+      "retained": {
+        "path": ".tools/windows-first-run-public/IdeStartupWizard.kt",
+        "bytes": 6576,
+        "sha256": "ec90b2b5aec7664ea80fc146f45f8dc8f929f979d5ee8e8b5a92964780d254c2"
+      },
+      "rawSourceLines": [
+        32,
+        46,
+        95,
+        105
+      ],
+      "claim": "Orchestrator instantiates sorted bundled ideStartupWizard extensions and checks the independent wizard flag. Stage enum is not proof of active account/payment pages."
     }
   ],
   "controlledEvidence": {
+    "candidateCommit": "ff68e00",
+    "record": {
+      "path": ".tools/consent-configurable/final-evidence.json",
+      "bytes": 10685,
+      "sha256": "535ee5bebb05bb202bfafe3725158bd46f4f4299da3fd70562cbdfe21ce08c74"
+    },
+    "actualSdkControls": {
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "seconds": 6.572,
+      "record": {
+        "path": ".tools/consent-configurable/sdk-controls.json",
+        "bytes": 16303,
+        "sha256": "83a2f546d5a5ea2c637c4222fe1e966fd41f1edbb6e566f8d63f9d6b76a2d2d0"
+      },
+      "scope": "23 existing SDK/format/negative controls plus1 dual-platform-pin consent/API/raw-byte preservation control; historical old401-copy case is omitted."
+    },
+    "allPythonControls": {
+      "tests": 32,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "seconds": 0.922,
+      "log": {
+        "path": ".tools/consent-configurable/python-controls.log",
+        "bytes": 3750,
+        "sha256": "304a6e422908fdf9def587236802556103da0eda79cd057ae8f41f27902b525e"
+      }
+    },
+    "source": {
+      "path": "scripts/local_ide_metadata.py",
+      "bytes": 15215,
+      "sha256": "6904a010d6b69083c22956f41c5ddc43c5155f53ab40556d68563ceebd7bbc68"
+    },
+    "pins": [
+      {
+        "path": "product/patches/platform-local-ide-2026.1.4.json",
+        "bytes": 32014,
+        "sha256": "e455bd1b2157939e4fd43babcec32d7f8c5a5e206f111fc0d2ff5f839cc175ad"
+      },
+      {
+        "path": "product/patches/platform-local-ide-windows-2026.1.4.json",
+        "bytes": 32617,
+        "sha256": "304af9aba27c05272612167f43a4cc1045ec67d9ffc0f60927eca1eb2c4bda91"
+      }
+    ],
+    "boundary": "Source-matched private controls only; suite totals are not additive to Gradle/native acceptance. Actual Windows packaging/runtime and rebuilt candidate native checks remain unverified.",
+    "moduleRepository": "The existing16-module/three optional-edge transformation and retained shared logging are unchanged by this configurable removal.",
+    "marketplace": "Installed/local-disk plugin management remains a separate public-platform patch."
+  },
+  "nativeStatus": "Old435 native Settings failure is observed and archived. ff68e00 candidate has passing source/control evidence only; rebuilt installer, cold command and native Settings checks are pending. Full IDE acceptance remains open.",
+  "supplementalSourceRecord": {
+    "path": ".tools/consent-configurable/final-evidence.json",
+    "bytes": 10685,
+    "sha256": "535ee5bebb05bb202bfafe3725158bd46f4f4299da3fd70562cbdfe21ce08c74"
+  },
+  "consentDefaultGuard": {
+    "vendorDefaultResource": "consents-<shortCompanyName>.json for an independent vendor; no own-vendor default resource in the inspected core inventory.",
+    "emptyDefaults": "ConsentOptions.java385–386 returns immutable List.of() and false for confirmation; that list is the source of the old435 mutation failure.",
+    "ordinaryPermission": "Absent confirmed consent yields UNDEFINED; ConsentOptionsProviderImpl requires Permission.YES for usage-statistics sending.",
+    "forcedFreeLicense": "The public forced-consent product set contains QA/RR/WS/RD/CL/RM/DB, not this IC-based product.",
+    "limits": "Ordinary release behavior only. Environment/registry/provider overrides, headless and TeamCity flows, local test collection, third-party collectors, prior choices and all network egress are not exhaustively validated."
+  },
+  "coldImportSmoke": {
+    "mac": "Temporary isolated-profile/idea.properties only: intellij.startup.wizard=false; idea.initially.ask.config=never.",
+    "windows": "Temporary smoke.vmoptions only: equivalent -D properties.",
+    "semantics": "The independent startup wizard flag defaults true; the old false import-dialog value alone is insufficient. Literal never covers the legacy no-config dialog branch.",
+    "normalProductFirstRunChanged": false,
+    "acceptedStateOrImportMarkerFabricated": false,
+    "newColdRuntimeVerified": false
+  },
+  "historicalControlledEvidence": {
     "record": {
       "path": ".tools/local-ide-metadata-final-evidence.json",
       "bytes": 3908,
@@ -564,5 +820,46 @@
     "moduleRepository": "The 16-module/three optional-edge transformation and logging preservation are separately owned and evidenced by .tools/module-repository-local-ide-control/final-evidence.json.",
     "marketplace": "Installed/local-disk plugin management and Marketplace UI restrictions are a separate public-platform patch; no claim for that patch derives from this metadata-only report."
   },
-  "nativeStatus": "Pending. Build and native verification belong in docs/verification; the full acceptance matrix remains open."
+  "nativeCohorts": {
+    "historical408Prototype": {
+      "status": "bounded-diagnostic-observations-only",
+      "verification": "docs/verification/local-ide-without-account.md",
+      "boundary": "Earlier explicitly selected tools/profile and five ZIP-trailer repairs; not the later installer or candidate."
+    },
+    "old435": {
+      "status": "partial-native-pass-with-known-settings-failure",
+      "sourceInputCount": 435,
+      "sourceDigest": "aed7531cb9b21686c16e054f0acf9b2c67b88e94eb98f0d900ac113d26530978",
+      "archive": ".tools/installer-435-native-cohort",
+      "observations": {
+        "path": ".tools/installer-435-native-cohort/native-observations.json",
+        "bytes": 2948,
+        "sha256": "8af85cc1f7406c474d9e754e9670221942008554bb7842ec4af9dd98954095f9"
+      },
+      "knownFailure": "Repeated ConsentConfigurable construction failure from immutable empty consent list mutation. Fresh -version first showed Import Settings; root selected Skip Import before command completed. No new candidate success inferred."
+    },
+    "candidateFf68e00": {
+      "status": "unverified-native",
+      "changes": "Exact configurable exclusion and temporary smoke-only import properties",
+      "allAcceptanceRowsRemainOpen": true
+    },
+    "local6fd063a": {
+      "status": "pass-limited-installed-macos-scope",
+      "sourceCommit": "6fd063ae20558cca51e951975f0eed14b8d11b33",
+      "sourceInputCount": 438,
+      "sourceDigest": "0fec796ade10f1e1da8b507bef60f199f01c38eca653db8f6b8fde7942cd6f08",
+      "installerSha256": "305850e86b24e024e68787b656e1da783ee973e7aded3298d0ead3245c321f7e",
+      "archive": ".tools/installer-6fd-native-cohort",
+      "observations": {
+        "path": ".tools/installer-6fd-native-cohort/native-observations.json",
+        "bytes": 2514,
+        "sha256": "f7106b3a7f5f694b97fecf3688ff715c756837b1ae312d90de73a3a0517632ae"
+      },
+      "platformTests": { "tests": 564, "failures": 0, "errors": 0, "skipped": 0 },
+      "goChecks": "Explicit authenticated reuse from the unchanged local fresh Go source/tool/environment proof; not a new execution",
+      "nativeScope": "Actual DMG install and cold native CLI plus a separate fresh-profile/empty-Go-cache Debug test (1 passed), Settings consent-entry exclusion and normal Quit; zero ERROR/SEVERE log lines",
+      "boundary": "Local Mac cohort, not a future CI release artifact or the latest source. Resource-constrained cold test2json preparation is separate; Windows and full IDE parity remain open.",
+      "allAcceptanceRowsRemainOpen": true
+    }
+  }
 }

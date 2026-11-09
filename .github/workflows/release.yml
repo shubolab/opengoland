@@ -124,6 +124,9 @@ jobs:
     needs: [version, windows, macos]
     if: needs.version.outputs.publish == 'true'
     runs-on: ubuntu-24.04
+    concurrency:
+      group: open-goland-release-${{ needs.version.outputs.tag }}
+      cancel-in-progress: false
     permissions:
       contents: write
     steps:
@@ -145,10 +148,10 @@ jobs:
           test "$(git rev-parse "$RELEASE_TAG^{commit}")" = "$GITHUB_SHA"
           windows="release-artifacts/windows-x64/open-Goland-$RELEASE_VERSION-windows-x64-setup.exe"
           test -s "$windows"
-          mapfile -d '' dmg < <(find release-artifacts/macos-arm64 -maxdepth 1 -type f -name '*.dmg' -print0)
-          test "${#dmg[@]}" -eq 1
+          dmg="release-artifacts/macos-arm64/open-Goland-$RELEASE_VERSION-macos-arm64.dmg"
+          test -s "$dmg"
           mkdir -p assets
-          cp "$windows" "${dmg[0]}" assets/
+          cp "$windows" "$dmg" assets/
           tar -czf assets/windows-provenance.tar.gz -C release-artifacts/windows-x64 windows-provenance
           tar -czf assets/macos-provenance.tar.gz -C release-artifacts/macos-arm64 mac-provenance
           (cd assets && sha256sum ./* > SHA256SUMS)
@@ -165,7 +168,9 @@ jobs:
             if [[ "$RELEASE_VERSION" == *-* ]]; then release_flags+=(--prerelease --latest=false); fi
             gh release create "$RELEASE_TAG" assets/* --draft --verify-tag --title "open Goland $RELEASE_VERSION" --generate-notes "${release_flags[@]}"
           fi
-          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" > "$release_info"
+          release_id="$(gh release view "$RELEASE_TAG" --json databaseId --jq .databaseId)"
+          [[ "$release_id" =~ ^[0-9]+$ ]]
+          gh api "repos/$GITHUB_REPOSITORY/releases/$release_id" > "$release_info"
           python3 - "$release_info" <<'PY'
           import hashlib, json, os, pathlib, sys
           release = json.load(open(sys.argv[1], encoding='utf-8'))
@@ -185,6 +190,9 @@ jobs:
                   if asset['digest'] != 'sha256:' + digest.hexdigest():
                       raise SystemExit('Uploaded release asset digest mismatch: ' + name)
           PY
+          remote_commit="$(git ls-remote --tags origin "refs/tags/$RELEASE_TAG" "refs/tags/$RELEASE_TAG^{}" |
+            awk '$2 ~ /\^\{\}$/ { peeled=$1 } $2 !~ /\^\{\}$/ { direct=$1 } END { print peeled ? peeled : direct }')"
+          test "$remote_commit" = "$GITHUB_SHA"
           if [[ "$RELEASE_VERSION" == *-* ]]; then
             gh release edit "$RELEASE_TAG" --draft=false --prerelease --latest=false
           else

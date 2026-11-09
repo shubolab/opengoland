@@ -51,7 +51,12 @@ if ($LASTEXITCODE -ne 0) { throw 'The Windows race C compiler does not execute.'
 & $Builder version *>&1 | Tee-Object -FilePath (Join-Path $Proof 'builder-version.log')
 if ($LASTEXITCODE -ne 0) { throw 'The authenticated Go builder does not execute.' }
 & .\gradlew.bat --no-daemon "-PplatformPath=$Sdk" "-PgoBuilder=$Builder" "-PreleaseVersion=$Version" test buildPlugin prepareSandbox verifyPluginStructure *>&1 | Tee-Object -FilePath (Join-Path $Proof 'gradle-package.log')
-if ($LASTEXITCODE -ne 0) { throw 'Windows native SDK tests/plugin build failed.' }
+$GradleExit = $LASTEXITCODE
+$KotlinResults = Join-Path $Repository 'build/test-results/test'
+if (Test-Path -LiteralPath $KotlinResults -PathType Container) {
+    Copy-Item -LiteralPath $KotlinResults -Destination (Join-Path $Proof 'kotlin-test-results') -Recurse -Force
+}
+if ($GradleExit -ne 0) { throw 'Windows native SDK tests/plugin build failed.' }
 Push-Location -LiteralPath (Join-Path $Repository 'engine')
 try {
     & $Builder tool pprof -help *>&1 | Set-Content -LiteralPath (Join-Path $Proof 'go-pprof-bootstrap.log') -Encoding utf8NoBOM
