@@ -1,0 +1,184 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261110.1",
+  "status": "local-independent-product-native-verified",
+  "source": {
+    "commit": "83af9528d8acc37274c798e4d6a68403843960f0",
+    "inputFiles": 464,
+    "inputDigest": "2fd309ebe56c91a1eedcc0c246b088f4b7fe651d88358edf976ac0ce7f669241"
+  },
+  "scope": "Actual local macOS standalone application built at this source. Public installer and Windows interactive evidence are separate. No commercial GoLand runtime equivalence is inferred.",
+  "profile": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc",
+  "environment": "New isolated IDE profile and empty owned Go caches; system-only PATH; host Go/JDK stripped; no tool settings or automatic trust grants.",
+  "kotlin": {
+    "reports": 122,
+    "tests": 628,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "packageAudit": {
+    "sealedPluginAndToolFiles": 15135,
+    "allHashesMatch": true,
+    "compilerOutputMatches": true,
+    "criticalClassFiles": 36
+  },
+  "native": {
+    "wizardCancel": {
+      "cancelButtonVisible": true,
+      "uiReturnedToWelcome": true,
+      "requestedParent": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/不应创建的父目录",
+      "parentAbsent": true
+    },
+    "downloadSuccess": {
+      "officialVersion": "go1.27.3",
+      "destination": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/正式 下载 SDK 😀",
+      "automaticallyClosed": true,
+      "parentWizardRetainedFieldsAndSelectedSdk": true,
+      "usedCancelWorkaround": false
+    },
+    "createdManifest": "module example.org/finalnative\n\ngo 1.27.3\n",
+    "run": {
+      "executable": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/正式 下载 SDK 😀/bin/go",
+      "args": [
+        "run",
+        "."
+      ],
+      "nativeOutput": "Hello, world!",
+      "exitCode": 0,
+      "usedBundledFallback": false
+    },
+    "nativeTest": {
+      "executable": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/正式 下载 SDK 😀/bin/go",
+      "args": [
+        "test",
+        "-json",
+        "."
+      ],
+      "testsPassed": 2,
+      "testsTotal": 2,
+      "duration": "2s766ms",
+      "packageTimeSeconds": 0.323,
+      "cached": false,
+      "exitCode": 0
+    },
+    "settingsUiBeforeExit": {
+      "search": "GOROOT",
+      "selectedVersion": "go1.27.3",
+      "selectedHome": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/正式 下载 SDK 😀",
+      "environment": "SDK_SELECTION_PROBE=Go 1.27 😀\nCGO_ENABLED=0",
+      "cancelledWithoutApply": true
+    },
+    "fileNewMenu": {
+      "observed": [
+        "New Project",
+        "Project from Version Control",
+        "Go Module",
+        "File",
+        "Scratch File",
+        "Directory",
+        "Kotlin Script",
+        "HTML File",
+        "EditorConfig File",
+        "Resource Bundle"
+      ],
+      "javaProjectModuleCreationEntriesPresent": false,
+      "openAndClonePreserved": true
+    },
+    "firstNormalExit": {
+      "knownProcesses": [
+        {
+          "pid": 85088,
+          "alive": false
+        },
+        {
+          "pid": 85100,
+          "alive": false
+        },
+        {
+          "pid": 85196,
+          "alive": false
+        },
+        {
+          "pid": 85197,
+          "alive": false
+        }
+      ],
+      "allKnownGone": true,
+      "settingsFile": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/projects/原生 Go 项目 😀/.idea/openidea-go.xml",
+      "settingsSha256": "b1f03e76023be26decea236b15d764b48a46916d2c1aa3dd4e11c49aea69a7e5",
+      "expandedGoExecutable": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/projects/原生 Go 项目 😀/../../正式 下载 SDK 😀/bin/go",
+      "matchesChosenSdk": true,
+      "environment": "SDK_SELECTION_PROBE=Go 1.27 😀\nCGO_ENABLED=0",
+      "environmentMatches": true,
+      "registrySha256": "50959392003c3b61ced3c48f223976dc47a0f0ccdd3d310e4440796fb85d190b",
+      "registryFullHomePreserved": true,
+      "normalizedGoExecutable": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/正式 下载 SDK 😀/bin/go",
+      "pathComparisonNote": "The platform uses $PROJECT_DIR$/../../ for a nearby SDK. Compare the normalized expanded path, not the literal expansion."
+    },
+    "restartObserved": {
+      "sameProjectAndEditorRestored": true,
+      "repeatTrustPrompt": false,
+      "selectedSdkVersion": "go1.27.3",
+      "selectedSdkHome": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/正式 下载 SDK 😀",
+      "environment": "SDK_SELECTION_PROBE=Go 1.27 😀\nCGO_ENABLED=0",
+      "settingsApplyWasDisabled": true,
+      "settingsCancelled": true
+    },
+    "secondNormalExit": {
+      "allKnownGone": true,
+      "knownProcesses": [
+        {
+          "pid": 85647,
+          "alive": false
+        },
+        {
+          "pid": 85649,
+          "alive": false
+        },
+        {
+          "pid": 85651,
+          "alive": false
+        },
+        {
+          "pid": 85652,
+          "alive": false
+        }
+      ],
+      "allProductAppsObservedNotRunning": true
+    },
+    "finalErrorLines": []
+  },
+  "officialDownload": {
+    "catalogue": "https://go.dev/dl/?mode=json",
+    "version": "go1.27.3",
+    "platform": "darwin-arm64",
+    "expectedArchiveBytes": 68196737,
+    "expectedArchiveSha256": "dd3908cf20959d798c1e06ebe5b72213f0505ce01373b40ce3110975a6cd99c2",
+    "scope": "Official expected archive identity retained from actual catalogue/download; implementation streams exact size/SHA256 and performs SDK probes before registration."
+  },
+  "historicalRegression": {
+    "sourceCommit": "850d2767935eb2c7d6717eb3e771dbfc0bfd842d",
+    "tests": 620,
+    "status": "Failed native checks for wizard action getter, successful download modal closure and project SDK persistence; repaired before final source above. These earlier results are not attributed to the final package."
+  },
+  "limitations": [
+    "Only one macOS official SDK download and restart workflow was exercised in this native session.",
+    "Archived/prerelease SDK catalogue, full import/workspace/vendoring/GOPATH flows and commercial runtime comparison remain open.",
+    "Windows SDK download user interface, proxy combinations and arbitrary external SDK cold debugging remain open.",
+    "Full 36-row acceptance matrix remains open for both reference runtime and reconstruction."
+  ],
+  "releaseVerification": "releases/0.1.0-preview.20261110.2.json",
+  "localEngineRea": {
+    "operation": "inspect_go_binary",
+    "evidenceId": "ev_2bb86ca4ec209c014288111a31095155f75730d406f0cee2b448b6f52d9e4a5d",
+    "sha256": "84a919d6516fa4b0f34e0ecad5dd5d98ccb19fedede295f49c93f51049924ea8",
+    "bytes": 10613058,
+    "format": "mach-o",
+    "architecture": "arm64",
+    "goVersion": "go1.27.3",
+    "sourceRevision": "83af9528d8acc37274c798e4d6a68403843960f0",
+    "vcsModified": false,
+    "scope": "Observed embedded Go build metadata in the local native candidate; not proof of compiler/dependency authenticity or identity of a separately built public installer."
+  }
+}

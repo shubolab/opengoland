@@ -13,8 +13,13 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261109.1](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261109.1).
+[Download preview 0.1.0-preview.20261110.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.2).
 Both installers include checksums and platform verification records.
+
+| Platform | Direct installer download |
+| --- | --- |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/open-Goland-0.1.0-preview.20261110.2-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/open-Goland-0.1.0-preview.20261110.2-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -52,7 +57,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261109.1.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261110.2.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,
@@ -61,12 +66,17 @@ the isolated `OpenIDEA-Go` settings directory are retained for configuration
 compatibility. The local checkout directory does not affect the product name.
 
 The installers include Go 1.26.10, gopls 0.24.0 and Delve 1.27.2. Settings > Go
-can select another SDK or tool executable; explicit selections take precedence.
+shares the native SDK selector with New Project: use the bundled SDK, add a
+local Go home, or download a current stable official SDK. Explicit SDK and
+tool executable selections take precedence.
 The release builder uses Go 1.27.3 separately from the bundled project SDK.
 
-Settings > Go selects tool executables and project build environment. Tools > Go
-contains module/workspace and engineering actions. File > New > Go Module
-creates a module through the actual Go toolchain. Go Build, Go Test, and Go
+Welcome > New Project and File > New > New Project open the native Go wizard
+with name/location, module path, SDK, environment and optional example/tests.
+The verified SDK and environment are saved with the project. Settings > Go
+selects SDKs, tool executables and project build environment. Tools > Go contains
+module/workspace and engineering actions. File > New > Go Module opens the same
+Go creation flow. Go Build, Go Test, and Go
 Debug configurations use the platform's native execution and debugger UI.
 
 [Native type search](docs/verification/type-search.md) supplies the standard
@@ -137,6 +147,12 @@ The newer semantic-token bridge partitions large Go files into bounded requests;
 real gopls integration and native SDK `runtime/proc.go` display checks have passed.
 See the [large-file evidence](docs/verification/large-file-semantic-tokens.md)
 for the exact snapshots and remaining native cancellation checks.
+
+Standard Pause and first-load goroutine control remain incomplete. A native
+standalone Pause baseline did not suspend its target; a separate actual-SDK
+protocol regression found a selected-thread mismatch for cold Step/Continue.
+See [debug session control gaps](docs/verification/debug-session-controls.md)
+for the evidence boundaries and target-cleanup limitation.
 
 Code > Optimize Imports uses gopls through the standard native action. Standard
 Rename opens a cross-file Diff preview; approved edits use a single global

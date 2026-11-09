@@ -1,0 +1,300 @@
+{
+  "schema": 1,
+  "status": "confirmed-private-sdk-red-frozen-no-production-fix-integrated",
+  "productionBaseCommit": "83af9528d8acc37274c798e4d6a68403843960f0",
+  "isolatedReproductionCommit": "8d107f6779315524801f9849001c77c56ee6e43c",
+  "sourceStable": true,
+  "source": {
+    "path": ".tools/worktrees/debug-next-slice/src/test/kotlin/dev/openidea/goide/debug/GoDapSessionControlTest.kt",
+    "sha256": "f2f7e6943c442459a7cfc833c02617c2743be1971e1f96d528569deb7a82c3b1",
+    "bytes": 21602
+  },
+  "compiledTest": {
+    "path": ".tools/debug-next-slice-controls/harness/classes-baseline4/dev/openidea/goide/debug/GoDapSessionControlTest.class",
+    "sha256": "618792dc1bb08a13e6a675e1eb42de5d897bafe03467b3f738a9c334c7e85a3f",
+    "bytes": 21610
+  },
+  "before": {
+    "path": ".tools/debug-next-slice-controls/baseline4-source-before.json",
+    "sha256": "e0a743425440c79d20bac403507cba98ef30d3351b0e40de9e1c3d3d87b3bb87",
+    "bytes": 215
+  },
+  "after": {
+    "path": ".tools/debug-next-slice-controls/baseline4-source-after.json",
+    "sha256": "e0a743425440c79d20bac403507cba98ef30d3351b0e40de9e1c3d3d87b3bb87",
+    "bytes": 215
+  },
+  "classification": "Actual fixed IntelliJ2026.1.4 SDK/XDebugSessionImpl + DAPDebugProcess + GoDapClient + DAP stacks + actual LSP4J localhost transport. Peer and console are controlled; this is not a native desktop/real-Delve cold-selection observation.",
+  "productionSourcesOrPinsChanged": false,
+  "rootGradleOrUiRun": false,
+  "runs": [
+    {
+      "label": "baseline4",
+      "tests": 7,
+      "failures": 3,
+      "passingControls": 4,
+      "seconds": 7.157,
+      "log": {
+        "path": ".tools/debug-next-slice-controls/harness/standalone-baseline4/run.log",
+        "sha256": "fdeef694f88f295cd88a38fd9568470b1c12e15daf9ec9af4f3f371194cf507b",
+        "bytes": 63077
+      },
+      "jvmArguments": {
+        "path": ".tools/debug-next-slice-controls/harness/standalone-baseline4/java.args",
+        "sha256": "927e65b6fc54e6b5c324c9f66ea7659c4cb9ac465d501a17fbc47a3ca4e51459",
+        "bytes": 105298
+      },
+      "wireSummary": {
+        "path": ".tools/debug-next-slice-controls/baseline4-wire-summary.json",
+        "sha256": "b99267b57a6438b3cbe8ceccd0c42a9805f5c62746805c0ded30d0ffe24591ac",
+        "bytes": 22345
+      },
+      "framingIssues": [],
+      "responseErrors": 0,
+      "unpairedRequests": 0
+    },
+    {
+      "label": "baseline4-repeat",
+      "tests": 7,
+      "failures": 3,
+      "passingControls": 4,
+      "seconds": 6.759,
+      "log": {
+        "path": ".tools/debug-next-slice-controls/harness/standalone-baseline4-repeat/run.log",
+        "sha256": "48b05bbd3ff24488323ae8f10825de7c74138a0211ad30a85b6638b9d0974e66",
+        "bytes": 63159
+      },
+      "jvmArguments": {
+        "path": ".tools/debug-next-slice-controls/harness/standalone-baseline4-repeat/java.args",
+        "sha256": "3747dd0f66712d9014e1c70a5df32ee06fa06154555a534b7dbb3418846daa76",
+        "bytes": 105326
+      },
+      "wireSummary": {
+        "path": ".tools/debug-next-slice-controls/baseline4-repeat-wire-summary.json",
+        "sha256": "24058cd4ca3ca3054cf62e3ee8a047db96eb24eca6c7729b0e68637d5434349e",
+        "bytes": 22443
+      },
+      "framingIssues": [],
+      "responseErrors": 0,
+      "unpairedRequests": 0
+    }
+  ],
+  "failures": [
+    {
+      "test": "testStandardSessionPauseDispatchesOneDapPauseWhileRunning",
+      "standardEntry": "Actual XDebugSessionImpl.pause()",
+      "preconditions": [
+        "initialize/attach/configurationDone/threads complete",
+        "session running, not paused/stopped",
+        "real process checkCanPerformCommands true"
+      ],
+      "expectedPauseRequests": 1,
+      "actualPauseRequests": 0,
+      "allRequestIds": [
+        {
+          "seq": 1,
+          "command": "initialize"
+        },
+        {
+          "seq": 2,
+          "command": "attach"
+        },
+        {
+          "seq": 3,
+          "command": "configurationDone"
+        },
+        {
+          "seq": 4,
+          "command": "threads"
+        },
+        {
+          "seq": 5,
+          "command": "disconnect"
+        }
+      ]
+    },
+    {
+      "test": "testFirstColdBSelectionStepsTheSelectedThreadAndEvaluatesItsFrame",
+      "standardEntry": "Real stopped A context; first B stack load; actual session.setCurrentStackFrame(B,frame2021); frame evaluator; session.stepOver(false).",
+      "selectedThread": 202,
+      "watchFrame": 2021,
+      "actualNextThread": 101,
+      "expectedNextThread": 202,
+      "actualPairs": [
+        {
+          "request": {
+            "type": "request",
+            "seq": 9,
+            "command": "evaluate",
+            "arguments": {
+              "expression": "marker",
+              "frameId": 2021,
+              "context": "watch"
+            }
+          },
+          "response": {
+            "type": "response",
+            "seq": 11,
+            "request_seq": 9,
+            "command": "evaluate",
+            "success": true,
+            "body": {
+              "result": "202",
+              "type": "int",
+              "variablesReference": 0
+            }
+          }
+        },
+        {
+          "request": {
+            "type": "request",
+            "seq": 11,
+            "command": "next",
+            "arguments": {
+              "threadId": 101
+            }
+          },
+          "response": {
+            "type": "response",
+            "seq": 13,
+            "request_seq": 11,
+            "command": "next",
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "test": "testFirstColdBSelectionContinuesTheSelectedThread",
+      "standardEntry": "Real stopped A context; first B stack load; actual session.setCurrentStackFrame(B,frame2021); session.resume().",
+      "selectedThread": 202,
+      "actualContinueThread": 101,
+      "expectedContinueThread": 202,
+      "actualPairs": [
+        {
+          "request": {
+            "type": "request",
+            "seq": 9,
+            "command": "continue",
+            "arguments": {
+              "threadId": 101
+            }
+          },
+          "response": {
+            "type": "response",
+            "seq": 11,
+            "request_seq": 9,
+            "command": "continue",
+            "success": true,
+            "body": {
+              "allThreadsContinued": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "passingControls": [
+    {
+      "test": "testConnectedRealSessionCanStepItsInitiallyStoppedThread",
+      "actualPairs": [
+        {
+          "request": {
+            "type": "request",
+            "seq": 8,
+            "command": "next",
+            "arguments": {
+              "threadId": 101
+            }
+          },
+          "response": {
+            "type": "response",
+            "seq": 10,
+            "request_seq": 8,
+            "command": "next",
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "test": "testWarmBSelectionControlStepsB",
+      "actualPairs": [
+        {
+          "request": {
+            "type": "request",
+            "seq": 9,
+            "command": "next",
+            "arguments": {
+              "threadId": 202
+            }
+          },
+          "response": {
+            "type": "response",
+            "seq": 11,
+            "request_seq": 9,
+            "command": "next",
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "test": "testHeldColdBReplyCannotHijackASelection",
+      "actualPairs": [
+        {
+          "request": {
+            "type": "request",
+            "seq": 9,
+            "command": "next",
+            "arguments": {
+              "threadId": 101
+            }
+          },
+          "response": {
+            "type": "response",
+            "seq": 11,
+            "request_seq": 9,
+            "command": "next",
+            "success": true
+          }
+        }
+      ]
+    },
+    {
+      "test": "testIsolatedStackWarmCacheControlHasTheExpectedRuntimeBehavior",
+      "scope": "Direct real DAPSuspendContext/stack component control, not a natural backend stop; warm cache method works."
+    }
+  ],
+  "cleanup": "Every fixture waits for actual disconnect/client disposal before closing only its own socket/listener/executor. Final streams strictly parse and every request has a response. Descriptor.startServer rejects subprocess creation; no adapter/debuggee is spawned by these SDK fixtures.",
+  "nativePauseSeparate": {
+    "record": {
+      "path": ".tools/debug-pause-native-current.json",
+      "sha256": "2c056103e7fec32cc6461a6ba3b8326e5bae7e604fe552302085238f9461c355",
+      "bytes": 4763
+    },
+    "authority": "Parent CUA observation, not performed by this agent or inferred from loopback traffic.",
+    "sourceCommit": "83af9528d8acc37274c798e4d6a68403843960f0",
+    "observed": "Standard enabled Pause Program did not suspend: heartbeat178→219→390, Frames empty, Variables Connected. Native wire was not captured.",
+    "cleanupBoundary": "Seven known PIDs gone; target88131 remained Z/defunct under PID1, not running. Do not claim all PIDs gone or attach-detach validation."
+  },
+  "rawRealDelveSeparate": {
+    "record": {
+      "path": ".tools/debug-next-slice-controls/raw-pause-3__tx6c3/report.json",
+      "sha256": "079bde91586117668a7ddbe5935504ffa1837069a1718dc643f2c4a3a905d201",
+      "bytes": 1959
+    },
+    "authority": "Owned raw DAP command control, not the SDK session or native GUI.",
+    "result": "Delve1.27.2/Go1.26.10 accepts server-supplied running placeholder threadId=-1; two pause acknowledgements/stopped events stop heartbeat; Resume advances it; graceful disconnect(true) adapter0 and all4recordedPIDsgone.",
+    "importantStoppedShape": "Actual stopped reason=pause/allThreadsStopped=true has no threadId. Existing upstream DAPClient.stopped returns early for null threadId; a Pause-RPC-only repair is insufficient."
+  },
+  "limitations": [
+    "The intentionally failing local test commit is not integrated into the current SDK release.",
+    "Only the SDK session delegate and selection API were exercised; no native JTree cold goroutine selection or real-Delve Step/Continue effect is claimed.",
+    "Correct frame evaluation in the same cold-B case is retained; do not describe all watches, frames, launch/debug/test behavior as broken.",
+    "Standard global Pause action visibility is established only by the separate parent native record; the SDK test invokes the documented session API.",
+    "The raw Delve control, parent native Pause observation and SDK peer traces are independent evidence and must not be combined into a fake single session.",
+    "Full DEBUG-02/GoLand parity and launch-Stop zombie cleanup remain open.",
+    "Earlier intermediate harness warm internal-field assertions/cleanup truncation are not the final record; both final runs use the same class and complete protocol streams."
+  ]
+}

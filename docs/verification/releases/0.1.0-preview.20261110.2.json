@@ -1,0 +1,243 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261110.2",
+  "status": "published-preview",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.2",
+  "publishedAtUtc": "2026-11-09T23:05:14Z",
+  "installerSource": {
+    "commit": "354ff70d768b2a69d5908b83eda3aa848a1b8062",
+    "tag": "v0.1.0-preview.20261110.2",
+    "inputFiles": 464,
+    "inputDigest": "31ecaba13529b8a7ab249cf29f1ecfb27793c92e9f7db0102c551e7e212019a0"
+  },
+  "publication": {
+    "workflowRun": "https://github.com/shubolab/opengoland/actions/runs/42711426538",
+    "allFourJobsSucceeded": true,
+    "exactAssetCount": 5,
+    "reviewedChineseNotesPreserved": true,
+    "publicChecksumsMatchAllFourAssetDigests": true,
+    "independentPublicAuditSha256": "8e4a22676de7d8e7b541bfa4847348372da76be44f213842fe92e1c9abe3b85b"
+  },
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/macos-provenance.tar.gz",
+      "bytes": 4121278,
+      "sha256": "6b54023566738d2844ad805e777958ba0d2853d6b6b6e017301fc110408156bd"
+    },
+    "open-Goland-0.1.0-preview.20261110.2-macos-arm64.dmg": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/open-Goland-0.1.0-preview.20261110.2-macos-arm64.dmg",
+      "bytes": 1027218453,
+      "sha256": "e496a85ffe0179fbe690be8b0e0f1d7d5d0cc4e6995bac8091f7f83a2a36154f"
+    },
+    "open-Goland-0.1.0-preview.20261110.2-windows-x64-setup.exe": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/open-Goland-0.1.0-preview.20261110.2-windows-x64-setup.exe",
+      "bytes": 870499823,
+      "sha256": "39eb4f0157add25ee3bec8f1833389cb656afb1b39ea103d690897e18c85c45d"
+    },
+    "SHA256SUMS": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/SHA256SUMS",
+      "bytes": 434,
+      "sha256": "67409a2a04ee00ad19b18ad5dd76bbbf3f6ee342c92d6278d6f162e2cc1e1701"
+    },
+    "windows-provenance.tar.gz": {
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/windows-provenance.tar.gz",
+      "bytes": 6648177,
+      "sha256": "914ff9a4facb5ebb339e58a7372a8f93beaa3f1e4ac0f3a42cbaa3d9ad0599cb"
+    }
+  },
+  "macosArm64": {
+    "artifactOrigin": "Actual macOS CI job129481711790 for this exact source/version; public DMG installed-copy GUI checks are retained separately below.",
+    "kotlin": {
+      "reports": 122,
+      "tests": 630,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "go": {
+      "kind": "fresh",
+      "testPassEvents": 341,
+      "topLevelTests": 198,
+      "testPackagesPassed": 11,
+      "cachedPackages": 0,
+      "raceExitCode": 0,
+      "vetExitCode": 0
+    },
+    "installerChecks": [
+      "Actual DMG CRC verification, APFS mount and installed copy",
+      "Deep strict signature and sealed plugin/tool files",
+      "Installed native launcher and Go1.26.10/gopls0.24.0/Delve1.27.2 versions",
+      "Installed-engine uncached pure-Go test exit0"
+    ],
+    "producerProductManifestSha256": "768b340d47e8180df2237299c66149c683ed6fd628ec0d6e62b758b8095f71d9",
+    "rawEvidenceAsset": "macos-provenance.tar.gz",
+    "independentProofAuditSha256": "5fc6a4235b925f6faaeaee07eee6d656431a6478e1b7f0644990b0bec05e5282",
+    "publicInstalledCopy": {
+      "manifestSha256": "768b340d47e8180df2237299c66149c683ed6fd628ec0d6e62b758b8095f71d9",
+      "matchesProducerManifestSha256": true,
+      "sourceDigest": "31ecaba13529b8a7ab249cf29f1ecfb27793c92e9f7db0102c551e7e212019a0",
+      "sealedPluginAndToolFilesVerified": 15135,
+      "criticalClassFilesMatchLocalPreflight": 36,
+      "allGoPluginClassFilesMatchLocalPreflight": 654,
+      "imageCrcMountedCopiedDeepStrictSignature": true,
+      "postNativeDeepStrictSignature": true,
+      "engineRea": {
+        "evidenceId": "ev_ba8234ced9dd0ce293468489b2d9e1cd359fc8115e1b76bba2a80c4383d61ef1",
+        "sha256": "2169a07a263cf702d855862b992ef0da77ce75b9249ea5d66304e3483029c665",
+        "goVersion": "go1.27.3",
+        "vcsRevision": "354ff70d768b2a69d5908b83eda3aa848a1b8062",
+        "vcsModified": false
+      }
+    },
+    "publicNative": {
+      "record": "../sdk-project-management-public-native.json",
+      "status": "pass-limited-default-run-test-and-state-recovery-native-picker-incomplete",
+      "freshIsolatedProfileEmptyGoCachesAndSystemPath": true,
+      "newProject": {
+        "name": "公开 安装验收 😀",
+        "modulePath": "example.org/publicinstaller",
+        "goMod": "module example.org/publicinstaller\n\ngo 1.26.10\n",
+        "bundledGoVersion": "go1.26.10"
+      },
+      "nativeRun": {
+        "executable": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+        "args": [
+          "run",
+          "."
+        ],
+        "nativeOutput": "Hello, world!",
+        "exitCode": 0,
+        "processId": 90957,
+        "usedHostTools": false
+      },
+      "nativeTest": {
+        "executable": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+        "args": [
+          "test",
+          "-json",
+          "."
+        ],
+        "processId": 91083,
+        "passed": 2,
+        "total": 2,
+        "cached": false,
+        "nativeTotalDuration": "2s309ms",
+        "packageSeconds": 0.338,
+        "exitCode": 0
+      },
+      "restartProjectEditorSdkAndUnicodeEnvironmentRecovered": true,
+      "exitMethod": "Packaged native launcher exit to recover incomplete native file chooser; not normal UI Quit. Both CLI commands exit0, all eight recorded owned process instances disappeared.",
+      "optionalLocalPickerCompleted": false,
+      "wholeProfileErrorSevereLines": 33,
+      "errorBoundary": "Default create/Run/Test had no ERROR/SEVERE before recovery. First/second forced-modal CLI exits logged settings/disposal cancellations. Whole native session was not error-free; selected-SDK picker and ordinary UI Quit were not accepted."
+    }
+  },
+  "windowsX64": {
+    "artifactOrigin": "Actual Windows CI job129481711683 for this exact source/version.",
+    "artifactId": 13718162231,
+    "kotlin": {
+      "reports": 122,
+      "tests": 630,
+      "passed": 618,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 12,
+      "skipScope": "Existing OS-specific cases; all new SDK/standard-navigation controls executed without skips."
+    },
+    "go": {
+      "kind": "fresh",
+      "testPassEvents": 333,
+      "topLevelTests": 184,
+      "testPackagesPassed": 11,
+      "cachedPackages": 0,
+      "raceExitCode": 0,
+      "vetExitCode": 0,
+      "vetEvidence": "The exact source build-release.ps1 checks LASTEXITCODE and aborts before assembly on vet error. Terminal successful job plus retained assembly prove this guard passed. Empty successful PowerShell Tee output need not create a log."
+    },
+    "installerChecks": [
+      "Install exit0 and uninstall exit0",
+      "17000 installed files verified",
+      "Actual owned Unicode project SunAwtFrame and normal native exit0",
+      "Installed Go1.26.10/gopls0.24.0/Delve1.27.2 versions",
+      "Installed-engine uncached pure-Go test exit0"
+    ],
+    "nativeLog": {
+      "errorSevereLines": 0,
+      "warningLines": 3
+    },
+    "interactiveEditorSdkDownloadAndDebuggerParityVerified": false,
+    "installerLocalWholeFileRehashByAuditor": false,
+    "hashScope": "Actual Windows producer hash/sidecar and EXE ZIP-member size agree; public GitHub full-asset digest comparison is separate.",
+    "rawEvidenceAsset": "windows-provenance.tar.gz",
+    "independentProofAuditSha256": "fca9f87de4928d3ddb548eac31f02ae737b3a0c1d31e46545552fff4b4bfa238"
+  },
+  "localNativePreflight": {
+    "record": "../sdk-project-management-native.json",
+    "sourceCommit": "83af9528d8acc37274c798e4d6a68403843960f0",
+    "inputDigest": "2fd309ebe56c91a1eedcc0c246b088f4b7fe651d88358edf976ac0ce7f669241",
+    "productionSourceDiffVersusRelease": "None; only two test fixtures changed before the released source. Compiled/public-artifact identity is checked separately.",
+    "notRelabeledAsPublicInstallerExecution": true
+  },
+  "previousUnpublishedCandidate": {
+    "version": "0.1.0-preview.20261110.1",
+    "source": "83af9528d8acc37274c798e4d6a68403843960f0",
+    "run": 42707457524,
+    "windows": "628 tests/122 XML/2fail/0error/12skip; Go race/install never reached",
+    "macos": "CI success; not used as v2 artifact/proof",
+    "publication": "still PRIVATE draft marked unpublished; no public assets"
+  },
+  "limitations": [
+    "Complete GoLand36x2 acceptance remains open.",
+    "Windows installer unsigned; macOS ad-hoc signed and not notarized.",
+    "macOS Debug needs Apple Command Line Tools or Xcode.",
+    "Standard Pause did not suspend in the native baseline; cold goroutine Step/Continue protocol controls remain unfixed in this release. See ../debug-session-controls.md.",
+    "One native launch-Stop baseline left a terminated/defunct target under PID1; this is distinct from successful normal Run/Test cleanup.",
+    "External selected-SDK cold Debug/test2json readiness, arbitrary Windows long CWDs and full interactive Windows parity remain open.",
+    "Native Add Local folder selection remained incomplete in CUA; normal source/API review did not establish a product defect. Recovery exit produced modal settings/disposal errors, retained separately from passed default Run/Test.",
+    "An inherited Start Tour in Java label remains on Welcome; five Java project/module action removals do not imply all Java-oriented onboarding is removed."
+  ],
+  "acceptanceMatrix": "../../reference/acceptance-matrix.json",
+  "publicDownloadVerification": {
+    "reviewedNotesExact": true,
+    "sourceTagExact": "354ff70d768b2a69d5908b83eda3aa848a1b8062",
+    "exactFiveAssetNames": true,
+    "smallAssets": [
+      {
+        "asset": "SHA256SUMS",
+        "apiBytes": 434,
+        "apiDigest": "sha256:67409a2a04ee00ad19b18ad5dd76bbbf3f6ee342c92d6278d6f162e2cc1e1701",
+        "anonymousFullDownload": true,
+        "localWholeFileHashVerified": true
+      },
+      {
+        "asset": "windows-provenance.tar.gz",
+        "apiBytes": 6648177,
+        "apiDigest": "sha256:914ff9a4facb5ebb339e58a7372a8f93beaa3f1e4ac0f3a42cbaa3d9ad0599cb",
+        "anonymousFullDownload": true,
+        "localWholeFileHashVerified": true
+      },
+      {
+        "asset": "macos-provenance.tar.gz",
+        "apiBytes": 4121278,
+        "apiDigest": "sha256:6b54023566738d2844ad805e777958ba0d2853d6b6b6e017301fc110408156bd",
+        "anonymousFullDownload": true,
+        "localWholeFileHashVerified": true
+      }
+    ],
+    "windowsInstaller": {
+      "anonymousRangeHTTP": 206,
+      "bytesRead": 512,
+      "advertisedBytes": 870499823,
+      "mzHeader": true,
+      "fullGitHubDigestMatchesActualWindowsInstallReport": true,
+      "localWholeFileRehash": false
+    },
+    "macosInstaller": {
+      "canonicalPublicUrlHTTP": 200,
+      "fullDownloadedBytes": 1027218453,
+      "localWholeFileSha256": "e496a85ffe0179fbe690be8b0e0f1d7d5d0cc4e6995bac8091f7f83a2a36154f",
+      "matchesGitHubDigestChecksumsAndCiReport": true
+    },
+    "scope": "Full public DMG and small assets were locally hashed. EXE body was not fully downloaded; its full GitHub digest is bound to the actual Windows producer install/hash report and sidecar, with a separate anonymous Range/MZ check."
+  }
+}

@@ -16,8 +16,9 @@
       "partial_evidence": {
         "source": "../verification/desktop-smoke-2026-11-08.md",
         "observation": "open Goland standalone app launched with its own bundle ID and loaded both custom plugins; final launch/repeated activation passed in PID19805. Clean-machine/full independence acceptance still open.",
-        "published_installers": "../verification/releases/0.1.0-preview.20261109.1.json",
-        "published_observation": "The faf279f preview has immutable public Windows x64 EXE and macOS arm64 DMG assets, full size/SHA256 and retained installation/runtime evidence. The published local Mac artifact ran a fresh isolated GUI profile with empty tool settings, system-only PATH and bundled Go/gopls/Delve; cold type search, test debug and failed-only retry passed. Windows CI installed and verified 17000 sealed files, opened an actual owned project frame, ran installed-tool/engine controls and uninstalled successfully. This is bounded distribution evidence, not complete cross-platform interactive workflows or commercial parity."
+        "published_installers": "../verification/releases/0.1.0-preview.20261110.2.json",
+        "published_observation": "Latest354ff70 preview has immutable public Windows x64 EXE and macOS arm64 DMG, exact sizes/SHA256, source464 digest31ecaba1 and actual CI build/install/start checks. Both630-test suites passed with12existing Win skips/0Mac skips. The full public DMG was independently downloaded, mounted/copied, sealed files and all654Go-plugin classes verified; actual fresh installed UI created a Unicode module and passed default Run/Test. Native folder-picker selection remained incomplete in CUA and recovery exits logged modal/disposal cancellations. This is bounded distribution/default-workflow evidence, not full native acceptance or commercial parity.",
+        "previous_published_installers": "../verification/releases/0.1.0-preview.20261109.1.json"
       }
     },
     {
@@ -98,7 +99,13 @@
         "raw_string_preference": "Native Go checkbox changes raw Enter from LF-only to exact four-space continuation, with Undo; normal-exit persistence is recorded separately. Exact-label Settings search did not locate this new checkbox; it was reached through Other Settings > Go. Full settings search and restart parity remain open.",
         "settings_content_search": "../verification/standard-navigation.md",
         "settings_search_native": "../verification/standard-navigation-native.json",
-        "search_observation": "Later native exact raw-string-label search locates and spotlights the actual Go checkbox in the final 7284c945 package; Apply remained disabled and settings were cancelled. Separate initial 8e390503 Settings cohort also located CGO_ENABLED and highlighted golangci-lint flags. Registered real-index integration passed within the final 404 tests. Every settings query, scope, persistence and reference-equivalence case remains open."
+        "search_observation": "Later native exact raw-string-label search locates and spotlights the actual Go checkbox in the final 7284c945 package; Apply remained disabled and settings were cancelled. Separate initial 8e390503 Settings cohort also located CGO_ENABLED and highlighted golangci-lint flags. Registered real-index integration passed within the final 404 tests. Every settings query, scope, persistence and reference-equivalence case remains open.",
+        "sdk_management": "../verification/sdk-project-creation.md",
+        "sdk_management_native": "../verification/sdk-project-management-native.json",
+        "sdk_management_observation": "The source83af952 local standalone app passes the standard Go New Project wizard, actual official Go1.27.3 download to a Unicode path, automatic modal completion, selected-SDK Run and two uncached tests. Normal exit/restart preserves the chosen SDK and exact project environment; GOROOT Settings search locates the Go page. Local Kotlin/platform628 tests passed without skips. Windows interactive download, all import/workspace/environment cases and commercial equivalence remain open; installer identity belongs to its separate versioned release record.",
+        "published_sdk_installers": "../verification/releases/0.1.0-preview.20261110.2.json",
+        "public_default_native": "../verification/sdk-project-management-public-native.json",
+        "public_default_observation": "Actual public354ff70 Mac DMG default Go1.26.10 created a Unicode module, native Run exit0 and two uncached tests passed; project/editor/SDK/environment recovered after native CLI exit. Native Add Local selection did not complete in CUA; forced-modal recovery produced shutdown settings/disposal errors. No selected-SDK picker or ordinary UI-Quit success is inferred; full row stays open."
       }
     },
     {
@@ -115,9 +122,15 @@
         "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open.",
         "sdk_creation": "../verification/sdk-project-creation.md",
         "sdk_creation_native": "../verification/sdk-project-native.json",
-        "sdk_observation": "Native /usr/bin/true rejected without creating target; Go 1.24.3 created a Unicode-path module with validated manifest, persisted chosen SDK and passing actual Run/two-subtest workflow. SDK registry/download/standard wizard/import and all contexts remain open.",
+        "sdk_observation": "Historical pre-toolbar native cohort: /usr/bin/true rejected without creating target; Go1.24.3 created a Unicode-path module with validated manifest, persisted chosen SDK and passing actual Run/two-subtest workflow. Registry/download/standard wizard gaps at that historical snapshot are addressed by the later source83af952 evidence; full import and all contexts remain open.",
         "sdk_project_reference": "sdk-project-reference.json",
-        "baseline_source_audit": "At 023d244 the product registers only a custom New Go Module action, with a raw executable field and unconditional new-window creation; no shared SDK registry/version selector, local-home chooser, SDK download dialog or Go registration in the standard New Project frontdoor exists. These are implementation gaps, separate from unverified commercial runtime."
+        "baseline_source_audit": "Historical baseline at023d244: only a custom New Go Module action, raw executable field and unconditional new-window creation; no shared SDK selector, local-home chooser, download dialog or Go standard New Project entry. Later source83af952 implements these bounded gaps; this baseline is not a claim about the current source or commercial runtime.",
+        "sdk_management": "../verification/sdk-project-creation.md",
+        "sdk_management_native": "../verification/sdk-project-management-native.json",
+        "sdk_management_observation": "The source83af952 local standalone app passes the standard Go New Project wizard, actual official Go1.27.3 download to a Unicode path, automatic modal completion, selected-SDK Run and two uncached tests. Normal exit/restart preserves the chosen SDK and exact project environment; GOROOT Settings search locates the Go page. Local Kotlin/platform628 tests passed without skips. Windows interactive download, all import/workspace/environment cases and commercial equivalence remain open; installer identity belongs to its separate versioned release record.",
+        "published_sdk_installers": "../verification/releases/0.1.0-preview.20261110.2.json",
+        "public_default_native": "../verification/sdk-project-management-public-native.json",
+        "public_default_observation": "Actual public354ff70 Mac DMG default Go1.26.10 created a Unicode module, native Run exit0 and two uncached tests passed; project/editor/SDK/environment recovered after native CLI exit. Native Add Local selection did not complete in CUA; forced-modal recovery produced shutdown settings/disposal errors. No selected-SDK picker or ordinary UI-Quit success is inferred; full row stays open."
       }
     },
     {
@@ -141,7 +154,15 @@
       "reference": "GoSdkConfigurable, GoLibrariesConfigurableProvider, GoProjectSettingsConfigurable",
       "probe": "Tag-specific files and alternate environment; compare diagnostics, build, test and debugger environment",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "sdk_management": "../verification/sdk-project-creation.md",
+        "sdk_management_native": "../verification/sdk-project-management-native.json",
+        "sdk_management_observation": "The source83af952 local standalone app passes the standard Go New Project wizard, actual official Go1.27.3 download to a Unicode path, automatic modal completion, selected-SDK Run and two uncached tests. Normal exit/restart preserves the chosen SDK and exact project environment; GOROOT Settings search locates the Go page. Local Kotlin/platform628 tests passed without skips. Windows interactive download, all import/workspace/environment cases and commercial equivalence remain open; installer identity belongs to its separate versioned release record.",
+        "published_sdk_installers": "../verification/releases/0.1.0-preview.20261110.2.json",
+        "public_default_native": "../verification/sdk-project-management-public-native.json",
+        "public_default_observation": "Actual public354ff70 Mac DMG default Go1.26.10 created a Unicode module, native Run exit0 and two uncached tests passed; project/editor/SDK/environment recovered after native CLI exit. Native Add Local selection did not complete in CUA; forced-modal recovery produced shutdown settings/disposal errors. No selected-SDK picker or ordinary UI-Quit success is inferred; full row stays open."
+      }
     },
     {
       "id": "PROJECT-04",
@@ -424,7 +445,11 @@
         "debug_test_tree": "../verification/native-workflows.md",
         "debug_test_tree_native": "../verification/native-workflows-native.json",
         "debug_test_tree_build": "../verification/native-workflows-build.json",
-        "debug_test_tree_observation": "Standard, failed-only and manual test Debug show native TestMain:12/marker=42, Continue and actual target/execution codes 1, 1 and 0. Stop before tests marks Ignored with an explicit stopped diagnostic; cancellation execution 0 is not natural target 0. All other breakpoint/step/evaluation and full test/debug parity remain open."
+        "debug_test_tree_observation": "Standard, failed-only and manual test Debug show native TestMain:12/marker=42, Continue and actual target/execution codes 1, 1 and 0. Stop before tests marks Ignored with an explicit stopped diagnostic; cancellation execution 0 is not natural target 0. All other breakpoint/step/evaluation and full test/debug parity remain open.",
+        "session_control_gaps": "../verification/debug-session-controls.md",
+        "session_control_sdk_baseline": "../verification/debug-session-controls-baseline.json",
+        "session_control_native_baseline": "../verification/debug-pause-baseline-native.json",
+        "known_failed_controls": "Source83af952: enabled standard native Pause did not suspend an owned heartbeat program; native Stop left one non-running defunct target under PID1 while seven other known processes disappeared. Independent actual-SDK/LSP4J controls select/evaluate cold thread202 but Step/Continue still send thread101; warm/A/held-unselected controls pass. This is not a native cold-goroutine comparison or a repaired feature; full rows remain open."
       }
     },
     {
@@ -434,7 +459,13 @@
       "reference": "DlvFilterGoroutinesAction, DlvToggleThreadsAction, DlvShowTypesToggleAction",
       "probe": "Concurrent fixture with blocked/running goroutines; select frame, filter, watch and resume",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "session_control_gaps": "../verification/debug-session-controls.md",
+        "session_control_sdk_baseline": "../verification/debug-session-controls-baseline.json",
+        "session_control_native_baseline": "../verification/debug-pause-baseline-native.json",
+        "known_failed_controls": "Source83af952: enabled standard native Pause did not suspend an owned heartbeat program; native Stop left one non-running defunct target under PID1 while seven other known processes disappeared. Independent actual-SDK/LSP4J controls select/evaluate cold thread202 but Step/Continue still send thread101; warm/A/held-unselected controls pass. This is not a native cold-goroutine comparison or a repaired feature; full rows remain open."
+      }
     },
     {
       "id": "DEBUG-03",

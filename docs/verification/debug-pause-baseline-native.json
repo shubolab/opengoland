@@ -1,0 +1,136 @@
+{
+  "status": "native-pause-gap-confirmed-no-running-owned-processes",
+  "sourceCommit": "83af9528d8acc37274c798e4d6a68403843960f0",
+  "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+  "profile": "/Users/wangshubo/develop/openidea-go/.tools/debug-pause-native-g_mbvd0b",
+  "project": "/Users/wangshubo/develop/openidea-go/.tools/debug-pause-native-g_mbvd0b/暂停 原生基线 😀",
+  "pid": 87948,
+  "scope": "Actual native macOS source83af standalone app, bundled Go1.26.10/Delve1.27.2; standard Pause did not suspend one owned running program. This is a failing workflow observation, not a fixed feature or a native goroutine-selection result.",
+  "beforeStandardPause": {
+    "utc": "2026-11-09T22:28:24.524702+00:00",
+    "heartbeat": 178,
+    "debugSessionRunning": true,
+    "pauseSearchEnabled": true
+  },
+  "afterStandardPauseFirst": {
+    "utc": "2026-11-09T22:28:34.814535+00:00",
+    "heartbeat": 219
+  },
+  "afterStandardPauseSecond": {
+    "utc": "2026-11-09T22:29:17.464668+00:00",
+    "heartbeat": 390,
+    "framesEmpty": true,
+    "variablesLabel": "Connected",
+    "nativePauseResult": "did-not-suspend"
+  },
+  "ownedBeforeStop": [
+    {
+      "pid": 87948,
+      "ppid": 1,
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/debug-pause-native-g_mbvd0b/暂停 原生基线 😀"
+    },
+    {
+      "pid": 87953,
+      "ppid": 87948,
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+    },
+    {
+      "pid": 87976,
+      "ppid": 87948,
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+    },
+    {
+      "pid": 87977,
+      "ppid": 87976,
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    },
+    {
+      "pid": 87989,
+      "ppid": 87948,
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv dap --listen=127.0.0.1:0"
+    },
+    {
+      "pid": 87991,
+      "ppid": 87989,
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv ** telemetry **"
+    },
+    {
+      "pid": 88130,
+      "ppid": 87989,
+      "command": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver --stdout-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/4a73823b --stderr-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/cfc72c73 --stdin-path /dev/stdin --unmask-signals -F -R 127.0.0.1:63481 -- /Users/wangshubo/develop/openidea-go/.tools/debug-pause-native-g_mbvd0b/暂停 原生基线 😀/__debug_bin184881608"
+    },
+    {
+      "pid": 88131,
+      "ppid": 88130,
+      "command": "/Users/wangshubo/develop/openidea-go/.tools/debug-pause-native-g_mbvd0b/暂停 原生基线 😀/__debug_bin184881608"
+    }
+  ],
+  "uiObservations": {
+    "standardAction": "Find Action > Pause Program (enabled; Include disabled actions unchecked)",
+    "entry": "Ctrl+Shift+D on main.go",
+    "onlyOwnedProjectTrusted": true,
+    "session": "Native DAP debug with bundled Delve; heartbeat continued after Pause; frames empty and Variables Connected",
+    "nativeWireCapture": false
+  },
+  "normalStopAndExit": {
+    "stopConsole": "Process finished with exit code137; Disconnected successfully from the debug server.",
+    "allKnownTerminated": true,
+    "allKnownGone": false,
+    "processes": [
+      {
+        "pid": 87948,
+        "state": "gone",
+        "details": null,
+        "running": false
+      },
+      {
+        "pid": 87953,
+        "state": "gone",
+        "details": null,
+        "running": false
+      },
+      {
+        "pid": 87976,
+        "state": "gone",
+        "details": null,
+        "running": false
+      },
+      {
+        "pid": 87977,
+        "state": "gone",
+        "details": null,
+        "running": false
+      },
+      {
+        "pid": 87989,
+        "state": "gone",
+        "details": null,
+        "running": false
+      },
+      {
+        "pid": 87991,
+        "state": "gone",
+        "details": null,
+        "running": false
+      },
+      {
+        "pid": 88130,
+        "state": "gone",
+        "details": null,
+        "running": false
+      },
+      {
+        "pid": 88131,
+        "state": "Z",
+        "details": "Z        1 <defunct>",
+        "running": false
+      }
+    ],
+    "heartbeatFinal": 458,
+    "errorLines": [],
+    "allProductAppsObservedNotRunning": true,
+    "cleanupLimitation": "Target PID88131 was defunct/reparented to PID1 after native Stop; seven other known PIDs disappeared. No running owned process remained. This is not an all-PIDs-gone result."
+  },
+  "sourceDigest": "2fd309ebe56c91a1eedcc0c246b088f4b7fe651d88358edf976ac0ce7f669241",
+  "fixtureSha256": "ed09395510a37ee6a2b48b5e092717682579bdfa31688078018776ba00359d8a"
+}

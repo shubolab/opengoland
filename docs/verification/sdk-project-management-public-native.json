@@ -1,0 +1,252 @@
+{
+  "status": "pass-limited-default-run-test-and-state-recovery-native-picker-incomplete",
+  "version": "0.1.0-preview.20261110.2",
+  "sourceCommit": "354ff70d768b2a69d5908b83eda3aa848a1b8062",
+  "sourceDigest": "31ecaba13529b8a7ab249cf29f1ecfb27793c92e9f7db0102c551e7e212019a0",
+  "installerSha256": "e496a85ffe0179fbe690be8b0e0f1d7d5d0cc4e6995bac8091f7f83a2a36154f",
+  "installedApp": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app",
+  "profile": "/Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so",
+  "properties": "/Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so/idea.properties",
+  "nativePid": 90842,
+  "projectParent": "/Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so/projects",
+  "projectName": "公开 安装验收 😀",
+  "modulePath": "example.org/publicinstaller",
+  "environment": "Fresh isolated configuration, empty owned Go caches, system-only PATH, host Go/JDK/tool overrides removed, no preselected tools or trust grants.",
+  "actualProject": "/Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so/projects/公开 安装验收 😀",
+  "createdManifest": "module example.org/publicinstaller\n\ngo 1.26.10\n",
+  "newProjectUi": {
+    "standardWelcomeNewProject": true,
+    "goOnlyWizard": true,
+    "sdkDisplayed": "go1.26.10 bundled/automatic from actual installed app",
+    "exampleCheckboxChecked": true,
+    "onlyOwnedProjectTrusted": true,
+    "environment": "RELEASE_INSTALL_PROBE=公开 安装 😀\nCGO_ENABLED=0",
+    "welcomeOnboardingJavaLabelStillPresent": true
+  },
+  "bundledNativeRun": {
+    "executable": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+    "args": [
+      "run",
+      "."
+    ],
+    "nativeOutput": "Hello, world!",
+    "exitCode": 0,
+    "processId": 90957,
+    "usedHostTools": false
+  },
+  "bundledNativeTest": {
+    "executable": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+    "args": [
+      "test",
+      "-json",
+      "."
+    ],
+    "processId": 91083,
+    "passed": 2,
+    "total": 2,
+    "cached": false,
+    "nativeTotalDuration": "2s309ms",
+    "packageSeconds": 0.338,
+    "exitCode": 0
+  },
+  "settingsBeforeQuit": {
+    "search": "GOROOT",
+    "selectedSdk": "Bundled/automatic Go1.26.10",
+    "environment": "RELEASE_INSTALL_PROBE=公开 安装 😀\nCGO_ENABLED=0"
+  },
+  "addLocalUiAttempt": {
+    "status": "not-completed-in-cua",
+    "requestedSdkHome": "/Users/wangshubo/develop/openidea-go/.tools/sdk-project-native-final-2xa2slgc/正式 下载 SDK 😀",
+    "observation": "Native NSOpenPanel and Go To Folder were observed; after entering path/Return the main frame was visible, native FileDialog thread remained active and selection/registration did not complete. Standard Quit menu opened Confirm Exit. No Add Local success, saved SDK change, freeze or production defect is inferred.",
+    "threadDump": ".tools/sdk-project-public-download/sdk-picker-thread-dump.txt"
+  },
+  "ownedBeforeFirstQuit": [
+    {
+      "pid": 90842,
+      "ppid": 1,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/MacOS/idea"
+    },
+    {
+      "pid": 90885,
+      "ppid": 90842,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/bin/fsnotifier"
+    },
+    {
+      "pid": 90943,
+      "ppid": 90842,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+    },
+    {
+      "pid": 90944,
+      "ppid": 90943,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    }
+  ],
+  "errorLinesBeforeQuit": [],
+  "exitRecovery": {
+    "uiQuitMenuOpenedConfirmExit": true,
+    "uiExitButtonDidNotCompleteWhileNativePickerActive": true,
+    "method": "Packaged native launcher exit command targeting this exact isolated profile; no signal or unrelated process termination.",
+    "commandExitCode": 0
+  },
+  "firstSessionExit": {
+    "method": "native launcher exit after incomplete native chooser",
+    "allKnownGone": true,
+    "knownProcesses": [
+      {
+        "pid": 90842,
+        "alive": false
+      },
+      {
+        "pid": 90885,
+        "alive": false
+      },
+      {
+        "pid": 90943,
+        "alive": false
+      },
+      {
+        "pid": 90944,
+        "alive": false
+      }
+    ],
+    "projectSettingsSha256": "63aa4b7285d2e93d92b2f1f55b65fd103bbd6474d11018c9578853e89adb9435",
+    "projectSettings": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"OpenIDEAGoSettings\">\n    <option name=\"environment\" value=\"RELEASE_INSTALL_PROBE=公开 安装 😀&#10;CGO_ENABLED=0\" />\n  </component>\n</project>"
+  },
+  "restartPid": 91596,
+  "restartObserved": {
+    "projectAndGreetingTestEditorRestored": true,
+    "repeatTrustPrompt": false,
+    "settingsGoPageOpened": true,
+    "selectedSdk": "Bundled/automatic go1.26.10 from the installed app",
+    "environment": "RELEASE_INSTALL_PROBE=公开 安装 😀\nCGO_ENABLED=0",
+    "applyDisabledBeforeOptionalPickerRetry": true,
+    "optionalLocalPickerRetry": "Native directory panel/GoToFolder input remained incomplete in CUA; no verified registration or SDK setting change. A visible Cancel action returned a Settings view, without proving completion of the native modal lifecycle."
+  },
+  "ownedBeforeSecondExit": [
+    {
+      "pid": 91596,
+      "ppid": 1,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/MacOS/idea"
+    },
+    {
+      "pid": 91602,
+      "ppid": 91596,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/bin/fsnotifier"
+    },
+    {
+      "pid": 91604,
+      "ppid": 91596,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+    },
+    {
+      "pid": 91605,
+      "ppid": 91604,
+      "command": "/Users/wangshubo/develop/openidea-go/build/public-install-1101-y3k8ijl0/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    }
+  ],
+  "errorLinesBeforeSecondExit": [
+    "2026-11-10 07:23:46,367 [ 868191] SEVERE - #c.i.o.a.i.ApplicationImpl - Failed to save settings",
+    "2026-11-10 07:23:46,375 [ 868199] SEVERE - #c.i.o.a.i.ApplicationImpl - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,376 [ 868200] SEVERE - #c.i.o.a.i.ApplicationImpl - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,376 [ 868200] SEVERE - #c.i.o.a.i.ApplicationImpl - OS: Mac OS X",
+    "2026-11-10 07:23:46,376 [ 868200] SEVERE - #c.i.o.a.i.ApplicationImpl - Last Action: NextWindow",
+    "2026-11-10 07:23:46,424 [ 868248] SEVERE - #c.i.o.a.i.ApplicationImpl - Failed to close and dispose all projects",
+    "2026-11-10 07:23:46,426 [ 868250] SEVERE - #c.i.o.a.i.ApplicationImpl - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,429 [ 868253] SEVERE - #c.i.o.a.i.ApplicationImpl - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,429 [ 868253] SEVERE - #c.i.o.a.i.ApplicationImpl - OS: Mac OS X",
+    "2026-11-10 07:23:46,429 [ 868253] SEVERE - #c.i.o.a.i.ApplicationImpl - Last Action: NextWindow",
+    "2026-11-10 07:23:46,494 [ 868318] SEVERE - #c.i.o.u.ObjectTree - Not disposed pointer: file:///Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so/projects/公开 安装验收 😀/greeting_test.go",
+    "2026-11-10 07:23:46,495 [ 868319] SEVERE - #c.i.o.u.ObjectTree - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,495 [ 868319] SEVERE - #c.i.o.u.ObjectTree - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,495 [ 868319] SEVERE - #c.i.o.u.ObjectTree - OS: Mac OS X",
+    "2026-11-10 07:23:46,506 [ 868330] SEVERE - #c.i.u.EventDispatcher - Cannot invoke \"com.intellij.openapi.application.Application.assertWriteIntentLockAcquired()\" because the return value of \"com.intellij.openapi.application.ApplicationManager.getApplication()\" is null",
+    "2026-11-10 07:23:46,507 [ 868331] SEVERE - #c.i.u.EventDispatcher - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,507 [ 868331] SEVERE - #c.i.u.EventDispatcher - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,507 [ 868331] SEVERE - #c.i.u.EventDispatcher - OS: Mac OS X",
+    "2026-11-10 07:23:46,508 [ 868332] SEVERE - #c.i.u.EventDispatcher - Plugin to blame: Kotlin version: 261.26222.65-IJ"
+  ],
+  "secondExitMethod": {
+    "method": "Packaged native launcher exit command targeting this isolated profile",
+    "exitCode": 0,
+    "scope": "Optional native picker lifecycle was not accepted as completed; this is not an ordinary UI Quit claim."
+  },
+  "secondExit": {
+    "method": "Native packaged launcher exit command",
+    "exitCode": 0,
+    "allKnownGone": true,
+    "knownProcesses": [
+      {
+        "pid": 91596,
+        "state": "gone"
+      },
+      {
+        "pid": 91602,
+        "state": "gone"
+      },
+      {
+        "pid": 91604,
+        "state": "gone"
+      },
+      {
+        "pid": 91605,
+        "state": "gone"
+      }
+    ],
+    "allProductAppsObservedNotRunning": true
+  },
+  "finalLog": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so/log/idea.log",
+    "bytes": 184227,
+    "sha256": "329cac23dee665c614279919e311897ac795c65f84343c49d6e2278bb8f37d19",
+    "errorSevereLines": 33,
+    "errorsByMinute": {
+      "2026-11-10 07:23": 19,
+      "2026-11-10 07:32": 14
+    },
+    "scope": "Default create/Run/Test before picker recovery had no ERROR/SEVERE. The first and second forced-modal CLI exits logged settings/disposal cancellations. This is not an error-free whole-session or normal UI-Quit acceptance."
+  },
+  "finalErrorLines": [
+    "2026-11-10 07:23:46,367 [ 868191] SEVERE - #c.i.o.a.i.ApplicationImpl - Failed to save settings",
+    "2026-11-10 07:23:46,375 [ 868199] SEVERE - #c.i.o.a.i.ApplicationImpl - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,376 [ 868200] SEVERE - #c.i.o.a.i.ApplicationImpl - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,376 [ 868200] SEVERE - #c.i.o.a.i.ApplicationImpl - OS: Mac OS X",
+    "2026-11-10 07:23:46,376 [ 868200] SEVERE - #c.i.o.a.i.ApplicationImpl - Last Action: NextWindow",
+    "2026-11-10 07:23:46,424 [ 868248] SEVERE - #c.i.o.a.i.ApplicationImpl - Failed to close and dispose all projects",
+    "2026-11-10 07:23:46,426 [ 868250] SEVERE - #c.i.o.a.i.ApplicationImpl - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,429 [ 868253] SEVERE - #c.i.o.a.i.ApplicationImpl - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,429 [ 868253] SEVERE - #c.i.o.a.i.ApplicationImpl - OS: Mac OS X",
+    "2026-11-10 07:23:46,429 [ 868253] SEVERE - #c.i.o.a.i.ApplicationImpl - Last Action: NextWindow",
+    "2026-11-10 07:23:46,494 [ 868318] SEVERE - #c.i.o.u.ObjectTree - Not disposed pointer: file:///Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so/projects/公开 安装验收 😀/greeting_test.go",
+    "2026-11-10 07:23:46,495 [ 868319] SEVERE - #c.i.o.u.ObjectTree - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,495 [ 868319] SEVERE - #c.i.o.u.ObjectTree - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,495 [ 868319] SEVERE - #c.i.o.u.ObjectTree - OS: Mac OS X",
+    "2026-11-10 07:23:46,506 [ 868330] SEVERE - #c.i.u.EventDispatcher - Cannot invoke \"com.intellij.openapi.application.Application.assertWriteIntentLockAcquired()\" because the return value of \"com.intellij.openapi.application.ApplicationManager.getApplication()\" is null",
+    "2026-11-10 07:23:46,507 [ 868331] SEVERE - #c.i.u.EventDispatcher - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:23:46,507 [ 868331] SEVERE - #c.i.u.EventDispatcher - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:23:46,507 [ 868331] SEVERE - #c.i.u.EventDispatcher - OS: Mac OS X",
+    "2026-11-10 07:23:46,508 [ 868332] SEVERE - #c.i.u.EventDispatcher - Plugin to blame: Kotlin version: 261.26222.65-IJ",
+    "2026-11-10 07:32:17,335 [ 479214] SEVERE - #c.i.o.a.i.ApplicationImpl - Failed to save settings",
+    "2026-11-10 07:32:17,339 [ 479218] SEVERE - #c.i.o.a.i.ApplicationImpl - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:32:17,339 [ 479218] SEVERE - #c.i.o.a.i.ApplicationImpl - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:32:17,339 [ 479218] SEVERE - #c.i.o.a.i.ApplicationImpl - OS: Mac OS X",
+    "2026-11-10 07:32:17,339 [ 479218] SEVERE - #c.i.o.a.i.ApplicationImpl - Last Action: ",
+    "2026-11-10 07:32:17,359 [ 479238] SEVERE - #c.i.o.a.i.ApplicationImpl - Failed to close and dispose all projects",
+    "2026-11-10 07:32:17,360 [ 479239] SEVERE - #c.i.o.a.i.ApplicationImpl - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:32:17,360 [ 479239] SEVERE - #c.i.o.a.i.ApplicationImpl - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:32:17,360 [ 479239] SEVERE - #c.i.o.a.i.ApplicationImpl - OS: Mac OS X",
+    "2026-11-10 07:32:17,360 [ 479239] SEVERE - #c.i.o.a.i.ApplicationImpl - Last Action: ",
+    "2026-11-10 07:32:17,411 [ 479290] SEVERE - #c.i.o.u.ObjectTree - Not disposed pointer: file:///Users/wangshubo/develop/openidea-go/.tools/sdk-public-native-ay0lj7so/projects/公开 安装验收 😀/greeting_test.go",
+    "2026-11-10 07:32:17,413 [ 479292] SEVERE - #c.i.o.u.ObjectTree - open Goland 2026.1.4  Build #IC-261.26222.65",
+    "2026-11-10 07:32:17,414 [ 479293] SEVERE - #c.i.o.u.ObjectTree - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.",
+    "2026-11-10 07:32:17,414 [ 479293] SEVERE - #c.i.o.u.ObjectTree - OS: Mac OS X"
+  ],
+  "verifiedAtUtc": "2026-11-09T23:34:06.655605+00:00",
+  "limitations": [
+    "Native Add Local directory selection did not complete in CUA; source/API review did not establish a product defect.",
+    "Native picker cancellation appeared to return Settings but did not establish modal lifecycle completion. Recovery used the application exit command; shutdown settings/disposal cancellation errors are retained.",
+    "SDK/environment UI restoration was observed after recovery restart; it is not a normal UI-Quit/restart result.",
+    "Welcome still exposes an inherited Start Tour in Java label; Go-only wizard does not mean every Java UI entry is removed.",
+    "No public-installer official download, selected external SDK Run/Debug, Windows interactive editor or complete GoLand parity claim."
+  ]
+}
