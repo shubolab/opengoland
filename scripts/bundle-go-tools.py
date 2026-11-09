@@ -238,7 +238,8 @@ def sdk(artifact, target_name, cache, offline):
 
 def execute(command, environment, cwd, timeout=900):
     options = {'creationflags': subprocess.CREATE_NEW_PROCESS_GROUP} if os.name == 'nt' else {'start_new_session': True}
-    child = subprocess.Popen(list(map(str, command)), env=environment, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, **options)
+    child = subprocess.Popen(list(map(str, command)), env=environment, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                             text=True, encoding='utf-8', **options)
     try:
         stdout, stderr = child.communicate(timeout=timeout)
     except BaseException:
@@ -302,6 +303,57 @@ def build_info(go, binary, environment, cwd):
     return info
 
 
+def build_runtime_test2json(lock, cache, staging, target, offline):
+    """Add one derived SDK tool to our copy, never to the authenticated SDK."""
+    host = host_target()
+    artifact = lock['sdk'].get(host) or lock.get('runtimeToolCompilers', {}).get(host)
+    if artifact is None or artifact['version'] != lock['runtimeSdkVersion']:
+        raise ValueError('An authenticated host runtime SDK is required to build test2json')
+    runtime = sdk(artifact, host, cache, offline)
+    original = files(runtime)
+    marker = runtime.parent / 'sdk-files.json'
+    marker_sha = digest(marker)
+    go = runtime / 'bin' / ('go.exe' if os.name == 'nt' else 'go')
+    source_files = {name: value for name, value in original.items() if name.startswith('src/')}
+    source_digest = hashlib.sha256(json.dumps(source_files, sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+    suffix = '.exe' if target.startswith('windows-') else ''
+    relative = 'go/pkg/tool/' + target.replace('-', '_') + '/test2json' + suffix
+    destination = staging / relative
+    if destination.exists():
+        raise ValueError('The pinned SDK unexpectedly already contains test2json')
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    # Go 1.26 lazy-builds omitted tools. Use the matching authenticated SDK,
+    # including for cross compilation, rather than the newer gopls compiler.
+    with tempfile.TemporaryDirectory(prefix='test2json-build-', dir=staging.parent) as work:
+        environment = build_environment(runtime, Path(work), target, True)
+        environment.update({'GO111MODULE': 'off', 'GOFLAGS': ''})
+        environment.pop('GOCACHEPROG', None)
+        arguments = ['build', '-trimpath', '-buildvcs=false', '-o', str(destination), 'cmd/test2json']
+        execute([go, *arguments], environment, staging)
+        info = build_info(go, destination, environment, staging)
+    if (info['goVersion'] != lock['runtimeSdkVersion'] or
+            f"{info['build'].get('GOOS')}-{info['build'].get('GOARCH')}" != target or
+            info['build'].get('CGO_ENABLED') != '0' or info.get('module') or info['dependencies']):
+        raise ValueError('Derived test2json identity differs from its runtime SDK/target')
+    if files(runtime) != original or digest(marker) != marker_sha:
+        raise ValueError('Authenticated host SDK changed while deriving test2json')
+    return {
+        'package': 'cmd/test2json', 'runtimeSdkVersion': lock['runtimeSdkVersion'],
+        'executable': relative, 'bytes': destination.stat().st_size, 'sha256': digest(destination),
+        'target': target, 'host': host, 'compilerSha256': digest(go),
+        'hostRuntimeArchiveSha256': artifact['sha256'],
+        'targetRuntimeArchiveSha256': lock['sdk'][target]['sha256'],
+        'hostSdkMarkerSha256': marker_sha, 'sourceFilesCount': len(source_files),
+        'sourceFilesDigest': source_digest,
+        'command': ['go', *arguments[:4], '<staged-sdk-tool>', 'cmd/test2json'],
+        'environment': {'GOOS': target.split('-')[0], 'GOARCH': target.split('-')[1],
+                        'CGO_ENABLED': '0', 'GOENV': 'off', 'GOWORK': 'off',
+                        'GOTOOLCHAIN': 'local', 'GO111MODULE': 'off', 'GOPROXY': 'off', 'GOSUMDB': 'off'},
+        'buildInfo': info, 'license': 'go/LICENSE',
+        'scope': 'Compiled from the authenticated host runtime SDK standard-library source; only the owned staged SDK receives this additional binary. SDK cache and its marker are unchanged.',
+    }
+
+
 def copy_licenses(go, info, environment, cwd, target):
     records = []
     modules = [info['module'], *info['dependencies']]
@@ -363,6 +415,8 @@ def bundle(args):
         try:
             progress('Copying complete SDK ' + lock['runtimeSdkVersion'] + ' for ' + args.target)
             shutil.copytree(runtime, temporary / 'go')
+            progress('Deriving official test2json from the matching authenticated runtime SDK')
+            derived_sdk_tools = {'test2json': build_runtime_test2json(lock, cache, temporary, args.target, args.offline)}
             binary_dir = temporary / 'bin'; binary_dir.mkdir()
             tools = {}
             for name, tool in lock['tools'].items():
@@ -387,8 +441,8 @@ def bundle(args):
                 raise ValueError('Tool builder source or lock changed during the build')
             manifest = {'schemaVersion': 1, 'lockSha256': lock_sha, 'builderScriptSha256': SCRIPT_SHA256, 'target': args.target,
                         'runtimeSdkVersion': lock['runtimeSdkVersion'], 'builderVersion': lock['builderVersion'],
-                        'tools': tools, 'files': payload,
-                        'scope': 'Complete official SDK and checksum-verified source-built language/debug tools; runtime tests recorded separately.'}
+                        'tools': tools, 'derivedSdkTools': derived_sdk_tools, 'files': payload,
+                        'scope': 'Complete official SDK with an independently compiled official test2json added only to its staged tool directory, plus checksum-verified source-built language/debug tools; runtime tests recorded separately.'}
             atomic_json(temporary / 'manifest.json', manifest)
             backup = None
             if output.exists():

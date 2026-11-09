@@ -78,12 +78,22 @@
       "https://raw.githubusercontent.com/go-delve/delve/v1.27.2/go.mod",
       "https://raw.githubusercontent.com/go-delve/delve/v1.27.2/pkg/goversion/compat.go",
       "https://go.dev/gopls/#supported-go-versions"
-    ]
+    ],
+    "sdkTest2json": "Derived cmd/test2json uses the matching authenticated host runtimeSdkVersion source/compiler, then cross-compiles into the owned target SDK tool directory. It is distinct from the newer gopls/Delve compiler."
   },
   "layout": {
     "sdk": "go",
     "executables": "bin",
     "manifest": "manifest.json",
     "licenses": "licenses"
+  },
+  "runtimeToolCompilers": {
+    "linux-amd64": {
+      "version": "go1.26.10",
+      "url": "https://go.dev/dl/go1.26.10.linux-amd64.tar.gz",
+      "filename": "go1.26.10.linux-amd64.tar.gz",
+      "sha256": "ccfe7ae822d2c2f41f4fe7c956199967a4dac22d0ee0d2b2bfdb440aab3b20c5",
+      "size": 66936659
+    }
   }
 }
