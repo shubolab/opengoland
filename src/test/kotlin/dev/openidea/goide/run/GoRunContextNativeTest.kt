@@ -21,6 +21,7 @@ import com.intellij.psi.PsiManager
 import com.intellij.psi.PsiDocumentManager
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
+import com.intellij.testFramework.IndexingTestUtil
 import java.nio.file.Files
 
 /** Real native PSI/configuration contexts; setup and cleanup filesystem work stay off the EDT. */
@@ -115,6 +116,9 @@ class GoRunContextNativeTest : LightPlatformTestCase() {
     }
 
     fun testNativeGutterPopupOffersEnabledRunAndDebugForTheClickedEntry() = fixture { file ->
+        // The fixture's VFS refresh can still be pushing file properties. The
+        // SDK intentionally hides non-dumb-aware context configurations then.
+        IndexingTestUtil.waitUntilIndexesAreReady(project)
         val document = ReadAction.compute<com.intellij.openapi.editor.Document, RuntimeException> {
             requireNotNull(PsiDocumentManager.getInstance(project).getDocument(file))
         }
