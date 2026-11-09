@@ -1,0 +1,162 @@
+{
+  "schema": "open-goland.module-usages-build.v1",
+  "scope": "Build, runtime identity and bounded native evidence; full IDE/reference parity remains open",
+  "deliveryBuild": {
+    "sourceDigest": "766e940153f5756ff8d326df87a3edc37d1a5f708ef2244b352d31444d437cb6",
+    "inputFiles": 323,
+    "application": "build/product/open Goland.app",
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "a4fcedc5a1273a98ba79387dd4134d902c5e8040a93dd84cf882dc537fea28a3",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "732cf734d3bb4cd2284d13df1fe2ae4492278e1b70f96db6b51038becaea1ca6",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "f287321c8359a2f832d2988c56eec1049143d44b092a244ac75c7838931bafda"
+    },
+    "kotlin": {
+      "tests": 333,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goRaceAndVet": {
+      "status": "pass",
+      "testEventsIncludingSubtests": 271,
+      "topLevelTests": 155,
+      "packagePasses": 9,
+      "packagesWithoutTests": [
+        "github.com/shubolab/opengoland/engine/cmd/opengoland-engine"
+      ],
+      "cachedPackages": [
+        "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+        "github.com/shubolab/opengoland/engine/internal/generate/structs",
+        "github.com/shubolab/opengoland/engine/internal/protocol",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature"
+      ],
+      "vetLogBytes": 0
+    },
+    "packageCommand": "OPENGOLAND_GOPLS_TEST=<actual gopls> ./scripts/package-product.sh",
+    "packageExitCode": 0,
+    "buildInputVerification": "pass",
+    "pluginStructureVerification": "pass",
+    "codeSignatureAfterNativeUse": "pass",
+    "allManifestPluginArtifactHashesAfterNativeUse": "match",
+    "goVersion": "go1.24.3 darwin/arm64",
+    "goplsVersion": "golang.org/x/tools/gopls v0.21.1"
+  },
+  "nativeFunctionalCohort": {
+    "sourceDigest": "f6bf8d2bf4c35f9fbf234b22eab9f186b23f36400e17b61e5df957c1daee448b",
+    "inputFiles": 323,
+    "pid": 80970,
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "a4fcedc5a1273a98ba79387dd4134d902c5e8040a93dd84cf882dc537fea28a3",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "b8e4abc1bbfa49406fd48561a075f80be06b6b8368fa568c75949256cd068428",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "ec8fff154a2fd28f0b613a14c29d517df3ca0ff81edacad3a30590a8e9c8e0dd"
+    },
+    "runtimeIdentity": "pass; open Goland / dev.opengoland.ide; Go Workbench and LSP4IJ loaded",
+    "cleanup": "all recorded owned processes absent after normal native Quit"
+  },
+  "finalToolbarCohort": {
+    "sourceDigest": "766e940153f5756ff8d326df87a3edc37d1a5f708ef2244b352d31444d437cb6",
+    "pid": 83771,
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 83771,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "platformArtifactChecks": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+        }
+      ],
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    },
+    "nativeObservations": {
+      "pid": 83771,
+      "sourceDigest": "766e940153f5756ff8d326df87a3edc37d1a5f708ef2244b352d31444d437cb6",
+      "inputFiles": 323,
+      "wideToolbar": [
+        "Reload Project",
+        "Mod Tidy",
+        "Download",
+        "Vendor",
+        "Workspace Sync"
+      ],
+      "narrowToolbar": {
+        "method": "Ctrl+Alt+Left three times after focusing tree",
+        "observedVisible": [
+          "Reload Project",
+          "Mod Tidy"
+        ],
+        "overflowChevronObserved": true,
+        "hoverPopupExecution": "unverified; CUA exposes click/drag but no mouse-move/hover API; clicking painted indicator did not show a popup"
+      },
+      "selectedModuleTask": {
+        "treeSelection": "example.org/two",
+        "entry": "visible narrow Mod Tidy action",
+        "cwd": "${fixture}/two",
+        "command": [
+          "go",
+          "mod",
+          "tidy"
+        ],
+        "exitCode": 0,
+        "terminatedStopDisabled": true
+      },
+      "workspaceSync": {
+        "entry": "wide native toolbar action after restoring width",
+        "cwd": "${fixture}",
+        "command": [
+          "go",
+          "work",
+          "sync"
+        ],
+        "exitCode": 0,
+        "terminatedStopDisabled": true
+      }
+    },
+    "ownedPidsAtQuit": [
+      83771,
+      83788,
+      83801,
+      83817,
+      83818,
+      83819
+    ],
+    "ownedPidsAbsentAfterQuit": true,
+    "sessionSevereLogLines": 0
+  },
+  "continuity": {
+    "oldDigest": "f6bf8d2bf4c35f9fbf234b22eab9f186b23f36400e17b61e5df957c1daee448b",
+    "finalDigest": "766e940153f5756ff8d326df87a3edc37d1a5f708ef2244b352d31444d437cb6",
+    "oldClasses": 471,
+    "newClasses": 472,
+    "changedClassNames": [
+      "dev/openidea/goide/engine/GoModuleTreeNode.class",
+      "dev/openidea/goide/engine/GoToolWindowFactory$createToolWindowContent$textAction$2.class",
+      "dev/openidea/goide/engine/GoToolWindowFactory.class"
+    ],
+    "unchangedClasses": 469,
+    "changedSourceFiles": [
+      "src/main/kotlin/dev/openidea/goide/engine/GoToolWindow.kt"
+    ],
+    "interpretation": "Only GoToolWindow.kt changed between cohorts. All other 469 common product/LSP usage classes are byte-identical. Earlier functional native executions retain their original cohort identity; they are not described as re-executed in the final bundle."
+  }
+}

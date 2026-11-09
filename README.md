@@ -200,8 +200,8 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current verification batch passed all 313 Kotlin tests with no skips,
-the complete Go race suite (240 test events including subtests), and Go vet.
+The current verification batch passed all 333 Kotlin tests with no skips,
+the complete Go race suite (271 test events including subtests), and Go vet.
 It includes typed test/interface/struct-helper/tag/JSON generation, native tag carets,
 Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
@@ -217,6 +217,17 @@ also passed two uncached Go round-trip tests through the standalone IDE.
 A separate [native multi-caret trace](docs/verification/multicaret-gopls.md)
 records actual gopls hover and versioned error/Undo/Redo results, including the
 normal production scheduling path and its remaining coverage limits.
+
+The latest [module/workspace task checks](docs/verification/module-task-scopes.md)
+cover explicit module targets, workspace download/vendor/sync, sequential generation,
+and native Stop with owned-process cleanup. [New Go module creation](docs/verification/sdk-project-creation.md)
+rejects a non-Go executable and creates a real SDK-validated project that passes
+native Run/Test. [Find Usages](docs/verification/find-usages.md) now filters the
+requested scope and retains cross-file references; real two-module navigation and
+Current File filtering were observed. The native toolbar's hover-popup interaction
+and the generic LSP aggregation's unnecessary error notifications remain open.
+[Build identities and cohort boundaries](docs/verification/module-usages-build.json)
+keep these checks separate from earlier delivery evidence and full IDE acceptance.
 
 The attach probe starts only its own temporary fixtures and adapters. It verifies
 local PID attach, external `dlv dap` PID attach, and headless multi-client DAP

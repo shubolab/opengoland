@@ -1,0 +1,49 @@
+{
+  "cohortDigest": "f6bf8d2bf4c35f9fbf234b22eab9f186b23f36400e17b61e5df957c1daee448b",
+  "pid": 80970,
+  "invalidSDK": {
+    "executable": "/usr/bin/true",
+    "target": "/Users/wangshubo/develop/openidea-go/.tools/native-module-usages-ut36oqcs/错误 SDK 不应创建 😀",
+    "targetAbsent": true,
+    "uiTitle": "Unable to Create Go Module",
+    "uiMessage": "Unable to verify Go SDK '/usr/bin/true'. Choose a Go installation's bin/go executable. The selected program did not report a Go version."
+  },
+  "validSDK": {
+    "executable": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+    "target": "/Users/wangshubo/develop/openidea-go/.tools/native-module-usages-ut36oqcs/新建 模块 😀",
+    "modulePath": "example.org/newnative",
+    "goMod": "module example.org/newnative\n\ngo 1.24.3\n",
+    "files": [
+      "greeting_test.go",
+      "greeting.go",
+      "main.go"
+    ],
+    "nativeRun": {
+      "command": "go run .",
+      "output": "Hello, world!",
+      "exitCode": 0
+    },
+    "nativeTest": {
+      "command": "go test -json -run ^TestGreeting$ .",
+      "tests": [
+        "TestGreeting/world",
+        "TestGreeting/Go"
+      ],
+      "testSuite": "TestGreeting",
+      "passed": true,
+      "cached": false,
+      "seconds": 0.579,
+      "exitCode": 0
+    },
+    "persistedSettings": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"OpenIDEAGoSettings\">\n    <option name=\"goExecutable\" value=\"$USER_HOME$/.local/share/mise/installs/go/1.24.3/bin/go\" />\n  </component>\n</project>"
+  },
+  "buildEvidence": "module-usages-build.json",
+  "observations": {
+    "entry": "Find Action > Go Module…",
+    "onlyOwnedProjectTrusted": true,
+    "projectOpenedInNativeWindow": true,
+    "nativeTestEntry": "Ctrl+Shift+R on TestGreeting",
+    "settingsPersistedOnNormalQuit": true
+  },
+  "scope": "One actual macOS SDK and runnable-example project creation; complete SDK registry/wizard/management remains open"
+}

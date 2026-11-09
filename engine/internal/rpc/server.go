@@ -207,6 +207,7 @@ func (s *Server) handle(req request) {
 		info["features"].(map[string]bool)["structTags"] = true
 		info["features"].(map[string]bool)["structHelpers"] = true
 		info["features"].(map[string]bool)["jsonGeneration"] = true
+		info["features"].(map[string]bool)["taskTargets"] = true
 		info["project"] = m.Project(s.ctx)
 		info["tools"] = m.Tools(s.ctx)
 		_ = s.result(req.ID, info)
@@ -370,6 +371,21 @@ func (s *Server) handle(req request) {
 				result, err = signature.RunIsolated(ctx, "plan", params)
 			}
 		}
+	case "project/taskTargets":
+		var params engine.TaskTargetsRequest
+		if err = decode(req.Params, &params); err == nil {
+			ctx := s.ctx
+			if params.OperationID != "" {
+				var finish func()
+				ctx, finish, err = s.signatureContext(&signature.Request{OperationID: params.OperationID})
+				if err == nil {
+					defer finish()
+				}
+			}
+			if err == nil {
+				result, err = m.TaskTargets(ctx, params)
+			}
+		}
 	case "project/info":
 		result = m.Refresh(s.ctx)
 	case "tools/status":
@@ -379,13 +395,34 @@ func (s *Server) handle(req request) {
 		if err = decode(req.Params, &params); err == nil {
 			result, err = m.InspectProfile(s.ctx, params)
 		}
-	case "task/start":
+	case "task/start", "task/prepare":
 		if len(req.ID) == 0 {
 			return
 		}
 		var params engine.TaskRequest
 		if err = decode(req.Params, &params); err == nil {
-			result, after, err = m.Prepare(params)
+			ctx := s.ctx
+			if params.OperationID != "" {
+				var finish func()
+				ctx, finish, err = s.signatureContext(&signature.Request{OperationID: params.OperationID})
+				if err == nil {
+					defer finish()
+				}
+			}
+			if err == nil {
+				if req.Method == "task/prepare" {
+					result, after, err = m.PreparePaused(ctx, params)
+				} else {
+					result, after, err = m.PrepareContext(ctx, params)
+				}
+			}
+		}
+	case "task/resume":
+		var params struct {
+			ID string `json:"id"`
+		}
+		if err = decode(req.Params, &params); err == nil {
+			result, err = m.Resume(s.ctx, params.ID)
 		}
 	case "task/cancel":
 		var params struct {

@@ -68,7 +68,14 @@ func commandOutput(ctx context.Context, executable, cwd string, env []string, ar
 	cmd.WaitDelay = time.Second
 	stdout, stderr := &limitedBuffer{remaining: 8 << 20}, &limitedBuffer{remaining: 64 << 10}
 	cmd.Stdout, cmd.Stderr = stdout, stderr
-	if err := cmd.Run(); err != nil {
+	err := cmd.Run()
+	// This command and its dedicated group are ours, including SDK descendants
+	// left behind by a launcher which exits before closing all pipes.
+	_ = killProcess(cmd)
+	if ctx.Err() != nil {
+		return stdout.Bytes(), ctx.Err()
+	}
+	if err != nil {
 		message := strings.TrimSpace(stderr.String())
 		if message == "" {
 			message = err.Error()

@@ -1,6 +1,7 @@
 package dev.openidea.goide.project
 
 import com.intellij.ide.impl.ProjectUtil
+import com.intellij.ide.impl.OpenProjectTask
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory
 import com.intellij.openapi.fileEditor.FileEditorManager
@@ -43,16 +44,21 @@ class NewGoModuleAction : DumbAwareAction() {
 
             override fun run(indicator: ProgressIndicator) {
                 indicator.isIndeterminate = true
-                executable = GoToolchain.resolve("go", initial.goExecutable.takeUnless { it == "go" }.orEmpty())
+                val selected = GoToolchain.resolve("go", initial.goExecutable.takeUnless { it == "go" }.orEmpty())
                     ?: throw IllegalArgumentException("Go executable was not found. Choose the Go toolchain's bin/go executable.")
                 try {
-                    created = GoModuleGenerator.generate(initial.copy(goExecutable = executable), { indicator.isCanceled }) { indicator.text2 = it }
+                    val result = GoModuleGenerator.generateVerified(initial.copy(goExecutable = selected), { indicator.isCanceled }) { indicator.text2 = it }
+                    created = result.directory
+                    executable = result.sdk.executable.toString()
                     mainFile = LocalFileSystem.getInstance().refreshAndFindFileByNioFile(created.resolve("main.go"))
                 } catch (_: CancellationException) { throw ProcessCanceledException() }
             }
 
             override fun onSuccess() {
-                val project = ProjectUtil.openOrImport(created, null, true)
+                val project = ProjectUtil.openOrImport(created, OpenProjectTask.build().copy(
+                    forceOpenInNewFrame = true,
+                    beforeInit = { opened -> GoProjectSettings.get(opened).goExecutable = executable },
+                ))
                 if (project == null) {
                     Messages.showInfoMessage(owner, "Go module was created at $created. Open this directory to continue.", "Go Module Created")
                     return

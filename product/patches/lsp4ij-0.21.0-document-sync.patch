@@ -256,3 +256,135 @@
      /**
       * Handles a file rename (or move) before it occurs, preparing a {@code workspace/willRenameFiles} request.
       *
+--- a/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java
+@@ -21,6 +21,8 @@
+ import com.intellij.psi.PsiElement;
+ import com.intellij.psi.PsiFile;
+ import com.intellij.psi.search.SearchScope;
++import com.intellij.psi.search.LocalSearchScope;
++import com.intellij.psi.search.PsiSearchScopeUtil;
+ import com.intellij.usageView.UsageInfo;
+ import com.intellij.usages.Usage;
+ import com.intellij.usages.UsageInfo2UsageAdapter;
+@@ -35,6 +37,7 @@
+ 
+ import java.util.ArrayList;
+ import java.util.List;
++import java.util.Objects;
+ import java.util.concurrent.CompletableFuture;
+ 
+ import com.intellij.openapi.progress.util.ProgressIndicatorUtils;
+@@ -140,18 +143,16 @@
+         // Fast path: return cached references if available (avoids redundant LSP requests)
+         if (element instanceof LSPUsageTriggeredPsiElement elt) {
+             if (elt.getLSPReferences() != null) {
+-                elt.getLSPReferences()
+-                        .forEach(ref -> {
+-                            runCancellableReadAction(() -> {
+-                                var psiElement = LSPUsagesManager.toPsiElement(ref.location(), ref.languageServer().getClientFeatures(), LSPUsagePsiElement.UsageKind.references, project);
+-                                if (psiElement != null) {
+-                                    VirtualFile psiElementFile = LSPIJUtils.getFile(psiElement);
+-                                    if (psiElementFile != null) {
+-                                        processor.process(new UsageInfo2UsageAdapter(new UsageInfo(psiElement)));
+-                                    }
+-                                }
+-                            }, project);
+-                        });
++                runCancellableReadAction(() -> {
++                    List<LSPUsagePsiElement> usages = new ArrayList<>();
++                    for (var ref : elt.getLSPReferences()) {
++                        var usage = LSPUsagesManager.toPsiElement(ref.location(), ref.languageServer().getClientFeatures(), LSPUsagePsiElement.UsageKind.references, project);
++                        if (usage != null) {
++                            usages.add(usage);
++                        }
++                    }
++                    processUsages(usages, searchScope, processor);
++                }, project);
+                 return;
+             }
+         }
+@@ -169,34 +170,7 @@
+                 List<LSPUsagePsiElement> usages = usagesFuture.getNow(null);
+                 if (usages != null && !usages.isEmpty()) {
+                     // 4. Process the results (requires ReadAction again for VFS/PSI mapping)
+-                    runCancellableReadAction(() -> {
+-                        List<LSPUsagePsiElement> filteredUsages = new ArrayList<>(usages);
+-                        // Remove invalid usages and deduplicate overlapping ranges
+-                        filteredUsages.removeIf(usage -> ContainerUtil.exists(usages, otherUsage -> {
+-                            VirtualFile usageFile = LSPIJUtils.getFile(usage);
+-                            if (usageFile == null) {
+-                                return true;
+-                            }
+-                            // TODO: respect search scope - currently disabled
+-                            // if (!searchScope.contains(usageFile)) return true;
+-
+-                            // Remove usages that fully contain other usages (keep the more specific one)
+-                            if (usage != otherUsage) {
+-                                TextRange textRange = usage.getTextRange();
+-                                TextRange otherTextRange = otherUsage.getTextRange();
+-                                return (textRange != null) &&
+-                                        (otherTextRange != null) &&
+-                                        textRange.contains(otherTextRange) &&
+-                                        !textRange.equals(otherTextRange);
+-                            }
+-
+-                            return false;
+-                        }));
+-
+-                        for (LSPUsagePsiElement usage : filteredUsages) {
+-                            processor.process(new UsageInfo2UsageAdapter(new UsageInfo(usage)));
+-                        }
+-                    }, project);
++                    runCancellableReadAction(() -> processUsages(usages, searchScope, processor), project);
+                 }
+             }
+         } catch (ProcessCanceledException pce) {
+@@ -211,6 +185,47 @@
+                 searchScope,
+                 reference -> processor.process(new UsageInfo2UsageAdapter(new UsageInfo(reference)))
+         );
++    }
++
++    /** Apply the same scope and range rules to fresh and cached LSP results. */
++    private static void processUsages(@NotNull List<LSPUsagePsiElement> usages,
++                                      @NotNull SearchScope searchScope,
++                                      @NotNull Processor<? super Usage> processor) {
++        List<LSPUsagePsiElement> scopedUsages = new ArrayList<>();
++        for (var usage : usages) {
++            if (LSPIJUtils.getFile(usage) != null && isInScope(searchScope, usage)) {
++                scopedUsages.add(usage);
++            }
++        }
++        // Filter scope first: an out-of-scope item must not remove an in-scope
++        // result. Numeric text offsets are comparable only within one file.
++        for (var usage : scopedUsages) {
++            VirtualFile usageFile = LSPIJUtils.getFile(usage);
++            boolean containsMoreSpecificUsage = ContainerUtil.exists(scopedUsages, otherUsage -> {
++                if (usage == otherUsage || !Objects.equals(usageFile, LSPIJUtils.getFile(otherUsage))) {
++                    return false;
++                }
++                TextRange range = usage.getTextRange();
++                TextRange otherRange = otherUsage.getTextRange();
++                // Keep partial overlaps and equal ranges; preserve upstream's
++                // preference for the smaller strictly-contained range only.
++                return range != null && otherRange != null && range.contains(otherRange) && !range.equals(otherRange);
++            });
++            if (!containsMoreSpecificUsage) {
++                processor.process(new UsageInfo2UsageAdapter(new UsageInfo(usage)));
++            }
++        }
++    }
++
++    private static boolean isInScope(@NotNull SearchScope scope, @NotNull LSPUsagePsiElement usage) {
++        if (scope instanceof LocalSearchScope localScope) {
++            // LSP elements are synthetic children of the file, so PSI ancestry
++            // cannot represent their containment in a selected local range.
++            PsiFile file = usage.getContainingFile();
++            TextRange range = usage.getTextRange();
++            return file != null && range != null && localScope.containsRange(file, range);
++        }
++        return PsiSearchScopeUtil.isInScope(scope, usage);
+     }
+ 
+     /**

@@ -1,0 +1,271 @@
+{
+  "schema": "open-goland.module-task-native.v1",
+  "status": "bounded-native-observations-recorded-full-parity-open",
+  "scope": "Independent open Goland native module/workspace task observations; not complete GoLand equivalence.",
+  "portablePathConvention": "${fixture} denotes the owned temporary multi-module Go workspace; all evidence source paths are repository-relative.",
+  "nativeCohort": {
+    "buildInputDigest": "f6bf8d2bf4c35f9fbf234b22eab9f186b23f36400e17b61e5df957c1daee448b",
+    "inputFiles": 323,
+    "applicationPID": 80970,
+    "identity": {
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      }
+    },
+    "pluginArtifactSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "a4fcedc5a1273a98ba79387dd4134d902c5e8040a93dd84cf882dc537fea28a3",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "b8e4abc1bbfa49406fd48561a075f80be06b6b8368fa568c75949256cd068428",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "ec8fff154a2fd28f0b613a14c29d517df3ca0ff81edacad3a30590a8e9c8e0dd"
+    },
+    "finalToolbarOnlyRebuild": {
+      "source": "module-usages-build.json",
+      "status": "terminal package and native toolbar checks complete; hover popup execution remains unverified"
+    }
+  },
+  "nativeObservations": {
+    "currentModuleTidy": {
+      "entryContext": "Go panel at workspace root; native target chooser explicitly selected Module: one",
+      "command": [
+        "go",
+        "mod",
+        "tidy"
+      ],
+      "cwd": "${fixture}/one",
+      "nativeExitCode": 0,
+      "after": {
+        "one/go.mod": "module example.org/one\n\ngo 1.24.0\n\nreplace example.org/drop => ../dependency\n",
+        "two/go.mod": "module example.org/two\n\ngo 1.24.0\n\nrequire (\n    example.org/one v0.0.0\n    example.org/drop v0.0.0\n)\n\nreplace example.org/one => ../one\nreplace example.org/drop => ../dependency\n",
+        "go.work": "go 1.24.0\n\nuse (\n    ./one\n    ./two\n)\n"
+      },
+      "observation": "Unused drop requirement removed only from one; two retains its requirements; go.work unchanged."
+    },
+    "allModulesTidy": {
+      "selection": "explicit All workspace modules",
+      "steps": [
+        {
+          "cwd": "${fixture}/one",
+          "argv": [
+            "go",
+            "mod",
+            "tidy"
+          ]
+        },
+        {
+          "cwd": "${fixture}/two",
+          "argv": [
+            "go",
+            "mod",
+            "tidy"
+          ]
+        }
+      ],
+      "nativeExitCode": 0,
+      "after": {
+        "one/go.mod": "module example.org/one\n\ngo 1.24.0\n\nreplace example.org/drop => ../dependency\n",
+        "two/go.mod": "module example.org/two\n\ngo 1.24.0\n\nrequire example.org/one v0.0.0\n\nreplace example.org/one => ../one\n\nreplace example.org/drop => ../dependency\n",
+        "go.work": "go 1.24.0\n\nuse (\n    ./one\n    ./two\n)\n"
+      },
+      "observation": "Both modules tidied; two retains the real dependency on one; go.work unchanged."
+    },
+    "workspaceCommands": {
+      "sync": {
+        "cwd": "${fixture}",
+        "argv": [
+          "go",
+          "work",
+          "sync"
+        ],
+        "nativeExitCode": 0
+      },
+      "download": {
+        "cwd": "${fixture}",
+        "argv": [
+          "go",
+          "mod",
+          "download"
+        ],
+        "scope": "active workspace dependency graph",
+        "nativeExitCode": 0
+      },
+      "vendor": {
+        "cwd": "${fixture}",
+        "argv": [
+          "go",
+          "work",
+          "vendor"
+        ],
+        "nativeExitCode": 0,
+        "vendorManifest": "## workspace\n# example.org/one v0.0.0 => ./one\n## explicit; go 1.24.0\n# example.org/drop => ./dependency\n"
+      }
+    },
+    "generateAll": {
+      "nativeExitCode": 0,
+      "receipts": {
+        "one": "module=one\ncwd=${fixture}/one\n",
+        "two": "module=two\ncwd=${fixture}/two\n"
+      }
+    },
+    "stop": {
+      "command": [
+        "go",
+        "generate",
+        "./..."
+      ],
+      "workerPids": [
+        81584,
+        81601,
+        81618
+      ],
+      "workerReady": "pid=81618\ncwd=${fixture}/one/slow\n",
+      "nativeExitCode": -1,
+      "ownedTaskWorkersAfterStop": "all three recorded worker PIDs gone",
+      "completionMarkerAbsent": true,
+      "appEngineGoplsAfterStop": "remained alive, as separately recorded in the checkpoint process snapshot",
+      "limitation": "Native console exit -1 is recorded literally; no claim of Go exit 130 or another unobserved status.",
+      "workerCwd": "${fixture}/one/slow",
+      "taskCwdEvidence": "Main native observer recorded Working directory console line in the desktop trace; distinct from worker-ready file CWD",
+      "entryContext": "Explicitly focused one/slow/generate.go; Go Generate resolved Module: one without a target chooser",
+      "taskCwd": "${fixture}/one"
+    },
+    "realGoTests": [
+      {
+        "module": "one",
+        "test": "TestShared",
+        "command": "go test -json -run ^TestShared$ .",
+        "passed": true,
+        "exitCode": 0,
+        "cached": false,
+        "package": "example.org/one",
+        "seconds": 0.335
+      },
+      {
+        "module": "two",
+        "test": "TestCross",
+        "command": "go test -json -run ^TestCross$ .",
+        "passed": true,
+        "exitCode": 0,
+        "cached": false,
+        "package": "example.org/two",
+        "seconds": 0.341
+      }
+    ],
+    "cohortCleanup": {
+      "status": "completed-parent-observation",
+      "applicationPID": 80970,
+      "observation": "Parent reported all owned processes from the 80970 cohort exited after acceptance. Intermediate owned-process snapshots intentionally show the app and language server alive after Stop."
+    }
+  },
+  "automatedEvidence": {
+    "separation": "Paused gates and dirty-document guards below are automated source/platform tests; they were not claimed to have been manually triggered in the desktop walkthrough.",
+    "goRace": {
+      "command": "cd engine && go test -race -json ./...",
+      "passedTestEvents": 271,
+      "passedTopLevelTests": 155,
+      "passedPackages": 9,
+      "failedEvents": 0,
+      "skippedTestEvents": 0,
+      "packagesWithoutTests": [
+        "github.com/shubolab/opengoland/engine/cmd/opengoland-engine"
+      ]
+    },
+    "goVet": {
+      "command": "cd engine && go vet ./...",
+      "status": "pass-parent-confirmed",
+      "outputBytes": 0
+    },
+    "kotlinResultsSnapshot": {
+      "counts": {
+        "tests": 333,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "selectedSuites": [
+        {
+          "suite": "dev.openidea.goide.engine.GoTaskTargetsIntegrationTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "cases": [
+            "testEditingASubmoduleFileTidiesThatModuleAndRetainsTheOtherModule",
+            "testAChangedManifestRejectsTheFrozenSelectionBeforeExecutingTidy",
+            "testANativeDirtyManifestDuringPreparationCancelsThePausedTaskWithoutWritingDisk"
+          ]
+        },
+        {
+          "suite": "dev.openidea.goide.engine.GoTaskTargetsTest",
+          "tests": 2,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "cases": [
+            "testAnAmbiguousWorkspaceRequiresAnExplicitNativeSelectionFromThisInspection",
+            "testMalformedDefaultsCommandsDuplicateIdsAndUnusablePathsCannotSelectATask"
+          ]
+        }
+      ],
+      "binding": "Final toolbar cohort terminal package exited 0; all 333 Kotlin tests passed with no errors/failures/skips. See module-usages-build.json."
+    },
+    "pausedTaskGuardCoverage": [
+      "task/prepare leaves execution gate closed and runs no task step",
+      "task/resume executes only after explicit request and frozen metadata/path/SDK revalidation",
+      "resume does not launch Go SDK metadata probes",
+      "paused task owns guard even after inspection-cache eviction",
+      "post-prepare manifest/source/SDK changes reject resume and cancel the paused task",
+      "cancel during SDK preparation kills owned descendants and retains no paused task",
+      "cancelled handoff and cancelled paused tasks cannot execute",
+      "concurrent resumes accept execution at most once",
+      "legacy task/start and workspace vendor paths remain compatible"
+    ],
+    "nativeDocumentGuardCoverage": [
+      "real IntelliJ cached dirty go.mod during preparation rejects/cancels the paused task without writing disk",
+      "changed disk manifest rejects frozen task selection before Tidy",
+      "native target chooser requires explicit choice for ambiguous multi-module root"
+    ]
+  },
+  "interpretation": [
+    "The observed workflows demonstrate explicit module/workspace routing and cancellation for this owned Go fixture.",
+    "Scope guards protect preparation; they do not freeze all source/dependencies while a running CLI task executes.",
+    "CLI side effects in go.mod, go.sum, vendor or generated files are not editor-transaction Undo claims."
+  ],
+  "remainingBoundaries": [
+    "Full GoLand project/IDE parity and the complete acceptance matrix remain open.",
+    "GOPATH-only target entities, complete dependency-version editing, and workspace creation/member-management are not covered.",
+    "Alternate -C/-modfile/-overlay scope indirections are explicitly rejected by the selected-target protocol; the previous raw task interface remains available.",
+    "General Go editor grammar/typing parity, all SDK/build/OS contexts, and whole-product equivalence are not established by these checks.",
+    "Native toolbar narrow-layout indicator observed; actual hover-popup execution remains unverified with this CUA API."
+  ],
+  "evidenceSources": [
+    {
+      "path": ".tools/module-native-checkpoints.json",
+      "sha256": "febec3e55ca4584817d9b9c1a79f93708909eb1f67b72496a6c78044de0415d0"
+    },
+    {
+      "path": ".tools/module-native-runtime.json",
+      "sha256": "7cd92c48d7937fc229c816998f0e41014fdcb177cc41ec4da1b24148ad9faf49"
+    },
+    {
+      "path": ".tools/module-pre-overflow-build-inputs.json",
+      "sha256": "cd6895ae0ad48bbde009b6beb7f7629f204305526f362acafaa6546f107c8579"
+    },
+    {
+      "path": ".tools/module-usages-package-toolbar.log",
+      "sha256": "afc8fcb59513d0072f666de215b5c3dfe35dba789666e885ca00fbaaee81d3b4"
+    },
+    {
+      "path": ".tools/module-usages-go-race-final.jsonl",
+      "sha256": "6f49efbc3a9e204cc79cd00d643b201b4512e3f92cc75bf6c729b0433ab381e4"
+    },
+    {
+      "path": ".tools/module-usages-go-vet-final.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "buildEvidence": "module-usages-build.json"
+}

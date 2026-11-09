@@ -25,7 +25,12 @@
       "reference": "IntelliJ Platform shared base; requires runtime observation",
       "probe": "Same fixture and window size; open files, split, dock, resize, restart and compare screenshots plus persisted layout",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "go_toolbar": "../verification/module-task-scopes.md",
+        "toolbar_native": "../verification/module-usages-build.json",
+        "toolbar_observation": "Native toolbar shows all five commands at full width and an overflow indicator when narrowed. Selected Module: two Tidy and direct Workspace Sync passed. Hover-popup execution, full layout restoration/comparison and commercial parity remain open."
+      }
     },
     {
       "id": "UI-02",
@@ -83,7 +88,10 @@
       "partial_evidence": {
         "unicode_persistence": "../verification/unicode-persistence.md",
         "native_record": "../verification/unicode-persistence-native.json",
-        "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open."
+        "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open.",
+        "sdk_creation": "../verification/sdk-project-creation.md",
+        "sdk_creation_native": "../verification/sdk-project-native.json",
+        "sdk_observation": "Native /usr/bin/true rejected without creating target; Go 1.24.3 created a Unicode-path module with validated manifest, persisted chosen SDK and passing actual Run/two-subtest workflow. SDK registry/download/standard wizard/import and all contexts remain open."
       }
     },
     {
@@ -93,7 +101,12 @@
       "reference": "vgo parser, VgoConfigurable and VgoSyncAction",
       "probe": "Two-module workspace with external local replace; change dependency and confirm navigation/run/test synchronization",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "module_tasks": "../verification/module-task-scopes.md",
+        "module_native": "../verification/module-task-native.json",
+        "observation": "Explicit selected-module versus all-workspace tasks passed in a two-module local-replace fixture; workspace graph download/vendor/sync and per-module generation passed. Full workspace creation/member editing and semantic synchronization acceptance remain open."
+      }
     },
     {
       "id": "PROJECT-03",
@@ -111,7 +124,12 @@
       "reference": "VgoTidyAction, VgoVendorAction, VgoSyncAction",
       "probe": "Run each on a temporary fixture; inspect changed manifests and failure logs; cancel long operation",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "module_tasks": "../verification/module-task-scopes.md",
+        "module_native": "../verification/module-task-native.json",
+        "observation": "Native Tidy scopes, workspace Download/Sync/Vendor and Generate All executed correctly in the bounded offline fixture; Stop terminated recorded task descendants. Error UX, dependency-version editing, all network/build/OS contexts and complete parity remain open."
+      }
     },
     {
       "id": "LANG-01",
@@ -149,7 +167,10 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "Cross-module Cmd+B definition navigation observed in b496a85; other navigation/hierarchy scopes remain unverified."
+        "observation": "Cross-module Cmd+B definition navigation observed in b496a85; other navigation/hierarchy scopes remain unverified.",
+        "find_usages": "../verification/find-usages.md",
+        "find_usages_native": "../verification/find-usages-native.json",
+        "scope_observation": "Real gopls returned declaration plus three call sites across two modules; native Project Files and Current File filtering and cross-module result jump passed. Fresh/cached global/local filtering and same-file strict containment have six real-platform controlled regressions. Native cached scope, all hierarchy/relations and generic aggregation error-notification UX remain open."
       }
     },
     {
@@ -432,10 +453,13 @@
         "deletion_lifecycle": "../verification/lsp-deletion-lifecycle.json",
         "unicode_persistence": "../verification/unicode-persistence-native.json",
         "generation_continuations": "../verification/struct-helpers-native.json",
-        "queued_ui_cancellation": "Actual platform EDT-queue regressions drop cancelled generation continuations; native task/modal cancellation remains unverified.",
+        "queued_ui_cancellation": "Actual platform EDT-queue regressions drop cancelled generation continuations. Native module-task active Stop is separately observed; all modal/task/queued cancellation paths remain open.",
         "multicaret_sync": "../verification/multicaret-gopls-native.json",
         "generation_continuations_json": "../verification/json-generation-native.json",
-        "multicaret_observation": "A real-gopls unit regression checks incremental ordering/UTF-16, rapid Undo/Redo, versioned diagnostics and active-server didClose-to-disk. A separate standalone trace verifies grouped production changes and actual server returns. Owned app/engine/wrapper/gopls processes were absent after native exit. Full cancellation/close/deletion/IME races remain open."
+        "multicaret_observation": "A real-gopls unit regression checks incremental ordering/UTF-16, rapid Undo/Redo, versioned diagnostics and active-server didClose-to-disk. A separate standalone trace verifies grouped production changes and actual server returns. Owned app/engine/wrapper/gopls processes were absent after native exit. Full cancellation/close/deletion/IME races remain open.",
+        "module_task_boundary": "../verification/module-task-scopes.md",
+        "module_task_native": "../verification/module-task-native.json",
+        "module_task_observation": "Paused prepare/final EDT document guard/resume/stale guards and cancellation have real engine/platform regressions. Native Stop of active Generate removed all recorded task descendants while app/engine/gopls survived. Does not prove all modal/queued/lifetime races."
       }
     },
     {

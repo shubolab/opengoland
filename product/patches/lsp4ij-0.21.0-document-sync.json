@@ -11,22 +11,27 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "b33e0838392baa149316efae53a1107710e22cd04fa82e8943a3ddb43f2c2f0f",
+  "patchSha256": "ac29838d41bde43afc9af97b3a4a3f8588f4651545cd58e1bcef57bc09c9cd66",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
       "LSP4IJ transport, queue observation, cancellation and notification futures",
       "Existing waitForDidOpen return behavior, including returning without waiting when false",
-      "Workspace folder I/O outside the document critical section"
+      "Workspace folder I/O outside the document critical section",
+      "The existing three document-sync/lifecycle patched source files retain their exact previous bytes",
+      "Native GlobalSearchScope semantics and LocalSearchScope.containsRange for synthetic LSP PSI elements",
+      "Same-file strictly-contained range preference; partial overlaps and equal ranges remain intact"
     ],
     "limitations": [
       "Not a claim that all LSP request/editor races are solved",
       "Requests such as codeAction still do not flush pending didChange before dispatch",
       "Native runtime validation and packaged-binary integration are owned by the main task",
       "Existing stop/disconnect versus asynchronous connect lifecycle behavior is preserved; this patch does not claim to close all disposal races",
-      "Original intermittent native stat-missing notification is not root-causally closed by this lifecycle fix; ordinary single/two-file and held-server controls did not reproduce it"
+      "Original intermittent native stat-missing notification is not root-causally closed by this lifecycle fix; ordinary single/two-file and held-server controls did not reproduce it",
+      "Find Usages still uses the server-provided locations and does not add Go-specific interface selection or read/write classification",
+      "This revision does not establish full native navigation/hierarchy parity; standalone desktop verification is owned by the main task"
     ]
   },
   "sources": [
@@ -47,6 +52,12 @@
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LSPFileListener.java",
       "upstreamSha256": "f3128832177a89ea7bd8212b657818690d26128e2a57297c96ae7bcbde499ac3",
       "patchedSha256": "fd8b086041ecf9b7f04146aab3027f0ce6f70f00b66c1a32eff28a4c316f9243"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java",
+      "upstreamSha256": "67c15fc1f7f73bbf6af87d7219a671a43134f478a457bec8579affbc05f1e21a",
+      "patchedSha256": "19bce0f1443b68e53b839a911c3c7a7a8eaabbe98d250c8e104d5fd227855553"
     }
   ],
   "initialVerification": {
@@ -125,6 +136,48 @@
       "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
       "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
       "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f"
+    }
+  },
+  "findUsagesRevision": {
+    "status": "Exact four-source patch replay --fuzz=0 and javac --release17 passed; independent real SDK RED/GREEN completed; main-task Gradle/native integration pending",
+    "source": "src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java",
+    "upstreamClassSha256": "e24b936b1159958b3a21adb679818439da86638ff3037f961c44565e04f45458",
+    "requiredClassReplacement": "All outer and nested classes of the four source prefixes, including LSPUsageSearcher$1ElementData.class",
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class": "23d72bc203e5daec3a437ef6f0c7ccaf238544d356acbede5b20d46190379047",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class": "3c15f73a0c4c0cc67a2e1ae0fb2bc2ab0059a06a8d77d39df43cf133d269e208",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class": "48410c417783fe9bd01932b25341b10b512c07369421ee5f4d966b6f85260074"
+    },
+    "tests": {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspUsagesScopeTest.kt",
+      "cases": 6,
+      "oldClassFailures": 6,
+      "patchedClassPassed": 6,
+      "patchedElapsedSeconds": 3.818,
+      "harness": "Standalone JBR JUnitCore with real SDK PSI/VFS/accessor/scopes; in-memory remote locations only; no Gradle or application subprocess",
+      "redLog": ".tools/lsp4ij-usage-patch/standalone-red3/run.log",
+      "redLogSha256": "c7fc97db42b513021d76d6965055c4395fd5aa4f5ba48df26767afbe7e1da9d3",
+      "greenLog": ".tools/lsp4ij-usage-patch/standalone-green2/run.log",
+      "greenLogSha256": "f6676c695df16f0abeb7a1f33db0892b970d4d13a140474296bc316ceb110063",
+      "sourceSha256": "1450dc15086c48b67e2c2c6f9bf2c879a52957afd8acde56aebf6ef4d80aaf02"
+    },
+    "privateSandboxVerification": {
+      "status": "pass",
+      "compiledSources": 4,
+      "replacedClasses": 10,
+      "artifactSha256": "10977e6a81c1f6b6203df7f089502128c0369874c6292a2272ce60836e859679",
+      "warmIdempotentVerification": "pass",
+      "unrecordedPatchedPrefixClassRejected": "pass",
+      "previousThreeSourceAndEightClassDigestsUnchanged": true,
+      "testedUsageClassBytesEqualUnifiedBuild": true,
+      "scope": "Owned .tools private dependency JAR only; shared sandbox, immutable SDK and delivered app were not modified"
     }
   }
 }

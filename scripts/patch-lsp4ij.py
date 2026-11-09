@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build the pinned public-source document-sync fix into an owned sandbox plugin.
+"""Build pinned public-source LSP4IJ fixes into an owned sandbox plugin.
 
 Never edits the downloaded dependency cache or an installed IDE. The upstream
 JAR, source files and patch are independently SHA-256 pinned before compilation.
@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
 UPSTREAM_JAR_SHA = "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
 MARKER = "META-INF/open-goland-document-sync.json"
-PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener")
+PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher")
 
 
 def sha(data):
@@ -29,6 +29,12 @@ def sha(data):
 
 def patched_class(name):
     return name.endswith(".class") and any(name == p + ".class" or name.startswith(p + "$") for p in PREFIXES)
+
+
+def complete_class_set(records, actual):
+    return (isinstance(records, dict) and records and set(records) == set(actual)
+            and all(p + ".class" in records for p in PREFIXES)
+            and all(patched_class(name) for name in records))
 
 
 def build(args):
@@ -60,8 +66,11 @@ def build(args):
             if all(saved.get(k) == v for k, v in metadata.items()):
                 expected = set(before.namelist()) - {n for n in before.namelist() if patched_class(n)}
                 actual = set(after.namelist()) - {n for n in after.namelist() if patched_class(n)} - {MARKER}
-                if expected == actual and all(before.read(n) == after.read(n) for n in expected) and all(
-                        sha(after.read(n)) == digest for n, digest in saved["classSha256"].items()):
+                classes = {n for n in after.namelist() if patched_class(n)}
+                if (len(after.namelist()) == len(set(after.namelist()))
+                        and complete_class_set(saved.get("classSha256"), classes)
+                        and expected == actual and all(before.read(n) == after.read(n) for n in expected) and all(
+                        sha(after.read(n)) == digest for n, digest in saved["classSha256"].items())):
                     print("Verified private LSP4IJ document-sync patch")
                     return
         raise ValueError("Existing private LSP4IJ patch does not match its pinned inputs")
@@ -87,7 +96,8 @@ def build(args):
     if valid:
         try:
             records = json.loads(class_manifest.read_text())
-            valid = records and all((built / n).is_file() and sha((built / n).read_bytes()) == d for n, d in records.items())
+            actual = {p.relative_to(built).as_posix() for p in built.rglob("*.class")}
+            valid = complete_class_set(records, actual) and all((built / n).is_file() and sha((built / n).read_bytes()) == d for n, d in records.items())
         except (OSError, ValueError):
             valid = False
     if not valid:
@@ -117,7 +127,7 @@ def build(args):
         if result.returncode:
             raise ValueError("Compiling the pinned LSP4IJ patch failed:\n" + result.stderr)
         records = {p.relative_to(built).as_posix(): sha(p.read_bytes()) for p in sorted(built.rglob("*.class"))}
-        if not records or not all(patched_class(n) for n in records):
+        if not complete_class_set(records, records):
             raise ValueError("Unexpected classes produced by LSP4IJ source patch")
         candidate_manifest = work / "classes.json.pending"
         candidate_manifest.write_text(json.dumps(records, indent=2) + "\n")

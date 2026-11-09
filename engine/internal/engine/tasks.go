@@ -22,30 +22,38 @@ const Version = "0.1.0-dev"
 type Notify func(method string, params any)
 
 type Manager struct {
-	root         string
-	goExecutable string
-	mu           sync.Mutex
-	moduleRoots  []string
-	tasks        map[string]*task
-	closed       bool
-	notify       Notify
-	cacheRoot    string
-	sequence     atomic.Uint64
+	root            string
+	goExecutable    string
+	mu              sync.Mutex
+	moduleRoots     []string
+	taskTargets     map[string]*taskTargetInspection
+	taskTargetOrder []string
+	tasks           map[string]*task
+	closed          bool
+	notify          Notify
+	cacheRoot       string
+	sequence        atomic.Uint64
 }
 
 type task struct {
-	id        string
-	plan      []step
-	env       []string
-	profile   string
-	sampling  *ProfileArtifact
-	vendor    bool
-	cancelled atomic.Bool
-	mu        sync.Mutex
-	cmd       *exec.Cmd
-	done      chan struct{}
-	gate      chan struct{}
-	resume    sync.Once
+	id                 string
+	plan               []step
+	env                []string
+	profile            string
+	sampling           *ProfileArtifact
+	vendor             bool
+	stopOnFailure      bool
+	cancelled          atomic.Bool
+	mu                 sync.Mutex
+	cmd                *exec.Cmd
+	done               chan struct{}
+	gate               chan struct{}
+	resume             sync.Once
+	manual             bool
+	resuming           bool
+	resumed            bool
+	guard              *taskResumeGuard
+	releasePreparation func() error
 }
 
 type step struct {
@@ -54,12 +62,14 @@ type step struct {
 }
 
 type TaskRequest struct {
-	ID      string            `json:"id"`
-	Command string            `json:"command"`
-	Args    []string          `json:"args"`
-	CWD     string            `json:"cwd"`
-	Env     map[string]string `json:"env"`
-	Profile *ProfileOptions   `json:"profile,omitempty"`
+	ID              string               `json:"id"`
+	Command         string               `json:"command"`
+	Args            []string             `json:"args"`
+	CWD             string               `json:"cwd"`
+	Env             map[string]string    `json:"env"`
+	Profile         *ProfileOptions      `json:"profile,omitempty"`
+	TargetSelection *TaskTargetSelection `json:"targetSelection,omitempty"`
+	OperationID     string               `json:"operationId,omitempty"`
 }
 
 func New(root, goExecutable string, notify Notify) (*Manager, error) {
@@ -90,16 +100,49 @@ func New(root, goExecutable string, notify Notify) (*Manager, error) {
 }
 
 func (m *Manager) Prepare(req TaskRequest) (map[string]any, func(), error) {
+	return m.PrepareContext(context.Background(), req)
+}
+
+func (m *Manager) PrepareContext(ctx context.Context, req TaskRequest) (map[string]any, func(), error) {
+	return m.prepareTask(ctx, req, false)
+}
+
+// PreparePaused completes SDK/metadata verification but runs no task command.
+// Its returned handoff only detaches preparation cancellation after a reply;
+// task/resume owns the separate execution gate.
+func (m *Manager) PreparePaused(ctx context.Context, req TaskRequest) (map[string]any, func(), error) {
+	if req.TargetSelection == nil {
+		return nil, nil, errors.New("task/prepare requires a targetSelection")
+	}
+	return m.prepareTask(ctx, req, true)
+}
+func (m *Manager) prepareTask(ctx context.Context, req TaskRequest, manual bool) (map[string]any, func(), error) {
+	if err := ctx.Err(); err != nil {
+		return nil, nil, err
+	}
 	if req.ID == "" || len(req.ID) > 256 || strings.ContainsRune(req.ID, '\x00') {
 		return nil, nil, errors.New("task id must contain 1 to 256 characters")
 	}
-	cwd, err := m.resolveCWD(req.CWD)
-	if err != nil {
-		return nil, nil, err
-	}
-	env, err := mergeEnvironment(req.Env)
-	if err != nil {
-		return nil, nil, err
+	var selectedPlan []step
+	var guard *taskResumeGuard
+	var env []string
+	var cwd string
+	var err error
+	if req.TargetSelection != nil {
+		selectedPlan, env, guard, err = m.selectedTaskPlan(ctx, req)
+		if err != nil {
+			return nil, nil, err
+		}
+		cwd = selectedPlan[0].CWD
+	} else {
+		cwd, err = m.resolveCWD(req.CWD)
+		if err != nil {
+			return nil, nil, err
+		}
+		env, err = mergeEnvironment(req.Env)
+		if err != nil {
+			return nil, nil, err
+		}
 	}
 	for _, arg := range req.Args {
 		if strings.ContainsRune(arg, '\x00') {
@@ -129,7 +172,7 @@ func (m *Manager) Prepare(req TaskRequest) (map[string]any, func(), error) {
 		return nil, nil, err
 	}
 	plan := []step{{CWD: cwd, Args: args}}
-	if patterns && len(req.Args) == 0 && cwd == m.root {
+	if req.TargetSelection == nil && patterns && len(req.Args) == 0 && cwd == m.root {
 		if _, err := os.Stat(filepath.Join(cwd, "go.mod")); errors.Is(err, os.ErrNotExist) {
 			m.mu.Lock()
 			roots := append([]string(nil), m.moduleRoots...)
@@ -146,15 +189,21 @@ func (m *Manager) Prepare(req TaskRequest) (map[string]any, func(), error) {
 			}
 		}
 	}
-	t := &task{id: req.ID, plan: plan, env: env, profile: profile, sampling: sampling, vendor: req.Command == "vendor", done: make(chan struct{}), gate: make(chan struct{})}
+	if req.TargetSelection != nil {
+		plan = selectedPlan
+	}
+	t := &task{id: req.ID, plan: plan, env: env, profile: profile, sampling: sampling, vendor: req.Command == "vendor" && req.TargetSelection == nil, stopOnFailure: req.TargetSelection != nil, manual: manual, guard: guard, done: make(chan struct{}), gate: make(chan struct{})}
 	if t.vendor {
 		t.plan = append(t.plan, step{CWD: cwd, Args: append([]string{"vendor"}, req.Args...)})
 	}
 	m.mu.Lock()
-	if m.closed {
+	if m.closed || ctx.Err() != nil {
 		m.mu.Unlock()
 		if sampling != nil {
 			_ = os.RemoveAll(sampling.directory)
+		}
+		if ctx.Err() != nil {
+			return nil, nil, ctx.Err()
 		}
 		return nil, nil, errors.New("engine is shutting down")
 	}
@@ -165,11 +214,105 @@ func (m *Manager) Prepare(req TaskRequest) (map[string]any, func(), error) {
 		}
 		return nil, nil, errors.New("task id is already in use")
 	}
+	// Install the handoff before publishing the task, so an immediate
+	// task/resume after the accepted reply cannot race an unset callback.
+	pending := &atomic.Bool{}
+	pending.Store(true)
+	var releaseOnce sync.Once
+	var releaseError error
+	var stop func() bool
+	release := func() error {
+		releaseOnce.Do(func() {
+			if !pending.CompareAndSwap(true, false) {
+				releaseError = context.Canceled
+			} else {
+				stop()
+				releaseError = ctx.Err()
+			}
+			if releaseError != nil {
+				_, _ = m.Cancel(t.id)
+			}
+		})
+		return releaseError
+	}
+	stop = context.AfterFunc(ctx, func() {
+		if pending.CompareAndSwap(true, false) {
+			_, _ = m.Cancel(t.id)
+		}
+	})
+	// Cancellation may start concurrently but waits for this publication lock.
+	// Resume never observes an uninitialized handoff or stop callback.
+	t.releasePreparation = release
 	m.tasks[t.id] = t
 	m.mu.Unlock()
 	go m.execute(t)
-	resume := func() { t.resume.Do(func() { close(t.gate) }) }
-	return map[string]any{"id": req.ID, "accepted": true, "steps": plan}, resume, nil
+	after := func() {
+		if release() != nil {
+			return
+		}
+		if !manual {
+			t.resume.Do(func() { close(t.gate) })
+		}
+	}
+	response := map[string]any{"id": req.ID, "accepted": true, "steps": plan}
+	if manual {
+		response["paused"] = true
+	}
+	return response, after, nil
+}
+
+// Resume does no Go subprocess work. Native callers can therefore perform a
+// final cached-document check after preparation without opening another long
+// metadata probe window. Disk/source/SDK guards still run before the gate opens.
+func (m *Manager) Resume(ctx context.Context, id string) (map[string]any, error) {
+	m.mu.Lock()
+	t := m.tasks[id]
+	closed := m.closed
+	m.mu.Unlock()
+	if closed {
+		return nil, errors.New("engine is shutting down")
+	}
+	if t == nil {
+		return nil, errors.New("unknown, cancelled or completed prepared task")
+	}
+	if !t.manual {
+		return nil, errors.New("task was not prepared for explicit resume")
+	}
+	if err := t.releasePreparation(); err != nil {
+		return nil, err
+	}
+	t.mu.Lock()
+	if t.cancelled.Load() || t.resuming || t.resumed {
+		t.mu.Unlock()
+		return nil, errors.New("prepared task is cancelled or has already been resumed")
+	}
+	t.resuming = true
+	t.mu.Unlock()
+	if err := t.guard.validate(ctx, m, t.plan); err != nil {
+		// Publish the rejection before task/exit. Native listeners may finish
+		// on that terminal event before the separate RPC error is delivered.
+		if !errors.Is(err, context.Canceled) {
+			m.notify("task/output", map[string]any{"id": id, "stream": "stderr", "text": err.Error() + "\n"})
+		}
+		_, _ = m.Cancel(id)
+		return nil, err
+	}
+	m.mu.Lock()
+	t.mu.Lock()
+	if m.closed || t.cancelled.Load() || ctx.Err() != nil {
+		t.mu.Unlock()
+		m.mu.Unlock()
+		_, _ = m.Cancel(id)
+		if ctx.Err() != nil {
+			return nil, ctx.Err()
+		}
+		return nil, errors.New("prepared task was cancelled before resume")
+	}
+	t.resumed = true
+	t.resume.Do(func() { close(t.gate) })
+	t.mu.Unlock()
+	m.mu.Unlock()
+	return map[string]any{"id": id, "resumed": true}, nil
 }
 
 func planArguments(command string, args []string, profile string) ([]string, bool, error) {
@@ -281,7 +424,7 @@ func (m *Manager) execute(t *task) {
 				m.notify("task/output", map[string]any{"id": t.id, "stream": "stderr", "text": err.Error() + "\n"})
 			}
 			exitCode = code
-			if t.vendor {
+			if t.vendor || t.stopOnFailure {
 				break
 			}
 		}
@@ -331,6 +474,8 @@ func (m *Manager) Cancel(id string) (bool, error) {
 func (m *Manager) Close() error {
 	m.mu.Lock()
 	m.closed = true
+	m.taskTargets = nil
+	m.taskTargetOrder = nil
 	tasks := make([]*task, 0, len(m.tasks))
 	for _, t := range m.tasks {
 		tasks = append(tasks, t)

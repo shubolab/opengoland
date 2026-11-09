@@ -7,8 +7,7 @@ import java.nio.file.LinkOption
 import java.nio.file.Path
 import java.util.Comparator
 import java.util.concurrent.CancellationException
-import java.util.concurrent.TimeUnit
-import java.util.concurrent.atomic.AtomicReference
+import javax.swing.SwingUtilities
 
 data class GoModuleRequest(val modulePath: String, val directory: Path, val goExecutable: String, val createExample: Boolean = true) {
     fun validate() {
@@ -20,11 +19,19 @@ data class GoModuleRequest(val modulePath: String, val directory: Path, val goEx
 
 /** Generates in an owned staging directory, then reserves a new destination without replacing anything. */
 object GoModuleGenerator {
-    fun generate(request: GoModuleRequest, cancelled: () -> Boolean = { false }, onOutput: (String) -> Unit = {}): Path {
+    internal data class Generated(val directory: Path, val sdk: GoModuleSdk)
+
+    fun generate(request: GoModuleRequest, cancelled: () -> Boolean = { false }, onOutput: (String) -> Unit = {}): Path =
+        generateVerified(request, cancelled, onOutput).directory
+
+    internal fun generateVerified(request: GoModuleRequest, cancelled: () -> Boolean = { false }, onOutput: (String) -> Unit = {}): Generated {
+        check(!SwingUtilities.isEventDispatchThread()) { "Go module creation must run in a background task." }
         request.validate()
         checkCancelled(cancelled)
         val destination = request.directory.normalize()
         if (Files.exists(destination, LinkOption.NOFOLLOW_LINKS)) throw IOException("Project directory already exists: $destination")
+        val sdk = GoSdkProbe.inspect(request.goExecutable, cancelled, onOutput)
+        checkCancelled(cancelled)
         val parent = destination.parent
         Files.createDirectories(parent)
         val staging = Files.createTempDirectory(parent, ".openidea-go-module-")
@@ -32,13 +39,17 @@ object GoModuleGenerator {
         var reserved = false
         var completed = false
         try {
-            initialize(request, staging, cancelled, onOutput)
+            GoModuleProcesses.run(sdk.executable.toString(), listOf("mod", "init", request.modulePath), staging, cancelled, onOutput = onOutput)
             checkCancelled(cancelled)
             if (request.createExample) {
                 Files.writeString(staging.resolve("main.go"), MAIN, StandardCharsets.UTF_8)
                 Files.writeString(staging.resolve("greeting.go"), GREETING, StandardCharsets.UTF_8)
                 Files.writeString(staging.resolve("greeting_test.go"), TEST, StandardCharsets.UTF_8)
             }
+            // Parsing with the verified SDK establishes both Go module grammar
+            // and the requested module directive before a destination is reserved.
+            GoSdkProbe.validateModule(sdk, staging, request.modulePath, cancelled)
+            checkCancelled(cancelled)
             // createDirectory is exclusive, including when another process creates the path during go mod init.
             Files.createDirectory(destination)
             reserved = true
@@ -51,7 +62,7 @@ object GoModuleGenerator {
                 }
             }
             completed = true
-            return destination
+            return Generated(destination, sdk)
         } finally {
             deleteOwnedTree(staging)
             if (reserved && !completed) {
@@ -59,46 +70,6 @@ object GoModuleGenerator {
                 // Preserve any unexpected files rather than recursively deleting the destination.
                 runCatching { Files.deleteIfExists(destination) }
             }
-        }
-    }
-
-    private fun initialize(request: GoModuleRequest, directory: Path, cancelled: () -> Boolean, onOutput: (String) -> Unit) {
-        val builder = ProcessBuilder(request.goExecutable, "mod", "init", request.modulePath)
-            .directory(directory.toFile()).redirectErrorStream(true)
-        builder.environment()["GOWORK"] = "off"
-        val process = builder.start()
-        val output = StringBuilder()
-        val readError = AtomicReference<Throwable?>()
-        val reader = Thread({
-            try {
-                process.inputStream.bufferedReader(StandardCharsets.UTF_8).use { stream ->
-                    stream.forEachLine { line ->
-                        synchronized(output) { if (output.length < 256 * 1024) output.append(line).append('\n') }
-                        onOutput(line)
-                    }
-                }
-            } catch (error: Throwable) { readError.set(error) }
-        }, "OpenIDEA Go module initialization output").apply { isDaemon = true; start() }
-        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(60)
-        try {
-            while (!process.waitFor(100, TimeUnit.MILLISECONDS)) {
-                checkCancelled(cancelled)
-                if (System.nanoTime() >= deadline) throw IOException("Go module initialization timed out after 60 seconds.")
-            }
-            reader.join(1000)
-            checkCancelled(cancelled)
-            if (process.exitValue() != 0) throw IOException("go mod init failed (exit ${process.exitValue()}):\n${synchronized(output) { output.toString() }}")
-            readError.get()?.let { throw IOException("Unable to read go mod init output.", it) }
-        } finally {
-            if (process.isAlive) {
-                val children = process.descendants().use { it.toList() }.asReversed()
-                children.forEach { it.destroy() }
-                process.destroy()
-                if (!process.waitFor(1000, TimeUnit.MILLISECONDS)) process.destroyForcibly()
-                children.filter { it.isAlive }.forEach { it.destroyForcibly() }
-            }
-            process.inputStream.close()
-            reader.join(1000)
         }
     }
 

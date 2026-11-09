@@ -109,6 +109,15 @@ class EngineClient(private val project: Project) : Disposable {
         } } }
     }
 
+    /** Cancellation must never initialize or replace an engine connection. */
+    fun cancelTask(taskId: String) {
+        val child = process ?: return
+        if (disposed) return
+        runCatching { io.execute { runCatching {
+            requestRaw("task/cancel", JsonObject().apply { addProperty("id", taskId) }, child)
+        } } }
+    }
+
     fun listen(listener: (String, JsonObject) -> Unit): AutoCloseable {
         listeners.add(listener)
         return AutoCloseable { listeners.remove(listener) }
@@ -120,7 +129,7 @@ class EngineClient(private val project: Project) : Disposable {
         val id = sequence.incrementAndGet()
         val result = CompletableFuture<JsonElement>()
         pending[id] = result
-        val taskId = if (method == "task/start") params.get("id")?.asString else null
+        val taskId = if (method == "task/start" || method == "task/prepare") params.get("id")?.asString else null
         if (taskId != null) activeTasks.add(taskId)
         val packet = JsonObject().apply {
             addProperty("jsonrpc", "2.0"); addProperty("id", id); addProperty("method", method); add("params", params)

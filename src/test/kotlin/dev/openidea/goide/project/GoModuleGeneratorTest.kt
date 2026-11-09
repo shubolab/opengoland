@@ -38,6 +38,17 @@ class GoModuleGeneratorTest {
         } finally { Files.walk(parent).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) } }
     }
 
+    @Test fun emptyProjectStillContainsARealParsedGoModule() {
+        val parent = Files.createTempDirectory("openidea-empty-go-test")
+        try {
+            val destination = parent.resolve("empty module")
+            val result = GoModuleGenerator.generateVerified(GoModuleRequest("example.com/empty", destination, "go", createExample = false))
+            assertEquals(destination, result.directory)
+            GoSdkProbe.validateModule(result.sdk, destination, "example.com/empty") { false }
+            assertEquals(listOf("go.mod"), Files.list(destination).use { files -> files.map { it.fileName.toString() }.sorted().toList() })
+        } finally { Files.walk(parent).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) } }
+    }
+
     @Test fun cancellationAndInvalidModuleLeaveNoDestinationOrStaging() {
         val parent = Files.createTempDirectory("openidea-cancel-go-test")
         try {
