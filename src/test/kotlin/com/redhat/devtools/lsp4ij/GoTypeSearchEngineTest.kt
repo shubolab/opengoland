@@ -2,6 +2,9 @@ package com.redhat.devtools.lsp4ij
 
 import com.intellij.ide.impl.OpenProjectTask
 import com.intellij.ide.util.gotoByName.ChooseByNamePopup
+import com.intellij.ide.util.gotoByName.GoNativeTypePopup
+import com.intellij.diagnostic.ThreadDumper
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.ide.util.gotoByName.GotoClassModel2
 import com.intellij.ide.util.gotoByName.DefaultChooseByNameItemProvider
 import com.intellij.openapi.progress.util.ProgressIndicatorBase
@@ -36,6 +39,7 @@ import dev.openidea.goide.settings.GoToolchain
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.CompletableFuture
 
 /** Actual default EngineClient/service and actual native type chooser; no in-memory catalog. */
 class GoTypeSearchEngineTest : LightPlatformTestCase() {
@@ -110,9 +114,54 @@ class GoTypeSearchEngineTest : LightPlatformTestCase() {
 
     private inner class Fixture(val project: Project, val root: Path, val popup: ChooseByNamePopup) {
         fun search(pattern: String, everywhere: Boolean = true): List<GoTypeSearchItem> {
-            var result = emptyList<GoTypeSearchItem>()
-            edt { result = popup.calcPopupElements(pattern, everywhere).filterIsInstance<GoTypeSearchItem>() }
-            return result
+            check(!ApplicationManager.getApplication().isDispatchThread)
+            val started = System.nanoTime()
+            val result = CompletableFuture<List<GoTypeSearchItem>>()
+            // Use the same production CalcElementsThread/provider and EDT callback
+            // as the popup. Its @TestOnly calcPopupElements wrapper has an unrelated
+            // fixed 20s limit; it is not the engine's cold-catalog deadline.
+            edt {
+                GoNativeTypePopup.schedule(popup, pattern, everywhere) { elements ->
+                    try {
+                        check(ApplicationManager.getApplication().isDispatchThread)
+                        result.complete(elements.filterIsInstance<GoTypeSearchItem>())
+                    } catch (error: Throwable) { result.completeExceptionally(error) }
+                }
+            }
+            try {
+                // Engine initialization:45s + catalog RPC:180s + native source
+                // validation/EDT delivery allowance:15s. No production timeout changes.
+                return result.get(45L + 180L + 15L, TimeUnit.SECONDS)
+            } catch (error: Exception) {
+                System.err.println(runCatching { queryDiagnostics(pattern, result) }.getOrElse { "Query diagnostics failed: $it" })
+                System.err.println(runCatching { ThreadDumper.dumpThreadsToString() }.getOrElse { "Thread diagnostics failed: $it" })
+                result.cancel(false)
+                try { edt { GoNativeTypePopup.cancelAndClose(popup) } }
+                catch (cleanup: Exception) { error.addSuppressed(cleanup) }
+                if (error is InterruptedException) Thread.currentThread().interrupt()
+                throw AssertionError("Native type chooser did not complete '$pattern'", error)
+            } finally {
+                println("Native Go type chooser query='$pattern' everywhere=$everywhere elapsedMs=${(System.nanoTime() - started) / 1_000_000} completed=${result.isDone} cancelled=${result.isCancelled}")
+            }
+        }
+
+        private fun queryDiagnostics(pattern: String, result: CompletableFuture<*>): String {
+            val engine = project.getServiceIfCreated(EngineClient::class.java)
+            fun field(name: String): Any? = engine?.let {
+                EngineClient::class.java.getDeclaredField(name).apply { isAccessible = true }.get(it)
+            }
+            fun process(handle: ProcessHandle): String {
+                val info = handle.info()
+                return "pid=${handle.pid()} alive=${handle.isAlive} command=${info.command().orElse("unavailable")} arguments=${info.arguments().orElse(emptyArray()).toList()} cpu=${info.totalCpuDuration().orElse(null)}"
+            }
+            val child = field("process") as? Process
+            val initialization = field("initialized") as? CompletableFuture<*>
+            val pending = field("pending") as? Map<*, *>
+            val owned = child?.toHandle()
+            val descendants = owned?.descendants()?.use { children -> children.toList().map(::process) }.orEmpty()
+            return "Native query='$pattern' callbackDone=${result.isDone}; engineCreated=${engine != null}; " +
+                "initializationDone=${initialization?.isDone} initializationFailed=${initialization?.isCompletedExceptionally} pendingRpcIds=${pending?.keys?.toList()}; " +
+                "ownedEngine=${owned?.let(::process)} descendants=$descendants; request method/Go worker stack unavailable without a wire/process trace"
         }
     }
 
@@ -159,7 +208,7 @@ class GoTypeSearchEngineTest : LightPlatformTestCase() {
                 descendants = child?.toHandle()?.descendants()?.use { it.toList() }.orEmpty()
             }
             edt {
-                popup?.let { if (!Disposer.isDisposed(it)) Disposer.dispose(it) }
+                popup?.let { if (!Disposer.isDisposed(it)) GoNativeTypePopup.cancelAndClose(it) }
                 owner?.let { project -> if (!project.isDisposed) WriteAction.run<RuntimeException> { Disposer.dispose(project) } }
             }
             child?.let { assertTrue("The owned engine must exit with its project", it.waitFor(10, TimeUnit.SECONDS)) }
