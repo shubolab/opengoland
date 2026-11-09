@@ -104,14 +104,30 @@ def cache_lock(path: Path):
                 fcntl.flock(guard, fcntl.LOCK_UN)
 
 
-def java_compiler_command(javac: Path, arguments: list[str], argument_file: Path) -> list[str]:
-    """Avoid Windows' command-line limit while keeping the macOS argv unchanged."""
+@dataclass(frozen=True)
+class JavaCompilerInvocation:
+    command: list[str]
+    cwd: Path | None
+
+
+def java_compiler_invocation(javac: Path, arguments: list[str], argument_file: Path) -> JavaCompilerInvocation:
+    """Keep Windows' top-level argv short and ASCII without losing Unicode paths.
+
+    The native JDK launcher converts its command line through the Windows ANSI
+    code page before Java reads @files. Pass only an internal ASCII basename;
+    CreateProcessW carries the real Unicode working directory, and the UTF-8
+    @file carries absolute source/classpath/output arguments. Callers must pass
+    both command and cwd. The macOS command and inherited cwd stay unchanged.
+    """
     if os.name != "nt":
-        return [str(javac), *arguments]
+        return JavaCompilerInvocation([str(javac), *arguments], None)
+    argument_file = Path(argument_file).resolve()
+    if not argument_file.name.isascii() or any(char in argument_file.name for char in "\r\n\0"):
+        raise ValueError("The internal Windows compiler argument-file basename must be ASCII")
     rendered = []
     for argument in arguments:
         if any(char in argument for char in "\r\n\0"):
             raise ValueError("Compiler argument contains a line break or NUL")
         rendered.append('"' + argument.replace("\\", "\\\\").replace('"', '\\"') + '"')
-    Path(argument_file).write_text("\n".join(rendered) + "\n", encoding="utf-8")
-    return [str(javac), "-J-Dfile.encoding=UTF-8", "@" + str(argument_file)]
+    argument_file.write_text("\n".join(rendered) + "\n", encoding="utf-8")
+    return JavaCompilerInvocation([str(Path(javac).resolve()), "-J-Dfile.encoding=UTF-8", "@" + argument_file.name], argument_file.parent)

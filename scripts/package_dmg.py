@@ -15,6 +15,7 @@ import tempfile
 
 from build_inputs import snapshot, verify
 from installed_engine_smoke import engine_work, process_options, _stop_owned
+from go_release_checks import fingerprint, record_success, reuse_evidence, RACE_ARGS
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -39,7 +40,7 @@ def run(command, log, environment=None, cwd=ROOT, timeout=None):
             _stop_owned(process)
 
 
-def package(version, output):
+def package(version, output, reuse_go=None):
     if platform.system() != "Darwin" or platform.machine().lower() != "arm64":
         raise ValueError("This installer must be built and checked on Apple silicon macOS")
     if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?", version):
@@ -64,12 +65,23 @@ def package(version, output):
     builder = Path(prepared["builderGoExecutable"])
     env.update({"OPENGOLAND_RELEASE_VERSION": version, "OPENGOLAND_GO_BUILDER": str(builder),
                 "GOROOT": str(builder.parent.parent), "GOTOOLCHAIN": "local",
+                "GOENV": "off", "GOFLAGS": "", "GOOS": "darwin", "GOARCH": "arm64", "CGO_ENABLED": "1",
                 "PATH": str(builder.parent) + os.pathsep + env.get("PATH", ""),
                 "OPENGOLAND_GO_TEST": str(tools / "go/bin/go"),
                 "OPENGOLAND_GOPLS_TEST": str(tools / "bin/gopls")})
+    env.pop("GOWORK", None)
     print("Running Go race/vet and native platform regression checks…", flush=True)
-    run([builder, "test", "-race", "-count=1", "-json", "./..."], proof / "go-race.jsonl", env, ROOT / "engine")
-    run([builder, "vet", "./..."], proof / "go-vet.log", env, ROOT / "engine")
+    if reuse_go is not None:
+        go_checks = reuse_evidence(reuse_go, ROOT, builder, env, prepared, proof, frozen)
+    else:
+        before_go = fingerprint(ROOT, builder, env, prepared)
+        # Recent Go SDKs build this official tool on first use. Prepare it before
+        # the profile oracle's timed comparison, retaining all actual race tests.
+        run([builder, "tool", "pprof", "-help"], proof / "go-pprof-bootstrap.log", env, timeout=300)
+        run([builder, *RACE_ARGS], proof / "go-race.jsonl", env, ROOT / "engine")
+        run([builder, "vet", "./..."], proof / "go-vet.log", env, ROOT / "engine")
+        go_checks = record_success(ROOT, builder, env, prepared, before_go, proof, frozen,
+                                   race_exit_code=0, vet_exit_code=0)
     run([ROOT / "scripts/package-product.sh", "--version", version], proof / "product-build.log", env)
     verify(frozen)
     app = ROOT / "build/product/open Goland.app"
@@ -165,6 +177,7 @@ def package(version, output):
               "sourceDigest": frozen["digest"], "productManifestSha256": sha(installed / manifest_path),
               "installedApplication": str(installed), "imageVerified": True, "mountedAndCopied": True,
               "signatureVerified": True, "signing": "ad-hoc; not notarized", "installedEngineSmoke": engine,
+              "goChecks": go_checks,
               "scope": "Actual DMG mount/install copy, signatures, native launcher version, bundled SDK/tools and one uncached pure-Go test. Interactive GUI and clean-OS debugging require separate evidence.",
               "limitations": ["Apple silicon macOS build only; preview is not notarized.",
                               "macOS debugging currently needs Apple's Command Line Tools debugserver.",
@@ -182,5 +195,6 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--version", required=True)
     parser.add_argument("--output", type=Path, default=ROOT / "build/release")
+    parser.add_argument("--reuse-go-evidence", type=Path, help="Explicit prior fresh Go check record; all inputs/environment/logs are verified")
     arguments = parser.parse_args()
-    package(arguments.version, arguments.output)
+    package(arguments.version, arguments.output, arguments.reuse_go_evidence)

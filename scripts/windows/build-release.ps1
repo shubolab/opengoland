@@ -54,7 +54,9 @@ if ($LASTEXITCODE -ne 0) { throw 'The authenticated Go builder does not execute.
 if ($LASTEXITCODE -ne 0) { throw 'Windows native SDK tests/plugin build failed.' }
 Push-Location -LiteralPath (Join-Path $Repository 'engine')
 try {
-    & $Builder test -race -count=1 -json ./... | Set-Content -LiteralPath (Join-Path $Proof 'go-race.jsonl') -Encoding utf8NoBOM
+    & $Builder tool pprof -help *>&1 | Set-Content -LiteralPath (Join-Path $Proof 'go-pprof-bootstrap.log') -Encoding utf8NoBOM
+    if ($LASTEXITCODE -ne 0) { throw 'The official Go pprof tool could not be prepared before the timed profile oracle.' }
+    & $Builder test -race -count=1 -p=1 -timeout=30m -json ./... | Set-Content -LiteralPath (Join-Path $Proof 'go-race.jsonl') -Encoding utf8NoBOM
     if ($LASTEXITCODE -ne 0) { throw 'Windows Go race tests failed.' }
     & $Builder vet ./... *>&1 | Tee-Object -FilePath (Join-Path $Proof 'go-vet.log')
     if ($LASTEXITCODE -ne 0) { throw 'Windows Go vet failed.' }

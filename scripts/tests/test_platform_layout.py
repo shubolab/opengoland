@@ -129,9 +129,11 @@ with cache_lock(Path(sys.argv[2])):
             arguments = ["--release", "21", "-encoding", "UTF-8", "-proc:none", "-classpath",
                          classpath, "-d", str(classes), str(source)]
             with patch.object(platform_layout, "os", SimpleNamespace(name="nt")):
-                command = platform_layout.java_compiler_command(javac, arguments, root / "compiler.args")
-            self.assertLess(len(subprocess.list2cmdline(command)), 32767)
-            result = subprocess.run(command, capture_output=True, encoding="utf-8", errors="replace", timeout=45)
+                invocation = platform_layout.java_compiler_invocation(javac, arguments, root / "compiler.args")
+            self.assertLess(len(subprocess.list2cmdline(invocation.command)), 32767)
+            self.assertTrue(invocation.command[-1].isascii(), "The native Windows launcher must not recode the Unicode @file path")
+            self.assertEqual(root.resolve(), invocation.cwd)
+            result = subprocess.run(invocation.command, cwd=invocation.cwd, capture_output=True, encoding="utf-8", errors="replace", timeout=45)
             self.assertEqual(0, result.returncode, result.stderr)
             self.assertTrue((classes / "Example.class").is_file())
 
@@ -139,7 +141,19 @@ with cache_lock(Path(sys.argv[2])):
         with tempfile.TemporaryDirectory() as temporary:
             with patch.object(platform_layout, "os", SimpleNamespace(name="nt")):
                 with self.assertRaises(ValueError):
-                    platform_layout.java_compiler_command(Path("javac.exe"), ["bad\nargument"], Path(temporary) / "args")
+                    platform_layout.java_compiler_invocation(Path("javac.exe"), ["bad\nargument"], Path(temporary) / "args")
+
+    def test_posix_compiler_keeps_argv_and_inherited_working_directory(self):
+        with patch.object(platform_layout, "os", SimpleNamespace(name="posix")):
+            invocation = platform_layout.java_compiler_invocation(Path("relative/javac"), ["-d", "relative/classes"], Path("unused.args"))
+        self.assertEqual(["relative/javac", "-d", "relative/classes"], invocation.command)
+        self.assertIsNone(invocation.cwd)
+
+    def test_internal_windows_argfile_name_cannot_enter_native_ansi_path(self):
+        with tempfile.TemporaryDirectory() as temporary:
+            with patch.object(platform_layout, "os", SimpleNamespace(name="nt")):
+                with self.assertRaisesRegex(ValueError, "ASCII"):
+                    platform_layout.java_compiler_invocation(Path("javac.exe"), [], Path(temporary) / "编译.args")
 
 
 if __name__ == "__main__":

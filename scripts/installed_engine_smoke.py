@@ -152,4 +152,3 @@ def engine_work(engine, go, env, workspace, output):
             raise RuntimeError("Owned engine pipe readers did not finish after process cleanup")
         process.stdout.close()
         process.stderr.close()
-

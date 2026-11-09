@@ -15,7 +15,7 @@ import subprocess
 import tempfile
 import urllib.request
 import zipfile
-from platform_layout import cache_lock, detect_platform_layout, java_compiler_command
+from platform_layout import cache_lock, detect_platform_layout, java_compiler_invocation
 
 ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/platform-unicode-2026.1.4.json"
@@ -156,8 +156,8 @@ def build(args):
             compiler_arguments = ["--release", "21", "-encoding", "UTF-8", "-proc:none", "-classpath",
                                   os.pathsep.join(map(str, classpath)), "-d", str(classes)]
             compiler_arguments.extend(str(source / item["path"]) for item in pin["sources"])
-            command = java_compiler_command(javac, compiler_arguments, temporary / "javac.args")
-            result = subprocess.run(command, capture_output=True, text=True, timeout=90)
+            invocation = java_compiler_invocation(javac, compiler_arguments, temporary / "javac.args")
+            result = subprocess.run(invocation.command, cwd=invocation.cwd, capture_output=True, text=True, timeout=90)
             if result.returncode:
                 raise ValueError("Compiling the public platform repair failed:\n" + result.stderr)
             records = {p.relative_to(classes).as_posix(): sha(p.read_bytes()) for p in sorted(classes.rglob("*.class"))}

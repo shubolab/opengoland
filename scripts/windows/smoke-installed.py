@@ -140,7 +140,7 @@ def smoke(installed, output):
         env.pop(key, None)
     # No developer Go/gopls/dlv is used. System32 remains for owned taskkill and
     # standard Windows utilities; the actual tool commands below are absolute.
-    env["PATH"] = os.pathsep.join([str(tools / "go/bin"), str(tools / "bin"), str(Path(env["SystemRoot"]) / "System32"), env["SystemRoot"]])
+    env["PATH"] = os.pathsep.join([str(tools / "go/bin"), str(tools / "bin"), str(Path(env["SYSTEMROOT"]) / "System32"), env["SYSTEMROOT"]])
     env.update(GOROOT=str(tools / "go"), GOTOOLCHAIN="local", GOWORK="off", GOENV="off")
     env["GOCACHE"] = str(output / "go-cache")
     env["GOMODCACHE"] = str(output / "go-mod-cache")

@@ -14,7 +14,7 @@ import subprocess
 import tempfile
 import urllib.request
 import zipfile
-from platform_layout import cache_lock, detect_platform_layout, java_compiler_command
+from platform_layout import cache_lock, detect_platform_layout, java_compiler_invocation
 
 ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
@@ -51,7 +51,7 @@ def build(args):
     pin = json.loads(PIN.read_text())
     patch = PIN.parent / pin["patchFile"]
     assert sha(patch.read_bytes()) == pin["patchSha256"], "LSP4IJ patch digest mismatch"
-    jars = list(args.plugins.glob("*/lib/lsp4ij-0.21.0.jar"))
+    jars = list(args.plugins.resolve().glob("*/lib/lsp4ij-0.21.0.jar"))
     if len(jars) != 1:
         raise ValueError(f"Expected one private sandbox LSP4IJ 0.21.0 JAR, found {len(jars)}")
     target = jars[0]
@@ -137,8 +137,8 @@ def build(args):
                 raise ValueError(f"Patched source digest mismatch: {source['path']}")
         compiler_arguments = ["--release", "17", "-encoding", "UTF-8", "-classpath", os.pathsep.join(map(str, classpath)), "-d", str(built)]
         compiler_arguments += [str(upstream / source["path"]) for source in pin["sources"]]
-        command = java_compiler_command(javac, compiler_arguments, work / "javac.args")
-        result = subprocess.run(command, text=True, capture_output=True)
+        invocation = java_compiler_invocation(javac, compiler_arguments, work / "javac.args")
+        result = subprocess.run(invocation.command, cwd=invocation.cwd, text=True, capture_output=True)
         if result.returncode:
             raise ValueError("Compiling the pinned LSP4IJ patch failed:\n" + result.stderr)
         records = {p.relative_to(built).as_posix(): sha(p.read_bytes()) for p in sorted(built.rglob("*.class"))}
