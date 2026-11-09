@@ -9,13 +9,16 @@ import com.intellij.testFramework.LightPlatformTestCase
 import com.intellij.ui.components.JBTextField
 import com.intellij.ui.table.JBTable
 import com.intellij.util.ui.UIUtil
+import dev.openidea.goide.lsp.GoDocumentSync
 import java.awt.Component
 import java.awt.Container
+import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 
 class GoGenerateTestsDialogTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = true
+    private val directory = Path.of("generation fixture 😀").toAbsolutePath().normalize()
 
     fun testDraftPreservesUncheckedRowsNamesAndNestedConcreteTypes() {
         val initial = inspection("function", "same")
@@ -82,7 +85,7 @@ class GoGenerateTestsDialogTest : LightPlatformTestCase() {
             val selected = dialog.selection()
             assertEquals("TestFresh", selected.genString("emptyName"))
             assertEquals(0, selected.getAsJsonArray("selections").size())
-            assertEquals("file:///tmp/generated_linux_test.go", selected.genString("destinationUri"))
+            assertEquals(GoDocumentSync.fileUri(directory.resolve("generated_linux_test.go")), selected.genString("destinationUri"))
         } finally { dialog.close(DialogWrapper.CANCEL_EXIT_CODE) }
     }
 
@@ -133,7 +136,7 @@ class GoGenerateTestsDialogTest : LightPlatformTestCase() {
         addProperty("inspectionId", "$scope-$mode"); addProperty("configurationDigest", "digest")
         addProperty("scope", scope); addProperty("packageMode", mode)
         addProperty("packageName", "fixture"); addProperty("packagePath", "example.org/fixture")
-        addProperty("defaultDestinationUri", "file:///tmp/subject_linux_test.go")
+        addProperty("defaultDestinationUri", GoDocumentSync.fileUri(directory.resolve("subject_linux_test.go")))
         add("conflicts", JsonArray())
         add("symbols", JsonArray().apply {
             if (scope != "empty") {

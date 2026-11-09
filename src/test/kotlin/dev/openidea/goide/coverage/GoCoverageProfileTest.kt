@@ -1,12 +1,16 @@
 package dev.openidea.goide.coverage
 
+import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNull
 
 class GoCoverageProfileTest {
-    private val modules = listOf(GoCoverageModule("example.com/app", "/work/app"), GoCoverageModule("example.com/app/sub", "/work/second module"))
+    private val root = Path.of("coverage fixture").toAbsolutePath().normalize()
+    private val app = root.resolve("app")
+    private val second = root.resolve("second module")
+    private val modules = listOf(GoCoverageModule("example.com/app", app.toString()), GoCoverageModule("example.com/app/sub", second.toString()))
 
     @Test fun statementWeightedTotalsAndLongestModulePrefixMatchRealProfileSemantics() {
         val report = GoCoverageProfile.parse("""mode: atomic
@@ -17,7 +21,7 @@ class GoCoverageProfileTest {
         assertEquals(6L, report.totals.statements)
         assertEquals(5L, report.totals.coveredStatements)
         assertEquals(100.0 * 5 / 6, report.totals.percent)
-        assertEquals("/work/second module/api.go", report.files.first { it.profilePath.endsWith("api.go") }.localPath)
+        assertEquals(second.resolve("api.go").toString(), report.files.first { it.profilePath.endsWith("api.go") }.localPath)
     }
 
     @Test fun duplicateBlocksMergeWithoutDoubleCountingStatements() {
@@ -35,11 +39,11 @@ class GoCoverageProfileTest {
     }
 
     @Test fun unknownPathsAndTraversalNeverMapToAnUnrelatedLocalFile() {
-        assertNull(GoCoverageProfile.resolvePath("example.com/other/a.go", modules, "/work/app"))
+        assertNull(GoCoverageProfile.resolvePath("example.com/other/a.go", modules, app.toString()))
         assertNull(GoCoverageProfile.resolvePath("example.com/app/../../outside.go", modules))
         assertNull(GoCoverageProfile.resolvePath("C:/elsewhere/a.go", modules))
-        assertNull(GoCoverageProfile.resolvePath("/outside/a.go", modules))
-        assertEquals("/work/app/a.go", GoCoverageProfile.resolvePath("a.go", modules, "/work/app"))
+        assertNull(GoCoverageProfile.resolvePath(root.resolve("outside/a.go").toString(), modules))
+        assertEquals(app.resolve("a.go").toString(), GoCoverageProfile.resolvePath("a.go", modules, app.toString()))
     }
 
     @Test fun malformedAndConflictingProfilesFailClearly() {

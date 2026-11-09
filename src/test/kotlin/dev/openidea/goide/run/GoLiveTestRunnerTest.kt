@@ -179,7 +179,7 @@ class GoLiveTestRunnerTest {
                 val group = slash.children.single { it.name == "dir" }
                 assertTrue(group.isSuite)
                 assertEquals(setOf("file", "dir result"), group.children.map { it.name }.toSet())
-                assertTrue(output.locationForNode("go-test:example.com/live#TestDynamic/beta/deep:$attempt")?.startsWith("file://$directory/live_test.go:") == true)
+                assertTrue(output.locationForNode("go-test:example.com/live#TestDynamic/beta/deep:$attempt")?.startsWith("file://${directory.resolve("live_test.go")}:") == true)
             }
             assertEquals(mapOf("example.com/live" to listOf("TestDynamic/beta/deep")), output.failures())
             assertEquals(1, GoTestRerunPlan.create(output.failures(), GoRunParameters()).size)

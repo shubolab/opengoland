@@ -63,7 +63,7 @@ class GoNativeCoverageIntegrationTest {
                 if (failing) {
                     assertEquals(modules.associate { it.first to listOf("TestCart/wanted") }, converter.failures())
                     modules.forEach { (name, directory) ->
-                        assertTrue(converter.locationForNode("go-test:$name#TestCart/wanted:1")?.startsWith("file://$directory/cart_test.go:") == true, events)
+                        assertTrue(converter.locationForNode("go-test:$name#TestCart/wanted:1")?.startsWith("file://${directory.resolve("cart_test.go")}:") == true, events)
                     }
                     val retries = GoTestRerunPlan.create(converter.failures(), values)
                     assertEquals(modules.map { it.first }.toSet(), retries.map { it.parameters.target }.toSet())
