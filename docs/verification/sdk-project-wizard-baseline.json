@@ -1,0 +1,29 @@
+{
+  "status": "observed-and-normally-closed",
+  "application": "/Users/wangshubo/develop/openidea-go/build/installed-macos-5cvdy9di/open Goland.app",
+  "profile": "/Users/wangshubo/develop/openidea-go/.tools/sdk-wizard-baseline-4yd7h4pl",
+  "nativePid": 76163,
+  "sourceDigest": "b39ed2d8c48c51ef8cabae1819046223b897882199e31f52a3aa78fba5ce41fe",
+  "version": "0.1.0-preview.20261109.1",
+  "nativePidAlive": false,
+  "observations": [
+    "Fresh isolated welcome screen has Go Module and standard New Project buttons.",
+    "Standard New Project opens a Java-first wizard listing Java, Kotlin, Groovy, Empty Project, Maven Archetype, JavaFX and Spring; there is no Go type.",
+    "Visual screenshot shows a lock icon on the Spring row; it was not clicked and no associated entitlement/network behavior was observed.",
+    "Cancel returned to welcome; normal Cmd+Q exited the owned app."
+  ],
+  "newProjectsCreated": false,
+  "referenceApplicationsLaunched": false,
+  "logErrorOrSevereLines": [],
+  "schema": "open-goland.sdk-project-wizard-baseline.v1",
+  "recordedAtUtc": "2026-11-09T20:22:38Z",
+  "authority": "Actual owned native application through Computer Use; separate from installed commercial reference observations",
+  "sourceCommit": "faf279f02bd7414352bfe4b388b5493776dd6868",
+  "installerSha256": "3862e9449afd2c11b97d98516330579d4bd84626ae48e9516ef0377279fdd090",
+  "scope": "Existing published preview baseline only. The full installer/seal evidence is retained in the versioned release record; this pass observed its installed native UI with a new isolated profile.",
+  "limitations": [
+    "No project was created in this baseline pass.",
+    "The Spring lock icon alone does not establish a billing, account, subscription or entitlement implementation.",
+    "Commercial GoLand was not launched, and no commercial runtime equivalence is inferred."
+  ]
+}

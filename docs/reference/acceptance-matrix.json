@@ -15,7 +15,9 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "open Goland standalone app launched with its own bundle ID and loaded both custom plugins; final launch/repeated activation passed in PID19805. Clean-machine/full independence acceptance still open."
+        "observation": "open Goland standalone app launched with its own bundle ID and loaded both custom plugins; final launch/repeated activation passed in PID19805. Clean-machine/full independence acceptance still open.",
+        "published_installers": "../verification/releases/0.1.0-preview.20261109.1.json",
+        "published_observation": "The faf279f preview has immutable public Windows x64 EXE and macOS arm64 DMG assets, full size/SHA256 and retained installation/runtime evidence. The published local Mac artifact ran a fresh isolated GUI profile with empty tool settings, system-only PATH and bundled Go/gopls/Delve; cold type search, test debug and failed-only retry passed. Windows CI installed and verified 17000 sealed files, opened an actual owned project frame, ran installed-tool/engine controls and uninstalled successfully. This is bounded distribution evidence, not complete cross-platform interactive workflows or commercial parity."
       }
     },
     {
@@ -73,7 +75,10 @@
         "type_search": "../verification/native-workflows.md",
         "type_search_native": "../verification/native-workflows-native.json",
         "type_search_build": "../verification/native-workflows-build.json",
-        "type_search_observation": "Cold Cmd+O finds a struct, named function type, alias and CatalogueNeedle239. All Places bytes.Buffer opens SDK source at 20:6. Closed edited-type navigation and fresh no-result after Undo pass. The host tab still says Classes; slow-contributor warnings and all search/focus/history parity remain open."
+        "type_search_observation": "Cold Cmd+O finds a struct, named function type, alias and CatalogueNeedle239. All Places bytes.Buffer opens SDK source at 20:6. Closed edited-type navigation and fresh no-result after Undo pass. That historical host tab said Classes; see subsequent entry evidence for the repaired title. Slow-contributor warnings and all search/focus/history parity remain open.",
+        "native_entry_fidelity": "../verification/native-entry-fidelity.md",
+        "published_installers": "../verification/releases/0.1.0-preview.20261109.1.json",
+        "later_observation": "The Go-primary Types title was repaired in subsequent standalone entry work. The published faf279f Mac installer independently found ReleaseRecord through cold Cmd+O before opening a Go editor in its fresh isolated profile. These checks do not establish every search mode, history/focus behavior, performance or commercial parity."
       }
     },
     {
@@ -110,7 +115,9 @@
         "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open.",
         "sdk_creation": "../verification/sdk-project-creation.md",
         "sdk_creation_native": "../verification/sdk-project-native.json",
-        "sdk_observation": "Native /usr/bin/true rejected without creating target; Go 1.24.3 created a Unicode-path module with validated manifest, persisted chosen SDK and passing actual Run/two-subtest workflow. SDK registry/download/standard wizard/import and all contexts remain open."
+        "sdk_observation": "Native /usr/bin/true rejected without creating target; Go 1.24.3 created a Unicode-path module with validated manifest, persisted chosen SDK and passing actual Run/two-subtest workflow. SDK registry/download/standard wizard/import and all contexts remain open.",
+        "sdk_project_reference": "sdk-project-reference.json",
+        "baseline_source_audit": "At 023d244 the product registers only a custom New Go Module action, with a raw executable field and unconditional new-window creation; no shared SDK registry/version selector, local-home chooser, SDK download dialog or Go registration in the standard New Project frontdoor exists. These are implementation gaps, separate from unverified commercial runtime."
       }
     },
     {

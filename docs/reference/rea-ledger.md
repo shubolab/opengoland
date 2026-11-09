@@ -5,6 +5,14 @@ These are reference applications. No proprietary implementation is included in
 the reconstruction. Static declarations are acceptance candidates, not proof of
 runtime behavior.
 
+[SDK and New Project reference](sdk-project-reference.json) reauthenticates the
+unchanged Go frontend archive and one selected GoBundle resource. Its public
+labels declare local SDK homes, version/destination selection and download
+verification failures. Versioned GoLand 2026.1 help supplies the standard project
+entry and GOROOT choices. These are static/documentation observations, not new
+commercial runtime evidence. No proprietary class contents or reference user
+state were read, and the REA archive session was closed after the bounded pass.
+
 | Observation | Authority | Evidence | Scope / limitations |
 | --- | --- | --- | --- |
 | GoLand bundle identity GO-261.26222.72 | shipped-artifact, observed | `ev_f4de67db294b87c7b83c32378d461135a99d4699fc4087ab6c69966fa85e02ba` | Explicit installed `Info.plist`; SHA-256 `9968b91af9d7b7c51c344e56c9e9afbb4d2d448c9ed5d994e1611a03e68fcf0a`. No runtime behavior established. |

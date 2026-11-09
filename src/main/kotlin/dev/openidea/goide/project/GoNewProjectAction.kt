@@ -24,7 +24,7 @@ class GoNewProjectAction : DumbAwareAction("New Project…") {
     }
 }
 
-/** The Java front door is absent in our standalone distribution but present in the SDK sandbox. */
+/** Standard host IDs vary across platform distributions; replace existing actions and register missing ones. */
 class GoNewProjectActionCustomizer : ActionConfigurationCustomizer, ActionConfigurationCustomizer.LightCustomizeStrategy {
     override suspend fun customize(actionRegistrar: ActionRuntimeRegistrar) {
         install(actionRegistrar)

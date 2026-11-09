@@ -13,8 +13,18 @@ import kotlin.test.assertFalse
 import kotlin.test.assertSame
 import kotlin.test.assertTrue
 
-/** Actual private platform classes in isolation: the running test IDE and immutable source SDK stay untouched. */
+/** Verify the private platform repair and its test-runtime binding; the source SDK stays read-only. */
 class PlatformUnicodePersistenceTest {
+    @Test fun runningTestPlatformUsesTheSameUnicodeRepairAsTheDistribution() {
+        val manifest = requireNotNull(System.getProperty("openidea.platformUnicodePatchManifest"))
+        val report = JsonParser.parseString(Files.readString(Path.of(manifest))).asJsonObject
+        val utility = Class.forName("com.intellij.openapi.util.JDOMUtil")
+        val resource = "com/intellij/openapi/util/JDOMUtil.class"
+        val bytes = requireNotNull(utility.getResourceAsStream("/$resource")).use { it.readAllBytes() }
+        assertEquals(report.getAsJsonObject("classSha256").get(resource).asString, sha(bytes))
+        assertEquals("SDK 中文 😀 𐐀", utility.getMethod("removeControlChars", String::class.java).invoke(null, "SDK 中文 😀 𐐀"))
+    }
+
     @Test fun completePatchedPlatformClassSetMatchesTheRecordedArtifact() = isolated { loader, report ->
         val jar = Path.of(report.get("patchJar").asString)
         assertEquals(report.get("patchedJarSha256").asString, sha(Files.readAllBytes(jar)))

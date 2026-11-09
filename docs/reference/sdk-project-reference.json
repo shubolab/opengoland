@@ -1,0 +1,297 @@
+{
+  "schema": "open-goland.sdk-project-reference.v1",
+  "recordedAtUtc": "2026-11-09",
+  "scope": "Selected read-only shipped user-visible resources and official versioned documentation; no proprietary implementation classes, installed reference configuration, license state, or project files read or modified",
+  "reference": {
+    "product": "GoLand",
+    "version": "2026.1.4",
+    "build": "GO-261.26222.72",
+    "archive": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+    "archiveSha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536",
+    "resource": "messages/GoBundle.properties",
+    "resourceSha256": "e042135ed9a5159235b144ac919a1ba083778f8e4b6296261049d64d67c8b3e1"
+  },
+  "rea": {
+    "frontendSummary": {
+      "evidence_id": "ev_8f0c66c7a23fee14d7260ef4ff1e7772876199fe95a8526c75a67a787246c60a",
+      "subject": {
+        "name": "go-plugin-frontend.jar",
+        "digest": {
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "local_path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+        "format": "zip",
+        "architecture": null
+      },
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "analysis_profile": null,
+      "predicate_type": "rea.analysis-view",
+      "operation": "inspect_analysis_view",
+      "parameters": {
+        "parent_evidence_id": "ev_dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4",
+        "view": {
+          "kind": "summary"
+        }
+      },
+      "raw_result": null,
+      "normalized_result": {
+        "kind": "summary",
+        "view": {
+          "kind": "summary"
+        },
+        "parent_evidence_id": "ev_dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4",
+        "parent_operation": "inspect_artifact",
+        "parent_digest": "dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4",
+        "view_digest": "9a54f9ee12924dcfcbaf88c88a5e4db5819819ad996af071f5dac649d78c8a36",
+        "artifact": {
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "coverage": {
+          "status": "complete-within-view",
+          "examined": 378,
+          "total": 378,
+          "next_offset": null,
+          "exhausted": true
+        },
+        "limitations": [
+          "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+          "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+        ],
+        "unknowns": [
+          "Inventory does not establish application runtime behavior or complete format-specific analysis."
+        ],
+        "summary": {
+          "manifest": {
+            "manifest_id": "agm_51792fc2ac090abe41b74ca7dfa5a70d08b01ffa778bf1864c1c498c87cc1ba7",
+            "root_artifact_id": "art_d5d74c993b37ffd41156e35193b021f3c2f2357ca23273fa1e098ce3f0ac003e",
+            "root_sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536",
+            "root_format": "zip",
+            "graph_sha256": "d19193ddf0a4900b05dd6ceb685fa0ea1a75eba5d2b9d8b63b390596f691196f",
+            "node_count": 125,
+            "occurrence_count": 127,
+            "edge_count": 126
+          },
+          "available_counts": {
+            "nodes": 125,
+            "occurrences": 127,
+            "edges": 126,
+            "integrity_contradictions": 0
+          },
+          "observed_entry_kind_counts": {
+            "file": 127,
+            "directory": 0,
+            "symlink": 0,
+            "slice": 0
+          },
+          "source_complete": true,
+          "inventory_evidence_ids": [
+            "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e"
+          ],
+          "inspection": {
+            "coverage": {
+              "status": "complete-within-substeps",
+              "substeps_completed": 1,
+              "observations_retained": 1,
+              "observations_omitted": 0,
+              "hypotheses_retained": 0,
+              "hypotheses_omitted": 0,
+              "unexplored_branches_retained": 0,
+              "unexplored_branches_omitted": 0,
+              "next_probes_retained": 0,
+              "next_probes_omitted": 0
+            },
+            "unexplored_branches": []
+          },
+          "limitation_count": 2
+        }
+      },
+      "confidence": "derived",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "relationship_coverage": null,
+      "locations": [
+        {
+          "kind": "artifact-path",
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar"
+        }
+      ],
+      "evidence_links": [
+        "ev_dacc74d61e4f6805ee1f5ac9dd5a1cea070840e188d81c960a9dde850b7ddad4"
+      ]
+    },
+    "selectedResource": {
+      "evidence_id": "ev_1615f61de6b2af3a4cc1216ff8fc108cefc82d050a5ac60c60273a62181b7ab3",
+      "subject": {
+        "name": "go-plugin-frontend.jar",
+        "digest": {
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "local_path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+        "format": "zip",
+        "architecture": null
+      },
+      "provider": {
+        "id": "rea-analysis-view",
+        "name": "REA analysis view projection",
+        "version": "1"
+      },
+      "analysis_profile": null,
+      "predicate_type": "rea.analysis-view",
+      "operation": "inspect_analysis_view",
+      "parameters": {
+        "parent_evidence_id": "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e",
+        "view": {
+          "kind": "inventory",
+          "collection": "occurrences",
+          "logical_paths": [
+            "messages/GoBundle.properties"
+          ],
+          "offset": 0,
+          "limit": 2
+        }
+      },
+      "raw_result": null,
+      "normalized_result": {
+        "kind": "inventory",
+        "view": {
+          "kind": "inventory",
+          "collection": "occurrences",
+          "logical_paths": [
+            "messages/GoBundle.properties"
+          ],
+          "offset": 0,
+          "limit": 2
+        },
+        "manifest": {
+          "manifest_id": "agm_51792fc2ac090abe41b74ca7dfa5a70d08b01ffa778bf1864c1c498c87cc1ba7",
+          "root_artifact_id": "art_d5d74c993b37ffd41156e35193b021f3c2f2357ca23273fa1e098ce3f0ac003e",
+          "root_sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536",
+          "root_format": "zip",
+          "graph_sha256": "d19193ddf0a4900b05dd6ceb685fa0ea1a75eba5d2b9d8b63b390596f691196f",
+          "node_count": 125,
+          "occurrence_count": 127,
+          "edge_count": 126
+        },
+        "inventory_evidence_ids": [
+          "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e"
+        ],
+        "source_complete": true,
+        "items": [
+          {
+            "occurrence_id": "occ_f523a3b3165a4cd071b62e6976628f0b1b7ba5698c26c03d394751d14d80be3d",
+            "artifact_id": "art_34a206c52ee6509baeb791ccd15da4d42f6c78d596d29a376b8f84218cfa82f5",
+            "parent_occurrence_id": "occ_32fa004cb59742aaf1abb4b5d40b425e6d68e5920e12ba294920375de26ba337",
+            "logical_path": "messages/GoBundle.properties",
+            "entry_kind": "file",
+            "artifact_kind": "resource",
+            "artifact_format": "file",
+            "declared_size": 182913,
+            "compressed_size": 182913,
+            "executable": false,
+            "encrypted": false,
+            "hash_status": "verified",
+            "source_location": null,
+            "limitations": []
+          }
+        ],
+        "parent_evidence_id": "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e",
+        "parent_operation": "inventory_artifact",
+        "parent_digest": "7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e",
+        "view_digest": "7c128f8143f054b522194f5148d92b5a5448000d23e76115e178513f7bc1c0aa",
+        "artifact": {
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar",
+          "sha256": "4c0de23ce7744f787d500bc1daad483cba072c62b32118e5f8313a0a4be5a536"
+        },
+        "coverage": {
+          "status": "page",
+          "examined": 1,
+          "total": 1,
+          "next_offset": null,
+          "exhausted": true
+        },
+        "limitations": [
+          "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+        ],
+        "unknowns": [
+          "Inventory does not establish application runtime behavior or complete format-specific analysis."
+        ]
+      },
+      "confidence": "derived",
+      "authority": "shipped-artifact",
+      "environment": null,
+      "limitations": [
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "relationship_coverage": null,
+      "locations": [
+        {
+          "kind": "artifact-path",
+          "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin-frontend.jar"
+        }
+      ],
+      "evidence_links": [
+        "ev_7dd4172a7310bc716e8f1bc62a70477ba9110de5ae299c114dd3c66536b1935e"
+      ]
+    },
+    "sessionClosed": true
+  },
+  "observedResources": {
+    "authority": "Separately parsed exact user-visible resource after REA authenticated archive/resource occurrence",
+    "keys": [
+      "go.settings.sdk.add.action.name",
+      "go.settings.sdk.add.local.title",
+      "go.settings.sdk.download.action.name",
+      "go.settings.sdk.download.dialog.title",
+      "go.settings.sdk.download.dialog.version.label",
+      "go.settings.sdk.download.dialog.location.label",
+      "go.settings.sdk.download.dialog.recommended.tooltip",
+      "go.settings.sdk.download.dialog.reload.versions.action.name",
+      "go.settings.sdk.download.progress.verifying.status",
+      "go.settings.sdk.download.progress.unpacking.status",
+      "go.settings.sdk.download.checksum.of.downloaded.file.mismatched.error",
+      "go.settings.sdk.download.could.not.find.go.directory.in.downloaded.file.error"
+    ],
+    "observations": [
+      "Local SDK selection is described as a Go SDK home-directory chooser.",
+      "The download dialog declares version, destination, reload, and archived/unstable visibility controls.",
+      "Download resource entries name checksum verification, unpacking, and invalid/missing SDK-directory errors."
+    ],
+    "limitations": [
+      "Resource declarations do not establish actual runtime behavior, effective defaults, implementation, or failure handling."
+    ]
+  },
+  "officialDocs": [
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/create-a-project-with-go-modules-integration.html",
+      "observed": "GoLand 2026.1 page: standard File > New > Project and Welcome New Project select Go; GOROOT supports local SDK and official SDK downloads; optional project environment and vendoring controls.",
+      "authority": "Published versioned help, not local commercial runtime"
+    },
+    {
+      "url": "https://plugins.jetbrains.com/docs/intellij/new-project-wizard.html",
+      "observed": "Current OSS platform documentation: LanguageGeneratorNewProjectWizard/GeneratorNewProjectWizard require Java-capable IDEs; non-Java IDE FAQ describes DirectoryProjectGenerator.",
+      "authority": "Public API documentation, owning fixed-version source must determine our host/callback lifecycle"
+    }
+  ],
+  "independentImplementationRequirements": [
+    "Share verified SDK selection between Settings and the native New Project entry.",
+    "Display actual SDK version and home; retain explicit invalid configuration instead of silently falling back.",
+    "Do all filesystem, process, network, archive and validation operations off EDT.",
+    "Verify SDK identity and generate/validate the module in an owned staging directory before exposing a new project.",
+    "Only download user-selected official Go distributions, validate exact size/SHA256, extract safely and verify the executable before registering.",
+    "Respect cancellation, owner disposal, existing destination data, per-project SDK persistence and platform window choice."
+  ],
+  "unknowns": [
+    "Commercial project wizard and SDK-download runtime were not exercised in this pass.",
+    "Archived/unstable SDK choices, vendoring, structured project environment and full SDK registry behavior require separate implementation/acceptance scope.",
+    "No runtime acceptance-matrix row is closed by these static observations."
+  ]
+}

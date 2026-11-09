@@ -77,15 +77,17 @@ sourceSets.named("test") {
 
 val buildInputManifest = layout.buildDirectory.file("provenance/build-inputs.json")
 val platformUnicodeManifest = layout.buildDirectory.file("provenance/platform-unicode-patch.json")
+val platformUnicodeJar = layout.buildDirectory.file("platform-patches/unicode/util-8.jar")
 val preparePlatformUnicodePatch by tasks.registering(Exec::class) {
     description = "Verify and build the product-only public platform Unicode persistence fix."
     inputs.files("scripts/patch-platform-unicode.py", "scripts/source_patch.py", fileTree("product/patches") { include("platform-unicode*") })
-    outputs.file(platformUnicodeManifest)
+    outputs.files(platformUnicodeManifest, platformUnicodeJar)
     // Verify cached class bytes even when a prior report exists.
     outputs.upToDateWhen { false }
     commandLine(pythonCommand, "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
         "--pin", platformRepairPin("unicode"),
         "--cache-name", "platform-unicode$platformPinSuffix",
+        "--jar-output", platformUnicodeJar.get().asFile.absolutePath,
         "--output", platformUnicodeManifest.get().asFile.absolutePath)
 }
 val platformPsiListenerManifest = layout.buildDirectory.file("provenance/platform-psi-listener-patch.json")
@@ -124,7 +126,7 @@ tasks.test {
     systemProperty("openidea.platformPsiListenerPatchManifest", platformPsiListenerManifest.get().asFile.absolutePath)
     systemProperty("openidea.platformLocalPluginsPatchManifest", platformLocalPluginsManifest.get().asFile.absolutePath)
     systemProperty("opengoland.plugins.local.only", "true")
-    inputs.files(platformPsiListenerManifest, platformLocalPluginsManifest)
+    inputs.files(platformUnicodeManifest, platformPsiListenerManifest, platformLocalPluginsManifest)
     val originalRuntime = classpath
     classpath = files(originalRuntime.elements.map { locations ->
         val upstream = file("${platformContentsPath.get()}/lib/intellij.platform.lang.impl.jar").canonicalFile
@@ -132,14 +134,17 @@ tasks.test {
         check(runtime.count { it.canonicalFile == upstream } == 1) { "Expected exactly one pinned platform language implementation JAR" }
         val ideUpstream = file("${platformContentsPath.get()}/lib/intellij.platform.ide.impl.jar").canonicalFile
         check(runtime.count { it.canonicalFile == ideUpstream } == 1) { "Expected exactly one pinned platform IDE implementation JAR" }
+        val unicodeUpstream = file("${platformContentsPath.get()}/lib/util-8.jar").canonicalFile
+        check(runtime.count { it.canonicalFile == unicodeUpstream } == 1) { "Expected exactly one pinned platform utility JAR" }
         runtime.map {
             when (it.canonicalFile) {
                 upstream -> platformPsiListenerJar.get().asFile
                 ideUpstream -> platformLocalPluginsJar.get().asFile
+                unicodeUpstream -> platformUnicodeJar.get().asFile
                 else -> it
             }
         }
-    }).builtBy(preparePlatformPsiListenerPatch, preparePlatformLocalPluginsPatch)
+    }).builtBy(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch, preparePlatformLocalPluginsPatch)
 }
 val captureBuildInputs by tasks.registering(Exec::class) {
     inputs.files(fileTree("src"), fileTree("engine") { include("**/*.go", "go.mod", "go.sum", "licenses/**") })
