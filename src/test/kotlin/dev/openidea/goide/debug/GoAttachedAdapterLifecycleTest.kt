@@ -34,6 +34,7 @@ import java.lang.reflect.Proxy
 import java.net.InetAddress
 import java.net.ServerSocket
 import java.net.Socket
+import java.nio.file.AccessDeniedException
 import java.nio.file.Files
 import java.nio.file.Path
 import java.time.Instant
@@ -118,6 +119,46 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
                 fixture.handler.process.onExit().get(4, TimeUnit.SECONDS)
                 if (!System.getProperty("os.name").startsWith("Windows")) assertTrue(Files.exists(fixture.root.resolve("term")))
             } finally { blocked.countDown() }
+        }
+    }
+
+    fun testOwnedFileCleanupRetriesAClosingLeaseOnlyAfterTheOwnersHaveExited() {
+        val root = Files.createTempDirectory("opengoland-adapter-cleanup-lease-")
+        val executable = Files.writeString(root.resolve("owned-adapter.exe"), "owned fixture")
+        var deleteAttempts = 0
+        try {
+            try {
+                deleteOwnedFixtureTree(root, { false }, { deleteAttempts++; Files.deleteIfExists(it) })
+                fail("Cleanup must not delete an image while an owned process is alive")
+            } catch (_: IllegalStateException) { }
+            assertEquals(0, deleteAttempts)
+            assertTrue(Files.exists(executable))
+            deleteOwnedFixtureTree(root, { true }, {
+                deleteAttempts++
+                if (deleteAttempts == 1) throw AccessDeniedException(it.toString(), null, "controlled closing image lease")
+                Files.deleteIfExists(it)
+            })
+            assertTrue(deleteAttempts >= 3) // denied image, actual image delete, actual directory delete
+            assertTrue("A retried cleanup must actually remove the entire owned tree", Files.notExists(root))
+        } finally {
+            Files.deleteIfExists(executable); Files.deleteIfExists(root)
+        }
+    }
+
+    fun testOwnedFileCleanupPropagatesPersistentAccessDenialAtItsBound() {
+        val root = Files.createTempDirectory("opengoland-adapter-cleanup-denied-")
+        val executable = Files.writeString(root.resolve("owned-adapter.exe"), "owned fixture")
+        val denied = AccessDeniedException(executable.toString(), null, "controlled persistent image lease")
+        try {
+            val start = System.nanoTime()
+            try {
+                deleteOwnedFixtureTree(root, { true }, { throw denied }, TimeUnit.MILLISECONDS.toNanos(100))
+                fail("A persistent deletion failure must not be hidden")
+            } catch (failure: AccessDeniedException) { assertSame(denied, failure) }
+            assertTrue("A denial must be retried until the bounded deadline", System.nanoTime() - start >= TimeUnit.MILLISECONDS.toNanos(100))
+            assertTrue("A timed-out cleanup must not pretend the executable was deleted", Files.exists(executable))
+        } finally {
+            Files.deleteIfExists(executable); Files.deleteIfExists(root)
         }
     }
 
@@ -251,7 +292,7 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
             if (captured.isDone && !captured.isCompletedExceptionally) captured.getNow(null)?.dispose()
             debugProcess.dispose()
             accepted.getNow(null)?.close(); listener.close(); listening?.cancel(true); workers.shutdownNow()
-            Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
+            deleteOwnedFixtureTree(root, { !handler.process.isAlive && ownedChild?.isAlive != true })
         }
 
         private fun assertOwnedChild(child: ProcessHandle) {
@@ -261,6 +302,31 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
                 "The descendant must be this fixture's unique native executable or carry its ownership token"
             }
         }
+    }
+
+    /** Process exit does not guarantee that Windows has already released every image handle. */
+    private fun deleteOwnedFixtureTree(root: Path, ownersStopped: () -> Boolean,
+        delete: (Path) -> Unit = { Files.deleteIfExists(it) }, retryNanos: Long = TimeUnit.SECONDS.toNanos(3)) {
+        check(!ApplicationManager.getApplication().isDispatchThread)
+        check(ownersStopped()) { "Only stopped, owned process images may be removed" }
+        val deadline = System.nanoTime() + retryNanos
+        // Close traversal handles before removing files/directories on Windows.
+        val paths = Files.walk(root).use { it.sorted(Comparator.reverseOrder()).toList() }
+        for (path in paths) {
+            while (true) {
+                check(ownersStopped()) { "An owned process is still alive during fixture cleanup" }
+                try {
+                    delete(path)
+                    check(Files.notExists(path)) { "The owned fixture path was not actually removed: $path" }
+                    break
+                } catch (denied: AccessDeniedException) {
+                    val remaining = deadline - System.nanoTime()
+                    if (remaining <= 0) throw denied
+                    TimeUnit.NANOSECONDS.sleep(minOf(remaining, TimeUnit.MILLISECONDS.toNanos(10)))
+                }
+            }
+        }
+        check(Files.notExists(root)) { "The owned fixture tree remains after cleanup: $root" }
     }
 
     private class Peer : IDebugProtocolServer {
