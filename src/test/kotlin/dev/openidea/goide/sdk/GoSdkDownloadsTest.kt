@@ -20,6 +20,7 @@ import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
 import java.util.zip.GZIPOutputStream
+import java.util.zip.GZIPInputStream
 import javax.swing.SwingUtilities
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -109,8 +110,9 @@ class GoSdkDownloadsTest {
             assertFalse(Files.exists(root.resolve("tar$type")))
         }
         for ((index, name) in listOf("/go/absolute", "go/../escaped", "go\\escape", "go/C:/escape").withIndex()) {
-            val bytes = tar(standardEntries() + Entry(name))
-            assertFailsWith<IOException> { downloader(bytes).install(archive(bytes), root.resolve("tar-path$index"), GoSdkDownloadCancellation()) }
+            val bytes = literalPathTar(name)
+            val error = assertFailsWith<IOException> { downloader(bytes).install(archive(bytes), root.resolve("tar-path$index"), GoSdkDownloadCancellation()) }
+            assertTrue(error.message.orEmpty().startsWith("Unsafe Go SDK archive path"))
             assertFalse(Files.exists(root.resolve("tar-path$index")))
         }
         assertFalse(Files.exists(root.resolve("escaped")))
@@ -121,6 +123,15 @@ class GoSdkDownloadsTest {
         }
         val selected = GoSdkHost("windows", "amd64")
         assertFailsWith<IOException> { downloader(backslash, selected).install(archive(backslash, selected), root.resolve("backslash"), GoSdkDownloadCancellation()) }
+    }
+
+    @Test fun unsafeTarFixtureKeepsLiteralRawNamesAndValidChecksumsOnEveryHost() {
+        for (name in listOf("/go/absolute", "go/../escaped", "go\\escape", "go/C:/escape")) {
+            val header = GZIPInputStream(ByteArrayInputStream(literalPathTar(name))).use { it.readNBytes(512) }
+            val nameEnd = header.indexOf(0.toByte()).let { if (it < 0) 100 else it }
+            assertEquals(name, String(header, 0, nameEnd, Charsets.UTF_8))
+            assertTrue(TarArchiveEntry(header).isCheckSumOK, "The malicious path must not be masked by an invalid TAR checksum")
+        }
     }
 
     @Test fun extractionEntryAndAggregateBoundsRefuseAuthenticatedArchiveBombs() = fixture { root ->
@@ -358,6 +369,20 @@ class GoSdkDownloadsTest {
     private fun downloader(bytes: ByteArray, selectedHost: GoSdkHost = host, verify: (Path, GoSdkDownloadCancellation) -> GoModuleSdk = { executable, _ -> identity(executable) }) =
         GoSdkDownloads(transport(bytes), verify, host = selectedHost)
     private fun standardEntries(binary: String = "go") = listOf(Entry("go/bin/$binary", "binary".toByteArray(), 493), Entry("go/src/runtime/runtime.go", "runtime".toByteArray()))
+    private fun literalPathTar(name: String): ByteArray {
+        // Commons' writer replaces File.separatorChar even with preserveAbsolutePath,
+        // so a Windows writer would otherwise turn an unsafe backslash into '/'.
+        // Encode the first raw header independently, retaining a valid checksum.
+        val raw = GZIPInputStream(ByteArrayInputStream(tar(listOf(Entry("go/placeholder")) + standardEntries()))).use { it.readAllBytes() }
+        val bytes = name.toByteArray(Charsets.UTF_8)
+        require(bytes.size < 100)
+        raw.fill(0, 0, 100)
+        bytes.copyInto(raw)
+        raw.fill(' '.code.toByte(), 148, 156)
+        val checksum = (0 until 512).sumOf { raw[it].toInt() and 255 }
+        (checksum.toString(8).padStart(6, '0') + "\u0000 ").toByteArray(Charsets.US_ASCII).copyInto(raw, 148)
+        return ByteArrayOutputStream().also { output -> GZIPOutputStream(output).use { it.write(raw) } }.toByteArray()
+    }
     private fun tar(entries: List<Entry> = standardEntries()): ByteArray = ByteArrayOutputStream().also { output ->
         TarArchiveOutputStream(GZIPOutputStream(output)).use { archive -> entries.forEach { value ->
             val entry = TarArchiveEntry(value.name, value.type, true).apply { size = if (value.type == '0'.code.toByte()) value.bytes.size.toLong() else 0; mode = value.mode
