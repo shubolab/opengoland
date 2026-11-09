@@ -152,10 +152,41 @@ jobs:
           tar -czf assets/windows-provenance.tar.gz -C release-artifacts/windows-x64 windows-provenance
           tar -czf assets/macos-provenance.tar.gz -C release-artifacts/macos-arm64 mac-provenance
           (cd assets && sha256sum ./* > SHA256SUMS)
-          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+          release_info="$RUNNER_TEMP/open-goland-release.json"
+          if gh release view "$RELEASE_TAG" --json isDraft > "$release_info" 2>/dev/null; then
+            python3 - "$release_info" <<'PY'
+          import json, sys
+          if not json.load(open(sys.argv[1], encoding='utf-8'))['isDraft']:
+              raise SystemExit('This version is already public. Publish changes under a new version; published installers are immutable.')
+          PY
             gh release upload "$RELEASE_TAG" assets/* --clobber
           else
             release_flags=()
             if [[ "$RELEASE_VERSION" == *-* ]]; then release_flags+=(--prerelease --latest=false); fi
-            gh release create "$RELEASE_TAG" assets/* --verify-tag --title "open Goland $RELEASE_VERSION" --generate-notes "${release_flags[@]}"
+            gh release create "$RELEASE_TAG" assets/* --draft --verify-tag --title "open Goland $RELEASE_VERSION" --generate-notes "${release_flags[@]}"
+          fi
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" > "$release_info"
+          python3 - "$release_info" <<'PY'
+          import hashlib, json, os, pathlib, sys
+          release = json.load(open(sys.argv[1], encoding='utf-8'))
+          expected = {path.name: path for path in pathlib.Path('assets').iterdir() if path.is_file()}
+          uploaded = {asset['name']: asset for asset in release['assets']}
+          if not release['draft'] or release['tag_name'] != os.environ['RELEASE_TAG'] or set(uploaded) != set(expected):
+              raise SystemExit('Keep the release private until every expected installer/evidence asset is present.')
+          for name, path in expected.items():
+              asset = uploaded[name]
+              if asset['state'] != 'uploaded' or asset['size'] != path.stat().st_size:
+                  raise SystemExit('Incomplete release asset: ' + name)
+              if asset.get('digest'):
+                  digest = hashlib.sha256()
+                  with path.open('rb') as stream:
+                      while chunk := stream.read(1024 * 1024):
+                          digest.update(chunk)
+                  if asset['digest'] != 'sha256:' + digest.hexdigest():
+                      raise SystemExit('Uploaded release asset digest mismatch: ' + name)
+          PY
+          if [[ "$RELEASE_VERSION" == *-* ]]; then
+            gh release edit "$RELEASE_TAG" --draft=false --prerelease --latest=false
+          else
+            gh release edit "$RELEASE_TAG" --draft=false --prerelease=false --latest
           fi
