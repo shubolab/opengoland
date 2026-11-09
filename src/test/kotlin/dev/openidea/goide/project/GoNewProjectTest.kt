@@ -214,10 +214,13 @@ class GoNewProjectTest : LightPlatformTestCase() {
             assertTrue(options.isProjectCreatedWithWizard)
             assertTrue(options.runConfigurators)
             requireNotNull(options.beforeInit).invoke(project)
+            assertEquals(priorGo, state.goExecutable)
+            project.getService(GoProjectSettings::class.java).initializeComponent()
             assertEquals("", state.goExecutable)
             assertEquals(values.environment, state.environment)
             val explicit = created.copy(settings = values.copy(configuredExecutable = sdk.executable.toString()))
             requireNotNull(creator.openOptions(explicit, null).beforeInit).invoke(project)
+            project.getService(GoProjectSettings::class.java).initializeComponent()
             assertEquals(sdk.executable.toString(), state.goExecutable)
         } finally { state.goExecutable = priorGo; state.environment = priorEnvironment }
     }

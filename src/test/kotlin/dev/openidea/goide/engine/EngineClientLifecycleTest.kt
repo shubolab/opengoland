@@ -25,11 +25,11 @@ import kotlin.test.assertNotEquals
 import kotlin.test.assertTrue
 
 class EngineClientLifecycleTest {
-    private fun project(root: Path, settings: GoProjectSettings): Project =
+    private fun project(root: Path, settings: () -> GoProjectSettings): Project =
         Proxy.newProxyInstance(Project::class.java.classLoader, arrayOf(Project::class.java)) { proxy, method, args ->
             when (method.name) {
                 "getBasePath" -> root.toString()
-                "getService" -> if (args?.firstOrNull() == GoProjectSettings::class.java) settings else null
+                "getService" -> if (args?.firstOrNull() == GoProjectSettings::class.java) settings() else null
                 "toString" -> "EngineClientLifecycleTestProject"
                 "hashCode" -> System.identityHashCode(proxy)
                 "equals" -> proxy === args?.firstOrNull()
@@ -71,8 +71,10 @@ class EngineClientLifecycleTest {
         """.trimMargin().trimStart())
         executable.toFile().setExecutable(true)
         System.setProperty("openidea.workspace", root.toString())
-        val settings = GoProjectSettings()
-        val engine = EngineClient(project(root, settings))
+        lateinit var settings: GoProjectSettings
+        val owner = project(root) { settings }
+        settings = GoProjectSettings(owner)
+        val engine = EngineClient(owner)
         try {
             run(root, settings, engine)
         } finally {
@@ -120,7 +122,7 @@ class EngineClientLifecycleTest {
 
     @Test fun frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange() = fixture { root, settings, engine ->
         settings.state.goos = "linux"
-        val captured = GoToolchain.capture(project(root, settings))
+        val captured = GoToolchain.capture(project(root) { settings })
         val first = engine.connect(captured).get(10, TimeUnit.SECONDS).asJsonObject
         settings.state.goos = "freebsd"
 

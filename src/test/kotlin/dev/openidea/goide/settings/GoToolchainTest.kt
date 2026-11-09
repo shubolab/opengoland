@@ -35,15 +35,7 @@ class GoToolchainTest {
             // This command-preparation fixture is never executed.
             Files.writeString(go, "owned native executable placeholder")
             go.toFile().setExecutable(true)
-            val service = GoProjectSettings()
-            service.state.apply {
-                goExecutable = go.toString()
-                goos = "linux"
-                goarch = "arm64"
-                cgoEnabled = "0"
-                buildTags = "integration, feature"
-                environment = "GOOS=freebsd\nGOARCH=amd64\nCGO_ENABLED=1\nGOFLAGS=-mod=vendor\nPATH=/custom/path\n"
-            }
+            lateinit var service: GoProjectSettings
             val project = Proxy.newProxyInstance(Project::class.java.classLoader, arrayOf(Project::class.java)) { proxy, method, args ->
                 when (method.name) {
                     "getBasePath" -> root.toString()
@@ -54,6 +46,15 @@ class GoToolchainTest {
                     else -> null
                 }
             } as Project
+            service = GoProjectSettings(project)
+            service.state.apply {
+                goExecutable = go.toString()
+                goos = "linux"
+                goarch = "arm64"
+                cgoEnabled = "0"
+                buildTags = "integration, feature"
+                environment = "GOOS=freebsd\nGOARCH=amd64\nCGO_ENABLED=1\nGOFLAGS=-mod=vendor\nPATH=/custom/path\n"
+            }
             val command = GoToolchain.command(project, "go", listOf("version"))
             assertEquals(go.toString(), command.exePath)
             assertEquals("linux", command.environment["GOOS"])

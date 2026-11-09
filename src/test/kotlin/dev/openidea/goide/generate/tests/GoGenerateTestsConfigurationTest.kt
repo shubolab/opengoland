@@ -18,15 +18,7 @@ class GoGenerateTestsConfigurationTest {
         try {
             val sdkA = root.resolve("captured sdk A")
             val sdkB = root.resolve("live sdk B")
-            val service = GoProjectSettings()
-            service.state.apply {
-                goExecutable = sdkA.resolve("bin/go").toString()
-                goplsExecutable = sdkA.resolve("bin/gopls").toString()
-                delveExecutable = sdkA.resolve("bin/dlv").toString()
-                buildTags = "captured, integration"
-                goos = "linux"; goarch = "arm64"; cgoEnabled = "0"
-                environment = "GOOS=freebsd\nGOFLAGS=-mod=vendor\nPATH=/captured/path\nGENERATION_CONTEXT=A\n"
-            }
+            lateinit var service: GoProjectSettings
             var settingsReads = 0
             val project = Proxy.newProxyInstance(Project::class.java.classLoader, arrayOf(Project::class.java)) { proxy, method, args ->
                 when (method.name) {
@@ -38,6 +30,15 @@ class GoGenerateTestsConfigurationTest {
                     else -> null
                 }
             } as Project
+            service = GoProjectSettings(project)
+            service.state.apply {
+                goExecutable = sdkA.resolve("bin/go").toString()
+                goplsExecutable = sdkA.resolve("bin/gopls").toString()
+                delveExecutable = sdkA.resolve("bin/dlv").toString()
+                buildTags = "captured, integration"
+                goos = "linux"; goarch = "arm64"; cgoEnabled = "0"
+                environment = "GOOS=freebsd\nGOFLAGS=-mod=vendor\nPATH=/captured/path\nGENERATION_CONTEXT=A\n"
+            }
 
             // Capture is the EDT-safe memory-only path: these selected executables do not exist yet.
             assertFalse(Files.exists(sdkA))

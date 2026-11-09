@@ -1,9 +1,10 @@
 package dev.openidea.goide.project
 
 import com.intellij.ide.impl.OpenProjectTask
-import com.intellij.ide.impl.ProjectUtil
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.components.serviceAsync
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.ex.ProjectManagerEx
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
 import java.nio.file.Path
@@ -38,7 +39,11 @@ internal data class GoNewProjectSettings(
 
 /** Generation and publication are separate so an invalid/cancelled module never opens a project. */
 internal class GoNewProjectCreator(
-    private val openProject: (Path, OpenProjectTask) -> Project? = ProjectUtil::openOrImport,
+    // This is an already generated project, not a file/import request. The
+    // generic text-editor processor rebuilds OpenProjectTask and drops beforeInit.
+    private val openProject: (Path, OpenProjectTask) -> Project? = { path, options ->
+        ProjectManagerEx.getInstanceEx().openProject(path, options)
+    },
 ) {
     data class Created(val directory: Path, val settings: GoNewProjectSettings, val sdk: GoModuleSdk) {
         val persistedExecutable: String get() = if (settings.configuredExecutable.isBlank()) "" else sdk.executable.toString()
@@ -63,10 +68,13 @@ internal class GoNewProjectCreator(
         projectName = created.settings.name,
         // The platform decides whether to reuse a window or ask the user.
         beforeInit = { project ->
-            GoProjectSettings.get(project).apply {
-                goExecutable = created.persistedExecutable
-                environment = created.settings.environment
-            }
+            GoProjectSettings.stageNewProject(project, created.persistedExecutable, created.settings.environment)
+        },
+        // Also initialize when no editor/language service requests settings yet,
+        // so the chosen intent is persistent before the project is published.
+        beforeOpen = { project ->
+            project.serviceAsync<GoProjectSettings>()
+            true
         },
     )
 

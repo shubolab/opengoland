@@ -92,10 +92,7 @@ class EngineClientOutboundTest : LightPlatformTestCase() {
             check(executable.toFile().setExecutable(true))
             Files.writeString(root.resolve("go.mod"), "module example.test/frame\n\ngo 1.24\n")
             Files.writeString(root.resolve("probe_test.go"), "package frame\nimport \"testing\"\nfunc TestPreserved(t *testing.T) {}\n")
-            val settings = GoProjectSettings().apply { state.apply {
-                goExecutable = GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()) ?: error("Go SDK required")
-                environment = "GOENV=off\nGOPROXY=off\nGOSUMDB=off\nGOTOOLCHAIN=local\nGOTELEMETRY=off\nGOWORK=off\nCGO_ENABLED=0"
-            } }
+            lateinit var settings: GoProjectSettings
             val owner = Proxy.newProxyInstance(Project::class.java.classLoader, arrayOf(Project::class.java)) { proxy, method, args ->
                 when (method.name) {
                     "getBasePath" -> root.toString()
@@ -107,6 +104,10 @@ class EngineClientOutboundTest : LightPlatformTestCase() {
                     else -> null
                 }
             } as Project
+            settings = GoProjectSettings(owner).apply { state.apply {
+                goExecutable = GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()) ?: error("Go SDK required")
+                environment = "GOENV=off\nGOPROXY=off\nGOSUMDB=off\nGOTOOLCHAIN=local\nGOTELEMETRY=off\nGOWORK=off\nCGO_ENABLED=0"
+            } }
             System.setProperty("openidea.workspace", root.toString())
             val engine = EngineClient(owner).also { client = it }
             val stopped = CopyOnWriteArrayList<JsonObject>()
