@@ -116,8 +116,8 @@ def go_product_policy(contents: Path, pin_path: Path | None = None,
     if not contents.resolve().is_relative_to((ROOT / "build").resolve()):
         raise ValueError("Go product policy applies only to an owned build copy")
     policy_path = pin_path or ROOT / "product/patches/platform-go-product-2026.1.4.json"
-    policy = json.loads(policy_path.read_text())
-    version = json.loads((contents / product_info_relative).read_text())["version"]
+    policy = json.loads(policy_path.read_text(encoding="utf-8"))
+    version = json.loads((contents / product_info_relative).read_text(encoding="utf-8"))["version"]
     if version != policy["platformVersion"]:
         raise ValueError("The Go product policy requires its pinned platform version")
     excluded = policy["bundledPluginExclusions"]
@@ -263,7 +263,7 @@ def specialize_go_metadata(contents: Path, sdk_contents: Path, policy: dict,
             raise ValueError("Filtered runtime repository does not match its pinned output: " + kind)
 
     metadata_path = owned_file(product_info_relative)
-    metadata = json.loads(metadata_path.read_text())
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     inventory = policy["productInfoInventory"]
     before = {key: metadata[key] for key in ("bundledPlugins", "modules", "layout")}
     ids = set(inventory["bundledPluginIds"]) | set(inventory["moduleIds"])
@@ -284,7 +284,7 @@ def specialize_go_metadata(contents: Path, sdk_contents: Path, policy: dict,
     cache.write_bytes(filtered_cache)
     output_dat.replace(compact)
     output_jar.replace(xml_jar)
-    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n")
+    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     return {"pluginClasspath": cache_record, "runtimeModuleRepository": {"filter": filtered, "verify": verified},
             "artifactSha256": {path.relative_to(contents).as_posix(): hashlib.sha256(path.read_bytes()).hexdigest()
                                for path in (cache, compact, xml_jar)},
@@ -325,7 +325,7 @@ def specialize_local_ide(contents: Path, sdk_contents: Path, product_policy: dic
     if not contents.resolve().is_relative_to((ROOT / "build").resolve()):
         raise ValueError("Local IDE changes apply only to an owned build copy")
     pin_path = pin_path or ROOT / "product/patches/platform-local-ide-2026.1.4.json"
-    pin = json.loads(pin_path.read_text())
+    pin = json.loads(pin_path.read_text(encoding="utf-8"))
 
     def owned(relative):
         pure = PurePosixPath(relative)
@@ -346,7 +346,7 @@ def specialize_local_ide(contents: Path, sdk_contents: Path, product_policy: dic
             raise ValueError("Pinned local IDE input changed: " + expected["path"])
 
     metadata_path = owned(product_info_relative)
-    metadata = json.loads(metadata_path.read_text())
+    metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
     if metadata["version"] != pin["platformVersion"]:
         raise ValueError("Local IDE cleanup requires the pinned platform version")
     patches_by_path = {item["upstreamJarRelativePath"].removeprefix("Contents/"): item for item in platform_patches}
@@ -437,7 +437,7 @@ def specialize_local_ide(contents: Path, sdk_contents: Path, product_policy: dic
         authenticate(owned(item["path"]), item)
     cache.write_bytes(filtered_cache)
     metadata.update(after_inventory)
-    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n")
+    metadata_path.write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     # This manifest map describes final on-disk bytes; the two index-stage
     # records independently retain their intermediate authenticated identities.
     product_policy["metadata"]["artifactSha256"][cache.relative_to(contents).as_posix()] = hashlib.sha256(filtered_cache).hexdigest()

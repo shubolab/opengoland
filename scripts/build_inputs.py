@@ -60,9 +60,9 @@ if __name__ == "__main__":
         if args.operation == "capture":
             result = snapshot()
             args.manifest.parent.mkdir(parents=True, exist_ok=True)
-            args.manifest.write_text(json.dumps(result, indent=2) + "\n")
+            args.manifest.write_text(json.dumps(result, indent=2) + "\n", encoding="utf-8")
         else:
-            result = json.loads(args.manifest.read_text())
+            result = json.loads(args.manifest.read_text(encoding="utf-8"))
             verify(result)
         print(f"{args.operation}: {len(result['files'])} files, SHA-256 {result['digest']}")
     except (OSError, ValueError, KeyError) as error:

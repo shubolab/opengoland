@@ -32,14 +32,18 @@ def replaced(name, prefixes):
 
 def atomic_bytes(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
-    with tempfile.NamedTemporaryFile(prefix=path.name + ".", dir=path.parent, delete=False) as stream:
-        candidate = Path(stream.name)
-        try:
+    candidate = None
+    try:
+        with tempfile.NamedTemporaryFile(prefix=path.name + ".", dir=path.parent, delete=False) as stream:
+            candidate = Path(stream.name)
             stream.write(data)
             stream.flush()
-            candidate.chmod(path.stat().st_mode & 0o777 if path.exists() else 0o644)
-            os.replace(candidate, path)
-        finally:
+        # Windows refuses to replace a NamedTemporaryFile while its handle is
+        # open without FILE_SHARE_DELETE. Publish only after the writer closes.
+        candidate.chmod(path.stat().st_mode & 0o777 if path.exists() else 0o644)
+        os.replace(candidate, path)
+    finally:
+        if candidate is not None:
             candidate.unlink(missing_ok=True)
 
 
@@ -91,7 +95,7 @@ def verify_jar(candidate, original, expected, prefixes, required, marker=MARKER)
 
 def build(args):
     pin_path = args.pin.resolve()
-    pin = json.loads(pin_path.read_text())
+    pin = json.loads(pin_path.read_text(encoding="utf-8"))
     marker = args.marker
     layout = detect_platform_layout(args.sdk)
     sdk = layout.sdk_root

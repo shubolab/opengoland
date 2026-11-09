@@ -48,7 +48,7 @@ def complete_class_set(records, actual):
 
 
 def build(args):
-    pin = json.loads(PIN.read_text())
+    pin = json.loads(PIN.read_text(encoding="utf-8"))
     patch = PIN.parent / pin["patchFile"]
     assert sha(patch.read_bytes()) == pin["patchSha256"], "LSP4IJ patch digest mismatch"
     jars = list(args.plugins.resolve().glob("*/lib/lsp4ij-0.21.0.jar"))
@@ -109,7 +109,7 @@ def build(args):
     valid = class_manifest.exists() and built.is_dir()
     if valid:
         try:
-            records = json.loads(class_manifest.read_text())
+            records = json.loads(class_manifest.read_text(encoding="utf-8"))
             actual = {p.relative_to(built).as_posix() for p in built.rglob("*.class")}
             valid = complete_class_set(records, actual) and all((built / n).is_file() and sha((built / n).read_bytes()) == d for n, d in records.items())
         except (OSError, ValueError):
@@ -145,7 +145,7 @@ def build(args):
         if not complete_class_set(records, records):
             raise ValueError("Unexpected classes produced by LSP4IJ source patch")
         candidate_manifest = work / "classes.json.pending"
-        candidate_manifest.write_text(json.dumps(records, indent=2) + "\n")
+        candidate_manifest.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
         os.replace(candidate_manifest, class_manifest)
     metadata["compiler"] = compiler
     metadata["classSha256"] = records
