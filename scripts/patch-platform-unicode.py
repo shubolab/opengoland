@@ -16,6 +16,7 @@ import tempfile
 import urllib.request
 import zipfile
 from platform_layout import cache_lock, detect_platform_layout, java_compiler_invocation
+from source_patch import apply_source_patch, SOURCE_PATCH_RUNNER_SHA256
 
 ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/platform-unicode-2026.1.4.json"
@@ -121,10 +122,11 @@ def build(args):
         "sources": pin["sources"], "release": 21,
     }
     cache = ROOT / ".tools" / args.cache_name
-    identity = {**expected, "compiler": compiler, "sdkBuild": info["buildNumber"]}
+    identity = {**expected, "compiler": compiler, "sdkBuild": info["buildNumber"],
+                "sourcePatchRunnerSha256": SOURCE_PATCH_RUNNER_SHA256}
     if layout.platform != "macos":
         identity["sdkPlatform"] = layout.platform
-    # Preserve the existing default artifact/cache identity byte for byte.
+    # Optional marker overrides are also part of the producer identity.
     if marker != MARKER:
         identity["marker"] = marker
     key = sha(json.dumps(identity, sort_keys=True).encode())
@@ -149,8 +151,7 @@ def build(args):
                 target = source / item["path"]
                 target.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copyfile(saved, target)
-            subprocess.run(["patch", "--batch", "--fuzz=0", "-p1", "-i", str(patch)], cwd=source,
-                           check=True, capture_output=True, timeout=15)
+            apply_source_patch(patch, source, pin["patchSha256"])
             for item in pin["sources"]:
                 if sha((source / item["path"]).read_bytes()) != item["patchedSha256"]:
                     raise ValueError("Patched platform source digest mismatch: " + item["path"])
@@ -167,7 +168,8 @@ def build(args):
             records = {p.relative_to(classes).as_posix(): sha(p.read_bytes()) for p in sorted(classes.rglob("*.class"))}
             if not set(pin["requiredClassNames"]).issubset(records) or not all(replaced(n, pin["classPrefixes"]) for n in records):
                 raise ValueError("The platform source rebuild produced an incomplete/unexpected class set")
-            metadata = {**expected, "compiler": compiler, "classSha256": records}
+            metadata = {**expected, "compiler": compiler, "sourcePatchRunnerSha256": SOURCE_PATCH_RUNNER_SHA256,
+                        "classSha256": records}
             candidate = temporary / original.name
             with zipfile.ZipFile(original) as before, zipfile.ZipFile(candidate, "w", zipfile.ZIP_DEFLATED) as after:
                 for entry in before.infolist():

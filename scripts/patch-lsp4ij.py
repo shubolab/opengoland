@@ -15,6 +15,7 @@ import tempfile
 import urllib.request
 import zipfile
 from platform_layout import cache_lock, detect_platform_layout, java_compiler_invocation
+from source_patch import apply_source_patch, SOURCE_PATCH_RUNNER_SHA256
 
 ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
@@ -98,7 +99,7 @@ def build(args):
     sdk_lib = layout.lib
     classpath = [original] + sorted(target.parent.glob("*.jar")) + sorted(sdk_lib.rglob("*.jar"))
     classpath = [p for p in classpath if p != target]
-    identity = {**metadata, "compiler": compiler,
+    identity = {**metadata, "compiler": compiler, "sourcePatchRunnerSha256": SOURCE_PATCH_RUNNER_SHA256,
                 "sdk": json.loads(layout.product_info.read_text(encoding="utf-8"))["buildNumber"]}
     if layout.platform != "macos":
         identity["sdkPlatform"] = layout.platform
@@ -131,7 +132,7 @@ def build(args):
             if sha(data) != source["upstreamSha256"]:
                 raise ValueError(f"Upstream source digest mismatch: {source['path']}")
             path.write_bytes(data)
-        subprocess.run(["patch", "--batch", "--fuzz=0", "-p1", "-i", str(patch)], cwd=upstream, check=True, capture_output=True)
+        apply_source_patch(patch, upstream, pin["patchSha256"])
         for source in pin["sources"]:
             if sha((upstream / source["path"]).read_bytes()) != source["patchedSha256"]:
                 raise ValueError(f"Patched source digest mismatch: {source['path']}")
@@ -148,6 +149,7 @@ def build(args):
         candidate_manifest.write_text(json.dumps(records, indent=2) + "\n", encoding="utf-8")
         os.replace(candidate_manifest, class_manifest)
     metadata["compiler"] = compiler
+    metadata["sourcePatchRunnerSha256"] = SOURCE_PATCH_RUNNER_SHA256
     metadata["classSha256"] = records
     with tempfile.TemporaryDirectory(prefix="lsp4ij-patch-", dir=target.parent) as temporary:
         candidate = Path(temporary) / target.name

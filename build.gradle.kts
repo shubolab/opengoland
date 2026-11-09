@@ -51,7 +51,7 @@ val patchedLspCompileJar = lspCompilePlugins.map { it.file("lsp4ij/lib/lsp4ij-0.
 val prepareLspCompilePatch by tasks.registering(Exec::class) {
     description = "Build the pinned LSP4IJ API in a private compiler dependency."
     inputs.files(upstreamLspCompileJar.map { jar -> jar.parentFile.listFiles { file -> file.extension == "jar" }!!.toList() })
-    inputs.files("scripts/patch-lsp4ij.py", fileTree("product/patches") { include("lsp4ij-*") })
+    inputs.files("scripts/patch-lsp4ij.py", "scripts/source_patch.py", fileTree("product/patches") { include("lsp4ij-*") })
     inputs.property("platformPath", platformPath)
     outputs.file(patchedLspCompileJar)
     // Reconstruct from the authenticated original on each invocation rather than
@@ -79,7 +79,7 @@ val buildInputManifest = layout.buildDirectory.file("provenance/build-inputs.jso
 val platformUnicodeManifest = layout.buildDirectory.file("provenance/platform-unicode-patch.json")
 val preparePlatformUnicodePatch by tasks.registering(Exec::class) {
     description = "Verify and build the product-only public platform Unicode persistence fix."
-    inputs.files("scripts/patch-platform-unicode.py", fileTree("product/patches") { include("platform-unicode*") })
+    inputs.files("scripts/patch-platform-unicode.py", "scripts/source_patch.py", fileTree("product/patches") { include("platform-unicode*") })
     outputs.file(platformUnicodeManifest)
     // Verify cached class bytes even when a prior report exists.
     outputs.upToDateWhen { false }
@@ -92,7 +92,7 @@ val platformPsiListenerManifest = layout.buildDirectory.file("provenance/platfor
 val platformPsiListenerJar = layout.buildDirectory.file("platform-patches/psi-listener/intellij.platform.lang.impl.jar")
 val preparePlatformPsiListenerPatch by tasks.registering(Exec::class) {
     description = "Verify and build the public platform listener initialization repair."
-    inputs.files("scripts/patch-platform-unicode.py", fileTree("product/patches") { include("platform-psi-listener*") })
+    inputs.files("scripts/patch-platform-unicode.py", "scripts/source_patch.py", fileTree("product/patches") { include("platform-psi-listener*") })
     inputs.property("platformPath", platformPath)
     outputs.files(platformPsiListenerManifest, platformPsiListenerJar)
     outputs.upToDateWhen { false }
@@ -107,7 +107,7 @@ val platformLocalPluginsManifest = layout.buildDirectory.file("provenance/platfo
 val platformLocalPluginsJar = layout.buildDirectory.file("platform-patches/local-plugins/intellij.platform.ide.impl.jar")
 val preparePlatformLocalPluginsPatch by tasks.registering(Exec::class) {
     description = "Build the public platform local-only plugin manager for this distribution."
-    inputs.files("scripts/patch-platform-unicode.py", fileTree("product/patches") { include("platform-local-plugins*") })
+    inputs.files("scripts/patch-platform-unicode.py", "scripts/source_patch.py", fileTree("product/patches") { include("platform-local-plugins*") })
     inputs.property("platformPath", platformPath)
     outputs.files(platformLocalPluginsManifest, platformLocalPluginsJar)
     outputs.upToDateWhen { false }
@@ -237,7 +237,7 @@ tasks.withType<PrepareSandboxTask>().configureEach {
         into(pluginName.map { "$it/license" })
         filePermissions { unix("rw-r--r--") }
     }
-    inputs.files(fileTree("product/patches"), "scripts/patch-lsp4ij.py")
+    inputs.files(fileTree("product/patches"), "scripts/patch-lsp4ij.py", "scripts/source_patch.py")
     doLast {
         providers.exec {
             commandLine(pythonCommand, "scripts/patch-lsp4ij.py", "--sdk", lspPatchSdk.get(),
