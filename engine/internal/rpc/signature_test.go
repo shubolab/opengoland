@@ -32,7 +32,7 @@ func TestSignatureRPCInspectPlanAndNativeBaselines(t *testing.T) {
 	if result := c.reply(t, 1); result["error"] != nil {
 		t.Fatal(result)
 	}
-	request := map[string]any{"operationId": "inspect-wire", "target": map[string]any{"uri": "file://" + filepath.ToSlash(filepath.Join(root, "main.go")), "position": map[string]any{"line": 2, "character": 8}}}
+	request := map[string]any{"operationId": "inspect-wire", "target": map[string]any{"uri": signature.LocalURI(filepath.Join(root, "main.go")), "position": map[string]any{"line": 2, "character": 8}}}
 	c.send(t, 2, "refactor/signature/inspect", request)
 	reply := c.reply(t, 2)
 	if reply["error"] != nil {

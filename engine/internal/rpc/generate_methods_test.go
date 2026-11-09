@@ -5,6 +5,8 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+
+	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 )
 
 func TestTypedInterfaceGenerationRPCUsesOwnedWorkerAndReturnsOnlyEdits(t *testing.T) {
@@ -27,7 +29,7 @@ func TestTypedInterfaceGenerationRPCUsesOwnedWorkerAndReturnsOnlyEdits(t *testin
 		t.Fatal(initialized)
 	}
 	request := map[string]any{"operationId": "method-inspect", "receiverKind": "pointer", "interfaceExpression": "io.Reader", "target": map[string]any{
-		"uri": "file://" + filepath.ToSlash(filepath.Join(root, "buffer.go")), "position": map[string]any{"line": 2, "character": 8}}}
+		"uri": signature.LocalURI(filepath.Join(root, "buffer.go")), "position": map[string]any{"line": 2, "character": 8}}}
 	c.send(t, 2, "generate/methods/inspect", request)
 	reply := c.reply(t, 2)
 	if reply["error"] != nil {

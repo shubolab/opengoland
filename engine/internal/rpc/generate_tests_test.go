@@ -4,6 +4,8 @@ import (
 	"os"
 	"path/filepath"
 	"testing"
+
+	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 )
 
 func TestTypedTestGenerationRPCUsesAnOwnedWorkerAndReturnsPreviewableCreates(t *testing.T) {
@@ -27,7 +29,7 @@ func TestTypedTestGenerationRPCUsesAnOwnedWorkerAndReturnsPreviewableCreates(t *
 		t.Fatal("missing native test generation capability")
 	}
 	request := map[string]any{"operationId": "generate-inspect", "scope": "function", "packageMode": "same", "target": map[string]any{
-		"uri": "file://" + filepath.ToSlash(filepath.Join(root, "sum.go")), "position": map[string]any{"line": 2, "character": 6}}}
+		"uri": signature.LocalURI(filepath.Join(root, "sum.go")), "position": map[string]any{"line": 2, "character": 6}}}
 	c.send(t, 2, "generate/tests/inspect", request)
 	reply := c.reply(t, 2)
 	if reply["error"] != nil {
