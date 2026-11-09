@@ -40,6 +40,7 @@ import dev.openidea.goide.run.GoRunKind
 import dev.openidea.goide.run.GoTestMode
 import dev.openidea.goide.run.invokeNativeGoGutter
 import java.nio.file.Files
+import java.nio.file.Path
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
@@ -61,7 +62,7 @@ class GoFuzzCorpusNativeTest : LightPlatformTestCase() {
             assertEquals(GoRunKind.TEST, configuration.kind)
             assertEquals(GoTestMode.TEST, configuration.parameters.testMode)
             assertEquals(".", configuration.parameters.target)
-            assertEquals(file.virtualFile.parent.parent.parent.parent.path, configuration.parameters.workingDirectory)
+            assertEquals(Path.of(file.virtualFile.parent.parent.parent.parent.path).toString(), configuration.parameters.workingDirectory)
             assertEquals("^FuzzDecode$/^817e8c7d02cb3556$", configuration.parameters.testPattern)
             val run = configuration.parameters.commandArguments(GoRunKind.TEST, "")
             assertTrue(run.contains(configuration.parameters.testPattern))
@@ -126,7 +127,7 @@ class GoFuzzCorpusNativeTest : LightPlatformTestCase() {
 
     fun testNativeCorpusGutterActionPerformedRegistersExactSeedReplayForRunAndDebug() = fixture { file ->
         val header = ReadAction.compute<com.intellij.psi.PsiElement, RuntimeException> { file.findElementAt(0)!! }
-        val directory = file.virtualFile.parent.parent.parent.parent.path
+        val directory = Path.of(file.virtualFile.parent.parent.parent.parent.path).toString()
         for (executor in listOf(DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID)) {
             val parameters = invokeNativeGoGutter(file, header, executor, directory)
             assertEquals(GoTestMode.TEST, parameters.testMode)

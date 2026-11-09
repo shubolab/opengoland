@@ -5,7 +5,6 @@ import org.eclipse.lsp4j.WorkspaceEdit
 import java.nio.file.Files
 import java.nio.file.LinkOption
 import java.nio.file.Path
-import java.nio.file.attribute.BasicFileAttributes
 
 internal data class GoCaseRenameAlias(val old: Path, val new: Path, val originalName: String = old.fileName.toString())
 
@@ -42,14 +41,14 @@ internal object GoWorkspaceEditCaseAliases {
     }
 
     private fun samePhysicalFile(first: Path, second: Path): Boolean {
-        if (!Files.isSameFile(first, second)) return false
-        if (first != second || sameSpelling(first, second)) return true
+        if (first != second || sameSpelling(first, second)) return Files.isSameFile(first, second)
         // Windows' provider short-circuits isSameFile on case-folded Path.equals.
-        // Read real file identities before trusting alternate spellings; a
-        // case-sensitive Windows directory can contain two distinct resources.
-        val left = Files.readAttributes(first, BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS).fileKey()
-        val right = Files.readAttributes(second, BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS).fileKey()
-        return left != null && left == right
+        // Its BasicFileAttributes.fileKey is also null. Keep an explicit dot
+        // component so the public provider must open both paths and compare
+        // native handles, including in a case-sensitive Windows directory.
+        val parent = second.parent ?: return false
+        val physicalProbe = parent.resolve(".").resolve(second.fileName)
+        return physicalProbe != first && Files.isSameFile(first, physicalProbe)
     }
 
     /** Keep the first source spelling for each identity group until its ordered rename occurs. */

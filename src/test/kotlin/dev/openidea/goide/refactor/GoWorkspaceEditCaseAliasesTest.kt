@@ -17,7 +17,6 @@ import org.eclipse.lsp4j.jsonrpc.messages.Either
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
-import java.nio.file.attribute.BasicFileAttributes
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -139,18 +138,21 @@ class GoWorkspaceEditCaseAliasesTest {
                 assertTrue(Files.isSameFile(old, new))
                 assertEquals("name.go", GoWorkspaceEditCaseAliases.actualEntryName(old, new))
             } else assertFalse(GoWorkspaceEditCaseAliases.isCaseAlias(old, new))
-            val key = Files.readAttributes(old, BasicFileAttributes::class.java).fileKey()
+            // Windows' public basic attributes do not expose a file key. A
+            // different hardlink name forces native identity comparison.
+            val witness = Files.createLink(root.resolve("file-identity-witness"), old)
             Files.move(old, new, StandardCopyOption.ATOMIC_MOVE)
+            assertTrue(Files.isSameFile(witness, new))
+            Files.delete(witness)
             assertEquals(listOf("Name.go"), Files.list(root).use { it.map { p -> p.fileName.toString() }.toList() })
-            assertEquals(key, Files.readAttributes(new, BasicFileAttributes::class.java).fileKey())
             assertEquals("old", Files.readString(new))
             val folder = Files.createDirectory(root.resolve("pkg"))
             Files.writeString(folder.resolve("child.go"), "child")
             val renamed = root.resolve("Pkg")
             if (caseInsensitive) assertTrue(GoWorkspaceEditCaseAliases.isCaseAlias(folder, renamed))
-            val childKey = Files.readAttributes(folder.resolve("child.go"), BasicFileAttributes::class.java).fileKey()
+            val childWitness = Files.createLink(root.resolve("child-identity-witness"), folder.resolve("child.go"))
             Files.move(folder, renamed, StandardCopyOption.ATOMIC_MOVE)
-            assertEquals(childKey, Files.readAttributes(renamed.resolve("child.go"), BasicFileAttributes::class.java).fileKey())
+            assertTrue(Files.isSameFile(childWitness, renamed.resolve("child.go")))
             assertEquals("child", Files.readString(renamed.resolve("child.go")))
         } finally { Files.walk(root).use { it.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) } }
     }
