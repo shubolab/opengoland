@@ -32,8 +32,10 @@ class GoNewProjectActionCustomizer : ActionConfigurationCustomizer, ActionConfig
 
     internal fun install(registrar: ActionRuntimeRegistrar) {
         for (id in HOST_ACTION_IDS) {
+            val existing = registrar.getActionOrStub(id)
+            if (existing is GoNewProjectAction) continue
             val action = GoNewProjectAction()
-            if (registrar.getActionOrStub(id) != null) registrar.replaceAction(id, action)
+            if (existing != null) registrar.replaceAction(id, action)
             else {
                 registrar.registerAction(id, action)
                 if (id == FILE_ACTION_ID) {
@@ -43,11 +45,17 @@ class GoNewProjectActionCustomizer : ActionConfigurationCustomizer, ActionConfig
                 }
             }
         }
+        // These are Java project/module creators, not generic Open or Clone.
+        // Unregistration also removes their registered menu-group references;
+        // clearing the containing groups would remove unrelated VCS actions.
+        for (id in JAVA_CREATION_ACTION_IDS)
+            if (registrar.getActionOrStub(id) != null) registrar.unregisterAction(id)
     }
 
     companion object {
         internal const val WELCOME_ACTION_ID = "WelcomeScreen.CreateNewProject"
         internal const val FILE_ACTION_ID = "WelcomeScreen.DefaultNewProjectAction"
         internal val HOST_ACTION_IDS = listOf(WELCOME_ACTION_ID, FILE_ACTION_ID)
+        internal val JAVA_CREATION_ACTION_IDS = listOf("NewProject", "ImportProject", "NewModule", "ImportModule", "NewModuleInGroup")
     }
 }
