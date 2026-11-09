@@ -17,7 +17,7 @@ import kotlin.test.assertTrue
 /** Real Go seed files and exact selectors, without starting a mutation worker. */
 class GoFuzzCorpusToolTest {
     @Test fun selectedFailingAndPassingCorpusInputsReplayIndependently() {
-        val go = GoToolchain.resolve("go")
+        val go = GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty())
         assumeTrue("Go is required for the real corpus replay probe", go != null)
         val root = Files.createTempDirectory("opengoland-real-corpus-replay-").toRealPath()
         try {

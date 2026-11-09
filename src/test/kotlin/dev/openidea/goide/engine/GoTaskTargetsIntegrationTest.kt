@@ -115,7 +115,7 @@ class GoTaskTargetsIntegrationTest : HeavyPlatformTestCase() {
         val engine = project.getService(EngineClient::class.java)
         try {
             val projectSettings = GoProjectSettings.get(project)
-            projectSettings.goExecutable = requireNotNull(GoToolchain.resolve("go"))
+            projectSettings.goExecutable = requireNotNull(GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()))
             projectSettings.environment = "GOWORK=${root.resolve("go.work")}\nGOPROXY=off\nGOTOOLCHAIN=local\nGOTELEMETRY=off"
             val settings = GoToolchain.capture(project)
             val state = Fixture(root, engine, settings, GoToolchain.command(project, "go", emptyList(), settings).environment.toMap())

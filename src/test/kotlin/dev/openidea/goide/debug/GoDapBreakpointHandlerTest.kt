@@ -33,6 +33,7 @@ import org.eclipse.lsp4j.debug.SetBreakpointsResponse
 import org.eclipse.lsp4j.debug.services.IDebugProtocolServer
 import java.lang.reflect.Proxy
 import java.nio.file.Files
+import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 import javax.swing.Icon
 
@@ -48,10 +49,10 @@ class GoDapBreakpointHandlerTest : LightPlatformTestCase() {
 
             fixture.remove(removed)
 
-            assertEquals(emptyList<Int>(), fixture.peer.installed[fixture.other.path])
-            assertEquals(listOf(2), fixture.peer.installed[fixture.app.path])
+            assertEquals(emptyList<Int>(), fixture.peer.installed[fixture.otherPath])
+            assertEquals(listOf(2), fixture.peer.installed[fixture.appPath])
             assertTrue("The removed source must explicitly reach DAP with an empty replacement", fixture.peer.calls.any {
-                it.first == fixture.other.path && it.second.isEmpty()
+                it.first == fixture.otherPath && it.second.isEmpty()
             })
             assertTrue(app.isEnabled)
         }
@@ -64,8 +65,8 @@ class GoDapBreakpointHandlerTest : LightPlatformTestCase() {
             fixture.add(fixture.other, 3)
             fixture.initialize()
             fixture.remove(removed)
-            assertEquals(listOf(4), fixture.peer.installed[fixture.other.path])
-            assertEquals(listOf(2), fixture.peer.installed[fixture.app.path])
+            assertEquals(listOf(4), fixture.peer.installed[fixture.otherPath])
+            assertEquals(listOf(2), fixture.peer.installed[fixture.appPath])
         }
     }
 
@@ -76,7 +77,7 @@ class GoDapBreakpointHandlerTest : LightPlatformTestCase() {
             fixture.initialize()
             fixture.remove(other)
             fixture.remove(app)
-            assertEquals(setOf(fixture.app.path, fixture.other.path), fixture.peer.installed.keys)
+            assertEquals(setOf(fixture.appPath, fixture.otherPath), fixture.peer.installed.keys)
             assertTrue(fixture.peer.installed.values.all { it.isEmpty() })
         }
     }
@@ -88,10 +89,10 @@ class GoDapBreakpointHandlerTest : LightPlatformTestCase() {
             fixture.initialize()
             val position = onEdt { XDebuggerUtil.getInstance().createPosition(fixture.other, 3)!! }
             onEdt { fixture.handler.registerTemporaryBreakpoint(position).join() }
-            assertEquals(listOf(3, 4), fixture.peer.installed[fixture.other.path])
+            assertEquals(listOf(3, 4), fixture.peer.installed[fixture.otherPath])
             onEdt { fixture.handler.unregisterTemporaryBreakpoint(position).join() }
-            assertEquals(listOf(3), fixture.peer.installed[fixture.other.path])
-            assertEquals(listOf(2), fixture.peer.installed[fixture.app.path])
+            assertEquals(listOf(3), fixture.peer.installed[fixture.otherPath])
+            assertEquals(listOf(2), fixture.peer.installed[fixture.appPath])
         }
     }
 
@@ -102,8 +103,8 @@ class GoDapBreakpointHandlerTest : LightPlatformTestCase() {
             fixture.initialize()
             fixture.peer.calls.clear()
             fixture.remove(other)
-            assertEquals("The upstream regression leaves the removed file installed", listOf(3), fixture.peer.installed[fixture.other.path])
-            assertFalse(fixture.peer.calls.any { it.first == fixture.other.path })
+            assertEquals("The upstream regression leaves the removed file installed", listOf(3), fixture.peer.installed[fixture.otherPath])
+            assertFalse(fixture.peer.calls.any { it.first == fixture.otherPath })
         }
     }
 
@@ -114,6 +115,8 @@ class GoDapBreakpointHandlerTest : LightPlatformTestCase() {
         private val disposable = Disposer.newDisposable("Go breakpoint file fixture")
         val app: VirtualFile
         val other: VirtualFile
+        val appPath: String get() = Path.of(app.path).toString()
+        val otherPath: String get() = Path.of(other.path).toString()
         val peer = Peer()
         private val type = onEdt { XDebuggerUtil.getInstance().findBreakpointType(DAPBreakpointType::class.java)
             ?: DAPBreakpointType().also { XBreakpointType.EXTENSION_POINT_NAME.point.registerExtension(it, testRootDisposable) } }
@@ -139,9 +142,9 @@ class GoDapBreakpointHandlerTest : LightPlatformTestCase() {
                 override fun getServerMappings(): List<ServerMapping> = emptyList()
             }
             val descriptor: DebugAdapterDescriptor = if (connection) GoConnectionDescriptor(GoConnectionOptions().apply {
-                processId = "37"; workingDirectory = "/opengoland-breakpoint-test"
+                processId = "37"; workingDirectory = root.toString()
             }, environment, definition, true) else GoDebugDescriptor(GoDebugSessionOptions(GoDebugLaunch(
-                "/opengoland-breakpoint-test", "/opengoland-breakpoint-test", "debug", emptyList(), emptyList(), emptyMap()
+                root.toString(), root.toString(), "debug", emptyList(), emptyList(), emptyMap()
             )), environment, definition)
             if (upstream) DAPBreakpointHandler(session, descriptor, project)
                 else descriptor.createBreakpointHandler(session, project).also {

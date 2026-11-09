@@ -6,6 +6,7 @@ import com.intellij.openapi.project.Project
 import com.redhat.devtools.lsp4ij.dap.DAPDebugRunner
 import com.redhat.devtools.lsp4ij.dap.DebugMode
 import java.lang.reflect.Proxy
+import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
@@ -14,10 +15,11 @@ import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class GoDebugConnectionTest {
-    private fun options() = GoConnectionOptions().apply { processId = "12345"; workingDirectory = "/workspace" }
+    private val workspace = Path.of("debug connection workspace").toAbsolutePath().normalize().toString()
+    private fun options() = GoConnectionOptions().apply { processId = "12345"; workingDirectory = workspace }
 
     @Test fun localAttachSpawnsAdapterButUsesRealAttachRequestAndNoLaunchFields() {
-        val connection = GoDebugConnection.fromOptions(options(), "/workspace", true)
+        val connection = GoDebugConnection.fromOptions(options(), workspace, true)
         assertEquals(DebugMode.LAUNCH, connection.adapterMode)
         assertEquals(DebugMode.ATTACH, connection.requestMode)
         val dap = connection.dapParameters("local")
@@ -33,13 +35,13 @@ class GoDebugConnectionTest {
 
     @Test fun externalDapAndHeadlessUseDistinctAttachModesWithoutSpawningServer() {
         val options = options().apply { host = "::1"; port = "56789" }
-        val external = GoDebugConnection.fromOptions(options, "/workspace", false)
+        val external = GoDebugConnection.fromOptions(options, workspace, false)
         assertEquals(DebugMode.ATTACH, external.adapterMode)
         assertEquals("local", external.dapParameters("external")["mode"])
         assertEquals(12345, external.processId)
         options.remoteKind = GoRemoteServerKind.HEADLESS_SESSION.name
         options.processId = "not used for headless sessions"
-        val headless = GoDebugConnection.fromOptions(options, "/workspace", false)
+        val headless = GoDebugConnection.fromOptions(options, workspace, false)
         assertNull(headless.processId)
         assertEquals("remote", headless.dapParameters("headless")["mode"])
         assertFalse(headless.dapParameters("headless").containsKey("processId"))
@@ -49,14 +51,16 @@ class GoDebugConnectionTest {
     }
 
     @Test fun mappingDirectionIsClientToServerAndOptionsSnapshotDoesNotMutate() {
+        val localProject = Path.of(workspace).resolve("local/project").toString()
+        val localWindows = Path.of(workspace).resolve("local/windows").toString()
         val options = options().apply {
-            sourceMappings = "/local/project => /remote/project\n/local/windows => C:\\agent\\src"
+            sourceMappings = "$localProject => /remote/project\n$localWindows => C:\\agent\\src"
             environmentVariables = "ADAPTER_ENV=first\nMULTILINE=second "
             hideSystemGoroutines = true
         }
-        val snapshot = GoDebugConnection.fromOptions(options, "/workspace", true)
+        val snapshot = GoDebugConnection.fromOptions(options, workspace, true)
         options.sourceMappings = "changed"; options.environmentVariables = "ADAPTER_ENV=changed"
-        assertEquals(listOf(mapOf("from" to "/local/project", "to" to "/remote/project"), mapOf("from" to "/local/windows", "to" to "C:\\agent\\src")), snapshot.substitutePath)
+        assertEquals(listOf(mapOf("from" to localProject, "to" to "/remote/project"), mapOf("from" to localWindows, "to" to "C:\\agent\\src")), snapshot.substitutePath)
         assertEquals("first", snapshot.environment["ADAPTER_ENV"])
         assertEquals("second ", snapshot.environment["MULTILINE"])
         assertTrue(snapshot.hideSystemGoroutines)
@@ -64,15 +68,16 @@ class GoDebugConnectionTest {
 
     @Test fun malformedEndpointsPidsAndMappingsAreRejectedBeforeConnecting() {
         for (host in listOf("http://127.0.0.1", "127.0.0.1:38697", "[::1]", "bad host")) {
-            assertFailsWith<IllegalArgumentException> { GoDebugConnection.fromOptions(options().apply { this.host = host }, "/workspace", false) }
+            assertFailsWith<IllegalArgumentException> { GoDebugConnection.fromOptions(options().apply { this.host = host }, workspace, false) }
         }
         for (port in listOf("0", "65536", "not a port")) {
-            assertFailsWith<IllegalArgumentException> { GoDebugConnection.fromOptions(options().apply { this.port = port }, "/workspace", false) }
+            assertFailsWith<IllegalArgumentException> { GoDebugConnection.fromOptions(options().apply { this.port = port }, workspace, false) }
         }
         for (pid in listOf("0", "-1", "999999999999", "")) {
-            assertFailsWith<IllegalArgumentException> { GoDebugConnection.fromOptions(options().apply { processId = pid }, "/workspace", true) }
+            assertFailsWith<IllegalArgumentException> { GoDebugConnection.fromOptions(options().apply { processId = pid }, workspace, true) }
         }
-        for (mapping in listOf("a=b", "relative => /remote", "/local => relative", "/local => /a\n/local => /b")) {
+        val local = Path.of(workspace).resolve("local").toString()
+        for (mapping in listOf("a=b", "relative => /remote", "$local => relative", "$local => /a\n$local => /b")) {
             assertFailsWith<IllegalArgumentException> { GoDebugConnection.parseMappings(mapping) }
         }
     }
@@ -94,7 +99,7 @@ class GoDebugConnectionTest {
     @Test fun nativeConfigurationTypesAreEligibleForDebugOnly() {
         val project = Proxy.newProxyInstance(Project::class.java.classLoader, arrayOf(Project::class.java)) { proxy, method, args ->
             when (method.name) {
-                "getBasePath" -> "/workspace"; "toString" -> "GoAttachConfigurationTestProject"
+                "getBasePath" -> workspace; "toString" -> "GoAttachConfigurationTestProject"
                 "hashCode" -> System.identityHashCode(proxy); "equals" -> proxy === args?.firstOrNull(); else -> null
             }
         } as Project

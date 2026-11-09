@@ -202,7 +202,7 @@ class GoSourceFunctionsTest {
         try {
             Files.writeString(root.resolve("go.mod"), "module example.org/entrynames\n\ngo 1.24.0\n")
             Files.writeString(root.resolve("names_test.go"), source)
-            val go = GoToolchain.resolve("go") ?: throw AssertionError("The repository's required Go toolchain is unavailable")
+            val go = GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()) ?: throw AssertionError("The repository's required Go toolchain is unavailable")
             // Vet separately diagnoses the deliberately non-test lowercase name;
             // this probe compares the driver's executable entry selection.
             process = ProcessBuilder(go, "test", "-vet=off", "-list", ".").directory(root.toFile()).redirectErrorStream(true).apply {

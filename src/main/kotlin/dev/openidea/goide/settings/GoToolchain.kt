@@ -89,7 +89,9 @@ object GoToolchain {
             return path.toAbsolutePath().normalize().takeIf { Files.isRegularFile(it) && Files.isExecutable(it) }?.toString()
         }
         bundledExecutable(tool, bundledTools)?.let { return it.toString() }
-        PathEnvironmentVariableUtil.findInPath(tool)?.let { return it.absolutePath }
+        // findInPath is an exact-name lookup; Windows PATH entries contain
+        // go.exe/gopls.exe/dlv.exe (or standard PATHEXT shims), not bare names.
+        PathEnvironmentVariableUtil.findExecutableInPathOnAnyOS(tool)?.let { return it.absolutePath }
         val home = Path.of(System.getProperty("user.home"))
         val filename = if (System.getProperty("os.name").startsWith("Windows")) "$tool.exe" else tool
         val candidates = mutableListOf(home.resolve("go/bin/$filename"), Path.of("/opt/homebrew/bin/$filename"), Path.of("/usr/local/go/bin/$filename"), Path.of("/usr/local/bin/$filename"))

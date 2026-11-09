@@ -109,7 +109,7 @@ class GoFuzzFailureRerunToolTest : LightPlatformTestCase() {
 
     private fun fixture(failing: Boolean, action: (Path, String) -> Unit) {
         val root = Files.createTempDirectory("opengoland-fuzz-failure-rerun-").toRealPath()
-        val go = GoToolchain.resolve("go") ?: throw AssertionError("Go is required for this actual-tool regression")
+        val go = GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()) ?: throw AssertionError("Go is required for this actual-tool regression")
         try {
             // Go's fuzz cache is package/function keyed. A unique owned module
             // prevents a previous passing fixture's cache becoming baseline input.

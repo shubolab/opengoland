@@ -5,6 +5,7 @@ import com.google.gson.JsonParser
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.testFramework.LightPlatformTestCase
+import dev.openidea.goide.process.GoOwnedTestExecutable
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
 import java.lang.reflect.InvocationTargetException
@@ -144,9 +145,8 @@ class EngineClientEdtDisposalTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = false
 
     fun testDisposalCannotWaitForABlockedEnginePipeOnTheEdt() {
-        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
         val root = Files.createTempDirectory("opengoland-engine-blocked-pipe-").toRealPath()
-        val script = root.resolve("engine/bin/opengoland-engine")
+        val script = root.resolve("engine/bin/" + GoOwnedTestExecutable.name("opengoland-engine"))
         val token = UUID.randomUUID().toString()
         val previousWorkspace = System.getProperty("openidea.workspace")
         val realProject = project
@@ -167,34 +167,39 @@ class EngineClientEdtDisposalTest : LightPlatformTestCase() {
             Files.createDirectories(script.parent)
             // The marker is set before initialization is acknowledged. Afterwards stdin
             // remains open but is never read again, so a large real pipe write must block.
-            Files.writeString(script, """
-                |#!/usr/bin/env python3
-                |import json, os, pathlib, sys, time
-                |script=pathlib.Path(__file__).resolve()
-                |root=script.parents[2]
-                |token='$token'
-                |record={'pid':os.getpid(),'token':token,'script':str(script)}
-                |(root/'owned.json').write_text(json.dumps(record))
-                |with (root/'launches').open('a') as stream: stream.write(str(os.getpid())+'\n')
-                |length=None
-                |while True:
-                |    line=sys.stdin.buffer.readline()
-                |    if not line: sys.exit(2)
-                |    if line in (b'\r\n',b'\n'): break
-                |    if line.lower().startswith(b'content-length:'): length=int(line.split(b':',1)[1])
-                |message=json.loads(sys.stdin.buffer.read(length))
-                |assert message['method']=='initialize'
-                |(root/'not-reading').write_text(token)
-                |packet=json.dumps({'jsonrpc':'2.0','id':message['id'],'result':record}).encode()
-                |sys.stdout.buffer.write(('Content-Length: %d\r\n\r\n'%len(packet)).encode()+packet)
-                |sys.stdout.buffer.flush()
-                |while True: time.sleep(60)
-            """.trimMargin().trimStart())
-            assertTrue(script.toFile().setExecutable(true))
+            GoOwnedTestExecutable.compile(script, """
+                package main
+                import ("bufio"; "encoding/json"; "fmt"; "io"; "os"; "path/filepath"; "strconv"; "strings"; "time")
+                func main() {
+                    executable, err := os.Executable(); if err != nil { panic(err) }
+                    root := filepath.Dir(filepath.Dir(filepath.Dir(executable)))
+                    record := map[string]any{"pid": os.Getpid(), "token": "$token", "script": executable}
+                    encoded, err := json.Marshal(record); if err != nil { panic(err) }
+                    if err := os.WriteFile(filepath.Join(root, "owned.json"), encoded, 0600); err != nil { panic(err) }
+                    launches, err := os.OpenFile(filepath.Join(root, "launches"), os.O_WRONLY|os.O_CREATE|os.O_APPEND, 0600); if err != nil { panic(err) }
+                    if _, err := fmt.Fprintln(launches, os.Getpid()); err != nil { panic(err) }; launches.Close()
+                    input := bufio.NewReader(os.Stdin)
+                    length := -1
+                    for { line, err := input.ReadString('\n'); if err != nil { panic(err) }; line = strings.TrimSpace(line)
+                        if line == "" { break }; if strings.HasPrefix(strings.ToLower(line), "content-length:") {
+                            length, err = strconv.Atoi(strings.TrimSpace(strings.SplitN(line, ":", 2)[1])); if err != nil { panic(err) }
+                        }
+                    }
+                    if length < 0 { panic("Missing Content-Length") }
+                    data := make([]byte, length); if _, err := io.ReadFull(input, data); err != nil { panic(err) }
+                    var message map[string]any; if err := json.Unmarshal(data, &message); err != nil { panic(err) }
+                    if message["method"] != "initialize" { panic("Expected initialize") }
+                    if err := os.WriteFile(filepath.Join(root, "not-reading"), []byte("$token"), 0600); err != nil { panic(err) }
+                    packet, err := json.Marshal(map[string]any{"jsonrpc":"2.0", "id":message["id"], "result":record}); if err != nil { panic(err) }
+                    fmt.Fprintf(os.Stdout, "Content-Length: %d\r\n\r\n", len(packet)); if _, err := os.Stdout.Write(packet); err != nil { panic(err) }
+                    for { time.Sleep(time.Hour) }
+                }
+            """.trimIndent())
             System.setProperty("openidea.workspace", root.toString())
             // Retain real settings/services but use our own working directory. The
             // reused light project's basePath may name a deleted earlier fixture.
-            settings.goExecutable = dev.openidea.goide.settings.GoToolchain.resolve("go")
+            settings.goExecutable = dev.openidea.goide.settings.GoToolchain.resolve("go",
+                System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty())
                 ?: throw AssertionError("The Go toolchain required by this repository is unavailable")
             val engine = EngineClient(effectiveProject)
             client = engine

@@ -180,7 +180,7 @@ class GoStructHelpersIntegrationTest : HeavyPlatformTestCase() {
             val doc = ReadAction.compute<Document, RuntimeException> { FileDocumentManager.getInstance().getDocument(virtual)!! }
             document = doc
             val settings = GoProjectSettings.get(project)
-            settings.goExecutable = requireNotNull(GoToolchain.resolve("go"))
+            settings.goExecutable = requireNotNull(GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()))
             settings.environment = "GOWORK=off\nGOPROXY=off\nGOTOOLCHAIN=local\nGOTELEMETRY=off"
             val service = GoWorkspaceEditService.get(project)
             onEdt {

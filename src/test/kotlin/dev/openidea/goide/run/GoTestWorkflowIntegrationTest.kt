@@ -133,7 +133,7 @@ class GoTestWorkflowIntegrationTest : LightPlatformTestCase() {
 
     private fun withFixture(test: (Path, String) -> Unit) {
         val root = Files.createTempDirectory("opengoland-real-test-workflows-").toRealPath()
-        val go = GoToolchain.resolve("go") ?: throw AssertionError("The Go toolchain required by this repository is unavailable")
+        val go = GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()) ?: throw AssertionError("The Go toolchain required by this repository is unavailable")
         try {
             Files.writeString(root.resolve("go.mod"), "module example.org/workflowfixture\n\ngo 1.24.0\n")
             Files.writeString(root.resolve("workflow_test.go"), """

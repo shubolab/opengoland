@@ -24,6 +24,7 @@ import com.redhat.devtools.lsp4ij.dap.descriptors.DebugAdapterDescriptor
 import com.redhat.devtools.lsp4ij.dap.descriptors.ServerReadyConfig
 import com.redhat.devtools.lsp4ij.settings.ServerTrace
 import dev.openidea.goide.lang.GoFileType
+import dev.openidea.goide.process.GoOwnedTestExecutable
 import org.eclipse.lsp4j.debug.*
 import org.eclipse.lsp4j.debug.launch.DSPLauncher
 import org.eclipse.lsp4j.debug.services.IDebugProtocolClient
@@ -35,6 +36,7 @@ import java.net.ServerSocket
 import java.net.Socket
 import java.nio.file.Files
 import java.nio.file.Path
+import java.time.Instant
 import java.util.UUID
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CountDownLatch
@@ -51,7 +53,6 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = false
 
     fun testNativeStopWaitsForOneSharedDetachAndTheAdaptersNaturalExit() {
-        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
         Fixture().use { fixture ->
             val client = fixture.client()
             ApplicationManager.getApplication().invokeAndWait { fixture.stopNative() }
@@ -75,12 +76,12 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
             shared.get(2, TimeUnit.SECONDS)
             Files.writeString(fixture.root.resolve("exit"), "owned adapter exits after detach")
             fixture.handler.process.onExit().get(2, TimeUnit.SECONDS)
+            assertEquals("The owned adapter must exit naturally after acknowledgement", 0, fixture.handler.process.exitValue())
             assertFalse("A completed detach should permit natural exit without a concurrent signal", Files.exists(fixture.root.resolve("term")))
         }
     }
 
     fun testDetachDeadlineReapsOnlyTheOwnedAdapterWithoutBlockingTheEdt() {
-        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
         Fixture(ignoreTerm = true, graceSeconds = 1).use { fixture ->
             fixture.client()
             val descendant = fixture.child()
@@ -93,7 +94,8 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
             assertTrue("Adapter Stop must not wait for network or process exit on the EDT", returned.get(1, TimeUnit.SECONDS) < 500)
             waitFor { fixture.peer.disconnects.size == 1 }
             fixture.handler.process.onExit().get(5, TimeUnit.SECONDS)
-            assertTrue("The owned test adapter ignored the graceful termination signal", Files.exists(fixture.root.resolve("term")))
+            if (!System.getProperty("os.name").startsWith("Windows"))
+                assertTrue("The owned test adapter ignored the graceful termination signal", Files.exists(fixture.root.resolve("term")))
             assertTrue("Emergency cleanup must never recursively kill adapter descendants", descendant.isAlive)
             assertTrue(fixture.peer.continues.isEmpty())
             fixture.peer.ack.complete(null)
@@ -101,7 +103,6 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
     }
 
     fun testBlockedDisconnectDispatchCannotPreventTheIndependentCleanupDeadline() {
-        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
         Fixture(graceSeconds = 1).use { fixture ->
             fixture.client()
             val entered = CompletableFuture<Unit>()
@@ -115,7 +116,7 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
                 ApplicationManager.getApplication().invokeAndWait { fixture.handler.destroyProcess() }
                 entered.get(1, TimeUnit.SECONDS)
                 fixture.handler.process.onExit().get(4, TimeUnit.SECONDS)
-                assertTrue(Files.exists(fixture.root.resolve("term")))
+                if (!System.getProperty("os.name").startsWith("Windows")) assertTrue(Files.exists(fixture.root.resolve("term")))
             } finally { blocked.countDown() }
         }
     }
@@ -123,7 +124,33 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
     private inner class Fixture(private val ignoreTerm: Boolean = false, graceSeconds: Long = 3) : AutoCloseable {
         val root: Path = Files.createTempDirectory("opengoland-adapter-lifecycle-").toRealPath()
         private val token = UUID.randomUUID().toString()
-        private val script = root.resolve("owned-adapter.py")
+        private val program = GoOwnedTestExecutable.compile(root.resolve(GoOwnedTestExecutable.name("owned-adapter")), """
+            package main
+            import ("os"; "os/exec"; "os/signal"; "path/filepath"; "strconv"; "syscall"; "time")
+            func main() {
+                if len(os.Args) > 1 && os.Args[1] == "child" { for { time.Sleep(time.Hour) } }
+                executable, err := os.Executable(); if err != nil { panic(err) }
+                root := filepath.Dir(executable)
+                ignore := ${if (ignoreTerm) "true" else "false"}
+                signals := make(chan os.Signal, 1)
+                signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
+                if ignore {
+                    child := exec.Command(executable, "child", "$token")
+                    if err := child.Start(); err != nil { panic(err) }
+                    if err := os.WriteFile(filepath.Join(root, "child"), []byte(strconv.Itoa(child.Process.Pid)), 0600); err != nil { panic(err) }
+                }
+                if err := os.WriteFile(filepath.Join(root, "ready"), []byte(strconv.Itoa(os.Getpid())), 0600); err != nil { panic(err) }
+                for {
+                    select {
+                    case <-signals:
+                        if err := os.WriteFile(filepath.Join(root, "term"), []byte(strconv.Itoa(os.Getpid())), 0600); err != nil { panic(err) }
+                        if !ignore { return }
+                    case <-time.After(10 * time.Millisecond):
+                        if !ignore { if _, err := os.Stat(filepath.Join(root, "exit")); err == nil { return } }
+                    }
+                }
+            }
+        """.trimIndent())
         val peer = Peer()
         val sessionStops = AtomicInteger()
         private val console = CopyOnWriteArrayList<String>()
@@ -135,25 +162,10 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
         val handler: GoAttachedAdapterProcessHandler
         private val debugProcess: DAPDebugProcess
         private var ownedChild: ProcessHandle? = null
+        private var childStarted: Instant? = null
 
         init {
-            Files.writeString(script, """
-                |import os, pathlib, signal, subprocess, sys, time
-                |root=pathlib.Path(__file__).resolve().parent
-                |ignore=${if (ignoreTerm) "True" else "False"}
-                |def term(sig, frame):
-                |    (root/'term').write_text(str(os.getpid()))
-                |    if not ignore: sys.exit(0)
-                |signal.signal(signal.SIGTERM,term)
-                |if ignore:
-                |    child=subprocess.Popen([sys.executable,'-c','import time;time.sleep(300)','$token'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL,start_new_session=True)
-                |    (root/'child').write_text(str(child.pid))
-                |(root/'ready').write_text(str(os.getpid()))
-                |while True:
-                |    if not ignore and (root/'exit').exists(): sys.exit(0)
-                |    time.sleep(.01)
-            """.trimMargin())
-            handler = GoAttachedAdapterProcessHandler(GeneralCommandLine("python3", "-u", script.toString()).withWorkDirectory(root.toFile()), graceSeconds)
+            handler = GoAttachedAdapterProcessHandler(GeneralCommandLine(program.toString()).withWorkDirectory(root.toFile()), graceSeconds)
             waitFor { Files.exists(root.resolve("ready")) }
             workers.submit {
                 try {
@@ -220,8 +232,9 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
         fun child(): ProcessHandle {
             waitFor { Files.exists(root.resolve("child")) }
             val value = ProcessHandle.of(Files.readString(root.resolve("child")).toLong()).orElseThrow()
-            assertTrue(value.info().arguments().orElse(emptyArray()).any { it == token })
+            assertOwnedChild(value)
             ownedChild = value
+            childStarted = value.info().startInstant().orElse(null)
             return value
         }
 
@@ -229,7 +242,8 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
             peer.ack.complete(null)
             if (Files.exists(root.resolve("child")) && ownedChild == null) runCatching { child() }
             ownedChild?.takeIf { it.isAlive }?.let { child ->
-                check(child.info().arguments().orElse(emptyArray()).any { it == token })
+                assertOwnedChild(child)
+                check(childStarted == null || child.info().startInstant().orElse(null) == childStarted) { "The owned child PID was reused" }
                 child.destroyForcibly(); child.onExit().get(2, TimeUnit.SECONDS)
             }
             Files.writeString(root.resolve("exit"), "fixture cleanup")
@@ -238,6 +252,14 @@ class GoAttachedAdapterLifecycleTest : LightPlatformTestCase() {
             debugProcess.dispose()
             accepted.getNow(null)?.close(); listener.close(); listening?.cancel(true); workers.shutdownNow()
             Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
+        }
+
+        private fun assertOwnedChild(child: ProcessHandle) {
+            val info = child.info()
+            check(info.arguments().map { it.any { argument -> argument == token } }.orElse(false) ||
+                info.command().map { Path.of(it).toAbsolutePath().normalize() == program }.orElse(false)) {
+                "The descendant must be this fixture's unique native executable or carry its ownership token"
+            }
         }
     }
 

@@ -1,12 +1,18 @@
 package dev.openidea.goide.settings
 
 import com.intellij.openapi.project.Project
+import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.execution.configurations.PathEnvironmentVariableUtil
+import com.intellij.execution.process.CapturingProcessHandler
 import java.lang.reflect.Proxy
 import java.nio.file.Files
+import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
 
 class GoToolchainTest {
     @Test fun buildTagsPreserveLettersAndNormalizeWhitespace() {
@@ -20,14 +26,14 @@ class GoToolchainTest {
     }
 
     @Test fun selectedSDKAndTargetFieldsAreConsistentAcrossTools() {
-        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
         val root = Files.createTempDirectory("openidea-sdk-test").toRealPath()
         try {
             val sdk = root.resolve("sdk with spaces")
-            val go = sdk.resolve("bin/go")
+            val go = sdk.resolve("bin/go" + if (System.getProperty("os.name").startsWith("Windows")) ".exe" else "")
             Files.createDirectories(go.parent)
             Files.createDirectories(sdk.resolve("src/runtime"))
-            Files.writeString(go, "#!/bin/sh\nexit 0\n")
+            // This command-preparation fixture is never executed.
+            Files.writeString(go, "owned native executable placeholder")
             go.toFile().setExecutable(true)
             val service = GoProjectSettings()
             service.state.apply {
@@ -60,5 +66,23 @@ class GoToolchainTest {
         } finally {
             root.toFile().deleteRecursively()
         }
+    }
+
+    @Test fun hostPathToolLookupFindsAndActuallyExecutesTheNativeGoExecutable() {
+        // Explicitly bypass the product bundle: this is the standard host PATH
+        // branch, which must work with Windows' executable extensions too.
+        val executable = assertNotNull(GoToolchain.resolve("go", "", null), "The required Go tool on the test host PATH must be discoverable")
+        val path = Path.of(executable).toRealPath()
+        val directories = PathEnvironmentVariableUtil.getPathDirs(PathEnvironmentVariableUtil.getPathVariableValue().orEmpty())
+        assertTrue(directories.any { candidate -> runCatching { Path.of(candidate).resolve(Path.of(executable).fileName).toRealPath() == path }.getOrDefault(false) })
+        val sdk = path.parent.parent.takeIf { Files.isDirectory(it.resolve("src/runtime")) }?.toString().orEmpty()
+        val handler = CapturingProcessHandler(GeneralCommandLine(executable, "version")
+            .withEnvironment("GOROOT", sdk).withEnvironment("GOTOOLCHAIN", "local"))
+        try {
+            val output = handler.runProcess(10_000, true)
+            assertEquals(0, output.exitCode, output.stdout + output.stderr)
+            assertFalse(output.isTimeout || output.isCancelled)
+            assertTrue(output.stdout.startsWith("go version go") || output.stdout.startsWith("go version devel "), output.stdout)
+        } finally { if (!handler.isProcessTerminated) handler.destroyProcess() }
     }
 }
