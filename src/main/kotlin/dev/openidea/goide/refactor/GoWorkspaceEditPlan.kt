@@ -167,11 +167,12 @@ internal object GoWorkspaceEditPlan {
                         val requestedNew = path(op.newUri)
                         val new = logical(requestedNew.parent).resolve(requestedNew.fileName)
                         checkPath(old); checkPath(new)
-                        if (old == new) return@forEachIndexed
+                        if (GoWorkspaceEditCaseAliases.sameSpelling(old, new)) return@forEachIndexed
                         val node = tree[old] ?: throw GoWorkspaceEditRejected("Rename source does not exist: $old")
-                        requireEdit(!new.startsWith(old) && !old.startsWith(new), "Cannot rename overlapping ancestor/descendant paths")
                         val targetPath = logical(new)
-                        val caseOnly = targetPath == old && targetPath != new
+                        val caseOnly = GoWorkspaceEditCaseAliases.sameSpelling(targetPath, old) && !GoWorkspaceEditCaseAliases.sameSpelling(targetPath, new)
+                        requireEdit(old != new || caseOnly, "Case-only rename requires verified physical resource identity")
+                        requireEdit(caseOnly || !new.startsWith(old) && !old.startsWith(new), "Cannot rename overlapping ancestor/descendant paths")
                         val target = if (caseOnly) null else tree[targetPath]
                         if (target != null && op.options?.overwrite != true && op.options?.ignoreIfExists == true) return@forEachIndexed
                         requireEdit(target == null || op.options?.overwrite == true, "Rename target already exists: $new")

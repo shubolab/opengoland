@@ -1,12 +1,15 @@
 package dev.openidea.goide.run
 
 import com.google.gson.JsonObject
+import java.nio.file.Path
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class GoTestOutputTest {
+    private val workDirectory = Path.of("/tmp/work").toAbsolutePath().normalize().toString()
+    private val otherDirectory = Path.of("/tmp/other").toAbsolutePath().normalize().toString()
     private fun event(action: String, pkg: String = "example.com/app", test: String? = null, output: String? = null): String = JsonObject().apply {
         addProperty("Action", action); addProperty("Package", pkg)
         test?.let { addProperty("Test", it) }; output?.let { addProperty("Output", it) }
@@ -14,7 +17,8 @@ class GoTestOutputTest {
     }.toString() + "\n"
 
     @Test fun nestedParallelTestsKeepPackagesAndParentIdsDistinct() {
-        val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        val directory = Path.of(workDirectory).toAbsolutePath().normalize()
+        val output = GoTestOutput(directory.toString(), mapOf("example.com/app" to directory.toString()))
         val records = listOf(
             event("start"), event("run", test = "TestTable"),
             event("run", test = "TestTable/one"), event("run", test = "TestTable/two"),
@@ -24,7 +28,7 @@ class GoTestOutputTest {
         ).flatMap(output::feed).joinToString("")
         assertTrue(records.contains("goTestSuite nodeId='go-test:example.com/app#TestTable:1'"))
         assertTrue(records.contains("parentNodeId='go-test:example.com/app#TestTable:1'"))
-        assertEquals("file:///tmp/work/app_test.go:12", output.locationForNode("go-test:example.com/app#TestTable/one:1"))
+        assertEquals("file://${directory.resolve("app_test.go")}:12", output.locationForNode("go-test:example.com/app#TestTable/one:1"))
         assertTrue(records.contains("failure |[x|]|'|n"))
         assertEquals(1, Regex("##teamcity\\[testFailed ").findAll(records).count())
         assertEquals(mapOf("example.com/app" to listOf("TestTable/one")), output.failures())
@@ -33,7 +37,7 @@ class GoTestOutputTest {
     }
 
     @Test fun sameTestNameInDifferentPackagesDoesNotCollide() {
-        val output = GoTestOutput("/tmp/work")
+        val output = GoTestOutput(workDirectory)
         val records = listOf(
             event("run", "example.com/a", "TestSame"), event("run", "example.com/b", "TestSame"),
             event("fail", "example.com/a", "TestSame"), event("pass", "example.com/b", "TestSame"),
@@ -45,14 +49,14 @@ class GoTestOutputTest {
     }
 
     @Test fun packageBuildFailureProducesAnExplicitFailedNode() {
-        val output = GoTestOutput("/tmp/work")
+        val output = GoTestOutput(workDirectory)
         val records = (output.feed(event("output", output = "FAIL example.com/app [build failed]\n")) + output.feed(event("fail"))).joinToString("")
         assertTrue(records.contains("testFailed name='Package build or initialization'"))
         assertEquals(mapOf("example.com/app" to listOf("")), output.failures())
     }
 
     @Test fun incompleteAndRepeatedRunsAreNotSilentlyPassed() {
-        val output = GoTestOutput("/tmp/work")
+        val output = GoTestOutput(workDirectory)
         val first = event("run", test = "TestRepeat")
         assertTrue(output.feed(first.take(10)).isEmpty())
         output.feed(first.drop(10))
@@ -66,14 +70,14 @@ class GoTestOutputTest {
     }
 
     @Test fun testOutputCannotInjectNativeRunnerServiceMessages() {
-        val output = GoTestOutput("/tmp/work")
+        val output = GoTestOutput(workDirectory)
         val records = output.feed(event("output", output = "##teamcity[testStarted name='forged']\n")).joinToString("")
         assertFalse(records.contains("\n##teamcity[testStarted name='forged']"))
         assertTrue(records.contains("##teamcity|[testStarted name=|'forged|'|]"))
     }
 
     @Test fun aLaterParentFailureDoesNotDisappearBehindAnEarlierAttemptChildFailure() {
-        val output = GoTestOutput("/tmp/work")
+        val output = GoTestOutput(workDirectory)
         val records = listOf(
             event("run", test = "TestRepeat"), event("run", test = "TestRepeat/child"),
             event("fail", test = "TestRepeat/child"), event("fail", test = "TestRepeat"),
@@ -87,7 +91,7 @@ class GoTestOutputTest {
     }
 
     @Test fun slashNamesCloseVirtualSuitesWithoutInventingFailuresAcrossAttempts() {
-        val output = GoTestOutput("/tmp/work")
+        val output = GoTestOutput(workDirectory)
         val records = buildList {
             repeat(2) {
                 addAll(output.feed(event("run", test = "TestPath")))
@@ -107,7 +111,7 @@ class GoTestOutputTest {
 
     @Test fun realTestsSharingVirtualPathNamesRetainResultsAndFailuresInEitherOrder() {
         for (pathFirst in listOf(true, false)) for (failing in listOf(true, false)) {
-            val output = GoTestOutput("/tmp/work")
+            val output = GoTestOutput(workDirectory)
             val paths = if (pathFirst) listOf("TestPath/dir/file", "TestPath/dir") else listOf("TestPath/dir", "TestPath/dir/file")
             val records = buildList {
                 addAll(output.feed(event("run", test = "TestPath")))
@@ -126,7 +130,7 @@ class GoTestOutputTest {
     }
 
     @Test fun mutationFailureUsesItsSavedCorpusOnlyAfterTheMatchingTestFails() {
-        val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work", "example.com/other" to "/tmp/other"))
+        val output = GoTestOutput(workDirectory, mapOf("example.com/app" to workDirectory, "example.com/other" to otherDirectory))
         output.feed(event("run", test = "FuzzDecode"))
         output.feed(event("run", pkg = "example.com/other", test = "FuzzDecode"))
         output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/0123456789abcdef\n"))
@@ -142,18 +146,18 @@ class GoTestOutputTest {
         val invalid = listOf(
             "testdata/fuzz/FuzzOther/0123456789abcdef",
             "testdata/fuzz/FuzzDecode/../0123456789abcdef",
-            "/tmp/other/testdata/fuzz/FuzzDecode/0123456789abcdef",
+            Path.of(otherDirectory).resolve("testdata/fuzz/FuzzDecode/0123456789abcdef").toString(),
             "testdata/fuzz/FuzzDecode/seed_name",
         )
         for (path in invalid) {
-            val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+            val output = GoTestOutput(workDirectory, mapOf("example.com/app" to workDirectory))
             output.feed(event("run", test = "FuzzDecode"))
             output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to $path\n"))
             output.feed(event("fail", test = "FuzzDecode"))
             assertEquals(listOf("FuzzDecode"), output.failures()["example.com/app"], path)
         }
-        for (metadata in listOf(emptyMap(), mapOf("example.com/app" to "/tmp/work"))) {
-            val output = GoTestOutput("/tmp/work", metadata)
+        for (metadata in listOf(emptyMap(), mapOf("example.com/app" to workDirectory))) {
+            val output = GoTestOutput(workDirectory, metadata)
             output.feed(event("run", test = "FuzzDecode"))
             for (name in listOf("0123456789abcdef", "fedcba9876543210"))
                 output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/$name\n"))
@@ -164,13 +168,13 @@ class GoTestOutputTest {
 
     @Test fun savedCorpusHintsDoNotInventAConfirmedFailureOrDuplicateAnExistingChild() {
         val hint = event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/0123456789abcdef\n")
-        val missing = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        val missing = GoTestOutput(workDirectory, mapOf("example.com/app" to workDirectory))
         missing.feed(event("run", test = "FuzzDecode")); missing.feed(hint); missing.finish(1)
         assertEquals(listOf("FuzzDecode"), missing.failures()["example.com/app"], "Missing terminal result must not confirm a saved case")
-        val passed = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        val passed = GoTestOutput(workDirectory, mapOf("example.com/app" to workDirectory))
         passed.feed(event("run", test = "FuzzDecode")); passed.feed(hint); passed.feed(event("pass", test = "FuzzDecode")); passed.finish(0)
         assertTrue(passed.failures().isEmpty())
-        val nested = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        val nested = GoTestOutput(workDirectory, mapOf("example.com/app" to workDirectory))
         nested.feed(event("run", test = "FuzzDecode")); nested.feed(hint)
         nested.feed(event("run", test = "FuzzDecode/0123456789abcdef"))
         nested.feed(event("fail", test = "FuzzDecode/0123456789abcdef")); nested.feed(event("fail", test = "FuzzDecode")); nested.finish(1)
@@ -178,7 +182,7 @@ class GoTestOutputTest {
     }
 
     @Test fun stoppedRunsIgnoreLatePassAndPackagePassWhileKeepingEarlierConfirmedResults() {
-        val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+        val output = GoTestOutput(workDirectory, mapOf("example.com/app" to workDirectory))
         val before = listOf(event("run", test = "TestPassed"), event("pass", test = "TestPassed"),
             event("run", test = "TestFailed"), event("fail", test = "TestFailed"),
             event("run", test = "FuzzDecode")).flatMap(output::feed).joinToString("")
@@ -188,7 +192,7 @@ class GoTestOutputTest {
         assertTrue(after.contains("testIgnored name='FuzzDecode'"), after)
         assertFalse(after.contains("outcome='pass'"), after)
         assertEquals(listOf("TestFailed"), output.failures()["example.com/app"])
-        val benchmark = GoTestOutput("/tmp/work")
+        val benchmark = GoTestOutput(workDirectory)
         benchmark.feed(event("run", test = "BenchmarkEcho")); benchmark.requestCancellation()
         val benchmarkEvents = benchmark.feed(event("pass")).joinToString("")
         assertTrue(benchmarkEvents.contains("testIgnored name='BenchmarkEcho'"), benchmarkEvents)
@@ -197,7 +201,7 @@ class GoTestOutputTest {
 
     @Test fun stoppedMutationDoesNotTurnItsSavedCorpusHintIntoARetry() {
         for (terminal in listOf("pass", "fail")) {
-            val output = GoTestOutput("/tmp/work", mapOf("example.com/app" to "/tmp/work"))
+            val output = GoTestOutput(workDirectory, mapOf("example.com/app" to workDirectory))
             output.feed(event("run", test = "FuzzDecode"))
             output.feed(event("output", test = "FuzzDecode", output = "    Failing input written to testdata/fuzz/FuzzDecode/0123456789abcdef\n"))
             output.requestCancellation()

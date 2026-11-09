@@ -41,8 +41,9 @@ class GoWorkspaceEditNativeCaseTest : LightPlatformTestCase() {
 
     fun testFileCaseRenameAndFollowingTextEditShareOneNativeUndoRedo() = exercise(directory = false)
     fun testDirectoryCaseRenameAndChildTextEditShareOneNativeUndoRedo() = exercise(directory = true)
+    fun testNewSpellingMentionedFirstKeepsNativeIdentityAndOneUndoRedo() = exercise(directory = false, mentionNewFirst = true)
 
-    private fun exercise(directory: Boolean) {
+    private fun exercise(directory: Boolean, mentionNewFirst: Boolean = false) {
         val root = Files.createTempDirectory("opengoland-native-case-").toRealPath()
         val disposable = Disposer.newDisposable("native case rename event listener")
         VfsRootAccess.allowRootAccess(disposable, root.toString())
@@ -57,17 +58,33 @@ class GoWorkspaceEditNativeCaseTest : LightPlatformTestCase() {
             val newChild = if (directory) new.resolve("model.go") else new
             Files.writeString(oldChild, originalText)
             val caseInsensitive = Files.exists(new)
-            val value = WorkspaceEdit(listOf(resource(RenameFile(uri(old), uri(new))),
-                Either.forLeft<TextDocumentEdit, ResourceOperation>(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(newChild), null),
-                    listOf(TextEdit(Range(Position(1, 4), Position(1, 9)), "Renamed"))))))
+            val changes = buildList {
+                if (mentionNewFirst) add(Either.forLeft<TextDocumentEdit, ResourceOperation>(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(newChild), null),
+                    listOf(TextEdit(Range(Position(1, 4), Position(1, 9)), "Middle")))))
+                add(resource(RenameFile(uri(old), uri(new))))
+                add(Either.forLeft<TextDocumentEdit, ResourceOperation>(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(newChild), null),
+                    listOf(TextEdit(Range(Position(1, 4), Position(1, if (mentionNewFirst) 10 else 9)), "Renamed")))))
+            }
+            val value = WorkspaceEdit(changes)
             val aliases = GoWorkspaceEditCaseAliases.detect(value)
             assertEquals("The actual filesystem must decide whether this is a case alias", caseInsensitive, aliases.isNotEmpty())
             val node = GoEditNode(false, originalText.toByteArray(), originalText, oldChild)
-            val initial = linkedMapOf(root to GoEditNode(true), oldChild to node)
+            val initial = linkedMapOf(root to GoEditNode(true))
+            if (mentionNewFirst && caseInsensitive) initial[newChild] = node
+            initial[oldChild] = node
             if (directory) initial[old] = GoEditNode(true, origin = old)
             if (caseInsensitive) {
                 initial[newChild] = node
                 if (directory) initial[new] = initial.getValue(old)
+            }
+            if (mentionNewFirst && !caseInsensitive) {
+                // Two case-sensitive spellings are different resources: editing
+                // the not-yet-created target must be refused before mutation.
+                kotlin.test.assertFailsWith<GoWorkspaceEditRejected> {
+                    GoWorkspaceEditPlan.build(value, initial, { null }, aliases) { it.startsWith(root) }
+                }
+                assertEquals(originalText, Files.readString(oldChild))
+                return
             }
             val plan = GoWorkspaceEditPlan.build(value, initial, { null }, aliases) { it.startsWith(root) }
             val local = LocalFileSystem.getInstance()

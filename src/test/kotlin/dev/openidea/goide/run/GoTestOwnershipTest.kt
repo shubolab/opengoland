@@ -53,14 +53,15 @@ class GoTestOwnershipTest {
     }
 
     @Test fun failureOutputIsNotCopiedIntoFailureDetailsAndKeepsItsRecordedLocation() {
-        val output = GoTestOutput("/tmp", mapOf("example.com/owned" to "/tmp/the actual package"))
+        val directory = java.nio.file.Path.of("/tmp/the actual package").toAbsolutePath().normalize()
+        val output = GoTestOutput(directory.parent.toString(), mapOf("example.com/owned" to directory.toString()))
         val messages = decode(listOf(event("run", "TestBad"),
             event("output", "TestBad", "    owned_test.go:23: controlled-failure\n"),
             event("fail", "TestBad", elapsed = .0506), event("fail", elapsed = .679)).flatMap(output::feed))
         assertEquals(1, Regex("controlled-failure").findAll(console(messages)).count())
         assertEquals("", messages.single { it.messageName == "testFailed" }.attributes["details"])
         val hint = messages.single { it.messageName == "testStarted" }.attributes["locationHint"]!!
-        assertEquals("file:///tmp/the actual package/owned_test.go:23", output.locationForToken(hint.substringAfter("://")))
+        assertEquals("file://${directory.resolve("owned_test.go")}:23", output.locationForToken(hint.substringAfter("://")))
         assertEquals("51", messages.single { it.messageName == "testFinished" }.attributes["duration"])
         assertEquals(mapOf("example.com/owned" to listOf("TestBad")), output.failures())
     }

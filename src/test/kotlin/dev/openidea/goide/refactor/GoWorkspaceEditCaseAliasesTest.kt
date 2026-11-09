@@ -25,7 +25,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class GoWorkspaceEditCaseAliasesTest {
-    private val root = Path.of("/workspace")
+    private val root = Path.of("/workspace").toAbsolutePath().normalize()
 
     @Test fun samePhysicalCaseOnlyFileRenamePreservesItsVersionedDocumentAndNeverOverwrites() {
         val old = root.resolve("name.go")
@@ -39,9 +39,9 @@ class GoWorkspaceEditCaseAliasesTest {
             assertTrue(rename.caseOnly)
             assertFalse(rename.overwrite)
             assertFalse(plan.steps.any { it is GoEditStep.Delete })
-            assertFalse(old in plan.after)
+            assertFalse(plan.after.keys.any { GoWorkspaceEditCaseAliases.sameSpelling(it, old) })
             assertEquals("new", GoWorkspaceEditPlan.text(plan.after.getValue(new)))
-            assertEquals(old, plan.steps.filterIsInstance<GoEditStep.Text>().single().origin)
+            assertEquals(old.toString(), plan.steps.filterIsInstance<GoEditStep.Text>().single().origin.toString())
         }
     }
 
@@ -55,9 +55,9 @@ class GoWorkspaceEditCaseAliasesTest {
         val initial = tree(old to directory, new to directory, source to file, target to file)
         val value = WorkspaceEdit(listOf(resource(RenameFile(uri(old), uri(new))), document(target, 0, "old", "new")))
         val plan = build(value, initial, setOf(GoCaseRenameAlias(old, new)))
-        assertFalse(plan.after.keys.any { it.startsWith(old) })
+        assertFalse(plan.after.keys.any { spelledUnder(it, old) })
         assertEquals("new", GoWorkspaceEditPlan.text(plan.after.getValue(target)))
-        assertEquals(source, plan.steps.filterIsInstance<GoEditStep.Text>().single().origin)
+        assertEquals(source.toString(), plan.steps.filterIsInstance<GoEditStep.Text>().single().origin.toString())
         assertTrue(plan.steps.filterIsInstance<GoEditStep.Rename>().single().caseOnly)
     }
 
@@ -71,7 +71,7 @@ class GoWorkspaceEditCaseAliasesTest {
         val value = WorkspaceEdit(listOf(resource(RenameFile(uri(first), uri(second))), resource(RenameFile(uri(second), uri(third))),
             resource(RenameFile(uri(third), uri(first))), document(first, null, "old", "new")))
         val plan = build(value, initial, aliases)
-        assertEquals(setOf(first), plan.after.filterValues { !it.directory }.keys)
+        assertEquals(setOf(first.toString()), plan.after.filterValues { !it.directory }.keys.map { it.toString() }.toSet())
         assertEquals("new", GoWorkspaceEditPlan.text(plan.after.getValue(first)))
         assertEquals(3, plan.steps.filterIsInstance<GoEditStep.Rename>().size)
         assertTrue(plan.steps.filterIsInstance<GoEditStep.Rename>().all { it.caseOnly && !it.overwrite })
@@ -97,7 +97,29 @@ class GoWorkspaceEditCaseAliasesTest {
         val value = WorkspaceEdit(listOf(resource(CreateFile(uri(child))), document(child, null, "", "new"), resource(RenameFile(uri(old), uri(new)))))
         val plan = build(value, tree(old to node, new to node), setOf(GoCaseRenameAlias(old, new)))
         assertEquals("new", GoWorkspaceEditPlan.text(plan.after.getValue(child)))
-        assertFalse(plan.after.keys.any { it.startsWith(old) })
+        assertFalse(plan.after.keys.any { spelledUnder(it, old) })
+    }
+
+    @Test fun mentioningNewCaseFirstPreservesOriginalVersionedOriginAndStillRenamesOnce() {
+        val old = root.resolve("name.go")
+        val new = root.resolve("Name.go")
+        val node = GoEditNode(false, "old".toByteArray(), "old", old)
+        // Windows Map<Path> retains the first NEW key even when OLD is inserted
+        // later. Its live source spelling must come from proven entry identity.
+        val initial = tree(new to node.copy(origin = new), old to node)
+        val edit = WorkspaceEdit(listOf(document(new, 7, "old", "mid"),
+            resource(RenameFile(uri(old), uri(new))), document(new, null, "mid", "end")))
+        val plan = build(edit, initial, setOf(GoCaseRenameAlias(old, new))) {
+            if (it.toString() == old.toString()) GoSyncedDocument(7, "old", 4) else null
+        }
+        val rename = plan.steps.filterIsInstance<GoEditStep.Rename>().single()
+        assertTrue(rename.caseOnly)
+        assertFalse(rename.overwrite)
+        assertEquals(old.toString(), rename.old.toString())
+        assertEquals(new.toString(), rename.new.toString())
+        assertEquals(old.toString(), plan.steps.filterIsInstance<GoEditStep.Text>().first().origin.toString())
+        assertEquals(setOf(new.toString()), plan.after.filterValues { !it.directory }.keys.map { it.toString() }.toSet())
+        assertEquals("end", GoWorkspaceEditPlan.text(plan.after.getValue(new)))
     }
 
     @Test fun equalContentOrSharedOriginWithoutPhysicalAliasProofIsStillARealCollision() {
@@ -149,7 +171,9 @@ class GoWorkspaceEditCaseAliasesTest {
         } finally { Files.walk(root).use { it.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) } }
     }
 
-    private fun tree(vararg entries: Pair<Path, GoEditNode>) = mapOf(Path.of("/") to GoEditNode(true), root to GoEditNode(true)) + entries
+    private fun tree(vararg entries: Pair<Path, GoEditNode>) = mapOf(root.root to GoEditNode(true), root to GoEditNode(true)) + entries
+    private fun spelledUnder(path: Path, parent: Path) = path.toString() == parent.toString() ||
+        path.toString().startsWith(parent.toString() + java.io.File.separator)
     private fun build(value: WorkspaceEdit, initial: Map<Path, GoEditNode>, aliases: Set<GoCaseRenameAlias>, synced: (Path) -> GoSyncedDocument? = { null }) =
         GoWorkspaceEditPlan.build(value, initial, synced, aliases) { it.startsWith(root) }
     private fun uri(path: Path) = GoDocumentSync.fileUri(path)

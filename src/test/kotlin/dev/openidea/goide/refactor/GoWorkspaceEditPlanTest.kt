@@ -26,7 +26,7 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 class GoWorkspaceEditPlanTest {
-    private val root = Path.of("/workspace")
+    private val root = Path.of("/workspace").toAbsolutePath().normalize()
     private val file = root.resolve("a.go")
 
     @Test fun utf16PositionsSupportEmojiChineseAndEveryLspLineEnding() {
@@ -174,7 +174,7 @@ class GoWorkspaceEditPlanTest {
     }
 
     private fun build(value: WorkspaceEdit, tree: Map<Path, GoEditNode>, sync: (Path) -> GoSyncedDocument? = { null }) = GoWorkspaceEditPlan.build(value, tree, sync) { it.startsWith(root) }
-    private fun initial(vararg entries: Pair<Path, GoEditNode>): Map<Path, GoEditNode> = mapOf(Path.of("/") to GoEditNode(true), root to GoEditNode(true)) + entries
+    private fun initial(vararg entries: Pair<Path, GoEditNode>): Map<Path, GoEditNode> = mapOf(root.root to GoEditNode(true), root to GoEditNode(true)) + entries
     private fun node(text: String, origin: Path = file) = GoEditNode(false, text.toByteArray(), text, origin)
     private fun uri(path: Path) = GoDocumentSync.fileUri(path)
     private fun edit(sl: Int, sc: Int, el: Int, ec: Int, text: String) = TextEdit(Range(Position(sl, sc), Position(el, ec)), text)
