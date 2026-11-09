@@ -7,6 +7,7 @@ import com.intellij.openapi.actionSystem.ex.ActionManagerEx
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteIntentReadAction
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.project.ProjectManager
 import com.intellij.openapi.ui.DialogWrapper
 import com.intellij.ide.util.projectWizard.AbstractNewProjectDialog
 import com.intellij.openapi.util.Disposer
@@ -22,6 +23,13 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
 import javax.swing.JRootPane
+import javax.swing.JButton
+import javax.swing.JLabel
+import java.awt.Container
+import org.jetbrains.org.objectweb.asm.ClassReader
+import org.jetbrains.org.objectweb.asm.ClassVisitor
+import org.jetbrains.org.objectweb.asm.MethodVisitor
+import org.jetbrains.org.objectweb.asm.Opcodes
 
 /** Actual SDK action registry/native wizard controls and verified real-Go creation. */
 class GoNewProjectTest : LightPlatformTestCase() {
@@ -60,7 +68,7 @@ class GoNewProjectTest : LightPlatformTestCase() {
         val lifetime = Disposer.newDisposable("native Go wizard panel")
         val parent = Files.createTempDirectory("open Goland 新项目 😀 ").toRealPath()
         try {
-            val step = edt { GoNewProjectStep({ project }, lifetime).settingsStep().also { it.createPanel() } }
+            val step = edt { GoNewProjectStep({ project }, lifetime, {}).settingsStep().also { it.createPanel() } }
             waitFor { step.sdkSelector.isReady }
             edt {
                 step.nameField.text = "project 中文 😀"
@@ -111,6 +119,82 @@ class GoNewProjectTest : LightPlatformTestCase() {
                 assertEquals(environment, values.environment)
             } finally { dialog.close(DialogWrapper.CANCEL_EXIT_CODE); root.contentPane.removeAll() }
         }
+    }
+
+    fun testNativeFooterCancelClosesWithoutCreatingAndKeepsTheEnvironmentLabelCompact() {
+        val parent = Files.createTempDirectory("open Goland cancel UI ").toRealPath()
+        val missingParent = parent.resolve("must-not-be-created")
+        val openBefore = ProjectManager.getInstance().openProjects.toList()
+        val executable = testGo()
+        var dialog: GoNewProjectDialog? = null
+        var rootPane: JRootPane? = null
+        try {
+            val step = edt {
+                val native = GoNewProjectDialog().also { dialog = it; it.initialize(project, executable, "") }
+                val pairField = AbstractNewProjectDialog::class.java.getDeclaredField("myPair").apply { isAccessible = true }
+                val panel = (pairField.get(native) as com.intellij.openapi.util.Pair<*, *>).first as javax.swing.JComponent
+                rootPane = JRootPane().also { it.contentPane.add(panel) }
+                var selected: GoNewProjectSettingsStep? = null
+                assertTrue(native.setSelectedAction { action ->
+                    (action is GoNewProjectSettingsStep).also { if (it) selected = action as GoNewProjectSettingsStep }
+                })
+                requireNotNull(selected)
+            }
+            waitFor { step.sdkSelector.isReady }
+            edt {
+                val native = requireNotNull(dialog)
+                step.locationField.text = missingParent.toString()
+                step.nameField.text = "cancelled-project"
+                assertTrue(step.checkValid())
+                val controls = descendants(requireNotNull(rootPane).contentPane)
+                val labels = controls.filterIsInstance<JLabel>().map { it.text }
+                assertTrue(labels.contains("Environment:"))
+                assertFalse(labels.any { it?.startsWith("Environment (") == true })
+                assertTrue(step.environmentField.toolTipText.contains("NAME=value"))
+                assertTrue(step.environmentField.toolTipText.contains("one per line"))
+                val cancel = controls.filterIsInstance<JButton>().single { it.text == com.intellij.CommonBundle.getCancelButtonText() }
+                assertTrue(cancel.isEnabled)
+                assertFalse(native.isDisposed)
+                cancel.doClick()
+                assertTrue("Cancel must close the actual native DialogWrapper", native.isDisposed)
+                assertEquals(DialogWrapper.CANCEL_EXIT_CODE, native.exitCode)
+                assertFalse(native.isOK)
+            }
+            assertFalse("Cancel must not create a destination or its parent", Files.exists(missingParent))
+            assertEquals(0L, Files.list(parent).use { it.count() })
+            assertEquals(openBefore, ProjectManager.getInstance().openProjects.toList())
+        } finally {
+            edt {
+                dialog?.let { if (!it.isDisposed) it.close(DialogWrapper.CANCEL_EXIT_CODE) }
+                rootPane?.contentPane?.removeAll()
+            }
+            GoSdkProbe.deleteOwnedTree(parent)
+        }
+    }
+
+    fun testSettingsStepUsesTheProductionSafeActionGroupSnapshot() {
+        // The SDK suppresses getChildren(null)'s production error in unit mode.
+        // Verify the actually compiled call boundary as well as the native UI path.
+        val calls = mutableListOf<Pair<String, String>>()
+        val type = GoNewProjectStep::class.java
+        val resource = "/${type.name.replace('.', '/')}.class"
+        type.getResourceAsStream(resource).use { input ->
+            assertNotNull(input)
+            ClassReader(requireNotNull(input)).accept(object : ClassVisitor(Opcodes.ASM9) {
+                override fun visitMethod(access: Int, name: String, descriptor: String, signature: String?, exceptions: Array<out String>?): MethodVisitor? {
+                    if (!name.startsWith("settingsStep")) return null
+                    return object : MethodVisitor(Opcodes.ASM9) {
+                        override fun visitMethodInsn(opcode: Int, owner: String, name: String, descriptor: String, isInterface: Boolean) {
+                            calls += name to descriptor
+                        }
+                    }
+                }
+            }, ClassReader.SKIP_DEBUG or ClassReader.SKIP_FRAMES)
+        }
+        assertTrue("Use the already initialized native children without null action events", calls.any { it.first == "getChildActionsOrStubs" })
+        assertFalse("The production-only null-event logger must never be reached", calls.any {
+            it.first == "getChildren" && it.second.startsWith("(Lcom/intellij/openapi/actionSystem/AnActionEvent;")
+        })
     }
 
     fun testBeforeInitKeepsAutomaticSdkRelocatableAndLeavesWindowChoiceToThePlatform() {
@@ -199,6 +283,9 @@ class GoNewProjectTest : LightPlatformTestCase() {
         } finally { GoSdkProbe.deleteOwnedTree(parent) }
     }
 
+    private fun descendants(container: Container): List<java.awt.Component> = container.components.flatMap {
+        listOf(it) + if (it is Container) descendants(it) else emptyList()
+    }
     private fun settings(parent: Path, sdk: String, environment: String = "") =
         GoNewProjectSettings("project 中文 😀", parent.toString(), "example.com/wizard", sdk, true, environment)
     private fun testGo() = requireNotNull(GoToolchain.resolve("go",

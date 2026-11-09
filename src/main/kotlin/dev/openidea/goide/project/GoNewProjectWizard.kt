@@ -1,5 +1,6 @@
 package dev.openidea.goide.project
 
+import com.intellij.CommonBundle
 import com.intellij.facet.ui.ValidationResult
 import com.intellij.ide.util.projectWizard.AbstractNewProjectDialog
 import com.intellij.ide.util.projectWizard.AbstractNewProjectStep
@@ -38,6 +39,7 @@ import java.awt.BorderLayout
 import java.nio.file.Path
 import java.util.concurrent.CancellationException
 import javax.swing.Icon
+import javax.swing.JButton
 import javax.swing.JComponent
 import javax.swing.JPanel
 import javax.swing.JScrollPane
@@ -50,7 +52,7 @@ internal class GoNewProjectDialog : AbstractNewProjectDialog() {
     private lateinit var projectStep: GoNewProjectStep
     init { title = ProjectBundle.message("dialog.title.new.project") }
     override fun createNewProjectStep(): AbstractNewProjectStep<*> =
-        GoNewProjectStep({ ownerProject }, disposable).also { projectStep = it }
+        GoNewProjectStep({ ownerProject }, disposable) { close(DialogWrapper.CANCEL_EXIT_CODE) }.also { projectStep = it }
 
     fun initialize(owner: Project?, executable: String, environment: String) {
         ownerProject = owner
@@ -63,17 +65,17 @@ internal class GoNewProjectDialog : AbstractNewProjectDialog() {
     }
 }
 
-internal class GoNewProjectStep(owner: () -> Project?, lifetime: Disposable) :
-    AbstractNewProjectStep<GoNewProjectSettings>(GoNewProjectCustomization(owner, lifetime)) {
-    internal fun settingsStep(): GoNewProjectSettingsStep = getChildren(null).filterIsInstance<GoNewProjectSettingsStep>().single()
+internal class GoNewProjectStep(owner: () -> Project?, lifetime: Disposable, cancel: () -> Unit) :
+    AbstractNewProjectStep<GoNewProjectSettings>(GoNewProjectCustomization(owner, lifetime, cancel)) {
+    internal fun settingsStep(): GoNewProjectSettingsStep = childActionsOrStubs.filterIsInstance<GoNewProjectSettingsStep>().single()
 
-    private class GoNewProjectCustomization(private val owner: () -> Project?, private val lifetime: Disposable) :
+    private class GoNewProjectCustomization(private val owner: () -> Project?, private val lifetime: Disposable, private val cancel: () -> Unit) :
         Customization<GoNewProjectSettings>() {
         override fun createEmptyProjectGenerator(): DirectoryProjectGenerator<GoNewProjectSettings> = GoNewProjectGenerator()
         override fun createCallback(): AbstractNewProjectStep.AbstractCallback<GoNewProjectSettings> = GoNewProjectCallback(owner)
         override fun createProjectSpecificSettingsStep(generator: DirectoryProjectGenerator<GoNewProjectSettings>,
             callback: AbstractNewProjectStep.AbstractCallback<GoNewProjectSettings>): ProjectSettingsStepBase<GoNewProjectSettings> =
-            GoNewProjectSettingsStep(generator, callback).also { Disposer.register(lifetime, it) }
+            GoNewProjectSettingsStep(generator, callback, cancel).also { Disposer.register(lifetime, it) }
         override fun getActions(generators: List<DirectoryProjectGenerator<*>>,
             callback: AbstractNewProjectStep.AbstractCallback<GoNewProjectSettings>): Array<out AnAction> = emptyArray()
     }
@@ -88,7 +90,7 @@ private class GoNewProjectGenerator : DirectoryProjectGenerator<GoNewProjectSett
 }
 
 internal class GoNewProjectSettingsStep(generator: DirectoryProjectGenerator<GoNewProjectSettings>,
-    callback: AbstractNewProjectStep.AbstractCallback<GoNewProjectSettings>) :
+    callback: AbstractNewProjectStep.AbstractCallback<GoNewProjectSettings>, private val cancel: () -> Unit) :
     ProjectSettingsStepBase<GoNewProjectSettings>(generator, callback, "hello") {
     internal val nameField = JBTextField("hello")
     internal val locationField = TextFieldWithBrowseButton().apply {
@@ -97,7 +99,9 @@ internal class GoNewProjectSettingsStep(generator: DirectoryProjectGenerator<GoN
     }
     internal val moduleField = JBTextField("example.com/hello")
     internal val sampleField = JBCheckBox("Create a runnable example with a unit test", true)
-    internal val environmentField = JBTextArea(3, 38)
+    internal val environmentField = JBTextArea(3, 38).apply {
+        toolTipText = "Enter environment variables as NAME=value, one per line."
+    }
     internal val sdkSelector = GoSdkSelector(null, this)
     private val destinationLabel = JBLabel()
     private var panelCreated = false
@@ -151,19 +155,27 @@ internal class GoNewProjectSettingsStep(generator: DirectoryProjectGenerator<GoN
         myLocationField = locationField
         val error = createErrorLabel()
         val create = createActionButton()
+        val cancelButton = JButton(CommonBundle.getCancelButtonText()).apply { addActionListener { cancel() } }
         create.addActionListener {
             if (checkValid()) myCallback.consume(this, peer)
         }
-        Disposer.register(this) { com.intellij.util.ui.UIUtil.dispose(create) }
+        Disposer.register(this) {
+            com.intellij.util.ui.UIUtil.dispose(create)
+            com.intellij.util.ui.UIUtil.dispose(cancelButton)
+        }
         val fields = FormBuilder.createFormBuilder()
             .addLabeledComponent("Name:", nameField)
             .addLabeledComponent("Location:", locationField)
             .addComponent(destinationLabel)
             .addLabeledComponent("Module path:", moduleField)
             .addLabeledComponent("Go SDK:", sdkSelector.component)
-            .addLabeledComponent("Environment (NAME=value per line):", JScrollPane(environmentField))
+            .addLabeledComponent("Environment:", JScrollPane(environmentField))
             .addComponent(sampleField).panel
-        val bottom = JPanel(BorderLayout()).apply { add(error, BorderLayout.NORTH); add(create, BorderLayout.EAST) }
+        val bottom = JPanel(BorderLayout()).apply {
+            add(error, BorderLayout.NORTH)
+            add(cancelButton, BorderLayout.WEST)
+            add(create, BorderLayout.EAST)
+        }
         panelCreated = true
         checkValid()
         return JPanel(BorderLayout()).apply { add(fields, BorderLayout.NORTH); add(bottom, BorderLayout.SOUTH) }
