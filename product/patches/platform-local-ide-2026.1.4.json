@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "platformVersion": "2026.1.4",
-  "purpose": "Local IDE without IDE accounts, cloud settings sync, paid upsell registrations or active Grazie cloud/license plugin; Git/private-repository authentication retained.",
+  "purpose": "Local IDE without IDE accounts, cloud settings sync, paid upsell registrations or active Grazie cloud/license plugin; Git/private-repository authentication retained. Inapplicable upstream Data Sharing configurable omitted for this independent vendor; consent APIs and records unchanged.",
   "classpathRule": {
     "kind": "plugin-classpath",
     "path": "plugins/plugin-classpath.txt",
     "inputBytes": 3144040,
     "inputSha256": "b67cfca0af041c999c3c1841e55605bae507132c8fc8d0728a08050ee84ea766",
-    "outputBytes": 3118338,
-    "outputSha256": "39eee2dd86ca8d8e1a4af2747770a7f8d949ba96ee23aeed149e360afddc128d",
+    "outputBytes": 3118158,
+    "outputSha256": "18b298bc75d780d197a8dea17aaa637aa783e947a40753c6699c68ef91fc3089",
     "pluginCountBefore": 47,
     "pluginCountAfter": 46,
     "core": {
@@ -16,8 +16,8 @@
       "path": "plugins/plugin-classpath.txt!core",
       "inputBytes": 1415624,
       "inputSha256": "036ce94f40e5dd1ef56de3fe317937be7699a3ccb01da9937114fd176ae135f4",
-      "outputBytes": 1409195,
-      "outputSha256": "2a170b9c074b19548ad5418b7365aa21ec49f307dc3a56531bada7cacc87b132",
+      "outputBytes": 1409015,
+      "outputSha256": "b6aa81088795da4928a272256e4172f625465f1323b92d6274d0085b8990e602",
       "removals": [
         {
           "tag": "module",
@@ -64,6 +64,19 @@
           "parent": "actions",
           "bytes": 135,
           "sha256": "1a3c854dbc1c0278c808e1fb56ccfb4e9c0b265c5512b78b47b42215e9773938"
+        },
+        {
+          "tag": "applicationConfigurable",
+          "attributes": {
+            "parentId": "preferences.general",
+            "instance": "com.intellij.ide.gdpr.ConsentConfigurable",
+            "id": "consents",
+            "bundle": "messages.IdeBundle",
+            "key": "consent.configurable"
+          },
+          "parent": "extensions",
+          "bytes": 180,
+          "sha256": "e536a92d895821f820289090520252faeb3bfeaea652f8f6708819356deb051b"
         }
       ],
       "absentTokens": [
@@ -72,7 +85,8 @@
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
-        "CheckSuggestedPlugins"
+        "CheckSuggestedPlugins",
+        "com.intellij.ide.gdpr.ConsentConfigurable"
       ]
     },
     "dropPlugins": [
@@ -179,7 +193,8 @@
       "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler",
       "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
       "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
-      "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction"
+      "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
+      "com.intellij.ide.gdpr.ConsentConfigurable"
     ]
   },
   "xmlRules": [
@@ -188,8 +203,8 @@
       "path": "lib/app.jar!/META-INF/IdeaPlugin.xml",
       "inputBytes": 1299666,
       "inputSha256": "bb158dfa10703af21dbadea381b7054947a4fca0463cc86ac7dfe065d1a39e38",
-      "outputBytes": 1294297,
-      "outputSha256": "ae17a169bb672a9744316f7f20a7f0dc369aa47c2569eb2441decedea3f34783",
+      "outputBytes": 1294117,
+      "outputSha256": "f96e7cc9ff9f4d5453d7a3dc397ab62ba4a152df0f26d86723a0007f7cee52d0",
       "removals": [
         {
           "tag": "module",
@@ -236,6 +251,19 @@
           "parent": "actions",
           "bytes": 135,
           "sha256": "1a3c854dbc1c0278c808e1fb56ccfb4e9c0b265c5512b78b47b42215e9773938"
+        },
+        {
+          "tag": "applicationConfigurable",
+          "attributes": {
+            "parentId": "preferences.general",
+            "instance": "com.intellij.ide.gdpr.ConsentConfigurable",
+            "id": "consents",
+            "bundle": "messages.IdeBundle",
+            "key": "consent.configurable"
+          },
+          "parent": "extensions",
+          "bytes": 180,
+          "sha256": "e536a92d895821f820289090520252faeb3bfeaea652f8f6708819356deb051b"
         }
       ],
       "absentTokens": [
@@ -244,7 +272,8 @@
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
-        "CheckSuggestedPlugins"
+        "CheckSuggestedPlugins",
+        "com.intellij.ide.gdpr.ConsentConfigurable"
       ],
       "jar": "lib/app.jar",
       "entry": "META-INF/IdeaPlugin.xml"
@@ -254,8 +283,8 @@
       "path": "lib/intellij.platform.ide.impl.jar!/META-INF/PlatformExtensions.xml",
       "inputBytes": 168880,
       "inputSha256": "e56ee99d29703f4bc67628e892e19631495ac08ca9fda594c4c0b7265be285ea",
-      "outputBytes": 168426,
-      "outputSha256": "b5743be805a014b16a7c2034ad37b0cf1ce61c1da1a1cd85adceb2ad2eeb2812",
+      "outputBytes": 168189,
+      "outputSha256": "2dc9c68147c5fe4db0f9e078e86ca5dfe189d492153385d098be11aeb521e2a2",
       "removals": [
         {
           "tag": "openAnotherToolHandler",
@@ -283,12 +312,26 @@
           "parent": "extensions",
           "bytes": 150,
           "sha256": "2e16b29c96fc0e34baf0d2f7990f073055108b93a5a8ca90a3c30c417351d75b"
+        },
+        {
+          "tag": "applicationConfigurable",
+          "attributes": {
+            "parentId": "preferences.general",
+            "instance": "com.intellij.ide.gdpr.ConsentConfigurable",
+            "id": "consents",
+            "bundle": "messages.IdeBundle",
+            "key": "consent.configurable"
+          },
+          "parent": "extensions",
+          "bytes": 237,
+          "sha256": "b1252ed7296a98826a43f770d738da27b71a15766f0e918144794818263d77d3"
         }
       ],
       "absentTokens": [
         "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler",
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
-        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity"
+        "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
+        "com.intellij.ide.gdpr.ConsentConfigurable"
       ],
       "jar": "lib/intellij.platform.ide.impl.jar",
       "entry": "META-INF/PlatformExtensions.xml"
@@ -656,7 +699,8 @@
     "Module repository graph removal/three optional-edge edits are a separate authenticated helper owned by another agent.",
     "Actual Marketplace UI policy is a separate public-platform patch.",
     "Resource-key presence alone is not proof an IDE-account or subscription action is registered.",
-    "This pin alone does not establish native startup or UI behavior; see the verification record for the final packaged build."
+    "This pin alone does not establish native startup or UI behavior; see the verification record for the final packaged build.",
+    "Removing the Data Sharing configurable does not grant consent or prove absence of all networking; independent-vendor default consent and ordinary collect/send guards are audited separately."
   ],
   "productInfoInventory": {
     "excludedIds": [

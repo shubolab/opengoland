@@ -157,7 +157,7 @@ def smoke(installed, output):
     # is not written into the installed product or a user's configuration.
     gui_options = output / "smoke.vmoptions"
     gui_options.write_text((installed / "bin/opengoland64.exe.vmoptions").read_text(encoding="utf-8") +
-                           "\n-Didea.trust.all.projects=true\n-Didea.initially.ask.config=false\n", encoding="utf-8")
+                           "\n-Didea.trust.all.projects=true\n-Dintellij.startup.wizard=false\n-Didea.initially.ask.config=never\n", encoding="utf-8")
     env[metadata.get("envVarBaseName", "IDEA") + "_VM_OPTIONS"] = str(gui_options)
     # Public PlatformExtensions.xml registers -version with ShowProductVersion.
     # This starts the real native launcher/JVM; it is not a GUI acceptance claim.

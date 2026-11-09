@@ -40,6 +40,63 @@ def run(command, log, environment=None, cwd=ROOT, timeout=None):
             _stop_owned(process)
 
 
+def created_image_device(information, image):
+    """Select only the newly created image's unambiguous primary device."""
+    if not isinstance(information, dict) or not isinstance(information.get("images"), list):
+        raise ValueError("Invalid disk image attachment inventory")
+    image = Path(image).resolve()
+    matches = [record for record in information["images"]
+               if isinstance(record, dict) and isinstance(record.get("image-path"), str)
+               and Path(record["image-path"]).is_absolute()
+               and Path(record["image-path"]).resolve() == image]
+    if not matches:
+        return None
+    if len(matches) != 1:
+        raise ValueError("Multiple attachment records for the created disk image")
+    entities = matches[0].get("system-entities")
+    if not isinstance(entities, list) or not entities or any(not isinstance(item, dict) for item in entities):
+        raise ValueError("Missing primary device for the created disk image")
+    whole = [item for item in entities if isinstance(item.get("dev-entry"), str)
+             and re.fullmatch(r"/dev/disk[0-9]+", item["dev-entry"])]
+    if len({item["dev-entry"] for item in whole}) != len(whole):
+        raise ValueError("Repeated primary device for the created disk image")
+    maps = [item for item in whole if item.get("content-hint") in
+            {"GUID_partition_scheme", "Apple_partition_scheme", "FDisk_partition_scheme"}]
+    candidates = maps if maps else whole
+    if len(candidates) != 1 or entities[0] is not candidates[0]:
+        raise ValueError("Ambiguous primary device for the created disk image")
+    return candidates[0]["dev-entry"]
+
+
+def detach_created_image(image, proof):
+    # Some macOS versions leave create's write-once device attached. That
+    # exclusive image lock prevents verification until its normal detach.
+    def inventory(name):
+        result = subprocess.run(["hdiutil", "info", "-plist"], capture_output=True, check=True)
+        (proof / name).write_bytes(result.stdout)
+        return plistlib.loads(result.stdout)
+
+    device = created_image_device(inventory("dmg-after-create-info.plist"), image)
+    if device is not None:
+        run(["hdiutil", "detach", device], proof / "dmg-after-create-detach.log")
+        if created_image_device(inventory("dmg-after-detach-info.plist"), image) is not None:
+            raise ValueError("The created disk image remains attached after normal detach")
+    (proof / "dmg-create-cleanup.json").write_text(json.dumps({
+        "image": str(Path(image).resolve()), "device": device,
+        "status": "detached-owned-image" if device else "created-image-not-attached"
+    }, indent=2) + "\n", encoding="utf-8")
+
+
+def smoke_properties(profile):
+    """Configure only this installer check's temporary native-launcher profile."""
+    properties = profile / "idea.properties"
+    properties.write_text("\n".join(f"idea.{name}.path={profile / name}"
+                                    for name in ("config", "system", "plugins", "log")) +
+                          "\nintellij.startup.wizard=false\nidea.initially.ask.config=never\n",
+                          encoding="utf-8")
+    return properties
+
+
 def package(version, output, reuse_go=None):
     if platform.system() != "Darwin" or platform.machine().lower() != "arm64":
         raise ValueError("This installer must be built and checked on Apple silicon macOS")
@@ -108,6 +165,7 @@ def package(version, output, reuse_go=None):
             "Source and notices: https://github.com/shubolab/opengoland\n")
         run(["hdiutil", "create", "-volname", "open Goland", "-srcfolder", stage,
              "-format", "UDZO", "-imagekey", "zlib-level=9", image], proof / "dmg-create.log")
+        detach_created_image(image, proof)
     run(["hdiutil", "verify", image], proof / "dmg-verify.log")
     install_root = Path(tempfile.mkdtemp(prefix="installed-macos-", dir=ROOT / "build"))
     installed = install_root / app.name
@@ -150,9 +208,7 @@ def package(version, output, reuse_go=None):
                       "GOCACHE": str(proof / "go-cache"), "GOMODCACHE": str(proof / "go-mod-cache")})
     profile = proof / "isolated-profile"
     profile.mkdir(exist_ok=True)
-    properties = profile / "idea.properties"
-    properties.write_text("\n".join(f"idea.{name}.path={profile / name}"
-                                    for name in ("config", "system", "plugins", "log")) + "\n")
+    properties = smoke_properties(profile)
     native_info = json.loads((installed / "Contents/Resources/product-info.json").read_text())
     prefix = native_info.get("envVarBaseName", "IDEA")
     if not re.fullmatch(r"[A-Z_][A-Z_0-9]*", prefix):

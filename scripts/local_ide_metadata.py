@@ -21,6 +21,10 @@ _MODULES = {
 }
 _TRY_ULTIMATE = "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler"
 _ADVERTISER = "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement."
+_CONSENT_CONFIGURABLE = {
+    "parentId": "preferences.general", "instance": "com.intellij.ide.gdpr.ConsentConfigurable",
+    "id": "consents", "bundle": "messages.IdeBundle", "key": "consent.configurable",
+}
 _PATCHED_PLUGINS = {
     "toml": "org.toml.lang", "maven": "org.jetbrains.idea.maven",
     "vcs-github": "org.jetbrains.plugins.github",
@@ -135,6 +139,8 @@ def _allowed_selector(selector: dict) -> None:
         return
     if (tag == "openAnotherToolHandler" and parent == "extensions"
             and attributes == {"implementation": _TRY_ULTIMATE}):
+        return
+    if tag == "applicationConfigurable" and parent == "extensions" and attributes == _CONSENT_CONFIGURABLE:
         return
     if (parent == "extensions" and (tag, attributes.get("implementation")) in {
         ("editorNotificationProvider", _ADVERTISER + "PluginAdvertiserEditorNotificationProvider"),
