@@ -25,6 +25,7 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.psi.PsiManager
+import com.intellij.psi.impl.source.PsiFileImpl
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
 import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
@@ -71,6 +72,36 @@ class GoStandardNavigationTest : LightPlatformTestCase() {
         assertEquals(f.readerOffset, requestOffset(requestor))
         assertEquals(f.file.virtualFile, requestFile(requestor))
         assertEquals(listOf("typeDefinition"), f.wrapper.requests.map { it.first })
+    }
+
+    fun testCommittedUnsavedSourceReachesTheStandardTypeBridgeWithStablePsi() = fixture { f ->
+        val documents = PsiDocumentManager.getInstance(project)
+        edt {
+            WriteCommandAction.runWriteCommandAction(project, Runnable {
+                f.editor.document.insertString(f.editor.document.textLength, "// unsaved 中文😀\n")
+                assertFalse("The control must start with a real uncommitted native document", documents.isCommitted(f.editor.document))
+            })
+        }
+        f.prepare()
+        val stamp = read { f.file.modificationStamp }
+        var checkedAtDispatch = false
+        f.wrapper.beforeRequest = {
+            read {
+                assertTrue(documents.isCommitted(f.editor.document))
+                assertTrue((f.file as PsiFileImpl).isContentsLoaded)
+                assertEquals(stamp, f.file.modificationStamp)
+                checkedAtDispatch = true
+            }
+        }
+        f.caret("Current")
+        val result = requireNotNull(read { typeResult(f.file, f.editor.caretModel.offset) })
+        assertTrue("The real standard route must reach the controlled server", checkedAtDispatch)
+        assertEquals("SingleTarget", result.javaClass.simpleName)
+        assertEquals(f.readerOffset, requestOffset(result.javaClass.getMethod("getRequestor").invoke(result)))
+        assertEquals(f.file.virtualFile, requestFile(result.javaClass.getMethod("getRequestor").invoke(result)))
+        assertEquals(listOf("typeDefinition"), f.wrapper.requests.map { it.first })
+        assertEquals(stamp, read { f.file.modificationStamp })
+        assertTrue(f.editor.document.text.endsWith("// unsaved 中文😀\n"))
     }
 
     fun testCurrentTypeActionBuildsAllChooserTargetsForAnAmbiguousServerReply() = fixture { f ->
@@ -218,6 +249,13 @@ class GoStandardNavigationTest : LightPlatformTestCase() {
         fun target(offset: Int): PsiElement? = read {
             TargetElementUtil.getInstance().findTargetElement(editor, TargetElementUtil.REFERENCED_ELEMENT_ACCEPTED, offset)
         }
+        fun prepare() {
+            edt { PsiDocumentManager.getInstance(project).commitDocument(editor.document) }
+            read {
+                assertTrue(PsiDocumentManager.getInstance(project).isCommitted(editor.document))
+                requireNotNull(file.node)
+            }
+        }
         fun write(action: () -> Unit) = edt {
             WriteCommandAction.runWriteCommandAction(project, Runnable(action))
             PsiDocumentManager.getInstance(project).commitDocument(editor.document)
@@ -228,6 +266,9 @@ class GoStandardNavigationTest : LightPlatformTestCase() {
         val root = Files.createTempDirectory("open-goland-standard-navigation-").toRealPath()
         val disposable = Disposer.newDisposable("owned standard navigation")
         VfsRootAccess.allowRootAccess(disposable, root.toString())
+        // Refresh the owned directory synchronously on this background test
+        // thread; deferred VFS events must not spill into a later query fixture.
+        val virtualRoot = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(root))
         val extension = TargetElementUtilBase.TARGET_ELEMENT_EVALUATOR
         val explicit = System.getProperty("openidea.testNavigationEvaluator") == "true"
         val evaluator = GoTargetElementEvaluator()
@@ -243,14 +284,17 @@ class GoStandardNavigationTest : LightPlatformTestCase() {
         try {
             val path = root.resolve("source.go")
             Files.writeString(path, SOURCE)
-            val virtual = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(path))
+            virtualRoot.refresh(false, true)
+            val virtual = requireNotNull(virtualRoot.findChild(path.fileName.toString()))
             val file = read { requireNotNull(PsiManager.getInstance(project).findFile(virtual)) }
             val document = read { requireNotNull(PsiDocumentManager.getInstance(project).getDocument(file)) }
-            wrapper.uri = virtual.url
+            wrapper.uri = LSPIJUtils.toUriAsString(virtual)
             synchronized(started) { started.clear(); started.add(wrapper) }
             lateinit var native: Editor
             edt { native = EditorFactory.getInstance().createEditor(document, project); editor = native }
-            block(Fixture(file, native, wrapper))
+            val fixture = Fixture(file, native, wrapper)
+            fixture.prepare()
+            block(fixture)
         } finally {
             synchronized(started) { started.clear(); started.addAll(previous) }
             edt { editor?.takeUnless { it.isDisposed }?.let(EditorFactory.getInstance()::releaseEditor) }
@@ -258,13 +302,14 @@ class GoStandardNavigationTest : LightPlatformTestCase() {
             if (explicit) extension.removeExplicitExtension(GoLanguage, evaluator)
             Disposer.dispose(disposable)
             root.toFile().deleteRecursively()
-            LocalFileSystem.getInstance().refreshAndFindFileByNioFile(root)
+            virtualRoot.refresh(false, true)
         }
     }
 
     private class OwnedWrapper(project: Project, definition: LanguageServerDefinition) : LanguageServerWrapper(project, definition) {
         lateinit var uri: String
         var multipleTypes = false
+        var beforeRequest: () -> Unit = {}
         private var heldType: CompletableFuture<Either<List<Location>, List<LocationLink>>>? = null
         val typeRequested = CountDownLatch(1)
         val requests = CopyOnWriteArrayList<Pair<String, Any>>()
@@ -275,6 +320,7 @@ class GoStandardNavigationTest : LightPlatformTestCase() {
         private val text = Proxy.newProxyInstance(TextDocumentService::class.java.classLoader, arrayOf(TextDocumentService::class.java)) { _, method, args ->
             when (method.name) {
                 "implementation", "typeDefinition", "definition" -> {
+                    beforeRequest()
                     requests += method.name to requireNotNull(args?.firstOrNull())
                     if (method.name == "typeDefinition") {
                         typeRequested.countDown()
