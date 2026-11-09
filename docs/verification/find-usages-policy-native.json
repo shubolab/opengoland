@@ -1,0 +1,1183 @@
+{
+  "schema": "open-goland.find-usages-policy-native.v1",
+  "status": "bounded-native-query-policy-and-explicit-LSP-navigation-observed-standard-navigation-gap-open",
+  "scope": "Two native ordinary-function Find Usages operations and two explicit LSP-prefixed navigation actions; full GoLand parity remains open",
+  "nativeCohort": {
+    "sourceDigest": "d4b5eabb77d34c3c6f17f5e1162c21655e4bfd1c31e5c755a81ea1c2560576db",
+    "inputFiles": 332,
+    "applicationPID": 91007,
+    "runtimeIdentityRecord": ".tools/editor-typing-runtime.json",
+    "runtimeIdentityRecordSHA256": "0320f9d822982531f46f5ee4014bfacb65425f5d74160f3aaa7177910c51f628",
+    "buildInputManifest": "build/provenance/build-inputs.json",
+    "buildInputManifestSHA256": "e041562cc3976efdea5a88ddb6142a02ea7b4c86a548b78c44fded4e0d34b769",
+    "typedCompilerAndDeliveredArtifacts": [
+      {
+        "path": "build/lsp4ij-compile/lsp4ij/lib/lsp4ij-0.21.0.jar",
+        "sha256": "9c7f4b2b3a8372c2130a0057f12071ec969a06dca7c6141bef6d306b0fab4bb1",
+        "sources": 6,
+        "classes": 13,
+        "allClassBytesMatchMarker": true,
+        "patchSHA256": "967ebb91e97f3f9f60e863bd8f10663717110956a1ea4fc45cf479fa27a85604"
+      },
+      {
+        "path": "build/product/open Goland.app/Contents/plugins/lsp4ij/lib/lsp4ij-0.21.0.jar",
+        "sha256": "9c7f4b2b3a8372c2130a0057f12071ec969a06dca7c6141bef6d306b0fab4bb1",
+        "sources": 6,
+        "classes": 13,
+        "allClassBytesMatchMarker": true,
+        "patchSHA256": "967ebb91e97f3f9f60e863bd8f10663717110956a1ea4fc45cf479fa27a85604"
+      }
+    ]
+  },
+  "provenance": {
+    "fixtureMetadata": ".tools/native-editor-typing.json",
+    "fixtureMetadataSHA256": "be2c99abdfd838cb139f6672ecdffe964c5531f1fb907c7ee78f106416fb9c44",
+    "trace": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/trace.jsonl",
+    "traceSnapshotBytes": 307503,
+    "traceSnapshotLines": 642,
+    "traceSnapshotSHA256": "698a75d9cbf7493d6f23ff728697409d187dfa9eb15978565d97a6d31e16188d",
+    "traceSnapshotEndsWithNewline": true,
+    "snapshotScope": "Exact read after main task observed normal native Quit; this identifies the captured bytes without inferring complete unrecorded process-lifetime events",
+    "wrapper": "/Users/wangshubo/develop/openidea-go/.tools/gopls-trace-wrapper.py",
+    "recordedWrapperSHA256": "5a1bd0efa667b9c75d000e927f23bc5f666fa1e45d4f55bfb51270f5e807e282",
+    "currentWrapperSHA256": "5a1bd0efa667b9c75d000e927f23bc5f666fa1e45d4f55bfb51270f5e807e282"
+  },
+  "wireIdentityRecords": [
+    {
+      "line": 1,
+      "raw": {
+        "time": 50288.517359,
+        "kind": "identity",
+        "wrapperPid": 91071,
+        "goplsPid": 91072,
+        "args": [
+          "serve"
+        ]
+      },
+      "rawTraceLine": "{\"time\": 50288.517359, \"kind\": \"identity\", \"wrapperPid\": 91071, \"goplsPid\": 91072, \"args\": [\"serve\"]}"
+    }
+  ],
+  "initializeClientProcessId": 91007,
+  "serverAdvertisedIndependentCapabilities": {
+    "definitionProvider": true,
+    "referencesProvider": true,
+    "implementationProvider": true,
+    "typeDefinitionProvider": true,
+    "typeHierarchyProvider": true
+  },
+  "findUsages": [
+    {
+      "requestId": "209",
+      "requestIdJSONType": "string",
+      "request": {
+        "line": 579,
+        "raw": {
+          "time": 51016.545736125,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "209",
+            "method": "textDocument/references",
+            "params": {
+              "context": {
+                "includeDeclaration": true
+              },
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51016.545736125, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"209\", \"method\": \"textDocument/references\", \"params\": {\"context\": {\"includeDeclaration\": true}, \"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+      },
+      "response": {
+        "line": 581,
+        "raw": {
+          "time": 51016.547227791,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 11
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 31
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 37
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 29
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 35
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 36
+                  }
+                }
+              }
+            ],
+            "id": "209"
+          }
+        },
+        "rawTraceLine": "{\"time\": 51016.547227791, \"kind\": \"message\", \"direction\": \"server\", \"message\": {\"jsonrpc\": \"2.0\", \"result\": [{\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\", \"range\": {\"start\": {\"line\": 2, \"character\": 5}, \"end\": {\"line\": 2, \"character\": 11}}}, {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go\", \"range\": {\"start\": {\"line\": 2, \"character\": 31}, \"end\": {\"line\": 2, \"character\": 37}}}, {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\", \"range\": {\"start\": {\"line\": 3, \"character\": 29}, \"end\": {\"line\": 3, \"character\": 35}}}, {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go\", \"range\": {\"start\": {\"line\": 4, \"character\": 30}, \"end\": {\"line\": 4, \"character\": 36}}}], \"id\": \"209\"}}"
+      },
+      "definitionCompanion": {
+        "requestId": "208",
+        "requestIdJSONType": "string",
+        "request": {
+          "line": 578,
+          "raw": {
+            "time": 51016.545272,
+            "kind": "message",
+            "direction": "client",
+            "message": {
+              "jsonrpc": "2.0",
+              "id": "208",
+              "method": "textDocument/definition",
+              "params": {
+                "textDocument": {
+                  "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+                },
+                "position": {
+                  "line": 2,
+                  "character": 6
+                }
+              }
+            }
+          },
+          "rawTraceLine": "{\"time\": 51016.545272, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"208\", \"method\": \"textDocument/definition\", \"params\": {\"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+        },
+        "response": {
+          "line": 580,
+          "raw": {
+            "time": 51016.546436625,
+            "kind": "message",
+            "direction": "server",
+            "message": {
+              "jsonrpc": "2.0",
+              "result": [
+                {
+                  "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                  "range": {
+                    "start": {
+                      "line": 2,
+                      "character": 5
+                    },
+                    "end": {
+                      "line": 2,
+                      "character": 11
+                    }
+                  }
+                }
+              ],
+              "id": "208"
+            }
+          },
+          "rawTraceLine": "{\"time\": 51016.546436625, \"kind\": \"message\", \"direction\": \"server\", \"message\": {\"jsonrpc\": \"2.0\", \"result\": [{\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\", \"range\": {\"start\": {\"line\": 2, \"character\": 5}, \"end\": {\"line\": 2, \"character\": 11}}}], \"id\": \"208\"}}"
+        }
+      },
+      "relativeQueryFile": "one/shared.go",
+      "queryPosition0Based": {
+        "line": 2,
+        "character": 6
+      },
+      "includeDeclaration": true,
+      "serverReturnedLocationCount": 4,
+      "locations": [
+        {
+          "relativeFile": "one/shared.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 2,
+              "character": 5
+            },
+            "end": {
+              "line": 2,
+              "character": 11
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 3,
+              "column": 6
+            },
+            "end": {
+              "line": 3,
+              "column": 12
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 5
+              },
+              "end": {
+                "line": 2,
+                "character": 11
+              }
+            }
+          }
+        },
+        {
+          "relativeFile": "one/caller.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 2,
+              "character": 31
+            },
+            "end": {
+              "line": 2,
+              "character": 37
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 3,
+              "column": 32
+            },
+            "end": {
+              "line": 3,
+              "column": 38
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 31
+              },
+              "end": {
+                "line": 2,
+                "character": 37
+              }
+            }
+          }
+        },
+        {
+          "relativeFile": "one/shared.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 3,
+              "character": 29
+            },
+            "end": {
+              "line": 3,
+              "character": 35
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 4,
+              "column": 30
+            },
+            "end": {
+              "line": 4,
+              "column": 36
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+            "range": {
+              "start": {
+                "line": 3,
+                "character": 29
+              },
+              "end": {
+                "line": 3,
+                "character": 35
+              }
+            }
+          }
+        },
+        {
+          "relativeFile": "two/caller.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 4,
+              "character": 30
+            },
+            "end": {
+              "line": 4,
+              "character": 36
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 5,
+              "column": 31
+            },
+            "end": {
+              "line": 5,
+              "column": 37
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go",
+            "range": {
+              "start": {
+                "line": 4,
+                "character": 30
+              },
+              "end": {
+                "line": 4,
+                "character": 36
+              }
+            }
+          }
+        }
+      ],
+      "declarationLocationCount": 1,
+      "actualCallSiteCount": 3,
+      "nativeUIReportedByMainTask": {
+        "scope": "Current File",
+        "activeEditor": "one/shared.go",
+        "definitions": 1,
+        "references": 2,
+        "displayedRows": 3,
+        "inheritedPreviousScope": true
+      },
+      "queryInterval": {
+        "firstTraceLine": 578,
+        "lastTraceLine": 581,
+        "scope": "This paired definition/references dispatch and completed replies; not exact native UI event timestamps"
+      }
+    },
+    {
+      "requestId": "212",
+      "requestIdJSONType": "string",
+      "request": {
+        "line": 585,
+        "raw": {
+          "time": 51037.915076583,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "212",
+            "method": "textDocument/references",
+            "params": {
+              "context": {
+                "includeDeclaration": true
+              },
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51037.915076583, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"212\", \"method\": \"textDocument/references\", \"params\": {\"context\": {\"includeDeclaration\": true}, \"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+      },
+      "response": {
+        "line": 587,
+        "raw": {
+          "time": 51037.917113958,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 11
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 31
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 37
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 29
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 35
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 36
+                  }
+                }
+              }
+            ],
+            "id": "212"
+          }
+        },
+        "rawTraceLine": "{\"time\": 51037.917113958, \"kind\": \"message\", \"direction\": \"server\", \"message\": {\"jsonrpc\": \"2.0\", \"result\": [{\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\", \"range\": {\"start\": {\"line\": 2, \"character\": 5}, \"end\": {\"line\": 2, \"character\": 11}}}, {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go\", \"range\": {\"start\": {\"line\": 2, \"character\": 31}, \"end\": {\"line\": 2, \"character\": 37}}}, {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\", \"range\": {\"start\": {\"line\": 3, \"character\": 29}, \"end\": {\"line\": 3, \"character\": 35}}}, {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go\", \"range\": {\"start\": {\"line\": 4, \"character\": 30}, \"end\": {\"line\": 4, \"character\": 36}}}], \"id\": \"212\"}}"
+      },
+      "definitionCompanion": {
+        "requestId": "211",
+        "requestIdJSONType": "string",
+        "request": {
+          "line": 584,
+          "raw": {
+            "time": 51037.91330675,
+            "kind": "message",
+            "direction": "client",
+            "message": {
+              "jsonrpc": "2.0",
+              "id": "211",
+              "method": "textDocument/definition",
+              "params": {
+                "textDocument": {
+                  "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+                },
+                "position": {
+                  "line": 2,
+                  "character": 6
+                }
+              }
+            }
+          },
+          "rawTraceLine": "{\"time\": 51037.91330675, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"211\", \"method\": \"textDocument/definition\", \"params\": {\"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+        },
+        "response": {
+          "line": 586,
+          "raw": {
+            "time": 51037.915690125,
+            "kind": "message",
+            "direction": "server",
+            "message": {
+              "jsonrpc": "2.0",
+              "result": [
+                {
+                  "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                  "range": {
+                    "start": {
+                      "line": 2,
+                      "character": 5
+                    },
+                    "end": {
+                      "line": 2,
+                      "character": 11
+                    }
+                  }
+                }
+              ],
+              "id": "211"
+            }
+          },
+          "rawTraceLine": "{\"time\": 51037.915690125, \"kind\": \"message\", \"direction\": \"server\", \"message\": {\"jsonrpc\": \"2.0\", \"result\": [{\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\", \"range\": {\"start\": {\"line\": 2, \"character\": 5}, \"end\": {\"line\": 2, \"character\": 11}}}], \"id\": \"211\"}}"
+        }
+      },
+      "relativeQueryFile": "one/shared.go",
+      "queryPosition0Based": {
+        "line": 2,
+        "character": 6
+      },
+      "includeDeclaration": true,
+      "serverReturnedLocationCount": 4,
+      "locations": [
+        {
+          "relativeFile": "one/shared.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 2,
+              "character": 5
+            },
+            "end": {
+              "line": 2,
+              "character": 11
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 3,
+              "column": 6
+            },
+            "end": {
+              "line": 3,
+              "column": 12
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 5
+              },
+              "end": {
+                "line": 2,
+                "character": 11
+              }
+            }
+          }
+        },
+        {
+          "relativeFile": "one/caller.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 2,
+              "character": 31
+            },
+            "end": {
+              "line": 2,
+              "character": 37
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 3,
+              "column": 32
+            },
+            "end": {
+              "line": 3,
+              "column": 38
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 31
+              },
+              "end": {
+                "line": 2,
+                "character": 37
+              }
+            }
+          }
+        },
+        {
+          "relativeFile": "one/shared.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 3,
+              "character": 29
+            },
+            "end": {
+              "line": 3,
+              "character": 35
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 4,
+              "column": 30
+            },
+            "end": {
+              "line": 4,
+              "column": 36
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+            "range": {
+              "start": {
+                "line": 3,
+                "character": 29
+              },
+              "end": {
+                "line": 3,
+                "character": 35
+              }
+            }
+          }
+        },
+        {
+          "relativeFile": "two/caller.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 4,
+              "character": 30
+            },
+            "end": {
+              "line": 4,
+              "character": 36
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 5,
+              "column": 31
+            },
+            "end": {
+              "line": 5,
+              "column": 37
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Shared",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go",
+            "range": {
+              "start": {
+                "line": 4,
+                "character": 30
+              },
+              "end": {
+                "line": 4,
+                "character": 36
+              }
+            }
+          }
+        }
+      ],
+      "declarationLocationCount": 1,
+      "actualCallSiteCount": 3,
+      "nativeUIReportedByMainTask": {
+        "scope": "Project Files",
+        "activeEditor": "one/shared.go",
+        "definitions": 1,
+        "references": 4,
+        "displayedRows": 5,
+        "inheritedPreviousScope": false
+      },
+      "queryInterval": {
+        "firstTraceLine": 584,
+        "lastTraceLine": 587,
+        "scope": "This paired definition/references dispatch and completed replies; not exact native UI event timestamps"
+      }
+    }
+  ],
+  "ordinarySearchWireInterval": {
+    "firstTraceLine": 578,
+    "lastTraceLine": 587,
+    "allClientTextDocumentRequests": [
+      {
+        "line": 578,
+        "raw": {
+          "time": 51016.545272,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "208",
+            "method": "textDocument/definition",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51016.545272, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"208\", \"method\": \"textDocument/definition\", \"params\": {\"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+      },
+      {
+        "line": 579,
+        "raw": {
+          "time": 51016.545736125,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "209",
+            "method": "textDocument/references",
+            "params": {
+              "context": {
+                "includeDeclaration": true
+              },
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51016.545736125, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"209\", \"method\": \"textDocument/references\", \"params\": {\"context\": {\"includeDeclaration\": true}, \"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+      },
+      {
+        "line": 582,
+        "raw": {
+          "time": 51016.972101833,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "210",
+            "method": "textDocument/codeAction",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 11
+                },
+                "end": {
+                  "line": 2,
+                  "character": 11
+                }
+              },
+              "context": {
+                "diagnostics": [],
+                "triggerKind": 2
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51016.972101833, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"210\", \"method\": \"textDocument/codeAction\", \"params\": {\"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"range\": {\"start\": {\"line\": 2, \"character\": 11}, \"end\": {\"line\": 2, \"character\": 11}}, \"context\": {\"diagnostics\": [], \"triggerKind\": 2}}}}"
+      },
+      {
+        "line": 584,
+        "raw": {
+          "time": 51037.91330675,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "211",
+            "method": "textDocument/definition",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51037.91330675, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"211\", \"method\": \"textDocument/definition\", \"params\": {\"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+      },
+      {
+        "line": 585,
+        "raw": {
+          "time": 51037.915076583,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "212",
+            "method": "textDocument/references",
+            "params": {
+              "context": {
+                "includeDeclaration": true
+              },
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51037.915076583, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"212\", \"method\": \"textDocument/references\", \"params\": {\"context\": {\"includeDeclaration\": true}, \"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+      }
+    ],
+    "typeDefinitionRequests": 0,
+    "implementationRequests": 0,
+    "observation": "The actual usage-navigation queries are definition and references only. An automatic codeAction request between the two runs is also retained; no claim that the entire interval contains only usage traffic."
+  },
+  "explicitLSPNavigation": [
+    {
+      "requestId": "228",
+      "requestIdJSONType": "string",
+      "request": {
+        "line": 627,
+        "raw": {
+          "time": 51140.377151333,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "228",
+            "method": "textDocument/typeDefinition",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go"
+              },
+              "position": {
+                "line": 5,
+                "character": 5
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51140.377151333, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"228\", \"method\": \"textDocument/typeDefinition\", \"params\": {\"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go\"}, \"position\": {\"line\": 5, \"character\": 5}}}}"
+      },
+      "response": {
+        "line": 628,
+        "raw": {
+          "time": 51140.381205166,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 11
+                  }
+                }
+              }
+            ],
+            "id": "228"
+          }
+        },
+        "rawTraceLine": "{\"time\": 51140.381205166, \"kind\": \"message\", \"direction\": \"server\", \"message\": {\"jsonrpc\": \"2.0\", \"result\": [{\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go\", \"range\": {\"start\": {\"line\": 2, \"character\": 5}, \"end\": {\"line\": 2, \"character\": 11}}}], \"id\": \"228\"}}"
+      },
+      "nativeFindActionEntryReportedByMainTask": "LSP Type Definition(s)",
+      "relativeQueryFile": "one/reader.go",
+      "queryPosition0Based": {
+        "line": 5,
+        "character": 5
+      },
+      "locations": [
+        {
+          "relativeFile": "one/reader.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 2,
+              "character": 5
+            },
+            "end": {
+              "line": 2,
+              "character": 11
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 3,
+              "column": 6
+            },
+            "end": {
+              "line": 3,
+              "column": 12
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Reader",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 5
+              },
+              "end": {
+                "line": 2,
+                "character": 11
+              }
+            }
+          }
+        }
+      ],
+      "expectedTarget": "Reader",
+      "nativeJumpReportedByMainTask": {
+        "relativeFile": "one/reader.go",
+        "line1Based": 3,
+        "column1Based": 6
+      },
+      "entryScope": "Explicit LSP-prefixed action; not the platform standard Go to navigation action",
+      "queryInterval": {
+        "firstTraceLine": 627,
+        "lastTraceLine": 628
+      }
+    },
+    {
+      "requestId": "231",
+      "requestIdJSONType": "string",
+      "request": {
+        "line": 633,
+        "raw": {
+          "time": 51162.042711833,
+          "kind": "message",
+          "direction": "client",
+          "message": {
+            "jsonrpc": "2.0",
+            "id": "231",
+            "method": "textDocument/implementation",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          }
+        },
+        "rawTraceLine": "{\"time\": 51162.042711833, \"kind\": \"message\", \"direction\": \"client\", \"message\": {\"jsonrpc\": \"2.0\", \"id\": \"231\", \"method\": \"textDocument/implementation\", \"params\": {\"textDocument\": {\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go\"}, \"position\": {\"line\": 2, \"character\": 6}}}}"
+      },
+      "response": {
+        "line": 634,
+        "raw": {
+          "time": 51162.054425583,
+          "kind": "message",
+          "direction": "server",
+          "message": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 10
+                  }
+                }
+              }
+            ],
+            "id": "231"
+          }
+        },
+        "rawTraceLine": "{\"time\": 51162.054425583, \"kind\": \"message\", \"direction\": \"server\", \"message\": {\"jsonrpc\": \"2.0\", \"result\": [{\"uri\": \"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go\", \"range\": {\"start\": {\"line\": 3, \"character\": 5}, \"end\": {\"line\": 3, \"character\": 10}}}], \"id\": \"231\"}}"
+      },
+      "nativeFindActionEntryReportedByMainTask": "LSP Implementation(s)",
+      "relativeQueryFile": "one/reader.go",
+      "queryPosition0Based": {
+        "line": 2,
+        "character": 6
+      },
+      "locations": [
+        {
+          "relativeFile": "one/reader.go",
+          "lspUTF16Range0Based": {
+            "start": {
+              "line": 3,
+              "character": 5
+            },
+            "end": {
+              "line": 3,
+              "character": 10
+            }
+          },
+          "displayRange1BasedEndExclusive": {
+            "start": {
+              "line": 4,
+              "column": 6
+            },
+            "end": {
+              "line": 4,
+              "column": 11
+            }
+          },
+          "diskRangeExcerptAtExtraction": "Value",
+          "rawLocation": {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+            "range": {
+              "start": {
+                "line": 3,
+                "character": 5
+              },
+              "end": {
+                "line": 3,
+                "character": 10
+              }
+            }
+          }
+        }
+      ],
+      "expectedTarget": "Value",
+      "nativeJumpReportedByMainTask": {
+        "relativeFile": "one/reader.go",
+        "line1Based": 4,
+        "column1Based": 6
+      },
+      "entryScope": "Explicit LSP-prefixed action; not the platform standard Go to navigation action",
+      "queryInterval": {
+        "firstTraceLine": 633,
+        "lastTraceLine": 634
+      }
+    }
+  ],
+  "standardNavigationGapReportedByMainTask": {
+    "entries": [
+      "Go to Implementation(s)",
+      "Go to Type Declaration"
+    ],
+    "result": "No query and no editor jump observed for these standard platform entries in this cohort",
+    "independentLSPActionsAreSeparate": true,
+    "cause": "Not established by this observation; the standard target/action path remains open and is not claimed fixed by the Find Usages policy"
+  },
+  "nativeNotificationObservationReportedByMainTask": {
+    "oldFunctionRelatedQueryErrorsObserved": false,
+    "unrelatedNotificationObserved": "Shortcuts conflicts",
+    "limitation": "Not a claim that the entire application produced no notifications or that all LSP errors are hidden"
+  },
+  "sourceSnapshotsAtExtraction": {
+    "one/shared.go": {
+      "text": "package one\n\nfunc Shared(value int) int { return value + 1 }\nfunc SameFile() int { return Shared(1) }\n",
+      "sha256": "cf1389000dbbc3275d2ab55eec6db460cea8f0b50da988c6f879e0e385fab8a3",
+      "matchesFixtureInitialText": true
+    },
+    "one/caller.go": {
+      "text": "package one\n\nfunc SecondFile() int { return Shared(2) }\n",
+      "sha256": "2e37f2594362994e2aa35a364edb2eeb420cff84da0f4439fe84f84690018cfa",
+      "matchesFixtureInitialText": true
+    },
+    "two/caller.go": {
+      "text": "package two\n\nimport \"example.org/typing/one\"\n\nfunc Cross() int { return one.Shared(3) }\n",
+      "sha256": "8665a7b3ae0c66407c77734dcf430e28b7546750298c9c7075af5cd626eea216",
+      "matchesFixtureInitialText": true
+    },
+    "one/reader.go": {
+      "text": "package one\n\ntype Reader interface { Read() string }\ntype Value struct{}\nfunc (Value) Read() string { return \"value\" }\nvar Current Reader = Value{}\nfunc ReadValue() string { return Current.Read() }\n",
+      "sha256": "e9633f34b04680ce9db6c63b0f53c686da9a778a73705f79ab22eff32ea1f7ea",
+      "matchesFixtureInitialText": true
+    }
+  },
+  "automatedEvidence": {
+    "fullKotlinCounts": {
+      "tests": 378,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "selectedSuites": [
+      {
+        "suite": "com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 1.345,
+        "reportPath": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest.xml",
+        "reportSHA256": "4b6268e13e80505b10458acf2a83d861a3798952d50c894078df6645d6bd035a"
+      },
+      {
+        "suite": "com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.287,
+        "reportPath": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest.xml",
+        "reportSHA256": "ff4a5a436c04e43365c20fff78c085f3e7b5e4d013f0abf09eb2567b0c730aa3"
+      },
+      {
+        "suite": "com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.224,
+        "reportPath": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest.xml",
+        "reportSHA256": "190d9c8eb5b66688a86aee5eba563dd927e64fd216c9d8a3e8004d4b6475f81a"
+      }
+    ],
+    "focusedSDKControlledCases": 4,
+    "focusedOwnedRealGoplsCases": 1,
+    "previousScopeAndCacheCases": 6,
+    "referenceFailureNotification": "Actual original feature/message notification observed by the controlled SDK test; no failing references request deliberately injected into the native session",
+    "pin": "product/patches/lsp4ij-0.21.0-document-sync.json"
+  },
+  "cleanup": {
+    "normalNativeQuitReportedByMainTask": true,
+    "queriedOwnedPids": [
+      91007,
+      91071,
+      91072
+    ],
+    "remainingRowsAtRead": [],
+    "queriedPidsAbsentAtRead": true,
+    "scope": "Only the recorded app/trace wrapper/gopls PIDs checked here; no claim about unrecorded processes"
+  },
+  "limitations": [
+    "Both native Find Usages runs issued fresh references requests; native cached path is unverified, with SDK regression evidence retained separately.",
+    "Both complete four-location server responses are retained. Current File scope is a native client option, not an LSP references field.",
+    "Four references mean one declaration plus three call sites. Definitions is another displayed copy of the declaration, not a fifth distinct caller.",
+    "Explicit LSP navigation passed, while standard platform Implementation(s)/Type Declaration entries did not dispatch or jump. Do not combine these into a standard-navigation pass.",
+    "Native type hierarchy, arbitrary local scopes, all interface relations, unsaved/racing reference refresh, all build/SDK/OS contexts, commercial runtime behavior and full IDE parity are not established.",
+    "Source excerpts are disk snapshots at extraction, not server full-source acknowledgements.",
+    "Historical actual errors and earlier cohort evidence remain unchanged in find-usages-native.json."
+  ]
+}

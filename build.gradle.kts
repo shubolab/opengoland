@@ -31,6 +31,40 @@ val platformPath = providers.gradleProperty("platformPath")
     })
 val lspPatchSdk = platformPath
 
+// Compile against the same pinned public-source API that is shipped at runtime.
+// The downloaded plugin and SDK stay read-only; only an owned build copy is patched.
+val upstreamLspCompileJar = configurations.named("compileClasspath").map { configuration ->
+    configuration.files.single { it.name == "lsp4ij-0.21.0.jar" }
+}
+val lspCompilePlugins = layout.buildDirectory.dir("lsp4ij-compile")
+val patchedLspCompileJar = lspCompilePlugins.map { it.file("lsp4ij/lib/lsp4ij-0.21.0.jar") }
+val prepareLspCompilePatch by tasks.registering(Exec::class) {
+    description = "Build the pinned LSP4IJ API in a private compiler dependency."
+    inputs.files(upstreamLspCompileJar.map { jar -> jar.parentFile.listFiles { file -> file.extension == "jar" }!!.toList() })
+    inputs.files("scripts/patch-lsp4ij.py", fileTree("product/patches") { include("lsp4ij-*") })
+    inputs.property("platformPath", platformPath)
+    outputs.file(patchedLspCompileJar)
+    // Reconstruct from the authenticated original on each invocation rather than
+    // trusting an unverified output. The patch writer produces deterministic bytes.
+    outputs.upToDateWhen { false }
+    doFirst {
+        copy {
+            from(upstreamLspCompileJar.get().parentFile) { include("*.jar") }
+            into(lspCompilePlugins.get().dir("lsp4ij/lib"))
+        }
+    }
+    commandLine("python3", "scripts/patch-lsp4ij.py", "--sdk", lspPatchSdk.get(),
+        "--plugins", lspCompilePlugins.get().asFile.absolutePath)
+}
+sourceSets.named("main") {
+    compileClasspath = files(compileClasspath.filter { it.name != "lsp4ij-0.21.0.jar" }, patchedLspCompileJar)
+        .builtBy(prepareLspCompilePatch)
+}
+sourceSets.named("test") {
+    compileClasspath = files(compileClasspath.filter { it.name != "lsp4ij-0.21.0.jar" }, patchedLspCompileJar)
+        .builtBy(prepareLspCompilePatch)
+}
+
 val buildInputManifest = layout.buildDirectory.file("provenance/build-inputs.json")
 val platformUnicodeManifest = layout.buildDirectory.file("provenance/platform-unicode-patch.json")
 val preparePlatformUnicodePatch by tasks.registering(Exec::class) {

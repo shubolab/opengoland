@@ -200,8 +200,9 @@ long-test progress, import cleanup, and cross-module rename with one-step
 Undo/Redo evidence. Each observation is tied to its actual source snapshot;
 these checks do not establish full product equivalence.
 
-The current verification batch passed all 333 Kotlin tests with no skips,
-the complete Go race suite (271 test events including subtests), and Go vet.
+The current verification batch passed all 378 Kotlin tests with no skips,
+the complete Go race command (271 test events including subtests; unchanged
+engine package results were cached), and Go vet.
 It includes typed test/interface/struct-helper/tag/JSON generation, native tag carets,
 Unicode project-path persistence, dirty-source and two-file native
 Undo/Redo, stale dependency rejection, named Test/Subject chooser navigation,
@@ -225,9 +226,21 @@ rejects a non-Go executable and creates a real SDK-validated project that passes
 native Run/Test. [Find Usages](docs/verification/find-usages.md) now filters the
 requested scope and retains cross-file references; real two-module navigation and
 Current File filtering were observed. The native toolbar's hover-popup interaction
-and the generic LSP aggregation's unnecessary error notifications remain open.
+remains open. A later [Find Usages policy check](docs/verification/find-usages-policy.md)
+removes unrelated type-definition/implementation queries while retaining real
+reference errors and explicit LSP navigation. Standard platform implementation
+and type-declaration actions did not dispatch queries in that desktop check and
+remain an integration gap.
 [Build identities and cohort boundaries](docs/verification/module-usages-build.json)
 keep these checks separate from earlier delivery evidence and full IDE acceptance.
+
+The [native Go typing batch](docs/verification/editor-typing.md) adds quote
+pairing/overtyping, comment continuation, Go Enter/closing/case indentation and
+the raw-string indentation preference. Real standalone keyboard actions,
+Undo/Redo and two uncached Go tests were observed in a Unicode-path workspace.
+The [typing build record](docs/verification/editor-typing-build.json) identifies
+the exact 332-input package; lexer/PSI, IME, full performance and commercial
+runtime equivalence remain bounded as documented.
 
 The attach probe starts only its own temporary fixtures and adapters. It verifies
 local PID attach, external `dlv dap` PID attach, and headless multi-client DAP

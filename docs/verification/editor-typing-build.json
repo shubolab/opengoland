@@ -1,0 +1,418 @@
+{
+  "schema": "open-goland.editor-typing-build.v1",
+  "date": "2026-11-09",
+  "scope": "Final automated package evidence and bounded runtime identity; native keyboard/workflow observations are recorded separately and full IDE parity remains open",
+  "deliveryBuild": {
+    "sourceDigest": "d4b5eabb77d34c3c6f17f5e1162c21655e4bfd1c31e5c755a81ea1c2560576db",
+    "inputFiles": 332,
+    "application": "build/product/open Goland.app",
+    "platform": {
+      "product": "IntelliJ IDEA Community",
+      "version": "2026.1.4",
+      "build": "IC-261.26222.65",
+      "upstreamCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5"
+    },
+    "packageCommand": "OPENGOLAND_GOPLS_TEST=<actual gopls> ./scripts/package-product.sh",
+    "packageExitCode": 0,
+    "buildInputVerification": "pass",
+    "pluginStructureVerification": "pass",
+    "manifest": {
+      "path": ".tools/editor-delivery-manifest.json",
+      "sha256": "9e0f6607ebbc7c117847ab5e363ef99eee1668148e15bac85ff6612b7b7b80a6",
+      "bytes": 67528
+    },
+    "pluginArtifactsSha256": {
+      "plugins/opengoland/bin/opengoland-engine": "a4fcedc5a1273a98ba79387dd4134d902c5e8040a93dd84cf882dc537fea28a3",
+      "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "170330dc6133cbb2f9def8965dfbf34f4fad5003affea1deb49b969600591781",
+      "plugins/opengoland/license/pprof-LICENSE.txt": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "plugins/opengoland/license/x-mod-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/opengoland/license/x-sync-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/opengoland/license/x-tools-LICENSE.txt": "911f8f5782931320f5b8d1160a76365b83aea6447ee6c04fa6d5591467db9dad",
+      "plugins/lsp4ij/bundles/0.21.0/package.json": "2a654090b48f8bcb9d1e4831a3b52d23ee9207624092b08fcb1fd73d95f92323",
+      "plugins/lsp4ij/bundles/0.21.0/syntaxes/disassembly.json": "2dae8bb50879164cc61c0b35fa0bfdd38523766e6150448271e0d6c65c2a79fe",
+      "plugins/lsp4ij/lib/annotations-24.0.1.jar": "61666dbce7e42e6c85b43c04fcfb8293a21dcb55b3c80e869270ce42c01a6b35",
+      "plugins/lsp4ij/lib/autolink-0.6.0.jar": "a80be030f6386f18111cad9161c0b6983157352a1b59a59e6002172f0d321c04",
+      "plugins/lsp4ij/lib/flexmark-0.64.8.jar": "3133878d108f0e1964d7d427f379a7433e1b71a45f9f3c1fab7ed0ac0301d3b0",
+      "plugins/lsp4ij/lib/flexmark-ext-autolink-0.64.8.jar": "4850d6f895ec3f2932635829d74ff9a2fb00918965bb91c000ab497d603e11b8",
+      "plugins/lsp4ij/lib/flexmark-ext-gfm-strikethrough-0.64.8.jar": "fc6cad026fbd036b3ffd0448264360a5f1b572756ef3427ff022715b7fc5f1c3",
+      "plugins/lsp4ij/lib/flexmark-ext-tables-0.64.8.jar": "cdf82d26e112e96ade7e370138aeb16920b7e2d411d20c6c15cb1acfacd1ef1f",
+      "plugins/lsp4ij/lib/flexmark-util-0.64.8.jar": "1e24c891dac9532bb722be7122c7026fb47868c3de36c02400eed8e9ad535727",
+      "plugins/lsp4ij/lib/flexmark-util-ast-0.64.8.jar": "a5342f644c6a5f37d502f225c3a0cb699c263621c82e720d9c08eba5a9f3b8d3",
+      "plugins/lsp4ij/lib/flexmark-util-builder-0.64.8.jar": "afb9c88d9f652451e75f1ab069ad7ddd791d712eb211c51d8d2a83494240875d",
+      "plugins/lsp4ij/lib/flexmark-util-collection-0.64.8.jar": "031ff01408d0f54c6235db18d451dc6e6b15b859b0ec1e40ff3429a82375082a",
+      "plugins/lsp4ij/lib/flexmark-util-data-0.64.8.jar": "83ceb5989ab0205054bf1b42446f55cb6da14c10aa7c2bda05d6a2504670f353",
+      "plugins/lsp4ij/lib/flexmark-util-dependency-0.64.8.jar": "e41adb5e8144699b61b78d50eb004eeb7de84f90c4c63626609e6cee5ea28b42",
+      "plugins/lsp4ij/lib/flexmark-util-format-0.64.8.jar": "6c9ac87686474edf0117b3f838d9dcb3b965fa72be4998d2177b598013679f73",
+      "plugins/lsp4ij/lib/flexmark-util-html-0.64.8.jar": "5b19e6506aff7913c74ad725af7c2b8a9f23958e6324bf0710c5a645a4663017",
+      "plugins/lsp4ij/lib/flexmark-util-misc-0.64.8.jar": "74472ca81a9080e51ea1a4f11c270898e3d6c242c92275fab47eb993806c8f2b",
+      "plugins/lsp4ij/lib/flexmark-util-options-0.64.8.jar": "2489f41e9caf1d9f8061833b311b25403925cbb631fff2b8c069192804d6fc88",
+      "plugins/lsp4ij/lib/flexmark-util-sequence-0.64.8.jar": "6e22976fe4e9b8de94fd529991ecb2d79cc482aad94985367470a93be1d82631",
+      "plugins/lsp4ij/lib/flexmark-util-visitor-0.64.8.jar": "d9b3002a833a078c45e139568b306dab0ac117ff9046c6a1f9e180c0154563fc",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0-searchableOptions.jar": "121b6dc3da5f081121804c9acb4f927be249ec7774b24561826771c36e324ace",
+      "plugins/lsp4ij/lib/lsp4ij-0.21.0.jar": "9c7f4b2b3a8372c2130a0057f12071ec969a06dca7c6141bef6d306b0fab4bb1",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j-1.0.0.jar": "ccd78893facc6bfcc359d56cba05d3d5b85eb41e4c40d4b4215ca45db5f416d9",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.debug-0.21.0.jar": "eb32b70bab2f2f7be805ebf467e41ea8cd2ae80ef6801b1b374b355ab27cf32f",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc-1.0.0.jar": "9647feb0524bf763c878e12ab878a684102b81cccb3f77feecbec709d54f9bbb",
+      "plugins/lsp4ij/lib/org.eclipse.lsp4j.jsonrpc.debug-0.21.0.jar": "82ece72945a352c93694143cdf4cf4cd1eb3e17d8c177c1a8616c78e5e56d165"
+    },
+    "platformPatches": [
+      {
+        "path": "Contents/lib/util-8.jar",
+        "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+        "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+      }
+    ],
+    "lsp4ijPublicSourcePatch": {
+      "compiledSourcePrefixes": 6,
+      "compiledClasses": 13,
+      "patchSha256": "967ebb91e97f3f9f60e863bd8f10663717110956a1ea4fc45cf479fa27a85604",
+      "twoIndependentCompileArtifactsByteIdentical": true,
+      "artifactSha256": "9c7f4b2b3a8372c2130a0057f12071ec969a06dca7c6141bef6d306b0fab4bb1",
+      "determinismEvidence": {
+        "path": ".tools/editor-compile-determinism.json",
+        "sha256": "10bac3beeb33545e653fdf97abdc41efdb8aa377f72254d2cf3e116c5e551bdb",
+        "bytes": 113
+      }
+    },
+    "kotlin": {
+      "tests": 378,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "subsetCountsIncludedInTotal": true,
+      "selectedSuites": [
+        {
+          "class": "com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 1.345,
+          "report": {
+            "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest.xml",
+            "sha256": "4b6268e13e80505b10458acf2a83d861a3798952d50c894078df6645d6bd035a",
+            "bytes": 534
+          }
+        },
+        {
+          "class": "com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.224,
+          "report": {
+            "path": "build/test-results/test/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest.xml",
+            "sha256": "190d9c8eb5b66688a86aee5eba563dd927e64fd216c9d8a3e8004d4b6475f81a",
+            "bytes": 1023
+          }
+        },
+        {
+          "class": "dev.openidea.goide.generate.GoNamedTypeHeadersTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.003,
+          "report": {
+            "path": "build/test-results/test/TEST-dev.openidea.goide.generate.GoNamedTypeHeadersTest.xml",
+            "sha256": "44bc1270d9cbf9c46e28f06c6b786e83747df36dc15b3fdbd8f53179b673c049",
+            "bytes": 854
+          }
+        },
+        {
+          "class": "dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.556,
+          "report": {
+            "path": "build/test-results/test/TEST-dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest.xml",
+            "sha256": "4696b43bad536abcfdc9ac820789ac29bb24bb7b234f1eb966f849e22270cf04",
+            "bytes": 1781
+          }
+        },
+        {
+          "class": "dev.openidea.goide.lang.GoEnterNativeTest",
+          "tests": 18,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 1.981,
+          "report": {
+            "path": "build/test-results/test/TEST-dev.openidea.goide.lang.GoEnterNativeTest.xml",
+            "sha256": "0d92e384b1de8ccc269154f505d8e05ac9eefcc7e094643148051670b8f1d02c",
+            "bytes": 3196
+          }
+        },
+        {
+          "class": "dev.openidea.goide.lang.GoLexerTest",
+          "tests": 9,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.008,
+          "report": {
+            "path": "build/test-results/test/TEST-dev.openidea.goide.lang.GoLexerTest.xml",
+            "sha256": "2af9fa81fa5ba33bea2a8f5269af347fb70c272c204ab6c965f3b65df52f26f8",
+            "bytes": 1579
+          }
+        },
+        {
+          "class": "dev.openidea.goide.lang.GoQuoteCommentNativeTest",
+          "tests": 10,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 1.894,
+          "report": {
+            "path": "build/test-results/test/TEST-dev.openidea.goide.lang.GoQuoteCommentNativeTest.xml",
+            "sha256": "b2bffc62bc314cb455652de2d0980c0f38e0bc6362ca88f6d7e6cdddcca0ccfe",
+            "bytes": 1898
+          }
+        },
+        {
+          "class": "dev.openidea.goide.run.GoSourceFunctionsTest",
+          "tests": 11,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 1.163,
+          "report": {
+            "path": "build/test-results/test/TEST-dev.openidea.goide.run.GoSourceFunctionsTest.xml",
+            "sha256": "65027c2ac2637cc50d8b6b19000dae897799fb1a95b06043a564efb2b943d037",
+            "bytes": 1979
+          }
+        },
+        {
+          "class": "dev.openidea.goide.settings.GoSettingsConfigurableTest",
+          "tests": 3,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "seconds": 0.082,
+          "report": {
+            "path": "build/test-results/test/TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml",
+            "sha256": "0fc8adc48d6e8150df5bfd87a53cbfca9beeb96b1416eedda49ffcea4a85c5f2",
+            "bytes": 887
+          }
+        }
+      ],
+      "allReports": {
+        "directory": "build/test-results/test",
+        "xmlFiles": 87,
+        "digestAlgorithm": "sha256 of UTF-8 newline-joined sorted relative path + NUL + report sha256; no final newline",
+        "sha256": "d6bee8787cf17a71acb53fbe2e084fc7e50df939e1f4dc396e6c324433bf52b2"
+      }
+    },
+    "goRaceAndVet": {
+      "status": "pass",
+      "testEventsIncludingSubtests": 271,
+      "topLevelTests": 155,
+      "packagePasses": 9,
+      "cachedPackages": [
+        "github.com/shubolab/opengoland/engine/internal/engine",
+        "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "github.com/shubolab/opengoland/engine/internal/generate/structs",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "github.com/shubolab/opengoland/engine/internal/protocol",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature",
+        "github.com/shubolab/opengoland/engine/internal/rpc"
+      ],
+      "packagesWithoutTests": [
+        "github.com/shubolab/opengoland/engine/cmd/opengoland-engine"
+      ],
+      "failEvents": 0,
+      "vetExitCode": 0,
+      "vetLogBytes": 0,
+      "goVersion": "go1.24.3 darwin/arm64",
+      "goplsVersion": "golang.org/x/tools/gopls v0.21.1"
+    }
+  },
+  "logs": {
+    "finalPackage": {
+      "path": ".tools/editor-typing-package-final-2.log",
+      "sha256": "80e52b5a58c676b2ea154e0baceb095a533ad0d499136e742d6390bce7cb16fa",
+      "bytes": 77708
+    },
+    "goRace": {
+      "path": ".tools/editor-typing-go-race.jsonl",
+      "sha256": "b8a57fceb609a2d48c662696e2502340c3d25713c202d02336825e6bb9d544b6",
+      "bytes": 286645
+    },
+    "goVet": {
+      "path": ".tools/editor-typing-go-vet.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "earlierFailedPackage": {
+    "status": "failed; superseded by final successful run",
+    "tests": 371,
+    "failures": 2,
+    "correctedIssues": [
+      "Old channel-arrow lexer consumer assumed split punctuation",
+      "Platform fixture initialization required an asynchronous SDK startup fence"
+    ],
+    "log": {
+      "path": ".tools/editor-typing-package-final.log",
+      "sha256": "e10ca5065b0d60c1fed570bd228c8b8a3d0c528a82907eb9f962877950f62682",
+      "bytes": 4622
+    }
+  },
+  "standaloneIntermediateEvidence": {
+    "scope": "Development evidence only, not additional final-suite tests or standalone delivery acceptance",
+    "enter": {
+      "tests": 18,
+      "failures": 0,
+      "seconds": 5.475,
+      "log": {
+        "path": ".tools/go-enter/run.log",
+        "sha256": "dd6831dff7d39bb6b99761dbdb866260fe8e9db402d6518eef87199494211d1e",
+        "bytes": 971
+      }
+    },
+    "quotesAndComments": {
+      "tests": 10,
+      "failures": 0,
+      "seconds": 6.019,
+      "log": {
+        "path": ".tools/go-quotes/run.log",
+        "sha256": "b62608f573555f86742f820550cdee3ef251e58fe69e2375e5334efc1843b238",
+        "bytes": 964
+      }
+    },
+    "lexer": {
+      "tests": 9,
+      "failures": 0,
+      "seconds": 0.195,
+      "log": {
+        "path": ".tools/go-lexer/run.log",
+        "sha256": "fce344a188ad102b31165a4ce0483c70edbddf634be84a118cd4da6e4dac2345",
+        "bytes": 299
+      },
+      "oldLexerFailures": 6,
+      "oldLexerLog": {
+        "path": ".tools/go-lexer/red.log",
+        "sha256": "270e863f8f951f15bae02653f75cd9d5064182801edc17c9ccfd353c5ebd5095",
+        "bytes": 5598
+      }
+    },
+    "channelConsumers": {
+      "tests": 11,
+      "failures": 0,
+      "seconds": 4.959,
+      "log": {
+        "path": ".tools/go-lexer-consumers/run.log",
+        "sha256": "000fe4db67cc6da2832829be112ffaa36ca52846e5e19657eb8b4b3760015bdd",
+        "bytes": 974
+      }
+    },
+    "ownedGoOracleLogs": [
+      {
+        "path": ".tools/go-lexer-consumers/compiler.log",
+        "sha256": "af78e38079b71e9f7d4eff8903e7bb8b962343a9675e26e72a0c530025f84f21",
+        "bytes": 461
+      },
+      {
+        "path": ".tools/go-enter/header-review/compiler.log",
+        "sha256": "aa9f16637c2ba9a4bdb7335dbfff4560084a90082dcb58d45e395f34bbc7ad17",
+        "bytes": 36
+      },
+      {
+        "path": ".tools/go-enter/function-type-review/compiler.log",
+        "sha256": "aa9f16637c2ba9a4bdb7335dbfff4560084a90082dcb58d45e395f34bbc7ad17",
+        "bytes": 36
+      }
+    ],
+    "performanceObservation": {
+      "scope": "Single SDK driver run, not a general latency guarantee",
+      "nestedLevels": [
+        2000,
+        4000,
+        8000,
+        16000
+      ],
+      "milliseconds": [
+        11.187,
+        11.9,
+        24.428,
+        18.095
+      ],
+      "log": {
+        "path": ".tools/go-enter/performance.log",
+        "sha256": "dd1285503d2071efde298c55e59d08c80bb3e2be2ecafff769a1a02113fa22cb",
+        "bytes": 147
+      }
+    }
+  },
+  "nativeCohort": {
+    "sourceDigest": "d4b5eabb77d34c3c6f17f5e1162c21655e4bfd1c31e5c755a81ea1c2560576db",
+    "inputFiles": 332,
+    "pid": 91007,
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "build/product/open Goland.app",
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "evidence": {
+        "path": ".tools/editor-typing-runtime.json",
+        "sha256": "0320f9d822982531f46f5ee4014bfacb65425f5d74160f3aaa7177910c51f628",
+        "bytes": 1220
+      },
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    },
+    "keyboardAndGoWorkflowAcceptance": {
+      "status": "listed bounded checks pass",
+      "record": "docs/verification/editor-typing-native.json",
+      "tests": {
+        "TestNativeTyping": {
+          "uncached": true,
+          "exitCode": 0
+        },
+        "TestCross": {
+          "uncached": true,
+          "exitCode": 0
+        }
+      },
+      "nativeProcessCleanup": {
+        "checkedPids": [
+          91007,
+          91027,
+          91071,
+          91072,
+          91073,
+          91367,
+          91477
+        ],
+        "allRecordedOwnedProcessesGone": true
+      },
+      "boundaries": "Standard platform navigation entry points, raw-setting reopen, IME and full parity remain open; explicit LSP navigation is recorded separately."
+    }
+  },
+  "boundaries": [
+    "Raw-string indentation default false is an independent product choice, not an observed commercial default",
+    "Host JBR Unicode categories can differ from selected Go 1.24.3 Unicode 15.0",
+    "Go PSI remains a flat consume-all tree; lexical editor assistance is not a complete grammar/PSI",
+    "Interpreted-string/rune Enter does not implement automatic expression splitting/concatenation",
+    "Static commercial descriptor registrations do not prove exact runtime behavior/defaults",
+    "Full commercial feature equivalence and the complete acceptance matrix remain open"
+  ],
+  "postNativeArtifactVerification": {
+    "inputDigestStillMatches": true,
+    "all32PluginArtifactHashesStillMatch": true,
+    "codesignDeepStrictExitCode": 0
+  }
+}

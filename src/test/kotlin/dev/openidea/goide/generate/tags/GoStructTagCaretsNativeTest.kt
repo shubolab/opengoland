@@ -111,6 +111,46 @@ class GoStructTagCaretsNativeTest : LightPlatformTestCase() {
         } }
     }
 
+    fun testDirectionalChannelFieldsAndFunctionResultsKeepAllNativeTagCarets() {
+        val source = """
+            package fixture
+            // 中文 😀 before physical UTF-16 offsets.
+            type Model struct {
+                Both chan int `json:"both"`
+                Send chan<- int `json:"send"`
+                Receive <-chan int `json:"receive"`
+                Nested chan<- <-chan int `json:"nested"`
+                MakeSend func() chan<- int `json:"makeSend"`
+                MakeReceive func() <-chan int `json:"makeReceive"`
+                Exchange func(<-chan int, chan<- string) (<-chan string, chan<- int) `json:"exchange"`
+            }
+        """.trimIndent()
+        fixture(source) { file, editor -> onEdt {
+            editor.caretModel.moveToOffset(source.indexOf("json:\"receive"))
+            val action = GoStructTagValuesIntention()
+            assertTrue(action.isAvailable(project, editor, file))
+            action.invoke(project, editor, file)
+            val names = listOf("both", "send", "receive", "nested", "makeSend", "makeReceive", "exchange")
+            assertEquals(names.map { source.indexOf("json:\"$it\"") + 6 }, offsets(editor))
+            assertEquals(source.indexOf("json:\"receive\"") + 6, editor.caretModel.primaryCaret.offset)
+            assertEquals(source, editor.document.text)
+        } }
+    }
+
+    fun testSplitPunctuationIsNotAcceptedAsAChannelDirectionInFieldTypes() {
+        for (type in listOf("chan < - int", "< -chan int", "chan < /* gap */ - int", "func() < -chan int")) {
+            val source = "package fixture\ntype Model struct{ A $type `json:\"a\"`; B int `json:\"b\"` }\n"
+            fixture(source) { file, editor -> onEdt {
+                editor.caretModel.moveToOffset(source.indexOf("json:"))
+                val action = GoStructTagValuesIntention()
+                assertFalse("Not a Go direction operator: $type", action.isAvailable(project, editor, file))
+                action.invoke(project, editor, file)
+                assertEquals(1, editor.caretModel.caretCount)
+                assertEquals(source, editor.document.text)
+            } }
+        }
+    }
+
     fun testReadonlyDeletedAndChangedDocumentsCannotUseOldTargets() {
         val source = "package fixture\ntype Model struct{ A int `json:\"a\"`; B int `yaml:\"b\"` }\n"
         fixture(source) { file, editor ->

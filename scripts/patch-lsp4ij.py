@@ -20,7 +20,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
 UPSTREAM_JAR_SHA = "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
 MARKER = "META-INF/open-goland-document-sync.json"
-PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher")
+PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher", "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature", "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport")
 
 
 def sha(data):
@@ -29,6 +29,16 @@ def sha(data):
 
 def patched_class(name):
     return name.endswith(".class") and any(name == p + ".class" or name.startswith(p + "$") for p in PREFIXES)
+
+
+def write_patched_entry(archive, name, data):
+    # The compiler and runtime consume separate owned copies. Stable ZIP headers
+    # make identical pinned classes/metadata produce identical dependency bytes.
+    entry = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+    entry.compress_type = zipfile.ZIP_DEFLATED
+    entry.create_system = 3
+    entry.external_attr = 0o100644 << 16
+    archive.writestr(entry, data)
 
 
 def complete_class_set(records, actual):
@@ -141,8 +151,8 @@ def build(args):
                 if not patched_class(entry.filename):
                     after.writestr(entry, before.read(entry.filename))
             for name in sorted(records):
-                after.writestr(name, (built / name).read_bytes())
-            after.writestr(MARKER, json.dumps(metadata, sort_keys=True, indent=2))
+                write_patched_entry(after, name, (built / name).read_bytes())
+            write_patched_entry(after, MARKER, json.dumps(metadata, sort_keys=True, indent=2))
         os.replace(candidate, target)
     print(f"Built private LSP4IJ document-sync patch: {len(records)} classes, patch {pin['patchSha256']}")
 

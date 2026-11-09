@@ -388,3 +388,73 @@
      }
  
      /**
+--- a/src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java
+@@ -30,12 +30,35 @@
+  * This feature can be overridden by language server implementations to customize which files and elements
+  * support usage searching based on their specific LSP capabilities.
+  * </p>
+  */
+ @ApiStatus.Experimental
+ public class LSPUsageFeature extends AbstractLSPDocumentFeature {
++
++    /**
++     * Whether Find Usages also collects type-definition navigation targets.
++     * This policy does not disable the independent Go to Type Definition action
++     * or change the language server's advertised capabilities.
++     *
++     * @param file the file in which Find Usages was invoked.
++     * @return true to preserve the default aggregate search behavior.
++     */
++    public boolean shouldIncludeTypeDefinitions(@NotNull PsiFile file) {
++        return true;
++    }
++
++    /**
++     * Whether Find Usages also collects implementation navigation targets.
++     * This policy does not disable Go to Implementation or type hierarchy.
++     *
++     * @param file the file in which Find Usages was invoked.
++     * @return true to preserve the default aggregate search behavior.
++     */
++    public boolean shouldIncludeImplementations(@NotNull PsiFile file) {
++        return true;
++    }
+ 
+     /**
+      * Checks if the file supports the usage feature.
+      *
+      * @param file the file to check.
+      * @return true if usage is supported for this file, false otherwise.
+--- a/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.java
+@@ -132,12 +132,13 @@
+                                             .handle(reportUsages(ls, project, LSPUsagePsiElement.UsageKind.definitions))
+                             );
+                         }
+ 
+                         // Collect type definitions
+                         if (collectTypeDefinitions
++                                && clientFeature.getUsageFeature().shouldIncludeTypeDefinitions(file)
+                                 && clientFeature.getTypeDefinitionFeature().isEnabled(file)
+                                 && clientFeature.getTypeDefinitionFeature().isSupported(file)) {
+                             updateTextDocumentUri(typeDefinitionParams.getTextDocument(), file, ls);
+                             allFutures.add(
+                                     cancellationSupport.execute(ls
+                                                     .getTextDocumentService()
+@@ -156,13 +157,14 @@
+                                                     .references(referenceParams), ls, LSPRequestConstants.TEXT_DOCUMENT_REFERENCES)
+                                             .handle(reportUsages2(ls, project, LSPUsagePsiElement.UsageKind.references))
+                             );
+                         }
+ 
+                         // Collect implementations
+-                        if (clientFeature.getImplementationFeature().isEnabled(file)
++                        if (clientFeature.getUsageFeature().shouldIncludeImplementations(file)
++                                && clientFeature.getImplementationFeature().isEnabled(file)
+                                 && clientFeature.getImplementationFeature().isSupported(file)) {
+                             updateTextDocumentUri(implementationParams.getTextDocument(), file, ls);
+                             allFutures.add(
+                                     cancellationSupport.execute(ls
+                                                     .getTextDocumentService()
+                                                     .implementation(implementationParams), ls, LSPRequestConstants.TEXT_DOCUMENT_IMPLEMENTATION)

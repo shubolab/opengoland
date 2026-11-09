@@ -7,6 +7,7 @@ import com.intellij.openapi.options.ConfigurationException
 import com.intellij.openapi.project.Project
 import com.intellij.ui.components.JBTextArea
 import com.intellij.ui.components.JBTextField
+import com.intellij.ui.components.JBCheckBox
 import com.intellij.util.ui.FormBuilder
 import com.redhat.devtools.lsp4ij.LanguageServerManager
 import com.redhat.devtools.lsp4ij.LanguageServersRegistry
@@ -25,6 +26,7 @@ class GoSettingsConfigurable(private val project: Project) : Configurable {
     private val goarch = JBTextField()
     private val cgo = JBTextField()
     private val env = JBTextArea(5, 40)
+    private val rawStringIndent = JBCheckBox("Indent on Enter in raw strings")
     override fun getDisplayName() = "Go"
     override fun createComponent(): JComponent = FormBuilder.createFormBuilder()
         .addLabeledComponent("Go executable:", go)
@@ -37,17 +39,20 @@ class GoSettingsConfigurable(private val project: Project) : Configurable {
         .addLabeledComponent("Target architecture (GOARCH):", goarch)
         .addLabeledComponent("CGO_ENABLED (empty, 0 or 1):", cgo)
         .addLabeledComponent("Environment (NAME=value per line):", JScrollPane(env))
+        .addSeparator().addComponent(rawStringIndent)
         .addComponentFillVertically(JPanel(), 0).panel
 
     override fun reset() {
         val s = GoProjectSettings.get(project)
         go.text = s.goExecutable; gopls.text = s.goplsExecutable; delve.text = s.delveExecutable
         tags.text = s.buildTags; goos.text = s.goos; goarch.text = s.goarch; cgo.text = s.cgoEnabled; env.text = s.environment
+        rawStringIndent.isSelected = s.indentRawStringsOnEnter
     }
     override fun isModified(): Boolean {
         val s = GoProjectSettings.get(project)
         return listOf(go.text, gopls.text, delve.text, tags.text, goos.text, goarch.text, cgo.text, env.text) !=
-            listOf(s.goExecutable, s.goplsExecutable, s.delveExecutable, s.buildTags, s.goos, s.goarch, s.cgoEnabled, s.environment)
+            listOf(s.goExecutable, s.goplsExecutable, s.delveExecutable, s.buildTags, s.goos, s.goarch, s.cgoEnabled, s.environment) ||
+            rawStringIndent.isSelected != s.indentRawStringsOnEnter
     }
     override fun apply() {
         try { GoToolchain.parseEnvironment(env.text) } catch (e: IllegalArgumentException) { throw ConfigurationException(e.message ?: "Invalid environment") }
@@ -62,6 +67,7 @@ class GoSettingsConfigurable(private val project: Project) : Configurable {
         val previousLanguageServerSettings = languageServerSettings(s)
         s.goExecutable = go.text.trim(); s.goplsExecutable = gopls.text.trim(); s.delveExecutable = delve.text.trim()
         s.buildTags = tags.text.trim(); s.goos = goos.text.trim(); s.goarch = goarch.text.trim(); s.cgoEnabled = cgo.text.trim(); s.environment = env.text
+        s.indentRawStringsOnEnter = rawStringIndent.isSelected
         if (previousLanguageServerSettings != languageServerSettings(s)) {
             ApplicationManager.getApplication().executeOnPooledThread {
                 if (!project.isDisposed) {

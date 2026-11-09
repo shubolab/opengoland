@@ -153,8 +153,8 @@ internal object GoStructTagCarets {
                 "struct", "interface" -> return if (tokens.getOrNull(i + 1)?.text == "{") (closes[i + 1] ?: -2) + 1 else -1
                 "[" -> { i = (closes[i] ?: return -1) + 1; return type(i) }
                 "map" -> { if (tokens.getOrNull(i + 1)?.text != "[") return -1; return type((closes[i + 1] ?: return -1) + 1) }
-                "chan" -> { i++; if (tokens.getOrNull(i)?.text == "<" && tokens.getOrNull(i + 1)?.text == "-") i += 2; return type(i) }
-                "<" -> return if (tokens.getOrNull(i + 1)?.text == "-" && tokens.getOrNull(i + 2)?.text == "chan") type(i + 3) else -1
+                "chan" -> { i++; if (tokens.getOrNull(i)?.text == "<-") i++; return type(i) }
+                "<-" -> return if (tokens.getOrNull(i + 1)?.text == "chan") type(i + 2) else -1
                 "func" -> {
                     if (tokens.getOrNull(i + 1)?.text != "(") return -1
                     i = (closes[i + 1] ?: return -1) + 1

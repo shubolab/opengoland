@@ -20,7 +20,10 @@ object GoTokens {
     val keywords = setOf("break", "default", "func", "interface", "select", "case", "defer", "go", "map", "struct", "chan", "else", "goto", "package", "switch", "const", "fallthrough", "if", "range", "type", "continue", "for", "import", "return", "var")
 }
 
-/** Lexical highlighting is local; gopls supplies semantic analysis. */
+/**
+ * Lexical highlighting is local; gopls supplies semantic analysis. Unicode
+ * categories use the host JBR tables, which can be newer than the selected SDK.
+ */
 class GoLexer : LexerBase() {
     private var text: CharSequence = ""
     private var end = 0
@@ -46,7 +49,8 @@ class GoLexer : LexerBase() {
         if (start >= end) { type = null; return }
         val c = text[next++]
         type = when {
-            c.isWhitespace() -> { while (next < end && text[next].isWhitespace()) next++; TokenType.WHITE_SPACE }
+            c.isGoWhitespace() -> { while (next < end && text[next].isGoWhitespace()) next++; TokenType.WHITE_SPACE }
+            c == '\uFEFF' && start == 0 -> TokenType.WHITE_SPACE
             c == '/' && peek('/') -> { next++; while (next < end && text[next] != '\n') next++; GoTokens.COMMENT }
             c == '/' && peek('*') -> {
                 next++
@@ -57,27 +61,26 @@ class GoLexer : LexerBase() {
             }
             c == '"' || c == '\'' || c == '`' -> {
                 while (next < end) {
+                    // Interpreted literals cannot cross LF, including an invalid
+                    // backslash-LF escape. Leave LF for the whitespace token.
+                    if (c != '`' && text[next] == '\n') break
                     val v = text[next++]
                     if (v == c) break
-                    if (v == '\\' && c != '`' && next < end) next++
-                    if (v == '\n' && c != '`') break
+                    if (v == '\\' && c != '`' && next < end && text[next] != '\n') next++
                 }
                 GoTokens.STRING
             }
-            Character.isUnicodeIdentifierStart(text.codePointAt(start)) || c == '_' -> {
-                next = start + Character.charCount(text.codePointAt(start))
+            codePointAt(start).isGoLetter() -> {
+                next = start + Character.charCount(codePointAt(start))
                 while (next < end) {
-                    val cp = text.codePointAt(next)
-                    if (!Character.isUnicodeIdentifierPart(cp)) break
+                    val cp = codePointAt(next)
+                    if (!cp.isGoLetter() && !Character.isDigit(cp)) break
                     next += Character.charCount(cp)
                 }
                 if (text.subSequence(start, next).toString() in GoTokens.keywords) GoTokens.KEYWORD else GoTokens.IDENTIFIER
             }
-            c.isDigit() || (c == '.' && next < end && text[next].isDigit()) -> {
-                while (next < end) {
-                    val n = text[next]
-                    if (n.isLetterOrDigit() || n == '_' || n == '.' || ((n == '+' || n == '-') && text[next - 1] in "eEpP")) next++ else break
-                }
+            c.isAsciiDigit() || (c == '.' && next < end && text[next].isAsciiDigit()) -> {
+                scanNumber()
                 GoTokens.NUMBER
             }
             c == '{' -> GoTokens.LBRACE
@@ -86,9 +89,67 @@ class GoLexer : LexerBase() {
             c == ')' -> GoTokens.RPAREN
             c == '[' -> GoTokens.LBRACKET
             c == ']' -> GoTokens.RBRACKET
-            else -> GoTokens.OPERATOR
+            c in OPERATORS -> {
+                // Go's longest-token rule matters to indentation: := is not a
+                // label colon, and ... is not three field selectors.
+                val width = when {
+                    start + 3 <= end && text.subSequence(start, start + 3).toString() in THREE_CHAR_OPERATORS -> 3
+                    start + 2 <= end && text.subSequence(start, start + 2).toString() in TWO_CHAR_OPERATORS -> 2
+                    else -> 1
+                }
+                next = start + width
+                GoTokens.OPERATOR
+            }
+            else -> TokenType.BAD_CHARACTER
         }
     }
+
+    /** Token boundaries follow Go; validation/diagnostics belong to gopls. */
+    private fun scanNumber() {
+        var radix = 10
+        next = start
+        if (text[next] != '.') {
+            if (text[next] == '0' && next + 1 < end) {
+                radix = when (text[next + 1]) {
+                    'x', 'X' -> 16
+                    'o', 'O' -> 8
+                    'b', 'B' -> 2
+                    else -> 10
+                }
+                if (radix != 10) next += 2
+            }
+            scanDigits(radix)
+        }
+        if (peek('.')) { next++; scanDigits(radix) }
+        if (next < end && text[next] in "eEpP") {
+            next++
+            if (next < end && text[next] in "+-") next++
+            scanDigits(10)
+        }
+        if (peek('i')) next++
+    }
+
+    private fun scanDigits(radix: Int) {
+        // As in the Go scanner's error recovery, binary/octal invalid decimal
+        // digits stay in the numeric token; no following identifier is consumed.
+        while (next < end && (text[next] == '_' || text[next].isAsciiDigit() ||
+                (radix == 16 && text[next] in "aAbBcCdDeEfF"))) next++
+    }
+
     private fun peek(c: Char) = next < end && text[next] == c
-    private fun CharSequence.codePointAt(offset: Int): Int = Character.codePointAt(this, offset)
+    private fun codePointAt(offset: Int): Int {
+        val first = text[offset]
+        return if (Character.isHighSurrogate(first) && offset + 1 < end && Character.isLowSurrogate(text[offset + 1]))
+            Character.toCodePoint(first, text[offset + 1]) else first.code
+    }
+
+    private fun Int.isGoLetter() = this == '_'.code || Character.isLetter(this)
+    private fun Char.isAsciiDigit() = this in '0'..'9'
+    private fun Char.isGoWhitespace() = this == ' ' || this == '\t' || this == '\r' || this == '\n'
+
+    private companion object {
+        const val OPERATORS = "+-*/%&|^<>=!:;.,~"
+        val THREE_CHAR_OPERATORS = setOf("<<=", ">>=", "&^=", "...")
+        val TWO_CHAR_OPERATORS = setOf("+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=", "<<", ">>", "&^", "&&", "||", "<-", "++", "--", "==", "!=", "<=", ">=", ":=")
+    }
 }

@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-09",
+  "scope": {
+    "target": "Installed GoLand 2026.1.4 / GO-261.26222.72",
+    "inspection": "REA-authenticated ZIP inventory and bounded descriptor XML parsing; public 2026.1 help and OSS Platform documentation",
+    "excluded": [
+      "No proprietary implementation class reading, loading, extraction or decompilation",
+      "No commercial application input/settings/license/project changes",
+      "Static registrations do not establish runtime behavior"
+    ]
+  },
+  "referenceArtifact": {
+    "path": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar",
+    "sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0"
+  },
+  "descriptor": {
+    "path": "META-INF/plugin.xml",
+    "bytes": 154398,
+    "sha256": "d44228e7f63f725c7c1996d4b1c555650b9b20a14294cc268a8023639337d19f",
+    "occurrenceId": "occ_d4c4c25f90c0fbe071a2faf48f019405c1f7718926be4ff6e3fbbe57d8af8f26",
+    "selectedRegistrations": [
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "lang.indentStrategy",
+        "attributes": {
+          "language": "go",
+          "implementationClass": "com.goide.formatter.GoIndentStrategy"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "lang.braceMatcher",
+        "attributes": {
+          "language": "go",
+          "implementationClass": "com.goide.editor.GoBraceMatcher"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "quoteHandler",
+        "attributes": {
+          "fileType": "Go",
+          "className": "com.goide.editor.GoQuoteHandler"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "typedHandler",
+        "attributes": {
+          "implementation": "com.goide.editor.GoTypedHandlers$GoSwitchCaseIndentationHandler"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "typedHandler",
+        "attributes": {
+          "implementation": "com.goide.editor.GoTypedHandlers$GoBraceHandler",
+          "order": "before selectionQuoting"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "typedHandler",
+        "attributes": {
+          "implementation": "com.goide.editor.GoTypedHandlers$GoAutoPopupController"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "typedHandler",
+        "attributes": {
+          "implementation": "com.goide.editor.GoTypedHandlers$GoDotHandler"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "lang.commenter",
+        "attributes": {
+          "language": "go",
+          "implementationClass": "com.goide.GoCommenter"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "enterHandlerDelegate",
+        "attributes": {
+          "implementation": "com.goide.codeInsight.editorActions.GoEnterHandler",
+          "id": "goEnter",
+          "order": "before EnterBetweenBracesHandler"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "lang.smartEnterProcessor",
+        "attributes": {
+          "language": "go",
+          "implementationClass": "com.goide.editor.smart.GoSmartEnterProcessor"
+        }
+      },
+      {
+        "module": "intellij.go.impl",
+        "namespace": "com.intellij",
+        "extension": "lineIndentProvider",
+        "attributes": {
+          "implementation": "com.goide.formatter.GoIntellijLineIndentProvider"
+        }
+      }
+    ]
+  },
+  "reaEvidence": {
+    "inspection": "ev_1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3",
+    "inventory": "ev_6e83a4534edd89427f4d3a3376a4298d405d86d086458de6bdecc6149fc82e8c",
+    "descriptorOccurrenceView": "ev_b5ba1d7cac2f6cb834034e1109f5bd50cdbcc6eebd854c1e2c35829a089dab2d",
+    "sessionClosed": true
+  },
+  "primaryPublicSources": [
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/settings-smart-keys.html",
+      "observation": "Documents configurable quote/bracket pairing, surrounding selected text, smart Enter indentation and block-comment closure; documentation is not local runtime evidence."
+    },
+    {
+      "url": "https://plugins.jetbrains.com/docs/intellij/additional-minor-features.html",
+      "observation": "Documents the native QuoteHandler, Commenter, PairedBraceMatcher and SmartEnter extension points."
+    },
+    {
+      "url": "https://go.dev/ref/spec",
+      "observation": "Defines Go literal, whitespace, identifier and longest-token rules; current online language version is separate from the tested local Go 1.24.3 scanner."
+    },
+    {
+      "url": "https://www.jetbrains.com/help/go/2026.1/go-configuration.html",
+      "observation": "Documents a Go-specific Indent on Enter in raw strings toggle. Its current local commercial default was not observed."
+    }
+  ],
+  "inference": [
+    "The reference uses language-specific typing/Enter/indentation extensions in addition to the shared platform editor.",
+    "Implementing these behaviors with the OSS Platform APIs moves the independent IDE toward the requested native workbench. Exact commercial behavior still requires runtime comparison."
+  ],
+  "unknowns": [
+    "Actual local GoLand quote, Enter, comment and case/closing-indent behavior was not executed in this investigation.",
+    "Commercial defaults, all preference combinations, IME composition, complete statement and all syntax/build/version contexts remain unverified.",
+    "The reconstruction still has a flat PSI parser; editor assistance does not by itself supply a complete Go grammar/PSI implementation.",
+    "Host JBR Unicode categories can be newer than the selected Go SDK Unicode table; selected Go 1.24.3 uses Unicode 15.0. Local categories and final gopls diagnostics may differ for newly introduced code points."
+  ]
+}

@@ -42,7 +42,10 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "native_record": "../verification/struct-helpers-native.json",
-        "observation": "Two native tag value carets, Chinese/emoji paste and one-step Undo/Redo preserved other keys/options and generated methods. This does not prove all multicaret/caret/selection/dirty-close interaction or commercial parity."
+        "observation": "Two native tag value carets, Chinese/emoji paste and one-step Undo/Redo preserved other keys/options and generated methods. This does not prove all multicaret/caret/selection/dirty-close interaction or commercial parity.",
+        "editor_typing": "../verification/editor-typing.md",
+        "editor_typing_native": "../verification/editor-typing-native.json",
+        "typing_observation": "Native quote pair/delete/overtype, Chinese/emoji paste, nested/call Enter, typed case/closer alignment, comment split and one-step Undo/Redo passed in the d4b5eabb standalone cohort. Full selection, multicaret, IME and dirty-close parity remain open."
       }
     },
     {
@@ -74,7 +77,10 @@
       "partial_evidence": {
         "unicode_persistence": "../verification/unicode-persistence.md",
         "native_record": "../verification/unicode-persistence-native.json",
-        "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open."
+        "observation": "Exact fresh emoji project trust/recent paths survive normal exit and no-argument same-bundle restart; editor/caret and run configuration restored without repeated trust prompt. Go settings Apply no longer resolves files on EDT; actual Swing validation/background missing-tool regressions passed. Full settings/scope/layout and project workflow parity remain open.",
+        "editor_typing": "../verification/editor-typing.md",
+        "editor_typing_native": "../verification/editor-typing-native.json",
+        "raw_string_preference": "Native Go checkbox changes raw Enter from LF-only to exact four-space continuation, with Undo; normal-exit persistence is recorded separately. Exact-label Settings search did not locate this new checkbox; it was reached through Other Settings > Go. Full settings search and restart parity remain open."
       }
     },
     {
@@ -141,7 +147,10 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "source": "../verification/large-file-semantic-tokens.md",
-        "observation": "Real gopls aggregate tests passed for Unicode/CRLF 408904-byte and long-line fixtures; native 214687-byte SDK runtime/proc.go shows semantic highlighting and inlay hints through line 7376 without the earlier size-error notification. Other syntax/template/build-constraint and native cancellation scopes remain unverified."
+        "observation": "Real gopls aggregate tests passed for Unicode/CRLF 408904-byte and long-line fixtures; native 214687-byte SDK runtime/proc.go shows semantic highlighting and inlay hints through line 7376 without the earlier size-error notification. Other syntax/template/build-constraint and native cancellation scopes remain unverified.",
+        "editor_typing": "../verification/editor-typing.md",
+        "editor_typing_native": "../verification/editor-typing-native.json",
+        "typing_observation": "Nine lexical boundary regressions and 28 native action Enter/quote/comment tests pass within the final 378-test suite. Real standalone keyboard behavior passed selected cases; parser remains flat, Unicode categories follow host JBR, and Complete Statement/embedded/template/full syntax parity remain open."
       }
     },
     {
@@ -170,7 +179,10 @@
         "observation": "Cross-module Cmd+B definition navigation observed in b496a85; other navigation/hierarchy scopes remain unverified.",
         "find_usages": "../verification/find-usages.md",
         "find_usages_native": "../verification/find-usages-native.json",
-        "scope_observation": "Real gopls returned declaration plus three call sites across two modules; native Project Files and Current File filtering and cross-module result jump passed. Fresh/cached global/local filtering and same-file strict containment have six real-platform controlled regressions. Native cached scope, all hierarchy/relations and generic aggregation error-notification UX remain open."
+        "scope_observation": "Real gopls returned declaration plus three call sites across two modules; native Project Files and Current File filtering and cross-module result jump passed. Fresh/cached global/local filtering and same-file strict containment have six real-platform controlled regressions. Native cached scope, all hierarchy/relations and broader notification UX remain open.",
+        "find_usages_policy": "../verification/find-usages-policy.md",
+        "find_usages_policy_native": "../verification/find-usages-policy-native.json",
+        "query_policy_observation": "The d4b5eabb standalone trace retains definition/references for ordinary function Find Usages and sends no unrelated typeDefinition/implementation. Explicit LSP Type Definition and LSP Implementation actions navigate Current to Reader and Reader to Value. Standard platform type-declaration/implementation actions did not dispatch queries in this native check and remain an integration gap; hierarchy and full symbol/navigation parity remain open."
       }
     },
     {
@@ -459,7 +471,10 @@
         "multicaret_observation": "A real-gopls unit regression checks incremental ordering/UTF-16, rapid Undo/Redo, versioned diagnostics and active-server didClose-to-disk. A separate standalone trace verifies grouped production changes and actual server returns. Owned app/engine/wrapper/gopls processes were absent after native exit. Full cancellation/close/deletion/IME races remain open.",
         "module_task_boundary": "../verification/module-task-scopes.md",
         "module_task_native": "../verification/module-task-native.json",
-        "module_task_observation": "Paused prepare/final EDT document guard/resume/stale guards and cancellation have real engine/platform regressions. Native Stop of active Generate removed all recorded task descendants while app/engine/gopls survived. Does not prove all modal/queued/lifetime races."
+        "module_task_observation": "Paused prepare/final EDT document guard/resume/stale guards and cancellation have real engine/platform regressions. Native Stop of active Generate removed all recorded task descendants while app/engine/gopls survived. Does not prove all modal/queued/lifetime races.",
+        "editor_typing": "../verification/editor-typing.md",
+        "editor_typing_native": "../verification/editor-typing-native.json",
+        "typing_observation": "Native UTF-16 document changes, versioned diagnostics, raw preference Undo and gopls connection continuity are recorded in d4b5eabb; no synchronous tool work is added to local keystrokes. All modal/cancellation/close/IME races remain open."
       }
     },
     {
@@ -469,7 +484,12 @@
       "reference": "No runtime measurements captured yet",
       "probe": "Same machine/repos/cache state; record cold/warm startup, input p95, symbol search, indexing, memory and shutdown",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "editor_typing": "../verification/editor-typing.md",
+        "editor_typing_native": "../verification/editor-typing-native.json",
+        "typing_observation": "CountingText regressions cover long/deep/incomplete delimiter scans. One standalone 32KB nested probe improved from about 1635ms to 18ms after the independent algorithm fix. This is not native input p95, general repository performance, memory, startup or commercial runtime parity evidence."
+      }
     }
   ]
 }

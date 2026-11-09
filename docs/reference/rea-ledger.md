@@ -76,3 +76,16 @@ carets, so our bulk tag planner is an independent workflow and does not establis
 that interaction's parity. Remove-key behavior has no selected reference proof.
 No proprietary implementation classes were read, copied or executed; the REA
 archive session was closed. Commercial runtime behavior remains unverified.
+
+
+## Native typing and indentation registrations
+
+The authenticated Go plugin descriptor was revisited through selected occurrence
+view `ev_b5ba1d7cac2f6cb834034e1109f5bd50cdbcc6eebd854c1e2c35829a089dab2d`.
+Its unchanged resource digest binds the registered quote, comment, brace, typed,
+Enter, line-indent and Smart Enter extension candidates.
+[Typing reference scope](editor-typing-reference.json) records exact selected
+attributes, primary 2026.1 help and OSS Platform documentation, inferences and
+unknowns. No proprietary implementation classes were read or executed, no
+commercial settings were changed, and the REA session was closed. These static
+registrations do not verify commercial typing or editor parity.

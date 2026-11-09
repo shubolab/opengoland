@@ -47,7 +47,7 @@ internal object GoNamedTypeHeaders {
             // Array lengths such as [N], [N*2] and [len("x")] are not generic headers.
             val constraint = tokens.getOrNull(start + 2) ?: return false
             return constraint.identifier || constraint.text in setOf("interface", "struct", "map", "chan", "func", "[", "~") ||
-                constraint.text == "<" && tokens.getOrNull(start + 3)?.text == "-" && tokens.getOrNull(start + 4)?.text == "chan"
+                constraint.text == "<-" && tokens.getOrNull(start + 3)?.text == "chan"
         }
         fun declaration(start: Int, limit: Int): Pair<GoNamedTypeHeader, Int>? {
             val name = tokens.getOrNull(start)?.takeIf { it.identifier && GoIdentifiers.valid(it.text) } ?: return null

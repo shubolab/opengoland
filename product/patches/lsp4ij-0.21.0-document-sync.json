@@ -11,9 +11,9 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "ac29838d41bde43afc9af97b3a4a3f8588f4651545cd58e1bcef57bc09c9cd66",
+  "patchSha256": "967ebb91e97f3f9f60e863bd8f10663717110956a1ea4fc45cf479fa27a85604",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
@@ -22,7 +22,10 @@
       "Workspace folder I/O outside the document critical section",
       "The existing three document-sync/lifecycle patched source files retain their exact previous bytes",
       "Native GlobalSearchScope semantics and LocalSearchScope.containsRange for synthetic LSP PSI elements",
-      "Same-file strictly-contained range preference; partial overlaps and equal ranges remain intact"
+      "Same-file strictly-contained range preference; partial overlaps and equal ranges remain intact",
+      "All previous four patched source files and ten compiled class digests remain unchanged",
+      "Default aggregate policy for other LSP clients remains unchanged; Go opts out only for Find Usages typeDefinition/implementation",
+      "Independent implementation/type-definition/type-hierarchy navigation and original references error notification handling"
     ],
     "limitations": [
       "Not a claim that all LSP request/editor races are solved",
@@ -58,6 +61,18 @@
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.java",
       "upstreamSha256": "67c15fc1f7f73bbf6af87d7219a671a43134f478a457bec8579affbc05f1e21a",
       "patchedSha256": "19bce0f1443b68e53b839a911c3c7a7a8eaabbe98d250c8e104d5fd227855553"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java",
+      "upstreamSha256": "b4564c3467462576944dac54ebd24f517a15205a69ecc1aae01dd15126d6b057",
+      "patchedSha256": "16f2ae3b230f8da0b18386c7e205fd793eaa72a2704eb202a5158c14f323a506"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.java",
+      "upstreamSha256": "a36dcea72cf6790961b92bb9104b4ceeb8ff934bfc8d895b79f356769a35a265",
+      "patchedSha256": "9ccd4d778ce2b4d8705abb4646ecd348772a4bf0731351ab06ba0a4ffd0fcef4"
     }
   ],
   "initialVerification": {
@@ -178,6 +193,86 @@
       "previousThreeSourceAndEightClassDigestsUnchanged": true,
       "testedUsageClassBytesEqualUnifiedBuild": true,
       "scope": "Owned .tools private dependency JAR only; shared sandbox, immutable SDK and delivered app were not modified"
+    }
+  },
+  "findUsagesPolicyRevision": {
+    "status": "Exact six-source patch replay and javac --release17 passed; independent actual SDK controlled RED/GREEN and owned real gopls tests passed; main-task Gradle and packaged native verification pending",
+    "scope": "Per-client Find Usages query policy, not capability removal or error suppression",
+    "sources": [
+      "src/main/java/com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.java",
+      "src/main/java/com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.java"
+    ],
+    "goClient": "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageServerFactory.kt",
+    "requiredClassReplacement": "All outer/nested classes of the six public source prefixes; 13 compiled classes",
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class": "8d8132530a35907770d851ad246a9ce91f340bd3d8ff93703018801d78b6d63e",
+      "com/redhat/devtools/lsp4ij/LSPFileListener.class": "23d72bc203e5daec3a437ef6f0c7ccaf238544d356acbede5b20d46190379047",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.class": "98b4f7b6a40227dbe255996e0dc0ad128fa84c06752bde094225043ad1e06f0b",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$1.class": "5bda50f161d9c15b2dfc00d6a349f3df2e52d4bcc77714b48bb8b14bab697a9e",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class": "d8922720284b11037f9ecac51038c589db94142a914afa3fb7adb518a49d1438",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class": "f6f757d29052dd3a8c61542ebf15d0ed52f72e544307362b1f52f40eb61a3473",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class": "bde87a4b190c9dac28c3a4f7cee696efeefd394af2b4e6ac70ac5d32cfdec15f",
+      "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer$RefreshPullDiagnosticOrigin.class": "fd44aae5c3008318197dc833fa8b2e23a6566dd536c3098542485fe16adeb505",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport.class": "27c04b6a168fa81bb563e11579c7ace3a20cf3cd698a04d7aa1a081db3853811",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher.class": "48410c417783fe9bd01932b25341b10b512c07369421ee5f4d966b6f85260074",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher$1ElementData.class": "3c15f73a0c4c0cc67a2e1ae0fb2bc2ab0059a06a8d77d39df43cf133d269e208",
+      "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport$LSPUsageSupportParams.class": "7d1560681f450bf132547ab6641e6c428d6ef371f012af0d3124be15a4df7e15",
+      "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature.class": "48f97e48ab291690058df55bf190b7a5804885b59a1aacd0eac92cf247726a0c"
+    },
+    "previousFourSourceAndTenClassDigestsUnchanged": true,
+    "tests": {
+      "controlled": {
+        "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspFindUsagesPolicyTest.kt",
+        "cases": 4,
+        "oldClassExpectedFailures": 2,
+        "oldClassUnaffectedCasesPassed": 2,
+        "coverage": [
+          "Go Find Usages keeps declarations/definitions/references without typeDefinition/implementation requests",
+          "Other clients retain the default five-query aggregate policy",
+          "Explicit Go implementation/type-definition/type-hierarchy supports still request and return real locations/items",
+          "Actual CancellationSupport still reports references errors with the original feature and message"
+        ],
+        "sourceSha256": "6ce7ddee7d0b0cb03e0431ce3ef998bbf4ef99c878b3b42c5e3635d13a1906d4"
+      },
+      "realGopls": {
+        "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspFindUsagesGoplsTest.kt",
+        "cases": 1,
+        "server": "gopls v0.21.1",
+        "coverage": [
+          "Ordinary function: one declaration plus one call from actual references",
+          "Named interface: declaration plus constraint and variable-type references",
+          "No typeDefinition/implementation request in either Find Usages query",
+          "Explicit Reader implementation returns Value, Current type definition returns Reader, Reader hierarchy prepare returns Reader"
+        ],
+        "ownedProcessAndTemporaryFixtureCleaned": true,
+        "sourceSha256": "b8e09481ed76b07027436f86bcc40530610f4a6c13f426d279edb8629cc68b8f"
+      },
+      "harness": "Standalone JBR JUnitCore; actual SDK accessor/feature supports; typed Kotlin API against the actual private patched artifact; no Gradle or shared sandbox/SDK mutation"
+    },
+    "verification": {
+      "oldApiRed": {
+        "path": ".tools/lsp4ij-usage-policy/standalone-red2/run.log",
+        "sha256": "e1f8300b55e111eab52239171808ff1ae5fd4a933ba1c28db845054657d54f0e"
+      },
+      "privateJarGreen": {
+        "path": ".tools/lsp4ij-usage-policy/standalone-final-typed-api/run.log",
+        "sha256": "eb24b8c5682d5bfcaeea08a941265994a918113262f4bc3598b547e4ab06f066"
+      },
+      "previousSixScopeRegressions": {
+        "path": ".tools/lsp4ij-usage-policy/scope-regressions/standalone-green/run.log",
+        "sha256": "fcd1b0835447fc19d8761207cc7465c118eecd3d1c3794f1f93f25a5120f80ac"
+      }
+    },
+    "privateSandboxVerification": {
+      "compiledSources": 6,
+      "compiledClasses": 13,
+      "artifactSha256": "95b35c39d3678ce764a123e188643ed50db74297c01f70c48af6f9dcf71660d6",
+      "coldBuild": "pass",
+      "warmCompleteClassIdentity": "pass",
+      "unrecordedNewPolicyPrefixClassRejected": "pass",
+      "all13CompiledClassDigestsEqualTestedScratch": "pass",
+      "previousFourSourceAndTenClassDigestsUnchanged": true,
+      "scope": "Owned .tools private dependency JAR only; shared sandbox, SDK and delivered application were not modified"
     }
   }
 }

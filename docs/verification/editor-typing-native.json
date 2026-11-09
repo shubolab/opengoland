@@ -1,0 +1,3290 @@
+{
+  "schema": "open-goland.editor-typing-native.v1",
+  "date": "2026-11-09",
+  "status": "pass for the listed bounded checks; full acceptance remains open",
+  "cohort": {
+    "sourceDigest": "d4b5eabb77d34c3c6f17f5e1162c21655e4bfd1c31e5c755a81ea1c2560576db",
+    "inputFiles": 332,
+    "application": "build/product/open Goland.app",
+    "pid": 91007,
+    "buildRecord": "editor-typing-build.json",
+    "runtimeIdentity": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "pid": 91007,
+      "name": "open Goland",
+      "bundleId": "dev.opengoland.ide",
+      "vendor": "OpenGoland",
+      "selector": "OpenIDEAGo2026.1",
+      "pluginPaths": [
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland",
+        "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij"
+      ],
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "log": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "platformArtifactChecks": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/lib/util-8.jar",
+          "sha256": "dfe6e03f14a161349669a50b054808348573bb92eb30e4554e812687068c580b",
+          "patchSha256": "cdb3a11b5f4f55cc9a63e94d5bc149d0d9c5bcfc378306cf354e6244eb0eaaee"
+        }
+      ],
+      "limitations": [
+        "Does not prove editing, code intelligence, testing, debugging, feature parity or live class resolution"
+      ]
+    }
+  },
+  "fixture": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀",
+    "purpose": "Owned disposable Unicode-path Go 1.24.3 two-module workspace; initial source deliberately has PLACEHOLDER and a missing case colon. Original was repaired only through native editor actions. A separate copied CLI control was not used as native evidence.",
+    "goExecutable": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go",
+    "goplsWrapper": "/Users/wangshubo/develop/openidea-go/.tools/gopls-trace-wrapper.py",
+    "goplsWrapperSHA256": "5a1bd0efa667b9c75d000e927f23bc5f666fa1e45d4f55bfb51270f5e807e282",
+    "initialFiles": {
+      "go.work": "go 1.24.0\n\nuse (\n\t./one\n\t./two\n)\n",
+      "one/go.mod": "module example.org/typing/one\n\ngo 1.24.0\n",
+      "two/go.mod": "module example.org/typing/two\n\ngo 1.24.0\n\nrequire example.org/typing/one v0.0.0\n\nreplace example.org/typing/one => ../one\n",
+      "one/editor.go": "package one\n\n// Native typing 中文😀 payload\nfunc Quote() string {\n\treturn PLACEHOLDER\n}\n\nfunc Nested() {\n\tif true {}\n}\n\nfunc Cases(value int) string {\n\tswitch value {\n\t\tcase 1\n\t\treturn \"one\"\n\tdefault:\n\t\treturn \"other\"\n\t}\n}\n\nfunc Call() {\n\tconsume()\n}\n\nfunc consume(values ...any) {}\n\nfunc Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\nconst RawPath = `C:\\`\nconst Rune = '界'\n\nfunc Align() {\n\tif true {\n\t\t\n\t\t}\n}\n",
+      "one/shared.go": "package one\n\nfunc Shared(value int) int { return value + 1 }\nfunc SameFile() int { return Shared(1) }\n",
+      "one/caller.go": "package one\n\nfunc SecondFile() int { return Shared(2) }\n",
+      "two/caller.go": "package two\n\nimport \"example.org/typing/one\"\n\nfunc Cross() int { return one.Shared(3) }\n",
+      "one/reader.go": "package one\n\ntype Reader interface { Read() string }\ntype Value struct{}\nfunc (Value) Read() string { return \"value\" }\nvar Current Reader = Value{}\nfunc ReadValue() string { return Current.Read() }\n",
+      "one/editor_test.go": "package one\n\nimport \"testing\"\n\nfunc TestNativeTyping(t *testing.T) {\n\tif Quote() != \"中文😀\" { t.Fatalf(\"Quote = %q\", Quote()) }\n\tif Cases(1) != \"one\" || Cases(2) != \"other\" { t.Fatal(\"case routing\") }\n\tif Raw() != \"prefix\\n    payload\\nsuffix\" { t.Fatalf(\"Raw = %q\", Raw()) }\n\tif RawPath != `C:\\` || Rune != '界' { t.Fatal(\"literal content changed\") }\n\tif SameFile() != 2 || SecondFile() != 3 || ReadValue() != \"value\" { t.Fatal(\"Go semantics\") }\n\tNested(); Call(); Align()\n}\n",
+      "two/caller_test.go": "package two\n\nimport \"testing\"\n\nfunc TestCross(t *testing.T) { if Cross() != 4 { t.Fatal(\"cross-module call failed\") } }\n"
+    },
+    "finalFiles": {
+      "go.work": {
+        "utf8Text": "go 1.24.0\n\nuse (\n\t./one\n\t./two\n)\n",
+        "sha256": "40cc0d6a927b18dbf10a82cebc6a61ab5994baa9b4b91c4c5d3a49a9d8897671"
+      },
+      "one/go.mod": {
+        "utf8Text": "module example.org/typing/one\n\ngo 1.24.0\n",
+        "sha256": "a69d892843b396f21f33176f501d5d0bb23a1ec7112414c7570f6329982dbe1e"
+      },
+      "two/go.mod": {
+        "utf8Text": "module example.org/typing/two\n\ngo 1.24.0\n\nrequire example.org/typing/one v0.0.0\n\nreplace example.org/typing/one => ../one\n",
+        "sha256": "ce989781991f45aa3600ead7fc0d36a961501beb5d7a7b00c2a9086c33a5469e"
+      },
+      "one/editor.go": {
+        "utf8Text": "package one\n\n// Native typing 中文😀\n// payload\nfunc Quote() string {\n\treturn \"中文😀\"\n}\n\nfunc Nested() {\n\tif true {\n\n\t}\n}\n\nfunc Cases(value int) string {\n\tswitch value {\n\tcase 1:\n\n\t\treturn \"one\"\n\tdefault:\n\t\treturn \"other\"\n\t}\n}\n\nfunc Call() {\n\tconsume(\n\n\t)\n}\n\nfunc consume(values ...any) {}\n\nfunc Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\nconst RawPath = `C:\\`\nconst Rune = '界'\n\nfunc Align() {\n\tif true {\n\t\t\n\t}\n}\n",
+        "sha256": "753a054a8cb50a03e2cb1ada4b0a3a059cd592b4e3444f3724905bc675e9fa23"
+      },
+      "one/shared.go": {
+        "utf8Text": "package one\n\nfunc Shared(value int) int { return value + 1 }\nfunc SameFile() int { return Shared(1) }\n",
+        "sha256": "cf1389000dbbc3275d2ab55eec6db460cea8f0b50da988c6f879e0e385fab8a3"
+      },
+      "one/caller.go": {
+        "utf8Text": "package one\n\nfunc SecondFile() int { return Shared(2) }\n",
+        "sha256": "2e37f2594362994e2aa35a364edb2eeb420cff84da0f4439fe84f84690018cfa"
+      },
+      "two/caller.go": {
+        "utf8Text": "package two\n\nimport \"example.org/typing/one\"\n\nfunc Cross() int { return one.Shared(3) }\n",
+        "sha256": "8665a7b3ae0c66407c77734dcf430e28b7546750298c9c7075af5cd626eea216"
+      },
+      "one/reader.go": {
+        "utf8Text": "package one\n\ntype Reader interface { Read() string }\ntype Value struct{}\nfunc (Value) Read() string { return \"value\" }\nvar Current Reader = Value{}\nfunc ReadValue() string { return Current.Read() }\n",
+        "sha256": "e9633f34b04680ce9db6c63b0f53c686da9a778a73705f79ab22eff32ea1f7ea"
+      },
+      "one/editor_test.go": {
+        "utf8Text": "package one\n\nimport \"testing\"\n\nfunc TestNativeTyping(t *testing.T) {\n\tif Quote() != \"中文😀\" { t.Fatalf(\"Quote = %q\", Quote()) }\n\tif Cases(1) != \"one\" || Cases(2) != \"other\" { t.Fatal(\"case routing\") }\n\tif Raw() != \"prefix\\n    payload\\nsuffix\" { t.Fatalf(\"Raw = %q\", Raw()) }\n\tif RawPath != `C:\\` || Rune != '界' { t.Fatal(\"literal content changed\") }\n\tif SameFile() != 2 || SecondFile() != 3 || ReadValue() != \"value\" { t.Fatal(\"Go semantics\") }\n\tNested(); Call(); Align()\n}\n",
+        "sha256": "ccc91dba8557ba4d2a265f90393425f6cf5090390757597301caea386bb9a7dd"
+      },
+      "two/caller_test.go": {
+        "utf8Text": "package two\n\nimport \"testing\"\n\nfunc TestCross(t *testing.T) { if Cross() != 4 { t.Fatal(\"cross-module call failed\") } }\n",
+        "sha256": "27ebea403d2be96cf1b77d5e9a5b6c34c3dda0feaf286c6b0da1f106f3a7987c"
+      }
+    }
+  },
+  "nativeUI": {
+    "method": "CUA native app accessibility state and keyboard/paste actions; not CLI source replacement or a manufactured LSP client",
+    "actions": [
+      {
+        "action": "Quote at return expression",
+        "observed": "ASCII double quote inserts an empty pair with caret inside; Backspace deletes both; retyping creates the pair again."
+      },
+      {
+        "action": "Chinese and supplementary Unicode",
+        "observed": "A separate native text paste inserts 中文😀 between the quotes. Typing the ending quote advances over the existing closer without changing the literal."
+      },
+      {
+        "action": "Nested empty block Enter",
+        "observed": "if true {} splits into a two-tab body line and a one-tab closer. One Cmd+Z restores the pair, one Cmd+Shift+Z restores the complete split/indent."
+      },
+      {
+        "action": "Typed case colon and Enter",
+        "observed": "The deliberately over-indented case 1 receives a colon and aligns to one tab; Enter creates a two-tab body line."
+      },
+      {
+        "action": "Call parentheses Enter",
+        "observed": "consume() splits into a two-tab argument line with one-tab closing parenthesis."
+      },
+      {
+        "action": "Typed block closer",
+        "observed": "Typing } before an existing over-indented closer skips it and aligns that closing-only line to one tab."
+      },
+      {
+        "action": "Rune and raw ending quotes",
+        "observed": "The existing quote after 界 is skipped. The raw backtick after C:\\ is skipped even though the preceding character is a backslash. Literal content is unchanged."
+      },
+      {
+        "action": "Comment middle split",
+        "observed": "Enter after 中文😀 splits // Native typing 中文😀 payload into two line comments; the second line is // payload. Unicode is preserved."
+      },
+      {
+        "action": "Raw string default false",
+        "observed": "Enter after pay on a four-space-indented payload line produces pay\\nload with caret column 1. One Undo restores the exact original raw value.",
+        "wireVersions": [
+          17,
+          18
+        ]
+      },
+      {
+        "action": "Raw string setting true",
+        "observed": "Other Settings > Go initially shows the unchecked Indent on Enter in raw strings checkbox. Checking and accepting it makes the same split produce pay\\n    load, caret column 5. One Undo restores the original raw value.",
+        "wireVersions": [
+          19,
+          20
+        ]
+      }
+    ],
+    "tests": [
+      {
+        "name": "TestNativeTyping in one",
+        "pid": 91367,
+        "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go test -json -run ^TestNativeTyping$ .",
+        "ui": "Test Results, 1 test passed.",
+        "package": "example.org/typing/one",
+        "packageSeconds": 0.452,
+        "cached": false,
+        "exitCode": 0,
+        "assertions": [
+          "Quote equals 中文😀",
+          "case routing",
+          "raw string exact newline/space content",
+          "raw backslash and rune unchanged",
+          "same-file and cross-file function semantics",
+          "interface call",
+          "Nested/Call/Align compile and run"
+        ]
+      },
+      {
+        "name": "TestCross in two",
+        "pid": 91477,
+        "command": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/go test -json -run ^TestCross$ .",
+        "ui": "Test Results, 1 test passed.",
+        "package": "example.org/typing/two",
+        "packageSeconds": 0.612,
+        "cached": false,
+        "exitCode": 0,
+        "assertions": [
+          "actual cross-module call returns 4"
+        ]
+      }
+    ],
+    "settingsSearchBoundary": "Searching the exact new checkbox label did not locate the Go configurable; native tree Other Settings > Go was used. Settings-search completeness remains open.",
+    "inputDeliveryBoundary": "Original Chinese input source produced a curly opening quotation mark, which gopls correctly diagnosed; it was removed. Ctrl+Space switched input source for ASCII punctuation. One batched typeText immediately after pair insertion did not insert the Unicode content, so it is not counted as success; a separate native paste was visibly verified. One Ctrl+Space restored the original input-source toggle before exit. IME composition was not tested.",
+    "normalQuit": "Cmd+Q, Confirm Exit > Exit, CUA observed App quit; recorded owned processes checked absent afterwards."
+  },
+  "traceEvidence": {
+    "artifact": ".tools/editor-typing-trace-summary.json",
+    "sha256": "323bc3ed539e0c4d34d03d6130ed580ec34c9abbd95570800d58ace9806f1196",
+    "snapshot": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/trace.jsonl",
+      "completePrefixBytes": 307503,
+      "completePrefixSha256": "698a75d9cbf7493d6f23ff728697409d187dfa9eb15978565d97a6d31e16188d",
+      "completeRecordCount": 642,
+      "excludedTrailingPartialBytes": 0,
+      "firstMonotonic": 50288.517359,
+      "lastMonotonic": 51210.409525166,
+      "traceStillGrowing": false,
+      "recordNumbersAreOneBased": true,
+      "unchangedAfterSummaryRead": true
+    },
+    "observed": {
+      "processSnapshot": "  PID  PPID COMMAND\n91007     1 /Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea\n91071 91007 python3 /Users/wangshubo/develop/openidea-go/.tools/gopls-trace-wrapper.py serve\n91072 91071 /Users/wangshubo/.local/share/mise/installs/go/1.24.3/bin/gopls serve\n",
+      "workerIdentities": [
+        {
+          "record": 1,
+          "time": 50288.517359,
+          "kind": "identity",
+          "wrapperPid": 91071,
+          "goplsPid": 91072,
+          "args": [
+            "serve"
+          ]
+        }
+      ],
+      "initializeRequests": [
+        {
+          "record": 2,
+          "id": "1",
+          "processId": 91007,
+          "rootUri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80",
+          "offeredPositionEncodings": [
+            "utf-16"
+          ],
+          "workspaceFolders": [
+            {
+              "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80",
+              "name": "输入 验收 😀"
+            }
+          ],
+          "initializationOptions": {
+            "env": {
+              "OPENGOLAND_TRACE_RECORD": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/trace.jsonl",
+              "GOPROXY": "off",
+              "GOTELEMETRY": "off",
+              "GOTOOLCHAIN": "local"
+            },
+            "semanticTokens": true,
+            "usePlaceholders": true,
+            "gofumpt": false,
+            "staticcheck": true,
+            "hints": {
+              "assignVariableTypes": true,
+              "compositeLiteralFields": true,
+              "parameterNames": true
+            }
+          }
+        }
+      ],
+      "initializeResults": [
+        {
+          "record": 3,
+          "id": "1",
+          "name": "gopls",
+          "goplsVersion": "v0.21.1",
+          "goplsBuiltWithGo": "go1.25.8",
+          "modulePath": "golang.org/x/tools/gopls",
+          "moduleSum": "h1:1/o9z5Brdero4jFm9Jr46Uwj8GU9lQdoSXHMlwRHb/w=",
+          "advertisedPositionEncoding": null,
+          "textDocumentSync": {
+            "openClose": true,
+            "change": 2,
+            "save": {}
+          }
+        }
+      ],
+      "goWorkViewLogs": [
+        {
+          "record": 13,
+          "message": "2026/11/09 09:17:27 Created View (#1)\n\tdirectory=/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀\n\tview_type=\"GoWork\"\n\troot_dir=\"file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80\"\n\tgo_version=\"go version go1.24.3 darwin/arm64\"\n\tbuild_flags=[]\n\tenv={GOOS:darwin GOARCH:arm64 GOCACHE:/Users/wangshubo/Library/Caches/go-build GOMODCACHE:/Users/wangshubo/go/pkg/mod GOPATH:/Users/wangshubo/go GOPRIVATE: GOFLAGS: GO111MODULE: GOTOOLCHAIN:local GOROOT:/Users/wangshubo/.local/share/mise/installs/go/1.24.3 GoVersion:24 GoVersionOutput:go version go1.24.3 darwin/arm64\n ExplicitGOWORK: EffectiveGOPACKAGESDRIVER:}\n\tenv_overlay=[]\n"
+        }
+      ],
+      "methodCounts": {
+        "client:<response>": 4,
+        "client:initialize": 1,
+        "client:initialized": 1,
+        "client:textDocument/codeAction": 37,
+        "client:textDocument/codeLens": 22,
+        "client:textDocument/definition": 2,
+        "client:textDocument/didChange": 20,
+        "client:textDocument/didClose": 4,
+        "client:textDocument/didOpen": 5,
+        "client:textDocument/didSave": 1,
+        "client:textDocument/documentHighlight": 53,
+        "client:textDocument/documentLink": 22,
+        "client:textDocument/documentSymbol": 23,
+        "client:textDocument/foldingRange": 23,
+        "client:textDocument/hover": 1,
+        "client:textDocument/implementation": 1,
+        "client:textDocument/inlayHint": 22,
+        "client:textDocument/references": 2,
+        "client:textDocument/semanticTokens/full": 23,
+        "client:textDocument/typeDefinition": 1,
+        "server:$/progress": 2,
+        "server:<response>": 233,
+        "server:client/registerCapability": 2,
+        "server:textDocument/publishDiagnostics": 120,
+        "server:window/logMessage": 14,
+        "server:window/workDoneProgress/create": 1,
+        "server:workspace/configuration": 1
+      },
+      "openedDocuments": [
+        {
+          "record": 9,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 1,
+          "languageId": "go",
+          "sha256": "93bead45f2ca163a78634b7229e423d5dbd5e5fd4ba70773f4efe64a8f5047d5",
+          "utf16Length": 417
+        },
+        {
+          "record": 487,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor_test.go",
+          "version": 1,
+          "languageId": "go",
+          "sha256": "ccc91dba8557ba4d2a265f90393425f6cf5090390757597301caea386bb9a7dd",
+          "utf16Length": 474
+        },
+        {
+          "record": 528,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller_test.go",
+          "version": 1,
+          "languageId": "go",
+          "sha256": "27ebea403d2be96cf1b77d5e9a5b6c34c3dda0feaf286c6b0da1f106f3a7987c",
+          "utf16Length": 120
+        },
+        {
+          "record": 551,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+          "version": 1,
+          "languageId": "go",
+          "sha256": "cf1389000dbbc3275d2ab55eec6db460cea8f0b50da988c6f879e0e385fab8a3",
+          "utf16Length": 102
+        },
+        {
+          "record": 588,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+          "version": 1,
+          "languageId": "go",
+          "sha256": "e9633f34b04680ce9db6c63b0f53c686da9a778a73705f79ab22eff32ea1f7ea",
+          "utf16Length": 198
+        }
+      ],
+      "editorVersions": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21
+      ],
+      "editorChangesStrictlyIncreaseByOne": true,
+      "allReplayedRangesAndRangeLengthsAreValidUtf16": true,
+      "editorChanges": [
+        {
+          "record": 45,
+          "timeMonotonic": 50297.589613708,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 2,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 19
+                }
+              },
+              "rangeLength": 11,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "93bead45f2ca163a78634b7229e423d5dbd5e5fd4ba70773f4efe64a8f5047d5",
+          "afterSha256": "7fc55b9f14688155d597b93af10d98d15f425dfdd8a7e566bf40dd680b43b937",
+          "afterUtf16Length": 406,
+          "quoteFunction": "func Quote() string {\n\treturn \n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 52,
+          "timeMonotonic": 50297.706487041,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 3,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 8
+                }
+              },
+              "rangeLength": 0,
+              "text": "“"
+            }
+          ],
+          "beforeSha256": "7fc55b9f14688155d597b93af10d98d15f425dfdd8a7e566bf40dd680b43b937",
+          "afterSha256": "de83c0f86c393b22340e8d29af9e2c1d0a34519976fa08102b23414caa8cf1b2",
+          "afterUtf16Length": 407,
+          "quoteFunction": "func Quote() string {\n\treturn “\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 80,
+          "timeMonotonic": 50349.482055875,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 4,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 9
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "de83c0f86c393b22340e8d29af9e2c1d0a34519976fa08102b23414caa8cf1b2",
+          "afterSha256": "7fc55b9f14688155d597b93af10d98d15f425dfdd8a7e566bf40dd680b43b937",
+          "afterUtf16Length": 406,
+          "quoteFunction": "func Quote() string {\n\treturn \n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 83,
+          "timeMonotonic": 50349.5993035,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 5,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 8
+                }
+              },
+              "rangeLength": 0,
+              "text": "\""
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 9
+                },
+                "end": {
+                  "line": 4,
+                  "character": 9
+                }
+              },
+              "rangeLength": 0,
+              "text": "\""
+            }
+          ],
+          "beforeSha256": "7fc55b9f14688155d597b93af10d98d15f425dfdd8a7e566bf40dd680b43b937",
+          "afterSha256": "a0e324f0e04cd3f4b30436ada38f504d2a1ab77a591334a3695836e924f61c2c",
+          "afterUtf16Length": 408,
+          "quoteFunction": "func Quote() string {\n\treturn \"\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 102,
+          "timeMonotonic": 50357.74733575,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 6,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 9
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 9
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "a0e324f0e04cd3f4b30436ada38f504d2a1ab77a591334a3695836e924f61c2c",
+          "afterSha256": "7fc55b9f14688155d597b93af10d98d15f425dfdd8a7e566bf40dd680b43b937",
+          "afterUtf16Length": 406,
+          "quoteFunction": "func Quote() string {\n\treturn \n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 120,
+          "timeMonotonic": 50362.517691458,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 7,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 8
+                }
+              },
+              "rangeLength": 0,
+              "text": "\""
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 9
+                },
+                "end": {
+                  "line": 4,
+                  "character": 9
+                }
+              },
+              "rangeLength": 0,
+              "text": "\""
+            }
+          ],
+          "beforeSha256": "7fc55b9f14688155d597b93af10d98d15f425dfdd8a7e566bf40dd680b43b937",
+          "afterSha256": "a0e324f0e04cd3f4b30436ada38f504d2a1ab77a591334a3695836e924f61c2c",
+          "afterUtf16Length": 408,
+          "quoteFunction": "func Quote() string {\n\treturn \"\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 145,
+          "timeMonotonic": 50395.326774666,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 8,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 9
+                },
+                "end": {
+                  "line": 4,
+                  "character": 9
+                }
+              },
+              "rangeLength": 0,
+              "text": "中文😀"
+            }
+          ],
+          "beforeSha256": "a0e324f0e04cd3f4b30436ada38f504d2a1ab77a591334a3695836e924f61c2c",
+          "afterSha256": "ef68c2e3e48d2852f0f024690a93df45032875e0e449c58293c693d48503c8ca",
+          "afterUtf16Length": 412,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 173,
+          "timeMonotonic": 50454.110059166,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 9,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 10
+                },
+                "end": {
+                  "line": 8,
+                  "character": 10
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n\t"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 10
+                },
+                "end": {
+                  "line": 8,
+                  "character": 10
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n\t"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 1
+                }
+              },
+              "rangeLength": 0,
+              "text": "\t"
+            }
+          ],
+          "beforeSha256": "ef68c2e3e48d2852f0f024690a93df45032875e0e449c58293c693d48503c8ca",
+          "afterSha256": "dee4c81f1222f01ef827cb51b595fcdd512e0b937f134e8804de426e34def96a",
+          "afterUtf16Length": 417,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 191,
+          "timeMonotonic": 50458.077621291,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 10,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 2
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 10
+                },
+                "end": {
+                  "line": 9,
+                  "character": 1
+                }
+              },
+              "rangeLength": 2,
+              "text": ""
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 10
+                },
+                "end": {
+                  "line": 9,
+                  "character": 1
+                }
+              },
+              "rangeLength": 2,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "dee4c81f1222f01ef827cb51b595fcdd512e0b937f134e8804de426e34def96a",
+          "afterSha256": "ef68c2e3e48d2852f0f024690a93df45032875e0e449c58293c693d48503c8ca",
+          "afterUtf16Length": 412,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 212,
+          "timeMonotonic": 50461.847712458,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 11,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 10
+                },
+                "end": {
+                  "line": 8,
+                  "character": 10
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n\t"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 10
+                },
+                "end": {
+                  "line": 8,
+                  "character": 10
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n\t"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 1
+                }
+              },
+              "rangeLength": 0,
+              "text": "\t"
+            }
+          ],
+          "beforeSha256": "ef68c2e3e48d2852f0f024690a93df45032875e0e449c58293c693d48503c8ca",
+          "afterSha256": "dee4c81f1222f01ef827cb51b595fcdd512e0b937f134e8804de426e34def96a",
+          "afterUtf16Length": 417,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 234,
+          "timeMonotonic": 50481.995410208,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 12,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 15,
+                  "character": 8
+                },
+                "end": {
+                  "line": 15,
+                  "character": 8
+                }
+              },
+              "rangeLength": 0,
+              "text": ":"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 15,
+                  "character": 1
+                },
+                "end": {
+                  "line": 15,
+                  "character": 2
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "dee4c81f1222f01ef827cb51b595fcdd512e0b937f134e8804de426e34def96a",
+          "afterSha256": "92fbff3185362ba5ec98d59c8596133f46d24a0c110cc841e3bcf6d9b0842f7c",
+          "afterUtf16Length": 417,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 259,
+          "timeMonotonic": 50485.845375,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 13,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 15,
+                  "character": 8
+                },
+                "end": {
+                  "line": 15,
+                  "character": 8
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n\t"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 16,
+                  "character": 1
+                },
+                "end": {
+                  "line": 16,
+                  "character": 1
+                }
+              },
+              "rangeLength": 0,
+              "text": "\t"
+            }
+          ],
+          "beforeSha256": "92fbff3185362ba5ec98d59c8596133f46d24a0c110cc841e3bcf6d9b0842f7c",
+          "afterSha256": "bf9c73fd367fbe5e57587fcf5248ffc44c27721fb7844a8830ef0e7c66353a38",
+          "afterUtf16Length": 420,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 287,
+          "timeMonotonic": 50494.1172005,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 14,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 24,
+                  "character": 9
+                },
+                "end": {
+                  "line": 24,
+                  "character": 9
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n\t"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 24,
+                  "character": 9
+                },
+                "end": {
+                  "line": 24,
+                  "character": 9
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n\t"
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 25,
+                  "character": 1
+                },
+                "end": {
+                  "line": 25,
+                  "character": 1
+                }
+              },
+              "rangeLength": 0,
+              "text": "\t"
+            }
+          ],
+          "beforeSha256": "bf9c73fd367fbe5e57587fcf5248ffc44c27721fb7844a8830ef0e7c66353a38",
+          "afterSha256": "4bf52257a9f47396f34cc8064f779461c18fe594920900ca9d83bc640d0c3a76",
+          "afterUtf16Length": 425,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 313,
+          "timeMonotonic": 50531.789613541,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 15,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 43,
+                  "character": 1
+                },
+                "end": {
+                  "line": 43,
+                  "character": 2
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "4bf52257a9f47396f34cc8064f779461c18fe594920900ca9d83bc640d0c3a76",
+          "afterSha256": "a06b8e4093525750f8abaa8365b09e7cef8878a3367f9935ec842245a2c8d874",
+          "afterUtf16Length": 424,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀 payload",
+            "func Quote() string {"
+          ]
+        },
+        {
+          "record": 352,
+          "timeMonotonic": 50642.240294833,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 16,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 21
+                },
+                "end": {
+                  "line": 2,
+                  "character": 21
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n//"
+            }
+          ],
+          "beforeSha256": "a06b8e4093525750f8abaa8365b09e7cef8878a3367f9935ec842245a2c8d874",
+          "afterSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterUtf16Length": 427,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        {
+          "record": 382,
+          "timeMonotonic": 50835.951498166,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 17,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 34,
+                  "character": 7
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n"
+            }
+          ],
+          "beforeSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterSha256": "d1272ad2bf3d70d07f07e3b82cbc2c30af26f6c18ac0b630b578a2c61f462b77",
+          "afterUtf16Length": 428,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    pay\nload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        {
+          "record": 408,
+          "timeMonotonic": 50839.203603833,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 18,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 35,
+                  "character": 0
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "d1272ad2bf3d70d07f07e3b82cbc2c30af26f6c18ac0b630b578a2c61f462b77",
+          "afterSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterUtf16Length": 427,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        {
+          "record": 438,
+          "timeMonotonic": 50928.147004166,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 19,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 34,
+                  "character": 7
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n    "
+            }
+          ],
+          "beforeSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterSha256": "5a530988d810c59d9ea1ad39a89edeb602d32e15d22f8cc0eb2fb5c05215b0e8",
+          "afterUtf16Length": 432,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    pay\n    load\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        {
+          "record": 463,
+          "timeMonotonic": 50932.038259083,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 20,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 35,
+                  "character": 4
+                }
+              },
+              "rangeLength": 5,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "5a530988d810c59d9ea1ad39a89edeb602d32e15d22f8cc0eb2fb5c05215b0e8",
+          "afterSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterUtf16Length": 427,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        {
+          "record": 520,
+          "timeMonotonic": 50963.057370416,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 21,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 26,
+                  "character": 0
+                },
+                "end": {
+                  "line": 26,
+                  "character": 2
+                }
+              },
+              "rangeLength": 2,
+              "text": ""
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 17,
+                  "character": 0
+                },
+                "end": {
+                  "line": 17,
+                  "character": 2
+                }
+              },
+              "rangeLength": 2,
+              "text": ""
+            },
+            {
+              "range": {
+                "start": {
+                  "line": 10,
+                  "character": 0
+                },
+                "end": {
+                  "line": 10,
+                  "character": 2
+                }
+              },
+              "rangeLength": 2,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterSha256": "753a054a8cb50a03e2cb1ada4b0a3a059cd592b4e3444f3724905bc675e9fa23",
+          "afterUtf16Length": 421,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        }
+      ],
+      "editorDiagnostics": [
+        {
+          "record": 24,
+          "version": null,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 27,
+          "version": 1,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 47,
+          "version": 2,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 55,
+          "version": 3,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "curly quotation mark '“' (use neutral '\"')",
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 73,
+          "version": 3,
+          "errorCount": 1,
+          "warningCount": 1,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "curly quotation mark '“' (use neutral '\"')",
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 8
+                },
+                "end": {
+                  "line": 4,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "unreachable",
+              "message": "unreachable code",
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 1
+                },
+                "end": {
+                  "line": 8,
+                  "character": 11
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 82,
+          "version": 4,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 86,
+          "version": 5,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 104,
+          "version": 6,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 122,
+          "version": 7,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 148,
+          "version": 8,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 174,
+          "version": 9,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 15,
+                  "character": 8
+                },
+                "end": {
+                  "line": 15,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 193,
+          "version": 10,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 13,
+                  "character": 8
+                },
+                "end": {
+                  "line": 13,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 214,
+          "version": 11,
+          "errorCount": 1,
+          "warningCount": 0,
+          "diagnostics": [
+            {
+              "severity": 1,
+              "source": "syntax",
+              "message": "expected ':', found newline",
+              "range": {
+                "start": {
+                  "line": 15,
+                  "character": 8
+                },
+                "end": {
+                  "line": 15,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 237,
+          "version": 12,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 255,
+          "version": 12,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 2,
+                  "character": 29
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 1
+                },
+                "end": {
+                  "line": 8,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 38,
+                  "character": 1
+                },
+                "end": {
+                  "line": 38,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 261,
+          "version": 13,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 282,
+          "version": 13,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 2,
+                  "character": 29
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 1
+                },
+                "end": {
+                  "line": 8,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 39,
+                  "character": 1
+                },
+                "end": {
+                  "line": 39,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 292,
+          "version": 14,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 309,
+          "version": 14,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 2,
+                  "character": 29
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 1
+                },
+                "end": {
+                  "line": 8,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 41,
+                  "character": 1
+                },
+                "end": {
+                  "line": 41,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 317,
+          "version": 15,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 335,
+          "version": 15,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 2,
+                  "character": 29
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 8,
+                  "character": 1
+                },
+                "end": {
+                  "line": 8,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 41,
+                  "character": 1
+                },
+                "end": {
+                  "line": 41,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 358,
+          "version": 16,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 373,
+          "version": 16,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 42,
+                  "character": 1
+                },
+                "end": {
+                  "line": 42,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 385,
+          "version": 17,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 403,
+          "version": 17,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 43,
+                  "character": 1
+                },
+                "end": {
+                  "line": 43,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 410,
+          "version": 18,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 430,
+          "version": 18,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 42,
+                  "character": 1
+                },
+                "end": {
+                  "line": 42,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 440,
+          "version": 19,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 459,
+          "version": 19,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 43,
+                  "character": 1
+                },
+                "end": {
+                  "line": 43,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 465,
+          "version": 20,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 484,
+          "version": 20,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 42,
+                  "character": 1
+                },
+                "end": {
+                  "line": 42,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 490,
+          "version": 20,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 512,
+          "version": 20,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 42,
+                  "character": 1
+                },
+                "end": {
+                  "line": 42,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 517,
+          "version": 20,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 521,
+          "version": 21,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 525,
+          "version": 21,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 42,
+                  "character": 1
+                },
+                "end": {
+                  "line": 42,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 557,
+          "version": 21,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 574,
+          "version": 21,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 42,
+                  "character": 1
+                },
+                "end": {
+                  "line": 42,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        },
+        {
+          "record": 593,
+          "version": 21,
+          "errorCount": 0,
+          "warningCount": 0,
+          "diagnostics": []
+        },
+        {
+          "record": 609,
+          "version": 21,
+          "errorCount": 0,
+          "warningCount": 4,
+          "diagnostics": [
+            {
+              "severity": 2,
+              "source": "ST1000",
+              "message": "at least one file in a package should have a package comment",
+              "range": {
+                "start": {
+                  "line": 0,
+                  "character": 0
+                },
+                "end": {
+                  "line": 0,
+                  "character": 11
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "ST1020",
+              "message": "comment on exported function Quote should be of the form \"Quote ...\"",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 0
+                },
+                "end": {
+                  "line": 3,
+                  "character": 10
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 9,
+                  "character": 1
+                },
+                "end": {
+                  "line": 9,
+                  "character": 8
+                }
+              }
+            },
+            {
+              "severity": 2,
+              "source": "SA9003",
+              "message": "empty branch",
+              "range": {
+                "start": {
+                  "line": 42,
+                  "character": 1
+                },
+                "end": {
+                  "line": 42,
+                  "character": 8
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "referenceResponsesPresentAtSnapshot": [
+        {
+          "requestRecord": 579,
+          "responseRecord": 581,
+          "request": {
+            "jsonrpc": "2.0",
+            "id": "209",
+            "method": "textDocument/references",
+            "params": {
+              "context": {
+                "includeDeclaration": true
+              },
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          },
+          "response": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 11
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 31
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 37
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 29
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 35
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 36
+                  }
+                }
+              }
+            ],
+            "id": "209"
+          }
+        },
+        {
+          "requestRecord": 585,
+          "responseRecord": 587,
+          "request": {
+            "jsonrpc": "2.0",
+            "id": "212",
+            "method": "textDocument/references",
+            "params": {
+              "context": {
+                "includeDeclaration": true
+              },
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          },
+          "response": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 11
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/caller.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 31
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 37
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 29
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 35
+                  }
+                }
+              },
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller.go",
+                "range": {
+                  "start": {
+                    "line": 4,
+                    "character": 30
+                  },
+                  "end": {
+                    "line": 4,
+                    "character": 36
+                  }
+                }
+              }
+            ],
+            "id": "212"
+          }
+        }
+      ],
+      "rawIndentation": {
+        "disabledEnter": {
+          "record": 382,
+          "timeMonotonic": 50835.951498166,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 17,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 34,
+                  "character": 7
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n"
+            }
+          ],
+          "beforeSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterSha256": "d1272ad2bf3d70d07f07e3b82cbc2c30af26f6c18ac0b630b578a2c61f462b77",
+          "afterUtf16Length": 428,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    pay\nload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        "disabledUndo": {
+          "record": 408,
+          "timeMonotonic": 50839.203603833,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 18,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 35,
+                  "character": 0
+                }
+              },
+              "rangeLength": 1,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "d1272ad2bf3d70d07f07e3b82cbc2c30af26f6c18ac0b630b578a2c61f462b77",
+          "afterSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterUtf16Length": 427,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        "enabledEnter": {
+          "record": 438,
+          "timeMonotonic": 50928.147004166,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 19,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 34,
+                  "character": 7
+                }
+              },
+              "rangeLength": 0,
+              "text": "\n    "
+            }
+          ],
+          "beforeSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterSha256": "5a530988d810c59d9ea1ad39a89edeb602d32e15d22f8cc0eb2fb5c05215b0e8",
+          "afterUtf16Length": 432,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    pay\n    load\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        "enabledUndo": {
+          "record": 463,
+          "timeMonotonic": 50932.038259083,
+          "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+          "version": 20,
+          "contentChanges": [
+            {
+              "range": {
+                "start": {
+                  "line": 34,
+                  "character": 7
+                },
+                "end": {
+                  "line": 35,
+                  "character": 4
+                }
+              },
+              "rangeLength": 5,
+              "text": ""
+            }
+          ],
+          "beforeSha256": "5a530988d810c59d9ea1ad39a89edeb602d32e15d22f8cc0eb2fb5c05215b0e8",
+          "afterSha256": "c91010814aba0c5d2ccf784dd9b5129a3de83dab9921bcea4851a077376a8e9b",
+          "afterUtf16Length": 427,
+          "quoteFunction": "func Quote() string {\n\treturn \"中文😀\"\n}\n\n",
+          "rawFunction": "func Raw() string {\n\treturn `prefix\n    payload\nsuffix`\n}\n\n",
+          "commentLines": [
+            "// Native typing 中文😀",
+            "// payload"
+          ]
+        },
+        "bothUndoRestoreSameRawText": true,
+        "identityCountThroughBothToggles": 1,
+        "initializeRequestCount": 1,
+        "workspaceDidChangeConfigurationCount": 0
+      },
+      "settingsFileAtLiveSnapshot": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/.idea/openidea-go.xml",
+        "exists": true,
+        "sha256": "574866ee2bd2395f01706f97d1ffc6809609d77e11a948edfc87a92887542ca7",
+        "indentRawStringsOnEnter": "true",
+        "observation": "The owned fixture settings file currently contains this value. The application is still running; clean quit/reopen persistence is not yet verified."
+      },
+      "findUsages": {
+        "ordinaryFunction": "Shared",
+        "invocations": [
+          {
+            "requestRecord": 579,
+            "responseRecord": 581,
+            "rpcId": "209",
+            "wireIncludeDeclaration": true,
+            "wireLocations": [
+              {
+                "file": "one/shared.go",
+                "lineOneBased": 3,
+                "startCharacterUtf16": 5,
+                "endCharacterUtf16": 11
+              },
+              {
+                "file": "one/caller.go",
+                "lineOneBased": 3,
+                "startCharacterUtf16": 31,
+                "endCharacterUtf16": 37
+              },
+              {
+                "file": "one/shared.go",
+                "lineOneBased": 4,
+                "startCharacterUtf16": 29,
+                "endCharacterUtf16": 35
+              },
+              {
+                "file": "two/caller.go",
+                "lineOneBased": 5,
+                "startCharacterUtf16": 30,
+                "endCharacterUtf16": 36
+              }
+            ],
+            "wireLocationCount": 4,
+            "rootReportedUiScope": "Current File",
+            "rootReportedUiCounts": {
+              "Definitions": 1,
+              "References": 2,
+              "total": 3
+            },
+            "scopeEvidence": "Scope name and UI group counts supplied by root native observation; LSP references has no corresponding scope argument. The same workspace-wide locations are filtered on the client."
+          },
+          {
+            "requestRecord": 585,
+            "responseRecord": 587,
+            "rpcId": "212",
+            "wireIncludeDeclaration": true,
+            "wireLocations": [
+              {
+                "file": "one/shared.go",
+                "lineOneBased": 3,
+                "startCharacterUtf16": 5,
+                "endCharacterUtf16": 11
+              },
+              {
+                "file": "one/caller.go",
+                "lineOneBased": 3,
+                "startCharacterUtf16": 31,
+                "endCharacterUtf16": 37
+              },
+              {
+                "file": "one/shared.go",
+                "lineOneBased": 4,
+                "startCharacterUtf16": 29,
+                "endCharacterUtf16": 35
+              },
+              {
+                "file": "two/caller.go",
+                "lineOneBased": 5,
+                "startCharacterUtf16": 30,
+                "endCharacterUtf16": 36
+              }
+            ],
+            "wireLocationCount": 4,
+            "rootReportedUiScope": "Project Files",
+            "rootReportedUiCounts": {
+              "Definitions": 1,
+              "References": 4,
+              "total": 5
+            },
+            "scopeEvidence": "Scope name and UI group counts supplied by root native observation; LSP references has no corresponding scope argument. The same workspace-wide locations are filtered on the client."
+          }
+        ],
+        "definitionRequestCount": 2,
+        "locationMeaning": "Each references response has one declaration and three call sites, not four call sites. Definitions is also an SDK UI group, so its displayed total is not a count of unique locations.",
+        "laterExplicitNavigation": "Final trace contains one explicit typeDefinition request at record 627 and one explicit implementation request at record 633. These are separate from the two Shared Find Usages operations.",
+        "typeDefinitionRequestCountInFindUsagesWindow": 0,
+        "implementationRequestCountInFindUsagesWindow": 0,
+        "windowRecords": [
+          579,
+          587
+        ],
+        "totalTypeDefinitionRequestsAfterExplicitNavigation": 1,
+        "totalImplementationRequestsAfterExplicitNavigation": 1
+      },
+      "afterCleanQuit": {
+        "capturedAtUtc": "2026-11-09T01:34:45.913536+00:00",
+        "nativeQuit": {
+          "source": "Root task payload: native Cmd+Q/Exit; CUA observed application quit completed",
+          "appPid": 91007,
+          "observedByThisTaskViaUi": false
+        },
+        "ownedProcesses": [
+          {
+            "pid": 91007,
+            "presentInPs": false,
+            "state": "gone",
+            "ownershipEvidence": "Root supplied PID list for this native cohort"
+          },
+          {
+            "pid": 91027,
+            "presentInPs": false,
+            "state": "gone",
+            "ownershipEvidence": "Root supplied PID list for this native cohort"
+          },
+          {
+            "pid": 91071,
+            "presentInPs": false,
+            "state": "gone",
+            "ownershipEvidence": "Root supplied PID list for this native cohort"
+          },
+          {
+            "pid": 91072,
+            "presentInPs": false,
+            "state": "gone",
+            "ownershipEvidence": "Root supplied PID list for this native cohort"
+          },
+          {
+            "pid": 91073,
+            "presentInPs": false,
+            "state": "gone",
+            "ownershipEvidence": "Root supplied PID list for this native cohort"
+          },
+          {
+            "pid": 91367,
+            "presentInPs": false,
+            "state": "gone",
+            "ownershipEvidence": "Root supplied PID list for this native cohort"
+          },
+          {
+            "pid": 91477,
+            "presentInPs": false,
+            "state": "gone",
+            "ownershipEvidence": "Root supplied PID list for this native cohort"
+          }
+        ],
+        "psExitCode": 1,
+        "psOutput": "",
+        "traceDidClose": [
+          {
+            "record": 639,
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go"
+          },
+          {
+            "record": 640,
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor_test.go"
+          },
+          {
+            "record": 641,
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller_test.go"
+          },
+          {
+            "record": 642,
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go"
+          }
+        ],
+        "traceDidSave": [
+          {
+            "record": 515,
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go"
+          }
+        ],
+        "shutdownRequestCount": 0,
+        "exitNotificationCount": 0,
+        "protocolExitLimitation": "The trace ends with four didClose notifications. It contains no shutdown request or exit notification, so it does not prove a complete graceful LSP shutdown handshake. Separate PID observations prove the owned processes have exited.",
+        "settingsFile": {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/.idea/openidea-go.xml",
+          "sha256": "574866ee2bd2395f01706f97d1ffc6809609d77e11a948edfc87a92887542ca7",
+          "indentRawStringsOnEnter": "true",
+          "preservedAfterCleanQuit": true,
+          "reopenedPersistenceVerified": false
+        },
+        "finalDocuments": [
+          {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor.go",
+            "diskPath": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/editor.go",
+            "version": 21,
+            "lastChange": {
+              "record": 520,
+              "version": 21,
+              "edits": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 26,
+                      "character": 0
+                    },
+                    "end": {
+                      "line": 26,
+                      "character": 2
+                    }
+                  },
+                  "removedText": "\t\t",
+                  "insertedText": ""
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 17,
+                      "character": 0
+                    },
+                    "end": {
+                      "line": 17,
+                      "character": 2
+                    }
+                  },
+                  "removedText": "\t\t",
+                  "insertedText": ""
+                },
+                {
+                  "range": {
+                    "start": {
+                      "line": 10,
+                      "character": 0
+                    },
+                    "end": {
+                      "line": 10,
+                      "character": 2
+                    }
+                  },
+                  "removedText": "\t\t",
+                  "insertedText": ""
+                }
+              ]
+            },
+            "utf16Length": 421,
+            "replayedUtf8Sha256": "753a054a8cb50a03e2cb1ada4b0a3a059cd592b4e3444f3724905bc675e9fa23",
+            "diskBytes": 435,
+            "diskUtf8Sha256": "753a054a8cb50a03e2cb1ada4b0a3a059cd592b4e3444f3724905bc675e9fa23",
+            "replayedUtf16LeSha256": "b673f6252efbc7f1e76867a063e2baae17e524bf45a6361af7302422afe80f31",
+            "diskDecodedUtf16LeSha256": "b673f6252efbc7f1e76867a063e2baae17e524bf45a6361af7302422afe80f31",
+            "matchesDiskExactly": true,
+            "didCloseObserved": true
+          },
+          {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/editor_test.go",
+            "diskPath": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/editor_test.go",
+            "version": 1,
+            "lastChange": null,
+            "utf16Length": 474,
+            "replayedUtf8Sha256": "ccc91dba8557ba4d2a265f90393425f6cf5090390757597301caea386bb9a7dd",
+            "diskBytes": 482,
+            "diskUtf8Sha256": "ccc91dba8557ba4d2a265f90393425f6cf5090390757597301caea386bb9a7dd",
+            "replayedUtf16LeSha256": "ff2eef8e63f5c2b1f4764d465ac166efb62d5d7f782e06f0fc463d3ec13d87bf",
+            "diskDecodedUtf16LeSha256": "ff2eef8e63f5c2b1f4764d465ac166efb62d5d7f782e06f0fc463d3ec13d87bf",
+            "matchesDiskExactly": true,
+            "didCloseObserved": true
+          },
+          {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/two/caller_test.go",
+            "diskPath": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/two/caller_test.go",
+            "version": 1,
+            "lastChange": null,
+            "utf16Length": 120,
+            "replayedUtf8Sha256": "27ebea403d2be96cf1b77d5e9a5b6c34c3dda0feaf286c6b0da1f106f3a7987c",
+            "diskBytes": 120,
+            "diskUtf8Sha256": "27ebea403d2be96cf1b77d5e9a5b6c34c3dda0feaf286c6b0da1f106f3a7987c",
+            "replayedUtf16LeSha256": "242b507e03f08d406f103b313b41ff7e481301f16aa93dafe0e1eff38b272dd2",
+            "diskDecodedUtf16LeSha256": "242b507e03f08d406f103b313b41ff7e481301f16aa93dafe0e1eff38b272dd2",
+            "matchesDiskExactly": true,
+            "didCloseObserved": true
+          },
+          {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/shared.go",
+            "diskPath": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/shared.go",
+            "version": 1,
+            "lastChange": null,
+            "utf16Length": 102,
+            "replayedUtf8Sha256": "cf1389000dbbc3275d2ab55eec6db460cea8f0b50da988c6f879e0e385fab8a3",
+            "diskBytes": 102,
+            "diskUtf8Sha256": "cf1389000dbbc3275d2ab55eec6db460cea8f0b50da988c6f879e0e385fab8a3",
+            "replayedUtf16LeSha256": "4062ee40290f1dd766c785f03b53bc6b8981ee271721319b4b16b8a5b3a02d6b",
+            "diskDecodedUtf16LeSha256": "4062ee40290f1dd766c785f03b53bc6b8981ee271721319b4b16b8a5b3a02d6b",
+            "matchesDiskExactly": true,
+            "didCloseObserved": true
+          },
+          {
+            "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+            "diskPath": "/Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/reader.go",
+            "version": 1,
+            "lastChange": null,
+            "utf16Length": 198,
+            "replayedUtf8Sha256": "e9633f34b04680ce9db6c63b0f53c686da9a778a73705f79ab22eff32ea1f7ea",
+            "diskBytes": 198,
+            "diskUtf8Sha256": "e9633f34b04680ce9db6c63b0f53c686da9a778a73705f79ab22eff32ea1f7ea",
+            "replayedUtf16LeSha256": "4aa9cb612dc3d549559da1cc608fecce39c701f9eb930141a70d3ac914ec1a5d",
+            "diskDecodedUtf16LeSha256": "4aa9cb612dc3d549559da1cc608fecce39c701f9eb930141a70d3ac914ec1a5d",
+            "matchesDiskExactly": true,
+            "didCloseObserved": false
+          }
+        ],
+        "allReplayedDocumentsMatchDiskExactly": true
+      },
+      "version21Classification": {
+        "record": 520,
+        "version": 21,
+        "classification": "Save-time trailing whitespace cleanup, not an additional native typed action",
+        "removedText": [
+          "\t\t",
+          "\t\t",
+          "\t\t"
+        ],
+        "allEditsOnlyDeleteHorizontalWhitespace": true,
+        "attributionEvidence": "Root native observation and exact replay of the three edits at record 520; didSave at record 515, before v21 trailing-space cleanup notification."
+      },
+      "laterExplicitNavigation": [
+        {
+          "requestRecord": 627,
+          "responseRecord": 628,
+          "request": {
+            "jsonrpc": "2.0",
+            "id": "228",
+            "method": "textDocument/typeDefinition",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go"
+              },
+              "position": {
+                "line": 5,
+                "character": 5
+              }
+            }
+          },
+          "response": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+                "range": {
+                  "start": {
+                    "line": 2,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 2,
+                    "character": 11
+                  }
+                }
+              }
+            ],
+            "id": "228"
+          },
+          "classification": "Later explicit LSP navigation; not part of ordinary Shared Find Usages. Wire/UI detailed verification owned by debug_detach."
+        },
+        {
+          "requestRecord": 633,
+          "responseRecord": 634,
+          "request": {
+            "jsonrpc": "2.0",
+            "id": "231",
+            "method": "textDocument/implementation",
+            "params": {
+              "textDocument": {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go"
+              },
+              "position": {
+                "line": 2,
+                "character": 6
+              }
+            }
+          },
+          "response": {
+            "jsonrpc": "2.0",
+            "result": [
+              {
+                "uri": "file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/%E8%BE%93%E5%85%A5%20%E9%AA%8C%E6%94%B6%20%F0%9F%98%80/one/reader.go",
+                "range": {
+                  "start": {
+                    "line": 3,
+                    "character": 5
+                  },
+                  "end": {
+                    "line": 3,
+                    "character": 10
+                  }
+                }
+              }
+            ],
+            "id": "231"
+          },
+          "classification": "Later explicit LSP navigation; not part of ordinary Shared Find Usages. Wire/UI detailed verification owned by debug_detach."
+        }
+      ]
+    },
+    "inferences": [
+      "The trace corroborates the parent agent native typing observations: quote pair inserts are aggregated into one version; Backspace deletes both quotes; Chinese text plus a supplementary emoji reaches gopls without invalid UTF-16 ranges.",
+      "The comment split at version 16 uses a UTF-16 character offset after Chinese/emoji content. Replay reproduces intact Unicode code points and the continued // prefix.",
+      "Versions 17 and 19 show the raw string Enter policy changing from newline-only to newline plus four spaces. Versions 18 and 20 restore the same original raw string.",
+      "There is one wrapper identity and one initialize request through the observed raw-string policy changes; no gopls restart or didChangeConfiguration appears in this captured prefix.",
+      "The initial missing-case-colon syntax diagnostic clears at version 12. Subsequent full diagnostic publications contain only warnings, not severity-1 syntax/type errors. A transient curly quotation mark diagnostic at version 3 is also retained in the evidence rather than omitted.",
+      "Both Shared Find Usages requests return the same four wire locations (one declaration and three calls across the two workspace modules). The parent-reported Current File versus Project Files UI counts corroborate client-side search-scope filtering. The Find Usages window (records 579–587) contains two definition requests and no typeDefinition/implementation request; later explicit LSP navigation is classified separately.",
+      "After the root-observed clean native quit, all seven supplied owned PIDs are absent and the project settings XML still records indentRawStringsOnEnter=true. This proves saved state survived shutdown, not that reopening has been tested.",
+      "The complete final replay validates all UTF-16 edit boundaries/range lengths and exactly matches all five opened documents on disk in UTF-8 and UTF-16LE content hashes. Editor version 21 only deletes three two-tab trailing-whitespace ranges at save time."
+    ],
+    "limitations": [
+      "Reopening the product and checking the persisted raw-string setting through native UI has not been tested.",
+      "The protocol cannot independently prove every physical keystroke, visual caret/selection, popup or action origin. Parent native UI evidence remains necessary, especially for overtype without document mutation.",
+      "The standard Go To Implementation and Type Declaration native actions remain a confirmed gap, even though explicit LSP navigation works.",
+      "The final trace has four didClose events for five opened files and no shutdown/exit handshake; PID termination is separately observed. No stronger protocol shutdown claim is made.",
+      "No claim of exact proprietary GoLand implementation or complete IDE feature parity is made."
+    ]
+  },
+  "processCleanup": {
+    "normalExitObservedThroughNativeUI": true,
+    "checkedPids": [
+      91007,
+      91027,
+      91071,
+      91072,
+      91073,
+      91367,
+      91477
+    ],
+    "stillPresent": [],
+    "allRecordedOwnedProcessesGone": true,
+    "sessionLog": {
+      "source": "/Users/wangshubo/Library/Logs/OpenIDEA-Go/idea.log",
+      "snapshotPath": "/Users/wangshubo/develop/openidea-go/.tools/editor-typing-native-session.log",
+      "bytes": 64847,
+      "sha256": "52b5a03063b76a6b3e7547fad10e6ac3c1e66efa5bbc9195c3fd3ea6e49cee63",
+      "errorsOrSevere": [],
+      "warningCount": 18,
+      "warnings": [
+        "2026-11-09 09:16:55,553 [    313]   WARN - #c.i.p.instanceContainer - InstanceNotOverridableException: Override failed for com.intellij.openapi.project.impl.ProjectStoreFactory: com.intellij.configurationScript.providers.ConfigurationScriptProjectStoreFactory attempts to override com.intellij.configurationStore.PlatformLangProjectStoreFactory, but the existing implementation is not overriddable (not declared as 'open=true')",
+        "2026-11-09 09:17:08,461 [  13221]   WARN - #c.i.w.i.i.WorkspaceModelMessageDeliveryListener - Long WSM event processing. Topic=WorkspaceModelChangeListener, offender=class com.intellij.psi.impl.file.impl.PsiWsmListener, message=beforeChanged, time=1042ms",
+        "2026-11-09 09:17:09,497 [  14257]   WARN - #c.i.w.i.i.WorkspaceModelMessageDeliveryListener - Long WSM event processing. Topic=WorkspaceModelChangeListener, offender=class com.intellij.psi.impl.file.impl.PsiWsmListener, message=changed, time=1019ms",
+        "2026-11-09 09:17:09,596 [  14356]   WARN - #training.lang.LangManager - No default language for open Goland. Selected JAVA.",
+        "2026-11-09 09:26:42,875 [ 587635]   WARN - #c.i.o.o.e.ConfigurableExtensionPointUtil - ignore deprecated groupId: language for id: preferences.language.Kotlin.scripting",
+        "2026-11-09 09:26:42,892 [ 587652]   WARN - #c.i.o.o.e.ConfigurableExtensionPointUtil - use other group instead of unexpected one: debugger",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Background.Default.Dark is deprecated for new UI themes, use Checkbox.Background.Default instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Border.Default.Dark is deprecated for new UI themes, use Checkbox.Border.Default instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Border.Selected.Dark is deprecated for new UI themes, use Checkbox.Border.Selected instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Foreground.Selected.Dark is deprecated for new UI themes, use Checkbox.Foreground.Selected instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Focus.Wide.Dark is deprecated for new UI themes, use Checkbox.Focus.Wide instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: color key Checkbox.Focus.Thin.Default.Dark is not supported and therefore ignored",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: color key Checkbox.Focus.Thin.Selected.Dark is not supported and therefore ignored",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Background.Disabled.Dark is deprecated for new UI themes, use Checkbox.Background.Disabled instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Background.Selected.Dark is deprecated for new UI themes, use Checkbox.Background.Selected instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Border.Disabled.Dark is deprecated for new UI themes, use Checkbox.Border.Disabled instead",
+        "2026-11-09 09:26:43,547 [ 588307]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Foreground.Disabled.Dark is deprecated for new UI themes, use Checkbox.Foreground.Disabled instead",
+        "2026-11-09 09:32:49,399 [ 954159]   WARN - #c.i.o.v.i.LineStatusTrackerManager - Tracker is being held on dispose by EditorImpl[file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/shared.go]; file: /Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/shared.go"
+      ],
+      "normalShutdownLogTail": [
+        "2026-11-09 09:32:49,386 [ 954146]   INFO - #c.i.o.v.i.l.NativeFileWatcherImpl - Watcher terminated with exit code 0",
+        "2026-11-09 09:32:49,399 [ 954159]   WARN - #c.i.o.v.i.LineStatusTrackerManager - Tracker is being held on dispose by EditorImpl[file:///Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/shared.go]; file: /Users/wangshubo/develop/openidea-go/.tools/native-editor-typing-fn6vomln/输入 验收 😀/one/shared.go",
+        "2026-11-09 09:32:49,400 [ 954160]   INFO - #c.i.c.b.CompilerReferenceServiceBase - backward reference index reader is closed (didn't exist)",
+        "2026-11-09 09:32:49,404 [ 954164]   INFO - #o.j.k.i.s.r.KotlinCompilerReferenceIndexService - KCRI storage is closed (didn't exist)",
+        "2026-11-09 09:32:49,409 [ 954169]   INFO - #c.i.o.f.i.FileTypeDetectionService - 0 auto-detected files. Detection took 0 ms",
+        "2026-11-09 09:32:49,415 [ 954175]   INFO - #o.j.i.BuiltInServer - web server stopped",
+        "2026-11-09 09:32:49,415 [ 954175]   INFO - #c.i.d.JVMResponsivenessMonitor - Sampling thread interrupted -> stop sampling",
+        "2026-11-09 09:32:49,416 [ 954176]   INFO - #c.i.d.JVMResponsivenessMonitor - Sampling thread exiting normally",
+        "2026-11-09 09:32:49,419 [ 954179]   INFO - #c.i.u.i.FileBasedIndexImpl - Index dispose started",
+        "2026-11-09 09:32:49,421 [ 954181]   INFO - #c.i.u.i.PersistentDirtyFilesQueue - Dirty file ids stored. Size: 289. Index: 289 Path: /Users/wangshubo/Library/Caches/OpenIDEA-Go/index/dirty-file-ids",
+        "2026-11-09 09:32:49,426 [ 954186]   INFO - #c.i.p.s.StubIndexImpl - StubIndexExtension-s were unloaded",
+        "2026-11-09 09:32:49,427 [ 954187]   INFO - #c.i.p.s.SerializationManagerImpl - Start shutting down /Users/wangshubo/Library/Caches/OpenIDEA-Go/index/rep.names",
+        "2026-11-09 09:32:49,427 [ 954187]   INFO - #c.i.p.s.SerializationManagerImpl - Finished shutting down /Users/wangshubo/Library/Caches/OpenIDEA-Go/index/rep.names",
+        "2026-11-09 09:32:49,427 [ 954187]   INFO - #c.i.u.i.FileBasedIndexImpl - Index dispose completed in 8ms.",
+        "2026-11-09 09:32:49,432 [ 954192]   INFO - #c.i.o.v.n.p.PersistentFSImpl - VFS dispose started",
+        "2026-11-09 09:32:49,433 [ 954193]   INFO - #c.i.o.v.n.p.FSRecordsImpl - VFS closing",
+        "2026-11-09 09:32:49,434 [ 954194]   INFO - #c.i.o.v.n.p.PersistentFSImpl - VFS dispose completed in 1 ms.",
+        "2026-11-09 09:32:49,453 [ 954213]   INFO - #c.i.p.i.b.AppStarter - ------------------------------------------------------ IDE SHUTDOWN ------------------------------------------------------"
+      ]
+    }
+  },
+  "artifactVerification": {
+    "buildInputVerification": "332 inputs match d4b5eabb after native quit",
+    "all32ManifestPluginArtifactsMatch": true,
+    "codesignDeepStrictExitCode": 0,
+    "scope": "On-disk artifact integrity and local ad-hoc signature; not distribution notarization or live JVM class-resolution proof"
+  },
+  "remainingBoundaries": [
+    "Full GoLand runtime/default equivalence was not observed; commercial descriptor is static reference only.",
+    "Flat Go PSI, Complete Statement, interpreted-string expression splitting, IME, all settings/multicaret/overwrite combinations and general performance remain open.",
+    "Host JBR Unicode categories may be newer than selected Go SDK.",
+    "Settings state survives normal exit on disk; native reopen of this toggle was not tested.",
+    "Explicit LSP navigation succeeded; standard platform implementation/type-declaration entry points did not dispatch queries in this check, as recorded separately in find-usages-policy-native.json.",
+    "Current session has no ERROR/SEVERE log entries and retains 18 upstream/platform warnings; this is not a claim of warning-free startup.",
+    "Final trace has four didClose messages and no shutdown/exit RPC handshake; owned process termination is the observed shutdown evidence."
+  ]
+}

@@ -10,6 +10,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.UUID
 import javax.swing.JLabel
+import javax.swing.JCheckBox
 import javax.swing.JTextArea
 import javax.swing.JTextField
 
@@ -72,12 +73,46 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
         }
     }
 
+    fun testRawStringIndentResetAndApplyKeepEditorPreferencesSeparateFromToolchainSettings() = withSettings {
+        onEdt {
+            val settings = GoProjectSettings.get(project)
+            val toolchain = GoToolchain.capture(project)
+            val configurable = GoSettingsConfigurable(project)
+            val panel = configurable.createComponent() as Container
+            configurable.reset()
+            val option = components(panel).filterIsInstance<JCheckBox>().single { it.text == "Indent on Enter in raw strings" }
+            assertFalse(option.isSelected)
+            option.isSelected = true
+            assertTrue(configurable.isModified())
+            // Reset models canceling an unapplied edit.
+            configurable.reset()
+            assertFalse(option.isSelected)
+            assertFalse(settings.indentRawStringsOnEnter)
+            assertFalse(configurable.isModified())
+            option.isSelected = true
+            configurable.apply()
+            assertTrue(settings.indentRawStringsOnEnter)
+            assertEquals(toolchain, GoToolchain.capture(project))
+            assertFalse(configurable.isModified())
+            configurable.reset()
+            assertTrue(option.isSelected)
+            option.isSelected = false
+            configurable.apply()
+            assertFalse(settings.indentRawStringsOnEnter)
+            assertEquals(toolchain, GoToolchain.capture(project))
+        }
+    }
+
     private fun withSettings(action: () -> Unit) {
         val original = GoToolchain.capture(project)
+        val originalRawIndent = GoProjectSettings.get(project).indentRawStringsOnEnter
         try {
-            onEdt { restore(GoToolchain.Settings("", "", "", "", "", "", "", "")) }
+            onEdt {
+                restore(GoToolchain.Settings("", "", "", "", "", "", "", ""))
+                GoProjectSettings.get(project).indentRawStringsOnEnter = false
+            }
             action()
-        } finally { onEdt { restore(original) } }
+        } finally { onEdt { restore(original); GoProjectSettings.get(project).indentRawStringsOnEnter = originalRawIndent } }
     }
 
     private fun restore(value: GoToolchain.Settings) = GoProjectSettings.get(project).apply {

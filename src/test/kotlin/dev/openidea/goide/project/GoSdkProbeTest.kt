@@ -110,16 +110,41 @@ class GoSdkProbeTest {
 
     @Test fun timeoutTerminatesTheOwnedCommandAndItsChildren() = unixFixture { root ->
         val pidFile = root.resolve("timeout pids")
+        val pendingPids = root.resolve("timeout pids pending")
         val program = script(root, "timeout sdk", """
+            sleep 1
             sleep 30 &
-            printf '%s\n%s\n' "${'$'}${'$'}" "${'$'}!" > ${shellQuote(pidFile.toString())}
+            printf '%s\n%s\n' "${'$'}${'$'}" "${'$'}!" > ${shellQuote(pendingPids.toString())}
+            mv ${shellQuote(pendingPids.toString())} ${shellQuote(pidFile.toString())}
             wait
         """.trimIndent())
+        var beforeLaunch = true
+        var ownedPids: List<Long>? = null
         val failure = assertFailsWith<IOException> {
-            GoModuleProcesses.run(program.toString(), listOf("version"), root, { false }, timeoutMillis = 500)
+            GoModuleProcesses.run(program.toString(), listOf("version"), root, {
+                // The first cancellation check precedes launch. At the first
+                // post-launch check, establish that the fixture has really
+                // started both processes before allowing the timeout loop to
+                // run. A loaded machine may otherwise time out before /bin/sh
+                // reaches its PID marker; this fixture deliberately starts more
+                // slowly than the timeout. The production 500ms deadline stays
+                // unchanged, and cancellation is never requested by this test.
+                if (beforeLaunch) beforeLaunch = false
+                else if (ownedPids == null) {
+                    val readyDeadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(10)
+                    while (!Files.exists(pidFile) && System.nanoTime() < readyDeadline) Thread.sleep(10)
+                    assertTrue(Files.exists(pidFile), "The timeout fixture must start before testing its cleanup")
+                    ownedPids = Files.readAllLines(pidFile).map(String::toLong).also { pids ->
+                        assertEquals(2, pids.size)
+                        pids.forEach { pid -> assertTrue(ProcessHandle.of(pid).map { it.isAlive }.orElse(false), "Owned process $pid must be running before timeout") }
+                    }
+                }
+                false
+            }, timeoutMillis = 500)
         }
         assertTrue(failure.message.orEmpty().contains("timed out"), failure.message)
-        Files.readAllLines(pidFile).map(String::toLong).forEach(::assertStopped)
+        val pids = requireNotNull(ownedPids) { "Timeout cleanup must be checked against observed live owned processes" }
+        pids.forEach(::assertStopped)
     }
 
     private fun assertStopped(pid: Long) {

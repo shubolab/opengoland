@@ -39,4 +39,27 @@ class GoNamedTypeHeadersTest : TestCase() {
         assertEquals(listOf("Good"), GoNamedTypeHeaders.scan(source, "struct").map { it.name })
         assertTrue(GoNamedTypeHeaders.scan("package p\ntype Broken struct{", "struct").isEmpty())
     }
+
+    fun testDirectionalChannelAndFunctionConstraintsUseTheActualLongestGoOperator() {
+        val source = """
+            package fixture
+            // 😀 direction is one <- token, including in constraints.
+            type Receive[T <-chan int] struct { Value T }
+            type Send[T chan<- int] struct { Value T }
+            type Both[T chan int] struct { Value T }
+            type Callback[T func() <-chan int] struct { Value T }
+            type (
+                ReceiveInterface[T <-chan int] interface { Get() T }
+                SendInterface[T chan<- int] interface { Get() T }
+            )
+            type Array [N - 1]struct { Value int }
+        """.trimIndent()
+        val structs = GoNamedTypeHeaders.scan(source, "struct")
+        assertEquals(listOf("Receive", "Send", "Both", "Callback"), structs.map { it.name })
+        assertEquals(listOf("ReceiveInterface", "SendInterface"), GoNamedTypeHeaders.scan(source, "interface").map { it.name })
+        structs.forEach { assertEquals(it.name, source.substring(it.nameOffset, it.nameOffset + it.name.length)) }
+        for (invalid in listOf("< -chan int", "< /* gap */ -chan int", "<\n-chan int")) {
+            assertTrue("Split punctuation is not a receive operator: $invalid", GoNamedTypeHeaders.scan("package p\ntype Broken[T $invalid] struct{}", "struct").isEmpty())
+        }
+    }
 }

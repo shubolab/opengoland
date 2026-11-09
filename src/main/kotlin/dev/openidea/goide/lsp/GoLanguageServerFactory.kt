@@ -6,6 +6,7 @@ import com.redhat.devtools.lsp4ij.LanguageServerFactory
 import com.redhat.devtools.lsp4ij.ServerStatus
 import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
 import com.redhat.devtools.lsp4ij.client.features.LSPRenameFeature
+import com.redhat.devtools.lsp4ij.client.features.LSPUsageFeature
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
@@ -25,6 +26,13 @@ class GoLanguageServerFactory : LanguageServerFactory {
     override fun createClientFeatures(): LSPClientFeatures = object : LSPClientFeatures() {
         private val semanticServer = AtomicReference<GoSemanticTokensServer?>()
         init {
+            // Find Usages locates references and declarations. Type definitions
+            // and implementations remain available through their own actions;
+            // gopls legitimately rejects those queries on ordinary functions.
+            setUsageFeature(object : LSPUsageFeature() {
+                override fun shouldIncludeTypeDefinitions(file: PsiFile) = false
+                override fun shouldIncludeImplementations(file: PsiFile) = false
+            })
             // Standard Rename is supplied by our versioned preview/undo handler.
             // Keep the distinct file-operation capabilities used by project-tree renames.
             setRenameFeature(object : LSPRenameFeature() {

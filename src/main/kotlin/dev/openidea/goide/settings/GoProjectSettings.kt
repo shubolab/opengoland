@@ -19,6 +19,7 @@ class GoProjectSettings : PersistentStateComponent<GoProjectSettings.Data> {
         var goarch = ""
         var cgoEnabled = ""
         var environment = ""
+        var indentRawStringsOnEnter = false
     }
     private val data = Data()
     override fun getState() = data

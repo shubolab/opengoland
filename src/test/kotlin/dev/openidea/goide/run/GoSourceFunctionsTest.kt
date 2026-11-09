@@ -62,6 +62,27 @@ class GoSourceFunctionsTest {
         assertEquals(GoFunctionKind.TEST, parsed.functions.last().kind)
     }
 
+    @Test fun directionalChannelResultsUseWholeArrowTokensAndRejectSplitOperators() {
+        val source = """
+            package fixture
+            func Receive() <-chan int { return nil }
+            func Send() chan<- int { return nil }
+            func Both() chan int { return nil }
+            func Nested() <-chan chan<- func() struct { X int } { return nil }
+            func Factory() func() <-chan map[string]struct { X int } { return nil }
+            func Generic[T ~chan<- int | ~<-chan int](value T) T { return value }
+            func BadReceive() < -chan int { return nil }
+            func BadSend() chan< - int { return nil }
+            func After() {}
+        """.trimIndent()
+        val parsed = GoSourceFunctions.scan(source)
+        assertEquals(listOf("Receive", "Send", "Both", "Nested", "Factory", "Generic", "After"), parsed.functions.map { it.name })
+        parsed.functions.zipWithNext().forEach { (function, next) ->
+            assertEquals('}', source[function.endOffset - 1])
+            assertTrue(function.endOffset < next.nameOffset)
+        }
+    }
+
     @Test fun testingEntryPointsNeedTheRightImportedTypeAndSignature() {
         val parsed = GoSourceFunctions.scan("""
             package fixture

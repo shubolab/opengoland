@@ -137,8 +137,8 @@ private class GoEntryPointScanner(private val source: CharSequence) {
             "(" -> close(start)?.plus(1)
             "struct", "interface" -> if (tokens.getOrNull(start + 1)?.text == "{") close(start + 1)?.plus(1) else null
             "map" -> if (tokens.getOrNull(start + 1)?.text == "[") typeEnd((close(start + 1) ?: return null) + 1, depth + 1) else null
-            "chan" -> typeEnd(if (tokens.getOrNull(start + 1)?.text == "<" && tokens.getOrNull(start + 2)?.text == "-") start + 3 else start + 1, depth + 1)
-            "<" -> if (tokens.getOrNull(start + 1)?.text == "-" && tokens.getOrNull(start + 2)?.text == "chan") typeEnd(start + 3, depth + 1) else null
+            "chan" -> typeEnd(if (tokens.getOrNull(start + 1)?.text == "<-") start + 2 else start + 1, depth + 1)
+            "<-" -> if (tokens.getOrNull(start + 1)?.text == "chan") typeEnd(start + 2, depth + 1) else null
             "func" -> {
                 if (tokens.getOrNull(start + 1)?.text != "(") return null
                 val afterParameters = (close(start + 1) ?: return null) + 1
