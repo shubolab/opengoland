@@ -42,3 +42,23 @@ Windows 启动子进程仍受系统工作目录长度限制；项目根目录超
 可能出现 `CreateProcess 267`。当前尚未验证任意超长项目路径支持，建议将项目放在较短路径下。
 构建测试仅缩短框架重复生成的目录前缀，保留中文、空格、文件内容及相对路径验证。
 参见 [Microsoft 的工作目录说明](https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setcurrentdirectory#parameters)。
+
+## 插件与中文界面
+
+**Settings > Plugins** 提供原生 Marketplace、已安装插件、从磁盘安装、插件仓库、
+代理和普通插件更新。兼容性取决于插件的版本范围、平台接口和依赖；需要其他 IDE 专有
+模块的插件不一定能运行。IDE 不要求账号或付费，第三方插件保留自己的许可和账号规则。
+内置 Go/LSP 集成组件随整个 open Goland 安装器更新。
+
+简体中文安装方法：
+
+1. 打开 **Help / Tools > 安装简体中文语言包… / Install Chinese Language Pack…**。
+2. 选择从 JetBrains 官方获取，或提供匹配的完整官方 IDEA ZIP。
+3. 校验后在原生文件窗口选中 **localization-zh.zip**，确认安装，再重新打开 IDE。
+4. 使用 **Enable Chinese and Restart**，或在 **Settings > Appearance & Behavior >
+   System Settings > Language and Region** 选择简体中文，按提示重启。
+
+当前平台为 **261.26222.65**，旧语言包 **232.322 / 232.*** 不兼容。
+不要修改兼容范围强行加载旧包。中文资源由用户主动从官方获取，未捆绑在产品或仓库中；
+入口提供来源与条款链接。部分新增 Go 界面仍为英文。具体范围与记录见
+[插件与中文验证](verification/plugin-compatibility.md)。

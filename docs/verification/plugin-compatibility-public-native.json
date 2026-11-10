@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261110.3",
+  "status": "pass-public-macos-installed-native-scope",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.3",
+  "sourceCommit": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+  "sourceDigest": "712d7e4153052f54507e2446e78e7f82bc3dc1109c65bca810465cb59862b87f",
+  "sourceFiles": 480,
+  "publicInstaller": {
+    "name": "open-Goland-0.1.0-preview.20261110.3-macos-arm64.dmg",
+    "bytes": 1027859096,
+    "sha256": "09d219fad290f8e59be8e2429334e66e68fde70341dfdeb7e6b7cbd2b1608e66",
+    "anonymousFullDownload": true,
+    "manifestSha256": "560a7fb70dfd1d84d01fdeb8543b06e226c99feb3e64f9e4325dc3ef3c145192",
+    "matchesProducerManifest": true
+  },
+  "installedCopyVerification": {
+    "actualImageVerified": true,
+    "mountedAndCopied": true,
+    "dragToApplicationsTargetVerified": true,
+    "deepStrictSignatureVerified": true,
+    "pluginAndToolFilesVerified": 15135,
+    "allGoPluginClassesMatchLocalPreflight": 672,
+    "platformRepairMarkers": [
+      "META-INF/open-goland-compatible-marketplace.json",
+      "META-INF/open-goland-platform-psi-listener.json",
+      "META-INF/open-goland-platform-unicode.json"
+    ],
+    "lspRebuiltClasses": 26,
+    "lspPublicSources": 13,
+    "localeIntentionDescriptorSha256": "037fb1659ef131fc12005b5b3df0a055fb74e984ec579c504f71b6f321f628ef",
+    "separateInstalledVerifierReceiptSha256": "d183ae5f76ce6a4b5ec5b9e492ff191fca5a004bd405cf1dfdf1fc1fff6307c9"
+  },
+  "isolation": "Fresh owned profile and Unicode three-file Go module. No Chinese/third-party plugin preinstallation, system-only PATH, no host Go/JDK or plugin-mode override. Sample source hashes verified unchanged after Undo and native Quit.",
+  "observed": {
+    "officialOnlineChineseAcquisition": true,
+    "nativeChooserManualSelectionAndConfirmation": true,
+    "installedOfficialPackBuild": "261.26222.65",
+    "nativeAutomaticRestartIntoChinese": true,
+    "chineseIntentionsSettingsSearch": true,
+    "marketplaceQuery": "String Manipulation",
+    "plugin": "StringManipulation9.16.0",
+    "action": "To UPPER CASE",
+    "undoRestoredExactOriginal": true,
+    "goRunConsole": "你好, open Goland 😀",
+    "goRunExitCode": 0,
+    "goTestName": "TestGreeting",
+    "testsPassed": 1,
+    "goTestExitCode": 0,
+    "goTestActualTool": "<public-installed-app>/Contents/plugins/opengoland/tools/go/bin/go test -json .",
+    "ideAccountUsed": false
+  },
+  "installedChineseJarSha256": "b3df0a2b65b7e18bcbf2abaeedc994b5be3da76fed4b153f7fd11ce32170ae0d",
+  "stringManipulationJarSha256": "7836d3641b6b8e37405831f87d0a452ae9938195609d535f0ce4e2388bfef53c",
+  "restart": {
+    "firstInstallNativeQuitAndManualReopen": true,
+    "enableChineseAutomaticRestart": true,
+    "pidBeforeAutomaticRestart": 20311,
+    "pidAfterAutomaticRestart": 20326
+  },
+  "firstInstallLog": {
+    "severe": 0,
+    "error": 0,
+    "warnings": 3,
+    "sha256": "cc65f98522b6079e6477496050274712c66d962ac73340393a783af5fc145574"
+  },
+  "completeSessionLog": {
+    "error": 0,
+    "severe": 0,
+    "warnings": 38,
+    "bytes": 230887,
+    "sha256": "80d8b9cc3696fa1c0ea52ea1e50355773a83783938575f435c467bc2ec2fda26"
+  },
+  "knownAppAndChildProcessesGone": [
+    20326,
+    20330,
+    20342,
+    20343
+  ],
+  "fixtureFilesRestored": {
+    "go.mod": "a6c74cc84c440c0e1e009005bbcea3f42b25e93b2603092c449dd641068d6144",
+    "main.go": "2d3bbfd0d3702cd43dd3074e893352b237fb1162bc24a885a4cc44c0f5b226de",
+    "main_test.go": "a7b7d579e16902613cce5120c78f2dc905e3bd1a9d66a4d8d74df04a257c14ff"
+  },
+  "postNativeSeals": {
+    "deepStrictSignatureVerified": true,
+    "pluginAndToolFilesVerified": 15135,
+    "localIdeJarsVerified": 6,
+    "manifestSha256": "560a7fb70dfd1d84d01fdeb8543b06e226c99feb3e64f9e4325dc3ef3c145192"
+  },
+  "engineRea": {
+    "evidenceId": "ev_fd5d22baab053f575807fd5fa45432b9eb062532cd59fcca83946708ca210786",
+    "sha256": "75b83474056a719ec6db3afefe4403e60f3b24aa6eaeaffbd20ee492ceb82917",
+    "bytes": 10629570,
+    "goVersion": "go1.27.3",
+    "vcsRevision": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+    "vcsModified": false
+  },
+  "finishedAtUtc": "2026-11-10T03:25:51.986327+00:00",
+  "scope": "Full anonymously downloaded public Mac DMG, actual installed copy, fresh owned profile/project and bundled tools; normal confirmation of official exact Chinese pack, initial native Quit/manual reopen, then successful native automatic Chinese restart, localized settings search, ordinary marketplace plugin real edit/Undo, bundled Go Run/Test, normal native Quit and disappearance of four recorded app/child PIDs. Windows interactive GUI and full product parity remain open.",
+  "limits": [
+    "This is Apple silicon macOS GUI evidence; Windows interactive plugin/Chinese UI is unverified.",
+    "One ordinary plugin was installed and exercised; every plugin/API/build range is not established.",
+    "Chinese platform UI is observed; some custom Go UI remains English.",
+    "This fixture was created by the verification driver; native New Project/Add Local SDK coverage remains in its separate version-specific records.",
+    "Full GoLand acceptance, debugger control gaps and other existing limits remain open."
+  ]
+}

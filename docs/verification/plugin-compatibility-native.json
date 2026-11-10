@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261110.3",
+  "status": "pass-local-final-dmg-native-scope",
+  "sourceCommit": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+  "sourceDigest": "712d7e4153052f54507e2446e78e7f82bc3dc1109c65bca810465cb59862b87f",
+  "sourceFiles": 480,
+  "localInstaller": {
+    "name": "open-Goland-0.1.0-preview.20261110.3-macos-arm64.dmg",
+    "bytes": 1020417179,
+    "sha256": "099a1f2c4cd4ce6221e3dadd66d500f2c07c250f2ec3069b8fc29824ada1932d",
+    "actualDmgVerifiedMountedCopied": true,
+    "deepStrictSignatureVerified": true,
+    "manifestSha256": "e1ab533befb8c7b720a9778e9a871f589ae041c7440115b6c10332ec78e30b1f"
+  },
+  "isolation": "Fresh owned profile and three-file Unicode Go module; system-only PATH, no host Go/JDK selection, no preinstalled Chinese or third-party plugin, no plugin-management override.",
+  "observed": {
+    "officialOnlineChineseAcquisition": true,
+    "nativeChooserManualSelectionAndConfirmation": true,
+    "installedOfficialPackBuild": "261.26222.65",
+    "nativeAutomaticRestartIntoChinese": true,
+    "chineseIntentionsSettingsSearch": true,
+    "marketplaceQuery": "String Manipulation",
+    "plugin": "StringManipulation9.16.0",
+    "action": "To UPPER CASE",
+    "undoRestoredExactOriginal": true,
+    "goRunConsole": "你好, open Goland 😀",
+    "goRunExitCode": 0,
+    "goTestName": "TestGreeting",
+    "testsPassed": 1,
+    "goTestExitCode": 0,
+    "ideAccountUsed": false
+  },
+  "installedChineseJarSha256": "b3df0a2b65b7e18bcbf2abaeedc994b5be3da76fed4b153f7fd11ce32170ae0d",
+  "restart": {
+    "firstInstallRequiresReopening": true,
+    "initialNativeQuitThenManualReopen": true,
+    "enableChineseThenNativeAutomaticRestart": true,
+    "pidBeforeAutomaticRestart": 17426,
+    "pidAfterAutomaticRestart": 17438
+  },
+  "logs": {
+    "severe": 0,
+    "error": 0,
+    "warnings": 56,
+    "bytes": 233303,
+    "sha256": "447f27d71f24039e92fb5b60620d476e2c1239b5285d398fe59b34b04105fc4a"
+  },
+  "ownedProcessesGoneAfterNativeQuit": [
+    17438,
+    17442,
+    17465,
+    17466
+  ],
+  "localRegression": {
+    "kotlinReports": 127,
+    "kotlinTests": 667,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "pythonControls": 58,
+    "goChecks": "Fresh engine race/vet record341 pass events/11passed packages, reused only after exact engine/tools/environment/log fingerprint verification; the product engine was rebuilt at this clean final commit.",
+    "nativeChineseSdkControls": 26,
+    "oldSourceWriteSafetyControls": {
+      "tests": 11,
+      "failures": 2,
+      "scope": "Same test bytes, old07 sources, exact non-modal/modal native handoff write-safety failures"
+    }
+  },
+  "firstUnsafeCandidateExcluded": {
+    "source": "07b82c4e6b4b33edc4988b88285696a49175f7ca",
+    "result": "Install succeeded but initial any-modality path logged TransactionGuard violations; not released.",
+    "strictModalityProofSha256": "cc5007cd7fe2a1688e6c5f7aee696bfdf0d8fdff20924ad003cd4d7ab5c4f1b8"
+  },
+  "engineRea": {
+    "evidenceId": "ev_745d2b825cf001b77ed6df0fca6fcb3b4cd43222f35ca256038d4de8eb53d2d7",
+    "sha256": "c8a5ce669340769bac436320256c4026c8de6989f5226bf1b5741d4919a08ec9",
+    "goVersion": "go1.27.3",
+    "vcsRevision": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+    "vcsModified": false
+  },
+  "publicReleaseAudit": {
+    "status": "pass-public-assets-installed-native-scope",
+    "workflowRun": "https://github.com/shubolab/opengoland/actions/runs/42743016424",
+    "releaseRecord": "releases/0.1.0-preview.20261110.3.json",
+    "separatePublicNativeRecord": "plugin-compatibility-public-native.json",
+    "publicMacManifestSha256": "560a7fb70dfd1d84d01fdeb8543b06e226c99feb3e64f9e4325dc3ef3c145192"
+  },
+  "scope": "Observed local final DMG installed copy on Apple silicon macOS. No Windows interactive GUI, every plugin, complete Chinese translation or full GoLand parity claim. Published CI installer and independent public download evidence remain distinct.",
+  "finishedAtUtc": "2026-11-10T02:28:13.692934+00:00",
+  "postNativeSeals": {
+    "deepStrictSignatureVerified": true,
+    "pluginAndToolFilesVerified": 15135,
+    "localIdeJarsVerified": 6,
+    "manifestSha256": "e1ab533befb8c7b720a9778e9a871f589ae041c7440115b6c10332ec78e30b1f"
+  }
+}

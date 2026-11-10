@@ -15,19 +15,53 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261110.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.2).
+[Download preview 0.1.0-preview.20261110.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.3).
 Both installers include checksums and platform verification records.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/open-Goland-0.1.0-preview.20261110.2-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.2/open-Goland-0.1.0-preview.20261110.2-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.3/open-Goland-0.1.0-preview.20261110.3-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.3/open-Goland-0.1.0-preview.20261110.3-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
 workflows, code intelligence and refactoring, run/test/coverage/benchmark/fuzz,
 debugging and goroutines, profiling, terminal, Git, and supporting engineering
 tools. Runtime and feature parity remain subject to the acceptance matrix.
+
+## Plugins and Simplified Chinese
+
+**Settings > Plugins** provides native Marketplace search, Installed management,
+installation from disk, custom repositories, proxy settings and ordinary plugin
+updates. Themes and editor tools use the same general plugin system. Availability
+still depends on supported IDE builds, platform APIs and dependencies; this does
+not establish compatibility with every JetBrains plugin.
+
+The IDE requires no account or payment. Third-party plugins retain their own
+license, payment and account requirements. The bundled Go and LSP integration
+components update with the complete open Goland release to preserve required
+repairs. Git/GitHub/private-repository authentication remains available.
+
+Use **Help or Tools > 安装简体中文语言包… / Install Chinese Language Pack…** to
+obtain the matching official pack, or select a complete matching official IDEA
+ZIP you downloaded yourself. After verification, select **localization-zh.zip**
+in the native installer and confirm installation. Reopen the IDE, then use
+**Enable Chinese and Restart** or select Simplified Chinese under **Settings >
+Appearance & Behavior > System Settings > Language and Region** and restart.
+
+Platform build **261.26222.65** cannot load the old Chinese pack **232.322**, which
+supports **232.***. These are IDE platform versions, not Go SDK versions. The
+helper preserves native compatibility, dependency and signature checks. It obtains
+unmodified resources from JetBrains on the user's request; the repository and
+installers do not include those resources. Official source and terms are linked
+in the helper. Some independently added Go UI remains English.
+See [plugin and Chinese UI verification](docs/verification/plugin-compatibility.md).
+
+The workbench uses Kotlin because the goal is to preserve IntelliJ editor, undo,
+test-tree and plugin behavior. These code extension APIs belong to the JVM
+ecosystem. A Go-only workbench would also need to recreate those foundations and
+provide a compatibility layer for existing plugins. Go remains responsible for
+engineering and language-tool services in this architecture.
 
 ## Build and launch
 
@@ -59,7 +93,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261110.2.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261110.3.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,

@@ -1,0 +1,461 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261110.3",
+  "status": "published-preview",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.3",
+  "installerSource": {
+    "commit": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+    "tag": "v0.1.0-preview.20261110.3",
+    "inputFiles": 480,
+    "inputDigest": "712d7e4153052f54507e2446e78e7f82bc3dc1109c65bca810465cb59862b87f"
+  },
+  "publication": {
+    "workflowRun": "https://github.com/shubolab/opengoland/actions/runs/42743016424",
+    "runId": 42743016424,
+    "releaseId": 439876681,
+    "publishedAt": "2026-11-10T03:12:42Z",
+    "status": "public-all-four-workflow-jobs-success",
+    "prerelease": true,
+    "resolvedTagCommit": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+    "jobs": [
+      {
+        "name": "version",
+        "jobId": 129588432620,
+        "conclusion": "success"
+      },
+      {
+        "name": "windows",
+        "jobId": 129588470415,
+        "conclusion": "success"
+      },
+      {
+        "name": "macos",
+        "jobId": 129588470621,
+        "conclusion": "success"
+      },
+      {
+        "name": "publish",
+        "jobId": 129603838613,
+        "conclusion": "success"
+      }
+    ],
+    "allFourJobsSucceeded": true,
+    "exactAssetCount": 5,
+    "reviewedChineseNotesPreserved": true
+  },
+  "changeScope": [
+    "Native compatible-plugin Marketplace/install/update/disk/repositories/proxy restored",
+    "Exact-build official Chinese resource acquisition through native installer, no translation artifacts distributed",
+    "Mac restart launcher metadata matches actual native executable",
+    "Locale-independent LSP intention description resource directory",
+    "Write-safe Chinese helper dialog and native install handoff",
+    "Chinese README and installation explanation"
+  ],
+  "localPreflight": {
+    "actualDmg": {
+      "name": "open-Goland-0.1.0-preview.20261110.3-macos-arm64.dmg",
+      "bytes": 1020417179,
+      "sha256": "099a1f2c4cd4ce6221e3dadd66d500f2c07c250f2ec3069b8fc29824ada1932d",
+      "actualDmgVerifiedMountedCopied": true,
+      "deepStrictSignatureVerified": true,
+      "manifestSha256": "e1ab533befb8c7b720a9778e9a871f589ae041c7440115b6c10332ec78e30b1f"
+    },
+    "kotlin": {
+      "reports": 127,
+      "tests": 667,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "pythonControls": 58,
+    "goEvidenceKind": "reused only after exact fingerprint validation of a recent fresh race/vet run; see native record",
+    "nativeRecord": "../plugin-compatibility-native.json",
+    "nativeErrors": 0,
+    "nativeSevere": 0,
+    "nativeWarnings": 56,
+    "allGoPluginClasses": 672
+  },
+  "macosArm64": {
+    "status": "ci-and-independent-public-installed-native-scope-pass",
+    "sourceCommit": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+    "sourceDirty": false,
+    "inputFiles": 480,
+    "inputDigest": "712d7e4153052f54507e2446e78e7f82bc3dc1109c65bca810465cb59862b87f",
+    "kotlin": {
+      "reports": 127,
+      "tests": 667,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "executedPasses": 667,
+      "method": "Independent read-only parse of every retained public tar JUnit XML member; agrees with asset auditor."
+    },
+    "go": {
+      "kind": "fresh-uncached",
+      "testPassEvents": 341,
+      "topLevelTestPassEvents": 198,
+      "packagesPassed": 11,
+      "packageNoTestSkips": 1,
+      "cachedPackages": 0,
+      "nonJsonLines": 0,
+      "vetExitCode": 0,
+      "commandExitCodes": [
+        0,
+        0
+      ],
+      "logSeals": [
+        {
+          "path": "go-race.jsonl",
+          "bytes": 369184,
+          "sha256": "f9291a8774dd3fa30ca5fd163d620c7035c9a8838c3d331b589ead5c5dac6a08"
+        },
+        {
+          "path": "go-vet.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    "ciInstallerSmoke": {
+      "imageVerified": true,
+      "mountedAndCopied": true,
+      "signatureVerified": true,
+      "signing": "ad-hoc; not notarized",
+      "engine": {
+        "pid": 56336,
+        "exitCode": 0,
+        "test": "TestBundledInstalledRuntime",
+        "testCount": 1,
+        "cached": false
+      },
+      "engineTaskExit": {
+        "cancelled": false,
+        "code": 0,
+        "id": "installed-test"
+      },
+      "bundledTools": {
+        "go": {
+          "available": true,
+          "version": "go version go1.26.10 darwin/arm64"
+        },
+        "gopls": {
+          "available": true,
+          "version": "golang.org/x/tools/gopls v0.24.0"
+        },
+        "dlv": {
+          "available": true,
+          "version": "Delve Debugger\nVersion: 1.27.2\nBuild: $Id: 360e7b2181d3da54115aaee4f569954bca95cfe3 $"
+        }
+      }
+    },
+    "productManifestSha256RetainedByProducer": "560a7fb70dfd1d84d01fdeb8543b06e226c99feb3e64f9e4325dc3ef3c145192",
+    "productManifestBoundary": "Producer retains productManifestSha256; this asset audit does not mount/read DMG-internal manifest. Use the separate public install verifier/native audit.",
+    "independentPublicInstalledAppVerification": {
+      "status": "pass",
+      "record": "../plugin-compatibility-public-native.json",
+      "manifestSha256": "560a7fb70dfd1d84d01fdeb8543b06e226c99feb3e64f9e4325dc3ef3c145192",
+      "matchesProducerManifest": true,
+      "actualDmgVerifiedMountedCopied": true,
+      "deepStrictSignatureVerified": true,
+      "sealedPluginAndToolFiles": 15135,
+      "allGoPluginClassesMatchLocalNativeCandidate": 672,
+      "allPlatformAndLspRepairClassesAndResourcesMatchLocal": true,
+      "engineVcsVerifiedByInstalledGoAndRea": true,
+      "postNativeSeals": {
+        "deepStrictSignatureVerified": true,
+        "pluginAndToolFilesVerified": 15135,
+        "localIdeJarsVerified": 6,
+        "manifestSha256": "560a7fb70dfd1d84d01fdeb8543b06e226c99feb3e64f9e4325dc3ef3c145192"
+      }
+    },
+    "independentPublicNativeWorkflow": {
+      "status": "pass-bounded-macos-workflows",
+      "record": "../plugin-compatibility-public-native.json",
+      "observed": {
+        "officialOnlineChineseAcquisition": true,
+        "nativeChooserManualSelectionAndConfirmation": true,
+        "installedOfficialPackBuild": "261.26222.65",
+        "nativeAutomaticRestartIntoChinese": true,
+        "chineseIntentionsSettingsSearch": true,
+        "marketplaceQuery": "String Manipulation",
+        "plugin": "StringManipulation9.16.0",
+        "action": "To UPPER CASE",
+        "undoRestoredExactOriginal": true,
+        "goRunConsole": "你好, open Goland 😀",
+        "goRunExitCode": 0,
+        "goTestName": "TestGreeting",
+        "testsPassed": 1,
+        "goTestExitCode": 0,
+        "goTestActualTool": "<public-installed-app>/Contents/plugins/opengoland/tools/go/bin/go test -json .",
+        "ideAccountUsed": false
+      },
+      "logs": {
+        "error": 0,
+        "severe": 0,
+        "warnings": 38,
+        "bytes": 230887,
+        "sha256": "80d8b9cc3696fa1c0ea52ea1e50355773a83783938575f435c467bc2ec2fda26"
+      },
+      "knownAppAndChildProcessesGone": [
+        20326,
+        20330,
+        20342,
+        20343
+      ]
+    }
+  },
+  "windowsX64": {
+    "status": "public-provenance-and-ci-install-start-exit-uninstall-verified",
+    "sourceCommit": "ede8e30bbb2b6e1fdf984e7c9136aa0f7d51acbc",
+    "sourceDirty": false,
+    "sourceDirtyAuthority": "Actual engine build-info vcs.modified=false and exact frozen capture",
+    "inputFiles": 480,
+    "inputDigest": "712d7e4153052f54507e2446e78e7f82bc3dc1109c65bca810465cb59862b87f",
+    "kotlin": {
+      "reports": 127,
+      "tests": 667,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 12,
+      "executedPasses": 655,
+      "method": "Independent read-only parse of every retained public tar JUnit XML member; agrees with asset auditor."
+    },
+    "existingOsSkippedCases": [
+      [
+        "dev.openidea.goide.engine.EngineClientLifecycleTest",
+        "disposeShutsDownOwnedEngineAndRejectsReconnect"
+      ],
+      [
+        "dev.openidea.goide.engine.EngineClientLifecycleTest",
+        "failedInitializationCanBeRetried"
+      ],
+      [
+        "dev.openidea.goide.engine.EngineClientLifecycleTest",
+        "frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange"
+      ],
+      [
+        "dev.openidea.goide.engine.EngineClientLifecycleTest",
+        "settingsRestartDoesNotLetOldReaderDisconnectNewEngine"
+      ],
+      [
+        "dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest",
+        "capturedSettingsOwnTheGenerationPayloadEvenWhenTheLiveProjectUsesAnotherSdkAndBuildContext"
+      ],
+      [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "aCompletedLauncherCannotLeaveItsChildRunning"
+      ],
+      [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher"
+      ],
+      [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "failedExecutableReportsTheToolErrorWithoutCreatingTheDestination"
+      ],
+      [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "oversizedSingleLineOutputIsBoundedAndDoesNotPublishAProject"
+      ],
+      [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "plausibleMetadataStillCannotPublishWithoutARealGoMod"
+      ],
+      [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "silentSuccessfulExecutableCannotCreateProjectParentsOrAModule"
+      ],
+      [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "timeoutTerminatesTheOwnedCommandAndItsChildren"
+      ]
+    ],
+    "go": {
+      "kind": "fresh-uncached",
+      "testPassEvents": 333,
+      "topLevelTestPassEvents": 184,
+      "packagesPassed": 11,
+      "packageNoTestSkips": 1,
+      "cachedPackages": 0,
+      "nonJsonLines": 0,
+      "vet": {
+        "logPresent": false,
+        "log": null,
+        "authority": "Authenticated exact-source explicit nonzero-exit guard + successful terminal job + final producer report; no invented per-command exit JSON"
+      }
+    },
+    "installerSigning": "unsigned",
+    "installerExitCodes": {
+      "install": 0,
+      "uninstall": 0
+    },
+    "installedSmoke": {
+      "status": "pass",
+      "installedFilesVerified": 17000,
+      "nativeVersionExitCode": 0,
+      "projectFrameClass": "SunAwtFrame",
+      "projectFrameHandleObserved": true,
+      "startupExitCode": 0,
+      "normalExitCommandCode": 0,
+      "engine": {
+        "pid": 4824,
+        "exitCode": 0,
+        "test": "TestBundledInstalledRuntime",
+        "testCount": 1,
+        "cached": false
+      },
+      "engineTaskExit": {
+        "cancelled": false,
+        "code": 0,
+        "id": "installed-test"
+      },
+      "bundledTools": {
+        "go": {
+          "available": true,
+          "version": "go version go1.26.10 windows/amd64"
+        },
+        "gopls": {
+          "available": true,
+          "version": "golang.org/x/tools/gopls v0.24.0"
+        },
+        "dlv": {
+          "available": true,
+          "version": "Delve Debugger\nVersion: 1.27.2\nBuild: $Id: 360e7b2181d3da54115aaee4f569954bca95cfe3 $"
+        }
+      },
+      "scope": "CI-installed executable version, actual project-frame startup/normal exit and bundled Go/tool/engine workflows; no interactive Windows plugin or Chinese UI acceptance is inferred."
+    },
+    "warningsPresent": true,
+    "assemblyRecordSha256": "2b0b60c4f6b0b019cec1852cb45c075d68ab4ec84ef3c7c9027c257d6b46d43c"
+  },
+  "assets": {
+    "SHA256SUMS": {
+      "assetId": 729914659,
+      "bytes": 434,
+      "sha256": "25ee284ca3803b8f6ef34027c6043de028ea11a85bb154a720ed163cb250c290",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.3/SHA256SUMS",
+      "apiState": "uploaded",
+      "wholeFileSha256VerifiedByPublicAssetAudit": true
+    },
+    "macos-provenance.tar.gz": {
+      "assetId": 729914660,
+      "bytes": 3881597,
+      "sha256": "cae4df2d606404c23e9ee03f4c706ced5efc32422a115a86b9fc4f0545edfc50",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.3/macos-provenance.tar.gz",
+      "apiState": "uploaded",
+      "wholeFileSha256VerifiedByPublicAssetAudit": true
+    },
+    "open-Goland-0.1.0-preview.20261110.3-macos-arm64.dmg": {
+      "assetId": 729914662,
+      "bytes": 1027859096,
+      "sha256": "09d219fad290f8e59be8e2429334e66e68fde70341dfdeb7e6b7cbd2b1608e66",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.3/open-Goland-0.1.0-preview.20261110.3-macos-arm64.dmg",
+      "apiState": "uploaded",
+      "wholeFileSha256VerifiedByPublicAssetAudit": true
+    },
+    "open-Goland-0.1.0-preview.20261110.3-windows-x64-setup.exe": {
+      "assetId": 729914665,
+      "bytes": 870549722,
+      "sha256": "b0c307a6f11bb8ced0319a01987004aedc6b7089bf400f4e359a12801394e06e",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.3/open-Goland-0.1.0-preview.20261110.3-windows-x64-setup.exe",
+      "apiState": "uploaded",
+      "wholeFileDownloadedLocally": false,
+      "wholeFileSha256VerifiedLocally": false,
+      "rangeHeaderVerified": true,
+      "fullIdentityAuthority": "Public GitHub API SHA-256 + SHA256SUMS + actual Windows CI installer producer report; local check reads only EXE MZ/PE ranges."
+    },
+    "windows-provenance.tar.gz": {
+      "assetId": 729914664,
+      "bytes": 6593006,
+      "sha256": "7a5270295d9c0c150abd67716e793b72b52a9750623d32b9ea02b90a22b8a848",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.3/windows-provenance.tar.gz",
+      "apiState": "uploaded",
+      "wholeFileSha256VerifiedByPublicAssetAudit": true
+    }
+  },
+  "independentPublicAudit": {
+    "status": "pass-public-assets-installed-native-scope",
+    "summary": ".tools/plugin-release-public-download-v3/final-evidence.json",
+    "summaryBytes": 210403,
+    "summarySha256": "204ede953e63175172ebed9182b80086c36eb8796628aeeea4649426975b76c9",
+    "observedAtUtc": "2026-11-10T03:15:40.323128+00:00",
+    "exactFiveAssets": true,
+    "checksumsAssetSha256": "25ee284ca3803b8f6ef34027c6043de028ea11a85bb154a720ed163cb250c290",
+    "downloadedPublicDmgWholeSha256Verified": true,
+    "exeRangeOnly": {
+      "MZ": true,
+      "PE": true,
+      "localWholeExeDownloaded": false,
+      "localWholeExeHashVerified": false
+    },
+    "criticalClassesBothPlatforms": [
+      {
+        "class": "dev.openidea.goide.product.GoGeneralPluginsManagerTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.openidea.goide.product.GoProductPluginManagementPolicyTest",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "com.redhat.devtools.lsp4ij.GoLspIntentionDescriptionsTest",
+        "tests": 2,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.openidea.goide.product.GoCompatibleMarketplaceSearchTest",
+        "tests": 3,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.openidea.goide.plugins.ChineseLanguagePackDialogTest",
+        "tests": 11,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "dev.openidea.goide.plugins.ChineseLanguagePackTest",
+        "tests": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "publicDmgInstallAndNative": {
+      "status": "pass",
+      "record": "../plugin-compatibility-public-native.json"
+    },
+    "verificationMethod": "Anonymous metadata/checksums/provenance and full DMG download; separate actual mount/copy/seals, installed engine metadata and native workflows. EXE whole-file identity comes from public digests and actual Windows CI; local EXE check is range-only."
+  },
+  "limits": [
+    "Preview; full acceptance matrix remains open.",
+    "A compatible plugin manager does not establish compatibility with every JetBrains plugin; build/API/module/signature checks remain.",
+    "Third-party license/account/payment requirements remain separate from the account-free IDE.",
+    "Chinese pack mainly translates platform UI; some custom Go UI remains English.",
+    "No Windows interactive plugin/Chinese GUI acceptance is inferred from local Mac UI or CI build/install/start/uninstall.",
+    "Standard Pause/cold-goroutine controls, external SDK cold test2json, signing/notarization and other previously recorded limits remain open.",
+    "Public EXE was checked by range only; its full local SHA-256 was not recomputed. API/checksums/Windows producer identity agree.",
+    "CI Windows version output contains warnings; a successful startup/test does not establish warning-free execution.",
+    "CI provenance confirms fresh Go race/vet independently of localPreflight reused proof.",
+    "The public DMG has a different byte hash from localPreflight DMG; identical source does not identify these two build artifacts as the same file."
+  ],
+  "previousPublicVersion": "0.1.0-preview.20261110.2",
+  "releaseNotes": {
+    "status": "exact-reviewed-body-preserved",
+    "sha256": "d2870708ff10998a373c19d54487bec6af58e03a9be33f8fa5744adfa90602c0",
+    "reviewedFile": ".tools/plugin-compatibility-investigation/release-notes-final.zh-CN.md",
+    "publicBodySha256": "d2870708ff10998a373c19d54487bec6af58e03a9be33f8fa5744adfa90602c0"
+  },
+  "publishedAtUtc": "2026-11-10T03:12:42Z"
+}
