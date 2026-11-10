@@ -1,0 +1,143 @@
+--- a/META-INF/plugin.xml
++++ b/META-INF/plugin.xml
+@@ -493,120 +493,140 @@
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction0</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction1</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction2</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction3</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction4</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction5</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction6</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction7</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction8</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction9</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction10</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction11</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction12</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction13</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction14</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction15</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction16</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction17</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction18</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>
+     <intentionAction>
+       <bundleName>messages.LanguageServerBundle</bundleName>
+       <className>com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction19</className>
++      <descriptionDirectoryName>Empty</descriptionDirectoryName>
+       <categoryKey>lsp.intention.group.name</categoryKey>
+       <language />
+     </intentionAction>

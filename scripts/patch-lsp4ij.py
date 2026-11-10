@@ -14,11 +14,14 @@ import subprocess
 import tempfile
 import urllib.request
 import zipfile
+import xml.etree.ElementTree as ET
 from platform_layout import cache_lock, detect_platform_layout, java_compiler_invocation
 from source_patch import apply_source_patch, SOURCE_PATCH_RUNNER_SHA256
 
 ROOT = Path(__file__).resolve().parent.parent
 PIN = ROOT / "product/patches/lsp4ij-0.21.0-document-sync.json"
+DESCRIPTION_PIN = ROOT / "product/patches/lsp4ij-0.21.0-intention-descriptions.json"
+DESCRIPTION_ENTRY = "META-INF/plugin.xml"
 UPSTREAM_JAR_SHA = "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
 MARKER = "META-INF/open-goland-document-sync.json"
 PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher", "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature", "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport", "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport", "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport", "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport", "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport", "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport", "com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport", "com/redhat/devtools/lsp4ij/LanguageServiceAccessor")
@@ -48,6 +51,60 @@ def complete_class_set(records, actual):
             and all(patched_class(name) for name in records))
 
 
+def prepare_description_metadata(original):
+    """Change one authenticated descriptor; translated family names are not paths."""
+    pin_bytes = DESCRIPTION_PIN.read_bytes()
+    pin = json.loads(pin_bytes.decode("utf-8"))
+    patch = DESCRIPTION_PIN.parent / pin["patchFile"]
+    if (pin["schemaVersion"] != 1 or pin["upstreamJarSha256"] != UPSTREAM_JAR_SHA
+            or pin["resourcePath"] != DESCRIPTION_ENTRY
+            or sha(patch.read_bytes()) != pin["patchSha256"]):
+        raise ValueError("Intention description metadata pin mismatch")
+    fixed_ids = ["com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction" + str(i) for i in range(20)]
+    if pin["intentionClassNames"] != fixed_ids or pin["descriptionDirectoryName"] != "Empty":
+        raise ValueError("Unexpected intention description targets")
+    with zipfile.ZipFile(original) as archive:
+        source = archive.read(DESCRIPTION_ENTRY)
+        resource = pin["descriptionResource"]
+        if (sha(source) != pin["upstreamSha256"]
+                or resource["path"] != "intentionDescriptions/Empty/description.html"
+                or sha(archive.read(resource["path"])) != resource["sha256"]):
+            raise ValueError("Upstream intention description resource mismatch")
+    with tempfile.TemporaryDirectory(prefix="lsp4ij-description-") as temporary:
+        directory = Path(temporary)
+        descriptor = directory / DESCRIPTION_ENTRY
+        descriptor.parent.mkdir()
+        descriptor.write_bytes(source)
+        apply_source_patch(patch, directory, pin["patchSha256"])
+        result = descriptor.read_bytes()
+    if sha(result) != pin["patchedSha256"]:
+        raise ValueError("Patched intention descriptor digest mismatch")
+    targets = [item for item in ET.fromstring(result).iter("intentionAction")
+               if item.findtext("className") in fixed_ids]
+    if (len(targets) != len(fixed_ids) or {item.findtext("className") for item in targets} != set(fixed_ids)
+            or any([element.text for element in item.findall("descriptionDirectoryName")] != ["Empty"] for item in targets)):
+        raise ValueError("Patched intention description target mismatch")
+    record = {"pinFile": DESCRIPTION_PIN.relative_to(ROOT).as_posix(), "pinSha256": sha(pin_bytes),
+              "patchSha256": pin["patchSha256"], "resourcePath": DESCRIPTION_ENTRY,
+              "upstreamSha256": pin["upstreamSha256"], "patchedSha256": pin["patchedSha256"],
+              "intentionClassNames": fixed_ids, "descriptionDirectoryName": "Empty",
+              "descriptionResource": pin["descriptionResource"]}
+    return result, record
+
+
+def verified_contents(before, after, saved):
+    """No arbitrary XML/resource exceptions: only the pinned descriptor may differ."""
+    expected = set(before.namelist()) - {n for n in before.namelist() if patched_class(n)} - {DESCRIPTION_ENTRY}
+    actual = set(after.namelist()) - {n for n in after.namelist() if patched_class(n)} - {MARKER, DESCRIPTION_ENTRY}
+    classes = {n for n in after.namelist() if patched_class(n)}
+    return (len(after.namelist()) == len(set(after.namelist()))
+            and complete_class_set(saved.get("classSha256"), classes)
+            and expected == actual and all(before.read(n) == after.read(n) for n in expected)
+            and sha(before.read(DESCRIPTION_ENTRY)) == saved["intentionDescriptions"]["upstreamSha256"]
+            and sha(after.read(DESCRIPTION_ENTRY)) == saved["intentionDescriptions"]["patchedSha256"]
+            and all(sha(after.read(n)) == digest for n, digest in saved["classSha256"].items()))
+
+
 def build(args):
     pin = json.loads(PIN.read_text(encoding="utf-8"))
     patch = PIN.parent / pin["patchFile"]
@@ -68,20 +125,16 @@ def build(args):
     elif not original.exists() or sha(original.read_bytes()) != UPSTREAM_JAR_SHA:
         raise ValueError("Sandbox plugin is neither the pinned upstream JAR nor verifiable from its original")
 
+    description_bytes, description_record = prepare_description_metadata(original)
     metadata = {"upstreamVersion": "0.21.0", "upstreamCommit": pin["upstream"]["refObject"]["sha"],
                 "upstreamJarSha256": UPSTREAM_JAR_SHA, "patchSha256": pin["patchSha256"],
+                "intentionDescriptions": description_record,
                 "sources": [{k: v for k, v in source.items() if k != "sourceUrl"} for source in pin["sources"]]}
     if target_sha != UPSTREAM_JAR_SHA:
         with zipfile.ZipFile(original) as before, zipfile.ZipFile(target) as after:
             saved = json.loads(after.read(MARKER))
             if all(saved.get(k) == v for k, v in metadata.items()):
-                expected = set(before.namelist()) - {n for n in before.namelist() if patched_class(n)}
-                actual = set(after.namelist()) - {n for n in after.namelist() if patched_class(n)} - {MARKER}
-                classes = {n for n in after.namelist() if patched_class(n)}
-                if (len(after.namelist()) == len(set(after.namelist()))
-                        and complete_class_set(saved.get("classSha256"), classes)
-                        and expected == actual and all(before.read(n) == after.read(n) for n in expected) and all(
-                        sha(after.read(n)) == digest for n, digest in saved["classSha256"].items())):
+                if verified_contents(before, after, saved):
                     print("Verified private LSP4IJ document-sync patch")
                     return
         raise ValueError("Existing private LSP4IJ patch does not match its pinned inputs")
@@ -156,10 +209,13 @@ def build(args):
         with zipfile.ZipFile(original) as before, zipfile.ZipFile(candidate, "w", zipfile.ZIP_DEFLATED) as after:
             for entry in before.infolist():
                 if not patched_class(entry.filename):
-                    after.writestr(entry, before.read(entry.filename))
+                    after.writestr(entry, description_bytes if entry.filename == DESCRIPTION_ENTRY else before.read(entry.filename))
             for name in sorted(records):
                 write_patched_entry(after, name, (built / name).read_bytes())
             write_patched_entry(after, MARKER, json.dumps(metadata, sort_keys=True, indent=2))
+        with zipfile.ZipFile(original) as before, zipfile.ZipFile(candidate) as after:
+            if not verified_contents(before, after, metadata):
+                raise ValueError("Built LSP4IJ patch changed an unpinned entry")
         os.replace(candidate, target)
     print(f"Built private LSP4IJ document-sync patch: {len(records)} classes, patch {pin['patchSha256']}")
 

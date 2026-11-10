@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "upstream": {
+    "repository": "https://github.com/redhat-developer/lsp4ij",
+    "tag": "0.21.0",
+    "resourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/resources/META-INF/plugin.xml",
+    "license": "EPL-2.0; existing upstream resource and notices retained"
+  },
+  "upstreamJarSha256": "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900",
+  "resourcePath": "META-INF/plugin.xml",
+  "upstreamSha256": "1be28f40b53e6084b1f6a26769656b9425bdeaa9949983942b183ae7c629bb68",
+  "patchedSha256": "037fb1659ef131fc12005b5b3df0a055fb74e984ec579c504f71b6f321f628ef",
+  "patchFile": "lsp4ij-0.21.0-intention-descriptions.patch",
+  "patchSha256": "7d421ded57d03140669676bd3a7ef2ba200bd89111216e292ccc4ce776271f01",
+  "intentionClassNames": [
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction0",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction1",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction2",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction3",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction4",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction5",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction6",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction7",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction8",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction9",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction10",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction11",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction12",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction13",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction14",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction15",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction16",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction17",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction18",
+    "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction19"
+  ],
+  "descriptionDirectoryName": "Empty",
+  "descriptionResource": {
+    "path": "intentionDescriptions/Empty/description.html",
+    "sha256": "b35eb2a1550989e8c26c5b28382d3d7056e5b245150e8a17738de911050d2f9e"
+  },
+  "scope": "Pin static description-directory metadata to existing upstream English resource. Family labels remain localized; existing Java/class patches and all other JAR entries are unchanged."
+}
