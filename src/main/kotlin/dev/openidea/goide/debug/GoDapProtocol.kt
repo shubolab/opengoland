@@ -1,5 +1,6 @@
 package dev.openidea.goide.debug
 
+import com.intellij.util.concurrency.AppExecutorUtil
 import org.eclipse.lsp4j.debug.EvaluateArguments
 import org.eclipse.lsp4j.debug.EvaluateResponse
 import org.eclipse.lsp4j.debug.ContinueArguments
@@ -27,8 +28,10 @@ import java.util.concurrent.CancellationException
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 import java.lang.reflect.InvocationTargetException
+import java.lang.reflect.Method
 import java.lang.reflect.Proxy
 
 /**
@@ -36,6 +39,8 @@ import java.lang.reflect.Proxy
  * Keep real local variables available, restore the adapter setting, and display
  * unavailable scopes as explicit error items instead of an endless native spinner.
  * Negative references are private frontend error handles, never sent to Delve.
+ * Transport factories and cancellation run in background send order: LSP4J can
+ * write synchronously, so neither may run under the lifecycle lock or on the EDT.
  */
 internal class GoDapProtocol(private val remote: IDebugProtocolServer, private val timeoutSeconds: Long = 12) : AutoCloseable {
     // Kotlin delegation does not forward Java default RPC methods. A public-interface
@@ -59,16 +64,18 @@ internal class GoDapProtocol(private val remote: IDebugProtocolServer, private v
             "disconnect", "terminate" -> {
                 // Stop invalidates pending execution immediately, before its server ack.
                 close()
-                try { method.invoke(remote, *args) } catch (failure: InvocationTargetException) { throw failure.targetException }
+                request(allowAfterClose = true, bounded = false) { invoke(method, args) }
             }
             "toString" -> "open Goland Delve protocol"
             "hashCode" -> System.identityHashCode(proxy)
             "equals" -> proxy === args[0]
-            else -> try { method.invoke(remote, *args) } catch (failure: InvocationTargetException) { throw failure.targetException }
+            // Preserve upstream deadlines for launch/build and other ordinary RPCs.
+            else -> request(bounded = false) { invoke(method, args) }
         }
     } as IDebugProtocolServer
     private var closed = false
     private var tail = CompletableFuture.completedFuture(Unit)
+    private var dispatchTail = CompletableFuture.completedFuture(Unit)
     private val pending = mutableSetOf<CompletableFuture<*>>()
     private val errors = linkedMapOf<Int, String>()
     private var nextError = -1
@@ -131,17 +138,18 @@ internal class GoDapProtocol(private val remote: IDebugProtocolServer, private v
         else execution { remote.setVariable(args) }
 
     private fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> =
-        if (Regex("^\\s*dlv\\s+config(?:\\s|$)").containsMatchIn(args.expression.orEmpty())) serial { _ ->
-            request { remote.evaluate(args) }.thenApply { response ->
+        if (Regex("^\\s*dlv\\s+config(?:\\s|$)").containsMatchIn(args.expression.orEmpty())) serial { life ->
+            life.start { remote.evaluate(args) }.thenApply { response ->
                 if (Regex("^\\s*dlv\\s+config\\s+showGlobalVariables\\s+(true|false)\\s*$").matches(args.expression)) restoreGlobals = false
                 response
             }
         }
         else if (Regex("^\\s*call\\s+").containsMatchIn(args.expression.orEmpty())) execution { remote.evaluate(args) }
-        else remote.evaluate(args)
+        else request(bounded = false) { remote.evaluate(args) }
 
     // Delve rejects config evaluation while the target runs. Restore before any request
-    // that may resume it; Stop/disconnect deliberately remain immediate delegates.
+    // that may resume it. Stop invalidates the queue immediately and sends its RPC
+    // independently, without waiting for a held configuration reply or socket writer.
     private fun continue_(args: ContinueArguments): CompletableFuture<ContinueResponse> = execution { remote.continue_(args) }
     private fun next(args: NextArguments): CompletableFuture<Void> = execution { remote.next(args) }
     private fun stepIn(args: StepInArguments): CompletableFuture<Void> = execution { remote.stepIn(args) }
@@ -153,13 +161,13 @@ internal class GoDapProtocol(private val remote: IDebugProtocolServer, private v
     private fun restartFrame(args: RestartFrameArguments): CompletableFuture<Void> = execution { remote.restartFrame(args) }
 
     private fun <T> execution(start: () -> CompletableFuture<T>): CompletableFuture<T> =
-        serial { life -> ensureGlobalsRestored().thenCompose { life.start { request(start) } } }
+        serial { life -> ensureGlobalsRestored().thenCompose { life.start(start) } }
     private fun ensureGlobalsRestored(): CompletableFuture<Unit> =
         if (restoreGlobals) configureGlobals(null, true).thenApply { Unit } else CompletableFuture.completedFuture(Unit)
 
     private fun configureGlobals(frameId: Int?, enabled: Boolean): CompletableFuture<EvaluateResponse> {
         if (!enabled) restoreGlobals = true
-        return request {
+        return request(allowAfterClose = enabled) {
             remote.evaluate(EvaluateArguments().apply {
                 expression = "dlv config showGlobalVariables $enabled"
                 context = "repl"
@@ -184,55 +192,117 @@ internal class GoDapProtocol(private val remote: IDebugProtocolServer, private v
         presentationHint = VariablePresentationHint().apply { attributes = arrayOf("readOnly") }
     }
 
-    private fun <T> request(start: () -> CompletableFuture<T>): CompletableFuture<T> {
-        val rpc = try { start() } catch (failure: Throwable) { return CompletableFuture.failedFuture(failure) }
+    @Suppress("UNCHECKED_CAST")
+    private fun invoke(method: Method, args: Array<out Any?>): CompletableFuture<Any?> =
+        try { method.invoke(remote, *args) as CompletableFuture<Any?> }
+        catch (failure: InvocationTargetException) { throw failure.targetException }
+
+    /** LSP4J sends on the caller thread, including when a future is cancelled. */
+    private fun <T> request(
+        owner: CompletableFuture<*>? = null,
+        allowAfterClose: Boolean = false,
+        bounded: Boolean = true,
+        start: () -> CompletableFuture<T>,
+    ): CompletableFuture<T> {
         val result = CompletableFuture<T>()
-        val deadline = AtomicReference<Pair<CompletableFuture<T>, CompletableFuture<T>>?>(rpc to result)
-        rpc.whenComplete { value, failure -> if (failure == null) result.complete(value) else result.completeExceptionally(failure) }
-        CompletableFuture.delayedExecutor(timeoutSeconds, TimeUnit.SECONDS).execute {
-            deadline.getAndSet(null)?.let { (request, response) ->
-                if (response.completeExceptionally(TimeoutException("Debug adapter request timed out"))) request.cancel(true)
+        val dispatch = synchronized(this) {
+            if ((!allowAfterClose && closed) || owner?.isDone == true) {
+                return CompletableFuture.failedFuture(CancellationException("Debug request is no longer active"))
+            }
+            if (!allowAfterClose) pending += result
+            reserveDispatch()
+        }
+        val rpc = AtomicReference<CompletableFuture<T>?>()
+        val cancellation = AtomicBoolean()
+        fun cancelStarted() {
+            val started = rpc.get() ?: return
+            if (cancellation.compareAndSet(false, true)) cancelRpc(started)
+        }
+        val deadline = AtomicReference<CompletableFuture<T>?>(result)
+        result.whenComplete { _, _ ->
+            deadline.set(null)
+            synchronized(this) { pending -= result }
+            if (result.isCancelled) cancelStarted()
+        }
+        owner?.whenComplete { _, _ -> if (!result.isDone) result.cancel(true) }
+        if (bounded) CompletableFuture.delayedExecutor(timeoutSeconds, TimeUnit.SECONDS).execute {
+            deadline.getAndSet(null)?.let { response ->
+                if (response.completeExceptionally(TimeoutException("Debug adapter request timed out"))) cancelStarted()
             }
         }
-        result.whenComplete { _, _ -> deadline.set(null); if (result.isCancelled) rpc.cancel(true) }
+        dispatch.run {
+            // Claim dispatch under the lifecycle lock; a claimed send is in flight.
+            // Never hold this lock across the endpoint factory: it can write a socket.
+            val active = synchronized(this) { (allowAfterClose || !closed) && !result.isDone && owner?.isDone != true }
+            if (!active) {
+                result.cancel(true)
+            } else {
+                val started = try { start() } catch (failure: Throwable) {
+                    result.completeExceptionally(failure)
+                    return@run
+                }
+                rpc.set(started)
+                if (result.isDone) cancelStarted()
+                started.whenComplete { value, failure ->
+                    rpc.compareAndSet(started, null)
+                    if (failure == null) result.complete(value) else result.completeExceptionally(failure)
+                }
+            }
+        }
         return result
     }
 
-    private inner class SerialFuture<T> : CompletableFuture<T>() {
-        override fun cancel(mayInterruptIfRunning: Boolean): Boolean = synchronized(this@GoDapProtocol) { super.cancel(mayInterruptIfRunning) }
-    }
-    private inner class RequestLife(private val result: CompletableFuture<*>) {
-        fun <T> start(action: () -> CompletableFuture<T>): CompletableFuture<T> = synchronized(this@GoDapProtocol) {
-            if (closed || result.isDone) CompletableFuture.failedFuture(CancellationException("Debug request is no longer active"))
-            else try { action() } catch (failure: Throwable) { CompletableFuture.failedFuture(failure) }
+    private inner class DispatchSlot(private val previous: CompletableFuture<Unit>) {
+        val finished = CompletableFuture<Unit>()
+
+        fun run(action: () -> Unit) {
+            previous.handle { _, _ -> Unit }.thenRunAsync({
+                // A cancelled/deadline-expired response must not release this slot
+                // before its factory actually returns. In particular, restoring
+                // globals must never overtake an already claimed disable write.
+                try { action() } finally { finished.complete(Unit) }
+            }, AppExecutorUtil.getAppExecutorService())
         }
     }
 
-    /** The factory starts asynchronous work; no blocking wait occurs under this lock. */
-    private fun <T> serial(start: (RequestLife) -> CompletableFuture<T>): CompletableFuture<T> = synchronized(this) {
-        if (closed) return CompletableFuture.failedFuture(CancellationException("Debug session closed"))
-        val result = SerialFuture<T>()
+    private fun reserveDispatch(): DispatchSlot = synchronized(this) {
+        DispatchSlot(dispatchTail).also { dispatchTail = it.finished }
+    }
+
+    private fun cancelRpc(rpc: CompletableFuture<*>) {
+        reserveDispatch().run { rpc.cancel(true) }
+    }
+
+    private inner class RequestLife(private val result: CompletableFuture<*>) {
+        fun <T> start(action: () -> CompletableFuture<T>): CompletableFuture<T> = request(owner = result, start = action)
+    }
+
+    private fun <T> serial(start: (RequestLife) -> CompletableFuture<T>): CompletableFuture<T> {
+        val result = CompletableFuture<T>()
+        val finished = CompletableFuture<Unit>()
+        val previous = synchronized(this) {
+            if (closed) return CompletableFuture.failedFuture(CancellationException("Debug session closed"))
+            pending += result
+            tail.also { tail = finished }
+        }
         val life = RequestLife(result)
         val queueDeadline = AtomicReference<CompletableFuture<T>?>(result)
         CompletableFuture.delayedExecutor(timeoutSeconds, TimeUnit.SECONDS).execute {
-            synchronized(this) {
-                queueDeadline.getAndSet(null)?.completeExceptionally(TimeoutException("Debug request timed out while waiting for variable/configuration work"))
-            }
+            queueDeadline.getAndSet(null)?.completeExceptionally(TimeoutException("Debug request timed out while waiting for variable/configuration work"))
         }
-        pending += result
         result.whenComplete { _, _ -> queueDeadline.set(null); synchronized(this) { pending -= result } }
-        tail = tail.handle { _, _ -> Unit }.thenCompose {
-            val child = synchronized(this) {
-                if (closed || result.isDone) null
-                else try { start(life) } catch (failure: Throwable) { CompletableFuture.failedFuture(failure) }
+        previous.handle { _, _ -> Unit }.thenRunAsync({
+            val active = synchronized(this) { !closed && !result.isDone }
+            if (!active) finished.complete(Unit)
+            else {
+                val child = try { start(life) } catch (failure: Throwable) { CompletableFuture.failedFuture(failure) }
+                child.whenComplete { value, failure ->
+                    if (failure == null) result.complete(value) else result.completeExceptionally(failure)
+                    finished.complete(Unit)
+                }
             }
-            if (child == null) CompletableFuture.completedFuture(Unit)
-            else child.handle { value, failure ->
-                if (failure == null) result.complete(value) else result.completeExceptionally(failure)
-                Unit
-            }
-        }
-        result
+        }, AppExecutorUtil.getAppExecutorService())
+        return result
     }
 
     private fun isClosed() = synchronized(this) { closed }

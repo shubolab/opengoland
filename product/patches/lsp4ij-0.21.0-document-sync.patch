@@ -1371,3 +1371,640 @@
      /**
       * Returns the matched language server definitions for the given file.
       *
+--- a/src/main/java/com/redhat/devtools/lsp4ij/dap/DAPDebugProcess.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/dap/DAPDebugProcess.java
+@@ -29,10 +29,13 @@
+ import com.intellij.ui.AppUIUtil;
+ import com.intellij.ui.content.Content;
+ import com.intellij.util.ui.FormBuilder;
+ import com.intellij.xdebugger.XDebugProcess;
+ import com.intellij.xdebugger.XDebugSession;
++import com.intellij.xdebugger.XDebugSessionListener;
++import com.intellij.xdebugger.impl.XDebugSessionImpl;
++import com.redhat.devtools.lsp4ij.dap.client.DAPExecutionStack;
+ import com.intellij.xdebugger.XSourcePosition;
+ import com.intellij.xdebugger.breakpoints.XBreakpointHandler;
+ import com.intellij.xdebugger.evaluation.XDebuggerEditorsProvider;
+ import com.intellij.xdebugger.frame.XStackFrame;
+ import com.intellij.xdebugger.frame.XSuspendContext;
+@@ -56,19 +59,27 @@
+ import com.redhat.devtools.lsp4ij.internal.CompletableFutures;
+ import com.redhat.devtools.lsp4ij.internal.StringUtils;
+ import com.redhat.devtools.lsp4ij.settings.ServerTrace;
+ import com.redhat.devtools.lsp4ij.settings.ui.InstallerPanel;
+ import org.eclipse.lsp4j.debug.SteppingGranularity;
++import org.eclipse.lsp4j.debug.PauseArguments;
+ import org.eclipse.lsp4j.debug.Thread;
+ import org.eclipse.lsp4j.debug.ThreadEventArguments;
+ import org.jetbrains.annotations.NotNull;
+ import org.jetbrains.annotations.Nullable;
+ 
+ import javax.swing.*;
+ import java.io.IOException;
+ import java.net.InetAddress;
+ import java.util.HashMap;
++import java.util.Arrays;
++import java.util.List;
++import java.util.concurrent.CopyOnWriteArrayList;
++import java.util.concurrent.TimeUnit;
++import java.util.concurrent.atomic.AtomicBoolean;
++import java.util.concurrent.atomic.AtomicInteger;
++import java.util.concurrent.atomic.AtomicReference;
+ import java.util.concurrent.CancellationException;
+ import java.util.concurrent.CompletableFuture;
+ import java.util.concurrent.ExecutionException;
+ import java.util.function.Supplier;
+ 
+@@ -95,10 +106,54 @@
+ 
+     private @Nullable CompletableFuture<Void> connectToServerFuture;
+     private Status status;
+     private Supplier<TransportStreams> streamsSupplier;
+     private DAPClient parentClient;
++    private final AtomicBoolean disposed = new AtomicBoolean();
++    private final AtomicReference<PauseOperation> pauseOperation = new AtomicReference<>();
++    private volatile ResumeSelection resumeSelection;
++
++    private record ResumeSelection(DAPSuspendContext context, int threadId, long generation) {}
++
++    private static final class PauseOperation {
++        final CompletableFuture<Void> completion = new CompletableFuture<>();
++        // Claiming dispatch and cancelling a lookup share one atomic boundary.
++        // No monitor is held across a transport write or an EDT callback.
++        final AtomicInteger state = new AtomicInteger(); // 0 lookup, 1 dispatch claimed, 2 cancelled
++        final List<CompletableFuture<?>> requests = new CopyOnWriteArrayList<>();
++        final AtomicBoolean acknowledged = new AtomicBoolean();
++        final AtomicBoolean paused = new AtomicBoolean();
++        final AtomicBoolean cancellationScheduled = new AtomicBoolean();
++
++        void cancelRequests() {
++            if (cancellationScheduled.compareAndSet(false, true)) {
++                // A root LSP4J request cancellation writes to the real transport.
++                // Lifecycle callbacks may run on the EDT; never write there.
++                CompletableFuture.runAsync(() -> requests.forEach(request -> request.cancel(false)));
++            }
++        }
++
++        void markAcknowledged() {
++            acknowledged.set(true);
++            completeIfPaused();
++        }
++
++        void markPaused() {
++            paused.set(true);
++            completeIfPaused();
++        }
++
++        private void completeIfPaused() {
++            if (acknowledged.get() && paused.get() && state.get() != 2) completion.complete(null);
++        }
++
++        void cancel() {
++            state.set(2);
++            completion.cancel(false);
++            cancelRequests();
++        }
++    }
+ 
+     public DAPDebugProcess(@NotNull DAPCommandLineState dapState,
+                            @NotNull XDebugSession session,
+                            @NotNull ExecutionResult executionResult,
+                            boolean isDebug) {
+@@ -112,10 +167,55 @@
+         this.breakpointHandler = serverDescriptor.createBreakpointHandler(session, project);
+         this.disassemblyBreakpointHandler = serverDescriptor.createDisassemblyBreakpointHandler(session, project);
+         this.alternativeSourceHandler = new DAPAlternativeSourceHandler(this);
+         this.threadsPanel = new ThreadsPanel(this);
+         this.status = Status.NONE;
++        session.addSessionListener(new XDebugSessionListener() {
++            @Override
++            public void beforeSessionResume() {
++                cancelPause();
++                resumeSelection = null;
++                if (session.getSuspendContext() instanceof DAPSuspendContext context
++                        && context.getClient().isCurrentSuspendContext(context)) {
++                    // The pinned Platform clears this selection immediately after this callback.
++                    // Loading or prefetching a stack must never stand in for user selection.
++                    Integer threadId = null;
++                    if (session instanceof XDebugSessionImpl impl) {
++                        if (impl.getCurrentExecutionStack() instanceof DAPExecutionStack stack
++                                && Arrays.stream(context.getExecutionStacks()).anyMatch(candidate -> candidate == stack)) {
++                            context.setActiveExecutionStack(stack);
++                            threadId = stack.getThreadId();
++                        }
++                    } else {
++                        threadId = context.getThreadId();
++                    }
++                    Long generation = context.getClient().claimSuspension(context);
++                    if (threadId != null && generation != null) {
++                        resumeSelection = new ResumeSelection(context, threadId, generation);
++                    }
++                }
++            }
++
++            @Override
++            public void sessionPaused() {
++                resumeSelection = null;
++                PauseOperation operation = pauseOperation.get();
++                // Delve may deliver stopped before the pause ACK. Keep the already
++                // dispatched request alive, but discard an older pending lookup.
++                if (operation != null) {
++                    if (operation.state.get() == 0) cancelPause();
++                    else operation.markPaused();
++                }
++            }
++
++            @Override
++            public void sessionStopped() {
++                resumeSelection = null;
++                cancelPause();
++                if (parentClient != null) parentClient.invalidateSuspension();
++            }
++        }, this);
+ 
+         // At this step, the DAP server process is launched (but we don't know if the process is started correctly)
+         serverReadyFuture = DAPServerReadyTracker.getServerReadyTracker(getProcessHandler());
+         Integer port = serverReadyFuture.getPort();
+         String address = serverReadyFuture.getAddress();
+@@ -264,10 +364,15 @@
+         return executionResult.getExecutionConsole();
+     }
+ 
+     @Override
+     public void stop() {
++        // The caller may be on the EDT; invalidate synchronously before cleanup
++        // is queued, without waiting for any RPC or operating-system process.
++        cancelPause();
++        resumeSelection = null;
++        if (parentClient != null) parentClient.invalidateSuspension();
+         if (status != Status.STOPPED && status != Status.STOPPING) {
+             ApplicationManager.getApplication()
+                     .executeOnPooledThread(() -> {
+                         try {
+                             status = Status.STOPPING;
+@@ -287,13 +392,93 @@
+                     });
+         }
+     }
+ 
+     @Override
++    public void startPausing() {
++        DAPClient client = parentClient;
++        if (disposed.get() || client == null || getSession().isStopped() || getSession().isPaused()) return;
++        long generation = client.getSuspensionGeneration();
++        PauseOperation operation = new PauseOperation();
++        if (!pauseOperation.compareAndSet(null, operation)) return;
++        operation.completion.orTimeout(5, TimeUnit.SECONDS).whenComplete((unused, failure) -> {
++            pauseOperation.compareAndSet(operation, null);
++            if (failure != null) {
++                operation.state.set(2);
++                operation.cancelRequests();
++                if (!(failure instanceof CancellationException) && !disposed.get() && !getSession().isStopped()) {
++                    String description = failure instanceof java.util.concurrent.TimeoutException
++                            ? "no confirmed paused state was received within 5 seconds."
++                            : failure.getMessage() != null ? failure.getMessage() : failure.getClass().getSimpleName();
++                    print("Pause failed: " + description, ConsoleViewContentType.ERROR_OUTPUT);
++                }
++            }
++        });
++        // A running adapter may expose a special current thread, e.g. Delve's -1.
++        // Use an actual server-provided ID; an ACK alone never fabricates suspension.
++        CompletableFuture.runAsync(() -> {
++            if (operation.completion.isDone() || disposed.get() || getSession().isStopped()) return;
++            try {
++                CompletableFuture<Thread[]> threads = client.getThreads(true);
++                operation.requests.add(threads);
++                if (operation.completion.isDone()) threads.cancel(false);
++                threads.whenComplete((values, failure) -> {
++                    if (operation.completion.isDone() || disposed.get() || getSession().isStopped()) return;
++                    if (getSession().isPaused() || generation != client.getSuspensionGeneration()) {
++                        operation.cancel();
++                        return;
++                    }
++                    if (failure != null) { operation.completion.completeExceptionally(failure); return; }
++                    var server = client.getDebugProtocolServer();
++                    if (server == null || values == null || values.length == 0) {
++                        operation.completion.completeExceptionally(new IllegalStateException("No running thread is available"));
++                        return;
++                    }
++                    PauseArguments arguments = new PauseArguments();
++                    arguments.setThreadId(values[0].getId());
++                    if (!operation.state.compareAndSet(0, 1)) return;
++                    try {
++                        CompletableFuture<Void> request = server.pause(arguments);
++                        operation.requests.add(request);
++                        if (operation.completion.isDone()) request.cancel(false);
++                        request.whenComplete((ignored, error) -> {
++                            if (error == null) operation.markAcknowledged();
++                            else operation.completion.completeExceptionally(error);
++                        });
++                    } catch (Exception error) {
++                        operation.completion.completeExceptionally(error);
++                    }
++                });
++            } catch (Exception failure) {
++                operation.completion.completeExceptionally(failure);
++            }
++        });
++    }
++
++    private void cancelPause() {
++        PauseOperation operation = pauseOperation.getAndSet(null);
++        if (operation != null) operation.cancel();
++    }
++
++    private @Nullable Integer commandThread(DAPSuspendContext context) {
++        if (disposed.get() || getSession().isStopped()) return null;
++        ResumeSelection selection = resumeSelection;
++        resumeSelection = null;
++        if (selection != null && selection.context() == context
++                && selection.generation() == context.getClient().getSuspensionGeneration()) return selection.threadId();
++        // Direct callers may still act on the currently published suspension.
++        if (context.getClient().isCurrentSuspendContext(context)) {
++            Integer thread = context.getThreadId();
++            return context.getClient().claimSuspension(context) != null ? thread : null;
++        }
++        return null;
++    }
++
++    @Override
+     public void startStepOver(@Nullable XSuspendContext context) {
+         if (context instanceof DAPSuspendContext dapContext) {
+-            Integer threadId = dapContext.getThreadId();
++            Integer threadId = commandThread(dapContext);
+             if (threadId != null) {
+                 DAPClient client = dapContext.getClient();
+                 var granularity = getSteppingGranularity(client);
+                 client.next(threadId, granularity);
+             }
+@@ -301,11 +486,11 @@
+     }
+ 
+     @Override
+     public void startStepOut(@Nullable XSuspendContext context) {
+         if (context instanceof DAPSuspendContext dapContext) {
+-            Integer threadId = dapContext.getThreadId();
++            Integer threadId = commandThread(dapContext);
+             if (threadId != null) {
+                 DAPClient client = dapContext.getClient();
+                 var granularity = getSteppingGranularity(client);
+                 client.stepOut(threadId, granularity);
+             }
+@@ -313,11 +498,11 @@
+     }
+ 
+     @Override
+     public void startStepInto(@Nullable XSuspendContext context) {
+         if (context instanceof DAPSuspendContext dapContext) {
+-            Integer threadId = dapContext.getThreadId();
++            Integer threadId = commandThread(dapContext);
+             if (threadId != null) {
+                 DAPClient client = dapContext.getClient();
+                 var granularity = getSteppingGranularity(client);
+                 client.stepIn(threadId, granularity);
+             }
+@@ -343,11 +528,11 @@
+     }
+ 
+     private void resume(@Nullable XSuspendContext context,
+                         @Nullable XSourcePosition runToCursorPosition) {
+         if (context instanceof DAPSuspendContext dapContext) {
+-            Integer threadId = dapContext.getThreadId();
++            Integer threadId = commandThread(dapContext);
+             if (threadId != null) {
+                 // Continue...
+                 DAPClient client = dapContext.getClient();
+                 var result = client.continue_(threadId);
+                 if (runToCursorPosition != null) {
+@@ -519,10 +704,14 @@
+         return getSession().getProject();
+     }
+ 
+     @Override
+     public void dispose() {
++        if (!disposed.compareAndSet(false, true)) return;
++        resumeSelection = null;
++        cancelPause();
++        if (parentClient != null) parentClient.invalidateSuspension();
+         CancellationSupport.cancel(serverReadyFuture);
+         CancellationSupport.cancel(connectToServerFuture);
+         if (parentClient != null) {
+             parentClient.terminate();
+         }
+--- a/src/main/java/com/redhat/devtools/lsp4ij/dap/client/DAPClient.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/dap/client/DAPClient.java
+@@ -60,10 +60,13 @@
+ import java.util.concurrent.ExecutorService;
+ import java.util.concurrent.Executors;
+ import java.util.concurrent.Future;
+ import java.util.concurrent.TimeUnit;
+ import java.util.function.UnaryOperator;
++import java.util.concurrent.atomic.AtomicLong;
++import java.util.concurrent.atomic.AtomicBoolean;
++import com.intellij.openapi.application.ModalityState;
+ 
+ import static com.intellij.codeInsight.hint.HintManagerImpl.getHintPosition;
+ 
+ /**
+  * Debug Protocol Adapter (DAP) client implementation.
+@@ -103,10 +106,34 @@
+     private Future<Void> debugProtocolFuture;
+     private IDebugProtocolServer debugProtocolServer;
+     private @NotNull
+     final List<DAPClient> childrenClient;
+     private boolean sentTerminateRequest;
++    private final AtomicLong suspensionGeneration = new AtomicLong();
++    private final AtomicBoolean disposed = new AtomicBoolean();
++
++    public long getSuspensionGeneration() { return suspensionGeneration.get(); }
++
++    public long invalidateSuspension() { return suspensionGeneration.incrementAndGet(); }
++
++    public @Nullable Long claimSuspension(DAPSuspendContext context) {
++        if (context.getClient() != this || !isCurrentGeneration(context.getGeneration())
++                || getSession().getSuspendContext() != context) return null;
++        long generation = context.getGeneration();
++        // Do not overwrite a newer wire stop between selection validation and claim.
++        return suspensionGeneration.compareAndSet(generation, generation + 1) ? generation + 1 : null;
++    }
++
++    private boolean isCurrentGeneration(long generation) {
++        return !disposed.get() && !getProject().isDisposed() && !getSession().isStopped()
++                && suspensionGeneration.get() == generation;
++    }
++
++    public boolean isCurrentSuspendContext(DAPSuspendContext context) {
++        return context.getClient() == this && isCurrentGeneration(context.getGeneration())
++                && getSession().getSuspendContext() == context;
++    }
+ 
+     public DAPClient(@NotNull DAPDebugProcess debugProcess,
+                      @NotNull Map<String, Object> dapParameters,
+                      boolean isDebug,
+                      @NotNull DebugMode debugMode,
+@@ -337,88 +364,65 @@
+     }
+ 
+     @Override
+     public void stopped(StoppedEventArguments args) {
+         var server = getDebugProtocolServer();
+-        if (server == null) {
+-            return;
+-        }
+-        Integer threadId = args.getThreadId();
+-        if (threadId == null) {
+-            return;
+-        }
+-        getThreads(true)
+-                .thenAcceptAsync(threads -> {
+-                    var threadResult = Arrays.stream(threads)
+-                            .filter(t -> threadId.equals(t.getId()))
+-                            .findFirst();
+-                    if (threadResult.isEmpty()) {
+-                        // The Thread doesn't exist
+-                        return;
++        if (server == null || disposed.get()) return;
++        Integer requestedThread = args.getThreadId();
++        // DAP permits omission when all threads are stopped (Delve Pause does this).
++        if (requestedThread == null && !Boolean.TRUE.equals(args.getAllThreadsStopped())) return;
++        long generation = suspensionGeneration.incrementAndGet();
++        getThreads(true).thenAcceptAsync(threads -> {
++            if (!isCurrentGeneration(generation) || threads == null || threads.length == 0) return;
++            var threadResult = Arrays.stream(threads)
++                    .filter(thread -> requestedThread == null || requestedThread.equals(thread.getId())).findFirst();
++            if (threadResult.isEmpty()) return;
++            var activeThread = threadResult.get();
++            StackTraceArguments arguments = new StackTraceArguments();
++            arguments.setThreadId(activeThread.getId());
++            server.stackTrace(arguments).thenAcceptAsync(response -> {
++                if (!isCurrentGeneration(generation)) return;
++                StackFrame[] frames = response.getStackFrames();
++                if (frames == null || frames.length == 0) return;
++                // Source/breakpoint lookup can load PSI/files, and stays off the EDT.
++                XBreakpoint<?> breakpoint = debugProcess.getBreakpointHandler().findBreakpoint(frames[0]);
++                DAPSuspendContext context = new DAPSuspendContext(this, generation);
++                for (var thread : threads) {
++                    context.addToExecutionStack(thread, thread.getId() == activeThread.getId() ? frames : null);
++                }
++                var exceptionPosition = StoppedEventArgumentsReason.EXCEPTION.equals(args.getReason())
++                        ? context.getActiveExecutionStack().getTopFrame().getSourcePosition() : null;
++                ApplicationManager.getApplication().invokeLater(() -> {
++                    if (!isCurrentGeneration(generation)) return;
++                    XDebugSession session = getSession();
++                    if (breakpoint == null) session.positionReached(context);
++                    else session.breakpointReached(breakpoint, null, context);
++                    if (StoppedEventArgumentsReason.EXCEPTION.equals(args.getReason())) {
++                        var position = exceptionPosition;
++                        if (position != null) {
++                            Editor[] editors = LSPIJUtils.editorsForFile(position.getFile(), getProject());
++                            if (editors != null && editors.length > 0) {
++                                String error = "Exception has occurred: " + args.getText();
++                                if (StringUtils.isNotBlank(args.getDescription())) error += "\n" + args.getDescription();
++                                String message = error;
++                                AppExecutorUtil.getAppScheduledExecutorService().schedule(() ->
++                                    ApplicationManager.getApplication().invokeLater(() -> {
++                                        if (isCurrentSuspendContext(context) && !editors[0].isDisposed()) {
++                                            showErrorHint(editors[0], message, position.getOffset());
++                                        }
++                                    }, ModalityState.any()), 1, TimeUnit.SECONDS);
++                            }
++                        }
+                     }
+-                    var activeThread = threadResult.get();
+-                    // get the stack trace
+-                    StackTraceArguments stackTraceArgs = new StackTraceArguments();
+-                    stackTraceArgs.setThreadId(args.getThreadId());
+-                    server
+-                            .stackTrace(stackTraceArgs)
+-                            .thenAcceptAsync(stackTraceResponse -> {
+-                                StackFrame[] stackFrames = stackTraceResponse.getStackFrames();
+-                                if (stackFrames != null && stackFrames.length > 0) {
+-                                    var stackFrame = stackFrames[0];
+-                                    XBreakpoint<?> breakpoint = debugProcess.getBreakpointHandler().findBreakpoint(stackFrame);
+-                                    XSuspendContext context = getSession().getSuspendContext();
+-                                    if (context == null) {
+-                                        context = new DAPSuspendContext(this);
+-                                    }
+-                                    // Create an execution stack per thread and
+-                                    // initialize the stack with current DAP stack frames for the active thread
+-                                    for(var thread : threads) {
+-                                        ((DAPSuspendContext) context).addToExecutionStack(thread, thread.equals(activeThread) ? stackFrames : null);
+-                                    }
+-                                    XDebugSession session = getSession();
+-                                    if (breakpoint == null) {
+-                                        session.positionReached(context);
+-
+-                                        if (StoppedEventArgumentsReason.EXCEPTION.equals(args.getReason())) {
+-                                            // The stopped event comes from an Exception
+-                                            // Show an error hint with the exception description in the proper line
+-                                            var sourcePosition = context.getActiveExecutionStack() != null
+-                                                    && context.getActiveExecutionStack().getTopFrame() != null ?
+-                                                    context.getActiveExecutionStack().getTopFrame().getSourcePosition() : null;
+-                                            if (sourcePosition != null) {
+-                                                var file = sourcePosition.getFile();
+-                                                Editor[] editors = LSPIJUtils.editorsForFile(file, getProject());
+-                                                if (editors != null && editors.length > 0) {
+-                                                    var editor = editors[0];
+-                                                    int offset = sourcePosition.getOffset();
+-
+-                                                    // Wait briefly to be sure that scroll of the editor
+-                                                    // has occurred before computing the error hint position.
+-                                                    // TODO: remove this timer by detecting that scroll editor is finished
+-                                                    // to display the error hint
+-                                                    StringBuilder error = new StringBuilder("Exception has occurred: ");
+-                                                    error.append(args.getText());
+-                                                    if (StringUtils.isNotBlank(args.getDescription())) {
+-                                                        error.append("\n");
+-                                                        error.append(args.getDescription());
+-                                                    }
+-                                                    String errorMessage = error.toString();
+-                                                    AppExecutorUtil.getAppScheduledExecutorService().schedule(() -> {
+-                                                        ApplicationManager.getApplication().invokeLater(() -> {
+-                                                            showErrorHint(editor, errorMessage, offset);
+-                                                        });
+-                                                    }, 1, TimeUnit.SECONDS);
+-                                                }
+-                                            }
+-                                        }
+-                                    } else {
+-                                        session.breakpointReached(breakpoint, null, context);
+-                                    }
+-                                }
+-                            });
+-                });
++                }, ModalityState.any());
++            });
++        });
++    }
++
++    @Override
++    public void continued(ContinuedEventArguments args) {
++        invalidateSuspension();
+     }
+ 
+     static void showErrorHint(@NotNull Editor editor, @NotNull String text, int offset) {
+         if (ApplicationManager.getApplication().isUnitTestMode()) {
+             return;
+@@ -448,10 +452,12 @@
+         debugProcess.stop();
+     }
+ 
+     @Override
+     public void dispose() {
++        if (!disposed.compareAndSet(false, true)) return;
++        invalidateSuspension();
+         if (debugProtocolFuture != null) {
+             CancellationSupport.cancel(debugProtocolFuture);
+ 
+             /*
+              * If the debugProtocolFuture is running the message loop on the same thread we
+@@ -492,10 +498,11 @@
+      * Debuggee attached: If the debuggee has been 'attached' initially, the
+      * development tool issues a disconnect request. This should detach the debugger
+      * from the debuggee but will allow it to continue."
+      */
+     public void terminate() {
++        invalidateSuspension();
+         IDebugProtocolServer server = getDebugProtocolServer();
+         if (server == null) {
+             dispose();
+             return;
+         }
+--- a/src/main/java/com/redhat/devtools/lsp4ij/dap/client/DAPExecutionStack.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/dap/client/DAPExecutionStack.java
+@@ -23,10 +23,12 @@
+ 
+ import java.util.Arrays;
+ import java.util.Collections;
+ import java.util.LinkedList;
+ import java.util.List;
++import java.util.concurrent.CompletableFuture;
++import org.eclipse.lsp4j.debug.StackTraceResponse;
+ 
+ /**
+  * Debug Adapter Protocol (DAP) execution stack.
+  */
+ public class DAPExecutionStack extends XExecutionStack {
+@@ -59,25 +61,34 @@
+     }
+ 
+     @Override
+     public void computeStackFrames(int firstFrameIndex,
+                                    @NotNull XStackFrameContainer container) {
++        if (container.isObsolete() || !client.isCurrentSuspendContext(suspendContext)) return;
+         if (firstFrameIndex == 0) {
+             if (stackFrames != null) {
+                 // The DAP stack frames was previously loaded
+                 container.addStackFrames(stackFrames, true);
+-                suspendContext.setActiveExecutionStack(this);
++
+             } else {
+                 // The DAP stack frames is not loaded, load it
+                 StackTraceArguments stackTraceArgs = new StackTraceArguments();
+                 stackTraceArgs.setThreadId(getThreadId());
+-                client.getDebugProtocolServer()
+-                        .stackTrace(stackTraceArgs)
+-                        .thenAcceptAsync(stackTraceResponse -> {
++                // Stack loading starts from the native UI. Socket writes stay on a worker.
++                CompletableFuture<StackTraceResponse> request = CompletableFuture.supplyAsync(() -> {
++                    if (container.isObsolete() || !client.isCurrentSuspendContext(suspendContext)) return null;
++                    var server = client.getDebugProtocolServer();
++                    return server != null ? server.stackTrace(stackTraceArgs) : null;
++                }).thenCompose(pending -> pending != null ? pending : CompletableFuture.completedFuture(null));
++                request.thenAcceptAsync(stackTraceResponse -> {
++                            if (stackTraceResponse == null || container.isObsolete()
++                                    || !client.isCurrentSuspendContext(suspendContext)) return;
+                             StackFrame[] stackFrames = stackTraceResponse.getStackFrames();
+                             this.stackFrames = stackFrames != null ? toDAPStackFrames(stackFrames) : Collections.emptyList();
+-                            container.addStackFrames(this.stackFrames, true);
++                            if (!container.isObsolete() && client.isCurrentSuspendContext(suspendContext)) {
++                                container.addStackFrames(this.stackFrames, true);
++                            }
+                         });
+             }
+         } else {
+             container.addStackFrames(new LinkedList<>(), true);
+         }
+--- a/src/main/java/com/redhat/devtools/lsp4ij/dap/client/DAPSuspendContext.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/dap/client/DAPSuspendContext.java
+@@ -24,15 +24,21 @@
+  * Debug Adapter Protocol (DAP) suspend context.
+  */
+ public class DAPSuspendContext extends XSuspendContext {
+ 
+     private final @NotNull DAPClient client;
++    private final long generation;
+     private final List<DAPExecutionStack> myExecutionStacks = new LinkedList<>();
+     private @Nullable DAPExecutionStack myActiveStack;
+ 
+     public DAPSuspendContext(@NotNull DAPClient client) {
++        this(client, client.getSuspensionGeneration());
++    }
++
++    DAPSuspendContext(@NotNull DAPClient client, long generation) {
+         this.client = client;
++        this.generation = generation;
+     }
+ 
+     public void addToExecutionStack(@NotNull Thread thread, @Nullable StackFrame[] stackFrames) {
+         // Convert DAP stack frames to IJ stack frames
+         DAPExecutionStack stack = new DAPExecutionStack(client, this, thread, stackFrames);
+@@ -46,12 +52,16 @@
+     @Override
+     public DAPExecutionStack getActiveExecutionStack() {
+         return myActiveStack;
+     }
+ 
+-    void setActiveExecutionStack(DAPExecutionStack stack) {
+-        myActiveStack = stack;
++    public void setActiveExecutionStack(DAPExecutionStack stack) {
++        if (myExecutionStacks.stream().anyMatch(candidate -> candidate == stack)) myActiveStack = stack;
++    }
++
++    public long getGeneration() {
++        return generation;
+     }
+ 
+     @NotNull
+     @Override
+     public XExecutionStack @NotNull [] getExecutionStacks() {

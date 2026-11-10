@@ -5,6 +5,8 @@ import org.eclipse.lsp4j.debug.services.IDebugProtocolServer
 import org.eclipse.lsp4j.jsonrpc.ResponseErrorException
 import org.eclipse.lsp4j.jsonrpc.messages.ResponseError
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CopyOnWriteArrayList
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import kotlin.test.Test
 import kotlin.test.assertEquals
@@ -16,8 +18,18 @@ class GoDapProtocolTest {
     private fun globalsError() = ResponseErrorException(ResponseError(-32001, "Unable to list globals", mapOf("error" to mapOf("format" to "unable to determine current package due to unspecified function location"))))
     private fun args() = ScopesArguments().apply { frameId = 1002 }
     private fun locals() = ScopesResponse().apply { scopes = arrayOf(Scope().apply { name = "Locals"; variablesReference = 42 }) }
+    private fun await(latch: CountDownLatch, event: String) {
+        assertTrue(latch.await(5, TimeUnit.SECONDS), "Missing endpoint event: $event")
+    }
+    private fun tail(bridge: GoDapProtocol): CompletableFuture<*> = synchronized(bridge) {
+        // A cancelled public future may finish before its bounded repair chain.
+        // Observe that chain's existing completion event without widening production API.
+        GoDapProtocol::class.java.getDeclaredField("tail").apply { isAccessible = true }
+            .get(bridge) as CompletableFuture<*>
+    }
+
     private open class Server : IDebugProtocolServer {
-        val calls = mutableListOf<String>()
+        val calls = CopyOnWriteArrayList<String>()
         override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> {
             calls += args.expression
             return CompletableFuture.completedFuture(EvaluateResponse().apply { result = "Updated" })
@@ -106,53 +118,123 @@ class GoDapProtocolTest {
     @Test fun cancellationDuringConfigHandoffRestoresAndSkipsFurtherLocalRequests() {
         val disabled = CompletableFuture<EvaluateResponse>()
         val restored = CompletableFuture<EvaluateResponse>()
+        val disableEntered = CountDownLatch(1)
+        val restoreEntered = CountDownLatch(1)
         val server = object : Server() {
             var scopes = 0
             override fun scopes(args: ScopesArguments): CompletableFuture<ScopesResponse> { scopes++; return CompletableFuture.failedFuture(globalsError()) }
             override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> {
                 calls += args.expression
-                return if (args.expression.endsWith("false")) disabled else restored
+                return if (args.expression.endsWith("false")) {
+                    disableEntered.countDown(); disabled
+                } else {
+                    restoreEntered.countDown(); restored
+                }
             }
         }
-        val bridge = GoDapProtocol(server)
-        val protocol = bridge.server
-        val pending = protocol.scopes(args())
-        bridge.close()
-        disabled.complete(EvaluateResponse())
-        assertEquals(1, server.scopes)
-        assertEquals(listOf("dlv config showGlobalVariables false", "dlv config showGlobalVariables true"), server.calls)
-        restored.complete(EvaluateResponse())
-        assertTrue(pending.isCancelled)
-        assertTrue(protocol.scopes(args()).isCompletedExceptionally)
+        GoDapProtocol(server).use { bridge ->
+            val protocol = bridge.server
+            val pending = protocol.scopes(args())
+            await(disableEntered, "disable configuration before close")
+            val repairFinished = tail(bridge)
+            bridge.close()
+            disabled.complete(EvaluateResponse())
+            await(restoreEntered, "restore after cancellation")
+            assertEquals(1, server.scopes)
+            assertEquals(listOf("dlv config showGlobalVariables false", "dlv config showGlobalVariables true"), server.calls)
+            restored.complete(EvaluateResponse())
+            repairFinished.get(5, TimeUnit.SECONDS)
+            assertEquals(1, server.scopes, "Closed recovery must not issue another locals request")
+            assertTrue(pending.isCancelled)
+            assertTrue(protocol.scopes(args()).isCompletedExceptionally)
+        }
+    }
+
+    @Test fun closeCannotRestoreBeforeAnAlreadyClaimedDisableFactoryActuallySends() {
+        val falseEntered = CountDownLatch(1)
+        val releaseFalse = CountDownLatch(1)
+        val falseApplied = CountDownLatch(1)
+        val trueEntered = CountDownLatch(1)
+        val applied = CopyOnWriteArrayList<Boolean>()
+        val server = object : Server() {
+            override fun scopes(args: ScopesArguments) = CompletableFuture.failedFuture<ScopesResponse>(globalsError())
+            override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> {
+                if (args.expression.endsWith("false")) {
+                    falseEntered.countDown()
+                    check(releaseFalse.await(5, TimeUnit.SECONDS)) { "Disable factory was not released" }
+                    applied += false
+                    falseApplied.countDown()
+                } else {
+                    applied += true
+                    trueEntered.countDown()
+                }
+                return CompletableFuture.completedFuture(EvaluateResponse())
+            }
+        }
+        GoDapProtocol(server).use { bridge ->
+            val pending = bridge.server.scopes(args())
+            await(falseEntered, "claimed disable factory before payload")
+            val repairFinished = tail(bridge)
+            var restoreOvertook = false
+            try {
+                CompletableFuture.runAsync { bridge.close() }.get(2, TimeUnit.SECONDS)
+                assertTrue(pending.isCancelled, "Close must invalidate local work without waiting for the socket factory")
+                // A bounded negative observation of factory ordering, not a readiness sleep.
+                restoreOvertook = trueEntered.await(200, TimeUnit.MILLISECONDS)
+            } finally {
+                releaseFalse.countDown()
+                await(falseApplied, "disable factory actual application")
+                repairFinished.get(5, TimeUnit.SECONDS)
+            }
+            assertEquals(listOf(false, true), applied,
+                "A restore must follow the actual disable send/return; restoreOvertook=$restoreOvertook")
+            assertFalse(restoreOvertook, "Restore must not enter while the claimed disable factory is still held")
+            assertEquals(true, applied.last(), "The final adapter configuration must be restored")
+        }
     }
 
     @Test fun userConfigUpdateIsQueuedAfterInternalRestore() {
         val retried = CompletableFuture<ScopesResponse>()
+        val retryEntered = CountDownLatch(1)
         val server = object : Server() {
             var count = 0
-            override fun scopes(args: ScopesArguments): CompletableFuture<ScopesResponse> = if (count++ == 0) CompletableFuture.failedFuture(globalsError()) else retried
+            override fun scopes(args: ScopesArguments): CompletableFuture<ScopesResponse> = if (count++ == 0) {
+                CompletableFuture.failedFuture(globalsError())
+            } else {
+                retryEntered.countDown(); retried
+            }
         }
         GoDapProtocol(server).use { bridge ->
             val protocol = bridge.server
             val first = protocol.scopes(args())
+            await(retryEntered, "locals retry held before user configuration")
             val update = protocol.evaluate(EvaluateArguments().apply { expression = "dlv config showGlobalVariables false"; context = "repl" })
             assertFalse(update.isDone)
+            assertEquals(listOf("dlv config showGlobalVariables false"), server.calls)
             retried.complete(locals())
-            first.join(); update.join()
+            first.get(5, TimeUnit.SECONDS); update.get(5, TimeUnit.SECONDS)
             assertEquals(listOf("dlv config showGlobalVariables false", "dlv config showGlobalVariables true", "dlv config showGlobalVariables false"), server.calls)
         }
     }
 
     @Test fun hungVariableRequestHasDeadlineAndCancelsTheClientRpcFuture() {
-        val rpc = CompletableFuture<VariablesResponse>()
-        val server = object : Server() { override fun variables(args: VariablesArguments) = rpc }
+        val rpcEntered = CountDownLatch(1)
+        val rpcCancelled = CountDownLatch(1)
+        val rpc = object : CompletableFuture<VariablesResponse>() {
+            override fun cancel(mayInterruptIfRunning: Boolean): Boolean =
+                super.cancel(mayInterruptIfRunning).also { rpcCancelled.countDown() }
+        }
+        val server = object : Server() {
+            override fun variables(args: VariablesArguments): CompletableFuture<VariablesResponse> {
+                rpcEntered.countDown(); return rpc
+            }
+        }
         GoDapProtocol(server, timeoutSeconds = 1).use { bridge ->
-            val protocol = bridge.server
-            val response = protocol.variables(VariablesArguments().apply { variablesReference = 42 }).get(3, TimeUnit.SECONDS)
+            val pending = bridge.server.variables(VariablesArguments().apply { variablesReference = 42 })
+            await(rpcEntered, "hung variables RPC")
+            val response = pending.get(3, TimeUnit.SECONDS)
             assertTrue(response.variables.single().value.contains("timed out"))
-            // The completing thread cancels the RPC immediately after publishing the deadline.
-            val limit = System.nanoTime() + TimeUnit.SECONDS.toNanos(1)
-            while (!rpc.isCancelled && System.nanoTime() < limit) java.lang.Thread.yield()
+            await(rpcCancelled, "client RPC cancellation after deadline")
             assertTrue(rpc.isCancelled)
         }
     }
@@ -172,13 +254,17 @@ class GoDapProtocolTest {
         for ((name, execute) in commands) {
             val retry = CompletableFuture<ScopesResponse>()
             val restore = CompletableFuture<EvaluateResponse>()
+            val retryEntered = CountDownLatch(1)
+            val restoreEntered = CountDownLatch(1)
             val server = object : Server() {
                 var count = 0
-                override fun scopes(args: ScopesArguments): CompletableFuture<ScopesResponse> = if (count++ == 0) CompletableFuture.failedFuture(globalsError()) else retry
+                override fun scopes(args: ScopesArguments): CompletableFuture<ScopesResponse> = if (count++ == 0) CompletableFuture.failedFuture(globalsError()) else {
+                    retryEntered.countDown(); retry
+                }
                 override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> {
                     calls += args.expression
                     return when {
-                        args.expression.endsWith("true") -> restore
+                        args.expression.endsWith("true") -> { restoreEntered.countDown(); restore }
                         else -> CompletableFuture.completedFuture(EvaluateResponse())
                     }
                 }
@@ -201,14 +287,18 @@ class GoDapProtocolTest {
                 }
             }
             GoDapProtocol(server).use { bridge ->
-            val protocol = bridge.server
-                protocol.scopes(args())
+                val protocol = bridge.server
+                val recovered = protocol.scopes(args())
+                await(retryEntered, "$name locals retry")
                 val resumed = execute(protocol)
                 assertFalse(resumed.isDone, name)
+                assertEquals(listOf("dlv config showGlobalVariables false"), server.calls, name)
                 retry.complete(locals())
+                await(restoreEntered, "$name globals restore")
                 assertFalse(resumed.isDone, name)
+                assertEquals(listOf("dlv config showGlobalVariables false", "dlv config showGlobalVariables true"), server.calls, name)
                 restore.complete(EvaluateResponse())
-                resumed.join()
+                recovered.get(5, TimeUnit.SECONDS); resumed.get(5, TimeUnit.SECONDS)
                 assertEquals("dlv config showGlobalVariables true", server.calls[1], name)
                 assertEquals(if (name == "call") "call checkpoint(cart)" else name, server.calls.last(), name)
             }
@@ -238,18 +328,26 @@ class GoDapProtocolTest {
     @Test fun queueDeadlineIncludesWaitingForAnUnfinishedRecoveryTail() {
         val disable = CompletableFuture<EvaluateResponse>()
         val restore = CompletableFuture<EvaluateResponse>()
+        val disableEntered = CountDownLatch(1)
+        val restoreEntered = CountDownLatch(1)
         val server = object : Server() {
             override fun scopes(args: ScopesArguments) = CompletableFuture.failedFuture<ScopesResponse>(globalsError())
-            override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> = if (args.expression.endsWith("false")) disable else restore
+            override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> = if (args.expression.endsWith("false")) {
+                disableEntered.countDown(); disable
+            } else {
+                restoreEntered.countDown(); restore
+            }
         }
         GoDapProtocol(server, timeoutSeconds = 1).use { bridge ->
             val protocol = bridge.server
             val first = protocol.scopes(args())
+            await(disableEntered, "unfinished recovery disable")
             val second = protocol.scopes(args())
             val response = second.get(2, TimeUnit.SECONDS)
             assertTrue(response.scopes.single().variablesReference < 0)
             val message = protocol.variables(VariablesArguments().apply { variablesReference = response.scopes.single().variablesReference }).join().variables.single().value
             assertTrue(message.contains("timed out"))
+            await(restoreEntered, "unfinished recovery restore")
             assertFalse(restore.isDone, "Queued UI work must finish its deadline before the internal recovery tail completes")
             restore.complete(EvaluateResponse())
             first.get(2, TimeUnit.SECONDS)
@@ -260,31 +358,47 @@ class GoDapProtocolTest {
         for (stop in listOf("cancel", "close", "disconnect")) {
             val laterRestore = CompletableFuture<EvaluateResponse>()
             val stopAck = CompletableFuture<Void>()
+            val restoring = CountDownLatch(1)
+            val disconnectEntered = CountDownLatch(1)
             val server = object : Server() {
                 var scopes = 0
                 var restores = 0
                 override fun scopes(args: ScopesArguments): CompletableFuture<ScopesResponse> = if (scopes++ == 0) CompletableFuture.failedFuture(globalsError()) else CompletableFuture.completedFuture(locals())
                 override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> {
                     if (args.expression.endsWith("false")) return CompletableFuture.completedFuture(EvaluateResponse())
-                    return if (restores++ == 0) CompletableFuture.failedFuture(IllegalStateException("first restore failed")) else laterRestore
+                    return if (restores++ == 0) CompletableFuture.failedFuture(IllegalStateException("first restore failed")) else {
+                        restoring.countDown(); laterRestore
+                    }
                 }
                 override fun continue_(args: ContinueArguments): CompletableFuture<ContinueResponse> { calls += "continue"; return CompletableFuture.completedFuture(ContinueResponse()) }
-                override fun disconnect(args: DisconnectArguments): CompletableFuture<Void> { calls += "disconnect"; return stopAck }
+                override fun disconnect(args: DisconnectArguments): CompletableFuture<Void> {
+                    calls += "disconnect"; disconnectEntered.countDown(); return stopAck
+                }
             }
             GoDapProtocol(server).use { bridge ->
                 val protocol = bridge.server
-                protocol.scopes(args()).join() // The first failed restore leaves repair work.
+                protocol.scopes(args()).get(5, TimeUnit.SECONDS) // The first failed restore leaves repair work.
                 val resumed = protocol.continue_(ContinueArguments())
+                await(restoring, "$stop later restore before cancellation")
+                val repairFinished = tail(bridge)
                 assertFalse(resumed.isDone)
+                var disconnect: CompletableFuture<Void>? = null
                 when (stop) {
                     "cancel" -> resumed.cancel(true)
                     "close" -> bridge.close()
-                    else -> { protocol.disconnect(DisconnectArguments().apply { terminateDebuggee = false }); assertFalse(stopAck.isDone) }
+                    else -> {
+                        disconnect = protocol.disconnect(DisconnectArguments().apply { terminateDebuggee = false })
+                        await(disconnectEntered, "disconnect independent of held restore")
+                        assertFalse(disconnect.isDone)
+                        assertFalse(stopAck.isDone)
+                    }
                 }
                 laterRestore.complete(EvaluateResponse())
+                repairFinished.get(5, TimeUnit.SECONDS)
                 assertTrue(resumed.isCancelled, stop)
                 assertFalse("continue" in server.calls, "A late restore after $stop must not resume the target")
                 stopAck.complete(null)
+                disconnect?.get(5, TimeUnit.SECONDS)
             }
         }
     }
@@ -293,12 +407,13 @@ class GoDapProtocolTest {
         val blocker = CompletableFuture<EvaluateResponse>()
         val laterRestore = CompletableFuture<EvaluateResponse>()
         val restoring = CompletableFuture<Unit>()
+        val blockerEntered = CountDownLatch(1)
         val server = object : Server() {
             var scopes = 0
             var restores = 0
             override fun scopes(args: ScopesArguments): CompletableFuture<ScopesResponse> = if (scopes++ == 0) CompletableFuture.failedFuture(globalsError()) else CompletableFuture.completedFuture(locals())
             override fun evaluate(args: EvaluateArguments): CompletableFuture<EvaluateResponse> {
-                if (args.expression.contains("-list")) return blocker
+                if (args.expression.contains("-list")) { blockerEntered.countDown(); return blocker }
                 if (args.expression.endsWith("false")) return CompletableFuture.completedFuture(EvaluateResponse())
                 if (restores++ == 0) return CompletableFuture.failedFuture(IllegalStateException("first restore failed"))
                 restoring.complete(Unit)
@@ -310,12 +425,17 @@ class GoDapProtocolTest {
             val protocol = bridge.server
             protocol.scopes(args()).join()
             protocol.evaluate(EvaluateArguments().apply { expression = "dlv config -list" })
+            await(blockerEntered, "configuration blocker before queue deadline")
             val resumed = protocol.continue_(ContinueArguments())
+            // Deliberately spend half the one-second queue deadline before restore:
+            // this timer models deadline residence, never dispatcher readiness.
             CompletableFuture.delayedExecutor(500, TimeUnit.MILLISECONDS).execute { blocker.complete(EvaluateResponse()) }
-            restoring.get(1, TimeUnit.SECONDS)
+            restoring.get(2, TimeUnit.SECONDS)
+            val repairFinished = tail(bridge)
             assertFailsWith<java.util.concurrent.ExecutionException> { resumed.get(2, TimeUnit.SECONDS) }
             assertFalse(laterRestore.isDone, "The whole-queue deadline must precede this later RPC deadline")
             laterRestore.complete(EvaluateResponse())
+            repairFinished.get(5, TimeUnit.SECONDS)
             assertFalse("continue" in server.calls)
         }
     }

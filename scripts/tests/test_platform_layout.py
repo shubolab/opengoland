@@ -126,7 +126,8 @@ with cache_lock(Path(sys.argv[2])):
             classes = root / "classes"
             classpath = os.pathsep.join(str(root / f"unused-{index:04d}.jar") for index in range(900))
             self.assertGreater(len(classpath), 32767)
-            arguments = ["--release", "21", "-encoding", "UTF-8", "-proc:none", "-classpath",
+            arguments = ["--release", "21", "-encoding", "UTF-8", "-proc:none",
+                         "-implicit:none", "-sourcepath", "", "-classpath",
                          classpath, "-d", str(classes), str(source)]
             with patch.object(platform_layout, "os", SimpleNamespace(name="nt")):
                 invocation = platform_layout.java_compiler_invocation(javac, arguments, root / "compiler.args")

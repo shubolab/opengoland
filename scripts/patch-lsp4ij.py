@@ -24,7 +24,10 @@ DESCRIPTION_PIN = ROOT / "product/patches/lsp4ij-0.21.0-intention-descriptions.j
 DESCRIPTION_ENTRY = "META-INF/plugin.xml"
 UPSTREAM_JAR_SHA = "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
 MARKER = "META-INF/open-goland-document-sync.json"
-PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher", "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature", "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport", "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport", "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport", "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport", "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport", "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport", "com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport", "com/redhat/devtools/lsp4ij/LanguageServiceAccessor")
+# Dependencies can ship .java alongside their .class entries. Compile only the
+# explicitly pinned source list, never implicitly rebuild third-party DTOs.
+COMPILER_OPTIONS = ("--release", "17", "-encoding", "UTF-8", "-implicit:none", "-sourcepath", "")
+PREFIXES = ("com/redhat/devtools/lsp4ij/LanguageServerWrapper", "com/redhat/devtools/lsp4ij/DocumentContentSynchronizer", "com/redhat/devtools/lsp4ij/LSPFileListener", "com/redhat/devtools/lsp4ij/usages/LSPUsageSearcher", "com/redhat/devtools/lsp4ij/client/features/LSPUsageFeature", "com/redhat/devtools/lsp4ij/usages/LSPUsageSupport", "com/redhat/devtools/lsp4ij/features/AbstractLSPDocumentFeatureSupport", "com/redhat/devtools/lsp4ij/features/declaration/LSPDeclarationSupport", "com/redhat/devtools/lsp4ij/features/navigation/LSPDefinitionSupport", "com/redhat/devtools/lsp4ij/features/typeDefinition/LSPTypeDefinitionSupport", "com/redhat/devtools/lsp4ij/features/implementation/LSPImplementationSupport", "com/redhat/devtools/lsp4ij/features/highlight/LSPHighlightSupport", "com/redhat/devtools/lsp4ij/LanguageServiceAccessor", "com/redhat/devtools/lsp4ij/dap/DAPDebugProcess", "com/redhat/devtools/lsp4ij/dap/client/DAPClient", "com/redhat/devtools/lsp4ij/dap/client/DAPExecutionStack", "com/redhat/devtools/lsp4ij/dap/client/DAPSuspendContext")
 
 
 def sha(data):
@@ -129,7 +132,8 @@ def build(args):
     metadata = {"upstreamVersion": "0.21.0", "upstreamCommit": pin["upstream"]["refObject"]["sha"],
                 "upstreamJarSha256": UPSTREAM_JAR_SHA, "patchSha256": pin["patchSha256"],
                 "intentionDescriptions": description_record,
-                "sources": [{k: v for k, v in source.items() if k != "sourceUrl"} for source in pin["sources"]]}
+                "sources": [{k: v for k, v in source.items() if k != "sourceUrl"} for source in pin["sources"]],
+                "compilerOptions": list(COMPILER_OPTIONS)}
     if target_sha != UPSTREAM_JAR_SHA:
         with zipfile.ZipFile(original) as before, zipfile.ZipFile(target) as after:
             saved = json.loads(after.read(MARKER))
@@ -189,7 +193,7 @@ def build(args):
         for source in pin["sources"]:
             if sha((upstream / source["path"]).read_bytes()) != source["patchedSha256"]:
                 raise ValueError(f"Patched source digest mismatch: {source['path']}")
-        compiler_arguments = ["--release", "17", "-encoding", "UTF-8", "-classpath", os.pathsep.join(map(str, classpath)), "-d", str(built)]
+        compiler_arguments = [*COMPILER_OPTIONS, "-classpath", os.pathsep.join(map(str, classpath)), "-d", str(built)]
         compiler_arguments += [str(upstream / source["path"]) for source in pin["sources"]]
         invocation = java_compiler_invocation(javac, compiler_arguments, work / "javac.args")
         result = subprocess.run(invocation.command, cwd=invocation.cwd, text=True, capture_output=True)
