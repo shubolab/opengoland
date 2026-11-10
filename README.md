@@ -1,5 +1,7 @@
 # open Goland
 
+[English](README.md) | [简体中文](README.zh-CN.md)
+
 [Source repository](https://github.com/shubolab/opengoland)
 
 An independent desktop IDE for Go, implemented in Kotlin on the open-source
