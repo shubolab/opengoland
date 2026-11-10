@@ -20,6 +20,15 @@ compressed, captured on macOS Apple silicon from development build
 **0.1.0-preview.20261110.4**. See [capture details and reproduction steps](docs/demo/README.md).
 The published installers are listed below.
 
+![Native build tags, test debugging, completion with automatic import and one Undo](docs/demo/native-build-context-completion.gif)
+
+This additional real-window sequence shows build-tag selection, test debugging,
+completion with an automatic import, and one Undo. It was captured from the
+**unpublished 0.1.0-preview.20261110.6 development candidate on macOS 27.2 arm64**.
+The final frame deliberately restores unfinished code. See the
+[example and steps](fixtures/native-workflow) and
+[capture record](docs/demo/build-context-completion-recording.json).
+
 ## Download
 
 Download executable installers from [GitHub Releases](https://github.com/shubolab/opengoland/releases):

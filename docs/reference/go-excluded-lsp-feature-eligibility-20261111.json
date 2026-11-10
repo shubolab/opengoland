@@ -1,0 +1,415 @@
+{
+  "schemaVersion": 1,
+  "status": "source-candidate-focused-fourteen-green-full-native-release-pending",
+  "observedProductVersion": "0.1.0-preview.20261110.6 candidate, not a public6 acceptance claim",
+  "observedFrozenSourceCommit": "8c6ddaa6d66d727aa24730120f279a6885a64ba2",
+  "observations": [
+    {
+      "authority": "Parent-owned actual native desktop observation; this source task did not repeat GUI/REA",
+      "fact": "With default build tags, extra_test.go constrained by //go:build native_extra was excluded and the native IDE repeatedly displayed Go(gopls) semanticTokens/full and codeAction no package metadata for file notifications."
+    },
+    {
+      "authority": "Parent-owned actual native desktop observation",
+      "fact": "After Settings Go Build tags=native_extra, the original precise TestDefaultContext run was explicitly refused by native preflight as File excluded by the selected Go build context; default_test.go then produced the same two request notifications."
+    },
+    {
+      "authority": "Read-only source/log inspection",
+      "fact": "At inspection time the provided idea.log did not contain the response text or exact response error code/data. An error balloon is not necessarily an idea.log ERROR entry."
+    }
+  ],
+  "runtimeLog": {
+    "path": ".tools/next-v6-native-plan/runtime/profile/log/idea.log",
+    "boundary": "Owned by the parent live/native session; no live-log SHA frozen by this source task."
+  },
+  "sourceInference": [
+    "Pinned LSP4IJ CancellationSupport wraps feature futures, and ResponseErrorException follows the default notification path. GoLanguageClient currently only overrides applyEdit; filtering showMessage there would not address this feature-future path.",
+    "The run gutter Information icon is shared by CHECKING/IGNORED/INVALID/ERROR; only current authoritative Go metadata IGNORED is an exclusion classification.",
+    "Per-file isEnabled and post-initialization isSupported hooks can defer these two package-dependent providers without changing document synchronization, diagnostics, transport errors or server capabilities.",
+    "Pinned LSPSemanticTokensSupport and LSPIntentionCodeActionSupport normally cache null/empty provider results through AbstractLSPDocumentFeatureSupport using the PSI modification stamp. Metadata completion can change eligibility without a PSI edit, so daemon restart alone does not clear those cached results."
+  ],
+  "pinnedOssSources": {
+    "commit": "b30f69dd1285f201d53ce360b7fad0bba96f0d58",
+    "cancellation": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/internal/CancellationSupport.java",
+    "features": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/client/features/AbstractLSPDocumentFeature.java",
+    "fileSupport": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/LSPFileSupport.java",
+    "semanticSupport": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/features/semanticTokens/LSPSemanticTokensSupport.java",
+    "intentionSupport": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/features/codeAction/intention/LSPIntentionCodeActionSupport.java",
+    "featureCache": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/features/AbstractLSPFeatureSupport.java"
+  },
+  "candidate": {
+    "baseCommit": "8c6ddaa6d66d727aa24730120f279a6885a64ba2",
+    "branch": "codex_excluded_lsp_features",
+    "productionFiles": [
+      "src/main/kotlin/dev/openidea/goide/lsp/GoBuildContextLspFeatures.kt",
+      "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageServerFactory.kt",
+      "src/main/kotlin/dev/openidea/goide/run/GoRunBuildContext.kt"
+    ],
+    "behavior": {
+      "CHECKING": "Temporarily defer these providers; existing coalesced metadata operation requests daemon refresh on completion.",
+      "IGNORED": "Do not request semantic tokens or LSP code actions for this current excluded document.",
+      "ACTIVE_INVALID_ERROR": "Preserve normal provider/capability/request/error paths; malformed metadata and source are not disguised as exclusions.",
+      "serverSettingsEpoch": "For GoLanguage source only, post-initialization support requires the factory initialize-options settings snapshot to match current project settings. Delve-only changes are excluded because they do not restart gopls. GoMod/GoWork and other non-GoLanguage files retain the original superclass capability path and are not subject to this Go-source membership/epoch gate.",
+      "documentState": "Reuse existing document/metadata invalidation; no synchronous go list, filesystem or subprocess operation is introduced in the feature hooks.",
+      "cacheRefresh": "The existing metadata completion/invalidation refresh path schedules background work to capture existing LSPFileSupport objects under a short read action. Outside the read lock and off the EDT, it cancels only semantic tokens and intention code-action supports, then schedules daemon restart on the EDT. No old membership snapshot is delivered; each subsequent provider query reads current metadata and initialization settings. A coalesced old refresh may conservatively cancel a newer request; this is not a claim of zero redundant cancellation.",
+      "initializedServerRecovery": "When a current-settings server reports started, the factory asks an already-created metadata service to refresh its observed entry targets. This uses the same two-support cache clear and daemon restart path, rather than relying on a new wrapper openedDocuments list before reconnect. It clears intention cached-empty results that an old initialization epoch rejected after metadata was already ACTIVE."
+    },
+    "errorHandling": "No new ResponseError catch, message substring match, fabricated empty result, global notification suppression or didOpen/didChange suppression.",
+    "testStatus": "The actual root SDK runner completed all 14 focused controls successfully against production v2 with the corrected bounded initialization-entry fixture. This comprises 10 actual-SDK provider/metadata controls and 4 actual LSPFileSupport same-cache controls. No errors or skipped cases. Full Gradle/buildPlugin, fresh Go race, native automatic daemon request recovery and public macOS/Windows delivery remain pending.",
+    "cacheTestSource": {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoBuildContextFeatureCacheRefreshTest.kt",
+      "sha256": "812be2cc9bbbf583787799694da14f9b4f9bc67560bfba5a0e6f5a33d781b3e8",
+      "methods": [
+        "testFirstCheckingNullAndEmptyCachesWakeOnActualMetadataCompletionWithoutReplacingSupports",
+        "testTagsMembershipSwapRefreshesTheSameCachedSupportsWithoutAnEditorEdit",
+        "testCurrentServerStartedEventWakesEmptyCachesLeftByAnOldInitializeEpoch",
+        "testPhysicalGoModAndGoWorkKeepTheirOwnSdkFeaturesAcrossGoSettingsEpochChanges"
+      ],
+      "scope": "Actual LSPFileSupport semantic/intention objects, identical request parameters and actual selected-SDK metadata. The test never manually cancels or invokes the new refresh helper. Exact-future release barriers separate actual metadata completion refresh from initialize-only/started lifecycle control. Non-Go control verifies physical GoMod/GoWork language IDs. Protocol peer replies are controlled; this is not actual gopls or natural native daemon request evidence."
+    },
+    "productionSha256": {
+      "src/main/kotlin/dev/openidea/goide/lsp/GoBuildContextLspFeatures.kt": "c428daa9736db64d750ed0e79fb23b770f10e703b25661902e6958972d0d3a98",
+      "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageServerFactory.kt": "ced55693e3e42ff76f323fc11382e896624e43ed965ae99662b1ee2d0e2998c1",
+      "src/main/kotlin/dev/openidea/goide/run/GoRunBuildContext.kt": "36b0430bb6ddee41a6234b78766d7ba8ae47bd247028228294a4d7c9b03b76ce"
+    },
+    "finalCommit": null,
+    "commitBoundary": "The focused result binds a 504-file dirty source snapshot, not a final commit, build, installed product or GitHub release. The native observations above still belong to base 8c6 source.",
+    "eligibilityTestSource": {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoBuildContextFeatureEligibilityTest.kt",
+      "sha256": "64760e68021d71be424a2579760aa6b36cfc159176b77832aff256cdbb67ce6b",
+      "tests": 10,
+      "originalSource": {
+        "path": ".tools/excluded-lsp-feature-controls/test-source-v1-40c536.kt",
+        "sha256": "40c536c5afa1af7a83c50a1b02c94161e360ea6a522655afee688381fc01e59c",
+        "bytes": 27119
+      },
+      "fixtureCorrection": "holdInitialization creates a two-entry CountDownLatch. Each actual getInitializedServer call captures the held future, increments the original counter and counts down; the test waits at most 10 seconds for those actual entries before preserving its original pending/eligibility assertions. It does not wait for initialization to finish and does not use an arbitrary sleep."
+    }
+  },
+  "unknowns": [
+    "The exact native ResponseError code/data has not been retained in the inspected log; no exact-error fallback matcher is justified from that evidence alone.",
+    "Actual 14 focused controls now prove same real semantic/intention support objects can recompute after metadata and started refresh, without manual cancellation or replacement. They do not prove native daemon automatically issues requests; verify first-open ACTIVE source recovers without editing and native setting changes recover naturally.",
+    "Requests already sent before eligibility changes retain existing lifecycle/cancellation handling; this candidate does not claim all late response races are eliminated.",
+    "Run configuration environment overrides are not evidence of the gopls project build context. This policy uses the project metadata/settings path only.",
+    "The public6 product has not been rebuilt or accepted with this candidate.",
+    "Two-feature support caches combine all matching providers for the same Go PSI file. Their cancellation may include those providers, not exclusively a single gopls RPC; this path does not cancel other file support objects, wrapper initialization, document synchronization or other feature supports."
+  ],
+  "requiredFutureEvidence": [
+    "Retain the completed negative controls and restored 504-file GREEN snapshot as source-level evidence. Bind the final implementation commit and all future validation to that source rather than any intermediate negative variant.",
+    "Create and bind the final implementation commit; run the complete ./gradlew test buildPlugin and a fresh engine go test -race ./... for that exact source. Existing base 8c6 full GREEN is evidence for base 8c6 only.",
+    "Rebuild the native product and repeat default/extra tag exclusions, first-open ACTIVE recovery without edits, tag/dirty/Undo recovery and real notifications/diagnostics. Keep native daemon natural scheduling acceptance open.",
+    "Build and check actual macOS and Windows products; publish public6 real DMG/EXE installers and checksums, verify immutable source/CI/assets, and complete the required installed-product/native checks.",
+    "Keep the complete GoLand acceptance matrix open; focused controls do not mean the entire IDE or plugin ecosystem is complete."
+  ],
+  "recordedAtUtc": "2026-11-10T16:29:55.811881+00:00",
+  "parentOldProductionControl": {
+    "sourceCommit": "8c6ddaa6d66d727aa24730120f279a6885a64ba2",
+    "testFileSha256": "40c536c5afa1af7a83c50a1b02c94161e360ea6a522655afee688381fc01e59c",
+    "tests": 10,
+    "failures": 7,
+    "errors": 0,
+    "skips": 0,
+    "passes": 3,
+    "genuineBehavioralFailures": [
+      "CHECKING filtering",
+      "IGNORED filtering",
+      "post-initialize settings filtering",
+      "dirty constraint and Undo",
+      "rapid settings epochs",
+      "stale initialization settings",
+      "disposed project"
+    ],
+    "passedControls": [
+      "metadata failure not disguised as ignored",
+      "INVALID not disguised as ignored",
+      "Delve-only does not require gopls restart"
+    ],
+    "rawXmlPath": ".tools/excluded-lsp-feature-controls/root-old-001/actual-class.xml",
+    "rawXmlSha256": "e963f6476b6a150bc6aceafafa490ec6bb91e7389d24fad44cb33dd41b0df7cc",
+    "authority": "Parent actual root SDK runner; not executed by this source-only worktree task"
+  },
+  "parentInterimV1ProductionControl": {
+    "revision": "v1 before GoLanguage-only epoch scope correction",
+    "sourceFiles": 503,
+    "sourceSha256": "405a8ea28956974bc9c82950e8da7c52e1db0b854994b8b695d96c1962a81156",
+    "testFileSha256": "40c536c5afa1af7a83c50a1b02c94161e360ea6a522655afee688381fc01e59c",
+    "tests": 10,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "passes": 10,
+    "exitCode": 0,
+    "rawXmlPath": ".tools/excluded-lsp-feature-controls/root-fixed-001/actual-class.xml",
+    "rawXmlSha256": "2f2b5a2dcaed648023178bc09aea49b59d48b71a26849ab5327d7e53a2665fd6",
+    "authority": "Parent actual root SDK runner; not executed by this source-only task",
+    "boundary": "Intermediate v1 provider-only evidence. Does not prove final v2, real support cache recovery, non-Go epoch preservation or native daemon natural scheduling."
+  },
+  "focusedFourteenGreen": {
+    "authority": "Read from the parent actual root SDK runner result and independently parsed raw XML; this documentation task did not run tests.",
+    "status": "pass-fourteen-v2-sdk-feature-and-cache-controls-native-pending",
+    "result": {
+      "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-002/result.json",
+      "sha256": "8d17883d8f05a056fa06f0982601f86be9046be927bd32afc6cfc48d35c52106",
+      "bytes": 12259
+    },
+    "invocation": {
+      "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-002/invocation.json",
+      "sha256": "dcc6147c592e92fa4cc3db686beb3951e56c3dbc350c27c9ce9fe6102fbfefe9",
+      "bytes": 2073
+    },
+    "inputsBefore": {
+      "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-002/inputs-before.json",
+      "sha256": "38835a18b59a3a78370ff01b9f19b9eb3ab917600b08e33228589d0117281f8f",
+      "bytes": 86588
+    },
+    "inputsAfter": {
+      "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-002/inputs-after.json",
+      "sha256": "38835a18b59a3a78370ff01b9f19b9eb3ab917600b08e33228589d0117281f8f",
+      "bytes": 86588
+    },
+    "sourceFiles": 504,
+    "sourceSha256": "bfdb78f45d82a2d3dd725047f01fc07a9f6e5e1ab0c6c03d3886cd0190ac132a",
+    "sourceUnchanged": true,
+    "tests": 14,
+    "passes": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "executionFailure": null,
+    "completedAtUtc": "2026-11-10T17:10:20.399783+00:00",
+    "runtimeGo": ".tools/release-tools/darwin-arm64/go/bin/go",
+    "sdkCopies": false,
+    "xml": [
+      {
+        "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-002/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml",
+        "sha256": "f6b169261a6bb12bf7552ef3db080854d7d4a670ba2cbd5666ac864fe0413622",
+        "bytes": 3391,
+        "tests": 10,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-002/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+        "sha256": "38cfaecc2286a6cb64f086815585f3955b7e9bd77edd49d0738283192b525e13",
+        "bytes": 1124,
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "ownedProcesses": {
+      "recordedIdentities": 16,
+      "allRecordedOwnedProcessesAbsent": true,
+      "runnerSignals": [],
+      "boundary": "0.1-second descendant samples keyed by PID+creation time; not exhaustive for sub-sample compiler processes. A zombie is present, not absence. No signals in a successful run."
+    },
+    "boundary": "Actual selected Go metadata and real SDK support/cache behavior with controlled protocol-peer replies. This is not actual gopls or a native UI automatically sending subsequent requests, nor full-build/Windows/public release acceptance."
+  },
+  "focusedFourteenFixtureFailureHistory": {
+    "status": "failed-fourteen-run-thirteen-pass-one-asynchronous-fixture-entry-assertion",
+    "review": {
+      "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-001/review.json",
+      "sha256": "82b08f6256e7741b64c919c9f648ca20de292b04c6b54bf3d8538e88b45150b7",
+      "bytes": 1746
+    },
+    "result": {
+      "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-001/result.json",
+      "sha256": "3ee827ed9b9ff699dec0c29ac2b8d7db1c74b87e4fffc280ef763abc55cecbc4",
+      "bytes": 17314
+    },
+    "sourceFiles": 504,
+    "sourceSha256": "3a2f9ffb330a8206229a48c49acd54077383216da4cf5ea981637a9057ebb2c3",
+    "sourceStayedFrozen": true,
+    "tests": 14,
+    "passes": 13,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "cacheControlsPassed": 4,
+    "eligibilityControlsPassed": 9,
+    "failedMethod": "testAfterInitializationRechecksTagsAndTheSameWrapperRecoversWhenTheFileBecomesActive",
+    "failedAssertionLine": 148,
+    "failedAssertion": "The real accessor must be waiting for initialized servers",
+    "classification": "Fixture scheduling race: the test immediately asserted two asynchronous accessor entries before they had necessarily called getInitializedServer. This is not counted as a product defect or genuine behavioral regression RED. The original failed XML and 40c536 source remain retained.",
+    "correction": "Add only a bounded actual-entry latch to the fixture; retain old behavior assertions and keep production v2 and cache tests unchanged. The subsequent full focused 14-control run passed.",
+    "originalTestSource": {
+      "path": ".tools/excluded-lsp-feature-controls/test-source-v1-40c536.kt",
+      "sha256": "40c536c5afa1af7a83c50a1b02c94161e360ea6a522655afee688381fc01e59c",
+      "bytes": 27119
+    },
+    "correctedTestSha256": "64760e68021d71be424a2579760aa6b36cfc159176b77832aff256cdbb67ce6b",
+    "xml": [
+      {
+        "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-001/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml",
+        "sha256": "3d4e723580d4d1cec520213f5b972031bbe09ee9d2ae3e4bc51f3b570ce71d19",
+        "bytes": 23969,
+        "tests": 10,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "path": ".tools/excluded-lsp-feature-controls/root-fixed-v2-001/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+        "sha256": "2fe67a3a4c4169ab8c0fcfe7c572cb82c79aabef93cdace3f312826e20a22c64",
+        "bytes": 2270,
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "allRecordedOwnedProcessesAbsent": true,
+    "runnerSignals": []
+  },
+  "negativeSourceControls": {
+    "status": "pass-three-meaningful-negative-source-controls",
+    "authority": "Completed parent source-negative runner; raw result hashes and XML cases independently read for this draft. No tests were executed by the documentation task.",
+    "finalEvidence": {
+      "path": ".tools/excluded-lsp-feature-controls/negative-controls-final.json",
+      "sha256": "ae67d098763d80a3393fa4c198c55a28dddee87b150059ae6672f9b5bf349718",
+      "bytes": 2205
+    },
+    "completedAtUtc": "2026-11-10T17:17:11.321437+00:00",
+    "variants": [
+      {
+        "mode": "old-core-new-fixture",
+        "tests": 3,
+        "expectedFailures": 3,
+        "errors": 0,
+        "skipped": 0,
+        "sourceFiles": 503,
+        "sourceSha256": "4639fd1c38aa78280eec4299f4d2c9c20b188a45a739e5d063da2ede1430febd",
+        "sourceUnchanged": true,
+        "result": {
+          "path": ".tools/excluded-lsp-feature-controls/negative-old-core-new-fixture/result.json",
+          "sha256": "399bdb9132f5d5ee789c7111a93858b4733d1b193c96dbe98e950ba05424772b",
+          "bytes": 26170
+        },
+        "xml": [
+          {
+            "path": ".tools/excluded-lsp-feature-controls/negative-old-core-new-fixture/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml",
+            "sha256": "d9d9ec8f26cea41f0427305e7f36522b2bafc50df64cd14cdd7d4bdf03cec764",
+            "bytes": 70364,
+            "tests": 3,
+            "failures": 3,
+            "errors": 0,
+            "skipped": 0
+          }
+        ],
+        "actualFailures": [
+          {
+            "method": "testCheckingThenActualSdkActiveIsSelectedAgainThroughTheRealProviderFilters",
+            "outcome": "failure",
+            "message": "junit.framework.AssertionFailedError: Direct SDK leaf checks must also honor CHECKING"
+          },
+          {
+            "method": "testAfterInitializationRechecksTagsAndTheSameWrapperRecoversWhenTheFileBecomesActive",
+            "outcome": "failure",
+            "message": "junit.framework.AssertionFailedError: After filter must not use the old active decision"
+          },
+          {
+            "method": "testIgnoredFileHasNoSemanticOrActionRpcWhileAnotherActiveFileStillUsesTheProvider",
+            "outcome": "failure",
+            "message": "junit.framework.AssertionFailedError"
+          }
+        ],
+        "classification": "Expected scoped behavior failure; not a compiler/setup failure or final product GREEN.",
+        "allRecordedOwnedProcessesAbsent": true,
+        "runnerSignals": []
+      },
+      {
+        "mode": "without-metadata-cache-reset",
+        "tests": 1,
+        "expectedFailures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "sourceFiles": 504,
+        "sourceSha256": "f5cf0e5afbe81c6f30caa658f9d75414d81f1eaad0d62f8f9fd6a54ae51aa6ed",
+        "sourceUnchanged": true,
+        "result": {
+          "path": ".tools/excluded-lsp-feature-controls/negative-without-metadata-cache-reset/result.json",
+          "sha256": "0598f8e83ac547477d5d8163dd88570e1f6c7b6caeef3aedaea9a8bb86511abf",
+          "bytes": 14548
+        },
+        "xml": [
+          {
+            "path": ".tools/excluded-lsp-feature-controls/negative-without-metadata-cache-reset/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+            "sha256": "3c2d4d3b788ef1aaaf119d4763a2d76806e2a621de51f863b2db14ff15f5fd4a",
+            "bytes": 24081,
+            "tests": 1,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          }
+        ],
+        "actualFailures": [
+          {
+            "method": "testFirstCheckingNullAndEmptyCachesWakeOnActualMetadataCompletionWithoutReplacingSupports",
+            "outcome": "failure",
+            "message": "java.lang.IllegalStateException: Same SDK feature caches did not reach positive=true"
+          }
+        ],
+        "classification": "Expected scoped behavior failure; not a compiler/setup failure or final product GREEN.",
+        "allRecordedOwnedProcessesAbsent": true,
+        "runnerSignals": []
+      },
+      {
+        "mode": "without-started-cache-reset",
+        "tests": 1,
+        "expectedFailures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "sourceFiles": 504,
+        "sourceSha256": "3565de816a89efe7010a6ef5e015c524cadf6f3da2dc87d0d7a015f7121343b9",
+        "sourceUnchanged": true,
+        "result": {
+          "path": ".tools/excluded-lsp-feature-controls/negative-without-started-cache-reset/result.json",
+          "sha256": "407b77fd721a8bc380f80bbb6f7f16132e94637f8e059c940f07a3bf55736521",
+          "bytes": 13567
+        },
+        "xml": [
+          {
+            "path": ".tools/excluded-lsp-feature-controls/negative-without-started-cache-reset/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+            "sha256": "33ae1d406d32d20778c25da6929a53310887d65fbd223eb63aaec316438d8f59",
+            "bytes": 25191,
+            "tests": 1,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0
+          }
+        ],
+        "actualFailures": [
+          {
+            "method": "testCurrentServerStartedEventWakesEmptyCachesLeftByAnOldInitializeEpoch",
+            "outcome": "failure",
+            "message": "java.lang.IllegalStateException: Same SDK feature caches did not reach positive=true"
+          }
+        ],
+        "classification": "Expected scoped behavior failure; not a compiler/setup failure or final product GREEN.",
+        "allRecordedOwnedProcessesAbsent": true,
+        "runnerSignals": []
+      }
+    ],
+    "tests": 5,
+    "expectedFailures": 5,
+    "errors": 0,
+    "skipped": 0,
+    "sourceRestoration": {
+      "files": 504,
+      "sha256": "bfdb78f45d82a2d3dd725047f01fc07a9f6e5e1ab0c6c03d3886cd0190ac132a",
+      "matchesFocusedGreenSnapshot": true,
+      "authority": "negative-controls-final.json; not a claim about a subsequently changed root worktree"
+    },
+    "boundary": "Two cache-specific variants intentionally remove one production wakeup hook; protocol peers remain controlled. Native automatic daemon requests still require desktop proof.",
+    "cacheFailureInterpretation": "The two hook-removal controls reached the test's bounded positive-result condition failure while retaining the real same-support null/empty cache. They were not compile/setup failures or outer runner timeouts. The three old-production cases failed scoped CHECKING, IGNORED and post-initialization behavior assertions with the corrected entry fixture."
+  },
+  "draftProvenance": {
+    "basedOn": "docs/reference/go-excluded-lsp-feature-eligibility-20261111.json",
+    "baseDocumentSha256": "33f6ab002b3db6604fa131c15309941ebab5f40f62b286a6fd38a0d44a3650ce",
+    "preparedAtUtc": "2026-11-10T17:18:06.007989+00:00",
+    "scope": "Private draft only. No tracked source, tests or reference records changed; no build, SDK download, desktop operation or remote mutation performed.",
+    "futureFullNativePublic6Windows": "pending",
+    "negativeFinal": "reviewed completed aggregate and independently checked raw result hashes/XML; final snapshot restoration matches focused GREEN"
+  }
+}

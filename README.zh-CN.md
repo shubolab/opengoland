@@ -16,6 +16,10 @@
 
 画面来自 macOS Apple silicon 上的 **0.1.0-preview.20261110.4 开发构建**，按真实操作步骤播放，压缩了中间的空闲等待。[录制版本与复现方法](docs/demo/README.md)有更详细的说明；可下载安装的版本以下面的下载说明为准。
 
+![原生构建标签、测试调试、补全自动导入和一次撤销](docs/demo/native-build-context-completion.gif)
+
+这个补充片段展示切换构建标签后的测试、补全时自动导入，以及一次撤销。录于 **0.1.0-preview.20261110.6 开发候选版，macOS 27.2 arm64**，由真实操作截图制作；末帧有意撤回到尚未写完的代码。候选版尚未发布，[示例与复现步骤](fixtures/native-workflow)和[录制记录](docs/demo/build-context-completion-recording.json)保留了具体范围。
+
 ## 下载与安装
 
 当前公开版本是 [0.1.0-preview.20261110.5](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.5)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。

@@ -20,10 +20,10 @@ import com.intellij.openapi.vfs.newvfs.BulkFileListener
 import com.intellij.openapi.vfs.newvfs.events.VFileEvent
 import com.intellij.openapi.vfs.newvfs.events.VFileMoveEvent
 import com.intellij.openapi.vfs.newvfs.events.VFilePropertyChangeEvent
-import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
 import com.intellij.psi.PsiFile
 import com.intellij.util.concurrency.AppExecutorUtil
 import dev.openidea.goide.lsp.GoDocumentSync
+import dev.openidea.goide.lsp.GoBuildContextLspRefresh
 import dev.openidea.goide.navigation.search.GoTypeCatalogCodec
 import dev.openidea.goide.settings.GoToolchain
 import dev.openidea.goide.debug.GoTestDebugArguments
@@ -72,6 +72,7 @@ internal class GoRunBuildContextService(project: Project) : Disposable {
     companion object {
         fun get(project: Project) = project.getService(GoRunBuildContextService::class.java).contexts
         fun settingsChanged(project: Project) { project.getServiceIfCreated(GoRunBuildContextService::class.java)?.contexts?.settingsChanged() }
+        fun refreshLspFeatures(project: Project) { project.getServiceIfCreated(GoRunBuildContextService::class.java)?.contexts?.refreshLspFeatures() }
     }
 }
 
@@ -82,12 +83,7 @@ internal class GoRunBuildContextService(project: Project) : Disposable {
 internal class GoRunBuildContexts(
     private val project: Project,
     private val source: GoRunBuildContextSource,
-    private val refresh: (List<PsiFile>) -> Unit = { files ->
-        val app = ApplicationManager.getApplication()
-        app.invokeLater {
-            if (!project.isDisposed) files.filter { it.isValid }.forEach { DaemonCodeAnalyzer.getInstance(project).restart(it) }
-        }
-    },
+    private val refresh: (List<PsiFile>) -> Unit = { files -> GoBuildContextLspRefresh.refresh(project, files) },
     private val executor: Executor = AppExecutorUtil.getAppExecutorService(),
 ) : Disposable {
     private val lock = Any()
@@ -188,6 +184,11 @@ internal class GoRunBuildContexts(
         val all = synchronized(lock) { (entries.values + launches).distinct().also { entries.clear() } }
         all.forEach { it.cancel() }
         queueRefresh(synchronized(lock) { all.flatMap { it.targets }.distinct() })
+    }
+
+    /** A new current server can replace one whose old initialize context rejected a request. */
+    fun refreshLspFeatures() {
+        queueRefresh(synchronized(lock) { entries.values.flatMap { it.targets }.distinct() })
     }
 
     private fun view(snapshot: GoRunBuildContextSnapshot, uri: String): GoRunBuildView = when {

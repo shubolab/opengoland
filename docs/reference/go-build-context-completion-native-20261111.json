@@ -1,0 +1,101 @@
+{
+  "atUtc": "2026-11-10T16:39:30.502244+00:00",
+  "status": "scoped-native-candidate-observations-before-excluded-file-fix",
+  "version": "0.1.0-preview.20261110.6",
+  "sourceCommit": "8c6ddaa6d66d727aa24730120f279a6885a64ba2",
+  "sourceFiles": 501,
+  "sourceDigest": "9374b39c18ccc80123c77374b43d6dd84b7c61ee1010de9968d0980f42ede35f",
+  "gitTrackedClean": true,
+  "productMetadataSha256": "495e4df2ec4695254d69d62f001e1bafa1119b85d69482c9e16f2c646703c1f4",
+  "evidence": {
+    "excluded-initial": {
+      "evidenceId": "ev_96635f5a1fa5789ee178df444a393daa68e841802177a46436416d5eae0973cd",
+      "reaPath": ".tools/next-v6-native-plan/runtime/excluded-initial.rea.json",
+      "reaSha256": "76f6e7847f2ebfcc9f3bb7007558903bd93fa808ed6638e6380f8fffee20940f",
+      "pngPath": ".tools/next-v6-native-plan/runtime/excluded-initial.png",
+      "pngSha256": "3a3212d51b1f7debed88cdff24cef2b8ed1e92e3e1d478de99c83e8b438ad812"
+    },
+    "default-passed": {
+      "evidenceId": "ev_8b81fcdbb80657fbb5164a2eb38a8a0385ea7fffb344af359371aa756ef03cda",
+      "reaPath": ".tools/next-v6-native-plan/runtime/default-passed.rea.json",
+      "reaSha256": "1cfa893c79ff2cc36f53eac2bd860fe133011ee7d2d23145e5123b056e2c5795",
+      "pngPath": ".tools/next-v6-native-plan/runtime/default-passed.png",
+      "pngSha256": "6044eb1742d5e7c636315214bfe1ccf09fa02923cc4e9bbe8341b6c1763e8f98"
+    },
+    "excluded-preflight": {
+      "evidenceId": "ev_17f3434c285c693bdd0067b621cd34e43f56f060a4c4d3cbc6323dae2fcb1685",
+      "reaPath": ".tools/next-v6-native-plan/runtime/excluded-preflight.rea.json",
+      "reaSha256": "cef34adaf3590a118f79075f6c988879962c01f4cf9a0515c1e1b42f864612c4",
+      "pngPath": ".tools/next-v6-native-plan/runtime/excluded-preflight.png",
+      "pngSha256": "3e67b5400cb9135d0c97d5d760d3f41d447c4d19e62d6ae2b79c6bbe671f76db"
+    },
+    "extra-passed": {
+      "evidenceId": "ev_5c26b34c3f3146e61179f5c8012776ed50e102232fc0a5772d39ae382d52d9ea",
+      "reaPath": ".tools/next-v6-native-plan/runtime/extra-passed.rea.json",
+      "reaSha256": "92ac0b984103abeefa436d1b6f1cc3cac99fd1ae1d67faf1c2e269d5b5594aa4",
+      "pngPath": ".tools/next-v6-native-plan/runtime/extra-passed.png",
+      "pngSha256": "8b8f98776008c8fae31ece477931d99b6edc596cd90f6c0bed59f6493acc842a"
+    },
+    "completion-unobserved": {
+      "evidenceId": "ev_19a30eca7662b17a1acfe09d548873968e6c3df5c1d734f489323e6b21ffae10",
+      "reaPath": ".tools/next-v6-native-plan/runtime/completion-unobserved.rea.json",
+      "reaSha256": "80b1d313e223a8bb260f9475bc56aea24c1246527571e284b0e78b2abee1d747",
+      "pngPath": ".tools/next-v6-native-plan/runtime/completion-unobserved.png",
+      "pngSha256": "7db6db2d0666eca6a65c270c677b37e3240b2e6436f4c8f9365c4b9c40daff5c"
+    },
+    "completion-accepted": {
+      "evidenceId": "ev_b3aefb2bfcbb9ed617d0fb073d643fb53c6cf95cc1d784dbfe809d9bd5b35536",
+      "reaPath": ".tools/next-v6-native-plan/runtime/completion-accepted.rea.json",
+      "reaSha256": "d0f9aef5b156adb400033f568244bb85aad0ea6efc8a5ba03f4e674ad9937996",
+      "pngPath": ".tools/next-v6-native-plan/runtime/completion-accepted.png",
+      "pngSha256": "e5e81626bc3236b46886e267e28f8807ec343318e15ff9c5e6a4eabdb154b805"
+    },
+    "completion-undo": {
+      "evidenceId": "ev_b7c4262acc474eb74239bf95c1689fe96547f335719c3fb5e0d625d8cd2665f7",
+      "reaPath": ".tools/next-v6-native-plan/runtime/completion-undo.rea.json",
+      "reaSha256": "662eb2c8b8a53aa6432624febad50f5fe1296323cad3d2249f241d807b5c097d",
+      "pngPath": ".tools/next-v6-native-plan/runtime/completion-undo.png",
+      "pngSha256": "a28e3a5df81008bd8657491b83c175912f25e9b17559c3c958ddbdce6a21c682"
+    },
+    "pause-stopped": {
+      "evidenceId": "ev_580f0baede1248d71d00d9739c961a06e6aeabe3bc69f409ce05f62c6c20f466",
+      "reaPath": ".tools/next-v6-native-plan/runtime/pause-stopped.rea.json",
+      "reaSha256": "f854ebcbe9a26419a40287bdf96ced57f5b052d02efb6526af53a87e5a829b6e",
+      "pngPath": ".tools/next-v6-native-plan/runtime/pause-stopped.png",
+      "pngSha256": "5ea4cad5703e14ce1d11c19ba371123183ca0e39b9c44abdc4bfd0fd1683af12"
+    }
+  },
+  "observations": {
+    "defaultPreciseRun": "1 passed, Chinese marker, actual -run ^TestDefaultContext$ natural0",
+    "changedBuildTags": "native_extra applied in native own project settings; prior precise config rejected as excluded, historical prior pass retained",
+    "extraPreciseDebug": "1 passed, Chinese marker, real Delve and natural0",
+    "nativeCompletionAcceptAndSingleUndo": {
+      "acceptedEditorText": "package nativev6\n\nimport \"bytes\"\n\nfunc use() {\n    _ = \"中文😀\"; var b bytes.Buffer\n    _ = b\n}\n\n\n",
+      "afterOneCommandZEditorText": "package nativev6\n\nfunc use() {\n    _ = \"中文😀\"; var b bytes.Buf\n    _ = b\n}\n\n\n",
+      "trigger": "Native Basic Completion via temporary isolated-profile Ctrl-Alt-K, then native Return; no harness or injected RPC",
+      "dirty": true,
+      "diskDuringBeforeRestoration": "original18-byte package-only source; see workflow-during.json",
+      "lookupVisualBoundary": "No reliable visible candidate-list capture; actual request81/93 and returned Buffer/import, native acceptance+single Undo are observed. Do not claim a captured Lookup list.",
+      "fifoBoundary": "No forced overtaking interleaving in desktop; previous exact controlled SDK wire proof is separate."
+    },
+    "pauseThenStop": "Actual TestLongRunning ready PID81236, native Pause Program then Command-F2; six debug/target/converter/telemetry original identities absent; UI1ignored, no manual signals; internal180s failsafe did not fire",
+    "normalQuit": "Native Exit, exact app PID+lstart absent; all140 observed owned identities gone; no zombies/signals"
+  },
+  "logReview": {
+    "errorLines": [],
+    "terminalCancellationLines": [],
+    "warningCount": 171,
+    "logSha256": "9e34d4e51d15e9f496a559fb28f62ad4261a02071c01e17c1ef81b682ecc32b5"
+  },
+  "knownIssue": "Opening an excluded file creates repeated gopls semanticTokens/codeAction no-package-metadata error notifications. Narrow source-only fix/regressions being prepared in isolated worktree; no fix/native retest claimed here.",
+  "notProven": [
+    "Full GoLand acceptance matrix",
+    "External SDK native selection and preparation-Task cancellation",
+    "Windows native parity",
+    "Public6 installer release/installed-copy comparison",
+    "All possible late DAP stopped-event races"
+  ],
+  "completedSessionCacheCleanup": "cache-cleanup-after.json",
+  "appCopiesCreatedByThisSession": 0,
+  "futureFixEvidence": "The native session used 8c6 source; later eligibility/cache fixes and their tests have separate source captures and cannot inherit this desktop result."
+}

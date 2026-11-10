@@ -8,9 +8,9 @@ import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
 import com.redhat.devtools.lsp4ij.client.features.LSPRenameFeature
 import com.redhat.devtools.lsp4ij.client.features.LSPUsageFeature
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
-import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
 import dev.openidea.goide.lang.GoLanguage
+import dev.openidea.goide.run.GoRunBuildContextService
 import org.eclipse.lsp4j.InitializeParams
 import org.eclipse.lsp4j.GeneralClientCapabilities
 import org.eclipse.lsp4j.jsonrpc.Launcher
@@ -23,10 +23,16 @@ class GoLanguageServerFactory : LanguageServerFactory {
     override fun createConnectionProvider(project: Project): StreamConnectionProvider =
         GoTrackedConnectionProvider(GoToolchain.command(project, "gopls", listOf("serve")), GoDocumentSync.get(project))
 
-    override fun createClientFeatures(): LSPClientFeatures = object : LSPClientFeatures() {
+    override fun createClientFeatures(): LSPClientFeatures = object : LSPClientFeatures(), GoLspBuildContextEpoch {
         private val semanticServer = AtomicReference<GoSemanticTokensServer?>()
+        private val initializedBuildContext = AtomicReference<GoToolchain.Settings?>()
+        override fun isBuildContextCurrent() = initializedBuildContext.get()?.let {
+            it == GoToolchain.capture(project).copy(delveExecutable = "")
+        } ?: true
         init {
             setDocumentSymbolFeature(GoDocumentSymbolFeature())
+            setSemanticTokensFeature(GoBuildContextSemanticTokensFeature())
+            setCodeActionFeature(GoBuildContextCodeActionFeature())
             // Find Usages locates references and declarations. Type definitions
             // and implementations remain available through their own actions;
             // gopls legitimately rejects those queries on ordinary functions.
@@ -50,6 +56,7 @@ class GoLanguageServerFactory : LanguageServerFactory {
         override fun handleServerStatusChanged(status: ServerStatus) {
             if (status == ServerStatus.stopping || status == ServerStatus.stopped) semanticServer.getAndSet(null)?.close()
             super.handleServerStatusChanged(status)
+            if (status == ServerStatus.started && isBuildContextCurrent()) GoRunBuildContextService.refreshLspFeatures(project)
         }
         override fun dispose() {
             semanticServer.getAndSet(null)?.close()
@@ -60,7 +67,10 @@ class GoLanguageServerFactory : LanguageServerFactory {
             // The document mirror, native editor and chunk boundaries all use UTF-16.
             val general = params.capabilities.general ?: GeneralClientCapabilities().also { params.capabilities.general = it }
             general.positionEncodings = listOf("utf-16")
-            val settings = GoProjectSettings.get(project)
+            // Capture the same values used below. Until the asynchronous restart
+            // completes, an old server must not answer for new build settings.
+            // Delve-only changes do not restart gopls and do not affect it.
+            val settings = GoToolchain.capture(project).copy(delveExecutable = "")
             val environment = GoToolchain.parseEnvironment(settings.environment).toMutableMap()
             if (settings.goos.isNotEmpty()) environment["GOOS"] = settings.goos
             if (settings.goarch.isNotEmpty()) environment["GOARCH"] = settings.goarch
@@ -74,6 +84,7 @@ class GoLanguageServerFactory : LanguageServerFactory {
                 put("hints", mapOf("assignVariableTypes" to true, "compositeLiteralFields" to true, "parameterNames" to true))
                 if (settings.buildTags.isNotEmpty()) put("buildFlags", listOf("-tags=" + settings.buildTags.split(Regex("[,\\s]+")).filter(String::isNotEmpty).joinToString(",")))
             }
+            initializedBuildContext.set(settings)
         }
     }
 }

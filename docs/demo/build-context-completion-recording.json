@@ -1,0 +1,176 @@
+{
+  "schemaVersion": 1,
+  "status": "actual-native-candidate-step-gif-encoded-and-decoded-checked-private",
+  "encodedAtUtc": "2026-11-10T16:37:23.875795+00:00",
+  "version": "0.1.0-preview.20261110.6",
+  "releaseStatusAtCapture": "unpublished assembled standalone candidate; not public-DMG installer acceptance",
+  "system": {
+    "name": "macOS",
+    "version": "27.2",
+    "build": "26B123",
+    "architecture": "arm64"
+  },
+  "sourceCommit": "8c6ddaa6d66d727aa24730120f279a6885a64ba2",
+  "buildInputFiles": 501,
+  "buildInputDigest": "9374b39c18ccc80123c77374b43d6dd84b7c61ee1010de9968d0980f42ede35f",
+  "appManifestSha256": "495e4df2ec4695254d69d62f001e1bafa1119b85d69482c9e16f2c646703c1f4",
+  "capture": {
+    "kind": "native-step-screenshots",
+    "method": "Root native actions through CUA; passive REA observe_native_ui of exact own PID71666/window9412",
+    "continuousRecording": false,
+    "authoredDwellTimes": true,
+    "fakeUiOrTransitions": false,
+    "noOverlaysCropsPaddingBackgroundCompositing": true,
+    "frameOrder": "Actual Root workflow order; authored dwell times compress idle intervals",
+    "selectedFrames": 4,
+    "lookupPopupCaptured": false,
+    "completionInvocation": "Native standard CodeCompletion action through temporary Ctrl+Alt+K shortcut in the isolated profile, followed by Return; no default production keymap change is implied",
+    "keymapRecord": {
+      "path": ".tools/next-v6-native-plan/runtime/profile/config/keymaps/macOS copy.xml",
+      "sha256": "6e335a01661910a96223fca4cc0ac38997d1e07da73cef3d2c24ac74f537bba8"
+    }
+  },
+  "frames": [
+    {
+      "stem": "default-passed",
+      "scene": "Default build context: native precise TestDefaultContext Run passed; Chinese console output",
+      "durationMs": 3200,
+      "evidenceId": "ev_8b81fcdbb80657fbb5164a2eb38a8a0385ea7fffb344af359371aa756ef03cda",
+      "sourceCanvas": [
+        1400,
+        909
+      ],
+      "pngSha256": "6044eb1742d5e7c636315214bfe1ccf09fa02923cc4e9bbe8341b6c1763e8f98",
+      "reaSha256": "1cfa893c79ff2cc36f53eac2bd860fe133011ee7d2d23145e5123b056e2c5795",
+      "window": {
+        "pid": 71666,
+        "window_id": 9412,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794326795.472904,
+        "title": "Go 上下文与补全😀 – default_test.go"
+      }
+    },
+    {
+      "stem": "extra-passed",
+      "scene": "After selecting native_extra build tag: native precise TestExtraContext Debug passed; platform shortcut-conflict notice remains visible",
+      "durationMs": 3600,
+      "evidenceId": "ev_5c26b34c3f3146e61179f5c8012776ed50e102232fc0a5772d39ae382d52d9ea",
+      "sourceCanvas": [
+        1400,
+        909
+      ],
+      "pngSha256": "8b8f98776008c8fae31ece477931d99b6edc596cd90f6c0bed59f6493acc842a",
+      "reaSha256": "92ac0b984103abeefa436d1b6f1cc3cac99fd1ae1d67faf1c2e269d5b5594aa4",
+      "window": {
+        "pid": 71666,
+        "window_id": 9412,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794326795.472904,
+        "title": "Go 上下文与补全😀 – extra_test.go"
+      }
+    },
+    {
+      "stem": "completion-accepted",
+      "scene": "Standard Basic Completion accepted: bytes.Buffer plus one import bytes, Chinese and emoji intact; no Lookup-popup capture claim",
+      "durationMs": 4400,
+      "evidenceId": "ev_b3aefb2bfcbb9ed617d0fb073d643fb53c6cf95cc1d784dbfe809d9bd5b35536",
+      "sourceCanvas": [
+        1400,
+        909
+      ],
+      "pngSha256": "e5e81626bc3236b46886e267e28f8807ec343318e15ff9c5e6a4eabdb154b805",
+      "reaSha256": "d0f9aef5b156adb400033f568244bb85aad0ea6efc8a5ba03f4e674ad9937996",
+      "window": {
+        "pid": 71666,
+        "window_id": 9412,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794326795.472904,
+        "title": "Go 上下文与补全😀 – completion.go"
+      }
+    },
+    {
+      "stem": "completion-undo",
+      "scene": "One native Undo restored incomplete bytes.Buf and removed bytes import; expected unresolved-prefix diagnostics visible",
+      "durationMs": 4800,
+      "evidenceId": "ev_b7c4262acc474eb74239bf95c1689fe96547f335719c3fb5e0d625d8cd2665f7",
+      "sourceCanvas": [
+        1400,
+        909
+      ],
+      "pngSha256": "a28e3a5df81008bd8657491b83c175912f25e9b17559c3c958ddbdce6a21c682",
+      "reaSha256": "662eb2c8b8a53aa6432624febad50f5fe1296323cad3d2249f241d807b5c097d",
+      "window": {
+        "pid": 71666,
+        "window_id": 9412,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794326795.472904,
+        "title": "Go 上下文与补全😀 – completion.go"
+      }
+    }
+  ],
+  "gif": {
+    "path": ".tools/next-v6-native-plan/demo/native-build-context-completion-v6.gif",
+    "bytes": 323295,
+    "sha256": "c677a01e9f5d8e125d7c322368abed16d24977bb43d92920fd26cfbc30c5ec84",
+    "canvas": [
+      1200,
+      779
+    ],
+    "frames": 4,
+    "durationMs": 16000,
+    "loop": 0,
+    "localColorTables": 0,
+    "alphaThreshold": 128,
+    "transparencyIndex": 255,
+    "disposal": 2,
+    "perFrameDecodedAlphaAndVisiblePixelsVerified": true
+  },
+  "fullEncodingReport": {
+    "path": ".tools/next-v6-native-plan/demo/encoding-report.json",
+    "sha256": "0374ae692b0e91a7192000a2b0d847a07d77507f426331aebff555a86b61d260"
+  },
+  "bindingRecord": {
+    "path": ".tools/next-v6-native-plan/demo/binding.json",
+    "sha256": "05e4eba899fd84d639ce397b1629c6e68e514fd9272c120e752de246334d5979"
+  },
+  "visualReview": {
+    "path": ".tools/next-v6-native-plan/demo/visual-review.json",
+    "sha256": "67fc21d6db6e474f9787f759123b07f392222803a79a64257369b699715924bd"
+  },
+  "fixtureSourceRestoration": {
+    "path": ".tools/next-v6-native-plan/runtime/workflow-source-restored.json",
+    "sha256": "fa4c380bb41c5b976add00bc0749f6dd642e6401caaff3b19f96585fae7743e1",
+    "allFiveFixtureSourcesRestored": true
+  },
+  "scopeLimits": [
+    "This GIF contains real completed Run/Debug results and accepted-completion/one-Undo editor states; it does not contain the settings Apply operation or a reliable Lookup-popup capture.",
+    "Build-tag-switch execution context is established by Root workflow evidence, not by a settings dialog frame in this GIF.",
+    "Only the depicted macOS candidate workflows are demonstrated. No public6 installer, Windows native or full GoLand parity claim.",
+    "The excluded-file repeated gopls-notification issue is still under repair; these selected frames do not demonstrate its resolution.",
+    "No claim is made that completion buffers never auto-saved to disk. The own fixture was later restored and hash-checked by Root.",
+    "The old .4 README GIF, README files and source tree were not changed by this private encoding task."
+  ],
+  "publicExample": {
+    "path": "fixtures/native-workflow",
+    "sourceFiles": [
+      {
+        "path": "fixtures/native-workflow/go.mod",
+        "sha256": "c39b3522fdfacab512bac9d96e6da2ff39583928a54d907c6349186524fa1686"
+      },
+      {
+        "path": "fixtures/native-workflow/completion.go",
+        "sha256": "0b2751dd056d4647bbce8bb88b75fe88a58aec1726fdbbe44a407eb02f0dedf3"
+      },
+      {
+        "path": "fixtures/native-workflow/default_test.go",
+        "sha256": "9b350e413aa21148663f1ad34f1a43e882f5aa2b465328d279d54aea28ac0914"
+      },
+      {
+        "path": "fixtures/native-workflow/extra_test.go",
+        "sha256": "faa2559dd338ee1a1c9425522f665b882290d5ee134bfc495128d724a1eb70a7"
+      }
+    ],
+    "note": "These four files exactly match the source bytes in the recorded temporary project. The separate long-running Stop diagnostic was not a GIF frame and is not part of this example."
+  },
+  "publicGifPath": "docs/demo/native-build-context-completion.gif"
+}

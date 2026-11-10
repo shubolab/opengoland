@@ -32,3 +32,11 @@ README 中的 `native-go-workflow.gif` 来自 open Goland 实际运行的窗口�
 截图证明这些具体操作在所述环境中完成，不表示全部 GoLand 功能或 Windows
 桌面交互已经验收。当前功能边界见[中文 README](../../README.zh-CN.md)与
 [调试控制记录](../verification/debug-session-controls.md)。
+
+## 构建标签、补全与撤销的补充片段
+
+`native-build-context-completion.gif` 来自 `0.1.0-preview.20261110.6` 开发候选版在 macOS 27.2 arm64 上实际运行的窗口，录制源码是 `8c6ddaa6d66d727aa24730120f279a6885a64ba2`。它是四张操作阶段截图、16 秒、1200 × 779，并非连续录屏；保留了平台快捷键冲突提示和撤销后尚未完成代码的诊断。
+
+它依次展示默认标签下测试通过、切换 `native_extra` 后另一项测试调试通过、接受补全并自动导入，以及一次撤销。没有可靠捕获候选列表，因此不展示或虚构 Lookup 帧。录制时候选版尚未发布，且打开被排除文件的语言服务通知问题仍未修复；不能据此认为全部功能或后续修复已经验收。
+
+四个示例文件已放入 [fixtures/native-workflow](../../fixtures/native-workflow)，与录制临时副本中的对应文件逐字节一致。操作方法、临时测试快捷键和代码还原步骤见该目录的说明；系统、原始画面摘要、REA 证据与生成物信息见 [build-context-completion-recording.json](build-context-completion-recording.json)。原 `.4` 动图及其版本记录保持原样。
