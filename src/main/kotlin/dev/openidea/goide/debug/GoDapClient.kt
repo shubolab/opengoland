@@ -5,6 +5,8 @@ import com.redhat.devtools.lsp4ij.dap.DebugMode
 import com.redhat.devtools.lsp4ij.dap.client.DAPClient
 import com.redhat.devtools.lsp4ij.settings.ServerTrace
 import com.intellij.execution.ui.ConsoleViewContentType
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.ProcessCanceledException
 import org.eclipse.lsp4j.debug.ContinueArguments
 import org.eclipse.lsp4j.debug.ContinueResponse
 import org.eclipse.lsp4j.debug.EvaluateArguments
@@ -23,17 +25,61 @@ import java.util.concurrent.CompletionException
 
 open class GoDapClient(debugProcess: DAPDebugProcess, parameters: Map<String, Any>, isDebug: Boolean,
     mode: DebugMode, trace: ServerTrace, parent: DAPClient?) : DAPClient(debugProcess, parameters, isDebug, mode, trace, parent) {
+    private val ownsPauseCapability = parent == null
+    private val debugPauseSupported = isDebug
     init {
-        // The native Pause action has its own capability gate; overriding
-        // startPausing alone does not expose it. Child connections share the
-        // parent session and must not change its declared debug capability.
-        if (parent == null) debugProcess.session.setPauseActionSupported(isDebug)
+        // Do not expose Pause while initialize/launch/configuration is pending.
+        // Child connections share the parent's session capability declaration.
+        if (ownsPauseCapability) debugProcess.session.setPauseActionSupported(false)
     }
 
     private var actual: IDebugProtocolServer? = null
     private var protocol: GoDapProtocol? = null
     private val goDebugProcess = debugProcess
     @Volatile private var disposed = false
+    private var connecting: CompletableFuture<Void>? = null
+
+    override fun connectToServer(indicator: ProgressIndicator): CompletableFuture<Void> {
+        val ready = CompletableFuture<Void>()
+        synchronized(this) {
+            if (disposed) return ready.apply { cancel(false) }
+            connecting = ready
+        }
+        ready.whenComplete { _, _ ->
+            synchronized(this) { if (connecting === ready) connecting = null }
+            if (ready.isCancelled && ownsPauseCapability) goDebugProcess.session.setPauseActionSupported(false)
+        }
+        if (ownsPauseCapability) goDebugProcess.session.setPauseActionSupported(false)
+        if (ready.isDone) return ready
+        val connection = try { super.connectToServer(indicator) }
+        catch (failure: Throwable) {
+            if (failure is CancellationException || failure is ProcessCanceledException) ready.cancel(false)
+            else ready.completeExceptionally(failure)
+            return ready
+        }
+        // Return an explicit cancellation-preserving bridge, not a dependent
+        // whenComplete future: Go Test distinguishes user Stop via isCancelled.
+        ready.whenComplete { _, _ -> if (ready.isCancelled) connection.cancel(true) }
+        connection.whenComplete { _, failure ->
+            var cause = failure
+            while (cause is CompletionException && cause.cause != null) cause = cause.cause!!
+            when {
+                connection.isCancelled || cause is CancellationException || cause is ProcessCanceledException || ready.isCancelled || !isClientActive() -> ready.cancel(false)
+                failure != null -> ready.completeExceptionally(failure)
+                else -> try {
+                    if (ownsPauseCapability) goDebugProcess.session.setPauseActionSupported(debugPauseSupported)
+                    // Disposal/cancellation may win while a settings listener runs.
+                    if (ready.isDone || !isClientActive()) {
+                        if (ownsPauseCapability) goDebugProcess.session.setPauseActionSupported(false)
+                        ready.cancel(false)
+                    } else ready.complete(null)
+                } catch (error: Throwable) { ready.completeExceptionally(error) }
+            }
+        }
+        return ready
+    }
+
+    private fun isClientActive() = !disposed && !goDebugProcess.project.isDisposed && !goDebugProcess.session.isStopped
 
     override fun getDebugProtocolServer(): IDebugProtocolServer? {
         var previous: GoDapProtocol? = null
@@ -103,9 +149,11 @@ open class GoDapClient(debugProcess: DAPDebugProcess, parameters: Map<String, An
         val closing = synchronized(this) {
             if (disposed) return
             disposed = true
-            protocol.also { protocol = null; actual = null }
+            (protocol to connecting).also { protocol = null; actual = null; connecting = null }
         }
-        closing?.close()
+        if (ownsPauseCapability) goDebugProcess.session.setPauseActionSupported(false)
+        closing.second?.cancel(true)
+        closing.first?.close()
         super.dispose()
     }
 }

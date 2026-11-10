@@ -5,6 +5,7 @@ import com.intellij.execution.configurations.RunConfigurationOptions
 import com.intellij.execution.process.ProcessEvent
 import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.process.ProcessListener
+import com.intellij.execution.process.ProcessTerminatedListener
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.fileTypes.FileType
@@ -23,13 +24,38 @@ import com.redhat.devtools.lsp4ij.dap.descriptors.ServerReadyConfig
 import dev.openidea.goide.lang.GoFileType
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
+import java.util.concurrent.CancellationException
+import java.util.concurrent.CompletableFuture
 
 class GoDebugDescriptor(private val launchOptions: RunConfigurationOptions, environment: ExecutionEnvironment, definition: DebugAdapterServerDefinition?) : DebugAdapterDescriptor(launchOptions, environment, definition) {
+    @Volatile private var adapter: GoOwnedDapAdapterProcessHandler? = null
+    // Publish the Stop gate with the process, before a client/RPC exists.
+    private val clientShutdown = CompletableFuture<() -> CompletableFuture<Void>>()
+
     override fun createClient(debugProcess: com.redhat.devtools.lsp4ij.dap.DAPDebugProcess, dapParameters: MutableMap<String, Any>, isDebug: Boolean,
-        debugMode: DebugMode, serverTrace: ServerTrace, parentClient: DAPClient?): DAPClient =
-        if (launchOptions is GoDebugTestOptions && parentClient == null)
-            GoTestDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, parentClient, launchOptions.testSession)
-        else GoDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, parentClient)
+        debugMode: DebugMode, serverTrace: ServerTrace, parentClient: DAPClient?): DAPClient {
+        if (parentClient == null && adapter?.let { it.isProcessTerminating || it.isProcessTerminated } == true)
+            throw CancellationException("Go debug launch was stopped before connecting")
+        val client = when {
+            parentClient != null -> GoDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, parentClient)
+            launchOptions is GoDebugTestOptions -> GoTestDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, null, launchOptions.testSession)
+            else -> GoLaunchedDapClient(debugProcess, dapParameters, isDebug, debugMode, serverTrace, null)
+        }
+        if (parentClient == null) {
+            clientShutdown.complete(when (client) {
+                is GoTestDapClient -> { { client.terminate(); client.disconnectTest() } }
+                is GoLaunchedDapClient -> client::disconnectLaunched
+                else -> error("Unsupported owned Go launch client")
+            })
+            // Stop may win while the constructor is creating its transport.
+            // Do not return that late client to an initialization/launch chain.
+            if (adapter?.let { it.isProcessTerminating || it.isProcessTerminated } == true) {
+                client.terminate()
+                throw CancellationException("Go debug launch was stopped while connecting")
+            }
+        }
+        return client
+    }
     private val launch: GoDebugLaunch get() = when (launchOptions) {
         is GoDebugTestOptions -> launchOptions.testSession.launch
         is GoDebugSessionOptions -> launchOptions.launch
@@ -41,15 +67,24 @@ class GoDebugDescriptor(private val launchOptions: RunConfigurationOptions, envi
             (launchOptions as? GoDebugTestOptions)?.testSession?.settings ?: GoToolchain.capture(environment.project))
             .withWorkDirectory(launch.workingDirectory).withEnvironment(launch.environment)
         if (!launch.passParentEnvironment) command.withParentEnvironmentType(GeneralCommandLine.ParentEnvironmentType.NONE)
-        val handler = startServer(command)
-        handler.setShouldDestroyProcessRecursively(true)
+        val handler = GoOwnedDapAdapterProcessHandler(command).also { adapter = it }
+        handler.disconnect = { clientShutdown.thenCompose { shutdown -> shutdown() } }
+        ProcessTerminatedListener.attach(handler)
         val cleanup = Disposable { if (!handler.isProcessTerminated) handler.destroyProcess() }
         try {
             Disposer.register(environment.project, cleanup)
             handler.addProcessListener(object : ProcessListener {
-                override fun processTerminated(event: ProcessEvent) { Disposer.dispose(cleanup) }
+                override fun processTerminated(event: ProcessEvent) {
+                    clientShutdown.completeExceptionally(CancellationException("Owned Go adapter exited before client binding"))
+                    Disposer.dispose(cleanup)
+                }
             })
         } catch (failure: Throwable) {
+            clientShutdown.completeExceptionally(failure)
+            // ProcessHandler defers destroyProcess until startNotify. No runner
+            // receives this failed startServer result, so activate its reader
+            // and exact-owned-process cleanup here before rethrowing.
+            if (!handler.isStartNotified) handler.startNotify()
             handler.destroyProcess()
             throw failure
         }

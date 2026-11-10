@@ -78,3 +78,32 @@ The runtime verifier now takes the log directory from the live JVM's
 `idea.log.path` when set. Four controls use two real logs to reject stale global
 startup/plugin records and accept the explicitly selected profile. This repairs
 future verification; it does not retrospectively strengthen the old receipt.
+
+## Integrated follow-up candidate
+
+The next frozen input set contains 485 files, digest
+`134acd3bc7d9a18291bb72243a4f1fe6a552698eb7c93b3277bf99144c59bab1`.
+It passes all 707 Kotlin tests in 129 reports, 62 Python controls, plugin build,
+sandbox preparation and plugin-structure verification. The
+[candidate test record](debug-session-controls-candidate.json) keeps the source
+hashes, exact scope and evidence boundaries. It is still an unreleased candidate.
+
+Pause now stays unavailable until the root client's initialize, launch and
+configuration complete normally. Four same-source controls fail with the earlier
+constructor-time declaration and pass with this readiness gate. Cancellation
+remains cancellation on the exact returned future, which is also used by Go Test.
+
+Ordinary launch shutdown now shares one `disconnect(terminateDebuggee=true)`
+between the client and owned adapter handler. It waits for acknowledgement before
+allowing natural adapter exit; failed ownership registration also activates
+cleanup without relying on a later runner notification. Six new actual-SDK
+controls plus five existing attach and twelve test-event cases pass. A controlled
+late initialize response is consumed while disconnect acknowledgement is still
+held, with no later launch before acknowledgement or after reader quiescence.
+
+These controls use a portable owned adapter, not a real Delve debuggee. Bounded
+fallback addresses only that adapter and does not prove its descendants were
+reaped. GoTest's inherited pre-connect null-endpoint branch still completes its
+disconnect future locally; that boundary is a separate follow-up obligation.
+Fresh native Delve checks, actual installed products and public installers remain
+required. The original failing native record is unchanged.

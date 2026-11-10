@@ -19,6 +19,7 @@ import com.intellij.openapi.actionSystem.Presentation
 import com.intellij.openapi.actionSystem.impl.SimpleDataContext
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteIntentReadAction
+import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.testFramework.LightPlatformTestCase
 import com.intellij.util.ui.UIUtil
 import com.intellij.xdebugger.XDebugProcess
@@ -90,6 +91,78 @@ import org.eclipse.lsp4j.debug.Thread as DapThread
 /** Real XDebugSessionImpl, DAP process/client/stacks and LSP4J wire; only the peer and console are controlled. */
 class GoDapSessionControlTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = false
+
+    fun testRegisteredPauseActionWaitsForInitializeCompletion() = assertPauseWaitsForConnection(launch = false)
+
+    fun testRegisteredPauseActionWaitsForLaunchCompletion() = assertPauseWaitsForConnection(launch = true)
+
+    private fun assertPauseWaitsForConnection(launch: Boolean) = Fixture(
+        connectionMode = if (launch) DebugMode.LAUNCH else DebugMode.ATTACH,
+        holdInitialize = !launch, holdLaunch = launch,
+    ).use { f ->
+        try {
+            waitFor { if (launch) f.peer.launchRequests == 1 else f.peer.initializeRequests == 1 }
+            val connected = f.connectionFuture()
+            assertFalse(connected.isDone)
+            val action = requireNotNull(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE))
+            val event = pauseEvent(f)
+            // The native frontend mirrors backend session data asynchronously.
+            waitFor { DebuggerUIUtil.getSessionProxy(event)?.isPauseActionSupported == f.session.isPauseActionSupported() }
+            action.update(event)
+            if (event.presentation.isEnabled) {
+                edt { action.actionPerformed(event) }
+                waitFor { f.peer.threadRequests > 0 }
+            }
+            assertEquals("The native action must not issue threads before the handshake finishes", 0, f.peer.threadRequests)
+            assertFalse("Pause must stay disabled while initialize/launch is pending", event.presentation.isEnabled)
+            assertEmpty(f.peer.pauses)
+            if (launch) f.peer.heldLaunch.complete(null) else f.peer.heldInitialize.complete(f.peer.capabilities())
+            await(connected)
+            assertTrue("A successfully returned connection future must already publish Pause capability", f.session.isPauseActionSupported())
+            waitFor { DebuggerUIUtil.getSessionProxy(event)?.isPauseActionSupported == true }
+            // Each native action update starts from its template presentation,
+            // rather than reusing the earlier hidden/disabled update result.
+            val readyEvent = pauseEvent(f)
+            action.update(readyEvent)
+            assertTrue(readyEvent.presentation.isVisible)
+            assertTrue(readyEvent.presentation.isEnabled)
+        } finally {
+            f.peer.heldInitialize.complete(f.peer.capabilities())
+            f.peer.heldLaunch.complete(null)
+        }
+    }
+
+    fun testFailedConfigurationDoneNeverEnablesRegisteredPauseAction() = Fixture(holdConfigurationDone = true).use { f ->
+        try {
+            waitFor { f.peer.configurationDoneRequests == 1 }
+            val connected = f.connectionFuture()
+            f.peer.heldConfigurationDone.completeExceptionally(IllegalStateException("owned configurationDone rejected"))
+            waitFor { connected.isCompletedExceptionally && f.session.isStopped }
+            assertFalse(f.session.isPauseActionSupported())
+            assertEquals(0, f.peer.threadRequests)
+            assertEmpty(f.peer.pauses)
+        } finally {
+            f.peer.heldConfigurationDone.complete(null)
+        }
+    }
+
+    fun testStopDuringHeldInitializeDoesNotLoseConnectionCancellationOrEnablePause() = Fixture(holdInitialize = true).use { f ->
+        try {
+            waitFor { f.peer.initializeRequests == 1 }
+            val connected = f.connectionFuture()
+            edt { f.session.stop() }
+            waitFor { connected.isCancelled }
+            waitFor { f.actualClient().debugProtocolServer == null }
+            f.peer.heldInitialize.complete(f.peer.capabilities())
+            assertTrue(f.session.isStopped)
+            assertTrue("Go Test must still observe cancellation rather than initialization failure", connected.isCancelled)
+            assertFalse(f.session.isPauseActionSupported())
+            assertEquals(0, f.peer.threadRequests)
+            assertEmpty(f.peer.pauses)
+        } finally {
+            f.peer.heldInitialize.complete(f.peer.capabilities())
+        }
+    }
 
     fun testRegisteredPauseActionEnablesWhileRunningAndReachesTheRealPeer() = Fixture().use { f ->
         f.ready()
@@ -477,8 +550,14 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
         assertFalse("Standard $command must not write to the socket on the EDT", writes.any { it.first })
     }
 
-    private inner class Fixture(private val debug: Boolean = true) : AutoCloseable {
-        val peer = Peer()
+    private inner class Fixture(
+        private val debug: Boolean = true,
+        connectionMode: DebugMode = DebugMode.ATTACH,
+        holdInitialize: Boolean = false,
+        holdLaunch: Boolean = false,
+        holdConfigurationDone: Boolean = false,
+    ) : AutoCloseable {
+        val peer = Peer(holdInitialize, holdLaunch, holdConfigurationDone)
         val clientWrites = CopyOnWriteArrayList<Pair<Boolean, String>>()
         @Volatile var holdNextWrite = false
         val writerEntered = java.util.concurrent.CountDownLatch(1)
@@ -492,6 +571,7 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
         private val sent = ByteArrayOutputStream()
         private var listening: Future<Void>? = null
         private val client = CompletableFuture<GoDapClient>()
+        private val connection = CompletableFuture<CompletableFuture<Void>>()
         private val handler = NopProcessHandler()
         private val console = Proxy.newProxyInstance(ConsoleView::class.java.classLoader, arrayOf(ConsoleView::class.java)) { _, method, arguments ->
             when (method.name) {
@@ -540,7 +620,7 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
             val descriptor = object : DebugAdapterDescriptor(options, environment, null) {
                 override fun getId() = "opengoland-session-control-test"
                 override fun getFileType() = GoFileType.INSTANCE
-                override fun getDebugMode() = DebugMode.ATTACH
+                override fun getDebugMode() = connectionMode
                 override fun getDapParameters() = mapOf<String, Any>("mode" to "local")
                 override fun getServerReadyConfig(debugMode: DebugMode) = ServerReadyConfig("127.0.0.1", listener.localPort)
                 override fun startServer(): ProcessHandler = error("The controlled peer must not launch any adapter process")
@@ -548,6 +628,8 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
                     mode: DebugMode, trace: ServerTrace, parent: DAPClient?): DAPClient {
                     traceClientTransport(process)
                     return object : GoDapClient(process, parameters, isDebug, mode, trace, parent) {
+                        override fun connectToServer(indicator: ProgressIndicator): CompletableFuture<Void> =
+                            super.connectToServer(indicator).also { connection.complete(it) }
                         override fun getThreads(refreshThreads: Boolean): CompletableFuture<Array<DapThread>> {
                             threadLookupEdt += ApplicationManager.getApplication().isDispatchThread
                             return super.getThreads(refreshThreads)
@@ -558,11 +640,25 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
             val state = DAPCommandLineState(descriptor, options, environment)
             handler.startNotify()
             DAPServerReadyTracker(descriptor.getServerReadyConfig(DebugMode.ATTACH), DebugMode.ATTACH, handler)
-            session = edt {
-                XDebuggerManager.getInstance(project).newSessionBuilder(object : XDebugProcessStarter() {
-                    override fun start(session: XDebugSession): XDebugProcess =
-                        DAPDebugProcess(state, session, DefaultExecutionResult(console, handler), debug).also { process = it }
-                }).environment(environment).showTab(false).startSession().session as XDebugSessionImpl
+            // CoreProgressManager explicitly supports preserving native task
+            // asynchrony in headless tests. Otherwise the session constructor
+            // waits modally for the held handshake before this case can inspect it.
+            val keepAsync = holdInitialize || holdLaunch || holdConfigurationDone
+            val asyncProperty = "intellij.progress.task.ignoreHeadless"
+            val previousAsync = System.getProperty(asyncProperty)
+            session = try {
+                if (keepAsync) System.setProperty(asyncProperty, "true")
+                edt {
+                    XDebuggerManager.getInstance(project).newSessionBuilder(object : XDebugProcessStarter() {
+                        override fun start(session: XDebugSession): XDebugProcess =
+                            DAPDebugProcess(state, session, DefaultExecutionResult(console, handler), debug).also { process = it }
+                    }).environment(environment).showTab(false).startSession().session as XDebugSessionImpl
+                }
+            } finally {
+                if (keepAsync) {
+                    if (previousAsync == null) System.clearProperty(asyncProperty)
+                    else System.setProperty(asyncProperty, previousAsync)
+                }
             }
         }
 
@@ -634,6 +730,7 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
         }
 
         fun actualClient(): GoDapClient = await(client)
+        fun connectionFuture(): CompletableFuture<Void> = await(connection)
         fun ready() {
             await(client); await(peer.ready)
             assertNotNull(await(client).debugProtocolServer)
@@ -710,7 +807,11 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
         }
     }
 
-    private class Peer : IDebugProtocolServer {
+    private class Peer(
+        @Volatile var holdInitialize: Boolean = false,
+        @Volatile var holdLaunch: Boolean = false,
+        @Volatile var holdConfigurationDone: Boolean = false,
+    ) : IDebugProtocolServer {
         lateinit var client: IDebugProtocolClient
         val ready = CompletableFuture<Unit>()
         val pauses = CopyOnWriteArrayList<PauseArguments>()
@@ -731,10 +832,28 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
         @Volatile var holdThreads = false
         @Volatile var holdNextThreads = false
         @Volatile var threadRequests = 0
+        @Volatile var initializeRequests = 0
+        @Volatile var launchRequests = 0
+        @Volatile var configurationDoneRequests = 0
+        val heldInitialize = CompletableFuture<Capabilities>()
+        val heldLaunch = CompletableFuture<Void>()
+        val heldConfigurationDone = CompletableFuture<Void>()
         val heldThreads = CompletableFuture<ThreadsResponse>()
-        override fun initialize(args: InitializeRequestArguments) = CompletableFuture.completedFuture(Capabilities().apply { supportsConfigurationDoneRequest = true })
+        fun capabilities() = Capabilities().apply { supportsConfigurationDoneRequest = true }
+        override fun initialize(args: InitializeRequestArguments): CompletableFuture<Capabilities> {
+            initializeRequests++
+            return if (holdInitialize) heldInitialize else CompletableFuture.completedFuture(capabilities())
+        }
+        override fun launch(args: MutableMap<String, Any>): CompletableFuture<Void> {
+            launchRequests++
+            client.initialized()
+            return if (holdLaunch) heldLaunch else done()
+        }
         override fun attach(args: MutableMap<String, Any>): CompletableFuture<Void> { client.initialized(); return done() }
-        override fun configurationDone(args: ConfigurationDoneArguments) = done()
+        override fun configurationDone(args: ConfigurationDoneArguments): CompletableFuture<Void> {
+            configurationDoneRequests++
+            return if (holdConfigurationDone) heldConfigurationDone else done()
+        }
         fun threadResponse() = ThreadsResponse().apply {
             threads = arrayOf(DapThread().apply { id = A; name = "goroutine A" }, DapThread().apply { id = B; name = "goroutine B" })
         }

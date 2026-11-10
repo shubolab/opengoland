@@ -1,0 +1,185 @@
+{
+  "schema": 1,
+  "status": "test-verified-unreleased-candidate",
+  "recordedAtUtc": "2026-11-10T04:59:33.509956+00:00",
+  "source": {
+    "baseCommit": "76850438b68b4814c78a63b2aeba378bd6fcdd39",
+    "inputFiles": 485,
+    "inputSha256": "134acd3bc7d9a18291bb72243a4f1fe6a552698eb7c93b3277bf99144c59bab1",
+    "changedFiles": [
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/debug/GoAttachedAdapterProcessHandler.kt",
+        "sha256": "49a1407e9d5413c462d94ef160912fb3941f2adca1fa6279d0e41f801c14773e"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/debug/GoDebugDescriptor.kt",
+        "sha256": "6ff4c048d80bd2a802fe762000b9e0f590b3a09cbd266e40524a916ef4138342"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/debug/GoTestDapClient.kt",
+        "sha256": "cc798734f6e7c25b41fcfa8c66fbb166518ebe7d847436acaaa76bca5297f9dc"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/debug/GoLaunchedDapClient.kt",
+        "sha256": "54ae47fe41bb2910e446bcbb82da5c354c8620e6213ed6fe2e737577345f2d27"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/debug/GoOwnedDapAdapterProcessHandler.kt",
+        "sha256": "719ef47109d15f884791188ce9029e277b4c353f495f98fbbae04ea74ae2a296"
+      },
+      {
+        "path": "src/test/kotlin/dev/openidea/goide/debug/GoLaunchedAdapterLifecycleTest.kt",
+        "sha256": "2e06978e0f149b3c1165f1476acb39d419582840b50b4688af19022e2930a905"
+      },
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/debug/GoDapClient.kt",
+        "sha256": "23bf97743fd706e185fc33e57d5bca0600b72d72b21369df9e9eedc309fce1b4"
+      },
+      {
+        "path": "src/test/kotlin/dev/openidea/goide/debug/GoDapSessionControlTest.kt",
+        "sha256": "7ec310cc59ac98b9f09987d15e7bfbfb1f4a229021ffac556221ef0fef57fed0"
+      }
+    ]
+  },
+  "verification": {
+    "kotlin": {
+      "command": "./gradlew test buildPlugin prepareSandbox verifyPluginStructure --console=plain",
+      "reportCount": 129,
+      "tests": 707,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "criticalClasses": {
+        "dev.openidea.goide.debug.GoAttachedAdapterLifecycleTest": {
+          "tests": 5,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "dev.openidea.goide.debug.GoDapClientRoutingTest": {
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "dev.openidea.goide.debug.GoDapSessionControlTest": {
+          "tests": 33,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "dev.openidea.goide.debug.GoDebugTestEventsTest": {
+          "tests": 12,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest": {
+          "tests": 6,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        }
+      }
+    },
+    "python": {
+      "command": "python3 -m unittest discover -s scripts/tests -v",
+      "tests": 62,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "nativePauseActionGate": {
+      "sameTestsBefore": {
+        "tests": 3,
+        "failures": 2
+      },
+      "after": {
+        "tests": 3,
+        "failures": 0
+      },
+      "scope": "Registered standard Pause action and actual SDK session over a controlled LSP4J peer."
+    },
+    "startupReadyGate": {
+      "sameTestsBefore": {
+        "tests": 4,
+        "failures": 4
+      },
+      "after": {
+        "tests": 4,
+        "failures": 0
+      },
+      "scope": "Held initialize/launch, configuration failure and Stop cancellation; Pause stays disabled until successful connection completion. Explicit CF bridge preserves cancellation and capability publication ordering."
+    },
+    "launchShutdown": {
+      "exactOldOrdinaryStop": {
+        "tests": 1,
+        "failures": 1,
+        "expectedFailure": "Native SDK Stop killed the adapter before its DAP acknowledgement"
+      },
+      "finalControlledGroup": {
+        "tests": 23,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "newLaunchCases": 6,
+        "existingAttachCases": 5,
+        "existingDebugTestEventsCases": 12
+      },
+      "scope": "Actual Go descriptor and SDK Stop over LSP4J with an owned portable adapter. No real Delve debuggee is launched by these controls. The held initialize response is consumed while disconnect ACK is still held; no late launch before ACK or after reader quiescence. Registration-failure cleanup runs without a runner startNotify."
+    }
+  },
+  "changes": [
+    "Declare native Pause capability only after normal connectToServer completion; failed/cancelled/disposed root clients do not enable it. Child clients leave the parent declaration alone.",
+    "Ordinary launch shares one terminateDebuggee=true disconnect future between the client and owned process handler, preserves transport until ACK/failure/deadline, and allows natural adapter exit.",
+    "Shared bounded fallback addresses only the exact owned adapter, never recursively walks or kills descendants. Attach retains terminateDebuggee=false.",
+    "Failed project ownership registration explicitly activates process notifications and cleanup so a missing runner notification cannot strand the adapter.",
+    "The runtime verifier selects startup logs from the live JVM idea.log.path; dual-real-log controls reject stale default-profile evidence."
+  ],
+  "evidence": [
+    {
+      "path": ".tools/debug-native-pause-action-controls/final-evidence.json",
+      "sha256": "822c1f09d8b35e1f1bb75259c6b0fa0189f746ffd80c2ae55610deb3dada1b1a",
+      "bytes": 15172
+    },
+    {
+      "path": ".tools/debug-pause-startup-controls/final-evidence.json",
+      "sha256": "33ab01b8e8a52b112766fe0af28f9b2c540d67c14090668e28c64511be3bc022",
+      "bytes": 19445
+    },
+    {
+      "path": ".tools/debug-launch-cleanup-controls/final-evidence.json",
+      "sha256": "32a3e9d1f1274762d8582be0e8ef25d652e5561fb421b0b11e20330068caa915",
+      "bytes": 22786
+    },
+    {
+      "path": ".tools/debug-launch-cleanup-controls/root-full-final/summary.json",
+      "sha256": "bcb995f2d1e83eb11c2181899c7a2af78d5a4ed825bdda468326282412501e48",
+      "bytes": 18980
+    },
+    {
+      "path": ".tools/debug-launch-cleanup-controls/root-full-integration.log",
+      "sha256": "80e33c32686856d7a7bab5d98f745c812b2b402ab7cc1762725a52feee63a4c6",
+      "bytes": 10571
+    },
+    {
+      "path": ".tools/debug-launch-cleanup-controls/root-python-controls.log",
+      "sha256": "24400b899edcbe08635bce2b38a38021a909eb6440fee59188c7d46da4047bf1",
+      "bytes": 7435
+    }
+  ],
+  "limits": [
+    "A new assembled-product native Delve run and actual target/debugserver PID checks are still required; this candidate is not published or accepted as a fixed desktop release.",
+    "Controlled adapter and protocol success does not prove a real Go target was reaped.",
+    "Fallback terminating the exact adapter is not proof that an unresponsive adapter reaps its launched descendants.",
+    "GoTestDapClient changes only disconnectTest visibility in this shutdown slice. Its inherited pre-connect null-server branch locally completes the disconnection future; truthful no-endpoint handling remains a follow-up obligation.",
+    "The final SDK controls use the pinned public headless async-task switch and restore it; they are distinct from production native UI observations.",
+    "Intentional rejected protocol requests emit expected negative-case diagnostics; no globally clean-test-log claim is made.",
+    "Existing native target24530 zombie and original failure records are retained without signals or an all-PIDs-gone claim.",
+    "No Windows GUI, DMG installed-copy, public installer or public-release acceptance follows from these tests. Full product acceptance remains open."
+  ],
+  "publicReleaseUnchanged": {
+    "version": "0.1.0-preview.20261110.3",
+    "url": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.3"
+  }
+}

@@ -47,7 +47,7 @@ internal class GoTestDapClient(process: DAPDebugProcess, parameters: Map<String,
         disconnectTest().whenComplete { _, _ -> super.terminated(args) }
     }
 
-    private fun disconnectTest(): CompletableFuture<Void> {
+    internal fun disconnectTest(): CompletableFuture<Void> {
         disconnection.get()?.let { return it }
         val done = CompletableFuture<Void>()
         if (!disconnection.compareAndSet(null, done)) return disconnection.get()!!
