@@ -1,0 +1,53 @@
+{
+  "schemaVersion": 1,
+  "status": "packaging-and-representative-native-checks-passed-public-installer-pending",
+  "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+  "scope": "Remove exact optional IDE-owned intellij.java.promo activation and module payload; preserve ordinary Java, native plugin management and dev-service authentication.",
+  "removedActions": [
+    "PromoSpring",
+    "PromoBeans",
+    "PromoPersistence",
+    "PromoEndpoints",
+    "PromoDatabase",
+    "PromoKubernetes",
+    "PromoOpenAPI",
+    "PromoProfiler"
+  ],
+  "removedSettings": [
+    "promo.database",
+    "promo.kubernetes",
+    "promo.javascript",
+    "promo.typescript",
+    "promo.swagger",
+    "promo.profiler"
+  ],
+  "nativeBefore": "Actual cf912 Find Action displayed a locked Endpoints result and a free-30-day-trial CTA; link was never clicked. Popup REA capture could not bind that Java popup; actual CUA screenshot and exact shipped module/source attribution are separate.",
+  "controls": {
+    "pythonPreciseFiltering": 6,
+    "existingUtf8AndAtomicPublication": 5,
+    "actualPlatformArchiveReaderJars": 8,
+    "unchangedSelectedSourceSdkFiles": 43,
+    "runtimeModulesBefore": 1087,
+    "runtimeModulesAfter": 1070,
+    "retainedRawPluginDescriptors": 42,
+    "changedDescriptors": 4
+  },
+  "evidence": {
+    "localEvidence": ".tools/native-promotions-controls/final-evidence.json",
+    "bytes": 8246,
+    "sha256": "b72b80652401ed518d21c7c61b6bf1d9944387e188b9f103865691fa28d18862"
+  },
+  "readonlyReview": {
+    "localEvidence": ".tools/native-promotions-controls/merge-verification-draft.md",
+    "bytes": 6649,
+    "sha256": "8d42e6c9f6d96ab388889531bf37c9e26201a6477f7c2d711c3355ce23c2c139"
+  },
+  "nativeAfter": {
+    "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+    "manifestSha256": "eb93d5065a6d7fd1c33819b1c8a72927c8989395ef0e95a90625fc8267fee7e9",
+    "observed": "Endpoints Find Action returned no result including disabled; E broad search displayed ordinary actions without the historical trial CTA.",
+    "scope": "Representative actual native search. Remaining seven action IDs and six settings registrations are established by exact whole-module packaging exclusion, not eight individual native action searches.",
+    "retainedServices": "Native GitHub/GitLab Add account pages and compatible Marketplace search / repositories / proxy / disk-install menu remain. No authentication or new plugin installation performed.",
+    "details": "derived-delve-candidate-native.json"
+  }
+}

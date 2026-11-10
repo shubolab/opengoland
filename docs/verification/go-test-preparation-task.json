@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "source-and-real-platform-controls-passed-native-progress-cancel-pending",
+  "scope": "Cancellable background preparation for native Go Debug Test. This record does not claim a native status-bar cancellation has yet been exercised.",
+  "sourceCommit": "cf9125dac8ae2bbf5db2365b9a33d4f782f795c1",
+  "changes": [
+    "Use the platform Preparing Go test debugging cancellable background task for actual converter preparation.",
+    "Cancellation/error and success share one ownership claim; queued cancellation prevents late SDK debug UI.",
+    "After the UI has claimed the session, task cancellation cannot dispose the delivered session."
+  ],
+  "controls": {
+    "combinedCases": 18,
+    "failures": 0,
+    "components": {
+      "converterReadinessOriginal": 7,
+      "nativeProgressTaskOwnership": 3,
+      "preconnectLifecycle": 8
+    },
+    "red": "Old runner lacks a registered cancellable preparation task; the same final test fails.",
+    "capturedOwnedProcessIdentitiesGone": 60,
+    "nativeBoundary": "Actual SDK ProgressManager and XDebuggerManager controls in a headless test platform; not a visible native progress-button claim."
+  },
+  "evidence": {
+    "localEvidence": ".tools/go-test-preparation-task-controls/final-evidence.json",
+    "bytes": 71223,
+    "sha256": "4ef64b6e0236bd30db8d930953f65910a5e3a5492bb1b1b4a2d1fa8231b29585"
+  },
+  "sourceFiles": [
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/debug/GoDebugTestState.kt",
+      "sha256": "a6b2d8c64ce3fb06b6e2acefc1e04a7d0d0ae98b52eb03ded513521e6ec7fa36"
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/debug/GoTestConverterReadinessTest.kt",
+      "sha256": "314dfd3eacb8ba5da05b2fd103643757d45861f76174350850c3273dd58d9e8a"
+    }
+  ]
+}

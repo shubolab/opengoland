@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "status": "assembled-candidate-native-passed-public-installer-pending",
+  "productVersion": "0.1.0-preview.20261110.5",
+  "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+  "sourceFiles": 492,
+  "sourceDigest": "7050674191da0388c10cb2aea2e6889570b7127d6cc264565bfabaf5c4622dc1",
+  "manifestSha256": "eb93d5065a6d7fd1c33819b1c8a72927c8989395ef0e95a90625fc8267fee7e9",
+  "scope": "macOS arm64 source-assembled standalone app, using the formally bundled Go 1.26.10 and source-derived Delve. This does not substitute for public DMG or Windows installed verification.",
+  "localFullSuite": {
+    "tests": 728,
+    "xmlReports": 132,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 399.316,
+    "pythonControls": 79,
+    "sourceStayedFrozen": true,
+    "evidence": {
+      "localPath": ".tools/next-debug-final-root-checks/full-gradle/result.json",
+      "bytes": 35104,
+      "sha256": "77e81a3ef6a8412662f24853ed27576d5d02e57795bbf03d91f36aeed54b8eef"
+    }
+  },
+  "cfa": {
+    "status": "actual-native-initial-blocked-caller-values-correct-and-stop-passed",
+    "appPid": 95003,
+    "targetPid": 95583,
+    "adapterPid": 95446,
+    "debugserverPid": 95582,
+    "workerGoId": 19,
+    "selectedFrame": "main.coldWorker",
+    "source": "main.go",
+    "line1": 77,
+    "variables": {
+      "directory": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-ami99qb4/simple/收据 中文😀",
+      "lane": "syscall",
+      "descriptor": 4,
+      "filledBytes": 65535,
+      "marker": 202,
+      "turn": 1001,
+      "checkpoint": 1203,
+      "data": "[]uint8 len: 1, cap: 1, [109]"
+    },
+    "nativeValuesMatchWorkerReceipt": true,
+    "userStepOrContinueBeforeRead": false,
+    "zeroEarlierProtocolStackTraceClaimed": false,
+    "pause": "Standard Pause selected Go19 automatically. Unknown top native frame was not treated as caller scope.",
+    "stop": "Standard visible header Stop; successful disconnect and target/debugserver/adapter all absent, no Z. Session exit0 is cancellation, not natural target success.",
+    "reaEvidence": "ev_59ab16b39ec74c62967514bb14ef63838f5da1119427facb67b75b26c1c6c876",
+    "targetReaEvidence": "ev_ceea5bdfc5f221e8bcf4e9aedb0b0e85caf97b67c591d81e6ba932561c822d78",
+    "sdkBaselineFiles": 15657,
+    "sourceAndModuleUnchanged": true,
+    "atUtc": "2026-11-10T11:06:18.481103+00:00"
+  },
+  "timingCorrection": {
+    "corrects": "native-capture-boundary.json",
+    "scope": "Timing wording correction, original evidence retained. Variable values and all target/debugserver/adapter absent checks remain independent observed facts.",
+    "originalStatementUnsupported": "The record did not occur before expiry of the planned120s window, and actual stop/absence sampling exceeded the recorded180s extension. Neither deadline compliance is claimed.",
+    "targetStartedLocalSecondPrecision": "Tue Nov 10 19:01:43 2026",
+    "targetFirstAbsentInTimeline": "2026-11-10T11:05:04.147556+00:00",
+    "noUserStepOrContinue": true,
+    "reason": "Wall-clock elapsed time was incorrectly estimated during evidence collection. Owned paused diagnostic target and source remained unchanged.",
+    "correctedAtUtc": "2026-11-10T11:14:51.046276+00:00"
+  },
+  "firstSession": {
+    "status": "native-cfa-and-promotion-checks-passed-sdk-picker-not-completed",
+    "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+    "manifestSha256": "eb93d5065a6d7fd1c33819b1c8a72927c8989395ef0e95a90625fc8267fee7e9",
+    "normalQuitViaUi": true,
+    "signalsUsed": false,
+    "capturedAppIdentities": 8,
+    "allCapturedIdentitiesGone": true,
+    "zombies": [],
+    "sourceAndModuleUnchanged": true,
+    "externalSdk15657RegularFilesUnchanged": true,
+    "logLineCounts": {
+      "ERROR": 0,
+      "SEVERE": 0,
+      "WARN": 20
+    },
+    "sdkPicker": "setValue on native GoTo caused CUA to target Settings before any Return. Settings cancelled, then normal Exit confirmed by Tab to Exit/Return. No SDK registration or selected-SDK runtime claim.",
+    "promotion": "Actual Endpoints Find Action returned no result including disabled; E broad action search showed ordinary entries and no trial CTA. Popup REA could not bind Java popup; actual CUA screenshot is separate from static and other REA runtime evidence.",
+    "atUtc": "2026-11-10T11:11:18.426751+00:00"
+  },
+  "secondSession": {
+    "status": "native-label-and-retained-service-plugin-ui-passed",
+    "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+    "sourceDigest": "7050674191da0388c10cb2aea2e6889570b7127d6cc264565bfabaf5c4622dc1",
+    "manifestSha256": "eb93d5065a6d7fd1c33819b1c8a72927c8989395ef0e95a90625fc8267fee7e9",
+    "appPid": 98515,
+    "nativeExit7Observation": "native-exit7-observation.json",
+    "github": "Version Control / GitHub page shows No accounts added / Add account. No login or token entered.",
+    "gitlab": "Version Control / GitLab page shows No accounts added / Add account. No login or token entered.",
+    "marketplace": {
+      "actualSearch": "Rainbow Brackets",
+      "resultCount": 22,
+      "compatibleEntries": "Rainbow Brackets, Rainbow Brackets Lite and other ordinary plugins available to install",
+      "gearMenu": [
+        "Manage Plugin Repositories",
+        "HTTP Proxy Settings",
+        "Manage Plugin Certificates",
+        "Install Plugin from Disk"
+      ],
+      "scope": "Native search and menu availability; no new plugin installation, repository/proxy change or authentication performed.",
+      "reaEvidence": "ev_a68429db7922a43bc0dabc1f727d391163df61c0122eb6572f2eabfc22e3b201"
+    },
+    "normalQuitViaUi": true,
+    "capturedOriginalIdentities": 41,
+    "allCapturedPidsAbsent": true,
+    "zombiePids": [],
+    "signalsUsed": false,
+    "fixtureSourcesUnchanged": true,
+    "logSegmentCounts": {
+      "ERROR": 0,
+      "SEVERE": 0,
+      "WARN": 10
+    },
+    "segmentLogSha256": "413741aafdc49cb9e7cc9adb229a66ee117cdaf21f745666a5106304012ac457",
+    "atUtc": "2026-11-10T11:24:08.287700+00:00"
+  },
+  "naturalExit7": {
+    "scope": "Actual final8167 native Go Test header Debug, bundled tools, normal natural exit without Stop.",
+    "appPid": 98515,
+    "targetPidFromConsole": 98804,
+    "adapterPort": 52940,
+    "testFunction": "TestPassBeforeNaturalExit7",
+    "testFunctionResult": "pass",
+    "testMainNaturalExitCode": 7,
+    "nativeOverall": "1 test failed, 1 passed",
+    "syntheticPackageFailureLabel": "Package failure",
+    "countBoundary": "One actual Go test function plus one synthetic package failure node; not two Go test functions.",
+    "typedConsoleExitCode": 7,
+    "adapterExitCode": 0,
+    "disconnectedSuccessfully": true,
+    "reaEvidence": "ev_70e19581805f6a9612ed296d10c172bcece2e1dcd9bf26ef6401cb0ded4a2dbf",
+    "atUtc": "2026-11-10T11:17:03.480472+00:00"
+  },
+  "retainedEvidence": [
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/native-cfa-variables.png",
+      "bytes": 467682,
+      "sha256": "e8a983e1c35038617e8e28aee55ebec7be21a8f9500a22dd6545a45c065446e1"
+    },
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/native-cfa-variables.rea.json",
+      "bytes": 3919,
+      "sha256": "70ef2fbee09376914fa37424e2da34587cf154b4f16e1ef08c5c3c1ff48559a9"
+    },
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/target-before-stop.bin",
+      "bytes": 2873090,
+      "sha256": "904078eb8af762c6ae1aed4e6c2c68a8dc4efee3fbbe58aacaae17cdef249828"
+    },
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/target.rea.json",
+      "bytes": 6002,
+      "sha256": "a85e6f86aec711fda9f928678f0b592c8d6dc5aeaf3d1c390a2d7b0db5c3d27f"
+    },
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/owned-before-stop.json",
+      "bytes": 3561,
+      "sha256": "83caaddf1a3ba11fc9fdfb717554c8572d615b2b7766d545d2a12b99b3dc7fc3"
+    },
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/owned-after-stop.json",
+      "bytes": 2470,
+      "sha256": "a58c1796495cc10370b4bbd2fcbffc68174f97c65e8364c8ede85bc313778258"
+    },
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/native-final-timeline-summary.json",
+      "bytes": 40737,
+      "sha256": "57140f6abbbdfbb0ea4b7f8a29f4a2fb8daab1cc0f860edf31fbbcb83adb40fa"
+    },
+    {
+      "localPath": ".tools/delve-next-native-plan/kit-ami99qb4/simple/timing-correction.json",
+      "bytes": 810,
+      "sha256": "c12dcc3de4d9d29e691c47b939dcbc8f3528ad7768a667b0750071297b0c0dcf"
+    },
+    {
+      "localPath": ".tools/next-debug-final-root-checks/label-git-restart/native-exit7-package-failure.png",
+      "bytes": 357779,
+      "sha256": "3e249b39281dd0ebbf4c038fc8cb8ff0c791ce1ba4d3c9b3f95928f5e614e7c6"
+    },
+    {
+      "localPath": ".tools/next-debug-final-root-checks/label-git-restart/native-exit7-package-failure.rea.json",
+      "bytes": 3925,
+      "sha256": "9d290c9df2dbecfbe4386ddea825694115b627595a4168157f964cd7b18bf7e5"
+    },
+    {
+      "localPath": ".tools/next-debug-final-root-checks/label-git-restart/native-marketplace.png",
+      "bytes": 313617,
+      "sha256": "e796fd6f74f6b97dbc69f880ee65f56a6de0cc9dcb0a6b9c3320055a6c7a2fa5"
+    },
+    {
+      "localPath": ".tools/next-debug-final-root-checks/label-git-restart/native-marketplace.rea.json",
+      "bytes": 3891,
+      "sha256": "11bf99e242e309e5932d3e1e573601d64558e7bb55779a4d13a662fd94b669ce"
+    },
+    {
+      "localPath": ".tools/next-debug-final-root-checks/label-git-restart/process-timeline-summary.json",
+      "bytes": 20907,
+      "sha256": "7b4cd7668f4a5c01d4cee1172c5bd605920b1165a4381840408d36677deb7f53"
+    },
+    {
+      "localPath": ".tools/next-debug-final-root-checks/label-git-restart/segment.log",
+      "bytes": 60602,
+      "sha256": "413741aafdc49cb9e7cc9adb229a66ee117cdaf21f745666a5106304012ac457"
+    }
+  ],
+  "limitations": [
+    "Only the recorded Go caller/frame/argument case is established by this native observation; raw multi-frame controls are recorded separately.",
+    "The initial native top frame has no user source or variables; the Go caller frame was explicitly selected before reading its scope.",
+    "There was no user Step or Continue before caller values; zero earlier protocol stackTrace requests is not claimed.",
+    "CFA evidence collection exceeded its preparation time windows. Original inaccurate before-expiry timing wording is retained with an explicit correction and is not a passed timing check.",
+    "SDK Add Local / native preparation progress cancellation remain unverified. C/D automated platform controls are not a claim of those native interactions.",
+    "Previous cf912 shutdown NBRA exception remains historical and unresolved; it did not recur in these two final-source sessions.",
+    "Native GitHub/GitLab account-page availability and Marketplace search/menus are observed; no new account login or plugin installation was performed.",
+    "No Windows interactive desktop behavior is inferred from macOS or cross-compiled files. Full GoLand acceptance remains open."
+  ],
+  "atUtc": "2026-11-10T11:24:49.750880+00:00"
+}

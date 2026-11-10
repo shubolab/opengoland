@@ -1,0 +1,201 @@
+{
+  "schemaVersion": 1,
+  "status": "bounded-native-cases-passed-with-unresolved-sdk-picker-and-platform-shutdown-exception",
+  "productVersion": "0.1.0-preview.20261110.5",
+  "sourceCommit": "cf9125dac8ae2bbf5db2365b9a33d4f782f795c1",
+  "sourceDigest": "40c9e54a79378ed2ef0d4e1087c861a5f2fcb20056229c1205bd06ed8eb5ca28",
+  "manifestSha256": "4f56fbf8d753a09835d4d95b6765aa85f8dbd9977434eb9c25ebb30f6d8d05c4",
+  "publicRelease": false,
+  "replacedByLaterCandidate": true,
+  "scope": "Historical cf912 assembled macOS candidate with bundled Go 1.26.10 and the derived Delve. Later label and promotion fixes are not in this observation.",
+  "normalPass": {
+    "scope": "Real .5 candidate, bundled Go and derived Delve; normal Go Test profile via native header Debug. No shim/helper debug adapter.",
+    "appPid": 75864,
+    "adapterPort": 54094,
+    "debuggeePidFromConsole": 76696,
+    "run": {
+      "nativeDisplay": "1 test passed",
+      "nativeNode": "TestNormalPass/中文子测试",
+      "exitCode": 0
+    },
+    "debug": {
+      "nativeDisplay": "1 test passed",
+      "nativeNodes": [
+        "example.org/owned-native-go-test/pass",
+        "TestNormalPass",
+        "中文子测试"
+      ],
+      "typedConsoleExitCode": 0,
+      "adapterConsoleExitCode": 0,
+      "disconnectedSuccessfully": true,
+      "reaEvidence": "ev_e119469a5ef29375aeb071877f8ed695887946912e475b78bf7fb3be4713bcd4"
+    },
+    "earlyStopAttempt": {
+      "result": "not-completed-window-missed",
+      "observation": "First Debug initially showed Building tests; after own process capture the test had already naturally completed. CUA Stop click returned cannotClickOffscreenElement; no Stop action was performed.",
+      "notCountedAsPreconnectStop": true
+    },
+    "observedAtUtc": "2026-11-10T09:53:02.242191+00:00"
+  },
+  "expectedFailure": {
+    "scope": "Real native Go Test header Debug using bundled Go and real derived Delve",
+    "appPid": 75864,
+    "adapterPort": 55134,
+    "debuggeePidFromConsole": 76926,
+    "nativeDisplay": "1 test failed",
+    "test": "TestExpectedFailure",
+    "expectedOutput": "OWNED_EXPECTED_TEST_FAILURE: 真实失败 中文😀",
+    "targetExitCodeFromNativeConsole": 1,
+    "adapterExitCode": 0,
+    "disconnectedSuccessfully": true,
+    "noUserStopPerformed": true,
+    "reaEvidence": "ev_909402eeae30a2f23cba2de726a11df376ca96c588faa5cb346af2019badd95c",
+    "atUtc": "2026-11-10T09:58:15.882423+00:00"
+  },
+  "naturalExit7": {
+    "scope": "Actual Go Test native Debug; TestMain invokes actual os.Exit(7) after m.Run succeeds. No manual Stop, helper adapter or wrapper.",
+    "appPid": 75864,
+    "adapterPort": 55971,
+    "debuggeePidFromConsole": 78085,
+    "nativeDisplay": "1 test failed, 1 passed",
+    "nativeNodes": {
+      "TestPassBeforeNaturalExit7": "Passed",
+      "Package build or initialization": "Failed"
+    },
+    "displayCountBoundary": "One real Go test passed; one synthetic package-level failure represents the nonzero overall process. Not two Go test functions.",
+    "targetExitCodeFromNativeConsole": 7,
+    "adapterExitCode": 0,
+    "disconnectedSuccessfully": true,
+    "reaEvidence": "ev_7542892046fd5753c1db665ef062a51ed6b261f6eca927165b38ccb1e76edb96",
+    "knownTextIssue": "Package build or initialization is inaccurate for this post-test TestMain exit; independently reviewing a minimal label fix.",
+    "atUtc": "2026-11-10T10:05:17.180636+00:00"
+  },
+  "runningStop": {
+    "scope": "Real separate Go Debug configuration in test mode, running target; not a successful pre-target Stop observation. Two AX Stop attempts returned offscreen and performed no action.",
+    "targetPid": 80758,
+    "receiptA": {
+      "marker": 202,
+      "pid": 80758,
+      "turn": 261,
+      "unixNano": 1794305525057051000
+    },
+    "receiptB": {
+      "marker": 202,
+      "pid": 80758,
+      "turn": 265,
+      "unixNano": 1794305526057976000
+    },
+    "growthConfirmed": true,
+    "config": {
+      "name": "Go Debug 测试启动停止 中文😀",
+      "mode": "test",
+      "target": ".",
+      "workingDirectory": "/Users/wangshubo/develop/openidea-go/.tools/next-debug-native-v5-234fkpvg/Go 测试验收 中文😀/long",
+      "GOCACHE": "/Users/wangshubo/develop/openidea-go/.tools/next-debug-native-v5-234fkpvg/pretarget-cold-cache"
+    },
+    "atUtc": "2026-11-10T10:12:06.182753+00:00",
+    "stop": {
+      "method": "Native visible header Stop, CUA screenshot-coordinate click after AX offscreen failures",
+      "nativeDisplay": "1 test ignored",
+      "console": [
+        "Go test run was stopped",
+        "Go test debugging was stopped.",
+        "Process finished with exit code 0",
+        "Disconnected successfully from the debug server.",
+        "Detaching and terminating target process"
+      ],
+      "capturedTargetAdapterDebugserverConverterAndTelemetryAbsent": true,
+      "signalsUsed": false,
+      "pretargetStopClaimed": false,
+      "atUtc": "2026-11-10T10:14:29.623179+00:00"
+    }
+  },
+  "coldStopBeforeTestBody": {
+    "scope": "Actual native Go Debug configuration mode=test, cold GOCACHE, Stop via visible native toolbar while Building tests. Not a held constructor unit fixture.",
+    "appPid": 75864,
+    "adapterPort": 61989,
+    "nativeResult": "Debugging stopped before tests started",
+    "testBodyReceiptAbsent": true,
+    "disconnectedSuccessfully": true,
+    "reaEvidence": "ev_f3b48877bfc2a5ff91ba4cdc8f745784c4f9fa9255278b54f5900bd86ff6efcb",
+    "observedAtUtc": "2026-11-10T10:36:41.496689+00:00",
+    "debuggeeCreationBoundary": "Timeline includes a real debugserver and paused target before Stop. No test-body receipt or RUN event occurred. This is not a proof that no target was constructed.",
+    "allNonIdeCapturedProcessesGone": true
+  },
+  "session": {
+    "sourceCommit": "cf9125dac8ae2bbf5db2365b9a33d4f782f795c1",
+    "manifestSha256": "4f56fbf8d753a09835d4d95b6765aa85f8dbd9977434eb9c25ebb30f6d8d05c4",
+    "normalQuitViaUi": true,
+    "quitInteraction": "AX/coordinate click did not activate Exit; actual Tab changed focus to Exit and Return completed shutdown.",
+    "allCapturedCount": 108,
+    "allCapturedOriginalIdentitiesGone": true,
+    "zombiePids": [],
+    "signalsUsed": false,
+    "sourceFilesUnchanged": true,
+    "externalSdkRegularFilesUnchanged": true,
+    "externalSdkFiles": 15657,
+    "logLineCounts": {
+      "ERROR": 0,
+      "SEVERE": 4,
+      "WARN": 19
+    },
+    "sdkPicker": "not completed; native GoTo route remained open in REA while CUA routed main window. No SDK selection acceptance claimed.",
+    "shutdownException": "Platform NonBlockingReadActionImpl invokeLater → ModalityState.any after ApplicationManager became null; keep unresolved, do not claim clean log.",
+    "reaSdkPicker": "ev_8ae6141a892168dc403a23508c8932049441c31819a9dd433cf6d79ad9789016",
+    "atUtc": "2026-11-10T10:45:39.402559+00:00"
+  },
+  "limitations": [
+    "Initial header Stop attempts returned cannotClickOffscreenElement and were not counted as performed Stop. Later visible-coordinate toolbar Stop was actually performed.",
+    "TestMain exit7 uses one passing Go test and one synthetic package failure node, not two Go test functions. Old cf912 display label is inaccurate and fixed separately.",
+    "External Go SDK picker did not complete; no selected-external-SDK debug or native preparation-task cancellation is claimed.",
+    "One platform shutdown exception has four SEVERE lines; 0 ERROR does not mean a clean shutdown log. NBRA runnable origin remains unknown.",
+    "No Windows interactive desktop operation is inferred from macOS controls. Full acceptance matrix stays open."
+  ],
+  "retainedEvidence": [
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/session-final.json",
+      "bytes": 1055,
+      "sha256": "7bee4684e939fc90bef7ba3c19270770fcf271e22ed61bfde5f22dd6a6f5993f"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/all-after-quit.json",
+      "bytes": 137704,
+      "sha256": "9804f20ec23c5e8b7afbdf791a0aaebc67c9c19f2e4e3da0c0d244631a0f0e80"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/cold2-timeline-summary.json",
+      "bytes": 61985,
+      "sha256": "00e45b5438a932c200d4b0fca47437b841279b26be168ac3006caed7c29f39fd"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/cold2-after-stop.json",
+      "bytes": 67297,
+      "sha256": "1c1bcfbd2960ab85a7120f0229ed16af93a012a3bed6628588af714603ae73a4"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/native-debug-pass.png",
+      "bytes": 337796,
+      "sha256": "dcbd0dffdb0b9158b49a98b8f2c8aa635410020576dd8baf3f088458bd889465"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/native-debug-failure.png",
+      "bytes": 316714,
+      "sha256": "abaf0e69c9b085c7be82bbb409ca2989002d7f7577b5d3e5b015f9a6d7bea532"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/native-debug-exit7.png",
+      "bytes": 374634,
+      "sha256": "a1467461ed943974a4042dbdf9a70e5b062561334595e1ea117c8a5ea17918c6"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/native-pretarget-stop.png",
+      "bytes": 352959,
+      "sha256": "8dded31cb966a51cc5f039f3e73df3591d2b1c59c95df14e6d667d57055ec355"
+    },
+    {
+      "localEvidence": ".tools/next-debug-native-v5-234fkpvg/native-sdk-picker-pending.png",
+      "bytes": 82777,
+      "sha256": "5189d0ed047d903407bc48924245199f2e59b59f9c2c74a56aaa0b7beafd50e8"
+    }
+  ]
+}
