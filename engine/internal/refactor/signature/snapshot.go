@@ -171,12 +171,12 @@ func newSnapshot(req Request) (*snapshot, error) {
 	env["GOTELEMETRY"] = "off"
 	env["GOPACKAGESDRIVER"] = "off"
 	work := env["GOWORK"]
-	if work == "" {
+	if work == "" || work == "auto" {
 		work = s.findAncestor(root, "go.work")
 	}
 	if work != "" && work != "off" {
 		if !filepath.IsAbs(work) {
-			return nil, errors.New("GOWORK must be an absolute path or off")
+			return nil, errors.New("GOWORK must be an absolute path, auto, or off")
 		}
 		s.work = filepath.Clean(work)
 		src, e := s.read(s.work)

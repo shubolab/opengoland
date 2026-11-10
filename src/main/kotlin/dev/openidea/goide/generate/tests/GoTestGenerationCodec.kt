@@ -8,6 +8,7 @@ import org.eclipse.lsp4j.CreateFileOptions
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.Range
 import org.eclipse.lsp4j.ResourceOperation
+import org.eclipse.lsp4j.SnippetTextEdit
 import org.eclipse.lsp4j.TextDocumentEdit
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier
@@ -27,7 +28,7 @@ internal object GoTestGenerationCodec {
                 val version = document.get("version")?.takeUnless { it.isJsonNull }?.asInt
                 val edits = change.array("edits").map { value ->
                     val item = value.asJsonObject
-                    TextEdit(range(item.getAsJsonObject("range")), item.string("newText"))
+                    Either.forLeft<TextEdit, SnippetTextEdit>(TextEdit(range(item.getAsJsonObject("range")), item.string("newText")))
                 }
                 Either.forLeft<TextDocumentEdit, ResourceOperation>(TextDocumentEdit(VersionedTextDocumentIdentifier(document.string("uri"), version), edits))
             }

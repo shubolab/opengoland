@@ -46,6 +46,22 @@ fun platformRepairPin(name: String) = "product/patches/platform-$name$platformPi
 val upstreamLspCompileJar = configurations.named("compileClasspath").map { configuration ->
     configuration.files.single { it.name == "lsp4ij-0.21.0.jar" }
 }
+// Protocol classes must come from the same pinned LSP4IJ bundle as runtime.
+// The SDK also contains an older LSP4J API; it is not our compile authority.
+val lspProtocolJarNames = setOf(
+    "org.eclipse.lsp4j-1.0.0.jar",
+    "org.eclipse.lsp4j.jsonrpc-1.0.0.jar",
+    "org.eclipse.lsp4j.debug-0.21.0.jar",
+    "org.eclipse.lsp4j.jsonrpc.debug-0.21.0.jar",
+)
+val platformLspProtocolJarNames = setOf("eclipse.lsp4j.jar", "eclipse.lsp4j.jsonrpc.jar")
+val upstreamLspProtocolJars = upstreamLspCompileJar.map { jar ->
+    val protocol = jar.parentFile.listFiles { file ->
+        file.extension == "jar" && file.name.startsWith("org.eclipse.lsp4j")
+    }?.sortedBy { it.name }.orEmpty()
+    check(protocol.map { it.name }.toSet() == lspProtocolJarNames) { "Unexpected pinned LSP4IJ protocol bundle" }
+    protocol
+}
 val lspCompilePlugins = layout.buildDirectory.dir("lsp4ij-compile")
 val patchedLspCompileJar = lspCompilePlugins.map { it.file("lsp4ij/lib/lsp4ij-0.21.0.jar") }
 val prepareLspCompilePatch by tasks.registering(Exec::class) {
@@ -67,12 +83,14 @@ val prepareLspCompilePatch by tasks.registering(Exec::class) {
         "--plugins", lspCompilePlugins.get().asFile.absolutePath)
 }
 sourceSets.named("main") {
-    compileClasspath = files(compileClasspath.filter { it.name != "lsp4ij-0.21.0.jar" }, patchedLspCompileJar)
-        .builtBy(prepareLspCompilePatch)
+    compileClasspath = files(patchedLspCompileJar, upstreamLspProtocolJars, compileClasspath.filter {
+        it.name != "lsp4ij-0.21.0.jar" && !it.name.startsWith("org.eclipse.lsp4j") && it.name !in platformLspProtocolJarNames
+    }).builtBy(prepareLspCompilePatch)
 }
 sourceSets.named("test") {
-    compileClasspath = files(compileClasspath.filter { it.name != "lsp4ij-0.21.0.jar" }, patchedLspCompileJar)
-        .builtBy(prepareLspCompilePatch)
+    compileClasspath = files(patchedLspCompileJar, upstreamLspProtocolJars, compileClasspath.filter {
+        it.name != "lsp4ij-0.21.0.jar" && !it.name.startsWith("org.eclipse.lsp4j") && it.name !in platformLspProtocolJarNames
+    }).builtBy(prepareLspCompilePatch)
 }
 
 val buildInputManifest = layout.buildDirectory.file("provenance/build-inputs.json")

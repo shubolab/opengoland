@@ -13,6 +13,7 @@ import org.eclipse.lsp4j.Range
 import org.eclipse.lsp4j.RenameFile
 import org.eclipse.lsp4j.RenameFileOptions
 import org.eclipse.lsp4j.ResourceOperation
+import org.eclipse.lsp4j.SnippetTextEdit
 import org.eclipse.lsp4j.TextDocumentEdit
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier
@@ -157,11 +158,14 @@ class GoWorkspaceEditPlanTest {
         }
         assertTrue(build(value, initial(file to node("old"))).requiresConfirmation)
         val text = value.documentChanges.single().left
+        // Model the older flat payload through the erased Java setter as well.
         @Suppress("UNCHECKED_CAST")
-        text.edits = listOf(Either.forLeft<TextEdit, String>(TextEdit(Range(Position(0, 0), Position(0, 3)), "new"))) as List<TextEdit>
+        text.edits = listOf(change) as List<Either<TextEdit, SnippetTextEdit>>
+        assertTrue(build(value, initial(file to node("old"))).requiresConfirmation)
+        text.edits = listOf(Either.forLeft<TextEdit, SnippetTextEdit>(TextEdit(Range(Position(0, 0), Position(0, 3)), "new")))
         assertEquals("new", GoWorkspaceEditPlan.text(build(value, initial(file to node("old"))).after.getValue(file)))
         @Suppress("UNCHECKED_CAST")
-        text.edits = listOf(Either.forRight<TextEdit, String>("unsupported snippet")) as List<TextEdit>
+        text.edits = listOf(Either.forRight<TextEdit, String>("unsupported snippet")) as List<Either<TextEdit, SnippetTextEdit>>
         assertFailsWith<GoWorkspaceEditRejected> { build(value, initial(file to node("old"))) }
     }
 
@@ -179,5 +183,5 @@ class GoWorkspaceEditPlanTest {
     private fun uri(path: Path) = GoDocumentSync.fileUri(path)
     private fun edit(sl: Int, sc: Int, el: Int, ec: Int, text: String) = TextEdit(Range(Position(sl, sc), Position(el, ec)), text)
     private fun resource(operation: ResourceOperation): Either<TextDocumentEdit, ResourceOperation> = Either.forRight(operation)
-    private fun document(path: Path, version: Int?, edits: List<TextEdit>): Either<TextDocumentEdit, ResourceOperation> = Either.forLeft(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(path), version), edits))
+    private fun document(path: Path, version: Int?, edits: List<TextEdit>): Either<TextDocumentEdit, ResourceOperation> = Either.forLeft(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(path), version), edits.map { Either.forLeft<TextEdit, SnippetTextEdit>(it) }))
 }

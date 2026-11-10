@@ -73,7 +73,9 @@ class GoLanguageServerFactory : LanguageServerFactory {
             // completes, an old server must not answer for new build settings.
             // Delve-only changes do not restart gopls and do not affect it.
             val settings = GoToolchain.capture(project).copy(delveExecutable = "")
-            val environment = GoToolchain.parseEnvironment(settings.environment).toMutableMap()
+            // Only explicit project overrides here: the BGT command path already
+            // adapted its actual CONSOLE parent. Do not resolve a console env in initialize.
+            val environment = GoToolchain.goplsEnvironment(GoToolchain.parseEnvironment(settings.environment)).toMutableMap()
             if (settings.goos.isNotEmpty()) environment["GOOS"] = settings.goos
             if (settings.goarch.isNotEmpty()) environment["GOARCH"] = settings.goarch
             if (settings.cgoEnabled.isNotEmpty()) environment["CGO_ENABLED"] = settings.cgoEnabled

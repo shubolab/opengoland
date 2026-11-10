@@ -9,6 +9,7 @@ import org.eclipse.lsp4j.Range
 import org.eclipse.lsp4j.RenameFile
 import org.eclipse.lsp4j.RenameFileOptions
 import org.eclipse.lsp4j.ResourceOperation
+import org.eclipse.lsp4j.SnippetTextEdit
 import org.eclipse.lsp4j.TextDocumentEdit
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier
@@ -181,5 +182,5 @@ class GoWorkspaceEditCaseAliasesTest {
     private fun uri(path: Path) = GoDocumentSync.fileUri(path)
     private fun resource(value: ResourceOperation): Either<TextDocumentEdit, ResourceOperation> = Either.forRight(value)
     private fun document(path: Path, version: Int?, old: String, new: String): Either<TextDocumentEdit, ResourceOperation> =
-        Either.forLeft(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(path), version), listOf(TextEdit(Range(Position(0, 0), Position(0, old.length)), new))))
+        Either.forLeft(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(path), version), listOf(Either.forLeft<TextEdit, SnippetTextEdit>(TextEdit(Range(Position(0, 0), Position(0, old.length)), new)))))
 }

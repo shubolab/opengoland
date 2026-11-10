@@ -7,6 +7,7 @@ import dev.openidea.goide.refactor.GoEditUsage
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.Range
 import org.eclipse.lsp4j.ResourceOperation
+import org.eclipse.lsp4j.SnippetTextEdit
 import org.eclipse.lsp4j.TextDocumentEdit
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier
@@ -53,7 +54,7 @@ internal object GoSignatureCodec {
             val version = document.get("version")?.takeUnless { it.isJsonNull }?.asInt
             val text = change.array("edits").map { entry ->
                 val edit = entry.asJsonObject
-                TextEdit(range(edit.getAsJsonObject("range")), edit.string("newText"))
+                Either.forLeft<TextEdit, SnippetTextEdit>(TextEdit(range(edit.getAsJsonObject("range")), edit.string("newText")))
             }
             Either.forLeft<TextDocumentEdit, ResourceOperation>(TextDocumentEdit(VersionedTextDocumentIdentifier(document.string("uri"), version), text))
         })

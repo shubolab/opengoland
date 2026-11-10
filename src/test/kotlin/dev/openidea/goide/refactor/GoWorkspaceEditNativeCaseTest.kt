@@ -25,6 +25,7 @@ import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.Range
 import org.eclipse.lsp4j.RenameFile
 import org.eclipse.lsp4j.ResourceOperation
+import org.eclipse.lsp4j.SnippetTextEdit
 import org.eclipse.lsp4j.TextDocumentEdit
 import org.eclipse.lsp4j.TextEdit
 import org.eclipse.lsp4j.VersionedTextDocumentIdentifier
@@ -60,10 +61,10 @@ class GoWorkspaceEditNativeCaseTest : LightPlatformTestCase() {
             val caseInsensitive = Files.exists(new)
             val changes = buildList {
                 if (mentionNewFirst) add(Either.forLeft<TextDocumentEdit, ResourceOperation>(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(newChild), null),
-                    listOf(TextEdit(Range(Position(1, 4), Position(1, 9)), "Middle")))))
+                    listOf(Either.forLeft<TextEdit, SnippetTextEdit>(TextEdit(Range(Position(1, 4), Position(1, 9)), "Middle"))))))
                 add(resource(RenameFile(uri(old), uri(new))))
                 add(Either.forLeft<TextDocumentEdit, ResourceOperation>(TextDocumentEdit(VersionedTextDocumentIdentifier(uri(newChild), null),
-                    listOf(TextEdit(Range(Position(1, 4), Position(1, if (mentionNewFirst) 10 else 9)), "Renamed")))))
+                    listOf(Either.forLeft<TextEdit, SnippetTextEdit>(TextEdit(Range(Position(1, 4), Position(1, if (mentionNewFirst) 10 else 9)), "Renamed"))))))
             }
             val value = WorkspaceEdit(changes)
             val aliases = GoWorkspaceEditCaseAliases.detect(value)

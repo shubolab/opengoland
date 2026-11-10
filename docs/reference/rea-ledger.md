@@ -156,3 +156,24 @@ reverse-dependency scan and public source explain the owned-product exclusion an
 essential-plugin policy. Static inventories do not prove repaired startup; the
 400-input desktop title failure and later package observations remain separate.
 No commercial implementation classes or installed IDE user state were read.
+
+
+## Own product: a297 GOWORK and feature recovery
+
+[Automatic workspace evidence](go-gowork-auto-20261111.json) separates the
+following historical a297 native observations from the new source's SDK checks.
+No installed commercial reference application was changed or newly exercised.
+
+| Observation | REA Evidence | Scope and limits |
+| --- | --- | --- |
+| Explicit GOWORK=auto produces a project/auto workspace error | `ev_9390f8fb460f6a51ee4b48a0e046ce222056adaeae53ae15c095e93a7b8a2780` | Actual a297/504/b989 native epoch6; observed defect, not new-source acceptance. |
+| Empty GOWORK recognizes the workspace/module | `ev_7123b4e74d186e4b3789a63618aba9711148ffeb070315d2f60983621ea76728` | Epoch7 has no protocol/server warning or error; the entire session is not error-free. |
+| Three features recover without a source edit or caret movement | `ev_604d6ae18e27552a3041d43465901ae56a8c44bcf84c40d0e1c5fe2297a7634e` | Same document/version1/caret7:17 restores inlay hints, semantic tokens and code actions. Automatic documentHighlight recovery remains unknown. |
+| Test breakpoint, local values and evaluated t.common.name | `ev_740df6958e678105b84ff382ef55fbfbf59c359b142f23ea9fe79ecc24ef7bdc` | TestExtraContext:7 suspension; not toolbar Pause acceptance. Resume/PASS/target exit0/disconnect is separately attributed CUA evidence. |
+
+The ordinary SDK/Go checks have no invented REA IDs. The actual old gopls
+control fails only the AUTO workspace-diagnostic oracle; old AUTO still resolves
+the cross-module definition. The fixed four real modes plus five bounded unit
+controls pass. Earlier OFF timeouts were a test-client compile/runtime ABI
+failure, preserved separately. New-source native CONSOLE inheritance, full
+checks, both installers and the complete reference/product matrix remain open.

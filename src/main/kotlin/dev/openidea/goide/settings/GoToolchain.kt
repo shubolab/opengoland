@@ -64,12 +64,43 @@ object GoToolchain {
                 "-tags=${tags.joinToString(",")}",
             ).filter(String::isNotBlank).joinToString(" ")
         }
-        cmd.withEnvironment(environment)
+        cmd.withEnvironment(if (tool == "gopls") goplsEnvironment(environment, cmd.parentEnvironment) else environment)
         // Dedicated target fields use the same precedence as gopls initialization.
         if (settings.goos.isNotBlank()) cmd.withEnvironment("GOOS", settings.goos)
         if (settings.goarch.isNotBlank()) cmd.withEnvironment("GOARCH", settings.goarch)
         if (settings.cgoEnabled.isNotBlank()) cmd.withEnvironment("CGO_ENABLED", settings.cgoEnabled)
         return cmd
+    }
+
+    /**
+     * gopls 0.24 treats every explicit nonempty/non-off GOWORK as a file path,
+     * whereas cmd/go also accepts "auto". Keep this adaptation at the gopls
+     * boundary: an explicit empty value preserves workspace discovery and also
+     * prevents gopls from falling back to an inherited "auto".
+     *
+     * Pure memory only. The caller's settings, parent environment and raw Go
+     * commands are untouched; values other than the exact "auto" are preserved.
+     * Launch preparation supplies the command's actual CONSOLE parent snapshot;
+     * initialization passes only explicit project overrides and does not resolve
+     * a console environment or read the IDE process's system environment.
+     */
+    internal fun goplsEnvironment(
+        overrides: Map<String, String>,
+        inherited: Map<String, String> = emptyMap(),
+        windows: Boolean = System.getProperty("os.name").startsWith("Windows"),
+    ): Map<String, String> {
+        fun isGoWork(name: String) = name.equals("GOWORK", ignoreCase = windows)
+        val own = overrides.entries.lastOrNull { isGoWork(it.key) }
+        val effective = own?.value ?: inherited.entries.lastOrNull { isGoWork(it.key) }?.value
+        val result = LinkedHashMap(overrides)
+        // Windows' process environment is case insensitive, but gopls' Env map
+        // lookup is not. Preserve the effective winner under its canonical key.
+        if (own != null && windows) {
+            result.keys.filter(::isGoWork).forEach { result.remove(it) }
+            result["GOWORK"] = own.value
+        }
+        if (effective == "auto") result["GOWORK"] = ""
+        return result
     }
 
     fun resolve(tool: String, configured: String = ""): String? {

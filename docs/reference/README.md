@@ -39,3 +39,7 @@ python3 scripts/inspect_reference.py
 [acceptance-matrix.json](acceptance-matrix.json) 将桌面交互、工程、代码智能、运行、测试、调试、性能分析和辅助工具分开记录。该矩阵是当前选定调查范围的基线，不声明穷尽 GoLand 的所有扩展；不得仅因矩阵当前条目通过就宣布完整 GoLand 等价。每条都需要原版参考观察、新产品结果、输入工程与证据路径。
 
 可以先用自己的固定 fixture，再补多 module `go.work`、本地 replace、build tags、CGO、泛型、表驱动子测试、HTTP server、goroutine、失败与取消场景。截图需要与焦点、键盘行为和真实程序输出结合，不能单独证明可用。
+
+## 实现与验收补充记录
+
+[GOWORK 自动工作区边界](go-gowork-auto-20261111.json)记录了原生应用的错误诊断，以及修复前后的真实 gopls 对照。修复后的四种工作区设置和五项环境控制共 9 项通过，签名引擎的独立六分支对照也通过。旧版的跨模块跳转本来就能成功，本记录修复的是 `auto` 引起的工作区诊断错误。新源码完整检查、实际桌面继承环境、新安装包与完整 GoLand 验收仍待完成。

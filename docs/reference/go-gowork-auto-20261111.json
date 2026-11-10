@@ -1,0 +1,464 @@
+{
+  "schemaVersion": 1,
+  "status": "old-sdk-genuine-workspace-diagnostic-red-fixed-nine-green-full-native-new-public-pending",
+  "recordedAtUtc": "2026-11-10T21:58:05.589045+00:00",
+  "scope": "Bounded own-source, actual SDK/gopls and historical a297 native observations. Not a complete GoLand parity or shipped-new-product acceptance record.",
+  "summaryZh": "已复现并修正 gopls 对 GOWORK=auto 的一个工作区诊断问题：旧 Kotlin gopls 实现的 AUTO 有真实 consumer/auto 缺失诊断，另三控制通过；候选四个真实模式与五个明确标识的单元控制共9项通过。跨模块导航在旧 AUTO 中也成功，因此本记录不宣称修复了导航失败。签名引擎 auto 的独立六分支 overlay 亦通过。新源码应用原生验收和发布仍待完成。",
+  "summaryEn": "The old Kotlin gopls production emits a genuine missing consumer/auto workspace diagnostic; three controls pass. The candidate passes four real modes plus five explicitly bounded unit controls. Old AUTO already resolves cross-module definitions, so this is not a repaired navigation failure. The independent signature auto six-case overlay also passes. New-source native and release acceptance remain pending.",
+  "observations": {
+    "nativeA297": {
+      "evidence": {
+        "path": ".tools/excluded-inlay-native-plan/runtime/resume-20261111T1945Z/session-final.json",
+        "bytes": 13240,
+        "sha256": "6febf975f67900e431e8114322b79700a36f0aa5f28dc4951345b42f4600ea53"
+      },
+      "sourceCommit": "a2974b6d200c37418ddafdd31c56cf051b639013",
+      "sourceFiles": 504,
+      "sourceDigest": "b989beab9445aac03eca30b54be4f17851433519b158255ad14adc2944928ffd",
+      "manifestSha256": "a2d7d17b54d6ad56ba1fbdd7a07f4144940d80952e5e108e85aaeacd415fcf59",
+      "authority": "Parent-owned actual native session; REA captures and closed traces, read-only reconciliation here.",
+      "goworkAuto": "Epoch6 explicit auto reaches gopls v0.24; project/auto stat failure and workspace initialization diagnostics are actually observed.",
+      "emptyControl": "Epoch7 explicit empty recognizes GoWork/module with no protocol errors or server warnings/errors within that epoch. Not an error-free whole-session claim.",
+      "cliControl": {
+        "path": ".tools/excluded-inlay-native-plan/runtime/resume-20261111T1945Z/gowork-go-env-controls.json",
+        "bytes": 2517,
+        "sha256": "12c847c1808d04f5f30ed7e02f531b7969f6f89a8fa08c1ee283fa506fbc1350"
+      },
+      "cliFact": "Actual bundled Go1.26.10 resolves auto/empty/absolute to the same real go.work, off remains off; all4 exit0.",
+      "naturalRecovery": "Same default document/version1/caret7:17: excluded epoch2 sends no package-dependent feature requests; epoch3 naturally restores inlay hints, semantic tokens and codeAction without editing. Extra active epoch4 has actual four-feature responses; excluded epoch5 sends no inlay/semantic/action/highlight requests.",
+      "documentHighlight": "Automatic refresh after tags/metadata at unchanged caret remains unknown; active response evidence is not automatic-recovery proof.",
+      "debug": "REA PNG shows breakpoint suspension at TestExtraContext:7, locals and evaluated t.common.name=TestExtraContext. This is breakpoint-pause evidence, not proof of the toolbar Pause action. Resume/PASS/target exit0/disconnect is separately recorded CUA console evidence.371.90s includes deliberate breakpoint suspension, not performance.",
+      "debugCua": {
+        "path": ".tools/excluded-inlay-native-plan/runtime/resume-20261111T1945Z/debug-exit-cua.json",
+        "bytes": 1137,
+        "sha256": "f0f88b2904c768513b1047a406da601854a4042bb40448049de422c7bc28b1db"
+      },
+      "finalDefault": "Final precise default run is cached PASS/exit0, not fresh test-binary execution.",
+      "exit": "Normal native Quit;98 recorded owned identities absent; no signals; six fixture hashes unchanged; no Go source document edits.",
+      "newProductVersionPublished": false
+    },
+    "oldSdkGenuineRed": {
+      "result": "4 actual tests:3PASS, AUTO fails only initial workspace-error oracle;0errors/0skips.",
+      "fixtureEvidence": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/actual-old-gopls-003/actual-fixture-evidence.json",
+        "bytes": 159911,
+        "sha256": "ae1eefd5bd5344dacb5b0066ad6fd2b7e7d430112f48a61825129ea2bec1e407"
+      },
+      "staging": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/actual-old-gopls-003/staging-used.json",
+        "bytes": 3113,
+        "sha256": "a6e3ded38b62350d39e0015ca5922b5156ceb94afbceb0845a7f229c78291b44"
+      },
+      "sourceFiles": 505,
+      "sourceDigest": "2d6f1d803223971030462a7a7dc06753a0a6fecf52964a20263c032f2c1ed6c7",
+      "actualGradleExitCode": 1,
+      "xml": [
+        {
+          "path": ".tools/gowork-auto-focused-v5-20261111/actual-old-gopls-003/actual-TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+          "bytes": 169065,
+          "sha256": "48fe97d265a3ad90994571c0b618b61ea4490745ac75896a4d8372eb391f1d33"
+        }
+      ],
+      "cases": [
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitEmptyResolvesWorkspaceModuleThroughFactory",
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitAbsoluteWorkspaceResolvesModuleThroughFactory",
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitAutoResolvesWorkspaceModuleThroughFactory",
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitOffKeepsModuleIsolationThroughFactory"
+      ],
+      "modes": [
+        {
+          "mode": "EMPTY",
+          "status": "pass-real-cross-module-and-environment-checks",
+          "rawSettingsGOWORK": "",
+          "childGOWORK": {
+            "present": true,
+            "value": ""
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": ""
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 1,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 0,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        },
+        {
+          "mode": "ABSOLUTE",
+          "status": "pass-real-cross-module-and-environment-checks",
+          "rawSettingsGOWORK": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned gowork 中文😀 5494075387743937199/go.work",
+          "childGOWORK": {
+            "present": true,
+            "value": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned gowork 中文😀 5494075387743937199/go.work"
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned gowork 中文😀 5494075387743937199/go.work"
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 1,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 0,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        },
+        {
+          "mode": "AUTO",
+          "status": "failed",
+          "rawSettingsGOWORK": "auto",
+          "childGOWORK": {
+            "present": true,
+            "value": "auto"
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": "auto"
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 1,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 1,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        },
+        {
+          "mode": "OFF",
+          "status": "pass-real-cross-module-and-environment-checks",
+          "rawSettingsGOWORK": "off",
+          "childGOWORK": {
+            "present": true,
+            "value": "off"
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": "off"
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 0,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 0,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        }
+      ],
+      "freshness": {
+        "testTaskHeaders": [
+          "",
+          "",
+          " FAILED"
+        ],
+        "testTaskActuallyExecuted": true,
+        "actualTestExecutorStartAndEnd": true,
+        "actualClasspathHasPatchedTestJarFirstAndNoPrivateFallback": true,
+        "taskLocalTestRerunAndNoBuildCacheRequired": true
+      },
+      "finalSeals": {
+        "headUnchanged": true,
+        "trackedStatusUnchanged": true,
+        "configUnchanged": true,
+        "expectedInputsUnchanged": true,
+        "originalHelperUnchanged": true,
+        "originalFocusedDriverUnchanged": true,
+        "driverUnchanged": true,
+        "sdkMapEvidenceUnchanged": true,
+        "lspMapEvidenceUnchanged": true,
+        "runtimeWholeJarsAndClassMapsUnchanged": true,
+        "selectedToolsUnchanged": true,
+        "sourcePinsUnchanged": true
+      },
+      "recordedOwnedIdentities": 23,
+      "allRecordedOwnedIdentitiesAbsent": true,
+      "cleanup": "Runner observer signals are empty; fixture explicitly destroy()s four owned descendants after provider stop. No destroyForcibly; upstream provider stop signal internals unknown. Not globally signal-free.",
+      "genuineRedReview": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/actual-old-gopls-003/root-genuine-red-review.json",
+        "bytes": 973,
+        "sha256": "cd4a8895d69da7c148320d3ad936776a0f997eeda5475ed22dd301932a442553"
+      },
+      "behavior": "All4 local definitions succeed; EMPTY/ABS/AUTO exact cross-module definitions succeed; OFF normal response has no cross-module target. All4 initial-diagnosis End barriers complete and readers are live before cleanup; only AUTO has1 consumer/auto workspace error.",
+      "productionBoundary": "Old a297 Kotlin gopls Factory/GoToolchain pins retained. Signature-v2 and protocol compile alignment already applied; this505-input staging is not the exact whole a297 source."
+    },
+    "fixedSdkNineGreen": {
+      "result": "Terminal0;2 actual XML reports,9tests,0failures,0errors,0skips.",
+      "fixtureEvidence": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/actual-fixed-gopls-001/actual-fixture-evidence.json",
+        "bytes": 160998,
+        "sha256": "c16e9fbb54199031971b79fae87a752221ac6cbcac1668cefcc192b4170c11ef"
+      },
+      "staging": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/actual-fixed-gopls-001/staging-used.json",
+        "bytes": 3506,
+        "sha256": "baa25fd6daafdfe3add3173942b5f20f218ec0ae68dcd6fd2605b5517087f4de"
+      },
+      "sourceFiles": 506,
+      "sourceDigest": "3229d2b438af1a1e43184665e4893e81cfdead9e1431f595bf884a7cb1e2ccdc",
+      "actualGradleExitCode": 0,
+      "xml": [
+        {
+          "path": ".tools/gowork-auto-focused-v5-20261111/actual-fixed-gopls-001/actual-TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+          "bytes": 155806,
+          "sha256": "9946af9fd5edcb77c9ff8efc8d4a16d70f87eb19e8d212baf23640c00bfe1433"
+        },
+        {
+          "path": ".tools/gowork-auto-focused-v5-20261111/actual-fixed-gopls-001/actual-TEST-dev.openidea.goide.settings.GoGoplsEnvironmentTest.xml",
+          "bytes": 1098,
+          "sha256": "e3fdab97983f3993492a8272c26467c6bc0d62e74ea3534c419d85315e6bedcc"
+        }
+      ],
+      "cases": [
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitEmptyResolvesWorkspaceModuleThroughFactory",
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitAbsoluteWorkspaceResolvesModuleThroughFactory",
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitAutoResolvesWorkspaceModuleThroughFactory",
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.testExplicitOffKeepsModuleIsolationThroughFactory",
+        "dev.openidea.goide.settings.GoGoplsEnvironmentTest.onlyExactConfiguredAutoBecomesPresentEmpty",
+        "dev.openidea.goide.settings.GoGoplsEnvironmentTest.windowsCaseInsensitiveWinnerPreservesRawValues",
+        "dev.openidea.goide.settings.GoGoplsEnvironmentTest.simulatedInheritedAutoIsOverriddenButExplicitProjectValuesWin",
+        "dev.openidea.goide.settings.GoGoplsEnvironmentTest.adaptationOwnsItsMapAndKeepsRawSettingsEpochDistinct",
+        "dev.openidea.goide.settings.GoGoplsEnvironmentTest.toolIntentAdaptsOnlyGoplsWhenAllToolsSelectTheSameWrapper"
+      ],
+      "modes": [
+        {
+          "mode": "EMPTY",
+          "status": "pass-real-cross-module-and-environment-checks",
+          "rawSettingsGOWORK": "",
+          "childGOWORK": {
+            "present": true,
+            "value": ""
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": ""
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 1,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 0,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        },
+        {
+          "mode": "ABSOLUTE",
+          "status": "pass-real-cross-module-and-environment-checks",
+          "rawSettingsGOWORK": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned gowork 中文😀 9768044096166711060/go.work",
+          "childGOWORK": {
+            "present": true,
+            "value": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned gowork 中文😀 9768044096166711060/go.work"
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": "/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned gowork 中文😀 9768044096166711060/go.work"
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 1,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 0,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        },
+        {
+          "mode": "AUTO",
+          "status": "pass-real-cross-module-and-environment-checks",
+          "rawSettingsGOWORK": "auto",
+          "childGOWORK": {
+            "present": true,
+            "value": ""
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": ""
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 1,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 0,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        },
+        {
+          "mode": "OFF",
+          "status": "pass-real-cross-module-and-environment-checks",
+          "rawSettingsGOWORK": "off",
+          "childGOWORK": {
+            "present": true,
+            "value": "off"
+          },
+          "initializeEnvGOWORK": {
+            "present": true,
+            "value": "off"
+          },
+          "localDefinitionTargets": 1,
+          "crossModuleDefinitionTargets": 0,
+          "initialDiagnosisBarrier": "completed-initial-diagnosis",
+          "workspaceErrorNotifications": 0,
+          "transportBeforeCleanup": {
+            "present": true,
+            "isDone": false,
+            "isCancelled": false
+          }
+        }
+      ],
+      "freshness": {
+        "testTaskHeaders": [
+          "",
+          "",
+          ""
+        ],
+        "testTaskActuallyExecuted": true,
+        "actualTestExecutorStartAndEnd": true,
+        "actualClasspathHasPatchedTestJarFirstAndNoPrivateFallback": true,
+        "taskLocalTestRerunAndNoBuildCacheRequired": true
+      },
+      "finalSeals": {
+        "headUnchanged": true,
+        "trackedStatusUnchanged": true,
+        "configUnchanged": true,
+        "expectedInputsUnchanged": true,
+        "originalHelperUnchanged": true,
+        "originalFocusedDriverUnchanged": true,
+        "driverUnchanged": true,
+        "sdkMapEvidenceUnchanged": true,
+        "lspMapEvidenceUnchanged": true,
+        "runtimeWholeJarsAndClassMapsUnchanged": true,
+        "selectedToolsUnchanged": true,
+        "sourcePinsUnchanged": true
+      },
+      "recordedOwnedIdentities": 24,
+      "allRecordedOwnedIdentitiesAbsent": true,
+      "cleanup": "Runner observer signals are empty; fixture explicitly destroy()s four owned descendants after provider stop. No destroyForcibly; upstream provider stop signal internals unknown. Not globally signal-free.",
+      "realCases": "Four actual factory/provider/initialize/gopls modes EMPTY/ABS/AUTO/OFF. AUTO raw settings remain auto; actual child and initialize GOWORK are present-empty. All4 workspace-error lists empty after real initial-diagnosis barriers; all local and expected cross/off definitions retained; all4 readers live before cleanup.",
+      "unitCases": "Five controls cover exact configured auto/map ownership+raw epoch, explicit precedence versus SIMULATED inherited map, Windows case-insensitive precedence, and tool intent with same selected wrapper but NEVER-EXECUTED commands. These are not actual native CONSOLE inheritance or Windows desktop evidence.",
+      "sourcePins": {
+        "src/main/kotlin/dev/openidea/goide/settings/GoToolchain.kt": "4016437be82bd1c44bac06caebc6ad6d4cafb35dc2847252e3dbdee5015fbb49",
+        "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageServerFactory.kt": "2c27808e8f6b1a8ba3b8b36abe43f3eaff045a486e818bde21f5f03d46084c7b",
+        "src/test/kotlin/dev/openidea/goide/settings/GoGoplsEnvironmentTest.kt": "8f1d3e080388280087ec6f5697f7915470f9b46831f721227a725d170fb4cd60",
+        "src/test/kotlin/com/redhat/devtools/lsp4ij/GoGoworkGoplsTest.kt": "6861bd8217f6d850df5e98aa3a4dad91224d230b10a7d57316a960d84c17cfd1",
+        "build.gradle.kts": "45b262a5c505b3058f5e593a0e24f4d748ad69088c4be390fad5c01dacbaaaa3"
+      },
+      "config": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/fixed-staging.actual.json",
+        "bytes": 3506,
+        "sha256": "baa25fd6daafdfe3add3173942b5f20f218ec0ae68dcd6fd2605b5517087f4de"
+      },
+      "integration": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/fixed-main-integration-receipt.json",
+        "bytes": 1117,
+        "sha256": "423fb1aadcfbbd1aa1dda63cda5bdf88a29a4d6ed24cc6827cc435bf9ab99dac"
+      },
+      "nativeInheritedConsole": "pending-actual"
+    },
+    "signatureOverlay": {
+      "result": {
+        "path": ".tools/signature-gowork-auto-controls/actual-v2-001/result.json",
+        "bytes": 32087,
+        "sha256": "9a0ec0c83336bc4f006deb3b37260b5044a26f8327b7c4fa8009f3e76c7248cd"
+      },
+      "sourceAtRun": {
+        "commit": "a2974b6d200c37418ddafdd31c56cf051b639013",
+        "files": 504,
+        "digest": "b989beab9445aac03eca30b54be4f17851433519b158255ad14adc2944928ffd"
+      },
+      "old": "Only auto subcase and original top-level Test fail; other5subcases pass, rc1.",
+      "fixed": "All6subcases and original top-level Test pass, rc0.",
+      "test": "TestDirtyWorkAndModuleMetadataLoadCrossModuleInterfaceClosure",
+      "retained": "Real selected Go1.26.10; Go1.27.3 race/count1 builder; dirty77/78metadata; four real cross-module typed plans and12 12 rewrite outputs; off one-module scope; relative-path rejection; original disk bytes protected.",
+      "executionBoundary": "Original runFixture GOWORK=off retained; Inspect/Plan proves auto workspace resolution, run proves rewrite semantics.",
+      "appliedSourceReview": {
+        "path": ".tools/gowork-auto-docs-draft-20261111/signature-and-native-plan-review.json",
+        "bytes": 8928,
+        "sha256": "e5d8f67e1fab760509635427deb273946ba9eedaee37d3f57eef080da0309962"
+      },
+      "currentFullOrNativeClaim": false
+    }
+  },
+  "diagnosticHistory": {
+    "initialOldSdk": "Earlier v2 actual-old-a297-001 failed expected-empty environment assertion while navigation succeeded. Preserve it as historical; it is superseded for the genuine workspace-diagnostic RED claim by v5old003, not rewritten into a new result.",
+    "offTimeoutRootCause": {
+      "review": {
+        "path": ".tools/gowork-lsp4j-abi-readonly-20261111/review.json",
+        "bytes": 3932,
+        "sha256": "4d27cdc7fee174f9bfeb4161cdd2eabde79239c6c9f0a929b543a418331c3e75"
+      },
+      "diagnosticResult": {
+        "path": ".tools/gowork-auto-focused-v4-20261111/actual-off-wire-diagnostic-001/result.json",
+        "bytes": 10202,
+        "sha256": "91ef97bcf0748f24ea4f6529bfbf4ab0b9ed474195392bab08f2553f93415229"
+      },
+      "diagnosticEvidence": {
+        "path": ".tools/gowork-auto-focused-v4-20261111/actual-off-wire-diagnostic-001/actual-fixture-evidence.json",
+        "bytes": 37473,
+        "sha256": "947188c5879f4a8ec2bcb51f9b3714b90219f0545f55f7ca073a265587300047"
+      },
+      "wireFixtureSha256": "92c3a8753764cc74e7d0aa21205343ceafdd282a44f215a5fcc59a3fc60ac7b6",
+      "observed": "Own protocol reader Future completed exceptionally with NoSuchMethodError: java.lang.String org.eclipse.lsp4j.Diagnostic.getMessage(). The compile SDK DTO getter returned String while actual bundled LSP4J1.0 returned Either<String,MarkupContent>.",
+      "meaning": "Test-client compile/runtime ABI failure; OFF deadline is not a gopls analysis hang, successful off control, genuine target RED or functional PASS. Deliberate diagnostic records remain intact."
+    },
+    "protocolAlignment": {
+      "buildSha256": "45b262a5c505b3058f5e593a0e24f4d748ad69088c4be390fad5c01dacbaaaa3",
+      "fixtureSha256": "6861bd8217f6d850df5e98aa3a4dad91224d230b10a7d57316a960d84c17cfd1",
+      "change": "Compile main/test against all4 actual bundled protocol components ahead of legacy SDK duplicates; actual runtime dependency set unchanged. Typed client reads Diagnostic.message Either. Two production codecs and3 workspace-edit tests adapt TextDocumentEdit entries to Either, preserving existing assertions and test identities.",
+      "typedPreparation": {
+        "path": ".tools/gowork-auto-fixture-v5-typed-20261111/preparation.json",
+        "bytes": 2637,
+        "sha256": "edd88bc84dfbec9351a64d9fc0e1dc658de82e8024cc9bc03a46d48978c434cd"
+      },
+      "typedCodecReceipt": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/typed-workspace-edits-receipt.json",
+        "bytes": 1344,
+        "sha256": "caf5273a58577dab1d8b27d654472941bed45673803e49cdb9dcdd4ca2cc79f7"
+      },
+      "setterCorrection": {
+        "path": ".tools/gowork-auto-focused-v5-20261111/typed-workspace-edits-setter-correction.json",
+        "bytes": 478,
+        "sha256": "d997f8c6d29156b5d1b5f551235e67199873b2fc03bc1ed29606919c219068d2"
+      },
+      "actualEvidence": "old003 compiled/tested with this alignment and reached all4 genuine mode oracles; fixed9 compiled/tested and passed. Preparation receipts retain their original not-executed-at-that-time status.",
+      "limit": "Compilation and selected9 methods do not execute all affected workspace-edit codec regressions; those broader full tests remain pending."
+    }
+  },
+  "inference": [
+    "Pinned gopls v0.24 explicit-auto path interpretation disagrees with actual Go1.26.10 automatic workspace discovery in this fixture. Narrow gopls-only normalization removes the measured initial-workspace diagnostic in the actual four-mode SDK controls.",
+    "Preserving raw settings while adapting only gopls command/initialize allows build-context epoch comparison to retain user intent; same-wrapper tool-intent and simulated-parent checks are bounded unit evidence."
+  ],
+  "unknownAndRequiredFutureEvidence": [
+    "Fresh full Gradle test+buildPlugin and Go race/vet for a clean immutable commit of the506-input changes. Historical a297/earlier full cohorts do not transfer.",
+    "New candidate assembled/bound to the final source and actual native explicit-auto GoWork/navigation/Run/uncached Test/Change Signature+Undo.",
+    "Actual native CONSOLE parent auto with project/config GOWORK absent: owned gopls child present-empty and initialize key absent; same-IDE actual Go/Delve raw-auto control. Simulated maps and never-executed command inspection cannot satisfy this.",
+    "Automatic documentHighlight refresh after metadata/tags at unchanged caret remains unknown.",
+    "New public .6 actual Windows EXE/macOS DMG+checksums, independent downloaded-installed artifact comparison, native installation and platform workflows. No new public release inferred from focused checks.",
+    "Full36-by2 reference/new-product matrix remains open; no new commercial reference runtime evidence or complete GoLand parity claim."
+  ],
+  "acceptanceMatrixSupplement": {
+    "policy": "Add partial_evidence only; retain broad reference_runtime/reconstruction unverified.",
+    "rows": {
+      "PROJECT-02": "Real GOWORK auto diagnosis and four-mode fixed controls, native empty control; full workspace semantics remain open.",
+      "PROJECT-03": "Go1.26.10 versus gopls auto boundary; five explicitly simulated/intention controls; actual native inherited environment pending.",
+      "LANG-03": "Exact actual local/cross-module/off results retained; old AUTO navigation already succeeded, no navigation-defect repair claim.",
+      "LANG-07": "Signature six-case compiled overlay and source-byte match; new-source native dialog/apply/Undo pending.",
+      "LANG-10": "a297 natural recovery of3features and excluded4-feature request suppression; documentHighlight automatic recovery unknown.",
+      "ROBUST-01": "Native98identity normal Quit/no signals; SDK23old/24fixed sampled identities gone with separate fixture destroy disclosure."
+    }
+  },
+  "publishingBoundary": "Small source-bound summaries and evidence hashes are retained here; bulk protocol logs remain in the recorded local paths. Historical plans/results are preserved. These records establish bounded SDK and historical native observations, not complete GoLand parity or new public installer acceptance."
+}

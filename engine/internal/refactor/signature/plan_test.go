@@ -209,58 +209,157 @@ func TestDirtyOverlayUTF16CRLFAndStaleSymbol(t *testing.T) {
 	}
 }
 
-func TestDirtyWorkAndModuleMetadataLoadCrossModuleInterfaceClosure(t *testing.T) {
-	root := t.TempDir()
-	root, _ = filepath.EvalSymlinks(root)
-	api := "package a\ntype Number int\ntype API interface{Target(x,y Number) Number}\nfunc Call(api API)Number{return api.Target(1,2)}\n"
-	main := "package main\nimport(\"fmt\";\"example.org/a\")\ntype Worker struct{}\nfunc(Worker)Target(x,y a.Number)a.Number{return x*10+y}\nfunc main(){fmt.Println(a.Call(Worker{}),Worker{}.Target(1,2))}\n"
-	files := map[string]string{"go.work": "go 1.24.0\nuse ./a\n", "a/go.mod": "module example.org/a\n\ngo 1.24.0\n", "a/api.go": api, "a/api_test.go": "package a\nimport \"testing\"\nfunc TestNumber(t *testing.T){var _ Number=1}\n", "b/go.mod": "module example.org/b\n\ngo 1.24.0\nrequire example.org/a v0.0.0\nreplace example.org/a => ./missing\n", "b/main.go": main}
-	for name, text := range files {
-		p := filepath.Join(root, name)
-		_ = os.MkdirAll(filepath.Dir(p), 0755)
-		if err := os.WriteFile(p, []byte(text), 0600); err != nil {
-			t.Fatal(err)
-		}
+func signatureWorkspaceGo(t *testing.T) string {
+	t.Helper()
+	selected := os.Getenv("OPENGOLAND_GO_TEST")
+	if selected == "" {
+		// Preserve the existing default PATH behavior when no SDK was selected.
+		return ""
 	}
-	dirtyWork := "go 1.24.0\nuse (\n./a\n./b\n)\n"
-	dirtyMod := strings.Replace(files["b/go.mod"], "./missing", "../a", 1)
-	req := Request{OperationID: "dirty-metadata", Root: root, Target: Target{fileURI(filepath.Join(root, "a/api.go")), positionAt(api, strings.Index(api, "Target(")+2)}, Environment: map[string]string{"GOWORK": filepath.Join(root, "go.work"), "GOPROXY": "off"}, Overlays: []Overlay{{URI: fileURI(filepath.Join(root, "go.work")), Text: dirtyWork, DocumentStamp: 77}, {URI: fileURI(filepath.Join(root, "b/go.mod")), Text: dirtyMod, DocumentStamp: 78}}}
-	info, err := Inspect(context.Background(), req)
+	selected, err := exec.LookPath(selected)
 	if err != nil {
 		t.Fatal(err)
 	}
-	if len(info.Coverage.Modules) != 2 || info.RelatedDeclarations != 2 {
-		t.Fatalf("dirty workspace/type-world closure not loaded: %+v", info)
-	}
-	change := unchangedChange(info)
-	change.Parameters[0], change.Parameters[1] = change.Parameters[1], change.Parameters[0]
-	plan := makePlan(t, req, info, change)
-	if len(plan.Conflicts) > 0 {
-		t.Fatal(plan.Conflicts)
-	}
-	for name, before := range files {
-		data, _ := os.ReadFile(filepath.Join(root, name))
-		if string(data) != before {
-			t.Fatalf("analysis modified %s", name)
-		}
-	}
-	conditions := map[string]Precondition{}
-	for _, p := range plan.Preconditions {
-		conditions[p.URI] = p
-	}
-	for name, stamp := range map[string]int64{"go.work": 77, "b/go.mod": 78} {
-		p := conditions[fileURI(filepath.Join(root, name))]
-		if p.DocumentStamp == nil || *p.DocumentStamp != stamp {
-			t.Fatalf("missing dirty config baseline %s", name)
-		}
-	}
-	applyPlan(t, plan)
-	// Only the test harness applies its own unsaved module overlay for execution.
-	if err = os.WriteFile(filepath.Join(root, "b/go.mod"), []byte(dirtyMod), 0600); err != nil {
+	selected, err = filepath.Abs(selected)
+	if err != nil {
 		t.Fatal(err)
 	}
-	if got := runFixture(t, filepath.Join(root, "b")); got != "12 12\n" {
-		t.Fatalf("cross-module dynamic semantics changed: %q", got)
+	// Keep the executable entry point: resolving a Go shim can change argv0 dispatch.
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	command := exec.CommandContext(ctx, selected, "env", "-json", "GOROOT", "GOVERSION")
+	for _, pair := range os.Environ() {
+		name, _, _ := strings.Cut(pair, "=")
+		if name != "GOROOT" && name != "GOTOOLCHAIN" && name != "GOENV" && name != "GOFLAGS" {
+			command.Env = append(command.Env, pair)
+		}
+	}
+	command.Env = append(command.Env, "GOTOOLCHAIN=local", "GOENV=off", "GOFLAGS=")
+	out, err := command.CombinedOutput()
+	if err != nil {
+		t.Fatalf("selected Go environment: %v\n%s", err, out)
+	}
+	var sdk struct{ GOROOT, GOVERSION string }
+	if err := json.Unmarshal(out, &sdk); err != nil {
+		t.Fatalf("selected Go environment JSON: %v\n%s", err, out)
+	}
+	if !filepath.IsAbs(sdk.GOROOT) || sdk.GOVERSION == "" {
+		t.Fatalf("selected Go environment is incomplete: %s", out)
+	}
+	t.Setenv("PATH", filepath.Dir(selected)+string(os.PathListSeparator)+os.Getenv("PATH"))
+	t.Setenv("GOROOT", sdk.GOROOT)
+	t.Setenv("GOTOOLCHAIN", "local")
+	t.Setenv("GOENV", "off")
+	t.Setenv("GOFLAGS", "")
+	t.Logf("selected workspace SDK: %s (%s; GOROOT=%s)", sdk.GOVERSION, selected, sdk.GOROOT)
+	return selected
+}
+
+func TestDirtyWorkAndModuleMetadataLoadCrossModuleInterfaceClosure(t *testing.T) {
+	selectedGo := signatureWorkspaceGo(t)
+	cases := []struct {
+		name, cwd, work          string
+		wantModules, wantRelated int
+		wantRejected             bool
+	}{
+		{"absolute-workspace-root", "", "absolute", 2, 2, false},
+		{"empty-module-root", "a", "", 2, 2, false},
+		{"auto-module-root", "a", "auto", 2, 2, false},
+		{"absolute-module-root", "a", "absolute", 2, 2, false},
+		{"off-module-root", "a", "off", 1, 1, false},
+		{"relative-module-root", "a", "./go.work", 0, 0, true},
+	}
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			root := t.TempDir()
+			root, _ = filepath.EvalSymlinks(root)
+			api := "package a\ntype Number int\ntype API interface{Target(x,y Number) Number}\nfunc Call(api API)Number{return api.Target(1,2)}\n"
+			main := "package main\nimport(\"fmt\";\"example.org/a\")\ntype Worker struct{}\nfunc(Worker)Target(x,y a.Number)a.Number{return x*10+y}\nfunc main(){fmt.Println(a.Call(Worker{}),Worker{}.Target(1,2))}\n"
+			files := map[string]string{"go.work": "go 1.24.0\nuse ./a\n", "a/go.mod": "module example.org/a\n\ngo 1.24.0\n", "a/api.go": api, "a/api_test.go": "package a\nimport \"testing\"\nfunc TestNumber(t *testing.T){var _ Number=1}\n", "b/go.mod": "module example.org/b\n\ngo 1.24.0\nrequire example.org/a v0.0.0\nreplace example.org/a => ./missing\n", "b/main.go": main}
+			for name, source := range files {
+				p := filepath.Join(root, name)
+				if err := os.MkdirAll(filepath.Dir(p), 0755); err != nil {
+					t.Fatal(err)
+				}
+				if err := os.WriteFile(p, []byte(source), 0600); err != nil {
+					t.Fatal(err)
+				}
+			}
+			assertDiskUnchanged := func() {
+				t.Helper()
+				for name, before := range files {
+					data, err := os.ReadFile(filepath.Join(root, name))
+					if err != nil || string(data) != before {
+						t.Fatalf("analysis modified %s: %v", name, err)
+					}
+				}
+			}
+			dirtyWork := "go 1.24.0\nuse (\n./a\n./b\n)\n"
+			dirtyMod := strings.Replace(files["b/go.mod"], "./missing", "../a", 1)
+			work := tc.work
+			if work == "absolute" {
+				work = filepath.Join(root, "go.work")
+			}
+			req := Request{OperationID: "dirty-metadata", Root: filepath.Join(root, tc.cwd), GoExecutable: selectedGo, Target: Target{fileURI(filepath.Join(root, "a/api.go")), positionAt(api, strings.Index(api, "Target(")+2)}, Environment: map[string]string{"GOWORK": work, "GOPROXY": "off", "GOENV": "off", "GOFLAGS": ""}, Overlays: []Overlay{{URI: fileURI(filepath.Join(root, "go.work")), Text: dirtyWork, DocumentStamp: 77}, {URI: fileURI(filepath.Join(root, "b/go.mod")), Text: dirtyMod, DocumentStamp: 78}}}
+			ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
+			defer cancel()
+			info, err := Inspect(ctx, req)
+			if tc.wantRejected {
+				if err == nil || !strings.Contains(err.Error(), "GOWORK") || !strings.Contains(err.Error(), "absolute path") {
+					t.Fatalf("relative GOWORK must remain rejected: %v", err)
+				}
+				assertDiskUnchanged()
+				return
+			}
+			if err != nil {
+				t.Fatal(err)
+			}
+			if len(info.Coverage.Modules) != tc.wantModules || info.RelatedDeclarations != tc.wantRelated {
+				t.Fatalf("selected workspace/type-world closure not loaded: %+v", info)
+			}
+			change := unchangedChange(info)
+			change.Parameters[0], change.Parameters[1] = change.Parameters[1], change.Parameters[0]
+			plan := makePlan(t, req, info, change)
+			if len(plan.Conflicts) > 0 || !plan.Validation.TypeChecked {
+				t.Fatalf("cross-module candidate was not type checked: %+v", plan)
+			}
+			assertDiskUnchanged()
+			conditions := map[string]Precondition{}
+			for _, p := range plan.Preconditions {
+				conditions[p.URI] = p
+			}
+			for name, stamp := range map[string]int64{"go.work": 77, "b/go.mod": 78} {
+				p := conditions[fileURI(filepath.Join(root, name))]
+				if p.DocumentStamp == nil || *p.DocumentStamp != stamp {
+					t.Fatalf("missing dirty config baseline %s", name)
+				}
+			}
+			wantedEdits := map[string]bool{fileURI(filepath.Join(root, "a/api.go")): true}
+			if tc.wantModules == 2 {
+				wantedEdits[fileURI(filepath.Join(root, "b/main.go"))] = true
+			}
+			for _, edit := range plan.WorkspaceEdit.DocumentChanges {
+				if !wantedEdits[edit.TextDocument.URI] {
+					t.Fatalf("edit escaped selected module scope: %s", edit.TextDocument.URI)
+				}
+				delete(wantedEdits, edit.TextDocument.URI)
+			}
+			if len(wantedEdits) != 0 {
+				t.Fatalf("missing related declaration or caller edits: %v", wantedEdits)
+			}
+			if tc.wantModules == 1 {
+				// off must not load or edit the other module, even with supplied metadata overlays.
+				return
+			}
+			applyPlan(t, plan)
+			// Only the test harness applies its own unsaved module overlay for execution.
+			if err = os.WriteFile(filepath.Join(root, "b/go.mod"), []byte(dirtyMod), 0600); err != nil {
+				t.Fatal(err)
+			}
+			if got := runFixture(t, filepath.Join(root, "b")); got != "12 12\n" {
+				t.Fatalf("cross-module dynamic semantics changed: %q", got)
+			}
+		})
 	}
 }
 
