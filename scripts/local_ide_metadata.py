@@ -17,7 +17,7 @@ from product_metadata import _parse_plugin_classpath
 
 _MODULES = {
     "intellij.settingsSync.core", "intellij.vcs.github.ultimatePromo",
-    "intellij.toml.grazie", "intellij.kotlin.grazie",
+    "intellij.toml.grazie", "intellij.kotlin.grazie", "intellij.java.promo",
 }
 _TRY_ULTIMATE = "com.intellij.openapi.updateSettings.impl.upgradeToUltimate.installation.install.TryUltimateActionHandler"
 _ADVERTISER = "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement."
@@ -27,7 +27,7 @@ _CONSENT_CONFIGURABLE = {
 }
 _PATCHED_PLUGINS = {
     "toml": "org.toml.lang", "maven": "org.jetbrains.idea.maven",
-    "vcs-github": "org.jetbrains.plugins.github",
+    "vcs-github": "org.jetbrains.plugins.github", "java": "com.intellij.java",
 }
 
 

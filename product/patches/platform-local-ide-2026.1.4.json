@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "platformVersion": "2026.1.4",
-  "purpose": "Local IDE without IDE accounts, cloud settings sync, paid upsell registrations or active Grazie cloud/license plugin; Git/private-repository authentication retained. Inapplicable upstream Data Sharing configurable omitted for this independent vendor; consent APIs and records unchanged.",
+  "purpose": "Local IDE without IDE accounts, cloud settings sync, paid upsell registrations or active Grazie cloud/license plugin; Git/private-repository authentication retained. Inapplicable upstream Data Sharing configurable omitted for this independent vendor; consent APIs and records unchanged. The optional Java Ultimate-promotion module is omitted while Java language support remains.",
   "classpathRule": {
     "kind": "plugin-classpath",
     "path": "plugins/plugin-classpath.txt",
     "inputBytes": 3144040,
     "inputSha256": "b67cfca0af041c999c3c1841e55605bae507132c8fc8d0728a08050ee84ea766",
-    "outputBytes": 3118158,
-    "outputSha256": "18b298bc75d780d197a8dea17aaa637aa783e947a40753c6699c68ef91fc3089",
+    "outputBytes": 3113868,
+    "outputSha256": "126b1085fd5809898df1ba6a39ef0a6b5cbd1ba870021308fee725c63b4c97b4",
     "pluginCountBefore": 47,
     "pluginCountAfter": 46,
     "core": {
@@ -183,6 +183,34 @@
             "intellij.vcs.github.ultimatePromo"
           ]
         }
+      },
+      {
+        "directory": "java",
+        "id": "com.intellij.java",
+        "inputRecordSha256": "f80e8e4f377806b5251faf071fe47a26b8acd2336779b60c9569822c406e87db",
+        "outputRecordSha256": "9550c19a899dfb504c4d791acf8c2f0e1b324d5fb2c8c71fc710e02524cde449",
+        "xml": {
+          "kind": "xml",
+          "path": "plugins/plugin-classpath.txt!plugin[com.intellij.java]",
+          "inputBytes": 930685,
+          "inputSha256": "a6f92adddd1ebda4aec322e2a3c3b1f28610e7c81ec1229c994a0e25804a9700",
+          "outputBytes": 926395,
+          "outputSha256": "59355577cfc93f2a08137460b15048ed4fc6bf0fd3770ba11f2a53cb0ab50f2d",
+          "removals": [
+            {
+              "tag": "module",
+              "parent": "content",
+              "attributes": {
+                "name": "intellij.java.promo"
+              },
+              "bytes": 4290,
+              "sha256": "bd005caed7822b8ab4270e1645c3fc80c2e8894912654549a96f20c9c9b038e4"
+            }
+          ],
+          "absentTokens": [
+            "intellij.java.promo"
+          ]
+        }
       }
     ],
     "absentTokens": [
@@ -194,7 +222,8 @@
       "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginAdvertiserEditorNotificationProvider",
       "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.PluginsAdvertiserStartupActivity",
       "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
-      "com.intellij.ide.gdpr.ConsentConfigurable"
+      "com.intellij.ide.gdpr.ConsentConfigurable",
+      "intellij.java.promo"
     ]
   },
   "xmlRules": [
@@ -507,6 +536,30 @@
       ],
       "jar": "plugins/Kotlin/lib/kotlin-plugin.jar",
       "entry": "kotlin.plugin.k2.xml"
+    },
+    {
+      "kind": "xml",
+      "path": "plugins/java/lib/java-impl.jar!/META-INF/plugin.xml",
+      "inputBytes": 751257,
+      "inputSha256": "ee5b492f4a8911f3b955862900256dd69835dec2acd8f121a8259e2c80e1d380",
+      "outputBytes": 747901,
+      "outputSha256": "0c51b33294ee98eb3b85332a3a5a81f6b29ebf032a01e189226581af5fda74a8",
+      "removals": [
+        {
+          "tag": "module",
+          "parent": "content",
+          "attributes": {
+            "name": "intellij.java.promo"
+          },
+          "bytes": 3356,
+          "sha256": "98cfa9e1bff6ea3a70b8567a26f3061dd16ed4ced8ca41f8ab64515fd28ad9e0"
+        }
+      ],
+      "absentTokens": [
+        "intellij.java.promo"
+      ],
+      "jar": "plugins/java/lib/java-impl.jar",
+      "entry": "META-INF/plugin.xml"
     }
   ],
   "jarInputs": [
@@ -539,6 +592,11 @@
       "path": "plugins/Kotlin/lib/kotlin-plugin.jar",
       "bytes": 175258457,
       "sha256": "02931b49fd2d3978e2920294934ab1ac7eebac5a7ff2a64649174f8822eef6ff"
+    },
+    {
+      "path": "plugins/java/lib/java-impl.jar",
+      "bytes": 13437970,
+      "sha256": "6f74f739129e568feebc96e2cdcff7182cb8d129c590fc4432d9b8f940d3b131"
     }
   ],
   "removedFiles": [
@@ -681,6 +739,11 @@
       "path": "plugins/vcs-github/lib/modules/intellij.vcs.github.ultimatePromo.jar",
       "bytes": 13189,
       "sha256": "e893ede9a19ea34780d8eba0d570fd88cc0687739f0ae12e0952eded5c050735"
+    },
+    {
+      "path": "plugins/java/lib/modules/intellij.java.promo.jar",
+      "bytes": 80832,
+      "sha256": "1ac2f99ed71d8edd792b9a8095b1d77aca98e1793c5f0faac54f6fe235b97a80"
     }
   ],
   "retainedFiles": [
@@ -718,7 +781,8 @@
       "intellij.toml.grazie",
       "intellij.vcs.github.ultimatePromo",
       "lib.ai.grazie.rule.engine",
-      "tanvd.grazi"
+      "tanvd.grazi",
+      "intellij.java.promo"
     ],
     "beforeCounts": {
       "bundledPlugins": 48,
@@ -728,7 +792,7 @@
     "afterCounts": {
       "bundledPlugins": 47,
       "modules": 45,
-      "layout": 682
+      "layout": 681
     },
     "removedLayout": [
       {
@@ -767,6 +831,13 @@
       {
         "name": "intellij.grazie.yaml",
         "kind": "moduleV2"
+      },
+      {
+        "name": "intellij.java.promo",
+        "kind": "moduleV2",
+        "classPath": [
+          "plugins/java/lib/modules/intellij.java.promo.jar"
+        ]
       },
       {
         "name": "intellij.kotlin.grazie",
@@ -838,5 +909,54 @@
       "org.jetbrains.kotlin",
       "org.toml.lang"
     ]
+  },
+  "promotionExclusion": {
+    "moduleId": "intellij.java.promo",
+    "upstreamCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "sources": [
+      {
+        "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/java-promo/src/com/intellij/java/promo/actions.kt",
+        "sha256": "39f82522cd5ccd66fbc23cb13040199013395cd40177f6dd3d8e58196d351cd7"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/java-promo/resources/intellij.java.promo.xml",
+        "sha256": "9cac6563effd6d13e3e9b9e5e24af6165a3415b03707f1b77d24f3426df93db5"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/java-promo/resources/META-INF/community-integration.xml",
+        "sha256": "787a3258db4ddcfe42ef90c6080facf84bc6395757ef888418855439fdc69140"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/java-promo/src/com/intellij/java/promo/configurables.kt",
+        "sha256": "72af2f5bb8905c76d5b7dcb5f6cea8ed840a662163c1464bb52d83fa3429a3c1"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/java-promo/src/com/intellij/java/promo/FrameworkSuggestionProvider.kt",
+        "sha256": "b605080e50a7e310bf33b954f02f9b507e1ddbb8b456f04db9da993319a54648"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/java/java-promo/src/com/intellij/java/promo/LiquibaseSuggestionProvider.kt",
+        "sha256": "f266ce040cd375e97254632c5ec1acd8d837f62552cd1599c6435643b17d1d49"
+      }
+    ],
+    "actionIds": [
+      "PromoSpring",
+      "PromoBeans",
+      "PromoPersistence",
+      "PromoEndpoints",
+      "PromoDatabase",
+      "PromoKubernetes",
+      "PromoOpenAPI",
+      "PromoProfiler"
+    ],
+    "configurableIds": [
+      "promo.database",
+      "promo.kubernetes",
+      "promo.javascript",
+      "promo.typescript",
+      "promo.swagger",
+      "promo.profiler"
+    ],
+    "scope": "Omit this optional IDE-owned paid-promotion module as a whole. Java language support, native compatible-plugin management, and development-service authentication remain."
   }
 }

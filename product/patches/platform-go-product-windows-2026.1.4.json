@@ -123,6 +123,7 @@
       "intellij.grazie.yaml",
       "intellij.java.ide.customization",
       "intellij.java.ide.customization.training",
+      "intellij.java.promo",
       "intellij.kotlin.grazie",
       "intellij.libraries.ai.grazie.spell.gec.engine.local",
       "intellij.settingsSync.core",
@@ -141,6 +142,7 @@
       "intellij.grazie.yaml.xml",
       "intellij.java.ide.customization.xml",
       "intellij.java.ide.customization.training.xml",
+      "intellij.java.promo.xml",
       "intellij.kotlin.grazie.xml",
       "intellij.libraries.ai.grazie.spell.gec.engine.local.xml",
       "intellij.settingsSync.core.xml",
@@ -151,7 +153,7 @@
     "formatVersion": 2,
     "generatorVersion": 3,
     "moduleCountBefore": 1087,
-    "moduleCountAfter": 1071,
+    "moduleCountAfter": 1070,
     "bootstrapModule": "intellij.platform.bootstrap",
     "bootstrapClasspathCount": 121,
     "helper": "product/patches/GoProductModuleRepository.java",
@@ -161,10 +163,10 @@
     "removedUnresolvedDependencyIds": [
       "intellij.notebooks.visualization"
     ],
-    "outputCompactBytes": 148653,
-    "outputCompactSha256": "14a704b279143ed63bb4fc40f4ad393d77bbbc856f3c48298d81bd0ad47d99db",
-    "outputJarBytes": 435992,
-    "outputJarSha256": "a29e06d5f6715b243dee977524fef5a262328d83a855fbd50036cb080fd6f5f0",
+    "outputCompactBytes": 148523,
+    "outputCompactSha256": "f455df3c3cfecff629be3faba1fbdfedde8cee9e8f93334bf42691ef12f49957",
+    "outputJarBytes": 435612,
+    "outputJarSha256": "7746fb1206f1c41ab13968b2180979c86eed56e4053637e60bd9af16e21d8db9",
     "removedOptionalEdges": [
       {
         "module": "intellij.maven",

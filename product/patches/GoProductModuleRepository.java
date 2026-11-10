@@ -36,6 +36,7 @@ public final class GoProductModuleRepository {
   private static final String BOOTSTRAP = "intellij.platform.bootstrap";
   private static final Set<String> EXCLUDED = Set.of(
     "intellij.java.ide.customization", "intellij.java.ide.customization.training",
+    "intellij.java.promo",
     "intellij.settingsSync.core", "intellij.vcs.github.ultimatePromo",
     "intellij.grazie", "intellij.grazie.core", "intellij.grazie.java",
     "intellij.grazie.json", "intellij.grazie.markdown", "intellij.grazie.properties",
