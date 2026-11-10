@@ -37,6 +37,7 @@ import dev.openidea.goide.run.GoRunKind
 import org.jetbrains.concurrency.AsyncPromise
 import org.jetbrains.concurrency.Promise
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.atomic.AtomicBoolean
 
 /** Keeps synchronous DAP state APIs free of filesystem/process work on the EDT. */
 internal class GoDebugTestState(
@@ -112,12 +113,23 @@ class GoDebugTestRunner : AsyncProgramRunner<RunnerSettings>() {
             return result.apply { setResult(null) }
         }
         val testState = state as? GoDebugTestState ?: return result.apply { setError("Unsupported Go Debug Test state") }
+        // The promise belongs to preparation until the UI runnable claims the
+        // session. Its error callbacks may run on any completing thread.
+        val startupClaimed = AtomicBoolean()
+        result.onError {
+            if (startupClaimed.compareAndSet(false, true)) {
+                testState.testSession.requestCancellation()
+                testState.testSession.end()
+                AppExecutorUtil.getAppExecutorService().execute { Disposer.dispose(testState.testSession) }
+            }
+        }
         WriteIntentReadAction.run { FileDocumentManager.getInstance().saveAllDocuments() }
         AppExecutorUtil.getAppExecutorService().execute {
             try {
                 if (environment.project.isDisposed) throw ExecutionException("Project closed before Go Debug Test could start")
                 testState.prepare()
                 ApplicationManager.getApplication().invokeLater {
+                    if (!startupClaimed.compareAndSet(false, true)) return@invokeLater
                     try {
                         if (environment.project.isDisposed) throw ExecutionException("Project closed before the debug console opened")
                         val starter = object : XDebugProcessStarter() {

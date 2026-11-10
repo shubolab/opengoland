@@ -15,6 +15,8 @@ import com.intellij.execution.testframework.sm.SMTestRunnerConnectionUtil
 import com.intellij.execution.ui.ConsoleView
 import com.intellij.openapi.Disposable
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.progress.ProcessCanceledException
+import com.intellij.openapi.progress.ProgressManager
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Key
 import com.intellij.util.concurrency.AppExecutorUtil
@@ -34,6 +36,7 @@ import java.nio.charset.StandardCharsets
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CancellationException
 import java.util.concurrent.TimeUnit
 
 internal class GoDebugTestOptions(val testSession: GoDebugTestSession) : DAPRunConfigurationOptionsBase()
@@ -67,6 +70,8 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
     private var writer: OutputStreamWriter? = null
     private var adapter: ProcessHandler? = null
     private var packageName = ""
+    private val converterReady = CompletableFuture<JsonObject>()
+    private var preparingConverter = false
     @Volatile private var preparedLaunch: GoDebugLaunch? = null
     val launch: GoDebugLaunch get() = preparedLaunch ?: error("Go Debug Test has not been prepared")
 
@@ -101,17 +106,56 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
                 if (outputType === ProcessOutputTypes.STDOUT) converted(event.text)
                 else if (outputType === ProcessOutputTypes.STDERR) toolOutput("test2json: ${event.text}")
             }
-            override fun processTerminated(event: ProcessEvent) { converterFinished(event.exitCode) }
+            override fun processTerminated(event: ProcessEvent) {
+                converterReady.completeExceptionally(ExecutionException("The selected Go SDK's test2json exited before becoming ready (exit ${event.exitCode})."))
+                converterFinished(event.exitCode)
+            }
         })
         val accepted = synchronized(lock) {
             if (disposed || ending) false else {
                 converter = process
                 writer = OutputStreamWriter(process.processInput!!, StandardCharsets.UTF_8)
+                preparingConverter = true
                 true
             }
         }
         process.startNotify()
         if (!accepted) { process.destroyProcess(); throw ExecutionException("Debug test session was closed") }
+        awaitConverterStart(process)
+    }
+
+    /** Tool compilation belongs to preparation, not the three-second EOF deadline. */
+    private fun awaitConverterStart(process: KillableProcessHandler) {
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(60)
+        try {
+            while (true) {
+                ProgressManager.checkCanceled()
+                synchronized(lock) {
+                    if (disposed || ending) throw CancellationException("Go test preparation was cancelled")
+                }
+                val remaining = deadline - System.nanoTime()
+                if (remaining <= 0) throw ExecutionException("The selected Go SDK's test2json did not become ready within 60 seconds.")
+                try {
+                    converterReady.get(minOf(remaining, TimeUnit.MILLISECONDS.toNanos(100)), TimeUnit.NANOSECONDS)
+                    synchronized(lock) {
+                        if (disposed || ending) throw CancellationException("Go test preparation was cancelled")
+                        preparingConverter = false
+                    }
+                    return
+                } catch (_: java.util.concurrent.TimeoutException) { }
+            }
+        } catch (failure: Throwable) {
+            val cause = if (failure is java.util.concurrent.ExecutionException) failure.cause ?: failure else failure
+            if (cause is CancellationException || cause is ProcessCanceledException || cause is InterruptedException) {
+                requestCancellation()
+                end()
+                if (cause is InterruptedException) Thread.currentThread().interrupt()
+            }
+            // This is the converter and compiler subtree started by this session.
+            // prepare is always BGT; disposal only wakes this waiter, never waits on EDT.
+            if (!process.isProcessTerminated) process.destroyProcess()
+            throw cause
+        }
     }
 
     fun dapParameters(): Map<String, Any> {
@@ -226,6 +270,7 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
             drainLocked()
             converter
         }
+        converterReady.completeExceptionally(CancellationException("Go test session ended during converter preparation"))
         if (process == null) finishEvents()
         else AppExecutorUtil.getAppScheduledExecutorService().schedule({
             if (!completed.isDone) {
@@ -267,7 +312,16 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
             if (end < 0) return
             val line = jsonLine.substring(0, end); jsonLine.delete(0, end + 1)
             val json = runCatching { JsonParser.parseString(line).asJsonObject }.getOrNull()
-            val action = json?.get("Action")?.asString
+            val action = json?.get("Action")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
+            if (!converterReady.isDone) {
+                val announcedPackage = json?.get("Package")?.takeIf { it.isJsonPrimitive && it.asJsonPrimitive.isString }?.asString
+                if (action == "start" && announcedPackage == packageName && json != null && !json.has("Test"))
+                    converterReady.complete(json.deepCopy())
+                else {
+                    converterReady.completeExceptionally(ExecutionException("The selected Go SDK's test2json did not emit the expected package start event."))
+                    return
+                }
+            }
             if (action == "run" && json.has("Test")) synchronized(lock) { sawTest = true }
             // The converter reading stdin exits 0 even if the test binary failed.
             // Its unversioned package terminal action is replaced by the actual DAP exited code.
@@ -277,6 +331,7 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
     }
 
     private fun converterFinished(code: Int) {
+        if (synchronized(lock) { preparingConverter && cancelled && ending }) { finishEvents(); return }
         val failed = synchronized(lock) { code != 0 || !ending }
         if (failed) { conversionFailed("Go test output converter ended unexpectedly (exit $code)"); return }
         finishEvents()
@@ -284,7 +339,7 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
 
     private fun conversionFailed(reason: String) {
         synchronized(lock) {
-            runFailure = runFailure ?: reason
+            if (!(preparingConverter && cancelled && ending)) runFailure = runFailure ?: reason
             ending = true
             queue.clear(); queuedChars = 0
         }
