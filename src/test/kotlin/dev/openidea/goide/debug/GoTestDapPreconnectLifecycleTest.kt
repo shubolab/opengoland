@@ -213,7 +213,9 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
                 assertEquals(requests, f.peer.notificationRequests())
                 assertEquals(generation, client.suspensionGeneration)
                 notifications.assertNoDispatchFailure()
-                edt { UIUtil.dispatchAllInvocationEvents(); assertTrue(f.session.isStopped); assertFalse(f.session.isPaused) }
+                // A requested native Stop closes this connection before its
+                // held ACK has finished the asynchronous SDK session lifecycle.
+                edt { UIUtil.dispatchAllInvocationEvents(); assertFalse(f.session.isPaused) }
                 try {
                     client.debugProtocolServer
                     fail("A notification fix must retain cancellation of an ordinary late endpoint lookup")
@@ -223,6 +225,7 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
                 f.peer.ack.complete(null)
                 shutdown.get(3, TimeUnit.SECONDS)
                 f.finishAdapterNaturally()
+                waitFor { edt { f.session.isStopped } }
                 // Repeat after real transport disposal, now CLOSED rather than
                 // claiming only the pre-ACK state was covered.
                 val closedGeneration = client.suspensionGeneration
@@ -279,10 +282,12 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
                 assertEquals(generationAfterStop, client.suspensionGeneration)
                 assertEquals(requestsAfterStop, f.peer.notificationRequests().dropLast(1))
                 waitFor { f.peer.disconnects.size == 1 }
-                edt { UIUtil.dispatchAllInvocationEvents(); assertTrue(f.session.isStopped); assertFalse(f.session.isPaused) }
+                edt { UIUtil.dispatchAllInvocationEvents(); assertFalse(f.session.isPaused) }
                 f.peer.ack.complete(null)
                 f.shutdown().get(3, TimeUnit.SECONDS)
                 f.finishAdapterNaturally()
+                waitFor { edt { f.session.isStopped } }
+                edt { assertFalse(f.session.isPaused) }
             } finally {
                 if (receiver.state != Thread.State.NEW) receiver.join(3_000)
                 assertFalse("The owned notification receiver must finish", receiver.isAlive)
@@ -303,15 +308,26 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
             assertTrue(f.peer.threadRequests.get() > threadsBefore)
             assertTrue(f.peer.stackRequests.get() > 0)
             notifications.assertNoDispatchFailure()
-            edt {
+            val pausedContext = edt {
                 assertFalse(f.session.isStopped)
-                assertNotNull(f.session.suspendContext?.activeExecutionStack?.topFrame)
+                val context = requireNotNull(f.session.suspendContext)
+                assertNotNull(context.activeExecutionStack?.topFrame)
                 f.session.stop()
+                context
             }
             waitFor { f.peer.disconnects.size == 1 }
             f.peer.ack.complete(null)
             f.shutdown().get(3, TimeUnit.SECONDS)
             f.finishAdapterNaturally()
+            waitFor { edt { f.session.isStopped } }
+            edt {
+                assertTrue(f.session.isStopped)
+                // The pinned SDK keeps myPaused independent of myStopped.
+                // Its asynchronous cleanup may keep or clear the old context,
+                // but a terminal notification must not install a new one.
+                val remaining = f.session.suspendContext
+                assertTrue(remaining == null || remaining === pausedContext)
+            }
         }
     }
 

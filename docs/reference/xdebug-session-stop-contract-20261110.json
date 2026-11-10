@@ -1,0 +1,81 @@
+{
+  "status": "sdk-contract-review-with-subsequent-three-case-focused-validation",
+  "atUtc": "2026-11-10T15:23:50.979571+00:00",
+  "platformSource": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-next-controls/readonly-review/upstream/XDebugSessionImpl.kt",
+    "sha256": "0f8f73f4530f4194339573edcb72657daafaf41313c66d5d0b25be56deccd22f",
+    "upstreamRef": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "url": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/xdebugger-impl/src/com/intellij/xdebugger/impl/XDebugSessionImpl.kt"
+  },
+  "savedSdkApiInspection": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/XDebugSessionImpl.javap.txt",
+    "sha256": "9d0603c339c1385e55000bae2a1aae329c293076ad22e3c433d87240f8b31148",
+    "scope": "Read existing method/API record, no new artifact execution or reverse-engineering session."
+  },
+  "sourceFindings": [
+    {
+      "lines": "400-402",
+      "observation": "isPaused reads myPaused alone."
+    },
+    {
+      "lines": "1239-1254",
+      "observation": "isStopped reads independent myStopped; stopImpl sets it before async stopAsync/processStopped."
+    },
+    {
+      "lines": "948-955,1257-1275",
+      "observation": "processStopped clears suspend context/frame and publishes sessionStopped; clearPausedData does not reset myPaused."
+    },
+    {
+      "lines": "936-944,1210-1224",
+      "observation": "Resume/reset handle myPaused separately; a prior real pause can legally leave isPaused true when isStopped is true."
+    }
+  ],
+  "testCorrection": "Active positive control must require stopped as the terminal state and permit its original context or null during asynchronous cleanup, without forcing a product/SDK history reset. Initially unpaused negative tests retain their exact no-pause/no-RPC/no-generation assertions.",
+  "focusedV3Actual": {
+    "reports": 1,
+    "tests": 3,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0,
+    "refs": [
+      {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/late-test-stopped-controls/root-fixed-focused-v3/result.json",
+        "sha256": "bbedd5f84ae653bb8595c064ab2b3ab579caa3637f8a4d4f7de607e0401c1a12",
+        "bytes": 26566
+      },
+      {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/late-test-stopped-controls/root-fixed-focused-v3/actual-class.xml",
+        "sha256": "15772bdeb9343dc4bf60db893187d098974ee29821eb5b9c0850d38f817316d2",
+        "bytes": 109663
+      },
+      {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/late-test-stopped-controls/root-fixed-focused-v3/gradle.log",
+        "sha256": "57f9eff6081e5a62f05bb6d96bf4511920c8875f53073f2dfcb5c4d6bbe5f303",
+        "bytes": 248131
+      }
+    ],
+    "classification": "Both negative notification cases passed. Active real frame/pause control passed until an incorrect final assertFalse(isPaused) after isStopped was already true. Original attempt remains failed and unchanged."
+  },
+  "unknowns": [
+    "The source/API contract permits asynchronous context clearing; this review does not claim a new native desktop capture or force a particular history-view lifetime."
+  ],
+  "originalReviewStatus": "source-and-existing-execution-review-no-new-build-test",
+  "focusedV4": {
+    "observedAtUtc": "2026-11-10T15:25:06.213014+00:00",
+    "tests": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "sourceDigest": "9374b39c18ccc80123c77374b43d6dd84b7c61ee1010de9968d0980f42ede35f",
+    "result": {
+      "path": ".tools/late-test-stopped-controls/root-fixed-focused-v4/result.json",
+      "sha256": "4ef09eb854b4d612fd3a7903685070150b6f461531d1efe2f1f8c36c95e5bd6a"
+    },
+    "xml": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/late-test-stopped-controls/root-fixed-focused-v4/actual-class.xml",
+      "bytes": 2038,
+      "sha256": "08e0a3d7464c308f7c55dc6c0d1165c42838a2e16b56bde5267cf882d7a485b6"
+    },
+    "boundary": "Focused SDK evidence only; full fresh run and installed-product/Windows acceptance remain pending."
+  }
+}
