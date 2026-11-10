@@ -1,0 +1,401 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261110.4",
+  "status": "published-preview",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.4",
+  "installerSource": {
+    "commit": "c7136ac436cd0a653263f33d6dfe6c6bc0cd5136",
+    "tag": "v0.1.0-preview.20261110.4",
+    "inputFiles": 486,
+    "inputDigest": "612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e"
+  },
+  "publication": {
+    "workflowRun": "https://github.com/shubolab/opengoland/actions/runs/42777808943",
+    "runId": 42777808943,
+    "releaseId": 440073449,
+    "publishedAt": "2026-11-10T08:30:31Z",
+    "prerelease": true,
+    "resolvedTagCommit": "c7136ac436cd0a653263f33d6dfe6c6bc0cd5136",
+    "jobs": [
+      {
+        "id": 129700337288,
+        "name": "version",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-10T07:48:01Z"
+      },
+      {
+        "id": 129700370542,
+        "name": "windows",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-10T08:24:33Z"
+      },
+      {
+        "id": 129700370724,
+        "name": "macos",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-10T08:29:21Z"
+      },
+      {
+        "id": 129717398541,
+        "name": "publish",
+        "status": "completed",
+        "conclusion": "success",
+        "completed_at": "2026-11-10T08:30:33Z"
+      }
+    ],
+    "allFourJobsSucceeded": true,
+    "exactAssetCount": 5,
+    "reviewedChineseNotesSha256": "f2b17334305e4fa6791671b47bd071eb3924b73123db73fea9a1c1b06452bde5"
+  },
+  "changeScope": [
+    "Restore standard native Pause and correct readiness publication",
+    "Normal launched Go Stop awaits actual DAP disconnect before adapter disposal",
+    "Keep cold-source line in the native OpenFileDescriptor so first navigation/highlight uses the DAP line",
+    "Source-bound separate first-worker Step and direct Continue controls",
+    "Actual native example GIF in both READMEs; source-stage captures documented separately"
+  ],
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "bytes": 4136060,
+      "sha256": "5fb2eb5d3fea993c06a45b06e98ee1dcf9c90928320c99ceb8ad840bf741db63",
+      "download": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/macos-provenance.tar.gz"
+    },
+    "open-Goland-0.1.0-preview.20261110.4-macos-arm64.dmg": {
+      "bytes": 1026066047,
+      "sha256": "c5b39ca9dc5d7b422c07bc6858196820fd2cd9c81ec222f495b5936048e22c69",
+      "download": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/open-Goland-0.1.0-preview.20261110.4-macos-arm64.dmg"
+    },
+    "open-Goland-0.1.0-preview.20261110.4-windows-x64-setup.exe": {
+      "bytes": 870565527,
+      "sha256": "0ed22536cd23bf45bbc4e7328ba1b613f0e9d432552528f6a32de49c7d93e64f",
+      "download": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/open-Goland-0.1.0-preview.20261110.4-windows-x64-setup.exe"
+    },
+    "SHA256SUMS": {
+      "bytes": 434,
+      "sha256": "b2e81779fda5db479988dd237459187a5f912d27fd81d116bb26e61b6c11e85a",
+      "download": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/SHA256SUMS"
+    },
+    "windows-provenance.tar.gz": {
+      "bytes": 6752520,
+      "sha256": "9c123da63519a49c4553c4b1175add8084a35e56311540dc49ad76f251397e27",
+      "download": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/windows-provenance.tar.gz"
+    }
+  },
+  "platforms": {
+    "macos": {
+      "kotlin": {
+        "reports": 130,
+        "tests": 710,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "executedPasses": 710
+      },
+      "exactSkippedCases": [],
+      "goRace": {
+        "packages": {
+          "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+          "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+          "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+          "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+          "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+        },
+        "testPassEvents": 341,
+        "topLevelTestPassEvents": 198,
+        "nonJsonLines": 0,
+        "cachedPackages": 0
+      },
+      "installedEngineWire": {
+        "records": 19,
+        "tools": {
+          "go": {
+            "available": true,
+            "version": "go version go1.26.10 darwin/arm64"
+          },
+          "gopls": {
+            "available": true,
+            "version": "golang.org/x/tools/gopls v0.24.0"
+          },
+          "dlv": {
+            "available": true,
+            "version": "Delve Debugger\nVersion: 1.27.2\nBuild: $Id: 360e7b2181d3da54115aaee4f569954bca95cfe3 $"
+          }
+        },
+        "taskExit": {
+          "cancelled": false,
+          "code": 0,
+          "id": "installed-test"
+        }
+      },
+      "producer": {
+        "schemaVersion": 1,
+        "version": "0.1.0-preview.20261110.4",
+        "target": "macos-arm64",
+        "installer": "open-Goland-0.1.0-preview.20261110.4-macos-arm64.dmg",
+        "installerSha256": "c5b39ca9dc5d7b422c07bc6858196820fd2cd9c81ec222f495b5936048e22c69",
+        "installerBytes": 1026066047,
+        "sourceCommit": "c7136ac436cd0a653263f33d6dfe6c6bc0cd5136",
+        "sourceDirty": false,
+        "sourceDigest": "612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e",
+        "productManifestSha256": "95ab90aba67d41472cd585a3093bf5096b5f679aa406f48e3942c8d9269778bb",
+        "installedApplication": "/Users/runner/work/opengoland/opengoland/build/installed-macos-887ss96i/open Goland.app",
+        "imageVerified": true,
+        "mountedAndCopied": true,
+        "signatureVerified": true,
+        "signing": "ad-hoc; not notarized",
+        "installedEngineSmoke": {
+          "pid": 58186,
+          "exitCode": 0,
+          "test": "TestBundledInstalledRuntime",
+          "testCount": 1,
+          "cached": false
+        },
+        "scope": "Actual DMG mount/install copy, signatures, native launcher version, bundled SDK/tools and one uncached pure-Go test. Interactive GUI and clean-OS debugging require separate evidence.",
+        "limitations": [
+          "Apple silicon macOS build only; preview is not notarized.",
+          "macOS debugging currently needs Apple's Command Line Tools debugserver.",
+          "Complete GoLand feature parity remains open."
+        ]
+      },
+      "goCheckKind": "fresh",
+      "goCommandRecords": [
+        {
+          "argv": [
+            "/Users/runner/work/opengoland/opengoland/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+            "test",
+            "-race",
+            "-count=1",
+            "-p=1",
+            "-timeout=30m",
+            "-json",
+            "./..."
+          ],
+          "cwd": "engine",
+          "exitCode": 0
+        },
+        {
+          "argv": [
+            "/Users/runner/work/opengoland/opengoland/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+            "vet",
+            "./..."
+          ],
+          "cwd": "engine",
+          "exitCode": 0
+        }
+      ],
+      "goLogSeals": [
+        {
+          "path": "go-race.jsonl",
+          "bytes": 369205,
+          "sha256": "32f08204e8dd8ff476d5d83d5af161d18a703b7845adf96130a8e54960ce6620"
+        },
+        {
+          "path": "go-vet.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "independentPublicInstalledNativeRecord": "../debug-session-public-v4-native.json"
+    },
+    "windows": {
+      "kotlin": {
+        "reports": 130,
+        "tests": 710,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 12,
+        "executedPasses": 698
+      },
+      "exactSkippedCases": [
+        [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "disposeShutsDownOwnedEngineAndRejectsReconnect"
+        ],
+        [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "failedInitializationCanBeRetried"
+        ],
+        [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange"
+        ],
+        [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "settingsRestartDoesNotLetOldReaderDisconnectNewEngine"
+        ],
+        [
+          "dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest",
+          "capturedSettingsOwnTheGenerationPayloadEvenWhenTheLiveProjectUsesAnotherSdkAndBuildContext"
+        ],
+        [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "aCompletedLauncherCannotLeaveItsChildRunning"
+        ],
+        [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher"
+        ],
+        [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "failedExecutableReportsTheToolErrorWithoutCreatingTheDestination"
+        ],
+        [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "oversizedSingleLineOutputIsBoundedAndDoesNotPublishAProject"
+        ],
+        [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "plausibleMetadataStillCannotPublishWithoutARealGoMod"
+        ],
+        [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "silentSuccessfulExecutableCannotCreateProjectParentsOrAModule"
+        ],
+        [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "timeoutTerminatesTheOwnedCommandAndItsChildren"
+        ]
+      ],
+      "goRace": {
+        "packages": {
+          "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+          "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+          "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+          "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+          "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+        },
+        "testPassEvents": 333,
+        "topLevelTestPassEvents": 184,
+        "nonJsonLines": 0,
+        "cachedPackages": 0
+      },
+      "installedEngineWire": {
+        "records": 21,
+        "tools": {
+          "go": {
+            "available": true,
+            "version": "go version go1.26.10 windows/amd64"
+          },
+          "gopls": {
+            "available": true,
+            "version": "golang.org/x/tools/gopls v0.24.0"
+          },
+          "dlv": {
+            "available": true,
+            "version": "Delve Debugger\nVersion: 1.27.2\nBuild: $Id: 360e7b2181d3da54115aaee4f569954bca95cfe3 $"
+          }
+        },
+        "taskExit": {
+          "cancelled": false,
+          "code": 0,
+          "id": "installed-test"
+        }
+      },
+      "producer": {
+        "schemaVersion": 1,
+        "version": "0.1.0-preview.20261110.4",
+        "target": "windows-x64",
+        "installer": "open-Goland-0.1.0-preview.20261110.4-windows-x64-setup.exe",
+        "installerSha256": "0ed22536cd23bf45bbc4e7328ba1b613f0e9d432552528f6a32de49c7d93e64f",
+        "installerBytes": 870565527,
+        "installerSigning": "unsigned",
+        "installerTool": {
+          "name": "Inno Setup",
+          "version": "6.7.3",
+          "repository": "jrsoftware/issrc",
+          "release": "is-6_7_3",
+          "assetId": 430321419,
+          "url": "https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe",
+          "size": 10592232,
+          "sha256": "9c73c3bae7ed48d44112a0f48e66742c00090bdb5bef71d9d3c056c66e97b732",
+          "source": "https://jrsoftware.org/isdl-verify.php",
+          "authenticodePublisher": "Pyrsys B.V."
+        },
+        "compilerSha256": "0a8757031b33777e4c9cbffee40f11a5062b36d25cbe144c1db73b6102b80ad7",
+        "raceCompiler": "C:\\mingw64\\bin\\gcc.exe",
+        "raceCompilerTarget": "x86_64-w64-mingw32",
+        "raceCompilerSha256": "0aeaac2ec1ba2fb290ad3a4bbe7b76d5baedd3743530e5da6d64fb57a2d71850",
+        "installExitCode": 0,
+        "uninstallExitCode": 0,
+        "installedSmoke": "installed-smoke/smoke.json",
+        "sourceCommit": "c7136ac436cd0a653263f33d6dfe6c6bc0cd5136",
+        "limitations": [
+          "Native version and project-frame startup and engine/tool workflows are not full interactive editor acceptance.",
+          "Windows process-tree cancellation remains subject to the documented backend limitations."
+        ]
+      },
+      "vet": {
+        "logPresent": false,
+        "log": null,
+        "authority": "Authenticated exact-source explicit nonzero-exit guard + successful terminal job + final producer report; no invented per-command exit JSON"
+      },
+      "installedSmoke": {
+        "status": "pass",
+        "version": "0.1.0-preview.20261110.4",
+        "installedFilesVerified": 17000
+      },
+      "manualGui": "not verified"
+    }
+  },
+  "localPreflight": {
+    "kotlin": {
+      "tests": 710,
+      "reports": 130,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "pythonControls": 62,
+    "sourceBoundNativeRecords": [
+      "../debug-cold-source-navigation-native.json",
+      "../debug-session-native-v4-controls.json"
+    ],
+    "publicInstalledNativeRecord": "../debug-session-public-v4-native.json"
+  },
+  "independentPublicAudit": {
+    "allFiveAssetsAnonymous": true,
+    "fullDmgHashVerifiedLocally": true,
+    "exeRangeOnlyLocally": true,
+    "exeCompleteProducerSha256AndApiDigestVerified": true,
+    "auditSummary": {
+      "path": ".tools/public-v4-release-audit/final-evidence.json",
+      "bytes": 209509,
+      "sha256": "0f21fed50fac7d6d8adfc55d374d7ee56daab466f62962d4c061b7cf3742d6e6"
+    },
+    "installedVerifier": {
+      "path": ".tools/public-v4-release-audit/mac-installed-verify.json",
+      "bytes": 18600,
+      "sha256": "6152487e02e7371cfe14446eb623cfb203352d3c7fa1628308de89c125b08f6e"
+    },
+    "nativeRecord": {
+      "path": "docs/verification/debug-session-public-v4-native.json",
+      "sha256": "1ed298e50678abffc2216e37a560138acc4a696a0a8294720bc01d0e1af5b716"
+    }
+  },
+  "limitations": [
+    "Preview, not complete GoLand feature parity.",
+    "No local full EXE download/hash or manual Windows GUI claim; Windows installer build/install/start/uninstall has producer/CI evidence.",
+    "macOS arm64 preview is ad-hoc signed, not notarized; debugging currently needs Apple Command Line Tools/Xcode debugserver.",
+    "Native system-write syscall stacks can expose incorrect Go caller locals; a private derived-Delve candidate is not included in this release.",
+    "Go Test Stop before DAP connection completes and external-SDK cold test2json readiness remain open in this release.",
+    "Source-bound worker Step/Continue evidence does not close every DEBUG-02 race."
+  ],
+  "recordedAtUtc": "2026-11-10T08:47:59.419774+00:00"
+}

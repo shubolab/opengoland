@@ -193,3 +193,41 @@ remains attributed to its original 17-source / 36-class assembled app. It has no
 wire trace and does not claim protocol-cold selection. The separate default
 profile window accidentally restored by automation and its normal cleanup are
 retained explicitly in that record.
+
+## Public preview .4 installed-copy checks
+
+Preview `0.1.0-preview.20261110.4` is now public at source
+`c7136ac436cd0a653263f33d6dfe6c6bc0cd5136`, with the same 486-input digest above.
+All four [installer workflow jobs](https://github.com/shubolab/opengoland/actions/runs/42777808943)
+succeeded. The [release record](releases/0.1.0-preview.20261110.4.json) binds its
+five public assets and each platform's actual retained verification results:
+710 Kotlin cases / 130 reports on both platforms, with zero failures/errors;
+macOS has no skips and Windows retains its exact 12 existing skips. Both Go
+race runs are fresh, with no cached package results.
+
+The [independent public native record](debug-session-public-v4-native.json)
+starts from a complete anonymous DMG download and whole-file SHA-256, a readonly
+mount and new installation copy, strict signature and complete payload-seal
+checks. The installed engine's embedded VCS is the clean `c7136ac` release source;
+all 675 Go-plugin classes match the earlier native candidate. This is a new
+public installation check, not a relabeling of the development app.
+
+One fresh native profile runs the unchanged repository example: the Chinese
+greeting, `Total: 37`, native `6 tests passed` tree and both exit codes zero.
+Another fresh profile starts the plain, unwrapped debugger fixture. Its first
+standard Pause automatically opens the never-opened bundled `runtime/proc.go`
+at `463:1`, with blue execution highlight. Opening Threads & Variables afterward,
+without reselecting a frame, shows selected `runtime.gopark:463`. Both user
+receipts remain unchanged across 81 seconds of observation. Paused Stop reports
+successful disconnect and natural adapter exit zero; target, debugserver,
+adapter and adapter telemetry are absent. Normal Quit leaves all eight captured
+PIDs absent, with no zombies or signals. The two profiles have zero ERROR/SEVERE
+and respectively seven/four WARN lines. The nine identities captured in the
+separate example lane also disappear after normal Quit.
+
+The public-copy lane does not repeat worker B selection, Step/Continue wire
+tracing, attach or syscall-frame locals checks. Their earlier source-bound
+successes and failure keep their original attribution. The syscall-stack locals
+failure, Go Test pre-connect Stop and external-SDK cold converter readiness
+remain open in this release. No manual Windows GUI or full DEBUG-02 acceptance
+is claimed.

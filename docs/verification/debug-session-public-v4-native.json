@@ -1,0 +1,288 @@
+{
+  "schemaVersion": 1,
+  "status": "pass-public-installed-native-scoped",
+  "version": "0.1.0-preview.20261110.4",
+  "sourceCommit": "c7136ac436cd0a653263f33d6dfe6c6bc0cd5136",
+  "sourceFiles": 486,
+  "sourceDigest": "612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.4",
+  "installer": {
+    "name": "open-Goland-0.1.0-preview.20261110.4-macos-arm64.dmg",
+    "bytes": 1026066047,
+    "sha256": "c5b39ca9dc5d7b422c07bc6858196820fd2cd9c81ec222f495b5936048e22c69",
+    "fullAnonymousDownload": true,
+    "readonlyMountedCopiedDetached": true,
+    "deepStrictSignatureVerified": true,
+    "manifestSha256": "95ab90aba67d41472cd585a3093bf5096b5f679aa406f48e3942c8d9269778bb",
+    "sealedPluginAndToolFiles": 15135,
+    "allGoPluginClassesMatchCandidate": 675,
+    "engine": {
+      "evidenceId": "ev_398ffba6adb85958a02ca7211273bdf4138cd516d358bcb10bd4e430b5c59813",
+      "artifact": {
+        "path": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-obssv_sx/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine",
+        "sha256": "dd3d50e929bea73e0e28685fd5ca81d0f2f11a63aa13f9745e42b135046a5de4",
+        "bytes": 10629570
+      },
+      "vcs": "c7136ac436cd0a653263f33d6dfe6c6bc0cd5136",
+      "dirty": false
+    }
+  },
+  "installedApplication": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-obssv_sx/open Goland.app",
+  "host": {
+    "system": "macOS",
+    "architecture": "Apple silicon arm64",
+    "nativeUi": "IntelliJ Platform native workbench",
+    "isolatedProfiles": 2
+  },
+  "example": {
+    "project": "Unchanged copy of fixtures/go-workspace; seven files, no copied IDE configuration",
+    "appPid": 55310,
+    "run": {
+      "command": "bundled Go run . in app module",
+      "greeting": "你好，Go 开发者 👋",
+      "total": 37,
+      "exitCode": 0
+    },
+    "test": {
+      "command": "bundled Go test -json . in catalog module",
+      "nativeDisplay": "6 tests passed",
+      "nativeTestTreeVisible": true,
+      "exitCode": 0,
+      "scope": "Native display count includes subtest grouping; not a count of six top-level Go test functions."
+    },
+    "sourcesUnchanged": true,
+    "normalQuit": true,
+    "capturedProcessCount": 9,
+    "allCapturedPidsAbsent": true,
+    "zombies": [],
+    "logCounts": {
+      "ERROR": 0,
+      "SEVERE": 0,
+      "WARN": 7
+    }
+  },
+  "coldSource": {
+    "schemaVersion": 1,
+    "observedAtUtc": "2026-11-10T08:44:59.010194+00:00",
+    "applicationPid": 56418,
+    "targetPid": 56950,
+    "adapterPid": 56747,
+    "actions": [
+      "Fresh own profile with only fixture main.go opened; no SDK source tab",
+      "Start Debug main.go through native header",
+      "After OWNED_DEBUG_READY and growing own receipts, Find Action > Pause Program exactly once",
+      "Automatic proc.go navigation recorded before opening Threads & Variables",
+      "Click Threads & Variables tab; no frame or goroutine reselect, Step, Continue, evaluator or source click"
+    ],
+    "firstSource": {
+      "path": "Contents/plugins/opengoland/tools/go/src/runtime/proc.go",
+      "line1": 463,
+      "column1": 1,
+      "executionHighlight": "blue at line 463",
+      "nativeScreenshotRea": "ev_f903c9d14a37535e88c3092b2df8190c88d9e1e15a4ad63cac2d4617f5000e16"
+    },
+    "subsequentPanelObservation": {
+      "tool": "CUA getAXState after click Threads & Variables",
+      "selectedRow": 174,
+      "textNode": 176,
+      "text": "runtime.gopark:463, proc.go, frame",
+      "noReselection": true
+    },
+    "scope": "Public installed-copy first native Pause/source navigation only. Unwrapped Delve; no protocol-cold record, no B switch/step/continue/locals claim."
+  },
+  "pausedReceipts": {
+    "bothUserReceiptsUnchanged": true,
+    "observedFromUtc": "2026-11-10T08:42:50.155128+00:00",
+    "observedThroughUtc": "2026-11-10T08:44:11.280380+00:00",
+    "targetPid": 56950,
+    "mainMarker": 101,
+    "workerMarker": 202
+  },
+  "pausedStop": {
+    "nativeConsole": [
+      "Detaching and terminating target process",
+      "Process finished with exit code 0",
+      "Disconnected successfully from the debug server."
+    ],
+    "targetAdapterDebugserverAndAdapterTelemetryAbsent": true,
+    "normalQuit": true,
+    "capturedProcessCount": 8,
+    "allCapturedPidsAbsent": true,
+    "zombies": [],
+    "signalsUsed": false,
+    "sourcesUnchanged": true,
+    "logCounts": {
+      "ERROR": 0,
+      "SEVERE": 0,
+      "WARN": 4
+    }
+  },
+  "nativeObservations": {
+    "example-run": {
+      "evidenceId": "ev_082c3e78011ac8df1a1598f33195360c5693094daa11ff57765e1daa1694dfec",
+      "window": {
+        "pid": 55310,
+        "window_id": 7659,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-obssv_sx/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794299742.4475389,
+        "title": "Go 商城示例 – main.go"
+      },
+      "screenshot": {
+        "width": 1400,
+        "height": 909,
+        "sha256": "489ee3d4bdf9d2b8466a5c662accc9f19ada5f382cc18433bdde9238170cea6d"
+      },
+      "localFiles": {
+        "image": {
+          "path": ".tools/public-v4-release-audit/native/example-run.png",
+          "bytes": 261204,
+          "sha256": "489ee3d4bdf9d2b8466a5c662accc9f19ada5f382cc18433bdde9238170cea6d"
+        },
+        "evidence": {
+          "path": ".tools/public-v4-release-audit/native/example-run.rea.json",
+          "bytes": 50619,
+          "sha256": "fcfd1e787e9daddf08a2b7192528b4139e1501360e44a06ed8f44882242e1f75"
+        }
+      }
+    },
+    "example-tests": {
+      "evidenceId": "ev_bed5dda085ed59496c1667757d8129bc489f7d5b1e7a8621c916edb1126e1e7e",
+      "window": {
+        "pid": 55310,
+        "window_id": 7659,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-obssv_sx/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794299742.4475389,
+        "title": "Go 商城示例 – catalog_test.go"
+      },
+      "screenshot": {
+        "width": 1400,
+        "height": 909,
+        "sha256": "5217ed2444049480aea2f6e9e75dc4fb9ef477697aea6fa48c583a1c85ee671d"
+      },
+      "localFiles": {
+        "image": {
+          "path": ".tools/public-v4-release-audit/native/example-tests.png",
+          "bytes": 398429,
+          "sha256": "5217ed2444049480aea2f6e9e75dc4fb9ef477697aea6fa48c583a1c85ee671d"
+        },
+        "evidence": {
+          "path": ".tools/public-v4-release-audit/native/example-tests.rea.json",
+          "bytes": 72872,
+          "sha256": "04756036e55fee78940101bfc0792f09a09e164843a8c96c1ba4bcaa24be48ea"
+        }
+      }
+    },
+    "cold-first-pause": {
+      "evidenceId": "ev_f903c9d14a37535e88c3092b2df8190c88d9e1e15a4ad63cac2d4617f5000e16",
+      "window": {
+        "pid": 56418,
+        "window_id": 7705,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-obssv_sx/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794300076.0706658,
+        "title": "双 Goroutine 中文😀 – ~/develop/openidea-go/build/public-plugin-install-obssv_sx/open Goland.app/Contents/plugins/opengoland/tools/go/src/runtime/proc.go"
+      },
+      "screenshot": {
+        "width": 1400,
+        "height": 909,
+        "sha256": "b042a58aa0c9b2a681a8760de268e2c4ad97308caf55c6c6190c05204fc3897e"
+      },
+      "localFiles": {
+        "image": {
+          "path": ".tools/public-v4-release-audit/native/cold-first-pause.png",
+          "bytes": 467312,
+          "sha256": "b042a58aa0c9b2a681a8760de268e2c4ad97308caf55c6c6190c05204fc3897e"
+        },
+        "evidence": {
+          "path": ".tools/public-v4-release-audit/native/cold-first-pause.rea.json",
+          "bytes": 4151,
+          "sha256": "08d90c535851c9244728f5b9caf010f5ec008fbe91cb6fea2ebb84dc97b8415d"
+        }
+      }
+    }
+  },
+  "evidenceFiles": {
+    "final-evidence.json": {
+      "path": ".tools/public-v4-release-audit/final-evidence.json",
+      "bytes": 209509,
+      "sha256": "0f21fed50fac7d6d8adfc55d374d7ee56daab466f62962d4c061b7cf3742d6e6"
+    },
+    "mac-installed-verify.json": {
+      "path": ".tools/public-v4-release-audit/mac-installed-verify.json",
+      "bytes": 18600,
+      "sha256": "6152487e02e7371cfe14446eb623cfb203352d3c7fa1628308de89c125b08f6e"
+    },
+    "installed-engine.rea.json": {
+      "path": ".tools/public-v4-release-audit/native/installed-engine.rea.json",
+      "bytes": 8643,
+      "sha256": "9905d05337dc494615a5199b532569c1a303ab2b41fb86354e1ef0c4df52963b"
+    },
+    "example-runtime.json": {
+      "path": ".tools/public-v4-release-audit/native/example-runtime.json",
+      "bytes": 8503,
+      "sha256": "6bb293f79e8f1efe13a338df775d633e9302875c998f8a2ab188b617422a8519"
+    },
+    "example-owned-processes.json": {
+      "path": ".tools/public-v4-release-audit/native/example-owned-processes.json",
+      "bytes": 7694,
+      "sha256": "01f5329c88b02b716c434ca9503506344c6d08b3ab0a2140a62fc22d8fa7fa65"
+    },
+    "example-after-quit.json": {
+      "path": ".tools/public-v4-release-audit/native/example-after-quit.json",
+      "bytes": 8853,
+      "sha256": "a272718af253ecdc65ff6e76747e014b546eba117fb095e0ed9152e675628e49"
+    },
+    "example-sources-and-log.json": {
+      "path": ".tools/public-v4-release-audit/native/example-sources-and-log.json",
+      "bytes": 1101,
+      "sha256": "4850ebe84642be932883765547325dc909557c4d76ad9937b5a77273048718a7"
+    },
+    "cold-runtime.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-runtime.json",
+      "bytes": 8540,
+      "sha256": "4de5c16ba55295a1e0a69c1d42b20d8f67b70dcc0afc8884892fb833a0e3327f"
+    },
+    "cold-owned-processes.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-owned-processes.json",
+      "bytes": 3939,
+      "sha256": "77728641d7e0e31ccbe99211bff06c7d889f39ddd31da4c3cb24e1eb3cdce0d7"
+    },
+    "cold-after-stop.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-after-stop.json",
+      "bytes": 6195,
+      "sha256": "fd2a89af770641db776a04979aa144ea088c17c7b1026d55308f313e3cf8ccc7"
+    },
+    "cold-after-quit.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-after-quit.json",
+      "bytes": 4863,
+      "sha256": "d8aebf49a046fe569b6e4abda5e0ebd710267bc70d797c346091874509b78d47"
+    },
+    "cold-running-receipts.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-running-receipts.json",
+      "bytes": 416,
+      "sha256": "ce15b2647e34cbc4c17ac48b04a90b61a02d7f649a5d9e3218c83fa52ee70e5d"
+    },
+    "cold-paused-receipts-a.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-paused-receipts-a.json",
+      "bytes": 417,
+      "sha256": "504697d37719d0020080a007e7716c8261d02ac5d3b9d29eec8e0f9d066162cb"
+    },
+    "cold-paused-receipts-b.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-paused-receipts-b.json",
+      "bytes": 417,
+      "sha256": "3c219f27e300fbe5cc42aeea6b5d9e73603b388a9def7a2982e26d3f230179a1"
+    },
+    "cold-sources-and-log.json": {
+      "path": ".tools/public-v4-release-audit/native/cold-sources-and-log.json",
+      "bytes": 537,
+      "sha256": "7a851e5554d57e9d30f5aed6fbe5c6630df2815676d2fe0830b782388840e6be"
+    }
+  },
+  "limitations": [
+    "Scoped public macOS installed-copy check, not complete GoLand acceptance.",
+    "First Pause/source navigation uses actual unwrapped bundled Delve; no protocol log, worker selection, Step/Continue or syscall-local correctness is claimed for this public-copy lane.",
+    "The earlier source-bound native worker Step/Continue passes and failed syscall-stack locals attempt retain their separate attribution.",
+    "No manual Windows GUI acceptance in this local lane.",
+    "Example and cold-source profiles have WARN lines; zero ERROR/SEVERE does not mean a warning-free application."
+  ],
+  "observedAtUtc": "2026-11-10T08:47:59.418831+00:00"
+}
