@@ -107,3 +107,25 @@ reaped. GoTest's inherited pre-connect null-endpoint branch still completes its
 disconnect future locally; that boundary is a separate follow-up obligation.
 Fresh native Delve checks, actual installed products and public installers remain
 required. The original failing native record is unchanged.
+
+## Native retry at 5d60c34
+
+The [source-bound native retry](debug-session-native-pause-stop.json) uses a fresh
+profile of the assembled app at `5d60c3426b8656db08230e599926872b6905bfd6`, the
+485-file input set above and the actual default bundled Go/Delve binaries.
+Standard **Pause Program** now halts the real program: both user goroutine
+receipts remain stable, the target is alive in `TX` state, and native Frames
+shows the suspended stack. Native Resume advances both receipts again.
+
+Native Stop while running now reports a natural adapter exit code of zero.
+The target, debugserver, adapter and adapter telemetry identities are absent;
+after normal Quit all eight captured PIDs are absent, with no zombies. The
+isolated profile has zero `ERROR`, `SEVERE`, Pause-failure or unacknowledged-shutdown
+lines, and the app still passes deep strict signature verification.
+
+The same retry finds a remaining cold-file navigation failure: Pause selects
+`runtime.gopark:463`, but the first opening of `proc.go` leaves its editor at
+`1:1`. Explicit selection of the already-open `main.main:57` reaches `57:1`,
+and reselecting the now-loaded runtime frame reaches `463:1`. No worker B
+selection, Step/Continue wire trace, installed-copy or public-release acceptance
+is claimed here. The cold-file failure needs repair before publishing `.4`.

@@ -1,0 +1,718 @@
+{
+  "schema": 1,
+  "status": "native-pause-resume-and-running-stop-passed-cold-file-navigation-failed",
+  "recordedAtUtc": "2026-11-10T05:29:15.763741+00:00",
+  "scope": "One fresh isolated profile and owned Go fixture, assembled standalone macOS app; not a DMG installed-copy or public release check. Default actual packaged Go/Delve without executable wrappers or overrides.",
+  "source": {
+    "commit": "5d60c3426b8656db08230e599926872b6905bfd6",
+    "inputFiles": 485,
+    "inputSha256": "134acd3bc7d9a18291bb72243a4f1fe6a552698eb7c93b3277bf99144c59bab1"
+  },
+  "artifact": {
+    "path": "build/product/open Goland.app",
+    "manifestSha256": "948371c8eae906a8c26428d298fbc2c22cced51f1ad79c763dea95b2ab10967f",
+    "version": "0.1.0-preview.20261110.4",
+    "published": false,
+    "engineSha256": "038860b5d874740f16c400f606a7254891a81ba80478e0d83b50b0663bb0c7e6",
+    "engineReaEvidenceId": "ev_1cb72a7a2a28c2d4ecae917bfec78ef1bd0e9644213a8358dc4dc637f203bee8"
+  },
+  "launch": {
+    "status": "launched-native-controls-pending",
+    "pid": 36445,
+    "fixture": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/fixture.json",
+    "app": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+    "sourceCommit": "5d60c3426b8656db08230e599926872b6905bfd6",
+    "sourceDigest": "134acd3bc7d9a18291bb72243a4f1fe6a552698eb7c93b3277bf99144c59bab1",
+    "launchedAtUtc": "2026-11-10T05:08:17.113366+00:00"
+  },
+  "runtime": {
+    "status": "pass",
+    "log": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/profile/log/idea.log",
+    "logPathSource": "live-jvm-property"
+  },
+  "pause": {
+    "result": "passed-in-this-session",
+    "ui": "Native header Debug main.go launched actual bundled dlv dap. Enabled Find Action Pause Program invoked once via Return. Source opened and actual Frames list showed selected runtime.gopark:463, proc.go; [Go 1] time.Sleep.",
+    "checkpoint": {
+      "utc": "2026-11-10T05:12:03.529569+00:00",
+      "unixNs": 1794287523530036000,
+      "label": "after-standard-pause",
+      "observedUiByOperator": "Find Action Pause Program invoked once via Return. Native source automatically changed to bundled runtime/proc.go; frames and source execution point being checked.",
+      "samples": {
+        "project": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀",
+        "samples": [
+          {
+            "utc": "2026-11-10T05:12:02.790985+00:00",
+            "heartbeat": {
+              "pid": 36718,
+              "marker": 101,
+              "turn": 1104,
+              "unixNano": 1794287494778725000,
+              "goroutine": 1,
+              "stackHeader": "goroutine 1 [running]:"
+            },
+            "worker": {
+              "pid": 36718,
+              "marker": 202,
+              "turn": 35885000000,
+              "unixNano": 1794287494856554000,
+              "goroutine": 21,
+              "stackHeader": "goroutine 21 [running]:"
+            }
+          },
+          {
+            "utc": "2026-11-10T05:12:03.146805+00:00",
+            "heartbeat": {
+              "pid": 36718,
+              "marker": 101,
+              "turn": 1104,
+              "unixNano": 1794287494778725000,
+              "goroutine": 1,
+              "stackHeader": "goroutine 1 [running]:"
+            },
+            "worker": {
+              "pid": 36718,
+              "marker": 202,
+              "turn": 35885000000,
+              "unixNano": 1794287494856554000,
+              "goroutine": 21,
+              "stackHeader": "goroutine 21 [running]:"
+            }
+          },
+          {
+            "utc": "2026-11-10T05:12:03.503406+00:00",
+            "heartbeat": {
+              "pid": 36718,
+              "marker": 101,
+              "turn": 1104,
+              "unixNano": 1794287494778725000,
+              "goroutine": 1,
+              "stackHeader": "goroutine 1 [running]:"
+            },
+            "worker": {
+              "pid": 36718,
+              "marker": 202,
+              "turn": 35885000000,
+              "unixNano": 1794287494856554000,
+              "goroutine": 21,
+              "stackHeader": "goroutine 21 [running]:"
+            }
+          }
+        ],
+        "samePid": true,
+        "ticks": {
+          "heartbeat": [
+            1104,
+            1104,
+            1104
+          ],
+          "worker": [
+            35885000000,
+            35885000000,
+            35885000000
+          ]
+        },
+        "processes": {
+          "36718": {
+            "present": true,
+            "row": "36718 36717 TX   Tue Nov 10 13:09:42 2026     /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412"
+          }
+        },
+        "scope": "Receipt/file and ps observations only; combine with native UI and DAP stopped/threads/frame records.",
+        "bothStable": true
+      },
+      "dapLogs": []
+    },
+    "targetPid": 36718,
+    "targetAliveState": "TX",
+    "mainGoroutine": 1,
+    "workerGoroutine": 21,
+    "workerMarker": 202,
+    "dapWireTraceCaptured": false
+  },
+  "sourceNavigation": {
+    "result": "failed-initial-cold-open",
+    "observations": [
+      {
+        "action": "Automatic first source open after native Pause",
+        "selectedFrame": "runtime.gopark:463, proc.go",
+        "editor": "bundled Go SDK runtime/proc.go",
+        "caretLine1": 1,
+        "caretColumn1": 1,
+        "evidence": "Actual native screenshot and AX status; execution line was outside the displayed viewport."
+      },
+      {
+        "action": "Explicitly select main.main:57 in the same goroutine stack",
+        "editor": "main.go already open before Pause",
+        "caretLine1": 57,
+        "caretColumn1": 1
+      },
+      {
+        "action": "Reselect the original runtime.gopark:463 after proc.go loaded",
+        "editor": "same bundled runtime/proc.go",
+        "caretLine1": 463,
+        "caretColumn1": 1
+      }
+    ],
+    "limits": [
+      "This is a cold initial-file navigation failure, not a blanket failure of every frame/source mapping.",
+      "The native AX list renderer repeats a main.main cell label for other rows; screenshot and actual selected row disambiguate frame identity.",
+      "No worker B selection or cold-goroutine Step/Continue occurred in this Stop lane."
+    ]
+  },
+  "resume": {
+    "ui": "Clicked native green Resume toolbar icon; Frames cleared and returned to running.",
+    "checkpoint": {
+      "utc": "2026-11-10T05:22:16.822145+00:00",
+      "unixNs": 1794288136822395000,
+      "label": "after-native-resume",
+      "observedUiByOperator": "Clicked native green Resume toolbar icon. Frames cleared and session returned to running; no worker B selection in this Stop lane.",
+      "samples": {
+        "project": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀",
+        "samples": [
+          {
+            "utc": "2026-11-10T05:22:16.103077+00:00",
+            "heartbeat": {
+              "pid": 36718,
+              "marker": 101,
+              "turn": 2259,
+              "unixNano": 1794288136095851000,
+              "goroutine": 1,
+              "stackHeader": "goroutine 1 [running]:"
+            },
+            "worker": {
+              "pid": 36718,
+              "marker": 202,
+              "turn": 73840000000,
+              "unixNano": 1794288136100314000,
+              "goroutine": 21,
+              "stackHeader": "goroutine 21 [running]:"
+            }
+          },
+          {
+            "utc": "2026-11-10T05:22:16.458557+00:00",
+            "heartbeat": {
+              "pid": 36718,
+              "marker": 101,
+              "turn": 2262,
+              "unixNano": 1794288136402448000,
+              "goroutine": 1,
+              "stackHeader": "goroutine 1 [running]:"
+            },
+            "worker": {
+              "pid": 36718,
+              "marker": 202,
+              "turn": 73931000000,
+              "unixNano": 1794288136456135000,
+              "goroutine": 21,
+              "stackHeader": "goroutine 21 [running]:"
+            }
+          },
+          {
+            "utc": "2026-11-10T05:22:16.811928+00:00",
+            "heartbeat": {
+              "pid": 36718,
+              "marker": 101,
+              "turn": 2266,
+              "unixNano": 1794288136807404000,
+              "goroutine": 1,
+              "stackHeader": "goroutine 1 [running]:"
+            },
+            "worker": {
+              "pid": 36718,
+              "marker": 202,
+              "turn": 74046000000,
+              "unixNano": 1794288136810006000,
+              "goroutine": 21,
+              "stackHeader": "goroutine 21 [running]:"
+            }
+          }
+        ],
+        "samePid": true,
+        "ticks": {
+          "heartbeat": [
+            2259,
+            2262,
+            2266
+          ],
+          "worker": [
+            73840000000,
+            73931000000,
+            74046000000
+          ]
+        },
+        "processes": {
+          "36718": {
+            "present": true,
+            "row": "36718 36717 RX   Tue Nov 10 13:09:42 2026     /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412"
+          }
+        },
+        "scope": "Receipt/file and ps observations only; combine with native UI and DAP stopped/threads/frame records.",
+        "bothStable": false
+      },
+      "dapLogs": []
+    }
+  },
+  "stop": {
+    "ui": "Clicked native header Stop while running. Console reported Detaching and terminating target process; Disconnected successfully from the debug server; Process finished with exit code 0.",
+    "before": {
+      "scope": "Whole explicitly bound owned app and descendants, plus receipt PID membership. Read-only; never signals.",
+      "fixture": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/fixture.json",
+      "appPid": 36445,
+      "appIdentity": {
+        "pid": 36445,
+        "ppid": 1,
+        "pgid": 36445,
+        "state": "Ss",
+        "started": "Tue Nov 10 13:08:17 2026",
+        "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀"
+      },
+      "processes": [
+        {
+          "pid": 36481,
+          "ppid": 36445,
+          "pgid": 36445,
+          "state": "S",
+          "started": "Tue Nov 10 13:08:28 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier",
+          "fixtureRole": "fsnotifier"
+        },
+        {
+          "pid": 36578,
+          "ppid": 36577,
+          "pgid": 36578,
+          "state": "Ss",
+          "started": "Tue Nov 10 13:09:36 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **",
+          "fixtureRole": "gopls-telemetry"
+        },
+        {
+          "pid": 36577,
+          "ppid": 36445,
+          "pgid": 36445,
+          "state": "S",
+          "started": "Tue Nov 10 13:09:36 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+          "fixtureRole": "gopls"
+        },
+        {
+          "pid": 36717,
+          "ppid": 36593,
+          "pgid": 36445,
+          "state": "S",
+          "started": "Tue Nov 10 13:09:42 2026",
+          "command": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver --stdout-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/db2bda7d --stderr-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/1a8c50ea --stdin-path /dev/stdin --unmask-signals -F -R 127.0.0.1:55588 -- /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412",
+          "fixtureRole": "debugserver"
+        },
+        {
+          "pid": 36718,
+          "ppid": 36717,
+          "pgid": 36718,
+          "state": "RX",
+          "started": "Tue Nov 10 13:09:42 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412",
+          "fixtureRole": "receipt-go-target"
+        },
+        {
+          "pid": 36593,
+          "ppid": 36445,
+          "pgid": 36445,
+          "state": "S",
+          "started": "Tue Nov 10 13:09:39 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv dap --listen=127.0.0.1:0",
+          "fixtureRole": "delve-adapter"
+        },
+        {
+          "pid": 36595,
+          "ppid": 36593,
+          "pgid": 36595,
+          "state": "Ss",
+          "started": "Tue Nov 10 13:09:39 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv ** telemetry **",
+          "fixtureRole": "delve-telemetry"
+        },
+        {
+          "pid": 36445,
+          "ppid": 1,
+          "pgid": 36445,
+          "state": "Ss",
+          "started": "Tue Nov 10 13:08:17 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀",
+          "fixtureRole": "app"
+        }
+      ],
+      "receiptTargetPids": [
+        36718
+      ],
+      "allReceiptTargetsCapturedInsideAppTree": true,
+      "observedAtUtc": "2026-11-10T05:22:17.082022+00:00"
+    },
+    "after": {
+      "scope": "Recheck captured PID/start identities only. Zombie is retained, not called absent. Never signals.",
+      "source": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/owned-before-stop.json",
+      "debugSessionOriginalIdentitiesGone": true,
+      "debugSessionAnyOriginalRunning": false,
+      "identityPrecision": "PID plus ps lstart at second precision; extraordinarily fast same-second PID reuse is not distinguished. No processes are signaled.",
+      "processes": [
+        {
+          "original": {
+            "pid": 36481,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:08:28 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier",
+            "fixtureRole": "fsnotifier"
+          },
+          "current": {
+            "pid": 36481,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:08:28 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+          },
+          "sameOriginalIdentity": true,
+          "classification": "original-running"
+        },
+        {
+          "original": {
+            "pid": 36578,
+            "ppid": 36577,
+            "pgid": 36578,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:09:36 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **",
+            "fixtureRole": "gopls-telemetry"
+          },
+          "current": {
+            "pid": 36578,
+            "ppid": 36577,
+            "pgid": 36578,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:09:36 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+          },
+          "sameOriginalIdentity": true,
+          "classification": "original-running"
+        },
+        {
+          "original": {
+            "pid": 36577,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:09:36 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+            "fixtureRole": "gopls"
+          },
+          "current": {
+            "pid": 36577,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:09:36 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+          },
+          "sameOriginalIdentity": true,
+          "classification": "original-running"
+        },
+        {
+          "original": {
+            "pid": 36717,
+            "ppid": 36593,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:09:42 2026",
+            "command": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver --stdout-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/db2bda7d --stderr-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/1a8c50ea --stdin-path /dev/stdin --unmask-signals -F -R 127.0.0.1:55588 -- /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412",
+            "fixtureRole": "debugserver"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36718,
+            "ppid": 36717,
+            "pgid": 36718,
+            "state": "RX",
+            "started": "Tue Nov 10 13:09:42 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412",
+            "fixtureRole": "receipt-go-target"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36593,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:09:39 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv dap --listen=127.0.0.1:0",
+            "fixtureRole": "delve-adapter"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36595,
+            "ppid": 36593,
+            "pgid": 36595,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:09:39 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv ** telemetry **",
+            "fixtureRole": "delve-telemetry"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36445,
+            "ppid": 1,
+            "pgid": 36445,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:08:17 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀",
+            "fixtureRole": "app"
+          },
+          "current": {
+            "pid": 36445,
+            "ppid": 1,
+            "pgid": 36445,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:08:17 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀"
+          },
+          "sameOriginalIdentity": true,
+          "classification": "original-running"
+        }
+      ],
+      "allCapturedPidsAbsent": false,
+      "allOriginalIdentitiesGone": false,
+      "anyOriginalRunning": true,
+      "zombiePids": [],
+      "observedAtUtc": "2026-11-10T05:23:26.419150+00:00"
+    },
+    "result": "all-captured-debug-session-identities-absent-no-zombies"
+  },
+  "quit": {
+    "ui": "Native Quit, Confirm Exit > Exit, then CUA inventory showed app not running.",
+    "after": {
+      "scope": "Recheck captured PID/start identities only. Zombie is retained, not called absent. Never signals.",
+      "source": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/owned-before-stop.json",
+      "debugSessionOriginalIdentitiesGone": true,
+      "debugSessionAnyOriginalRunning": false,
+      "identityPrecision": "PID plus ps lstart at second precision; extraordinarily fast same-second PID reuse is not distinguished. No processes are signaled.",
+      "processes": [
+        {
+          "original": {
+            "pid": 36481,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:08:28 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier",
+            "fixtureRole": "fsnotifier"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36578,
+            "ppid": 36577,
+            "pgid": 36578,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:09:36 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **",
+            "fixtureRole": "gopls-telemetry"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36577,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:09:36 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+            "fixtureRole": "gopls"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36717,
+            "ppid": 36593,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:09:42 2026",
+            "command": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver --stdout-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/db2bda7d --stderr-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/1a8c50ea --stdin-path /dev/stdin --unmask-signals -F -R 127.0.0.1:55588 -- /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412",
+            "fixtureRole": "debugserver"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36718,
+            "ppid": 36717,
+            "pgid": 36718,
+            "state": "RX",
+            "started": "Tue Nov 10 13:09:42 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀/__debug_bin3711468412",
+            "fixtureRole": "receipt-go-target"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36593,
+            "ppid": 36445,
+            "pgid": 36445,
+            "state": "S",
+            "started": "Tue Nov 10 13:09:39 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv dap --listen=127.0.0.1:0",
+            "fixtureRole": "delve-adapter"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36595,
+            "ppid": 36593,
+            "pgid": 36595,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:09:39 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv ** telemetry **",
+            "fixtureRole": "delve-telemetry"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        },
+        {
+          "original": {
+            "pid": 36445,
+            "ppid": 1,
+            "pgid": 36445,
+            "state": "Ss",
+            "started": "Tue Nov 10 13:08:17 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/双 Goroutine 中文😀",
+            "fixtureRole": "app"
+          },
+          "current": null,
+          "sameOriginalIdentity": false,
+          "classification": "absent"
+        }
+      ],
+      "allCapturedPidsAbsent": true,
+      "allOriginalIdentitiesGone": true,
+      "anyOriginalRunning": false,
+      "zombiePids": [],
+      "observedAtUtc": "2026-11-10T05:24:01.841397+00:00"
+    },
+    "result": "all-eight-captured-pids-absent-no-zombies"
+  },
+  "log": {
+    "errorLines": 0,
+    "severeLines": 0,
+    "writeUnsafeLines": 0,
+    "pauseFailedLines": 0,
+    "shutdownNotAcknowledgedLines": 0
+  },
+  "postNativeIdentity": {
+    "codesignDeepStrictExitCode": 0,
+    "manifestUnchanged": true,
+    "fixtureMainSha256": "58da3da2094523f3065908b0acabd491b5495b18d77b27f4d18f6b1beef39592"
+  },
+  "inputs": [
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/fixture.json",
+      "bytes": 3241,
+      "sha256": "d0f0a1c195d5f03dce0c18c92ccb173270d514c299f914e79b9b2ca1150eccc9"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/native-launch.json",
+      "bytes": 480,
+      "sha256": "e284798cd5c9b2458faf6e36a06f10f87ab2c7a0785f65ee520522717aa632b6"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/runtime.json",
+      "bytes": 8397,
+      "sha256": "0a0d02b92ccef2e05fd2495e954c1ff4f6b32bffb6655f23c9ed6e8a6b880ed9"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/running-checkpoint.json",
+      "bytes": 2663,
+      "sha256": "e0f549ce2f0bbc56459cc3926e5c2d6739a40b55cc041c7e6f8afbbb5a3ee7a2"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/after-pause-checkpoint.json",
+      "bytes": 2719,
+      "sha256": "0bebd4db4d72baf00dea4debcdca027b23f533a8d25c6950c65f8612c7c88551"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/after-resume-checkpoint.json",
+      "bytes": 2686,
+      "sha256": "c09a4d6801833bb6e7e3e09a521d116841b148cee3ae5b65b2d162c3165d197a"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/owned-before-pause.json",
+      "bytes": 3757,
+      "sha256": "85b33b4f72ed77f09ebf4a0c3942cdb7cf44c04048c9938eeea34e730895aec7"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/owned-before-stop.json",
+      "bytes": 3757,
+      "sha256": "1d560b2d64b893c86acfbb37823e64442ee4a0e4832b9fc14a88fd397187108c"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/owned-after-stop.json",
+      "bytes": 5973,
+      "sha256": "dc894aed74944b8c1cfed0aca1c5a955cb34c76a523c9c4cf5cd8ea83f1f3f92"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/owned-after-quit.json",
+      "bytes": 4737,
+      "sha256": "94bdd881b0b99dc57d50622c0db3112f7b59d9a62342577ecf2bc166fe93c508"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/profile/log/idea.log",
+      "bytes": 94509,
+      "sha256": "2a79fff8a572da3971bbe7448f411842737e38c71aa9ac5fc22965492ece0ede"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/native5-controls-cd_6v4ah/stop/post-native-signature.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limits": [
+    "Counters alone are not Pause proof; this record combines stable receipts, native Frames and live target TX state.",
+    "No DAP wire requests were logged, so this record does not assert an observed Pause/Continue threadId.",
+    "Only the captured PID/start-time cohort is checked; ps start times have second precision.",
+    "One ordinary running-Stop scenario passed. Paused Stop, debugger-test startup, attach/remote and unresponsive-adapter descendant cleanup remain separate obligations.",
+    "Old failing source dfe0 and native zombie24530 were not altered or promoted to passing evidence.",
+    "A fix and fresh native retry are required for initial cold-file source navigation. No .4 release/tag/installer has been published."
+  ]
+}
