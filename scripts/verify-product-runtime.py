@@ -71,7 +71,13 @@ def verify(application: Path, pid: int):
                     raise ValueError("The packaged platform patch class changed: " + member)
         platform_artifacts.append({"path": str(artifact), "sha256": digest, "patchSha256": patch["patchSha256"]})
 
-    log_path = Path.home() / "Library/Logs/OpenIDEA-Go/idea.log"
+    # An isolated native check overrides this path in the live JVM. Reading the
+    # default profile here can otherwise accept a different application's startup.
+    log_directory = properties.get("idea.log.path")
+    log_path = (Path(log_directory).expanduser() if log_directory else
+                Path.home() / "Library/Logs/OpenIDEA-Go") / "idea.log"
+    if not log_path.is_absolute():
+        raise ValueError("The live runtime log path must be absolute")
     log = log_path.read_text(errors="replace")
     marker = log.rfind("IDE STARTED")
     if marker < 0:
@@ -198,6 +204,7 @@ def verify(application: Path, pid: int):
         "application": str(application), "pid": pid, "name": metadata["name"], "bundleId": info["CFBundleIdentifier"],
         "vendor": properties["idea.vendor.name"], "selector": properties["idea.paths.selector"],
         "pluginPaths": plugin_paths, "loadedPlugins": names, "log": str(log_path),
+        "logPathSource": "live-jvm-property" if log_directory else "product-default",
         "platformArtifactChecks": platform_artifacts,
         "goProductPolicyChecks": policy_checks,
         "localIdeDistributionChecks": local_checks,

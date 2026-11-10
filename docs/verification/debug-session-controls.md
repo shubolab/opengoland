@@ -36,3 +36,45 @@ stack control is not a substitute for the first-load case.
 The SDK-management preview does not claim these controls are fixed. Complete
 debugger acceptance, including Pause, first-load selection, delayed replies,
 session disposal and launch/attach process cleanup, remains open.
+
+## Unreleased candidate: native action and cleanup still fail
+
+Source `dfe0cd16fb379088b4565bd9094b77c33ccbf40f` integrates the protocol and
+session-control candidate. Its standalone build passed 694 Kotlin tests in 128
+reports and 58 Python controls. These results do not change the public `.3`
+release's status or prove native Debug controls.
+
+An isolated native check of that assembled macOS application used the default,
+unwrapped bundled Delve and a fixture with two user goroutines. After standard
+**Pause Program**, the main heartbeat advanced `1402 → 1405 → 1409` and the worker
+receipt advanced as well. Frames remained unavailable, Variables showed
+**Connected**, and the toolbar did not offer Pause. No native DAP wire trace was
+captured, so this does not establish that a pause request reached Delve.
+
+Standard Stop reported exit 137 and a successful disconnect. The adapter and
+debugserver disappeared, but the target remained a zombie after normal Quit;
+the other seven captured process identities were absent. This fails the
+all-processes-gone criterion even though no captured process was still running.
+The isolated profile contained zero `ERROR` and zero `SEVERE` lines.
+
+The [candidate native record](debug-session-candidate-native.json) preserves the
+source and application identity, advancing receipts, full owned process checks
+and the runtime-verifier limitation: its startup-log check read the default
+profile instead of this live JVM's overridden log path. That log claim is not
+accepted as isolated-profile evidence. Native cold-goroutine Step/Continue and
+real stopped-source navigation were not reached. Further fixes and a fresh
+native check are required before publishing a repaired version.
+
+The native action has a separate capability gate: implementing
+`DAPDebugProcess.startPausing()` does not set
+`XDebugSession.setPauseActionSupported(true)`. The Go root client now declares
+that capability for Debug sessions. Three registered-action controls reproduce
+the missing toolbar gate before the fix and check running, paused, stopped and
+non-debug states afterwards. They exercise the real registered Pause action and
+the actual SDK session over a controlled DAP peer; all 33 related action/session
+and client-routing cases pass. A fresh desktop retry is still required.
+
+The runtime verifier now takes the log directory from the live JVM's
+`idea.log.path` when set. Four controls use two real logs to reject stale global
+startup/plugin records and accept the explicitly selected profile. This repairs
+future verification; it does not retrospectively strengthen the old receipt.

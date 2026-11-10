@@ -23,6 +23,13 @@ import java.util.concurrent.CompletionException
 
 open class GoDapClient(debugProcess: DAPDebugProcess, parameters: Map<String, Any>, isDebug: Boolean,
     mode: DebugMode, trace: ServerTrace, parent: DAPClient?) : DAPClient(debugProcess, parameters, isDebug, mode, trace, parent) {
+    init {
+        // The native Pause action has its own capability gate; overriding
+        // startPausing alone does not expose it. Child connections share the
+        // parent session and must not change its declared debug capability.
+        if (parent == null) debugProcess.session.setPauseActionSupported(isDebug)
+    }
+
     private var actual: IDebugProtocolServer? = null
     private var protocol: GoDapProtocol? = null
     private val goDebugProcess = debugProcess

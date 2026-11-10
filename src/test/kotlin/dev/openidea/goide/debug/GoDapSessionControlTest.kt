@@ -11,6 +11,12 @@ import com.intellij.execution.process.ProcessHandler
 import com.intellij.execution.runners.ExecutionEnvironment
 import com.intellij.execution.runners.ExecutionEnvironmentBuilder
 import com.intellij.execution.ui.ConsoleView
+import com.intellij.openapi.actionSystem.ActionManager
+import com.intellij.openapi.actionSystem.ActionPlaces
+import com.intellij.openapi.actionSystem.AnActionEvent
+import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.actionSystem.Presentation
+import com.intellij.openapi.actionSystem.impl.SimpleDataContext
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteIntentReadAction
 import com.intellij.testFramework.LightPlatformTestCase
@@ -25,6 +31,8 @@ import com.intellij.xdebugger.frame.XExecutionStack.XStackFrameContainer
 import com.intellij.xdebugger.frame.XStackFrame
 import com.intellij.xdebugger.frame.XValue
 import com.intellij.xdebugger.impl.XDebugSessionImpl
+import com.intellij.xdebugger.impl.actions.XDebuggerActions
+import com.intellij.xdebugger.impl.ui.DebuggerUIUtil
 import com.redhat.devtools.lsp4ij.dap.DAPDebugProcess
 import com.redhat.devtools.lsp4ij.dap.DAPDebugRunner
 import com.redhat.devtools.lsp4ij.dap.DAPServerReadyTracker
@@ -82,6 +90,60 @@ import org.eclipse.lsp4j.debug.Thread as DapThread
 /** Real XDebugSessionImpl, DAP process/client/stacks and LSP4J wire; only the peer and console are controlled. */
 class GoDapSessionControlTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = false
+
+    fun testRegisteredPauseActionEnablesWhileRunningAndReachesTheRealPeer() = Fixture().use { f ->
+        f.ready()
+        val action = requireNotNull(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE))
+        val event = pauseEvent(f)
+        action.update(event)
+        assertTrue("The registered native Pause action must be visible for Go Debug", event.presentation.isVisible)
+        assertTrue("The registered native Pause action must be enabled while Go runs", event.presentation.isEnabled)
+        f.peer.stopWithoutThreadOnPause = true
+        edt { action.actionPerformed(event) }
+        waitFor { f.session.isPaused }
+        assertEquals("The actual registered action must send one Pause request", 1, f.peer.pauses.size)
+        assertEquals(A, (f.session.currentExecutionStack as DAPExecutionStack).threadId)
+        assertNotNull(f.session.currentStackFrame)
+    }
+
+    fun testRegisteredPauseActionDisablesForPausedAndStoppedSessions() = Fixture().use { f ->
+        f.stopAtA()
+        val action = requireNotNull(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE))
+        val paused = pauseEvent(f)
+        action.update(paused)
+        assertTrue("Pause stays available in the native Go toolbar", paused.presentation.isVisible)
+        assertFalse("A paused Go session cannot be paused again", paused.presentation.isEnabled)
+        val stopped = pauseEvent(f)
+        edt { f.session.stop() }
+        waitFor { f.session.isStopped }
+        action.update(stopped)
+        assertFalse("A stopped Go session cannot be paused", stopped.presentation.isEnabled)
+        assertEmpty(f.peer.pauses)
+    }
+
+    fun testRegisteredPauseActionRemainsHiddenForANonDebugClient() = Fixture(debug = false).use { f ->
+        f.ready()
+        val action = requireNotNull(ActionManager.getInstance().getAction(XDebuggerActions.PAUSE))
+        val event = pauseEvent(f)
+        action.update(event)
+        assertFalse(event.presentation.isVisible)
+        assertFalse(event.presentation.isEnabled)
+        assertEmpty(f.peer.pauses)
+    }
+
+    private fun pauseEvent(f: Fixture): AnActionEvent {
+        // Match selecting the real debug session's tab before invoking a global
+        // action. Resolve its native session proxy through the public UI helper.
+        edt { f.session.activateSession(false) }
+        val context = SimpleDataContext.builder()
+            .add(CommonDataKeys.PROJECT, project)
+            .build()
+        return AnActionEvent.createFromDataContext(ActionPlaces.DEBUGGER_TOOLBAR, Presentation(), context).also {
+            // Split debugger session data can be mirrored across the frontend;
+            // the platform session ID, rather than DTO object identity, binds it.
+            assertEquals(f.session.id, requireNotNull(DebuggerUIUtil.getSessionProxy(it)).id)
+        }
+    }
 
     fun testConnectedRealSessionCanStepItsInitiallyStoppedThread() = Fixture().use { f ->
         val context = f.stopAtA()
@@ -415,7 +477,7 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
         assertFalse("Standard $command must not write to the socket on the EDT", writes.any { it.first })
     }
 
-    private inner class Fixture : AutoCloseable {
+    private inner class Fixture(private val debug: Boolean = true) : AutoCloseable {
         val peer = Peer()
         val clientWrites = CopyOnWriteArrayList<Pair<Boolean, String>>()
         @Volatile var holdNextWrite = false
@@ -499,7 +561,7 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
             session = edt {
                 XDebuggerManager.getInstance(project).newSessionBuilder(object : XDebugProcessStarter() {
                     override fun start(session: XDebugSession): XDebugProcess =
-                        DAPDebugProcess(state, session, DefaultExecutionResult(console, handler), true).also { process = it }
+                        DAPDebugProcess(state, session, DefaultExecutionResult(console, handler), debug).also { process = it }
                 }).environment(environment).showTab(false).startSession().session as XDebugSessionImpl
             }
         }
