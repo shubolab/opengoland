@@ -1,0 +1,1565 @@
+{
+  "schemaVersion": 1,
+  "status": "pass-public-installed-native-scoped-with-open-warnings-and-sdk-pending",
+  "draft": false,
+  "version": "0.1.0-preview.20261110.5",
+  "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+  "sourceFiles": 492,
+  "sourceDigest": "7050674191da0388c10cb2aea2e6889570b7127d6cc264565bfabaf5c4622dc1",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.5",
+  "installer": {
+    "name": "open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg",
+    "bytes": 1018171382,
+    "sha256": "24fbb2509b757a33e9e4bbaa1cdb144d347c4f06cfe14cbf5b3541e29da7a7ce",
+    "actualPublicAsset": true,
+    "readonlyMountedCopied": true,
+    "deepStrictSignatureVerified": true,
+    "manifestSha256": "ed24ee342a157e28633b38a1ad652bd6f8c4873e75896f3c52f6a5642143f5f9",
+    "sealedPluginAndToolFiles": 15138,
+    "allGoPluginClassesMatchCandidate": 678,
+    "installedToolsCheck": {
+      "target": "darwin-arm64",
+      "tools": {
+        "gopls": {
+          "kind": "upstream-source-built",
+          "sha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f"
+        },
+        "dlv": {
+          "kind": "source-derived",
+          "upstreamVersion": "v1.27.2",
+          "sha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+          "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+          "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+          "receiptSha256": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb"
+        }
+      },
+      "binding": "reviewed repository lock/pin/patch and actual installed tool bytes"
+    }
+  },
+  "installedApplication": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app",
+  "host": {
+    "system": "macOS",
+    "architecture": "arm64",
+    "osVersion": "unknown from the retained scoped CFA evidence",
+    "nativeUi": "IntelliJ Platform native desktop workbench/editor; no WebView substitute",
+    "isolatedProfiles": true
+  },
+  "applicationIdentity": {
+    "appPid": 28086,
+    "launchMethod": "LaunchServices",
+    "started": "Tue Nov 10 21:11:01 2026",
+    "project": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀",
+    "binding": {
+      "app": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app",
+      "version": "0.1.0-preview.20261110.5",
+      "inputDigest": "7050674191da0388c10cb2aea2e6889570b7127d6cc264565bfabaf5c4622dc1",
+      "metadataSha256": "ed24ee342a157e28633b38a1ad652bd6f8c4873e75896f3c52f6a5642143f5f9",
+      "toolsManifestSha256": "beef0f40efacf890caa5a8ea425adf7447d01754a0fd90fd86e8725bf23150cc",
+      "goSha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+      "delveSha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+      "receiptSha256": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb",
+      "launchesPerformed": 0,
+      "overrides": "None. Fresh isolated settings; app bundled resolver only."
+    },
+    "launchesPerformedByDocumentationTask": 0,
+    "overrideBoundary": "Fresh isolated settings and bundled resolver; no SDK/Delve override. The binding receipt launchesPerformed=0 describes the binder, not absence of the later recorded native LaunchServices launch."
+  },
+  "coldSourceCfa": {
+    "status": "pass-public-installed-native-observed-scope",
+    "fixtureMainSha256": "f6f8e8531afb2e560fe983a39ecbf6fd372fe358ea2665c6516c3e07812e4b78",
+    "fixtureModuleSha256": "686b58b3c81f2db4af8338cd3d65afcc86e2398999a2178d2ea9b7801b58e39d",
+    "workerGoroutine": 19,
+    "standardPause": "Find Action selected registered Pause for exact active configuration, once; no user Step/Continue before first Go caller read.",
+    "selectedFrame": {
+      "name": "main.coldWorker",
+      "line1": 77
+    },
+    "observedByCuaLocals": {
+      "marker": 202,
+      "turn": 1001,
+      "checkpoint": 1203,
+      "lane": "syscall",
+      "directory": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/收据 中文😀",
+      "filledBytes": 65535,
+      "descriptor": 4,
+      "data": "[]uint8 len1 cap1 [109]"
+    },
+    "noUnexpectedNativeWriteReturn": true,
+    "evidenceChannels": {
+      "evidenceId": "ev_0a68637d353390cc1a8f5f950ffac9eab6b68f676dc587723edca5f1c7b35e10",
+      "screenshot": "native-cfa.png",
+      "pngSha256": "5e251e6acdd16d671e084bc58673950a47e6a620f39c7323fe00ab8c20249404",
+      "accessibilityTruncatedAtMaxNodes": 1000,
+      "scope": "REA PNG displays frame77 and upper visible locals including marker202/turn1001; lower checkpoint/data are cropped. Complete listed values were directly observed in CUA AX, not inferred from this cropped PNG or truncated REA AX."
+    },
+    "targetGitMetadataBoundary": "Go compiler recorded workspace main2ad metadata because ignored fixture lives under that Git root; frozen fixture byte hashes, not that incidental VCS field, identify the debuggee. Installed product engine separately verified8167 clean.",
+    "firstReadBoundary": "No user Step/Continue before first Go caller read. This does not establish that zero protocol stackTrace requests occurred."
+  },
+  "pausedStop": {
+    "status": "pass-original-session-identities-absent",
+    "originalSessionPids": [
+      29084,
+      29083,
+      28946
+    ],
+    "stop": {
+      "source": "Real visible header standard Stop",
+      "console": "Detaching and terminating target process; Process finished with exit code0; Disconnected successfully",
+      "allSessionIdentitiesGone": true,
+      "scope": "Exit0 is cancellation/adapter exit, not natural test/target pass; no signals."
+    },
+    "signalsUsed": false,
+    "naturalRunOrTestPassClaim": false,
+    "applicationQuit": "The CFA Stop receipt covers its three debug-session processes. The later remaining-native app session has separate normal-quit/process cleanup evidence in remainingNativeSession.normalQuit."
+  },
+  "observationWindow": {
+    "preselectedWindowSeconds": 300,
+    "startedUtcSecondPrecision": "2026-11-10T13:14:12+00:00",
+    "observerBeganAtUtc": "2026-11-10T13:16:37.636993+00:00",
+    "lastPresentAtUtc": "2026-11-10T13:19:10.232682+00:00",
+    "lastPresentElapsedFromPsSeconds": 298.23269510269165,
+    "firstAbsentAtUtc": "2026-11-10T13:19:11.245822+00:00",
+    "firstAbsentElapsedFromPsSeconds": 299.2458391189575,
+    "firstAbsenceMeasuredFromPsSecondWithinWindow": true,
+    "disappearanceSamplingIntervalSeconds": 1.0131440162658691,
+    "zombieObservedInObserverWindow": false,
+    "signalsSent": 0,
+    "uiActions": 0,
+    "boundaries": [
+      "The calculation uses the recorded ps lstart at second precision, not the later root after-Stop check.",
+      "Last original-identity presence at 298.232695s and first absence at 299.245839s bound disappearance to an approximately 1.013144s observation interval relative to the recorded start.",
+      "The measured first-absence value is below 300s; no exact subsecond target start/Stop instant or deadline enforcement is claimed.",
+      "The sampler begins at approximately 145.64s, so its no-Z finding is limited to its own observation interval, not a whole-lifetime census.",
+      "Only exact PID/start/command identity was observed. No signals, GUI, REA, target/adapter RPC, or other process actions were performed."
+    ]
+  },
+  "goTest": {
+    "status": "pass-scoped-native-run-debug-natural-exit7-standard-stop-with-open-late-notification-warning",
+    "requiredCases": [
+      "Actual installed-copy Go Test pass.",
+      "Natural TestMain exit 7 represented as Package failure, not a cancellation success.",
+      "Standard Stop during running/pre-test-body or preconnect state as applicable; owned process identities, source hashes and logs recorded."
+    ],
+    "result": {
+      "nativeRunPass": "naturally passed, target exit0",
+      "nativeDebugPass": "naturally passed, target exit0",
+      "naturalTestMainExit7": "correct expected Package failure after passing test function, target exit7",
+      "standardStop": "correct cancellation/ignored result, six original owned debug identities absent, no external signals",
+      "sessionFinalization": "Normal native quit; all122 captured original identities absent; recorded source and SDK checks unchanged. Warnings remain explicitly open."
+    },
+    "evidenceFiles": [
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.observation.json",
+        "bytes": 923,
+        "sha256": "c660ad92705f395cf08060f3f4215e517c03ee0e3618f8e2cd0fc5ccf1b5941e",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.rea.json",
+        "bytes": 647262,
+        "sha256": "d5868740d8c2ece74544936403ec76e2dc292b1e67f6c98a7449bad227dbed15",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.png",
+        "bytes": 437887,
+        "sha256": "64b6c794aee5f69d177f2d3c47d86f843bf4cd776ea164cba7f58376af941dc8",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.observation.json",
+        "bytes": 938,
+        "sha256": "5ed092b10d573f4e10004dc5109e669680635bbd9433541f7f40ef831bdbcf18",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.rea.json",
+        "bytes": 655581,
+        "sha256": "3933a3b9b421f948a600bd5c1f3e82680c9fc4e79b121c90c04b3ac56891f51a",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.png",
+        "bytes": 443062,
+        "sha256": "150a7f489ce12395f6760cca91e2b8229a3466fdb0666b39c6c6c2d163ed08f8",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.observation.json",
+        "bytes": 959,
+        "sha256": "5f86978ed1059db5ec3ea5366bc99979067352b429a50307c5dd9c0d3e386757",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.rea.json",
+        "bytes": 689209,
+        "sha256": "eed647c7b87a8d4491a2675860832eb3cc2df91b2dee7a0b2de51975e39bcad9",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.png",
+        "bytes": 466807,
+        "sha256": "13b2b3e3e5094d6a4bc178216212818ffc2d61c9d724ea684cc1dee8de25509f",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-stop-before-launch.json",
+        "bytes": 298,
+        "sha256": "63178ed4c7b305ea7db598e4d6a32fca7d228d2c04189a5add129aa38b7ee390",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-before-stop.json",
+        "bytes": 3823,
+        "sha256": "0eeb8e8eb2185d23a4e4314d62c2473e568ac3adc838ad4e8e8650ea2a0d6980",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-first-header-click.json",
+        "bytes": 852,
+        "sha256": "6deae6c5ec6092fe358e669e71a2f4660195dae7266598940fd6e1d0cc895dcf",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-stop.json",
+        "bytes": 1107,
+        "sha256": "fdb3c060142d032ad61fac7b4b393632ac0c659bced31ba683d98585bdc3e7ea",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.observation.json",
+        "bytes": 2833,
+        "sha256": "c331d050f27c4114a275542c2f366985e79b59b015539c5aa3c9bd7a8e54438c",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.rea.json",
+        "bytes": 663577,
+        "sha256": "836780cbe6b972de673fd6a39723bd81adbb42e4b7e502af7c9cbc12466f9ad8",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.png",
+        "bytes": 448580,
+        "sha256": "6c884bfa06419c43d737c086a1d5d0040afb5208240b138134f6dea3b98777be",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-target.rea.json",
+        "bytes": 5339,
+        "sha256": "234b9dae137e3f6a3689f4724551a4710ff6c23cdc61761d591cf15d092e67da",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      }
+    ],
+    "boundary": "Automated CI converter/preconnect tests and previous candidate/.4 native observations are separate evidence.",
+    "cases": {
+      "nativeRunPass": {
+        "status": "pass-observed-native-scope",
+        "observation": {
+          "observedAtUtc": "2026-11-10T14:06:01.791342+00:00",
+          "scope": "Actual installed public .5 native Go Test Run",
+          "evidenceId": "ev_8a2098d73dda5520fa05d5c0f0e82927b570d14e53709246c5b38d62fad5bb64",
+          "reaJson": {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.rea.json",
+            "sha256": "d5868740d8c2ece74544936403ec76e2dc292b1e67f6c98a7449bad227dbed15"
+          },
+          "png": {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.png",
+            "sha256": "64b6c794aee5f69d177f2d3c47d86f843bf4cd776ea164cba7f58376af941dc8"
+          },
+          "uiResult": "1 test passed",
+          "nestedChild": "TestNormalPass/中文子测试",
+          "chineseLog": "你好，真实 Go Test 😀",
+          "exitCode": 0,
+          "configuredTarget": "./pass",
+          "toolArguments": "-count=1",
+          "coverage": "Selected native window only; returned accessibility tree truncated, relevant result and complete console are present."
+        },
+        "appPid": 42929,
+        "evidenceFiles": [
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.observation.json",
+            "bytes": 923,
+            "sha256": "c660ad92705f395cf08060f3f4215e517c03ee0e3618f8e2cd0fc5ccf1b5941e",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.rea.json",
+            "bytes": 647262,
+            "sha256": "d5868740d8c2ece74544936403ec76e2dc292b1e67f6c98a7449bad227dbed15",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/run-pass.png",
+            "bytes": 437887,
+            "sha256": "64b6c794aee5f69d177f2d3c47d86f843bf4cd776ea164cba7f58376af941dc8",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        ]
+      },
+      "nativeDebugPass": {
+        "status": "pass-observed-native-scope",
+        "observation": {
+          "observedAtUtc": "2026-11-10T14:09:42.042324+00:00",
+          "scope": "Actual installed public .5 native Go Test Debug",
+          "evidenceId": "ev_ee7bf2cbc821d17ebbe7ebe5e1acb60fcaf56ca2cdfcac020d2b4f0e1887d88b",
+          "configuredTarget": "./pass",
+          "toolArguments": "-count=1",
+          "targetExitCode": 0,
+          "testFunctionPassed": true,
+          "packageResult": "passed",
+          "processExit": "natural; no Stop or external signal",
+          "debuggerDisconnectedSuccessfully": true,
+          "reaJson": {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.rea.json",
+            "sha256": "3933a3b9b421f948a600bd5c1f3e82680c9fc4e79b121c90c04b3ac56891f51a"
+          },
+          "png": {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.png",
+            "sha256": "150a7f489ce12395f6760cca91e2b8229a3466fdb0666b39c6c6c2d163ed08f8"
+          },
+          "coverage": "Selected native window only; truncated AX tree, relevant results/complete console retained."
+        },
+        "appPid": 42929,
+        "completeRelevantAxConsole": "Testing started at 22:05 ...\nDelve adapter: \"/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv\" dap --listen=127.0.0.1:0\nDelve adapter: DAP server listening at: 127.0.0.1:53770\nBuilding tests of /Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀/pass\n\nDelve adapter: Process finished with exit code 0\n=== RUN   TestNormalPass\n    pass_test.go:6: 你好，真实 Go Test 😀\n=== RUN   TestNormalPass/中文子测试\n--- PASS: TestNormalPass/中文子测试 (0.00s)\n--- PASS: TestNormalPass (0.00s)\nPASS\nLaunching 'Go (Delve)'\nType 'dlv help' for list of commands.\nGo test exited with code 0.\n\nProcess finished with exit code 0\nProcess 44605 has exited with status 0\nDetaching\nDisconnected successfully from the debug server.\n",
+        "consoleAxPath": "normalized_result.initial.nodes[155].value",
+        "uiResult": "1 test passed",
+        "targetPid": 44605,
+        "targetExitCode": 0,
+        "delveAdapterProcessExitCode": 0,
+        "exitCodeBoundary": "The adapter process exit0 is distinct from the naturally completed Go test target exit0. No Stop or external signal is used for this case.",
+        "evidenceFiles": [
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.observation.json",
+            "bytes": 938,
+            "sha256": "5ed092b10d573f4e10004dc5109e669680635bbd9433541f7f40ef831bdbcf18",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.rea.json",
+            "bytes": 655581,
+            "sha256": "3933a3b9b421f948a600bd5c1f3e82680c9fc4e79b121c90c04b3ac56891f51a",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-pass.png",
+            "bytes": 443062,
+            "sha256": "150a7f489ce12395f6760cca91e2b8229a3466fdb0666b39c6c6c2d163ed08f8",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        ]
+      },
+      "naturalTestMainExit7": {
+        "status": "pass-expected-natural-package-failure-observed",
+        "observation": {
+          "observedAtUtc": "2026-11-10T14:09:42.045253+00:00",
+          "scope": "Actual installed public .5 native Go Test Debug",
+          "evidenceId": "ev_7f941b0eebd2e328ee71aedb6e25d71f06c169e8731b0682bc4d2f70e045c452",
+          "configuredTarget": "./exit7",
+          "toolArguments": "-count=1",
+          "targetExitCode": 7,
+          "testFunctionPassed": true,
+          "packageResult": "Package failure, Failed.",
+          "processExit": "natural; no Stop or external signal",
+          "debuggerDisconnectedSuccessfully": true,
+          "reaJson": {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.rea.json",
+            "sha256": "eed647c7b87a8d4491a2675860832eb3cc2df91b2dee7a0b2de51975e39bcad9"
+          },
+          "png": {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.png",
+            "sha256": "13b2b3e3e5094d6a4bc178216212818ffc2d61c9d724ea684cc1dee8de25509f"
+          },
+          "coverage": "Selected native window only; truncated AX tree, relevant results/complete console retained."
+        },
+        "appPid": 42929,
+        "completeRelevantAxConsole": "Testing started at 22:08 ...\nDelve adapter: \"/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv\" dap --listen=127.0.0.1:0\nDelve adapter: DAP server listening at: 127.0.0.1:54256\nBuilding tests of /Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀/exit7\n\nDelve adapter: Process finished with exit code 0\n=== RUN   TestPassBeforeNaturalExit7\n    exit7_test.go:10: 测试函数通过；TestMain随后自然exit7 中文😀\n--- PASS: TestPassBeforeNaturalExit7 (0.00s)\nPASS\nOWNED_EXPECTED_NATURAL_EXIT7\n\nGo package failed\nLaunching 'Go (Delve)'\nType 'dlv help' for list of commands.\nGo test exited with code 7.\n\nProcess finished with exit code 7\nProcess 45251 has exited with status 7\nDetaching\nDisconnected successfully from the debug server.\n",
+        "consoleAxPath": "normalized_result.initial.nodes[160].value",
+        "uiResult": "1 test failed, 1 passed",
+        "targetPid": 45251,
+        "targetExitCode": 7,
+        "delveAdapterProcessExitCode": 0,
+        "exitCodeBoundary": "The adapter process exit0 is distinct from the naturally completed Go test target exit7. No Stop or external signal is used for this case.",
+        "evidenceFiles": [
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.observation.json",
+            "bytes": 959,
+            "sha256": "5f86978ed1059db5ec3ea5366bc99979067352b429a50307c5dd9c0d3e386757",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.rea.json",
+            "bytes": 689209,
+            "sha256": "eed647c7b87a8d4491a2675860832eb3cc2df91b2dee7a0b2de51975e39bcad9",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-exit7.png",
+            "bytes": 466807,
+            "sha256": "13b2b3e3e5094d6a4bc178216212818ffc2d61c9d724ea684cc1dee8de25509f",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        ],
+        "packageFailureVisible": true,
+        "testFunctionPassedBeforeTestMainExit": true
+      },
+      "standardStop": {
+        "status": "pass-scoped-standard-stop-cancellation",
+        "configuredTarget": "./long",
+        "toolArguments": "-count=1",
+        "appPid": 42929,
+        "ready": {
+          "marker": 202,
+          "pid": 45987,
+          "turn": 0,
+          "unixNano": 1794319824553418000
+        },
+        "receiptPath": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀/.native-receipts/ready.json",
+        "receiptLocationCorrection": "Configured Debug working directory is project root, not package directory. Initial two read attempts used wrong subdirectory and did not restart or signal anything. Actual ready PID matches native console and exact owned app tree.",
+        "originalOwnedDebugProcesses": [
+          {
+            "pid": 45986,
+            "ppid": 45967,
+            "pgid": 42929,
+            "state": "S",
+            "started": "Tue Nov 10 22:10:23 2026",
+            "command": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Versions/A/Resources/debugserver --stdout-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/62e7e966 --stderr-path /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/b1dc9c99 --stdin-path /dev/stdin --unmask-signals -F -R 127.0.0.1:54759 -- /Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀/__debug_bin3116433434 -test.v=test2json -test.count=1"
+          },
+          {
+            "pid": 45987,
+            "ppid": 45986,
+            "pgid": 45987,
+            "state": "SX",
+            "started": "Tue Nov 10 22:10:24 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀/__debug_bin3116433434 -test.v=test2json -test.count=1"
+          },
+          {
+            "pid": 45963,
+            "ppid": 42929,
+            "pgid": 42929,
+            "state": "S",
+            "started": "Tue Nov 10 22:10:23 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go tool test2json -t -p example.org/owned-syscall-control/long"
+          },
+          {
+            "pid": 45965,
+            "ppid": 45963,
+            "pgid": 42929,
+            "state": "S",
+            "started": "Tue Nov 10 22:10:23 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/go/pkg/tool/darwin_arm64/test2json -t -p example.org/owned-syscall-control/long"
+          },
+          {
+            "pid": 45967,
+            "ppid": 42929,
+            "pgid": 42929,
+            "state": "S",
+            "started": "Tue Nov 10 22:10:23 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv dap --listen=127.0.0.1:0"
+          },
+          {
+            "pid": 45969,
+            "ppid": 45967,
+            "pgid": 45969,
+            "state": "Ss",
+            "started": "Tue Nov 10 22:10:23 2026",
+            "command": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv ** telemetry **"
+          }
+        ],
+        "targetBinary": {
+          "original": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀/__debug_bin3116433434",
+          "retained": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-native-checks/remaining-native-20261110/long-test-target.bin",
+          "sha256": "4739e2f8ad60fcf68f83ef34d0f8d5c92c4c363827a8b6b5e52b02237270bfab"
+        },
+        "actionSequence": [
+          {
+            "action": "Find Action exact title",
+            "result": "no results",
+            "authority": "Native standard Stop shortcut Command-F2. Find Action exact-title returned no results; preceding header coordinate click had not stopped the process and that failed observation is retained separately."
+          },
+          {
+            "action": "header coordinate click",
+            "result": "did not stop original processes",
+            "allOriginalDebugIdentitiesGone": false,
+            "evidence": {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-first-header-click.json",
+              "bytes": 852,
+              "sha256": "6deae6c5ec6092fe358e669e71a2f4660195dae7266598940fd6e1d0cc895dcf",
+              "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+            }
+          },
+          {
+            "action": "Native standard Stop shortcut Command-F2",
+            "result": "original six debug process identities absent at the later check",
+            "allOriginalDebugIdentitiesGone": true,
+            "evidence": {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-stop.json",
+              "bytes": 1107,
+              "sha256": "fdb3c060142d032ad61fac7b4b393632ac0c659bced31ba683d98585bdc3e7ea",
+              "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+            }
+          }
+        ],
+        "afterStopChecks": [
+          {
+            "pid": 45986,
+            "started": "Tue Nov 10 22:10:23 2026",
+            "state": "absent"
+          },
+          {
+            "pid": 45987,
+            "started": "Tue Nov 10 22:10:24 2026",
+            "state": "absent"
+          },
+          {
+            "pid": 45963,
+            "started": "Tue Nov 10 22:10:23 2026",
+            "state": "absent"
+          },
+          {
+            "pid": 45965,
+            "started": "Tue Nov 10 22:10:23 2026",
+            "state": "absent"
+          },
+          {
+            "pid": 45967,
+            "started": "Tue Nov 10 22:10:23 2026",
+            "state": "absent"
+          },
+          {
+            "pid": 45969,
+            "started": "Tue Nov 10 22:10:23 2026",
+            "state": "absent"
+          }
+        ],
+        "signalsUsed": false,
+        "statusMeaning": "Cancellation; UI ignored, not a passed test or natural exit.",
+        "naturalTargetOrTestPass": false,
+        "timing": {
+          "secondsFromTestReadyAtAbsenceCheck": 125.62827610969543,
+          "checkAtUtc": "2026-11-10T14:12:30.181368+00:00",
+          "testInternalSafetySeconds": 180,
+          "stopLatencySeconds": null,
+          "boundary": "125.628s is measured from the recorded test ready timestamp to the later absence check; it is not Stop latency and does not prove instantaneous/subsecond stopping. The 180s internal safety deadline was not reached."
+        },
+        "nativeUi": {
+          "status": "verified-retained-rea-observation",
+          "uiResult": "1 test ignored",
+          "completeRelevantAxConsole": "Testing started at 22:10 ...\nDelve adapter: \"/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv\" dap --listen=127.0.0.1:0\nDelve adapter: DAP server listening at: 127.0.0.1:54754\nBuilding tests of /Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/阻塞 Write 中文😀/long\n=== RUN   TestLongRunning\nOWNED_TEST_READY pid=45987 marker=202 中文😀\n\nGo test run was stopped\nLaunching 'Go (Delve)'\nType 'dlv help' for list of commands.\nGo test debugging was stopped.\n\nProcess finished with exit code 0\nDisconnected successfully from the debug server.\nDetaching and terminating target process\n",
+          "consoleAxPath": "normalized_result.initial.nodes[157].value",
+          "evidenceId": "ev_90f5f32fd71851dc6b5b8638306c2b911399fe617a861f41add9f17e2ebcbd71",
+          "cancellationNotNaturalPass": true,
+          "coverage": "Selected native window with truncated AX tree, relevant stopped console/result retained. Owned process identities checked by PID+lstart second precision."
+        },
+        "evidenceFiles": [
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-stop-before-launch.json",
+            "bytes": 298,
+            "sha256": "63178ed4c7b305ea7db598e4d6a32fca7d228d2c04189a5add129aa38b7ee390",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-before-stop.json",
+            "bytes": 3823,
+            "sha256": "0eeb8e8eb2185d23a4e4314d62c2473e568ac3adc838ad4e8e8650ea2a0d6980",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-first-header-click.json",
+            "bytes": 852,
+            "sha256": "6deae6c5ec6092fe358e669e71a2f4660195dae7266598940fd6e1d0cc895dcf",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-stop.json",
+            "bytes": 1107,
+            "sha256": "fdb3c060142d032ad61fac7b4b393632ac0c659bced31ba683d98585bdc3e7ea",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.observation.json",
+            "bytes": 2833,
+            "sha256": "c331d050f27c4114a275542c2f366985e79b59b015539c5aa3c9bd7a8e54438c",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.rea.json",
+            "bytes": 663577,
+            "sha256": "836780cbe6b972de673fd6a39723bd81adbb42e4b7e502af7c9cbc12466f9ad8",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.png",
+            "bytes": 448580,
+            "sha256": "6c884bfa06419c43d737c086a1d5d0040afb5208240b138134f6dea3b98777be",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-target.rea.json",
+            "bytes": 5339,
+            "sha256": "234b9dae137e3f6a3689f4724551a4710ff6c23cdc61761d591cf15d092e67da",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        ],
+        "observation": {
+          "observedAtUtc": "2026-11-10T14:19:23.396740+00:00",
+          "case": "Actual public .5 native Go Test Debug Stop after real test-body readiness",
+          "status": "pass-scoped-standard-stop-cancellation",
+          "configuredTarget": "./long",
+          "toolArguments": "-count=1",
+          "evidenceId": "ev_90f5f32fd71851dc6b5b8638306c2b911399fe617a861f41add9f17e2ebcbd71",
+          "targetPid": 45987,
+          "uiResult": "1 test ignored",
+          "naturalTestPass": false,
+          "successfulAction": "Command-F2 standard native Stop",
+          "allSixOriginalDebugProcessIdentitiesGone": true,
+          "externalSignalsUsed": false,
+          "initialAutomationLimitations": [
+            "Initial receipt lookups used wrong package subdirectory; real configured debug cwd is project root. Corrected by matching native console PID and exact owned process tree.",
+            "Find Action exact-title search had no result.",
+            "First header coordinate click did not stop anything; its failed snapshot is retained."
+          ],
+          "timingBoundary": "125.628 seconds is from test ready to subsequent ps absence check, not Stop latency. Internal 180-second failure deadline did not fire. No subsecond responsiveness claim.",
+          "evidence": [
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.rea.json",
+              "bytes": 663577,
+              "sha256": "836780cbe6b972de673fd6a39723bd81adbb42e4b7e502af7c9cbc12466f9ad8"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/debug-long-stop.png",
+              "bytes": 448580,
+              "sha256": "6c884bfa06419c43d737c086a1d5d0040afb5208240b138134f6dea3b98777be"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-before-stop.json",
+              "bytes": 3823,
+              "sha256": "0eeb8e8eb2185d23a4e4314d62c2473e568ac3adc838ad4e8e8650ea2a0d6980"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-first-header-click.json",
+              "bytes": 852,
+              "sha256": "6deae6c5ec6092fe358e669e71a2f4660195dae7266598940fd6e1d0cc895dcf"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-after-stop.json",
+              "bytes": 1107,
+              "sha256": "fdb3c060142d032ad61fac7b4b393632ac0c659bced31ba683d98585bdc3e7ea"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-stop-before-launch.json",
+              "bytes": 298,
+              "sha256": "63178ed4c7b305ea7db598e4d6a32fca7d228d2c04189a5add129aa38b7ee390"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/long-target.rea.json",
+              "bytes": 5339,
+              "sha256": "234b9dae137e3f6a3689f4724551a4710ff6c23cdc61761d591cf15d092e67da"
+            }
+          ],
+          "coverage": "Selected native window with truncated AX tree, relevant stopped console/result retained. Owned process identities checked by PID+lstart second precision."
+        },
+        "targetBuildMetadata": {
+          "evidenceId": "ev_0d64618f7cf96c39cc96eb0304501578a834fa49707680ae61d1616e6a5af14f",
+          "artifact": {
+            "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-native-checks/remaining-native-20261110/long-test-target.bin",
+            "sha256": "4739e2f8ad60fcf68f83ef34d0f8d5c92c4c363827a8b6b5e52b02237270bfab",
+            "bytes": 4595122
+          },
+          "format": "macho",
+          "architecture": "arm64",
+          "goVersion": "go1.26.10",
+          "modulePath": "example.org/owned-syscall-control/long.test",
+          "buildSettings": [
+            {
+              "key": "-buildmode",
+              "value": "exe"
+            },
+            {
+              "key": "-compiler",
+              "value": "gc"
+            },
+            {
+              "key": "-gcflags",
+              "value": "all=-N -l"
+            },
+            {
+              "key": "CGO_ENABLED",
+              "value": "1"
+            },
+            {
+              "key": "CGO_CFLAGS",
+              "value": "-O0 -g"
+            },
+            {
+              "key": "CGO_CPPFLAGS",
+              "value": ""
+            },
+            {
+              "key": "CGO_CXXFLAGS",
+              "value": ""
+            },
+            {
+              "key": "CGO_LDFLAGS",
+              "value": ""
+            },
+            {
+              "key": "GOARCH",
+              "value": "arm64"
+            },
+            {
+              "key": "GOOS",
+              "value": "darwin"
+            },
+            {
+              "key": "GOARM64",
+              "value": "v8.0"
+            }
+          ],
+          "vcsSettings": [],
+          "boundary": "This is the retained debuggee test binary, not the installed IDE engine. No vcs.revision/vcs.modified is present in this REA build metadata; neither workspace f38 nor engine8167 is invented as a debuggee VCS observation. Frozen fixture source hashes identify the test source."
+        },
+        "stopTimingScope": "After actual test-body ready; native preconnect/preparation-visible-Cancel coverage is not inferred from this running-test Stop.",
+        "openLateNotificationWarning": {
+          "id": "DEBUG-LATE-STOP-NOTIFICATION-WARN",
+          "status": "open-in-public-0.1.0-preview.20261110.5",
+          "observedAtLocal": "2026-11-10 22:12:15.252",
+          "logger": "org.eclipse.lsp4j.jsonrpc.RemoteEndpoint",
+          "message": "Notification threw an exception",
+          "notification": {
+            "event": "stopped",
+            "reason": "pause",
+            "allThreadsStopped": true
+          },
+          "exception": "java.util.concurrent.CancellationException: Go test debugger connection was stopped",
+          "recordedStack": [
+            "dev.openidea.goide.debug.GoTestDapClient.getDebugProtocolServer(GoTestDapClient.kt:55)",
+            "com.redhat.devtools.lsp4ij.dap.client.DAPClient.stopped(DAPClient.java:368)"
+          ],
+          "sourceLogLines": [
+            654,
+            679
+          ],
+          "scope": "Observed after running Go Test Stop. The native UI correctly reported cancellation/ignored and all six original target/adapter/test2json/telemetry identities terminated. This warning remains a real unresolved issue in the published .5 product.",
+          "nextWork": "An independent candidate fix has been assigned; no fix is claimed shipped in public .5. Later E/F changes do not close this warning."
+        }
+      }
+    }
+  },
+  "exampleRunAndTests": {
+    "status": "pass-scoped-native-example-run-and-six-test-results",
+    "requiredCases": [
+      "Actual representative example Run with Chinese greeting and Total37.",
+      "Six tests passed in native test results.",
+      "Normal app quit, unchanged example sources, recorded owned-process cleanup and logs."
+    ],
+    "result": {
+      "run": "Chinese greeting and Total:37, natural exit0",
+      "tests": "Native UI6 tests passed, -count=1, natural exit0; default/subtests/fuzz seed replay only",
+      "sessionFinalization": "Normal native quit, captured owned identities absent, original example source records unchanged; log warnings remain open."
+    },
+    "evidenceFiles": [
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.observation.json",
+        "bytes": 1701,
+        "sha256": "b5f74d3df7d40afbd2ecfd8dd296981d637dfa31419ce4673feeeb9780b0add8",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.rea.json",
+        "bytes": 392292,
+        "sha256": "fa3edf5e88129be0b80fb208e472b79f6fefacec8600a45519e0cd9b9198a3d3",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.png",
+        "bytes": 255497,
+        "sha256": "2545b17b98478c970205798f7e350e87ce9c8676b0f72647adfdabaae91b4054",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.observation.json",
+        "bytes": 1393,
+        "sha256": "a68b426b30aacefd032a580c69b7b12dd4d5d94a6d5531c44da417f64f7bbfcb",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.rea.json",
+        "bytes": 466211,
+        "sha256": "6acdadc3af6a2b892b24ec321ddf48d05d39858e8180fc24b7b691603d6b3fc7",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.png",
+        "bytes": 304646,
+        "sha256": "4ca723cb7010656ff63076b12c8f4b2e59c1853b546550e499b18b07505f1103",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-native-configs.json",
+        "bytes": 1201,
+        "sha256": "1e29a9ba09775750e5ee96b6774ae5e8d074bab2f7ebf36d4128fbe76973b066",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      }
+    ],
+    "boundary": "This records actual public .5 native example Run/Test. The README GIF remains the accurately labeled real .4 development-build recording; no .5 GIF recapture is claimed.",
+    "project": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/实际示例 中文😀",
+    "cases": {
+      "nativeRun": {
+        "status": "pass-scoped-example-run",
+        "observation": {
+          "observedAtUtc": "2026-11-10T14:23:09.620360+00:00",
+          "case": "Actual public .5 native Go Build Run of copied repository example workspace",
+          "status": "pass-scoped-example-run",
+          "evidenceId": "ev_73fe54c96a6cc085e39d219e5ebfba21adab5280fbd29394723c4e605f558fa3",
+          "workingDirectory": "实际示例 中文😀/app",
+          "target": ".",
+          "environmentOverride": {
+            "GOWORK": "auto"
+          },
+          "reasonForEnvironmentOverride": "The diagnostic app-launch environment had GOWORK=off; example configuration explicitly uses normal workspace auto discovery.",
+          "runtimeGo": "Installed public .5 bundled Go1.26.10, exact path in console",
+          "chineseOutput": "你好，Go 开发者 👋",
+          "computedOutput": "Total: 37",
+          "naturalExitCode": 0,
+          "openMethod": "Native File > Open; OpenPanel GoTo setValue on actual PathTextField succeeded; This Window; Trust only this owned example. Paste had not changed GoTo text.",
+          "evidence": [
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.rea.json",
+              "bytes": 392292,
+              "sha256": "fa3edf5e88129be0b80fb208e472b79f6fefacec8600a45519e0cd9b9198a3d3"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.png",
+              "bytes": 255497,
+              "sha256": "2545b17b98478c970205798f7e350e87ce9c8676b0f72647adfdabaae91b4054"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-native-configs.json",
+              "bytes": 1201,
+              "sha256": "1e29a9ba09775750e5ee96b6774ae5e8d074bab2f7ebf36d4128fbe76973b066"
+            }
+          ],
+          "coverage": "Selected native window; truncated AX tree, relevant complete console and actual main.go editor present."
+        },
+        "appPid": 42929,
+        "completeRelevantAxConsole": "\"/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" run .\n你好，Go 开发者 👋\nTotal: 37\n\nProcess finished with exit code 0\n",
+        "consoleAxPath": "normalized_result.initial.nodes[131].value",
+        "evidenceFiles": [
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.observation.json",
+            "bytes": 1701,
+            "sha256": "b5f74d3df7d40afbd2ecfd8dd296981d637dfa31419ce4673feeeb9780b0add8",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.rea.json",
+            "bytes": 392292,
+            "sha256": "fa3edf5e88129be0b80fb208e472b79f6fefacec8600a45519e0cd9b9198a3d3",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-run.png",
+            "bytes": 255497,
+            "sha256": "2545b17b98478c970205798f7e350e87ce9c8676b0f72647adfdabaae91b4054",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        ]
+      },
+      "nativeTests": {
+        "status": "pass-scoped-example-tests",
+        "observation": {
+          "observedAtUtc": "2026-11-10T14:23:33.720327+00:00",
+          "case": "Actual public .5 native Go Test Run of copied repository example catalog module",
+          "status": "pass-scoped-example-tests",
+          "evidenceId": "ev_e5fc9829a9ad4dffda31bf0f519e22b027b1f2711a117e66891aa7369722b7f1",
+          "workingDirectory": "实际示例 中文😀/catalog",
+          "target": "./...",
+          "toolArguments": "-count=1",
+          "environmentOverride": {
+            "GOWORK": "auto"
+          },
+          "uiResult": "6 tests passed",
+          "testCoverage": "Default tests, subtests and fuzz seed replay; no fuzz mutation worker or benchmark claim in this case.",
+          "naturalExitCode": 0,
+          "evidence": [
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.rea.json",
+              "bytes": 466211,
+              "sha256": "6acdadc3af6a2b892b24ec321ddf48d05d39858e8180fc24b7b691603d6b3fc7"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.png",
+              "bytes": 304646,
+              "sha256": "4ca723cb7010656ff63076b12c8f4b2e59c1853b546550e499b18b07505f1103"
+            },
+            {
+              "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-native-configs.json",
+              "bytes": 1201,
+              "sha256": "1e29a9ba09775750e5ee96b6774ae5e8d074bab2f7ebf36d4128fbe76973b066"
+            }
+          ],
+          "coverage": "Selected native window with truncated AX; relevant result and complete console retained."
+        },
+        "appPid": 42929,
+        "completeRelevantAxConsole": "\"/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" test -json -count=1 ./...\nTesting started at 22:21 ...\n=== RUN   TestCartTotal\n=== RUN   TestCartTotal/empty\n--- PASS: TestCartTotal/empty (0.00s)\n=== RUN   TestCartTotal/two_products\n--- PASS: TestCartTotal/two_products (0.00s)\n--- PASS: TestCartTotal (0.00s)\n=== RUN   TestGreeting\n--- PASS: TestGreeting (0.00s)\n=== RUN   TestMap\n--- PASS: TestMap (0.00s)\n=== RUN   TestFailureNavigation\n--- PASS: TestFailureNavigation (0.00s)\n=== RUN   FuzzGreeting\n=== RUN   FuzzGreeting/seed#0\n--- PASS: FuzzGreeting/seed#0 (0.00s)\n--- PASS: FuzzGreeting (0.00s)\nPASS\nok  \texample.com/openidea/catalog\t0.676s\n\nProcess finished with exit code 0\n",
+        "consoleAxPath": "normalized_result.initial.nodes[150].value",
+        "evidenceFiles": [
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.observation.json",
+            "bytes": 1393,
+            "sha256": "a68b426b30aacefd032a580c69b7b12dd4d5d94a6d5531c44da417f64f7bbfcb",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.rea.json",
+            "bytes": 466211,
+            "sha256": "6acdadc3af6a2b892b24ec321ddf48d05d39858e8180fc24b7b691603d6b3fc7",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          },
+          {
+            "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-tests.png",
+            "bytes": 304646,
+            "sha256": "4ca723cb7010656ff63076b12c8f4b2e59c1853b546550e499b18b07505f1103",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        ]
+      }
+    },
+    "configuration": {
+      "source": "Read-only extraction of run configuration XML saved through the native UI",
+      "savedConfigurations": [
+        {
+          "name": "Public .5 Example Run",
+          "type": "OpenIDEAGoBuild",
+          "target": ".",
+          "workingDirectory": "$PROJECT_DIR$/app",
+          "toolArguments": "",
+          "passParentEnvironment": "true",
+          "environment": {
+            "GOWORK": "auto"
+          }
+        },
+        {
+          "name": "Public .5 Example Tests",
+          "type": "OpenIDEAGoTest",
+          "target": "./...",
+          "workingDirectory": "$PROJECT_DIR$/catalog",
+          "toolArguments": "-count=1",
+          "passParentEnvironment": "true",
+          "environment": {
+            "GOWORK": "auto"
+          }
+        }
+      ],
+      "evidence": {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/example-native-configs.json",
+        "bytes": 1201,
+        "sha256": "1e29a9ba09775750e5ee96b6774ae5e8d074bab2f7ebf36d4128fbe76973b066",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      "environmentBoundary": "The diagnostic LaunchServices environment had GOWORK=off. These example configurations explicitly override GOWORK=auto for normal workspace discovery; this does not prove a changed product default.",
+      "existingAppModule": {
+        "path": ".tools/delve-next-native-plan/kit-f56y0x1k/实际示例 中文😀/app/go.mod",
+        "text": "module example.com/openidea/app\n\ngo 1.24.0\n\nrequire example.com/openidea/catalog v0.0.0\n\nreplace example.com/openidea/catalog => ../catalog\n",
+        "boundary": "The module replacement to ../catalog belongs to the existing example, not an injected workaround for this native check."
+      }
+    },
+    "nativeOpenBoundary": "Native File > Open; OpenPanel GoTo setValue on actual PathTextField succeeded; This Window; Trust only this owned example. Paste had not changed GoTo text.",
+    "originalExampleFilesUnchanged": {
+      "count": 7,
+      "allUnchanged": true,
+      "scope": "Seven original example files, including README.md and go.work, as represented in workflow-source-after.json; overlapping workflow records are not counted as additional unique files."
+    }
+  },
+  "otherOpenCases": {
+    "lateStopNotificationWarning": {
+      "id": "DEBUG-LATE-STOP-NOTIFICATION-WARN",
+      "status": "open-in-public-0.1.0-preview.20261110.5",
+      "observedAtLocal": "2026-11-10 22:12:15.252",
+      "logger": "org.eclipse.lsp4j.jsonrpc.RemoteEndpoint",
+      "message": "Notification threw an exception",
+      "notification": {
+        "event": "stopped",
+        "reason": "pause",
+        "allThreadsStopped": true
+      },
+      "exception": "java.util.concurrent.CancellationException: Go test debugger connection was stopped",
+      "recordedStack": [
+        "dev.openidea.goide.debug.GoTestDapClient.getDebugProtocolServer(GoTestDapClient.kt:55)",
+        "com.redhat.devtools.lsp4ij.dap.client.DAPClient.stopped(DAPClient.java:368)"
+      ],
+      "sourceLogLines": [
+        654,
+        679
+      ],
+      "scope": "Observed after running Go Test Stop. The native UI correctly reported cancellation/ignored and all six original target/adapter/test2json/telemetry identities terminated. This warning remains a real unresolved issue in the published .5 product.",
+      "nextWork": "An independent candidate fix has been assigned; no fix is claimed shipped in public .5. Later E/F changes do not close this warning."
+    },
+    "backgroundWriteWaitWarnings": {
+      "id": "BACKGROUND-WRITE-WAIT-WARN",
+      "status": "cause-unknown",
+      "observedAtLocal": [
+        "2026-11-10 22:21:04.018",
+        "2026-11-10 22:26:42.876"
+      ],
+      "message": "Cannot execute background write action in 10 seconds.",
+      "edtObservations": [
+        {
+          "context": "Native Edit Run Configurations modal event loop",
+          "entry": "com.intellij.execution.actions.EditRunConfigurationsAction.actionPerformed(EditRunConfigurationsAction.java:45)",
+          "evidence": {
+            "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-1676707111.txt",
+            "bytes": 1064652,
+            "sha256": "f425a6eb60cc3c4029578786ecba8f325a3da2539d48f6733c7cd8513c605ba0",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        },
+        {
+          "context": "Native SDK directory chooser modal event loop",
+          "entry": "com.intellij.openapi.fileChooser.impl.NativeFileChooserDialogImpl.choose; dev.openidea.goide.sdk.GoSdkSelector.component lambda at GoSdkSelector.kt:74",
+          "evidence": {
+            "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-864495529.txt",
+            "bytes": 1096924,
+            "sha256": "ebdc09c2ef7cee6c2ba71a5cfa302e3ded607ea59b755e1a9633a67b6a396fef",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        }
+      ],
+      "unknowns": [
+        "The dumps do not establish custom Go-task filesystem/subprocess work on EDT or a Go-task lock owner as the cause.",
+        "No causal explanation of the SDK chooser focus/selection failure is established.",
+        "The warnings are not marked resolved."
+      ]
+    },
+    "externalSdkAddLocal": {
+      "status": "pending-desktop-acceptance-selection-not-completed",
+      "retry": {
+        "atUtc": "2026-11-10T14:30:36.230617+00:00",
+        "status": "pending-native-selection-not-completed",
+        "changedInputJustification": "Native File > Open GoTo PathTextField setValue succeeded for actual example earlier in this session; retry used its observed native field operation.",
+        "attempt": "Settings > Other Settings > Go > Add local… > Select Go SDK Home (GOROOT) > Command-Shift-G > setValue on observed PathTextField255 to original Go1.27.3 GOROOT.",
+        "observedOutcome": "CUA state switched back to Settings after setValue; SDK combobox remained bundled Go1.26.10. No external user action observed or inferred.",
+        "registryExistsAfterQuit": false,
+        "projectGoSettingsExistsAfterQuit": false,
+        "originalSdkBefore": {
+          "path": ".tools/public-v5-native-checks/remaining-native-20261110/selected-sdk-before.json",
+          "bytes": 616,
+          "sha256": "f58bc4d7a3dbf5496f1f309df2f41ed9bbc8d4aeb8279afbf27706dcdcf22b01"
+        },
+        "originalSdkAfter": {
+          "path": ".tools/public-v5-native-checks/remaining-native-20261110/selected-sdk-after.json",
+          "bytes": 616,
+          "sha256": "ea840925806727ddfbdc36a4cb57750f3329a60522ecc6268693bf418b1ece97"
+        },
+        "sdkUnchanged": true,
+        "preparationTaskCancel": "Not attempted: no selected external SDK. Not counted passed.",
+        "normalUnwind": "Escape twice returned to actual example editor, then normal Command-Q and Confirm Exit."
+      },
+      "registrationOrProjectSdkSaved": false,
+      "originalSdkUnchanged": true,
+      "cause": "unknown; no external user action inferred"
+    },
+    "preparationVisibleCancel": {
+      "status": "not-attempted-pending-desktop-acceptance",
+      "reason": "No external SDK was selected in the native retry; this control was not exercised and is not counted passed."
+    },
+    "variantCfa": "not verified on this public installed copy",
+    "windowsEquivalentCfa": "not verified in this local macOS audit",
+    "allGoLandCapabilities": "open"
+  },
+  "historicalPreparationStatus": {
+    "policy": "Original preparation files remain unchanged. Later payload verification, the scoped CFA observation, six remaining native workflows and normal quit supersede their corresponding preparation states only. SDK/Cancel, variant/platform/full-parity gaps and open warnings do not become completed merely because these scoped checks passed.",
+    "records": [
+      {
+        "file": {
+          "path": ".tools/public-v5-native-checks/plan.json",
+          "bytes": 3312,
+          "sha256": "3a3f457a871a3c31ada56b67bbf95cd8eb65fe6a0932e6e41f6a497028b2f899",
+          "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+        },
+        "recordedStatus": "prepared-procedure-only-no-public-installer-or-native-launch-yet",
+        "nowEstablished": [
+          "Published public .5 installers and exact provenance identity verified.",
+          "Actual public macOS installed payload and scoped CFA native session verified.",
+          "Six remaining native workflow cases recorded: GoTest Run pass, Debug pass, expected natural exit7 package failure, running-test Stop cancellation, example Run and example Test.",
+          "Native normal Quit, all122 captured original identities absent without external signals, original workflow/example source and15657-file SDK unchanged."
+        ],
+        "stillPending": [
+          "externalSdkAddLocal",
+          "preparationVisibleCancel",
+          "variantCfa",
+          "windowsEquivalentCfa",
+          "allGoLandCapabilities",
+          "lateStopWarningFix",
+          "backgroundWriteWaitCause"
+        ]
+      },
+      {
+        "file": {
+          "path": ".tools/delve-next-native-plan/kit-f56y0x1k/kit.json",
+          "bytes": 2681,
+          "sha256": "a29ebbcbb9ba659abe139e98665180466f185b895dd9b27d68893c14770c97a8",
+          "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+        },
+        "recordedStatus": "prepared-bound-not-native",
+        "recordedFirstLaunchPerformed": false,
+        "nowEstablished": "Later simple/launch-launchservices.json and native-cfa-observation.json prove the actual launch and scoped CFA pass.",
+        "notClaimed": "Variant kit cases or the full plan are not marked complete."
+      }
+    ]
+  },
+  "observations": [
+    "One registered standard Pause, first selected main.coldWorker:77 locals, then visible standard header Stop are retained as native observations.",
+    "The REA screenshot shows frame77 and upper locals; complete checkpoint/data values come from the recorded CUA accessibility observation, not the cropped PNG/truncated REA tree.",
+    "Original target/debugserver/Delve PID/start identities are absent after Stop; no signals were used."
+  ],
+  "inferences": [
+    "Successful source-derived Delve receipt/payload checks bind the installed bundled tool bytes to the reviewed pin/patch; they are distinct from the native local-variable observation."
+  ],
+  "limitations": [
+    "Scoped public macOS installed-copy acceptance only; all GoLand capabilities, Windows interactive parity and variant debugger cases remain open.",
+    "A real late stopped-notification CancellationException warning occurred after standard Stop and is unresolved in public .5, even though the test/target and all six related original debug identities terminated correctly.",
+    "Two10-second background-write wait warnings were recorded in native modal-dialog contexts. Their cause, any custom Go-task I/O/lock involvement and any relation to SDK focus failure are not established.",
+    "External SDK Add local retry did not complete native selection or register/save a project SDK. The original SDK is unchanged; no external user action is inferred.",
+    "Preparation-task visible Cancel was not attempted and is not counted passed.",
+    "Exit0 after standard Stop is cancellation/adapter exit, not a naturally passed Go test.",
+    "CFA timing uses ps start at second precision and an approximately1.013s interval; no exact subsecond deadline/latency claim. The independent no-zombie observation is limited to its recorded interval.",
+    "The long-test125.628s value is ready-to-later-absence-check elapsed time, not Stop latency; the internal180s safety deadline did not fire.",
+    "REA selected-window AX may be truncated. The relevant native console/result is retained; full CFA lower locals were observed through CUA, not inferred from the cropped PNG.",
+    "Completed profile system index/cache directories were removed after normal quit; preserved sealed source/log/UI/installer evidence is identified separately.",
+    "No new GUI, REA, build, test or installer download was performed by this documentation task."
+  ],
+  "evidenceRoot": "/Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k",
+  "evidenceFiles": {
+    "simple/fixture.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/fixture.json",
+      "bytes": 4868,
+      "sha256": "ababe1ad70ca39e08e59bc386418ab1cb7f67fa29644bd8c79801dac4a3baaff",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/launch-launchservices.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/launch-launchservices.json",
+      "bytes": 1820,
+      "sha256": "db58e8a932ad199b94df80e7d53006ae90869f421e65d022a223534d0300e04f",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/app-identity.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/app-identity.json",
+      "bytes": 343,
+      "sha256": "bc7f84636e1c159d36d89c42ccf520cf7ddb6c3c84a611e9a4b818af5050ccc3",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/runtime.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/runtime.json",
+      "bytes": 8931,
+      "sha256": "7c2630065ffdda3db089a28213c0ee16e6a989741067da6c8bad62bc64a5abd2",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/native-cfa-observation.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/native-cfa-observation.json",
+      "bytes": 2992,
+      "sha256": "d1f7c708c731b94d9a1e2f71adbcaa49a075d3a28f51161f71d2d99105a3a3e6",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/native-cfa.rea.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/native-cfa.rea.json",
+      "bytes": 724677,
+      "sha256": "08d9b46d074a9bbbddafc4112c6dfbb1789387c3b400067255bcf239b6ba3e8e",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/native-cfa.png": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/native-cfa.png",
+      "bytes": 477272,
+      "sha256": "5e251e6acdd16d671e084bc58673950a47e6a620f39c7323fe00ab8c20249404",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/owned-after-stop.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/owned-after-stop.json",
+      "bytes": 2001,
+      "sha256": "0afa3aebb61478c187b3f80c764389f8111ffe45b6c71d061d9889e285d56413",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/independent-window-observer/timing-summary.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/independent-window-observer/timing-summary.json",
+      "bytes": 2618,
+      "sha256": "372c3c85665adfdcef89f04dc8e074042481ca67b4b2528c715e078a93942ade",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/independent-window-observer/final.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/independent-window-observer/final.json",
+      "bytes": 1116,
+      "sha256": "edfa4921b178165d4728c83b2eb2f047d604bc58770af91ab04b8704a62bbf56",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "simple/收据 中文😀/worker.json": {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/收据 中文😀/worker.json",
+      "bytes": 167,
+      "sha256": "b9a89797343e8c7014860cc5d68b99d75ce33f2b5e42024391a6cf6c214855dc",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    }
+  },
+  "publicArtifactEvidence": {
+    "final-evidence.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/final-evidence.json",
+      "bytes": 264595,
+      "sha256": "40fff6750df0c05489d1a647af9447f54443674c4a6cb963cd75f1ecd65e11a3",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "mac-installed-verify.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/mac-installed-verify.json",
+      "bytes": 18678,
+      "sha256": "40de6ee2ba2ff124bee2a293a4aca523c26067deb317f17ef2cdd3f8d44c438a",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "installed-derived-tool-and-module-check.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/installed-derived-tool-and-module-check.json",
+      "bytes": 1436,
+      "sha256": "d1066e74dd3d2891171d7d55020c27829a0138bcbb2438eb63cb4bcedc93271a",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    }
+  },
+  "observedAtUtc": "2026-11-10T14:30:36.344712+00:00",
+  "draftedAtUtc": "2026-11-10T14:40:16.261944+00:00",
+  "remainingNativeSession": {
+    "application": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app",
+    "appPid": 42929,
+    "started": "Tue Nov 10 22:01:02 2026",
+    "launchMethod": "LaunchServices",
+    "profileReused": true,
+    "scope": "Remaining native GoTest and example checks on same installed public .5, isolated owned settings. Prior CFA not rerun.",
+    "evidenceFiles": [
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/launch.json",
+        "bytes": 1403,
+        "sha256": "ebf407b3505db7b7894604c10c3e8da189513fdfd0991910170c1edb2dd5e651",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/app-identity.json",
+        "bytes": 343,
+        "sha256": "67df3e223feec5ba69a78ecb44dae1ae2ff9e6b8765f73fb4bf7405fafd7630a",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/workflow-source-before.json",
+        "bytes": 2377,
+        "sha256": "3a30362cb01716daf860d0bf80862f98cf69b999cbfcf824e8ded17ecf376a5d",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      }
+    ],
+    "normalQuit": {
+      "method": "Native Command-Q and Confirm Exit",
+      "appPid": 42929,
+      "allCapturedOriginalIdentitiesGone": true,
+      "capturedIdentityCount": 122,
+      "zombiePids": [],
+      "signalsUsed": false,
+      "identityPrecision": "PID plus ps lstart at second precision; exact originally captured identities, including reparented descendants",
+      "scope": "Read-only timeline of exact owned app tree; captured identity states are checked even after reparenting. PID+lstart second precision. No signals or UI control.",
+      "evidence": {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/process-timeline-summary.json",
+        "bytes": 116422,
+        "sha256": "9beafa3369e1a73c069fac49daa7ca327c8bdd99aafbd8eaeac5716f0ebc2e69",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      }
+    }
+  },
+  "sessionQuitAndFinalSourceChecks": {
+    "status": "pass-normal-quit-owned-identities-source-and-original-sdk-preserved",
+    "normalQuit": true,
+    "capturedOriginalIdentities": 122,
+    "allCapturedOriginalIdentitiesGone": true,
+    "zombies": [],
+    "externalSignalsUsed": false,
+    "sourceChecks": {
+      "allUnchanged": true,
+      "recordCount": 17,
+      "uniquePathCount": 12,
+      "scope": "Ten original workflow source/module records plus seven original example records, with five overlapping paths retained as separate checks.",
+      "publicProductSourceFiles": 492,
+      "publicProductSourceDigest": "7050674191da0388c10cb2aea2e6889570b7127d6cc264565bfabaf5c4622dc1"
+    },
+    "originalSdk": {
+      "expectedFiles": 15657,
+      "actualFiles": 15657,
+      "unchanged": true,
+      "contentMismatches": [],
+      "addedFiles": [],
+      "missingFiles": [],
+      "manifestSha256": "84e7a072b25af152d3db62fee81ad909a49593d0be66b31f6283624d98d9d5aa",
+      "goSha256": "aa355b078a81158d418079a3f8c776719eb99cc6f527e39ffa3250c66566aafb",
+      "scope": "Read-only full original SDK manifest comparison; no Go execution or SDK writes."
+    },
+    "evidenceFiles": [
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/session-final.json",
+        "bytes": 4107,
+        "sha256": "02e3465014b3b4ef4454de73d55b21d930f1ddfe23cf224a4a1bf038ef79fc83",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/process-timeline-summary.json",
+        "bytes": 116422,
+        "sha256": "9beafa3369e1a73c069fac49daa7ca327c8bdd99aafbd8eaeac5716f0ebc2e69",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/workflow-source-before.json",
+        "bytes": 2377,
+        "sha256": "3a30362cb01716daf860d0bf80862f98cf69b999cbfcf824e8ded17ecf376a5d",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/workflow-source-after.json",
+        "bytes": 4203,
+        "sha256": "bcd742bc4461a42908c12293d22f2270f44355bd6f5817bcf87855963e139817",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/selected-sdk-before.json",
+        "bytes": 616,
+        "sha256": "f58bc4d7a3dbf5496f1f309df2f41ed9bbc8d4aeb8279afbf27706dcdcf22b01",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/selected-sdk-after.json",
+        "bytes": 616,
+        "sha256": "ea840925806727ddfbdc36a4cb57750f3329a60522ecc6268693bf418b1ece97",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/sdk-picker-retry.json",
+        "bytes": 1384,
+        "sha256": "d5b8a372599b012570c6dfbc4c3475e031980b143a73f00f99b3f9d00c0ddd65",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/session-log-observation.json",
+        "bytes": 6078,
+        "sha256": "26d70f50ffbe1852deb20e7ae9fba62137aaf47ba08086bfdf8eb99cf2c5e50e",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      {
+        "path": ".tools/public-v5-native-checks/remaining-native-20261110/session-idea.log",
+        "bytes": 192963,
+        "sha256": "325493f69a7a2a0991e827df20a44d04b358a6220a04c8c5892d258a132d6b7c",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      }
+    ]
+  },
+  "logAudit": {
+    "scope": "Current app launch22:01:02 through normal Quit22:28; same isolated profile had older historical21:11 log entries, excluded by time.",
+    "errorSevereCount": 0,
+    "warningCount": 21,
+    "warnHeaders": [
+      {
+        "line": 468,
+        "text": "2026-11-10 22:01:03,385 [    485]   WARN - #c.i.p.instanceContainer - InstanceNotOverridableException: Override failed for com.intellij.openapi.project.impl.ProjectStoreFactory: com.intellij.configurationScript.providers.ConfigurationScriptProjectStoreFactory attempts to override com.intellij.configurationStore.PlatformLangProjectStoreFactory, but the existing implementation is not overriddable (not declared as 'open=true')"
+      },
+      {
+        "line": 469,
+        "text": "2026-11-10 22:01:03,386 [    486]   WARN - #c.i.p.instanceContainer - InstanceNotOverridableException: Override failed for com.intellij.ide.plugins.PluginManagementPolicy: dev.openidea.goide.product.GoProductPluginManagementPolicy attempts to override com.intellij.ide.plugins.DefaultPluginManagementPolicy, but the existing implementation is not overriddable (not declared as 'open=true')"
+      },
+      {
+        "line": 541,
+        "text": "2026-11-10 22:01:05,813 [   2913]   WARN - #c.i.o.f.i.EditorsSplitters - No file exists: mock:///?"
+      },
+      {
+        "line": 542,
+        "text": "2026-11-10 22:01:05,816 [   2916]   WARN - #training.lang.LangManager - No default language for open Goland. Selected JAVA."
+      },
+      {
+        "line": 654,
+        "text": "2026-11-10 22:12:15,252 [ 672352]   WARN - org.eclipse.lsp4j.jsonrpc.RemoteEndpoint - Notification threw an exception: {"
+      },
+      {
+        "line": 853,
+        "text": "2026-11-10 22:15:37,239 [ 874339]   WARN - #org.intellij.plugins.markdown.ui.preview.jcef.impl.JcefBrowserPipeImpl - No subscribers for documentReady!"
+      },
+      {
+        "line": 871,
+        "text": "2026-11-10 22:21:04,018 [1201118]   WARN - #c.i.o.a.ApplicationManager - Cannot execute background write action in 10 seconds. Thread dump is stored in file:///Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-1676707111.txt"
+      },
+      {
+        "line": 877,
+        "text": "2026-11-10 22:23:51,162 [1368262]   WARN - #c.i.o.o.e.ConfigurableExtensionPointUtil - ignore deprecated groupId: language for id: preferences.language.Kotlin.scripting"
+      },
+      {
+        "line": 878,
+        "text": "2026-11-10 22:23:51,173 [1368273]   WARN - #c.i.o.o.e.ConfigurableExtensionPointUtil - use other group instead of unexpected one: debugger"
+      },
+      {
+        "line": 879,
+        "text": "2026-11-10 22:23:51,533 [1368633]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Background.Default.Dark is deprecated for new UI themes, use Checkbox.Background.Default instead"
+      },
+      {
+        "line": 880,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Border.Default.Dark is deprecated for new UI themes, use Checkbox.Border.Default instead"
+      },
+      {
+        "line": 881,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Border.Selected.Dark is deprecated for new UI themes, use Checkbox.Border.Selected instead"
+      },
+      {
+        "line": 882,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Foreground.Selected.Dark is deprecated for new UI themes, use Checkbox.Foreground.Selected instead"
+      },
+      {
+        "line": 883,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Focus.Wide.Dark is deprecated for new UI themes, use Checkbox.Focus.Wide instead"
+      },
+      {
+        "line": 884,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: color key Checkbox.Focus.Thin.Default.Dark is not supported and therefore ignored"
+      },
+      {
+        "line": 885,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: color key Checkbox.Focus.Thin.Selected.Dark is not supported and therefore ignored"
+      },
+      {
+        "line": 886,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Background.Disabled.Dark is deprecated for new UI themes, use Checkbox.Background.Disabled instead"
+      },
+      {
+        "line": 887,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Background.Selected.Dark is deprecated for new UI themes, use Checkbox.Background.Selected instead"
+      },
+      {
+        "line": 888,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Border.Disabled.Dark is deprecated for new UI themes, use Checkbox.Border.Disabled instead"
+      },
+      {
+        "line": 889,
+        "text": "2026-11-10 22:23:51,534 [1368634]   WARN - #c.i.i.u.UiThemePaletteCheckBoxScope - Theme Islands Darcula: Checkbox.Foreground.Disabled.Dark is deprecated for new UI themes, use Checkbox.Foreground.Disabled instead"
+      },
+      {
+        "line": 893,
+        "text": "2026-11-10 22:26:42,876 [1539976]   WARN - #c.i.o.a.ApplicationManager - Cannot execute background write action in 10 seconds. Thread dump is stored in file:///Users/wangshubo/develop/openidea-go/.tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-864495529.txt"
+      }
+    ],
+    "lateStopNotificationWarning": {
+      "id": "DEBUG-LATE-STOP-NOTIFICATION-WARN",
+      "status": "open-in-public-0.1.0-preview.20261110.5",
+      "observedAtLocal": "2026-11-10 22:12:15.252",
+      "logger": "org.eclipse.lsp4j.jsonrpc.RemoteEndpoint",
+      "message": "Notification threw an exception",
+      "notification": {
+        "event": "stopped",
+        "reason": "pause",
+        "allThreadsStopped": true
+      },
+      "exception": "java.util.concurrent.CancellationException: Go test debugger connection was stopped",
+      "recordedStack": [
+        "dev.openidea.goide.debug.GoTestDapClient.getDebugProtocolServer(GoTestDapClient.kt:55)",
+        "com.redhat.devtools.lsp4ij.dap.client.DAPClient.stopped(DAPClient.java:368)"
+      ],
+      "sourceLogLines": [
+        654,
+        679
+      ],
+      "scope": "Observed after running Go Test Stop. The native UI correctly reported cancellation/ignored and all six original target/adapter/test2json/telemetry identities terminated. This warning remains a real unresolved issue in the published .5 product.",
+      "nextWork": "An independent candidate fix has been assigned; no fix is claimed shipped in public .5. Later E/F changes do not close this warning."
+    },
+    "backgroundWriteWaitWarnings": {
+      "id": "BACKGROUND-WRITE-WAIT-WARN",
+      "status": "cause-unknown",
+      "observedAtLocal": [
+        "2026-11-10 22:21:04.018",
+        "2026-11-10 22:26:42.876"
+      ],
+      "message": "Cannot execute background write action in 10 seconds.",
+      "edtObservations": [
+        {
+          "context": "Native Edit Run Configurations modal event loop",
+          "entry": "com.intellij.execution.actions.EditRunConfigurationsAction.actionPerformed(EditRunConfigurationsAction.java:45)",
+          "evidence": {
+            "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-1676707111.txt",
+            "bytes": 1064652,
+            "sha256": "f425a6eb60cc3c4029578786ecba8f325a3da2539d48f6733c7cd8513c605ba0",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        },
+        {
+          "context": "Native SDK directory chooser modal event loop",
+          "entry": "com.intellij.openapi.fileChooser.impl.NativeFileChooserDialogImpl.choose; dev.openidea.goide.sdk.GoSdkSelector.component lambda at GoSdkSelector.kt:74",
+          "evidence": {
+            "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-864495529.txt",
+            "bytes": 1096924,
+            "sha256": "ebdc09c2ef7cee6c2ba71a5cfa302e3ded607ea59b755e1a9633a67b6a396fef",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        }
+      ],
+      "unknowns": [
+        "The dumps do not establish custom Go-task filesystem/subprocess work on EDT or a Go-task lock owner as the cause.",
+        "No causal explanation of the SDK chooser focus/selection failure is established.",
+        "The warnings are not marked resolved."
+      ]
+    },
+    "boundary": "Zero ERROR/SEVERE does not mean warning-free. The original session-final and session-log observations retain their under-review status; this report adds the later scoped diagnosis without rewriting them.",
+    "startupOverrideWarnings": {
+      "observedStartupWarningCount": 2,
+      "source": "The retained session WARN headers for ProjectStoreFactory and PluginManagementPolicy are preserved unchanged.",
+      "pinnedOssInterpretation": "In the separately retained pinned IntelliJ Platform source review, the non-open override diagnostic logs a WARN and continues to record/complete RegistrationAction.Override. These two warnings alone are not evidence of rejected registration or failed plugin protection.",
+      "publicSourceRef": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+      "reviewEvidence": {
+        "path": ".tools/plugin-policy-runtime-review/review.json",
+        "bytes": 8779,
+        "sha256": "dc57d9b840c3ddd836d18fa71ba949018c04a736fb626acea43c89749142090c",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+      },
+      "sourceEvidence": [
+        {
+          "path": ".tools/plugin-policy-runtime-review/upstream/InstanceContainerImpl.kt",
+          "bytes": 14004,
+          "sha256": "66fde40bb6485dba798e81f045aa15e3241c331929496027aa7099ef02ceb40b",
+          "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset",
+          "publicSourceUrl": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/instanceContainer/src/internal/InstanceContainerImpl.kt"
+        },
+        {
+          "path": ".tools/plugin-policy-runtime-review/upstream/InstanceRegistrarImpl.kt",
+          "bytes": 5641,
+          "sha256": "64955cbae28adf8123ed404fcee7004e2b7a9b33e8a4d278c763757d8f046d46",
+          "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset",
+          "publicSourceUrl": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/instanceContainer/src/internal/InstanceRegistrarImpl.kt"
+        },
+        {
+          "path": ".tools/plugin-policy-runtime-review/upstream/InstanceContainerTest.kt",
+          "bytes": 16968,
+          "sha256": "857a080d62cf640b37b7cf3815396a3e4f930cb5127ff8d88162d92636720b5a",
+          "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset",
+          "publicSourceUrl": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/instanceContainer/tests/InstanceContainerTest.kt"
+        }
+      ],
+      "sourceRanges": {
+        "InstanceRegistrarImpl.kt": [
+          "55-70",
+          "117-130"
+        ],
+        "InstanceContainerImpl.kt": [
+          "25-40"
+        ],
+        "InstanceContainerTest.kt": [
+          "168-190"
+        ]
+      },
+      "boundary": "This is a pinned-source explanation of the warning branch, not a new query of the public .5 live service object or a new native plugin-install/update test. No new policy fix is inferred or scheduled in this report."
+    }
+  },
+  "completedSessionCacheCleanup": {
+    "status": "completed-after-normal-quit",
+    "scope": "Only two exact completed owned IDE system index/cache directories after normal Quit and all122 captured process identities gone. Source, logs, LocalHistory, config, proofs and shared Go cache retained.",
+    "removedFiles": 902,
+    "removedLogicalBytes": 297061798,
+    "allRemoved": true,
+    "evidence": {
+      "path": ".tools/public-v5-native-checks/remaining-native-20261110/completed-session-cache-cleanup.json",
+      "bytes": 713,
+      "sha256": "c8ac8f08b082720ff44ab6fdcfde4cfc718f285c6ba5bfaf888068555c9fd210",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "availabilityBoundary": "The historical GUI profile system/index and system/caches are no longer retained. Sealed source, logs, config, LocalHistory, Go cache, UI observations, proofs and current installer remain preserved."
+  },
+  "cfaObservedAtUtc": "2026-11-10T13:30:59.561870+00:00"
+}

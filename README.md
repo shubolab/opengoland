@@ -28,18 +28,20 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261110.4](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.4).
+[Download preview 0.1.0-preview.20261110.5](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.5).
 Both installers include checksums and platform verification records.
 
-This release repairs standard Pause, first-load debug-source navigation and normal
-launched Go shutdown ordering. An independently downloaded public DMG passed the
-native example Run/Test, first Pause/source highlight and paused-Stop checks;
-see the [public installed-copy record](docs/verification/debug-session-public-v4-native.json).
+This release repairs a reproduced Go caller-variable issue while blocked in a
+native syscall on Apple silicon macOS, improves Go Test debug preparation/Stop,
+and removes remaining IDE trial promotions. Its bundled Delve is a source-derived
+1.27.2 build with the reviewed arm64 unwind patch and build receipts. See the
+[public installed-copy record](docs/verification/debug-session-public-v5-native.json)
+for the actual installer verification boundary.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/open-Goland-0.1.0-preview.20261110.4-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/open-Goland-0.1.0-preview.20261110.4-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -111,7 +113,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261110.4.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261110.5.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,
@@ -119,9 +121,10 @@ and the macOS bundle ID is `dev.opengoland.ide`. Existing internal plugin IDs an
 the isolated `OpenIDEA-Go` settings directory are retained for configuration
 compatibility. The local checkout directory does not affect the product name.
 
-The installers include Go 1.26.10, gopls 0.24.0 and Delve 1.27.2. Settings > Go
-shares the native SDK selector with New Project: use the bundled SDK, add a
-local Go home, or download a current stable official SDK. Explicit SDK and
+The installers include Go 1.26.10, gopls 0.24.0 and a patched source build of
+Delve 1.27.2. Settings > Go shares the native SDK selector with New Project:
+use the bundled SDK, choose **Add local…** for a local Go home, or choose
+**Download…** for a current stable official SDK. Explicit SDK and
 tool executable selections take precedence.
 The release builder uses Go 1.27.3 separately from the bundled project SDK.
 
@@ -202,14 +205,20 @@ real gopls integration and native SDK `runtime/proc.go` display checks have pass
 See the [large-file evidence](docs/verification/large-file-semantic-tokens.md)
 for the exact snapshots and remaining native cancellation checks.
 
-Preview `.4` repairs standard Pause and first-load source navigation. Separate
-source-bound native sessions verify the first selected worker's Step Over and
-direct Continue; the public installed-copy lane independently verifies first
-Pause/source highlighting and paused Stop. Incorrect caller locals when paused
-inside some macOS native system-write stacks, Go Test pre-connect shutdown and
-external-SDK cold converter readiness remain open in this release. See
-[debug session controls](docs/verification/debug-session-controls.md) for the
-separate evidence scopes; these passes do not close every debugger race.
+Preview `.5` retains the standard Pause and first-load source-navigation repairs,
+and repairs the reproduced Apple silicon syscall caller-variable case and Go
+Test pre-connect Stop handling. Test debugging also prepares and probes
+`test2json` with the selected SDK before opening the debug session. Native
+external-SDK directory selection and the preparation task's visible Cancel
+control still need complete desktop verification. See the
+[candidate native checks](docs/verification/derived-delve-candidate-native.json),
+[preparation task checks](docs/verification/go-test-preparation-task.json), and
+[public installed-copy record](docs/verification/debug-session-public-v5-native.json)
+for their separate scopes; these passes do not close every debugger race.
+
+The public `.5` native check recorded a warning from a pause notification
+arriving after the debugger had stopped. The test and target processes
+terminated correctly; this warning remains unresolved in this release.
 
 Code > Optimize Imports uses gopls through the standard native action. Standard
 Rename opens a cross-file Diff preview; approved edits use a single global

@@ -1,0 +1,1377 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261110.5",
+  "status": "published-preview",
+  "draft": false,
+  "summaryZh": "这是已经公开发布的预览版，提供真实的 Windows EXE 和 macOS DMG。公开 macOS 副本已完成限定的暂停读变量检查、六项运行/测试/调试流程和正常退出检查；记录中的源码、原 SDK 均未改变。调试停止后出现过一条迟到通知警告，当前版本尚未修复；本地 SDK 选择、准备任务取消和完整 GoLand 功能仍未验收完成。",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.5",
+  "installerSource": {
+    "commit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+    "tag": "v0.1.0-preview.20261110.5",
+    "inputFiles": 492,
+    "inputDigest": "7050674191da0388c10cb2aea2e6889570b7127d6cc264565bfabaf5c4622dc1",
+    "sourceDirty": false,
+    "authority": "Authenticated public tag, both producer reports, exact frozen source capture and installed engine VCS verification",
+    "laterWorktreeBoundary": "Later E/F combined worktree changes and its 501-file/768-test evidence are not part of this 492-file public .5 release."
+  },
+  "publication": {
+    "workflowRun": "https://github.com/shubolab/opengoland/actions/runs/42808021703",
+    "runId": 42808021703,
+    "runAttempt": 2,
+    "conclusion": "success",
+    "releaseId": 440277174,
+    "publishedAt": "2026-11-10T12:52:30Z",
+    "prerelease": true,
+    "resolvedTagCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+    "selectedJobs": {
+      "macos": {
+        "selectedApiJobId": 129817845019,
+        "selectedApiAttempt": 2,
+        "sourceExecutionJobId": 129817845019,
+        "sourceExecutionAttempt": 2,
+        "carriedForwardApiRecord": false,
+        "startedAt": "2026-11-10T12:04:49Z",
+        "completedAt": "2026-11-10T12:50:50Z",
+        "runnerId": 1000004219,
+        "conclusion": "success"
+      },
+      "publish": {
+        "selectedApiJobId": 129840139468,
+        "selectedApiAttempt": 2,
+        "sourceExecutionJobId": 129840139468,
+        "sourceExecutionAttempt": 2,
+        "carriedForwardApiRecord": false,
+        "startedAt": "2026-11-10T12:50:53Z",
+        "completedAt": "2026-11-10T12:52:32Z",
+        "runnerId": 1000004220,
+        "conclusion": "success"
+      },
+      "version": {
+        "selectedApiJobId": 129817846023,
+        "selectedApiAttempt": 2,
+        "sourceExecutionJobId": 129802090549,
+        "sourceExecutionAttempt": 1,
+        "carriedForwardApiRecord": true,
+        "startedAt": "2026-11-10T11:30:33Z",
+        "completedAt": "2026-11-10T11:30:36Z",
+        "runnerId": 1000004214,
+        "conclusion": "success"
+      },
+      "windows": {
+        "selectedApiJobId": 129817846532,
+        "selectedApiAttempt": 2,
+        "sourceExecutionJobId": 129802137469,
+        "sourceExecutionAttempt": 1,
+        "carriedForwardApiRecord": true,
+        "startedAt": "2026-11-10T11:30:39Z",
+        "completedAt": "2026-11-10T12:03:32Z",
+        "runnerId": 1000004215,
+        "conclusion": "success"
+      }
+    },
+    "attemptRuns": [
+      {
+        "id": 42808021703,
+        "run_attempt": 1,
+        "status": "completed",
+        "conclusion": "failure",
+        "run_started_at": "2026-11-10T11:30:30Z",
+        "updated_at": "2026-11-10T12:03:33Z"
+      },
+      {
+        "id": 42808021703,
+        "run_attempt": 2,
+        "status": "completed",
+        "conclusion": "success",
+        "run_started_at": "2026-11-10T12:04:43Z",
+        "updated_at": "2026-11-10T12:52:33Z"
+      }
+    ],
+    "jobHistory": [
+      {
+        "id": 129802090549,
+        "name": "version",
+        "run_attempt": 1,
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-10T11:30:33Z",
+        "completed_at": "2026-11-10T11:30:36Z",
+        "runner_id": 1000004214,
+        "containsExecutionEvidence": true,
+        "executionObserved": true,
+        "carriedForwardApiRecord": false,
+        "sourceExecutionJobId": 129802090549,
+        "sourceExecutionAttempt": 1
+      },
+      {
+        "id": 129802137469,
+        "name": "windows",
+        "run_attempt": 1,
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-10T11:30:39Z",
+        "completed_at": "2026-11-10T12:03:32Z",
+        "runner_id": 1000004215,
+        "containsExecutionEvidence": true,
+        "executionObserved": true,
+        "carriedForwardApiRecord": false,
+        "sourceExecutionJobId": 129802137469,
+        "sourceExecutionAttempt": 1
+      },
+      {
+        "id": 129802137635,
+        "name": "macos",
+        "run_attempt": 1,
+        "status": "completed",
+        "conclusion": "cancelled",
+        "started_at": "2026-11-10T11:30:36Z",
+        "completed_at": "2026-11-10T11:45:38Z",
+        "runner_id": 0,
+        "containsExecutionEvidence": false,
+        "executionObserved": false,
+        "carriedForwardApiRecord": false,
+        "sourceExecutionJobId": null,
+        "sourceExecutionAttempt": null
+      },
+      {
+        "id": 129817269984,
+        "name": "publish",
+        "run_attempt": 1,
+        "status": "completed",
+        "conclusion": "skipped",
+        "started_at": "2026-11-10T12:03:32Z",
+        "completed_at": "2026-11-10T12:03:32Z",
+        "runner_id": null,
+        "containsExecutionEvidence": false,
+        "executionObserved": false,
+        "carriedForwardApiRecord": false,
+        "sourceExecutionJobId": null,
+        "sourceExecutionAttempt": null
+      },
+      {
+        "id": 129817845019,
+        "name": "macos",
+        "run_attempt": 2,
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-10T12:04:49Z",
+        "completed_at": "2026-11-10T12:50:50Z",
+        "runner_id": 1000004219,
+        "containsExecutionEvidence": true,
+        "executionObserved": true,
+        "carriedForwardApiRecord": false,
+        "sourceExecutionJobId": 129817845019,
+        "sourceExecutionAttempt": 2
+      },
+      {
+        "id": 129817846023,
+        "name": "version",
+        "run_attempt": 2,
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-10T11:30:33Z",
+        "completed_at": "2026-11-10T11:30:36Z",
+        "runner_id": 1000004214,
+        "containsExecutionEvidence": true,
+        "executionObserved": false,
+        "carriedForwardApiRecord": true,
+        "sourceExecutionJobId": 129802090549,
+        "sourceExecutionAttempt": 1
+      },
+      {
+        "id": 129817846532,
+        "name": "windows",
+        "run_attempt": 2,
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-10T11:30:39Z",
+        "completed_at": "2026-11-10T12:03:32Z",
+        "runner_id": 1000004215,
+        "containsExecutionEvidence": true,
+        "executionObserved": false,
+        "carriedForwardApiRecord": true,
+        "sourceExecutionJobId": 129802137469,
+        "sourceExecutionAttempt": 1
+      },
+      {
+        "id": 129840139468,
+        "name": "publish",
+        "run_attempt": 2,
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-11-10T12:50:53Z",
+        "completed_at": "2026-11-10T12:52:32Z",
+        "runner_id": 1000004220,
+        "containsExecutionEvidence": true,
+        "executionObserved": true,
+        "carriedForwardApiRecord": false,
+        "sourceExecutionJobId": 129840139468,
+        "sourceExecutionAttempt": 2
+      }
+    ],
+    "executionOriginBoundary": "API presentation attempts and real execution origins are recorded separately. Runner-zero/no-step cancellation is not an executed Go/SDK check. Older success never overrides the newest failed job.",
+    "plainExecutionOrigins": "version and windows executed in attempt 1 and are carried-forward API records in attempt 2; macos and publish executed successfully in attempt 2. The failed/cancelled first attempt is retained.",
+    "exactAssetCount": 5,
+    "exactFiveAssetNames": true,
+    "reviewedChineseNotesSha256": "f9cd18ac4c819e3f5ffdbec2615bf39a2bd2afb270f3e146c6bf60dac6090edc"
+  },
+  "changeScope": [
+    "Ship a source-derived Delve 1.27.2 build for correct first Go-caller locals while paused in the observed Apple silicon syscall case.",
+    "Prepare and check selected-SDK test2json before Go Test debug; automated regression coverage includes converter readiness and stopping before DAP connection. Public-copy Run/Debug/natural-exit7/running-Stop checks are recorded separately; external SDK selection and visible preparation-task Cancel remain pending.",
+    "Remove remaining bundled IDE trial/commercial promotion registrations while retaining native plugin management and user-selected development-service credentials."
+  ],
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "id": 731425709,
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/macos-provenance.tar.gz",
+      "bytes": 4139984,
+      "apiDigest": "sha256:66357580c4a4a7a489e77b9d906932e85fc58740a1e300f38114b9234fb09244",
+      "sha256": "66357580c4a4a7a489e77b9d906932e85fc58740a1e300f38114b9234fb09244",
+      "state": "uploaded",
+      "localFullFileAudit": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-release-audit/anonymous-actual-attempt2/macos-provenance.tar.gz",
+        "bytes": 4139984,
+        "sha256": "66357580c4a4a7a489e77b9d906932e85fc58740a1e300f38114b9234fb09244",
+        "anonymousDownloadThisRun": false,
+        "reusedExistingFullFile": true,
+        "localWholeFileHashVerified": true
+      }
+    },
+    "open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg": {
+      "id": 731425710,
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg",
+      "bytes": 1018171382,
+      "apiDigest": "sha256:24fbb2509b757a33e9e4bbaa1cdb144d347c4f06cfe14cbf5b3541e29da7a7ce",
+      "sha256": "24fbb2509b757a33e9e4bbaa1cdb144d347c4f06cfe14cbf5b3541e29da7a7ce",
+      "state": "uploaded",
+      "localFullFileAudit": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-release-audit/anonymous-actual-attempt2/open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg",
+        "bytes": 1018171382,
+        "sha256": "24fbb2509b757a33e9e4bbaa1cdb144d347c4f06cfe14cbf5b3541e29da7a7ce",
+        "anonymousDownloadThisRun": false,
+        "reusedExistingFullFile": true,
+        "localWholeFileHashVerified": true
+      }
+    },
+    "open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe": {
+      "id": 731425712,
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe",
+      "bytes": 870558127,
+      "apiDigest": "sha256:241fb67664afe98ae8a99c5f7a7d7a3a71a44c1b6543b2d56b833cdcb88b6393",
+      "sha256": "241fb67664afe98ae8a99c5f7a7d7a3a71a44c1b6543b2d56b833cdcb88b6393",
+      "state": "uploaded",
+      "localAudit": {
+        "fullExecutableDownloaded": false,
+        "fullExecutableHashVerified": false,
+        "rangeOnly": {
+          "range": {
+            "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe",
+            "authorizationHeaderPresent": false,
+            "status": 206,
+            "finalHost": "release-assets.githubusercontent.com",
+            "contentLength": "512",
+            "contentRange": "bytes 0-511/870558127",
+            "requestedRange": "bytes=0-511",
+            "bytesRead": 512,
+            "sha256": "0a8fde1372f87d577ce27c9870b59f57336cd7464d8bd17a6208ff2dc007aa67"
+          },
+          "peHeaderOffset": 256,
+          "peMachine": "0x14c",
+          "MZ": true,
+          "PE": true,
+          "localWholeExeDownloaded": false,
+          "localWholeExeHashVerified": false,
+          "fullIdentityAuthority": "GitHub API server digest + SHA256SUMS + matching actual Windows install/test producer report"
+        },
+        "completeIdentityAuthority": "GitHub API digest, published SHA256SUMS, and matching actual Windows producer install/test report"
+      }
+    },
+    "SHA256SUMS": {
+      "id": 731425708,
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/SHA256SUMS",
+      "bytes": 434,
+      "apiDigest": "sha256:b1a7cb37752664ac7b82b9846a766ce3b9e1623c9f6e1b61d24d978036c249cd",
+      "sha256": "b1a7cb37752664ac7b82b9846a766ce3b9e1623c9f6e1b61d24d978036c249cd",
+      "state": "uploaded",
+      "localFullFileAudit": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-release-audit/anonymous-actual-attempt2/SHA256SUMS",
+        "bytes": 434,
+        "sha256": "b1a7cb37752664ac7b82b9846a766ce3b9e1623c9f6e1b61d24d978036c249cd",
+        "anonymousDownloadThisRun": false,
+        "reusedExistingFullFile": true,
+        "localWholeFileHashVerified": true
+      }
+    },
+    "windows-provenance.tar.gz": {
+      "id": 731425706,
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/windows-provenance.tar.gz",
+      "bytes": 7941496,
+      "apiDigest": "sha256:c2507e3ac034b0e779b559aef23d0a5f6018c9c598250b29ae8db7b77d75b5b2",
+      "sha256": "c2507e3ac034b0e779b559aef23d0a5f6018c9c598250b29ae8db7b77d75b5b2",
+      "state": "uploaded",
+      "localFullFileAudit": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-release-audit/anonymous-actual-attempt2/windows-provenance.tar.gz",
+        "bytes": 7941496,
+        "sha256": "c2507e3ac034b0e779b559aef23d0a5f6018c9c598250b29ae8db7b77d75b5b2",
+        "anonymousDownloadThisRun": false,
+        "reusedExistingFullFile": true,
+        "localWholeFileHashVerified": true
+      }
+    }
+  },
+  "platforms": {
+    "macos": {
+      "target": "macos-arm64",
+      "producer": {
+        "schemaVersion": 1,
+        "version": "0.1.0-preview.20261110.5",
+        "target": "macos-arm64",
+        "installer": "open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg",
+        "installerSha256": "24fbb2509b757a33e9e4bbaa1cdb144d347c4f06cfe14cbf5b3541e29da7a7ce",
+        "installerBytes": 1018171382,
+        "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+        "sourceDirty": false,
+        "sourceDigest": "7050674191da0388c10cb2aea2e6889570b7127d6cc264565bfabaf5c4622dc1",
+        "productManifestSha256": "ed24ee342a157e28633b38a1ad652bd6f8c4873e75896f3c52f6a5642143f5f9",
+        "installedApplication": "/Users/runner/work/opengoland/opengoland/build/installed-macos-yvloc_43/open Goland.app",
+        "imageVerified": true,
+        "mountedAndCopied": true,
+        "signatureVerified": true,
+        "signing": "ad-hoc; not notarized",
+        "installedEngineSmoke": {
+          "pid": 72883,
+          "exitCode": 0,
+          "test": "TestBundledInstalledRuntime",
+          "testCount": 1,
+          "cached": false,
+          "bundledToolReceiptChecks": {
+            "target": "darwin-arm64",
+            "tools": {
+              "gopls": {
+                "kind": "upstream-source-built",
+                "sha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f"
+              },
+              "dlv": {
+                "kind": "source-derived",
+                "upstreamVersion": "v1.27.2",
+                "sha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+                "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+                "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+                "receiptSha256": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb"
+              }
+            },
+            "binding": "reviewed repository lock/pin/patch and actual installed tool bytes"
+          }
+        },
+        "scope": "Actual DMG mount/install copy, signatures, native launcher version, bundled SDK/tools and one uncached pure-Go test. Interactive GUI and clean-OS debugging require separate evidence.",
+        "limitations": [
+          "Apple silicon macOS build only; preview is not notarized.",
+          "macOS debugging currently needs Apple's Command Line Tools debugserver.",
+          "Complete GoLand feature parity remains open."
+        ]
+      },
+      "kotlin": {
+        "reports": 132,
+        "tests": 728,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "executedPasses": 728,
+        "skippedCases": [],
+        "criticalCases": {
+          "dev.openidea.goide.debug.GoDapColdSourceNavigationTest": [
+            [
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "testFirstColdGoFrameOpensAtItsDapLineThroughNativeOpen"
+            ],
+            [
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "testCachedGoFrameKeepsItsDapLineThroughNativeOpen"
+            ],
+            [
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "testColdExecutionPointManagerNavigatesAndHighlightsItsDapLine"
+            ]
+          ],
+          "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest": [
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testActualExitedFailureSurvivesRealNativeStop"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testStateProbeAlreadyDisposedEndpointCannotBeReportedAsAcknowledged"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testStateProbeMissingEndpointTimesOutAndCannotLaterInitialize"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testManualTestStopDuringClientConstructionCannotInventDisconnectAcknowledgement"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testStateProbeStopBeforePublicServerPublicationSendsOneRealDisconnectWithoutInitialize"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testNativeGoTestStopDuringClientConstructionCannotInventDisconnectAcknowledgement"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testConnectedNativeStopKeepsOneHeldAckAndIgnoredResultForBothProfiles"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testNaturalTerminationWithoutExitedRemainsFailedAfterAcknowledgement"
+            ]
+          ],
+          "dev.openidea.goide.debug.GoTestConverterReadinessTest": [
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testLateProgressCancellationCannotDestroyTheUiClaimedSession"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testUninstrumentedColdExternalSdkUsesItsOwnOfficialConverterAndUnicodeStream"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testColdExternalSdkConverterIsReadyBeforeTheAdapterCanStart"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testCancelledFinishedProgressCannotHandAPreparedAdapterToTheUi"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testSessionDisposalDuringCompilationCancelsPreparationAndItsOwnedCompiler"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testProgressCancellationDuringCompilationNeverStartsTheAdapter"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testOwnedProjectDisposalDuringCompilationCancelsPreparation"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testWrongPackageStartAndEarlyConverterExitCannotStartAnAdapter"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testRunnerPromiseCancellationDuringCompilationStopsItsOwnedTools"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testRegisteredPreparationProgressCanCancelTheActualRunnerBeforeAnAdapterStarts"
+            ]
+          ]
+        }
+      },
+      "goRace": {
+        "packages": {
+          "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+          "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+          "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+          "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+          "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+        },
+        "testPassEvents": 341,
+        "topLevelTestPassEvents": 198,
+        "nonJsonLines": 0,
+        "cachedPackages": 0
+      },
+      "goCheckKind": "fresh",
+      "goCommandRecords": [
+        {
+          "argv": [
+            "/Users/runner/work/opengoland/opengoland/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+            "test",
+            "-race",
+            "-count=1",
+            "-p=1",
+            "-timeout=30m",
+            "-json",
+            "./..."
+          ],
+          "cwd": "engine",
+          "exitCode": 0
+        },
+        {
+          "argv": [
+            "/Users/runner/work/opengoland/opengoland/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+            "vet",
+            "./..."
+          ],
+          "cwd": "engine",
+          "exitCode": 0
+        }
+      ],
+      "goLogSeals": [
+        {
+          "path": "go-race.jsonl",
+          "bytes": 369208,
+          "sha256": "a822f389df979a10a55552f998ee45d9e427b7ab232ba8108476caaacbff9fb8"
+        },
+        {
+          "path": "go-vet.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "derivedDelve": {
+        "target": "darwin-arm64",
+        "distributionKind": "source-derived",
+        "upstreamVersion": "v1.27.2",
+        "recordedBinarySha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+        "reviewedPinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+        "reviewedPatchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+        "recordedReceiptSha256": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb",
+        "manifestPayloadSeals": {
+          "bin/dlv": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+          "source-patches/dlv/pin.json": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+          "source-patches/dlv/source.patch": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+          "source-patches/dlv/receipt.json": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb"
+        },
+        "scope": "Retained producer preparation/build metadata and installed-validator fields agree; this auditor does not execute or independently read an installed tool.",
+        "receiptBodyBoundary": "Full source receipt, upstream ZIP bytes, source-tree hashes and compiler-executable receipt fields are not retained here; referenced receipt SHA is not a reconstruction of that body.",
+        "macManifestBoundary": "Mac productManifestSha256 is a seal only; DMG-internal manifest/tool/receipt require separate actual install/validate_bundle/REA."
+      },
+      "installedEngineWire": {
+        "records": 20,
+        "selectedGoExecutable": "/Users/runner/work/opengoland/opengoland/build/installed-macos-yvloc_43/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+        "engineVersion": "0.1.0-dev",
+        "tools": {
+          "go": {
+            "name": "go",
+            "available": true,
+            "path": "/Users/runner/work/opengoland/opengoland/build/installed-macos-yvloc_43/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+            "version": "go version go1.26.10 darwin/arm64"
+          },
+          "gopls": {
+            "name": "gopls",
+            "available": true,
+            "path": "/Users/runner/work/opengoland/opengoland/build/installed-macos-yvloc_43/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls",
+            "version": "golang.org/x/tools/gopls v0.24.0"
+          },
+          "dlv": {
+            "name": "dlv",
+            "available": true,
+            "path": "/Users/runner/work/opengoland/opengoland/build/installed-macos-yvloc_43/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv",
+            "version": "Delve Debugger\nVersion: 1.27.2\nBuild: $Id: 360e7b2181d3da54115aaee4f569954bca95cfe3 $"
+          }
+        },
+        "taskExit": {
+          "cancelled": false,
+          "code": 0,
+          "id": "installed-test"
+        }
+      },
+      "independentPublicInstalledNativeRecord": "../debug-session-public-v5-native.json"
+    },
+    "windows": {
+      "target": "windows-x64",
+      "producer": {
+        "schemaVersion": 1,
+        "version": "0.1.0-preview.20261110.5",
+        "target": "windows-x64",
+        "installer": "open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe",
+        "installerSha256": "241fb67664afe98ae8a99c5f7a7d7a3a71a44c1b6543b2d56b833cdcb88b6393",
+        "installerBytes": 870558127,
+        "installerSigning": "unsigned",
+        "installerTool": {
+          "name": "Inno Setup",
+          "version": "6.7.3",
+          "repository": "jrsoftware/issrc",
+          "release": "is-6_7_3",
+          "assetId": 430321419,
+          "url": "https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe",
+          "size": 10592232,
+          "sha256": "9c73c3bae7ed48d44112a0f48e66742c00090bdb5bef71d9d3c056c66e97b732",
+          "source": "https://jrsoftware.org/isdl-verify.php",
+          "authenticodePublisher": "Pyrsys B.V."
+        },
+        "compilerSha256": "0a8757031b33777e4c9cbffee40f11a5062b36d25cbe144c1db73b6102b80ad7",
+        "raceCompiler": "C:\\mingw64\\bin\\gcc.exe",
+        "raceCompilerTarget": "x86_64-w64-mingw32",
+        "raceCompilerSha256": "0aeaac2ec1ba2fb290ad3a4bbe7b76d5baedd3743530e5da6d64fb57a2d71850",
+        "installExitCode": 0,
+        "uninstallExitCode": 0,
+        "installedSmoke": "installed-smoke/smoke.json",
+        "sourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+        "limitations": [
+          "Native version and project-frame startup and engine/tool workflows are not full interactive editor acceptance.",
+          "Windows process-tree cancellation remains subject to the documented backend limitations."
+        ]
+      },
+      "kotlin": {
+        "reports": 132,
+        "tests": 728,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 12,
+        "executedPasses": 716,
+        "skippedCases": [
+          [
+            "dev.openidea.goide.engine.EngineClientLifecycleTest",
+            "disposeShutsDownOwnedEngineAndRejectsReconnect"
+          ],
+          [
+            "dev.openidea.goide.engine.EngineClientLifecycleTest",
+            "failedInitializationCanBeRetried"
+          ],
+          [
+            "dev.openidea.goide.engine.EngineClientLifecycleTest",
+            "frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange"
+          ],
+          [
+            "dev.openidea.goide.engine.EngineClientLifecycleTest",
+            "settingsRestartDoesNotLetOldReaderDisconnectNewEngine"
+          ],
+          [
+            "dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest",
+            "capturedSettingsOwnTheGenerationPayloadEvenWhenTheLiveProjectUsesAnotherSdkAndBuildContext"
+          ],
+          [
+            "dev.openidea.goide.project.GoSdkProbeTest",
+            "aCompletedLauncherCannotLeaveItsChildRunning"
+          ],
+          [
+            "dev.openidea.goide.project.GoSdkProbeTest",
+            "cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher"
+          ],
+          [
+            "dev.openidea.goide.project.GoSdkProbeTest",
+            "failedExecutableReportsTheToolErrorWithoutCreatingTheDestination"
+          ],
+          [
+            "dev.openidea.goide.project.GoSdkProbeTest",
+            "oversizedSingleLineOutputIsBoundedAndDoesNotPublishAProject"
+          ],
+          [
+            "dev.openidea.goide.project.GoSdkProbeTest",
+            "plausibleMetadataStillCannotPublishWithoutARealGoMod"
+          ],
+          [
+            "dev.openidea.goide.project.GoSdkProbeTest",
+            "silentSuccessfulExecutableCannotCreateProjectParentsOrAModule"
+          ],
+          [
+            "dev.openidea.goide.project.GoSdkProbeTest",
+            "timeoutTerminatesTheOwnedCommandAndItsChildren"
+          ]
+        ],
+        "criticalCases": {
+          "dev.openidea.goide.debug.GoDapColdSourceNavigationTest": [
+            [
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "testFirstColdGoFrameOpensAtItsDapLineThroughNativeOpen"
+            ],
+            [
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "testCachedGoFrameKeepsItsDapLineThroughNativeOpen"
+            ],
+            [
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "dev.openidea.goide.debug.GoDapColdSourceNavigationTest",
+              "testColdExecutionPointManagerNavigatesAndHighlightsItsDapLine"
+            ]
+          ],
+          "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest": [
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testActualExitedFailureSurvivesRealNativeStop"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testStateProbeAlreadyDisposedEndpointCannotBeReportedAsAcknowledged"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testStateProbeMissingEndpointTimesOutAndCannotLaterInitialize"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testManualTestStopDuringClientConstructionCannotInventDisconnectAcknowledgement"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testStateProbeStopBeforePublicServerPublicationSendsOneRealDisconnectWithoutInitialize"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testNativeGoTestStopDuringClientConstructionCannotInventDisconnectAcknowledgement"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testConnectedNativeStopKeepsOneHeldAckAndIgnoredResultForBothProfiles"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest",
+              "testNaturalTerminationWithoutExitedRemainsFailedAfterAcknowledgement"
+            ]
+          ],
+          "dev.openidea.goide.debug.GoTestConverterReadinessTest": [
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testLateProgressCancellationCannotDestroyTheUiClaimedSession"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testUninstrumentedColdExternalSdkUsesItsOwnOfficialConverterAndUnicodeStream"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testColdExternalSdkConverterIsReadyBeforeTheAdapterCanStart"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testCancelledFinishedProgressCannotHandAPreparedAdapterToTheUi"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testSessionDisposalDuringCompilationCancelsPreparationAndItsOwnedCompiler"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testProgressCancellationDuringCompilationNeverStartsTheAdapter"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testOwnedProjectDisposalDuringCompilationCancelsPreparation"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testWrongPackageStartAndEarlyConverterExitCannotStartAnAdapter"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testRunnerPromiseCancellationDuringCompilationStopsItsOwnedTools"
+            ],
+            [
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+              "testRegisteredPreparationProgressCanCancelTheActualRunnerBeforeAnAdapterStarts"
+            ]
+          ]
+        }
+      },
+      "goRace": {
+        "packages": {
+          "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+          "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+          "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+          "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+          "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+        },
+        "testPassEvents": 333,
+        "topLevelTestPassEvents": 184,
+        "nonJsonLines": 0,
+        "cachedPackages": 0
+      },
+      "vet": {
+        "logPresent": false,
+        "log": null,
+        "authority": "Authenticated exact-source explicit nonzero-exit guard + successful terminal job + final producer report; no invented per-command exit JSON"
+      },
+      "derivedDelve": {
+        "target": "windows-amd64",
+        "distributionKind": "source-derived",
+        "upstreamVersion": "v1.27.2",
+        "recordedBinarySha256": "f0fd5c6618ce1c014fee73c0cd04a51dcbe755e211f2b76d648651b679861848",
+        "reviewedPinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+        "reviewedPatchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+        "recordedReceiptSha256": "ec69c5206dcc1252405a00f6ae5c5bc359bd81a13c7e7084357cc5cc539e88bb",
+        "manifestPayloadSeals": {
+          "bin/dlv.exe": "f0fd5c6618ce1c014fee73c0cd04a51dcbe755e211f2b76d648651b679861848",
+          "source-patches/dlv/pin.json": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+          "source-patches/dlv/source.patch": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+          "source-patches/dlv/receipt.json": "ec69c5206dcc1252405a00f6ae5c5bc359bd81a13c7e7084357cc5cc539e88bb"
+        },
+        "scope": "Retained producer preparation/build metadata and installed-validator fields agree; this auditor does not execute or independently read an installed tool.",
+        "receiptBodyBoundary": "Full source receipt, upstream ZIP bytes, source-tree hashes and compiler-executable receipt fields are not retained here; referenced receipt SHA is not a reconstruction of that body.",
+        "macManifestBoundary": null
+      },
+      "installedEngineWire": {
+        "records": 21,
+        "selectedGoExecutable": "D:\\a\\opengoland\\opengoland\\build\\installed-smoke-7ed1f1c536684782b109cbaa63340e0b\\open Goland\\plugins\\opengoland\\tools\\go\\bin\\go.exe",
+        "engineVersion": "0.1.0-dev",
+        "tools": {
+          "go": {
+            "name": "go",
+            "available": true,
+            "path": "D:\\a\\opengoland\\opengoland\\build\\installed-smoke-7ed1f1c536684782b109cbaa63340e0b\\open Goland\\plugins\\opengoland\\tools\\go\\bin\\go.exe",
+            "version": "go version go1.26.10 windows/amd64"
+          },
+          "gopls": {
+            "name": "gopls",
+            "available": true,
+            "path": "D:\\a\\opengoland\\opengoland\\build\\installed-smoke-7ed1f1c536684782b109cbaa63340e0b\\open Goland\\plugins\\opengoland\\tools\\bin\\gopls.exe",
+            "version": "golang.org/x/tools/gopls v0.24.0"
+          },
+          "dlv": {
+            "name": "dlv",
+            "available": true,
+            "path": "D:\\a\\opengoland\\opengoland\\build\\installed-smoke-7ed1f1c536684782b109cbaa63340e0b\\open Goland\\plugins\\opengoland\\tools\\bin\\dlv.exe",
+            "version": "Delve Debugger\nVersion: 1.27.2\nBuild: $Id: 360e7b2181d3da54115aaee4f569954bca95cfe3 $"
+          }
+        },
+        "taskExit": {
+          "cancelled": false,
+          "code": 0,
+          "id": "installed-test"
+        }
+      },
+      "installedSmoke": {
+        "status": "pass",
+        "installedFilesVerified": 17002,
+        "nativeVersionExitCode": 0,
+        "nativeVersionStdout": "2026.1.4\r\n",
+        "nativeProjectStartup": {
+          "pid": 5704,
+          "projectFrame": {
+            "handle": 590196,
+            "title": "工程 空格 😀",
+            "class": "SunAwtFrame"
+          },
+          "exitCode": 0,
+          "exitCommand": {
+            "argv": [
+              "D:\\a\\opengoland\\opengoland\\build\\installed-smoke-7ed1f1c536684782b109cbaa63340e0b\\open Goland\\bin\\opengoland64.exe",
+              "exit"
+            ],
+            "pid": 6380,
+            "code": 0,
+            "stdout": "",
+            "stderr": ""
+          },
+          "scope": "Actual visible owned project frame and plugin-loaded log; no interactive editor/menu parity claim."
+        },
+        "engine": {
+          "pid": 7588,
+          "exitCode": 0,
+          "test": "TestBundledInstalledRuntime",
+          "testCount": 1,
+          "cached": false,
+          "bundledToolReceiptChecks": {
+            "target": "windows-amd64",
+            "tools": {
+              "gopls": {
+                "kind": "upstream-source-built",
+                "sha256": "df2f78d456011cc1618ced854769ff8a07914549291cc519ac4293dbcadb4e14"
+              },
+              "dlv": {
+                "kind": "source-derived",
+                "upstreamVersion": "v1.27.2",
+                "sha256": "f0fd5c6618ce1c014fee73c0cd04a51dcbe755e211f2b76d648651b679861848",
+                "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+                "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+                "receiptSha256": "ec69c5206dcc1252405a00f6ae5c5bc359bd81a13c7e7084357cc5cc539e88bb"
+              }
+            },
+            "binding": "reviewed repository lock/pin/patch and actual installed tool bytes"
+          }
+        },
+        "scope": "Real installer bytes, native version and visible project-frame startup, explicit installed bundled tools and one uncached Go test via engine RPC; not interactive editor parity or Kotlin default-resolver acceptance.",
+        "nativeVersionWarningBoundary": "Retained producer stdout/stderr remain authoritative. This summary does not claim warning-free startup."
+      },
+      "manualGui": "not verified in this local audit"
+    }
+  },
+  "independentPublicAudit": {
+    "status": "pass-public-assets-and-tested-provenance",
+    "observedAtUtc": "2026-11-10T13:07:59.524557+00:00",
+    "anonymousRequests": [
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/releases/tags/v0.1.0-preview.20261110.5",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "14125",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 14125,
+        "sha256": "217e1fd49c00d33d29a2d5c76d5f7be2567520f9ad65450d9de6e8a9ec135584"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/git/ref/tags/v0.1.0-preview.20261110.5",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "405",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 405,
+        "sha256": "d4547af1214944e8c59f61e446b47918d9bfdbafa14f0acf0c12cb5d6b0f8382"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "12166",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 12166,
+        "sha256": "17905afa3d6699aafbffeb9a83982d83c969fdfd10e94ef4784797e69ad968b2"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703/jobs?filter=all&per_page=100&page=1",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": null,
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 15579,
+        "sha256": "59348316121b642a5fd8d7ad8db1c0b8ee486231f8c5bf5a8612de1ecdff41cf"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703/attempts/1",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "12106",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 12106,
+        "sha256": "7cca53f33ae7b734e739c3b0d158b637b5f0f60d67bfc6f8e812038c0c25e46b"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703/attempts/1/jobs?per_page=100&page=1",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "6156",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 6156,
+        "sha256": "7b10cb473c7a2591f0055dda4b5978b8c1241e249d79172e441fbc6c8cd8998a"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703/attempts/2",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "12188",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 12188,
+        "sha256": "759a7aa5a2417b2fd97b2d89e4d2b8cdb05d6e2faf567547e47c1e2ec7da9c07"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703/attempts/2/jobs?per_page=100&page=1",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "9449",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 9449,
+        "sha256": "4a1a8900fba41dcf39dd660bc3dc2933be0c2dbf9a4fbddf5c2d7e11b7af758f"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703/artifacts?per_page=100&page=1",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "1435",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 1435,
+        "sha256": "dd5fe431c94803b5311a094fcf9e60263ae25b75e18e57877426234a529ea093"
+      },
+      {
+        "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe",
+        "authorizationHeaderPresent": false,
+        "status": 206,
+        "finalHost": "release-assets.githubusercontent.com",
+        "contentLength": "512",
+        "contentRange": "bytes 0-511/870558127",
+        "requestedRange": "bytes=0-511",
+        "bytesRead": 512,
+        "sha256": "0a8fde1372f87d577ce27c9870b59f57336cd7464d8bd17a6208ff2dc007aa67"
+      },
+      {
+        "url": "https://raw.githubusercontent.com/shubolab/opengoland/8167eb3811c79ac1e0d1a754640b38325a600484/scripts/windows/build-release.ps1",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "raw.githubusercontent.com",
+        "contentLength": "10465",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 10465,
+        "sha256": "b15d856a45439ad0ef273a30d86fc0e4988aa2055e9e37701497fce68ac1a23e"
+      },
+      {
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/runs/42808021703",
+        "authorizationHeaderPresent": false,
+        "status": 200,
+        "finalHost": "api.github.com",
+        "contentLength": "12166",
+        "contentRange": null,
+        "requestedRange": null,
+        "bytesRead": 12166,
+        "sha256": "17905afa3d6699aafbffeb9a83982d83c969fdfd10e94ef4784797e69ad968b2"
+      }
+    ],
+    "wholeFileBoundary": "The retained complete DMG, checksums and provenance archives were rehashed; fullDownloads marks reused existing full files rather than claiming they were downloaded afresh in this audit. EXE was range-only locally.",
+    "archiveMemberInventories": {
+      "windows": {
+        "members": 1023,
+        "expandedBytes": 234777841,
+        "memberInventory": {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-release-audit/anonymous-actual-attempt2/windows-proof-g65l50rm/audit-extracted-members.json",
+          "bytes": 252150,
+          "sha256": "b8f7273712eb7ed30bbb157689edca6fc5a3f57dcbb06e54a9c839c159e251e4"
+        }
+      },
+      "macos": {
+        "members": 794,
+        "expandedBytes": 185504213,
+        "memberInventory": {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v5-release-audit/anonymous-actual-attempt2/macos-proof-1f3gyxpy/audit-extracted-members.json",
+          "bytes": 219782,
+          "sha256": "8e042811e899bb1abbfb5529ac2ea121103e56997bc191217067549792ec3e58"
+        }
+      }
+    },
+    "installedPublicMac": {
+      "status": "pass-public-installed-native-scoped-with-open-warnings-and-sdk-pending",
+      "historicalVerifierStatus": "downloaded-installed-copy-verified-native-pending",
+      "application": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app",
+      "installerSha256": "24fbb2509b757a33e9e4bbaa1cdb144d347c4f06cfe14cbf5b3541e29da7a7ce",
+      "installerBytes": 1018171382,
+      "manifestSha256": "ed24ee342a157e28633b38a1ad652bd6f8c4873e75896f3c52f6a5642143f5f9",
+      "sealedPluginAndToolFiles": 15138,
+      "allGoPluginClassesMatchLocalNativeCandidate": 678,
+      "bundledToolFilesVerified": 15105,
+      "mountedAndCopied": true,
+      "deepStrictSignatureVerified": true,
+      "dragToApplicationsTargetVerified": true,
+      "actualInstalledEngineVcsVerified": true,
+      "installedDerivedToolChecks": {
+        "target": "darwin-arm64",
+        "tools": {
+          "gopls": {
+            "kind": "upstream-source-built",
+            "sha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f"
+          },
+          "dlv": {
+            "kind": "source-derived",
+            "upstreamVersion": "v1.27.2",
+            "sha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+            "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+            "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+            "receiptSha256": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb"
+          }
+        },
+        "binding": "reviewed repository lock/pin/patch and actual installed tool bytes"
+      },
+      "nativeRecord": "../debug-session-public-v5-native.json",
+      "historicalCandidateBoundary": "The old local candidate app path in mac-installed-verify.json is historical and was removed during authorized local cleanup; its prior class-comparison evidence remains retained. The public .5 installed app is preserved.",
+      "sessionFinalization": {
+        "capturedIdentityCount": 122,
+        "allGone": true,
+        "zombies": [],
+        "signalsUsed": false,
+        "recordedSourcesUnchanged": true,
+        "originalSdkFilesUnchanged": 15657,
+        "errorSevereCount": 0,
+        "warnCount": 21,
+        "report": "../debug-session-public-v5-native.json"
+      }
+    }
+  },
+  "nativeWorkflowStatus": {
+    "coldSourceCfa": "pass-observed-scope",
+    "goTest": "pass-scoped-native-cases-with-open-late-stop-notification-warning",
+    "exampleRunAndTests": "pass-scoped-example-run-and-six-test-results",
+    "externalSdkAddLocalAndPreparationCancel": "pending-add-local-selection-not-completed-cancel-not-attempted",
+    "variantCfa": "not-verified-on-this-public-copy",
+    "windowsInteractiveParity": "not-verified",
+    "sessionQuitAndFinalSourceChecks": "pass-normal-quit-owned-identities-source-sdk-preserved",
+    "warnings": "late-stop-warning-open-background-write-wait-cause-unknown"
+  },
+  "observations": [
+    "Public release assets and producer provenance bind to the 492-file source identity above.",
+    "macOS public DMG was actually mounted read-only, copied, checked and later launched for the scoped native CFA workflow.",
+    "Current native CFA observation is scoped to one standard Pause, first Go caller locals and standard Stop without signals."
+  ],
+  "inferences": [
+    "Windows zero-output go vet success is supported by an exact-source guarded command plus successful job/final producer report; no per-command log or exit JSON is invented."
+  ],
+  "limitations": [
+    "Preview; complete GoLand feature parity remains open.",
+    "No local full EXE download/hash or manual Windows interactive editor acceptance claim; actual Windows installer build/install/start/uninstall has producer evidence.",
+    "macOS arm64 preview is ad-hoc signed and not notarized; debugging needs Apple Command Line Tools/Xcode debugserver.",
+    "The scoped CFA and six remaining native-case passes do not close every debugger Step/Continue/race/variant case.",
+    "Public .5 has an unresolved late stopped-notification warning after Stop; the observed target/test processes nevertheless terminated correctly. An assigned independent candidate fix is not a shipped .5 fix.",
+    "Two background-write10s wait warnings have unknown cause; retained modal-loop dumps do not prove Go-task I/O/lock ownership or explain SDK focus failure.",
+    "External SDK Add local native retry did not complete selection or register/save SDK. Preparation-task visible Cancel was not attempted; both remain open.",
+    "The README GIF remains a real .4 development-build capture on its recorded system, not a relabeled .5 recording.",
+    "No universal JetBrains-plugin compatibility claim: platform build ranges and required product APIs still apply.",
+    "Completed GUI profile system index/cache directories were deleted after normal quit; preserved source/log/config/UI/proof/installer artifacts retain their seals."
+  ],
+  "evidenceFiles": {
+    "final-evidence.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/final-evidence.json",
+      "bytes": 264595,
+      "sha256": "40fff6750df0c05489d1a647af9447f54443674c4a6cb963cd75f1ecd65e11a3",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "mac-installed-verify.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/mac-installed-verify.json",
+      "bytes": 18678,
+      "sha256": "40de6ee2ba2ff124bee2a293a4aca523c26067deb317f17ef2cdd3f8d44c438a",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "installed-derived-tool-and-module-check.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/installed-derived-tool-and-module-check.json",
+      "bytes": 1436,
+      "sha256": "d1066e74dd3d2891171d7d55020c27829a0138bcbb2438eb63cb4bcedc93271a",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "public-attempt-1-run.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/public-attempt-1-run.json",
+      "bytes": 12106,
+      "sha256": "7cca53f33ae7b734e739c3b0d158b637b5f0f60d67bfc6f8e812038c0c25e46b",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "public-attempt-1-jobs.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/public-attempt-1-jobs.json",
+      "bytes": 6156,
+      "sha256": "7b10cb473c7a2591f0055dda4b5978b8c1241e249d79172e441fbc6c8cd8998a",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "public-attempt-2-run.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/public-attempt-2-run.json",
+      "bytes": 12188,
+      "sha256": "759a7aa5a2417b2fd97b2d89e4d2b8cdb05d6e2faf567547e47c1e2ec7da9c07",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "public-attempt-2-jobs.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/public-attempt-2-jobs.json",
+      "bytes": 9449,
+      "sha256": "4a1a8900fba41dcf39dd660bc3dc2933be0c2dbf9a4fbddf5c2d7e11b7af758f",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "SHA256SUMS": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/SHA256SUMS",
+      "bytes": 434,
+      "sha256": "b1a7cb37752664ac7b82b9846a766ce3b9e1623c9f6e1b61d24d978036c249cd",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "engine.rea.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/engine.rea.json",
+      "bytes": 8643,
+      "sha256": "27f9f2ee2315c0a3aa2ba9c8715d06ee61b907737ada8f8f228b3890fb0a21dc",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "delve.rea.json": {
+      "path": ".tools/public-v5-release-audit/anonymous-actual-attempt2/delve.rea.json",
+      "bytes": 12542,
+      "sha256": "a76bbf698be41a89847e04281cc85bbb241c28d8d1689f0fba82ab6b06670b7d",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "session-final.json": {
+      "path": ".tools/public-v5-native-checks/remaining-native-20261110/session-final.json",
+      "bytes": 4107,
+      "sha256": "02e3465014b3b4ef4454de73d55b21d930f1ddfe23cf224a4a1bf038ef79fc83",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "workflow-source-after.json": {
+      "path": ".tools/public-v5-native-checks/remaining-native-20261110/workflow-source-after.json",
+      "bytes": 4203,
+      "sha256": "bcd742bc4461a42908c12293d22f2270f44355bd6f5817bcf87855963e139817",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "sdk-picker-retry.json": {
+      "path": ".tools/public-v5-native-checks/remaining-native-20261110/sdk-picker-retry.json",
+      "bytes": 1384,
+      "sha256": "d5b8a372599b012570c6dfbc4c3475e031980b143a73f00f99b3f9d00c0ddd65",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "session-log-observation.json": {
+      "path": ".tools/public-v5-native-checks/remaining-native-20261110/session-log-observation.json",
+      "bytes": 6078,
+      "sha256": "26d70f50ffbe1852deb20e7ae9fba62137aaf47ba08086bfdf8eb99cf2c5e50e",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "completed-session-cache-cleanup.json": {
+      "path": ".tools/public-v5-native-checks/remaining-native-20261110/completed-session-cache-cleanup.json",
+      "bytes": 713,
+      "sha256": "c8ac8f08b082720ff44ab6fdcfde4cfc718f285c6ba5bfaf888068555c9fd210",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    }
+  },
+  "recordedAtUtc": "2026-11-10T14:40:16.261944+00:00",
+  "openIssues": {
+    "lateStopNotificationWarning": {
+      "id": "DEBUG-LATE-STOP-NOTIFICATION-WARN",
+      "status": "open-in-public-0.1.0-preview.20261110.5",
+      "observedAtLocal": "2026-11-10 22:12:15.252",
+      "logger": "org.eclipse.lsp4j.jsonrpc.RemoteEndpoint",
+      "message": "Notification threw an exception",
+      "notification": {
+        "event": "stopped",
+        "reason": "pause",
+        "allThreadsStopped": true
+      },
+      "exception": "java.util.concurrent.CancellationException: Go test debugger connection was stopped",
+      "recordedStack": [
+        "dev.openidea.goide.debug.GoTestDapClient.getDebugProtocolServer(GoTestDapClient.kt:55)",
+        "com.redhat.devtools.lsp4ij.dap.client.DAPClient.stopped(DAPClient.java:368)"
+      ],
+      "sourceLogLines": [
+        654,
+        679
+      ],
+      "scope": "Observed after running Go Test Stop. The native UI correctly reported cancellation/ignored and all six original target/adapter/test2json/telemetry identities terminated. This warning remains a real unresolved issue in the published .5 product.",
+      "nextWork": "An independent candidate fix has been assigned; no fix is claimed shipped in public .5. Later E/F changes do not close this warning."
+    },
+    "backgroundWriteWaitWarnings": {
+      "id": "BACKGROUND-WRITE-WAIT-WARN",
+      "status": "cause-unknown",
+      "observedAtLocal": [
+        "2026-11-10 22:21:04.018",
+        "2026-11-10 22:26:42.876"
+      ],
+      "message": "Cannot execute background write action in 10 seconds.",
+      "edtObservations": [
+        {
+          "context": "Native Edit Run Configurations modal event loop",
+          "entry": "com.intellij.execution.actions.EditRunConfigurationsAction.actionPerformed(EditRunConfigurationsAction.java:45)",
+          "evidence": {
+            "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-1676707111.txt",
+            "bytes": 1064652,
+            "sha256": "f425a6eb60cc3c4029578786ecba8f325a3da2539d48f6733c7cd8513c605ba0",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        },
+        {
+          "context": "Native SDK directory chooser modal event loop",
+          "entry": "com.intellij.openapi.fileChooser.impl.NativeFileChooserDialogImpl.choose; dev.openidea.goide.sdk.GoSdkSelector.component lambda at GoSdkSelector.kt:74",
+          "evidence": {
+            "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-864495529.txt",
+            "bytes": 1096924,
+            "sha256": "ebdc09c2ef7cee6c2ba71a5cfa302e3ded607ea59b755e1a9633a67b6a396fef",
+            "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+          }
+        }
+      ],
+      "unknowns": [
+        "The dumps do not establish custom Go-task filesystem/subprocess work on EDT or a Go-task lock owner as the cause.",
+        "No causal explanation of the SDK chooser focus/selection failure is established.",
+        "The warnings are not marked resolved."
+      ]
+    },
+    "externalSdkAddLocal": "Native retry selection did not complete or register/save SDK; original SDK unchanged.",
+    "preparationVisibleCancel": "Not attempted because no external SDK was selected; pending desktop acceptance."
+  },
+  "startupWarningInterpretation": {
+    "observedStartupWarningCount": 2,
+    "source": "The retained session WARN headers for ProjectStoreFactory and PluginManagementPolicy are preserved unchanged.",
+    "pinnedOssInterpretation": "In the separately retained pinned IntelliJ Platform source review, the non-open override diagnostic logs a WARN and continues to record/complete RegistrationAction.Override. These two warnings alone are not evidence of rejected registration or failed plugin protection.",
+    "publicSourceRef": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "reviewEvidence": {
+      "path": ".tools/plugin-policy-runtime-review/review.json",
+      "bytes": 8779,
+      "sha256": "dc57d9b840c3ddd836d18fa71ba949018c04a736fb626acea43c89749142090c",
+      "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset"
+    },
+    "sourceEvidence": [
+      {
+        "path": ".tools/plugin-policy-runtime-review/upstream/InstanceContainerImpl.kt",
+        "bytes": 14004,
+        "sha256": "66fde40bb6485dba798e81f045aa15e3241c331929496027aa7099ef02ceb40b",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset",
+        "publicSourceUrl": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/instanceContainer/src/internal/InstanceContainerImpl.kt"
+      },
+      {
+        "path": ".tools/plugin-policy-runtime-review/upstream/InstanceRegistrarImpl.kt",
+        "bytes": 5641,
+        "sha256": "64955cbae28adf8123ed404fcee7004e2b7a9b33e8a4d278c763757d8f046d46",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset",
+        "publicSourceUrl": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/instanceContainer/src/internal/InstanceRegistrarImpl.kt"
+      },
+      {
+        "path": ".tools/plugin-policy-runtime-review/upstream/InstanceContainerTest.kt",
+        "bytes": 16968,
+        "sha256": "857a080d62cf640b37b7cf3815396a3e4f930cb5127ff8d88162d92636720b5a",
+        "availability": "locally-retained-evidence; not assumed published as an individual GitHub asset",
+        "publicSourceUrl": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/instanceContainer/tests/InstanceContainerTest.kt"
+      }
+    ],
+    "sourceRanges": {
+      "InstanceRegistrarImpl.kt": [
+        "55-70",
+        "117-130"
+      ],
+      "InstanceContainerImpl.kt": [
+        "25-40"
+      ],
+      "InstanceContainerTest.kt": [
+        "168-190"
+      ]
+    },
+    "boundary": "This is a pinned-source explanation of the warning branch, not a new query of the public .5 live service object or a new native plugin-install/update test. No new policy fix is inferred or scheduled in this report."
+  }
+}

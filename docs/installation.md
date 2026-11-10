@@ -8,7 +8,7 @@
 | macOS，Apple silicon | `open-Goland-版本-macos-arm64.dmg` | 打开镜像，将 `open Goland.app` 拖到 Applications，然后打开应用 |
 | Windows x64 | `open-Goland-版本-windows-x64-setup.exe` | 运行安装程序，完成向导，从开始菜单启动 |
 
-安装包包含 JVM、Go 1.26.10 SDK、gopls 0.24.0 和 Delve 1.27.2。
+当前安装包包含 JVM、Go 1.26.10 SDK、gopls 0.24.0，以及基于 Delve 1.27.2 的补丁构建。
 基本 Go 编辑、构建和测试无需另装 Java、Go 或语言服务工具。
 新项目默认使用内置工具；在 Settings > Go 中明确选择的 SDK 和工具路径优先。
 Git、GitHub 和私有仓库保留各自的开发凭据认证。
@@ -17,7 +17,7 @@ IDE 本身不要求账号，没有计费、订阅、试用倒计时或付费功�
 第一次启动后，点击欢迎页 **New Project**，选择项目位置和 module path，
 即可创建带示例与测试的 Go 项目。已有项目使用 **Open** 或 **Clone Repository**。
 新建项目和 **Settings > Go** 使用同一个 SDK 选择器：可以使用内置 SDK、
-通过 **Add Local SDK** 选择已安装的 Go 目录，或通过 **Download Go SDK**
+通过 **Add local…（添加本地 SDK）** 选择已安装的 Go 目录，或通过 **Download…（下载）**
 下载当前稳定版本。下载会验证大小、SHA-256 和 SDK 本身；完成后自动选中。
 在向导中设置的 SDK 和环境变量随项目保存，正常退出后重新打开会恢复这些设置。
 
@@ -28,10 +28,12 @@ Windows 安装器尚未使用发行者证书签名。安装时系统可能要求
 macOS 调试当前使用 Apple 的 `debugserver`，需要安装 Command Line Tools 或 Xcode。
 纯 Go 构建、测试和语言服务使用内置 Go SDK。包含 cgo 或外部依赖的项目，仍需其自身的
 C 工具链、依赖源及访问凭据。
-自行选择或下载的 SDK 首次调试时，`test2json` 工具可能尚未准备完成，
-这一冷启动场景仍有已知限制。
-标准 Pause 尚不能暂停；首次切换 goroutine 后的步进/继续也仍有待修复项。
-具体证据与范围见[调试器当前限制](verification/debug-session-controls.md)。
+测试调试会先用所选 SDK 准备并检查 `test2json`；外部 SDK 的首次准备可能较慢。
+添加本地 SDK 的原生目录选择，以及准备任务的原生取消按钮，尚未完成完整桌面验收。
+标准暂停与首次源码定位已有修复和原生记录，本版也修正了一个 Apple silicon
+系统调用栈变量问题。具体平台、构建版本与验证范围见
+[公开安装副本验证](verification/debug-session-public-v5-native.json)和
+[调试器验证记录](verification/debug-session-controls.md)；完整功能对齐仍未完成。
 
 每个版本同时发布 `.exe`、`.dmg`、`SHA256SUMS` 和构建验证记录。
 自动发布流程要求 Windows 与 macOS 两端构建及安装检查成功。

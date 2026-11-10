@@ -6,7 +6,7 @@
 
 界面和编辑器建立在开源 IntelliJ Platform 上，由 Kotlin 接入 Go 功能；Go 引擎、gopls 和 Delve 负责代码分析、工程任务与调试。GoLand 2026.1.4 是功能和交互的参考，商业 GoLand 插件不包含在本产品中。
 
-适合希望使用原生桌面界面开发 Go、并愿意试用预览版本的开发者。**目前还不能当作完整的 GoLand 替代品**；下面列出的功能有各自的验证范围，完整验收仍在进行。
+适合希望使用原生桌面界面开发 Go、并愿意体验预览版本的开发者。**目前还不能当作完整的 GoLand 替代品**；下面列出的功能有各自的验证范围，完整验收仍在进行。
 
 ## 运行起来是什么样
 
@@ -18,18 +18,18 @@
 
 ## 下载与安装
 
-当前公开版本是 [0.1.0-preview.20261110.4](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.4)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
+当前公开版本是 [0.1.0-preview.20261110.5](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.5)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
 
 | 系统 | 直接下载 | 安装方法 |
 | --- | --- | --- |
-| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/open-Goland-0.1.0-preview.20261110.4-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
-| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/open-Goland-0.1.0-preview.20261110.4-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
+| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
+| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
 
-安装包自带 JVM（运行 IDE 所需的 Java 环境）、**Go 1.26.10、gopls 0.24.0 和 Delve 1.27.2**。基本的 Go 编辑、构建与测试无需另装 Java、Go 或语言服务工具；也可以选择自己安装的 Go SDK。
+安装包自带 JVM（运行 IDE 所需的 Java 环境）、**Go 1.26.10、gopls 0.24.0，以及基于 Delve 1.27.2 的补丁构建**。基本的 Go 编辑、构建与测试无需另装 Java、Go 或语言服务工具；也可以选择自己安装的 Go SDK。
 
-每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.4/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
+每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
 
-本版修复了标准暂停、首次打开调试源码时的行号定位，以及正常 Go 调试会话的停止顺序。从公开 DMG 安装的应用已实际通过示例运行、测试、首次暂停定位和暂停后停止检查，见[公开安装副本验证](docs/verification/debug-session-public-v4-native.json)。完整功能对齐仍在进行。
+这一版修复了 Apple silicon Mac 上一个已复现的调试问题：程序阻塞在系统调用时，上层 Go 代码的局部变量可能显示不准。也改进了测试调试的准备与停止处理，并删除残留的 IDE 试用推广入口。Delve 的补丁来源和构建记录随安装包提供。公开安装包的验证范围见[公开安装副本验证](docs/verification/debug-session-public-v5-native.json)，完整功能对齐仍在进行。
 
 IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitHub、私有仓库和项目依赖所需的认证仍然保留，使用这些服务时需要它们各自的凭据。
 
@@ -38,14 +38,14 @@ IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitH
 ## 第一次使用
 
 1. **新建项目**：欢迎页选择 **New Project**，或使用 **File > New > New Project**。填写项目名称、保存位置和 module path；module path 就是 Go 在 `go.mod` 中使用的模块名称，例如 `example.org/hello`。
-2. **选择 Go SDK**：默认使用内置版本。新建项目和 **Settings > Go** 共用 SDK 选择器，可以通过 **Add Local SDK** 选择已安装的 Go 主目录，或通过 **Download Go SDK** 下载官方稳定版本。
+2. **选择 Go SDK**：默认使用内置版本。新建项目和 **Settings > Go** 共用 SDK 选择器，可以通过 **Add local…（添加本地 SDK）** 选择已安装的 Go 主目录，或通过 **Download…（下载）** 下载官方稳定版本。
 3. **按需填写环境变量**：例如代理、构建开关或项目所需的变量。向导中的 SDK 与环境设置会随项目保存。可以勾选示例代码与测试，创建后直接运行。
 4. **打开已有项目**：选择 **Open**；从远程仓库开始则选择 **Clone Repository**。多模块项目可使用 Go 自己的 `go.work` 工作区。
 5. **运行与测试**：使用代码旁的运行入口，或在 **Run > Edit Configurations** 中建立 Go Build、Go Test、Go Debug 配置。执行结果显示在原生 Run、Test、Debug 面板中。
 
 SDK 下载会核对官方目录中的大小与 SHA-256，再验证解包后的 Go 版本和主目录；目标必须是新目录，已有 SDK 不会被覆盖。取消或验证失败不会登记为已安装 SDK。下载需要联网，项目依赖也可能需要访问网络。
 
-SDK 选择器已经实现并有自动化验证；11.2 公开 macOS 安装副本的 **Add Local SDK** 原生文件选择器操作尚未完成验收，不能把这一项当作已验证通过。内置 SDK 的 11.2 公开安装副本建项目、运行与测试已有实际记录，见[SDK 与新建项目验证](docs/verification/sdk-project-management-public-native.json)。
+SDK 选择器已经实现并有自动化验证；外部 SDK 的 **Add local…** 原生目录选择，以及测试调试准备过程的原生取消按钮，目前仍缺少完整的桌面验收，不能把自动化测试当作这些操作已经通过。此前公开安装副本使用内置 SDK 建项目、运行与测试的记录见[SDK 与新建项目验证](docs/verification/sdk-project-management-public-native.json)。
 
 ## 插件与简体中文
 
@@ -114,9 +114,10 @@ Go Test 配置支持普通测试、benchmark 和 fuzz。测试树可展示进度
 ## 预览版的重要限制
 
 - **完整功能对齐仍未完成。** 测试通过、功能入口存在和真实桌面验收是三类证据；完整验收矩阵仍保持开放。
-- **调试仍有明确边界。** 本版修复标准 Pause 和首次源码定位，并有首次切换 goroutine 后单步、直接继续的独立验证。但 macOS 在某些原生系统写文件调用中暂停时，上层 Go 变量仍可能显示错误；Go 测试在调试连接尚未完成前立即停止的边界也尚未修复。不能用局部通过代替全部调试场景验收。
+- **调试仍有明确边界。** 本版继续保留标准暂停与源码定位修复，并修正了 Apple silicon Mac 上一个已复现的系统调用栈变量问题，以及测试调试连接前停止的处理。不同修复的自动化、桌面和平台验证范围分别记录；附加调试、远程调试、所有系统调用与停止时机仍不能只凭局部通过认定全部可靠。
+- **停止后的日志警告尚未修复。** 本轮公开 `.5` 安装副本验收中，出现过停止调试后又收到暂停通知并记录的警告；测试和目标进程已正确终止，这条警告在当前版本仍未修复。
 - **macOS 调试需要 Command Line Tools 或 Xcode。** Delve 当前使用 Apple 的 `debugserver`；纯 Go 编辑、构建与测试使用内置 SDK。cgo 项目还需要其 C 工具链。
-- **外部 Go SDK 首次调试仍有工具就绪问题。** 自行选择或下载的 SDK 可能还未准备好 `test2json`。内置 SDK 与外部 SDK 的验证范围不同。
+- **外部 Go SDK 仍需完整桌面验收。** 测试调试会先用所选 SDK 准备并检查 `test2json`，首次准备可能较慢；添加本地 SDK 的原生目录选择与准备过程的原生取消操作尚未完整验收。
 - **插件兼容性有范围。** 插件市场和磁盘安装保留平台原有检查；需要其他 IDE 专有模块或不支持当前版本的插件仍不能使用。第三方插件的许可和账号规则不变。
 - **中文界面尚未覆盖所有 Go 功能。** 平台界面可以使用匹配的官方语言包，部分新增 Go 对话框仍为英文；安装和更改语言后需要按提示重新打开 IDE。
 - **Windows 超长项目根目录仍有限制。** 子进程工作目录超过系统支持范围可能出现 `CreateProcess 267`，建议使用较短的项目路径；中文、空格和 emoji 路径与任意长度支持是不同问题。
@@ -189,8 +190,8 @@ Windows 构建在 Windows 上执行，入口与完整安装/卸载检查见[发�
 
 - [插件与中文安装验证](docs/verification/plugin-compatibility.md)：匹配语言包、原生插件流程、重启与具体证据范围。
 - [公开 .3 中文与插件原生检查](docs/verification/plugin-compatibility-public-native.json)：完整下载 DMG 后的安装、中文启用、插件动作及 Go Run/Test。
-- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261110.4.json)：两个系统的安装包、校验值、构建与安装检查。
-- [11.2 公开 macOS 安装副本原生检查](docs/verification/sdk-project-management-public-native.json)：默认 SDK 新建项目、Run/Test、状态恢复，以及未完成的本地 SDK 文件选择器验证。
+- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261110.5.json)：两个系统的安装包、校验值、构建与安装检查。
+- [此前 .2 macOS 公开版本的新建项目检查](docs/verification/sdk-project-management-public-native.json)：默认 SDK 新建项目、Run/Test、状态恢复，以及未完成的本地 SDK 文件选择器验证。
 - [完整产品验收矩阵](docs/reference/acceptance-matrix.json)：完整目标和仍未完成的验收项。
 - [参考调查](docs/reference/README.md)、[REA 证据台账](docs/reference/rea-ledger.md)：实际参考版本、可见资源和证据局限。
 - [Go 引擎说明](engine/README.md)、[固定平台版本](product/platform.lock.json)：源码开发与协议细节。
