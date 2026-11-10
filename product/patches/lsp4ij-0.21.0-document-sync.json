@@ -11,9 +11,9 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "610216a5e76d49d0582e020604c9871c4189e287639efd895c414689d2ee9099",
+  "patchSha256": "5ee384a7b6a5083445a2d736b72ec18065b9b397f97a4055d42d6c72d1c9b1ce",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。；高亮请求等待已打开文档的didOpen/didChange，通过同一FIFO发送，并以原生文档序列及已连接服务器/文档身份保护排队、交付与缓存；取消只影响请求自己的future。；标准Pause使用真实线程ID异步请求，并等待ACK与真实暂停事件共同完成；支持allThreadsStopped但无threadId的暂停事件。标准Step/Continue绑定原生选中栈、当前暂停context与CAS认领的代次；冷/热栈加载不改变选择，过期回包不发布。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。；高亮请求等待已打开文档的didOpen/didChange，通过同一FIFO发送，并以原生文档序列及已连接服务器/文档身份保护排队、交付与缓存；取消只影响请求自己的future。；标准Pause使用真实线程ID异步请求，并等待ACK与真实暂停事件共同完成；支持allThreadsStopped但无threadId的暂停事件。标准Step/Continue绑定原生选中栈、当前暂停context与CAS认领的代次；冷/热栈加载不改变选择，过期回包不发布。；延迟本地调试源码的导航对象在父描述符中保留真实行号，使原生编辑器首次冷打开通过canNavigateTo并定位到执行行。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
@@ -154,6 +154,12 @@
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/dap/client/DAPSuspendContext.java",
       "upstreamSha256": "f2994e643ece47822f16eb641feb9814caa2e7b11d6cb0dbc5ec7f46698fe34c",
       "patchedSha256": "ce915b1330efe833c731eed6ddbf94c2ba1bd89c3b5e8554f2a91947e1150bea"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.java",
+      "upstreamSha256": "254f7eedef14541b8c56e7e15c30d5744c9cd09ec8c34989bd97f94a72fc8854",
+      "patchedSha256": "29405d559617f00ecb647e0c2586c306357c95af24950f44e899fc18d9ccc02c"
     }
   ],
   "initialVerification": {
@@ -660,6 +666,36 @@
       "tamperedClassRejected": "pass",
       "proof": ".tools/debug-session-integration-controls/official-final-verification.json",
       "platform": "macOS arm64 SDK2026.1.4; Windows/full-product verification remains separate"
+    }
+  },
+  "coldSourceNavigationRevision": {
+    "scope": "A deferred local frame retains its zero-based line in the OpenFileDescriptor superclass used by the native text-editor navigation gate.",
+    "sourceCount": 18,
+    "expectedClassCount": 38,
+    "verificationStatus": "isolated actual SDK controls pass; full-product, Windows and native cold-first-open checks remain separate",
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase$DeferredNavigatable.class": "0e6e0c532acd9cfb459946f98fbe0cc6a78c84241ad1142db1e50a3485529901",
+      "com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.class": "deff783efb1e82a6e92f266fc8c608068e6a8f32b656c45cdaf1340a12022c1d"
+    },
+    "previous36CompiledClassesUnchanged": true,
+    "officialBuilder": {
+      "compiler": "javac 25.0.3",
+      "compilerOptions": [
+        "--release",
+        "17",
+        "-encoding",
+        "UTF-8",
+        "-implicit:none",
+        "-sourcepath",
+        ""
+      ],
+      "artifactSha256": "9da584e5ade15a7080637f14df25b6f205168bbab8a98cc6c799fba935380db2",
+      "originalEntriesUnchangedExceptTwoDeferredClassesAndMarker": true,
+      "localeIntentionDescriptionGuardUnchanged": true,
+      "coldWarmAndCachedRepackByteIdentity": true,
+      "tamperedLocaleClassResourceAndDuplicateRejectedWithoutOverwrite": true,
+      "proof": ".tools/debug-cold-source-controls/final-evidence.json",
+      "platform": "macOS arm64 SDK2026.1.4; not a native standalone or Windows pass"
     }
   }
 }

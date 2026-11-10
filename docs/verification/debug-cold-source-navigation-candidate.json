@@ -1,0 +1,156 @@
+{
+  "schemaVersion": 1,
+  "status": "source-controls-pass-native-installers-pending",
+  "recordedAtUtc": "2026-11-10T06:19:00.507729+00:00",
+  "baseCommit": "0b5b2b4",
+  "inputs": {
+    "files": 486,
+    "sha256": "612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e"
+  },
+  "changedFiles": [
+    {
+      "path": "scripts/patch-lsp4ij.py",
+      "sha256": "fa928971a941a54dbadfe11b83e5362dfd3a643b8dc770307eadd6118c6b0ea6",
+      "bytes": 14747,
+      "baseSha256": "e71e7268434feb2dcfc391eb94674c4adc6ac4052acc5f8abd3c85f5be9a2f96"
+    },
+    {
+      "path": "product/patches/lsp4ij-0.21.0-document-sync.json",
+      "sha256": "0c333e78c962e861e50272018a2150b7cc614d12622586e604c95991909482b5",
+      "bytes": 59537,
+      "baseSha256": "6cfa2a32684a2ea8d194f1bf8b20ca1b2d2934a3f9c41f3b216140a53698a701"
+    },
+    {
+      "path": "product/patches/lsp4ij-0.21.0-document-sync.patch",
+      "sha256": "5ee384a7b6a5083445a2d736b72ec18065b9b397f97a4055d42d6c72d1c9b1ce",
+      "bytes": 104924,
+      "baseSha256": "610216a5e76d49d0582e020604c9871c4189e287639efd895c414689d2ee9099"
+    },
+    {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspInitializationSyncTest.kt",
+      "sha256": "6e06fc06947cd7785a744c697ec3ac7c407b856f891375245432dc3ccc88ce6c",
+      "bytes": 14780,
+      "baseSha256": "8b427906e23a12a28079eb2ea3ce881f4d8b4aa179db4a3656136a124a31aac2"
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/debug/GoDapColdSourceNavigationTest.kt",
+      "sha256": "ca7a6d779dd42a66eb1db31d7dc8cbd5ffc0d0543e1434e5d69b36b98c52cdb1",
+      "bytes": 13458,
+      "baseSha256": null
+    }
+  ],
+  "implementation": {
+    "source": "src/main/java/com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.java",
+    "change": "Only the DeferredNavigatable superclass constructor now receives Math.max(0, position.getLine()) and column 0. Resolution, flow, selection and navigateIn fallback are unchanged.",
+    "noAddedEdtIoProcessesOrWaits": true,
+    "abi": "Existing constructor and methods remain; one public upstream base source and its nested class enter the explicit compile whitelist."
+  },
+  "observations": [
+    "Actual DAPStackFrame first source query on EDT yields DeferredLocalFileSourcePosition for a cold physical Unicode Go source; no cached document exists before that query.",
+    "Same compiled cold-control classes against the old artifact: 3 cases, exactly 1 failure at the real provider-created TextEditorImpl plus production navigateAndSelectEditor gate; cached and execution-point-manager controls pass.",
+    "The new artifact passes that same production editor gate and moves the actual caret to the expected nonzero DAP line; native OPEN and execution-point-manager/highlight controls also pass.",
+    "LightPlatform TestEditorManager directly navigates and therefore did not reproduce this production gate failure without the actual TextEditorProvider-created TextEditorImpl.",
+    "The final official builder compiles exactly 18 explicitly pinned public Java sources into 38 controlled classes. The previous 36 compiled classes are byte-identical. All JAR entry names match the old artifact; only the two newly controlled deferred classes and provenance marker differ."
+  ],
+  "inference": "The native first-cold-file symptom is consistent with FileEditorManagerImpl refusing a deferred OpenFileDescriptor whose inherited line and offset are both unset. Retaining the existing source line in that superclass supplies the same location before native canNavigateTo is called; no arbitrary offset is introduced.",
+  "verification": {
+    "rootKotlin": {
+      "reports": 130,
+      "tests": 710,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "rootPython": {
+      "tests": 62,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "sameSdkColdTestsOld": {
+      "tests": 3,
+      "failures": 1
+    },
+    "isolatedNewSdkControls": {
+      "tests": 8,
+      "failures": 0,
+      "coldNavigationCases": 3,
+      "initializationSyncCases": 5,
+      "includedInRootSuite": true
+    },
+    "builder": {
+      "sources": 18,
+      "classes": 38,
+      "previous36ClassBytesIdentical": true,
+      "compilerOptions": [
+        "--release",
+        "17",
+        "-encoding",
+        "UTF-8",
+        "-implicit:none",
+        "-sourcepath",
+        ""
+      ],
+      "localeTwentyIntentionDescriptionGuardUnchanged": true
+    }
+  },
+  "evidence": [
+    {
+      "path": ".tools/debug-cold-source-controls/final-evidence.json",
+      "bytes": 8615,
+      "sha256": "db9e7d54dc9f3f261cd371f51291602e745443ff4ceab04f1524b6ef779235bf"
+    },
+    {
+      "path": ".tools/debug-cold-source-controls/root-full-integration.log",
+      "bytes": 11984,
+      "sha256": "d315b11760c6dd43846f7a13083f0ab5a73eeafbb83a71fd6da8f1cfeba47eb5"
+    },
+    {
+      "path": ".tools/debug-cold-source-controls/root-full-final/summary.json",
+      "bytes": 31793,
+      "sha256": "fe10a01449db03f49da37655b982fdef1e1d0fa315509bd8bd6ed3f7245e152d"
+    },
+    {
+      "path": ".tools/debug-cold-source-controls/root-python-controls.log",
+      "bytes": 7435,
+      "sha256": "57a3d0c4b2c2f84a67cd2cdca83dc1b8ca100384e44134bf8b95fd72bb4752e6"
+    },
+    {
+      "path": ".tools/debug-cold-source-controls/same-test-byte-identity.json",
+      "bytes": 1258,
+      "sha256": "16fc204132d9c3ef6ff95aa3886ccd5c3abbe1905329c49c0cdb2c850b8aae4f"
+    },
+    {
+      "path": ".tools/debug-cold-source-controls/official-final-build-comparison.json",
+      "bytes": 1401,
+      "sha256": "52a37eaa98bc89c592d2c2eb65b6cf3d38b0e85bcc573453e006d055033a081b"
+    }
+  ],
+  "sourceEvidence": [
+    {
+      "url": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/b30f69dd1285f201d53ce360b7fad0bba96f0d58/src/main/java/com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.java",
+      "lines": "50-60, 116-121"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/openapi/fileEditor/impl/text/TextEditorImpl.kt",
+      "lines": "207-213"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/openapi/fileEditor/impl/FileEditorManagerImpl.kt",
+      "lines": "1515-1547, 2698-2705"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/xdebugger-impl/ui/src/com/intellij/xdebugger/impl/ExecutionPositionNavigator.kt",
+      "lines": "93-97, 120-126"
+    }
+  ],
+  "limitations": [
+    "No modified standalone app was launched and no root Gradle/package/CUA ran. Installed native cold proc.go navigation and current-line highlight still require root verification.",
+    "Actual Windows SDK execution is pending. These controls ran on macOS arm64 IC2026.1.4.",
+    "The execution-point-manager control uses the SDK LightPlatform editor manager; it passes on the old artifact as well and is a retained integration control, not the old RED.",
+    "The fixture suppresses only its unrelated project gopls mapping and restores its prior state. DAP frame/source/navigation code is real; irrelevant adapter handshake uses owned in-memory streams and no process.",
+    "No claim about unrelated goroutine enumeration, Stop cleanup, source-reference-only frames or complete GoLand parity.",
+    "These are source and SDK controls. No assembled, installed or public product with this repair has passed native acceptance at this record creation.",
+    "The old 5d60 native Pause/Stop and worker Step evidence remains attributed to its original 17-source/36-class app."
+  ]
+}

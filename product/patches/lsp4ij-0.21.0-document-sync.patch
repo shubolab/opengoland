@@ -2008,3 +2008,14 @@
      @NotNull
      @Override
      public XExecutionStack @NotNull [] getExecutionStacks() {
+--- a/src/main/java/com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.java
+@@ -58,5 +58,7 @@
+ 
+         private DeferredNavigatable(@NotNull Project project, @NotNull DeferredSourcePositionBase position) {
+-            super(project, position.getFile());
++            // Native TextEditorImpl rejects descriptors with neither a line nor an offset.
++            // Its OPEN consumer inspects this superclass before our navigateIn override.
++            super(project, position.getFile(), Math.max(0, position.getLine()), 0);
+             this.position = position;
+         }

@@ -129,3 +129,27 @@ The same retry finds a remaining cold-file navigation failure: Pause selects
 and reselecting the now-loaded runtime frame reaches `463:1`. No worker B
 selection, Step/Continue wire trace, installed-copy or public-release acceptance
 is claimed here. The cold-file failure needs repair before publishing `.4`.
+
+## First-cold-source navigation candidate
+
+The [source-bound navigation control](debug-cold-source-navigation-candidate.json)
+repairs the deferred source position's `OpenFileDescriptor` superclass fields.
+The native 261 editor tests those fields before accepting navigation. Keeping the
+DAP line there allows the first opening to pass that gate; deferred resolution,
+selection and the existing navigation fallback remain unchanged.
+
+The same compiled three cold-navigation tests fail once with the old artifact
+and pass with the new one. The failing old case uses a real provider-created
+`TextEditorImpl` and production `navigateAndSelectEditor`. LightPlatform's
+simpler editor manager bypasses that gate: its OPEN and execution-highlight
+controls pass on the old artifact too, so they are retained integration checks,
+not additional reproductions of the bug.
+
+Root validation passes 710 Kotlin tests in 130 reports, 62 Python checks,
+`buildPlugin`, sandbox preparation and plugin structure verification. The
+486-file input digest is
+`612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e`.
+The explicit public-source cohort is now 18 sources / 38 classes; the previous
+36 class bytes, locale-description guard and compiler options remain unchanged.
+Actual first-cold-file navigation and execution-line highlighting in the rebuilt
+standalone app, Windows and public installers remain pending at this point.
