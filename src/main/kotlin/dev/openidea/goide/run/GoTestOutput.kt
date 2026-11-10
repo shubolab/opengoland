@@ -293,9 +293,9 @@ class GoTestOutput @JvmOverloads constructor(
     private fun packageFailure(pkg: Package, emit: (String) -> Unit) {
         failed.getOrPut(pkg.name) { linkedSetOf() } += ""
         val id = packageId(pkg.name) + ":build"
-        emit(message("testStarted", "name" to "Package build or initialization", "nodeId" to id, "parentNodeId" to packageId(pkg.name)))
-        emit(message("testFailed", "name" to "Package build or initialization", "nodeId" to id, "message" to "Go package failed", "details" to ""))
-        emit(message("testFinished", "name" to "Package build or initialization", "nodeId" to id))
+        emit(message("testStarted", "name" to "Package failure", "nodeId" to id, "parentNodeId" to packageId(pkg.name)))
+        emit(message("testFailed", "name" to "Package failure", "nodeId" to id, "message" to "Go package failed", "details" to ""))
+        emit(message("testFinished", "name" to "Package failure", "nodeId" to id))
         emit(message("goTestLeafResult", "nodeId" to id, "outcome" to "fail"))
     }
 

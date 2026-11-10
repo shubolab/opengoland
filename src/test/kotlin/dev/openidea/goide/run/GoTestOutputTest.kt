@@ -51,7 +51,7 @@ class GoTestOutputTest {
     @Test fun packageBuildFailureProducesAnExplicitFailedNode() {
         val output = GoTestOutput(workDirectory)
         val records = (output.feed(event("output", output = "FAIL example.com/app [build failed]\n")) + output.feed(event("fail"))).joinToString("")
-        assertTrue(records.contains("testFailed name='Package build or initialization'"))
+        assertTrue(records.contains("testFailed name='Package failure'"))
         assertEquals(mapOf("example.com/app" to listOf("")), output.failures())
     }
 
