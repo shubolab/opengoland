@@ -19,6 +19,8 @@ import com.intellij.execution.ui.RunContentDescriptor
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.WriteIntentReadAction
 import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.progress.ProgressIndicator
+import com.intellij.openapi.progress.Task
 import com.intellij.openapi.util.Disposer
 import com.intellij.util.concurrency.AppExecutorUtil
 import com.intellij.xdebugger.XDebugProcess
@@ -38,6 +40,7 @@ import org.jetbrains.concurrency.AsyncPromise
 import org.jetbrains.concurrency.Promise
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
 
 /** Keeps synchronous DAP state APIs free of filesystem/process work on the EDT. */
 internal class GoDebugTestState(
@@ -116,42 +119,55 @@ class GoDebugTestRunner : AsyncProgramRunner<RunnerSettings>() {
         // The promise belongs to preparation until the UI runnable claims the
         // session. Its error callbacks may run on any completing thread.
         val startupClaimed = AtomicBoolean()
+        val preparationProgress = AtomicReference<ProgressIndicator?>()
         result.onError {
             if (startupClaimed.compareAndSet(false, true)) {
+                preparationProgress.get()?.cancel()
                 testState.testSession.requestCancellation()
                 testState.testSession.end()
                 AppExecutorUtil.getAppExecutorService().execute { Disposer.dispose(testState.testSession) }
             }
         }
         WriteIntentReadAction.run { FileDocumentManager.getInstance().saveAllDocuments() }
-        AppExecutorUtil.getAppExecutorService().execute {
-            try {
+        object : Task.Backgroundable(environment.project, "Preparing Go test debugging", true) {
+            override fun run(indicator: ProgressIndicator) {
+                preparationProgress.set(indicator)
+                if (startupClaimed.get()) indicator.cancel()
+                indicator.checkCanceled()
                 if (environment.project.isDisposed) throw ExecutionException("Project closed before Go Debug Test could start")
                 testState.prepare()
-                ApplicationManager.getApplication().invokeLater {
-                    if (!startupClaimed.compareAndSet(false, true)) return@invokeLater
-                    try {
-                        if (environment.project.isDisposed) throw ExecutionException("Project closed before the debug console opened")
-                        val starter = object : XDebugProcessStarter() {
-                            override fun start(session: XDebugSession): XDebugProcess {
-                                val execution = testState.execute(environment.executor, this@GoDebugTestRunner)
-                                testState.installSessionActions(session, execution)
-                                return DAPDebugProcess(testState, session, execution, true)
-                            }
-                        }
-                        val started = XDebuggerManager.getInstance(environment.project).newSessionBuilder(starter)
-                            .environment(environment).startSession()
-                        result.setResult(started.runContentDescriptor)
-                    } catch (failure: Throwable) {
-                        Disposer.dispose(testState.testSession)
-                        result.setError(failure)
-                    }
-                }
-            } catch (failure: Throwable) {
-                Disposer.dispose(testState.testSession)
-                result.setError(failure)
+                indicator.checkCanceled()
             }
-        }
+
+            override fun onCancel() { result.cancel() }
+            override fun onThrowable(error: Throwable) { result.setError(error) }
+
+            override fun onSuccess() {
+                // The platform queues this callback on EDT. Cancellation can
+                // arrive after run() finished but before this handoff executes.
+                if (preparationProgress.get()?.isCanceled == true) {
+                    result.cancel()
+                    return
+                }
+                if (!startupClaimed.compareAndSet(false, true)) return
+                try {
+                    if (environment.project.isDisposed) throw ExecutionException("Project closed before the debug console opened")
+                    val starter = object : XDebugProcessStarter() {
+                        override fun start(session: XDebugSession): XDebugProcess {
+                            val execution = testState.execute(environment.executor, this@GoDebugTestRunner)
+                            testState.installSessionActions(session, execution)
+                            return DAPDebugProcess(testState, session, execution, true)
+                        }
+                    }
+                    val started = XDebuggerManager.getInstance(environment.project).newSessionBuilder(starter)
+                        .environment(environment).startSession()
+                    result.setResult(started.runContentDescriptor)
+                } catch (failure: Throwable) {
+                    Disposer.dispose(testState.testSession)
+                    result.setError(failure)
+                }
+            }
+        }.queue()
         return result
     }
 }
