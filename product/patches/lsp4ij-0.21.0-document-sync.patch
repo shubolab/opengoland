@@ -2019,3 +2019,318 @@
 +            super(project, position.getFile(), Math.max(0, position.getLine()), 0);
              this.position = position;
          }
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport.java
+@@ -10,104 +10,242 @@
+  ******************************************************************************/
+ package com.redhat.devtools.lsp4ij.features.completion;
+ 
++import com.intellij.openapi.application.ReadAction;
++import com.intellij.openapi.editor.ex.DocumentEx;
++import com.intellij.openapi.fileEditor.FileDocumentManager;
++import com.intellij.openapi.progress.ProcessCanceledException;
++import com.intellij.openapi.vfs.VirtualFile;
+ import com.intellij.psi.PsiFile;
++import com.redhat.devtools.lsp4ij.LSPIJUtils;
+ import com.redhat.devtools.lsp4ij.LSPRequestConstants;
+ import com.redhat.devtools.lsp4ij.LanguageServerItem;
++import com.redhat.devtools.lsp4ij.LanguageServerWrapper;
++import com.redhat.devtools.lsp4ij.LanguageServiceAccessor;
++import com.redhat.devtools.lsp4ij.client.features.FileUriSupport;
+ import com.redhat.devtools.lsp4ij.features.AbstractLSPDocumentFeatureSupport;
+ import com.redhat.devtools.lsp4ij.internal.CancellationSupport;
+ import com.redhat.devtools.lsp4ij.internal.CompletableFutures;
++import com.redhat.devtools.lsp4ij.OpenedDocument;
+ import org.eclipse.lsp4j.CompletionContext;
+ import org.eclipse.lsp4j.CompletionTriggerKind;
++import org.eclipse.lsp4j.Position;
++import org.eclipse.lsp4j.TextDocumentIdentifier;
++import org.eclipse.lsp4j.services.LanguageServer;
+ import org.jetbrains.annotations.NotNull;
+-
++import org.jetbrains.annotations.Nullable;
++
++import java.net.URI;
+ import java.util.Collections;
+ import java.util.List;
++import java.util.Map;
+ import java.util.concurrent.CompletableFuture;
+-
+-/**
+- * LSP Completion support which loads and caches Completion information by consuming:
+- *
+- * <ul>
+- *     <li>LSP 'textDocument/completion' requests</li>
+- * </ul>
+- */
++import java.util.concurrent.ConcurrentHashMap;
++import java.util.concurrent.atomic.AtomicBoolean;
++
++/** Completion requests use the same document-generation/FIFO barrier as native notifications. */
+ public class LSPCompletionSupport extends AbstractLSPDocumentFeatureSupport<LSPCompletionParams, List<CompletionData>> {
+ 
+     private Integer previousOffset;
++    private volatile @Nullable CompletionSnapshot snapshot;
+ 
+     public LSPCompletionSupport(@NotNull PsiFile file) {
+         super(file);
+     }
+ 
+     public CompletableFuture<List<CompletionData>> getCompletions(LSPCompletionParams params) {
+-        int offset = params.getOffset();
+-        if (previousOffset != null && !previousOffset.equals(offset)) {
+-            super.cancel();
+-        }
+-        previousOffset = offset;
+-        return super.getFeatureData(params);
++        // Acquire read access before this monitor; native document listeners may
++        // cancel the feature from a write action. Neither section waits for IO.
++        return ReadAction.compute(() -> {
++            synchronized (this) {
++                int offset = params.getOffset();
++                if (previousOffset != null && !previousOffset.equals(offset)) {
++                    cancel();
++                }
++                previousOffset = offset;
++                return super.getFeatureData(params);
++            }
++        });
++    }
++
++    @Override
++    protected boolean checkValid() {
++        CompletionSnapshot current = snapshot;
++        var future = getFuture();
++        return current != null && current.isCurrent(getFile())
++                && (future == null || !future.isDone() || !current.connections.isEmpty())
++                && super.checkValid();
++    }
++
++    @Override
++    public synchronized void cancel() {
++        CompletionSnapshot current = snapshot;
++        if (current != null) current.active.set(false);
++        super.cancel();
+     }
+ 
+     @Override
+     protected CompletableFuture<List<CompletionData>> doLoad(@NotNull LSPCompletionParams params,
+                                                              @NotNull CancellationSupport cancellationSupport) {
+-        PsiFile file = super.getFile();
+-        return getCompletions(file, params, cancellationSupport);
+-    }
+-
+-    private static @NotNull CompletableFuture<List<CompletionData>> getCompletions(@NotNull PsiFile file,
+-                                                                                   @NotNull LSPCompletionParams params,
+-                                                                                   @NotNull CancellationSupport cancellationSupport) {
+-
+-        return getLanguageServers(file,
++        PsiFile file = getFile();
++        CompletionSnapshot generation = ReadAction.compute(() -> CompletionSnapshot.capture(file, params));
++        snapshot = generation;
++        var result = getLanguageServers(file,
+                 f -> f.getCompletionFeature().isEnabled(file),
+                 f -> f.getCompletionFeature().isSupported(file))
+-                .thenComposeAsync(languageServers -> {
+-                    // Here languageServers is the list of language servers which matches the given file
+-                    // and which have completion capability
+-                    if (languageServers.isEmpty()) {
+-                        return CompletableFuture.completedFuture(Collections.emptyList());
++                .thenComposeAsync(servers -> {
++                    if (servers.isEmpty()) return CompletableFuture.completedFuture(Collections.<CompletionData>emptyList());
++                    var requests = servers.stream()
++                            .map(server -> getCompletionsFor(file, server, cancellationSupport, generation))
++                            .toList();
++                    return CompletableFutures.mergeInOneFuture(requests, cancellationSupport);
++                }).thenApply(items -> ReadAction.compute(() -> {
++                    generation.checkCurrent(file, cancellationSupport);
++                    return items;
++                }));
++        result.whenComplete((value, failure) -> {
++            if (result.isCancelled()) generation.active.set(false);
++        });
++        return result;
++    }
++
++    private static CompletableFuture<List<CompletionData>> getCompletionsFor(@NotNull PsiFile file,
++                                                                             @NotNull LanguageServerItem languageServer,
++                                                                             @NotNull CancellationSupport cancellationSupport,
++                                                                             @NotNull CompletionSnapshot generation) {
++        var wrapper = languageServer.getServerWrapper();
++        var uri = FileUriSupport.getFileUri(generation.virtualFile, languageServer.getClientFeatures());
++        var opened = wrapper.getOpenedDocument(uri);
++        if (opened == null) return CompletableFuture.failedFuture(new ProcessCanceledException());
++        generation.connections.put(languageServer, Map.entry(uri, opened));
++        generation.connectionEpochs.putIfAbsent(wrapper, wrapper.getModificationTracker().getModificationCount());
++        var synchronizer = opened.getSynchronizer();
++        if (synchronizer != null && synchronizer.getDocument() != generation.document) {
++            return CompletableFuture.failedFuture(new ProcessCanceledException());
++        }
++        // didOpen/didChange belong to the shared connection. Only the derived
++        // wait and this request's own future are registered for cancellation.
++        CompletableFuture<?> ready = synchronizer == null ? CompletableFuture.completedFuture(null)
++                : synchronizer.getDidOpenFuture().thenCompose(ignored -> ReadAction.compute(() -> {
++                    generation.checkCurrent(file, cancellationSupport);
++                    return synchronizer.flushPendingChanges();
++                }));
++        return cancellationSupport.execute(ready.thenCompose(ignored -> wrapper.sendRequest(server -> ReadAction.compute(() -> {
++                    generation.checkCurrent(file, cancellationSupport);
++                    if (server == null || server != languageServer.getServer()
++                            || server != wrapper.getLanguageServer() || wrapper.getOpenedDocument(uri) != opened) {
++                        throw new ProcessCanceledException();
+                     }
+-
+-                    // Collect list of textDocument/completion future for each language servers
+-                    List<CompletableFuture<List<CompletionData>>> completionPerServerFutures = languageServers
+-                            .stream()
+-                            .map(languageServer -> getCompletionsFor(params, file, languageServer, cancellationSupport))
+-                            .toList();
+-
+-                    // Merge list of textDocument/completion future in one future which return the list of completion items
+-                    return CompletableFutures.mergeInOneFuture(completionPerServerFutures, cancellationSupport);
+-                });
+-    }
+-
+-    private static CompletableFuture<List<CompletionData>> getCompletionsFor(@NotNull LSPCompletionParams params,
+-                                                                             @NotNull PsiFile file,
+-                                                                             @NotNull LanguageServerItem languageServer,
+-                                                                             @NotNull CancellationSupport cancellationSupport) {
+-
+-        // Update textDocument Uri with custom file Uri if needed
+-        updateTextDocumentUri(params.getTextDocument(), file, languageServer);
+-        params.setContext(createCompletionContext(params, file, languageServer));
+-        return cancellationSupport.execute(languageServer
+-                        .getTextDocumentService()
+-                        .completion(params), languageServer, LSPRequestConstants.TEXT_DOCUMENT_COMPLETION)
+-                .thenApplyAsync(result -> {
+-                    if (result == null) {
+-                        // textDocument/completion may return null
+-                        return Collections.emptyList();
++                    // A multi-server file must not share mutable URI/context params.
++                    var request = new LSPCompletionParams(new TextDocumentIdentifier(
++                            FileUriSupport.toString(generation.virtualFile, languageServer.getClientFeatures())),
++                            new Position(generation.line, generation.character), generation.offset,
++                            generation.completionChar, generation.autoPopup);
++                    request.setContext(createCompletionContext(request, file, languageServer));
++                    return ownRequest(server.getTextDocumentService().completion(request), languageServer, cancellationSupport);
++                }))))
++                .thenApplyAsync(value -> value == null ? Collections.emptyList() : List.of(new CompletionData(value, languageServer)));
++    }
++
++    /** Raw LSP4J cancel writes a protocol frame, so it must never execute in an EDT document listener. */
++    private static <T> CompletableFuture<T> ownRequest(CompletableFuture<T> raw, LanguageServerItem server,
++                                                       CancellationSupport cancellationSupport) {
++        var owned = new CompletableFuture<T>();
++        owned.whenComplete((value, failure) -> {
++            if (owned.isCancelled()) CompletableFuture.runAsync(() -> raw.cancel(true));
++        });
++        raw.whenComplete((value, failure) -> {
++            if (failure == null) owned.complete(value);
++            else owned.completeExceptionally(failure);
++        });
++        return cancellationSupport.execute(owned, server, LSPRequestConstants.TEXT_DOCUMENT_COMPLETION);
++    }
++
++    private static CompletionContext createCompletionContext(LSPCompletionParams params, PsiFile file, LanguageServerItem server) {
++        String completionChar = params.getCompletionChar();
++        if (params.isAutoPopup() && server.getClientFeatures().getCompletionFeature().isCompletionTriggerCharactersSupported(file, completionChar)) {
++            return new CompletionContext(CompletionTriggerKind.TriggerCharacter, completionChar);
++        }
++        return new CompletionContext(CompletionTriggerKind.Invoked);
++    }
++
++    private static final class CompletionSnapshot {
++        private final DocumentEx document;
++        private final VirtualFile virtualFile;
++        private final long sequence;
++        private final int line;
++        private final int character;
++        private final int offset;
++        private final String completionChar;
++        private final boolean autoPopup;
++        private final AtomicBoolean active = new AtomicBoolean(true);
++        private final Map<LanguageServerWrapper, Map.Entry<LanguageServer, OpenedDocument>> initialConnections = new ConcurrentHashMap<>();
++        private final Map<LanguageServerWrapper, Long> connectionEpochs = new ConcurrentHashMap<>();
++        private final Map<LanguageServerItem, Map.Entry<URI, OpenedDocument>> connections = new ConcurrentHashMap<>();
++
++        private CompletionSnapshot(PsiFile file, DocumentEx document, VirtualFile virtualFile, LSPCompletionParams params) {
++            this.document = document;
++            this.virtualFile = virtualFile;
++            sequence = document.getModificationSequence();
++            line = params.getPosition().getLine();
++            character = params.getPosition().getCharacter();
++            offset = params.getOffset();
++            completionChar = params.getCompletionChar();
++            autoPopup = params.isAutoPopup();
++            // Existing owners are captured before asynchronous server selection;
++            // validity checks never create a service, connection or document.
++            var accessor = file.getProject().getServiceIfCreated(LanguageServiceAccessor.class);
++            if (accessor != null) {
++                for (var wrapper : accessor.getStartedServers()) {
++                    var server = wrapper.getLanguageServer();
++                    if (server == null) continue;
++                    for (var opened : wrapper.getOpenedDocuments()) {
++                        if (opened.getFile() == virtualFile) {
++                            initialConnections.put(wrapper, Map.entry(server, opened));
++                            connectionEpochs.put(wrapper, wrapper.getModificationTracker().getModificationCount());
++                        }
+                     }
+-                    return List.of(new CompletionData(result, languageServer));
+-                });
+-    }
+-
+-    private static CompletionContext createCompletionContext(LSPCompletionParams params, @NotNull PsiFile file, LanguageServerItem languageServer) {
+-        String completionChar = params.getCompletionChar();
+-        if (params.isAutoPopup() &&
+-                languageServer.getClientFeatures().getCompletionFeature().isCompletionTriggerCharactersSupported(file, completionChar)) {
+-            return new CompletionContext(CompletionTriggerKind.TriggerCharacter, completionChar);
+-        }
+-        return new CompletionContext(CompletionTriggerKind.Invoked);
+-    }
+-
+-
++                }
++            }
++        }
++
++        static CompletionSnapshot capture(PsiFile file, LSPCompletionParams params) {
++            if (!file.isValid() || file.getProject().isDisposed()) throw new ProcessCanceledException();
++            var virtualFile = file.getVirtualFile();
++            var document = virtualFile == null ? null : FileDocumentManager.getInstance().getCachedDocument(virtualFile);
++            if (!(document instanceof DocumentEx nativeDocument) || params.getOffset() < 0
++                    || params.getOffset() > document.getTextLength()
++                    || !LSPIJUtils.toPosition(params.getOffset(), document).equals(params.getPosition())) {
++                throw new ProcessCanceledException();
++            }
++            return new CompletionSnapshot(file, nativeDocument, virtualFile, params);
++        }
++
++        boolean isCurrent(PsiFile file) {
++            return active.get() && !file.getProject().isDisposed() && file.isValid() && virtualFile.isValid()
++                    && file.getVirtualFile() == virtualFile
++                    && FileDocumentManager.getInstance().getCachedDocument(virtualFile) == document
++                    && document.getModificationSequence() == sequence
++                    && connectionEpochs.entrySet().stream().allMatch(entry -> entry.getKey().getModificationTracker().getModificationCount() == entry.getValue())
++                    && initialConnections.entrySet().stream().allMatch(entry ->
++                        entry.getKey().getLanguageServer() == entry.getValue().getKey()
++                                && entry.getKey().getOpenedDocuments().contains(entry.getValue().getValue())
++                                && sameDocument(entry.getValue().getValue()))
++                    && connections.entrySet().stream().allMatch(entry -> {
++                        var wrapper = entry.getKey().getServerWrapper();
++                        return wrapper.getLanguageServer() == entry.getKey().getServer()
++                                && wrapper.getOpenedDocument(entry.getValue().getKey()) == entry.getValue().getValue()
++                                && sameDocument(entry.getValue().getValue());
++                    });
++        }
++
++        private boolean sameDocument(OpenedDocument opened) {
++            var synchronizer = opened.getSynchronizer();
++            return synchronizer == null || synchronizer.getDocument() == document;
++        }
++
++        void checkCurrent(PsiFile file, CancellationSupport cancellationSupport) {
++            cancellationSupport.checkCanceled();
++            if (!isCurrent(file)) throw new ProcessCanceledException();
++        }
++    }
+ }

@@ -10,6 +10,10 @@ import com.intellij.execution.lineMarker.ExecutorAction
 import com.intellij.execution.lineMarker.RunLineMarkerContributor
 import com.intellij.icons.AllIcons
 import com.intellij.openapi.project.DumbAware
+import com.intellij.openapi.project.DumbAwareAction
+import com.intellij.openapi.actionSystem.AnActionEvent
+import dev.openidea.goide.lsp.GoDocumentSync
+import java.nio.file.Path
 import com.intellij.openapi.util.Ref
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
@@ -275,6 +279,7 @@ abstract class GoFrameworkConfigurationProducer(private val mode: GoTestMode) : 
         val source = sourceContext(context.psiLocation) ?: return false
         if (!applicable(source)) return false
         val test = selected(source)
+        if (test != null && GoRunBuildContextService.get(source.file.project).lookup(source.file).status != GoRunBuildStatus.ACTIVE) return false
         val pattern = pattern(test)
         configuration.parameters = GoRunParameters(target = ".", workingDirectory = source.directory, testMode = mode).apply {
             when (mode) {
@@ -283,6 +288,9 @@ abstract class GoFrameworkConfigurationProducer(private val mode: GoTestMode) : 
                 GoTestMode.FUZZ -> fuzzPattern = pattern
             }
         }
+        configuration.sourceSelection = test?.let {
+            GoRunSourceSelection(GoDocumentSync.fileUri(Path.of(source.file.virtualFile.path)), it.name, mode, pattern, source.directory)
+        }
         configuration.name = test?.name?.let { "$it in ${source.file.virtualFile.parent.name}" } ?: "go test ${source.file.virtualFile.parent.name}"
         sourceElement.set(test?.let { source.file.findElementAt(it.nameOffset) } ?: source.file)
         return true
@@ -290,7 +298,17 @@ abstract class GoFrameworkConfigurationProducer(private val mode: GoTestMode) : 
     override fun isConfigurationFromContext(configuration: GoRunConfiguration, context: ConfigurationContext): Boolean {
         val source = sourceContext(context.psiLocation) ?: return false
         if (!applicable(source)) return false
-        val expected = pattern(selected(source))
+        val selected = selected(source)
+        if (selected != null && GoRunBuildContextService.get(source.file.project).lookup(source.file).status != GoRunBuildStatus.ACTIVE) return false
+        if (selected != null) {
+            // Same-name OS/tag-specific functions can live in different files.
+            // Do not carry an old file token (or a handwritten selector) into a
+            // newly clicked precise source entry through configuration reuse.
+            val origin = configuration.sourceSelectionFor(configuration.parameters) ?: return false
+            if (origin.name != selected.name || dev.openidea.goide.navigation.search.GoTypeCatalogCodec.path(origin.uri) !=
+                Path.of(source.file.virtualFile.path).toAbsolutePath().normalize()) return false
+        }
+        val expected = pattern(selected)
         val actual = when (mode) {
             GoTestMode.TEST -> configuration.parameters.testPattern
             GoTestMode.BENCHMARK -> configuration.parameters.benchmarkPattern
@@ -325,6 +343,21 @@ class GoRunLineMarkerContributor : RunLineMarkerContributor(), DumbAware {
         val eligible = if (context.file.name.endsWith("_test.go")) declaration.kind in setOf(GoFunctionKind.TEST, GoFunctionKind.EXAMPLE, GoFunctionKind.BENCHMARK, GoFunctionKind.FUZZ)
             else declaration.kind == GoFunctionKind.MAIN
         if (!eligible) return null
+        if (context.file.name.endsWith("_test.go")) {
+            val state = GoRunBuildContextService.get(context.file.project).lookup(context.file)
+            if (state.status != GoRunBuildStatus.ACTIVE) {
+                val explanation = object : DumbAwareAction(state.message) {
+                    override fun update(event: AnActionEvent) { event.presentation.isEnabled = false }
+                    override fun actionPerformed(event: AnActionEvent) {}
+                }
+                val actions = if (state.status == GoRunBuildStatus.ERROR || state.status == GoRunBuildStatus.INVALID) {
+                    arrayOf(explanation, object : DumbAwareAction("Retry Go build context") {
+                        override fun actionPerformed(event: AnActionEvent) { GoRunBuildContextService.get(context.file.project).retry(context.file) }
+                    })
+                } else arrayOf(explanation)
+                return Info(AllIcons.General.Information, actions) { state.message }
+            }
+        }
         val actions = ExecutorAction.getActions(0).filter {
             it is ExecutorAction && it.executor.id in setOf(DefaultRunExecutor.EXECUTOR_ID, DefaultDebugExecutor.EXECUTOR_ID)
         }.toTypedArray()

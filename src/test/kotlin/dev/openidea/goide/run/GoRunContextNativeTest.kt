@@ -22,7 +22,11 @@ import com.intellij.psi.PsiDocumentManager
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
 import com.intellij.testFramework.IndexingTestUtil
+import com.intellij.util.xmlb.XmlSerializerUtil
+import dev.openidea.goide.settings.GoProjectSettings
+import dev.openidea.goide.settings.GoToolchain
 import java.nio.file.Files
+import java.util.concurrent.TimeUnit
 
 /** Real native PSI/configuration contexts; setup and cleanup filesystem work stay off the EDT. */
 class GoRunContextNativeTest : LightPlatformTestCase() {
@@ -181,7 +185,16 @@ class GoRunContextNativeTest : LightPlatformTestCase() {
         val disposable = Disposer.newDisposable("native Go test producer roots")
         VfsRootAccess.allowRootAccess(disposable, root.toString())
         val path = root.resolve("entrypoints_test.go")
+        val before = GoProjectSettings.Data().also { XmlSerializerUtil.copyBean(GoProjectSettings.get(project), it) }
         try {
+            // These assertions exercise the ordinary ready native actions. The
+            // separate build-context matrix covers Checking/Ignored/Error gates.
+            Files.writeString(root.resolve("go.mod"), "module example.org/nativeentries\n\ngo 1.26.10\n")
+            GoProjectSettings.get(project).apply {
+                goExecutable = requireNotNull(GoToolchain.resolve("go", System.getProperty("opengoland.testGo") ?: System.getenv("OPENGOLAND_GO_TEST").orEmpty()))
+                goos = ""; goarch = ""; cgoEnabled = "0"; buildTags = ""
+                environment = "GOENV=off\nGOFLAGS=\nGOWORK=off\nGOTOOLCHAIN=local\nGOPROXY=off\nGOSUMDB=off\nGOTELEMETRY=off"
+            }
             Files.writeString(path, """
                 package fixture
                 import check "testing"
@@ -200,9 +213,17 @@ class GoRunContextNativeTest : LightPlatformTestCase() {
             """.trimIndent())
             val virtual = LocalFileSystem.getInstance().refreshAndFindFileByNioFile(path)!!
             val file = ReadAction.compute<PsiFile, RuntimeException> { PsiManager.getInstance(project).findFile(virtual)!! }
+            val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(60)
+            while (true) {
+                val view = GoRunBuildContextService.get(project).lookup(file)
+                if (view.status != GoRunBuildStatus.CHECKING) { assertEquals(view.message, GoRunBuildStatus.ACTIVE, view.status); break }
+                check(System.nanoTime() < deadline) { "Native entry fixture build context did not complete" }; Thread.sleep(10)
+            }
+            IndexingTestUtil.waitUntilIndexesAreReady(project)
             operation(file)
         } finally {
             try {
+                XmlSerializerUtil.copyBean(before, GoProjectSettings.get(project))
                 Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
                 LocalFileSystem.getInstance().refreshAndFindFileByNioFile(root)
             } finally { Disposer.dispose(disposable) }

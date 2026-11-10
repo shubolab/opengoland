@@ -213,7 +213,18 @@ class GoDapSessionControlTest : LightPlatformTestCase() {
             .build()
         return AnActionEvent.createFromDataContext(ActionPlaces.DEBUGGER_TOOLBAR, Presentation(), context).also {
             // Split debugger session data can be mirrored across the frontend;
-            // the platform session ID, rather than DTO object identity, binds it.
+            // backend activation does not synchronously publish its UI proxy.
+            // Keep the real PROJECT-only global lookup and wait for this owned
+            // session's ID rather than injecting a proxy into the action data.
+            if (!awaitCondition(10_000) { DebuggerUIUtil.getSessionProxy(it)?.id == f.session.id }) {
+                val manager = XDebuggerManager.getInstance(project)
+                val proxies = com.intellij.platform.debugger.impl.shared.proxy.XDebugManagerProxy.getInstance()
+                fail("Owned debugger session proxy was not selected: own=${f.session.id}, " +
+                    "backend=${(manager.currentSession as? XDebugSessionImpl)?.id}, " +
+                    "proxy=${DebuggerUIUtil.getSessionProxy(it)?.id}, " +
+                    "registered=${manager.debugSessions.map { session -> (session as? XDebugSessionImpl)?.id }}, " +
+                    "registeredProxies=${proxies.getSessions(project).map { session -> session.id }}")
+            }
             assertEquals(f.session.id, requireNotNull(DebuggerUIUtil.getSessionProxy(it)).id)
         }
     }

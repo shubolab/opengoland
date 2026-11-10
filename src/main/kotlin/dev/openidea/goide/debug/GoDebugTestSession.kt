@@ -28,6 +28,9 @@ import dev.openidea.goide.run.GoPackageDirectories
 import dev.openidea.goide.run.GoRunConfiguration
 import dev.openidea.goide.run.GoRunKind
 import dev.openidea.goide.run.GoRunParameters
+import dev.openidea.goide.run.GoRunBuildContextService
+import dev.openidea.goide.run.GoRunBuildContexts
+import java.util.concurrent.atomic.AtomicBoolean
 import dev.openidea.goide.run.GoTestConsoleProperties
 import dev.openidea.goide.run.GoTestOutput
 import dev.openidea.goide.settings.GoToolchain
@@ -72,6 +75,8 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
     private var packageName = ""
     private val converterReady = CompletableFuture<JsonObject>()
     private var preparingConverter = false
+    private val sourcePreparationCancelled = AtomicBoolean()
+    @Volatile private var sourceSelectionToken: GoRunBuildContexts.Token? = null
     @Volatile private var preparedLaunch: GoDebugLaunch? = null
     val launch: GoDebugLaunch get() = preparedLaunch ?: error("Go Debug Test has not been prepared")
 
@@ -81,6 +86,19 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
     fun prepare() {
         check(!ApplicationManager.getApplication().isDispatchThread) { "Go test preparation must run in the background" }
         synchronized(lock) { check(!disposed && !ending) { "Debug test session was closed" } }
+        (profileSnapshot as? GoRunConfiguration)?.sourceSelectionFor(values)?.let { selected ->
+            val token = GoRunBuildContextService.get(configuration.project).verify(selected, values, settings, debug = true) {
+                sourcePreparationCancelled.get() || completed.isDone
+            }
+            // Disposal can win after verification returns but before this session
+            // adopts the token. Never publish an owner after its cleanup already ran.
+            val adopted = synchronized(lock) {
+                if (disposed || ending || sourcePreparationCancelled.get() || completed.isDone) false
+                else { sourceSelectionToken = token; true }
+            }
+            if (!adopted) { token.dispose(); throw ProcessCanceledException() }
+            token.checkCurrent()
+        }
         // Upstream DAPClient.dispose accesses this memory-only project service.
         // Initialize it while the owner is alive, not during project disposal.
         RunInTerminalManager.getInstance(configuration.project)
@@ -89,7 +107,8 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
             values.testRuntimeArguments(debug = true) + ParametersListUtil.parse(values.arguments, false, true), "", framed = true)
         preparedLaunch = raw.copy(arguments = framed.arguments, buildFlags = framed.buildFlags)
         val metadataValues = values.independentCopy().apply { buildFlags = ParametersListUtil.join(framed.buildFlags) }
-        val metadata = GoPackageDirectories.loadMetadata(configuration.project, metadataValues, Path.of(raw.workingDirectory), settings)
+        val metadata = sourceSelectionToken?.packageMetadata
+            ?: GoPackageDirectories.loadMetadata(configuration.project, metadataValues, Path.of(raw.workingDirectory), settings)
         if (metadata.directories.size != 1) throw ExecutionException("Debug one Go test package with available package metadata.")
         directories.putAll(metadata.directories)
         packageName = directories.keys.single()
@@ -122,6 +141,7 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
         process.startNotify()
         if (!accepted) { process.destroyProcess(); throw ExecutionException("Debug test session was closed") }
         awaitConverterStart(process)
+        sourceSelectionToken?.checkBeforeLaunch()
     }
 
     /** Tool compilation belongs to preparation, not the three-second EOF deadline. */
@@ -159,6 +179,7 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
     }
 
     fun dapParameters(): Map<String, Any> {
+        sourceSelectionToken?.checkCurrent()
         val env = GoToolchain.command(configuration.project, "go", emptyList(), settings).environment
         return launch.dapParameters(configuration.name, env, settings.buildTags)
     }
@@ -233,7 +254,7 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
     fun requestCancellation() {
         synchronized(lock) {
             // Stop after a genuine exited event must not rewrite a completed result as skipped.
-            if (targetExit == null && !ending) { cancelled = true; output.requestCancellation() }
+            if (targetExit == null && !ending) { sourcePreparationCancelled.set(true); cancelled = true; output.requestCancellation() }
         }
     }
 
@@ -379,7 +400,9 @@ internal class GoDebugTestSession(val configuration: RunConfiguration) : Disposa
     }
 
     override fun dispose() {
-        synchronized(lock) { if (disposed) return; disposed = true }
+        sourcePreparationCancelled.set(true)
+        val source = synchronized(lock) { if (disposed) return; disposed = true; sourceSelectionToken }
+        source?.dispose()
         stop()
     }
 }

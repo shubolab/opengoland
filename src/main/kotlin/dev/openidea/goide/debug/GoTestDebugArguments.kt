@@ -2,6 +2,7 @@ package dev.openidea.goide.debug
 
 /** go test rewrites test flags before launching its binary; Delve only does the compilation. */
 internal data class GoTestDebugArguments(val buildFlags: List<String>, val arguments: List<String>) {
+    internal data class Selector(val declared: Boolean, val value: String? = null, val uncertain: Boolean = false)
     companion object {
         private val booleanTestFlags = setOf("benchmem", "failfast", "fullpath", "short", "v")
         private val valueTestFlags = setOf(
@@ -15,6 +16,73 @@ internal data class GoTestDebugArguments(val buildFlags: List<String>, val argum
             "debug-trace", "gcflags", "gccgoflags", "installsuffix", "ldflags", "mod", "modfile", "overlay", "p", "pgo",
             "pkgdir", "tags", "toolexec", "vet",
         )
+
+        /** Only the metadata view changes; the ordinary Run argv is never rewritten. */
+        fun runMetadataFlags(flags: List<String>): List<String> = buildList {
+            var index = 0
+            while (index < flags.size) {
+                val token = flags[index++]
+                if (token in setOf("-args", "--args", "--")) {
+                    add(token); addAll(flags.subList(index, flags.size)); break
+                }
+                val name = token.trimStart('-').substringBefore('=')
+                if (!token.startsWith('-') || name !in setOf("c", "o", "exec")) {
+                    add(token)
+                    // A known flag's value may itself start with a dash. Keep
+                    // its existing value slot instead of treating it as -o/-c.
+                    if (token.startsWith('-') && '=' !in token && name.removePrefix("test.") in valueTestFlags + valueBuildFlags && index < flags.size)
+                        add(flags[index++])
+                    continue
+                }
+                if (name == "c") {
+                    if ('=' in token) require(token.substringAfter('=') in setOf("1", "t", "T", "TRUE", "true", "True", "0", "f", "F", "FALSE", "false", "False")) { "Invalid Go -c boolean value" }
+                } else if ('=' !in token) {
+                    require(index < flags.size) { "Go flag $token requires a value" }
+                    index++
+                }
+            }
+        }
+
+        /**
+         * Identify explicit runtime selector declarations with the same existing
+         * flag normalization. Opaque custom arguments are not a new Go parser:
+         * when they mix with a selector, release stale source provenance rather
+         * than rejecting a potentially legitimate handwritten selection.
+         */
+        fun explicitSelector(arguments: List<String>, selector: String): Selector {
+            require(selector in setOf("run", "bench", "fuzz"))
+            fun potential(input: List<String>, normalized: Boolean): Boolean {
+                var binary = false
+                for (token in input) {
+                    // The normalized pass below consumes known value slots;
+                    // a literal "--" can itself be an invalid flag value.
+                    if (token == "--") { if (!normalized) break else continue }
+                    if (token in setOf("-args", "--args")) { binary = true; continue }
+                    if (!token.startsWith('-')) continue
+                    val name = token.trimStart('-').substringBefore('=')
+                    if (name == "test.$selector" || !normalized && !binary && name == selector) return true
+                }
+                return false
+            }
+            val normalized = try { create(emptyList(), runMetadataFlags(arguments)).arguments }
+                catch (_: IllegalArgumentException) { return Selector(potential(arguments, false), uncertain = true) }
+            val declared = potential(normalized, true)
+            if (!declared) return Selector(false)
+            var result: String? = null
+            var index = 0
+            while (index < normalized.size) {
+                val token = normalized[index++]
+                if (token == "--") break
+                if (!token.startsWith('-') || !token.trimStart('-').startsWith("test.")) return Selector(true, uncertain = true)
+                val name = token.trimStart('-').substringBefore('=').removePrefix("test.")
+                if (name !in booleanTestFlags + valueTestFlags) return Selector(true, uncertain = true)
+                if (name in valueTestFlags) {
+                    val value = if ('=' in token) token.substringAfter('=') else normalized.getOrNull(index++) ?: return Selector(true, uncertain = true)
+                    if (name == selector) result = value
+                }
+            }
+            return Selector(result != null, result)
+        }
 
         fun create(buildFlags: List<String>, arguments: List<String>, testPattern: String = ""): GoTestDebugArguments =
             create(buildFlags, arguments, testPattern, false)

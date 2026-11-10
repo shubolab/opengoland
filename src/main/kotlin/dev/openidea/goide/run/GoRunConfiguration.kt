@@ -49,6 +49,8 @@ class GoRunConfiguration(
     val kind: GoRunKind,
 ) : DAPRunConfigurationBase<Element>(project, factory, name) {
     var parameters = GoRunParameters()
+    internal var sourceSelection: GoRunSourceSelection? = null
+    internal fun sourceSelectionFor(values: GoRunParameters) = sourceSelection?.takeIf { it.applies(values) }
 
     override fun getConfigurationEditor(): SettingsEditor<out RunConfiguration> = GoRunSettingsEditor(kind)
     // LSP4IJ's generic runner must not claim Run/Coverage, which use native consoles.
@@ -73,6 +75,17 @@ class GoRunConfiguration(
     override fun readExternal(element: Element) {
         super.readExternal(element)
         val saved = element.getChild("openidea-go") ?: return
+        sourceSelection = saved.getChild("source-selection")?.let { selected ->
+            try {
+                GoRunSourceSelection(
+                    requireNotNull(selected.getAttributeValue("uri")).also { dev.openidea.goide.navigation.search.GoTypeCatalogCodec.path(it) },
+                    requireNotNull(selected.getAttributeValue("name")).also { require(it.isNotBlank()) },
+                    GoTestMode.valueOf(requireNotNull(selected.getAttributeValue("mode"))),
+                    requireNotNull(selected.getAttributeValue("pattern")),
+                    requireNotNull(selected.getAttributeValue("directory")).also { require(java.nio.file.Path.of(it).isAbsolute) },
+                )
+            } catch (failure: Exception) { throw com.intellij.openapi.util.InvalidDataException("Invalid Go source selection", failure) }
+        }
         parameters = GoRunParameters(
             target = saved.getAttributeValue("target") ?: ".",
             workingDirectory = saved.getAttributeValue("workingDirectory") ?: project.basePath.orEmpty(),
@@ -117,6 +130,10 @@ class GoRunConfiguration(
             .setAttribute("fuzzMinimizeTime", parameters.fuzzMinimizeTime)
             .setAttribute("fuzzParallelism", parameters.fuzzParallelism)
         parameters.environment.forEach { (name, value) -> saved.addContent(Element("env").setAttribute("name", name).setAttribute("value", value)) }
+        sourceSelectionFor(parameters)?.let { selected ->
+            saved.addContent(Element("source-selection").setAttribute("uri", selected.uri).setAttribute("name", selected.name)
+                .setAttribute("mode", selected.mode.name).setAttribute("pattern", selected.pattern).setAttribute("directory", selected.directory))
+        }
         element.addContent(saved)
     }
 

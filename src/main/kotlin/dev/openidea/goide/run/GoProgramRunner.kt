@@ -86,6 +86,8 @@ class GoProgramRunner : AsyncProgramRunner<RunnerSettings>() {
 
 class GoCommandLineState(environment: ExecutionEnvironment, private val configuration: GoRunConfiguration) : CommandLineState(environment) {
     private val values = configuration.parameters.independentCopy()
+    private val settings = GoToolchain.capture(configuration.project)
+    private val sourceSelection = configuration.sourceSelectionFor(values)
     private var coverageService: GoCoverageService? = null
     private var coverageRevision = 0L
 
@@ -97,6 +99,12 @@ class GoCommandLineState(environment: ExecutionEnvironment, private val configur
     }
 
     fun createProcess(): ProcessHandler {
+        val sourceToken = sourceSelection?.let { GoRunBuildContextService.get(configuration.project).verify(it, values, settings) }
+        try { return createVerifiedProcess(sourceToken) }
+        finally { sourceToken?.dispose() }
+    }
+
+    private fun createVerifiedProcess(sourceToken: GoRunBuildContexts.Token?): ProcessHandler {
         val cwd = Path.of(values.workingDirectory.ifBlank { configuration.project.basePath.orEmpty() })
         if (!Files.isDirectory(cwd)) throw ExecutionException("Working directory does not exist: $cwd")
         val profile = if (coverageService != null) {
@@ -104,13 +112,15 @@ class GoCommandLineState(environment: ExecutionEnvironment, private val configur
             Files.createDirectories(directory)
             directory.resolve("go-test-${java.util.UUID.randomUUID()}.cover")
         } else null
-        val args = try { values.commandArguments(configuration.kind, GoProjectSettings.get(configuration.project).buildTags, profile?.toString()) }
+        val args = try { values.commandArguments(configuration.kind, settings.buildTags, profile?.toString()) }
             catch (error: IllegalArgumentException) { throw ExecutionException(error.message.orEmpty(), error) }
-        val command = GoToolchain.command(configuration.project, "go", args)
+        val command = GoToolchain.command(configuration.project, "go", args, settings)
             .withWorkingDirectory(cwd).withCharset(StandardCharsets.UTF_8).withEnvironment(values.environment)
         if (!values.passParentEnvironment) command.withParentEnvironmentType(GeneralCommandLine.ParentEnvironmentType.NONE)
-        val metadata = if (configuration.kind == GoRunKind.TEST) GoPackageDirectories.loadMetadata(configuration.project, values, cwd) else GoPackageMetadata(emptyMap(), emptyList())
+        val metadata = if (configuration.kind == GoRunKind.TEST) sourceToken?.packageMetadata
+            ?: GoPackageDirectories.loadMetadata(configuration.project, values, cwd, settings) else GoPackageMetadata(emptyMap(), emptyList())
         if (configuration.project.isDisposed) throw ExecutionException("Project was closed before Go could start.")
+        sourceToken?.checkBeforeLaunch()
         val handler = if (configuration.kind == GoRunKind.TEST) GoTestProcessHandler(command, cwd.toString(), metadata.directories) else KillableProcessHandler(command)
         if (profile != null && handler is GoTestProcessHandler) handler.addProcessListener(object : ProcessAdapter() {
             override fun processTerminated(event: ProcessEvent) {

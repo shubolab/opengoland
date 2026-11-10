@@ -1,0 +1,620 @@
+package dev.openidea.goide.run
+
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.progress.ProgressManager
+import com.intellij.openapi.progress.ProcessCanceledException
+import com.intellij.execution.configurations.GeneralCommandLine
+import com.intellij.openapi.util.SystemInfo
+import com.intellij.jna.JnaLoader
+import com.pty4j.PtyProcessBuilder
+import com.pty4j.unix.PtyHelpers
+import java.nio.file.Path
+import java.nio.file.Files
+import java.nio.charset.CodingErrorAction
+import java.nio.CharBuffer
+import java.nio.ByteBuffer
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicReference
+import java.util.concurrent.ConcurrentHashMap
+import java.util.concurrent.CancellationException
+import java.util.concurrent.TimeUnit
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+import com.google.gson.JsonObject
+import com.google.gson.JsonParser
+import com.intellij.util.execution.ParametersListUtil
+import dev.openidea.goide.navigation.search.GoTypeCatalogCodec
+import dev.openidea.goide.lsp.GoDocumentSync
+import com.intellij.openapi.Disposable
+import dev.openidea.goide.settings.GoToolchain
+import dev.openidea.goide.debug.GoTestDebugArguments
+import java.util.concurrent.CompletableFuture
+
+/** Native UTF-16 document text, captured once on BGT under ReadAction, never per gutter token. */
+internal data class GoRunBuildOverlay(
+    val uri: String,
+    val text: String,
+    val documentStamp: Long,
+    val documentSequence: Int?,
+)
+
+/** Each request owns defensive copies of values/environment/overlays. No live configuration reads. */
+internal data class GoRunBuildContextRequest(
+    val sourceUri: String,
+    val workingDirectory: String,
+    val values: GoRunParameters,
+    val settings: GoToolchain.Settings,
+    val overlays: List<GoRunBuildOverlay>,
+    val debug: Boolean = false,
+)
+
+/**
+ * Successful authoritative package metadata. URI sets include .go test/external-test membership.
+ * Unknown/malformed/failed metadata completes the operation exceptionally; it is never IGNORED.
+ * validateDisk is BGT-only and throws when canonical aliases, files or directory guards changed.
+ * Native document sequence/configuration/generation checks remain owned by the service.
+ */
+internal data class GoRunBuildContextSnapshot(
+    val sourceUri: String,
+    val sourceText: String,
+    val packagePath: String,
+    val packageDirectoryUri: String,
+    val activeSourceUris: Set<String>,
+    val ignoredSourceUris: Set<String>,
+    val watchedFileUris: Set<String>,
+    val watchedDirectoryUris: Set<String>,
+    val validateDisk: () -> Unit,
+    val invalidSourceUris: Set<String> = emptySet(),
+    val diagnostics: List<String> = emptyList(),
+    val watchedAllDirectoryUris: Set<String> = emptySet(),
+    val packageMetadata: GoPackageMetadata = GoPackageMetadata(emptyMap(), emptyList()),
+)
+
+/** Creation is memory-only. Register this operation before scheduling its start on BGT. */
+internal interface GoRunBuildContextSource : Disposable {
+    fun create(request: GoRunBuildContextRequest): GoRunBuildContextOperation
+    override fun dispose() {}
+}
+
+/** Cancel/dispose signals immediately; pipe/process teardown and all waits are BGT-owned. */
+internal interface GoRunBuildContextOperation : Disposable {
+    val future: CompletableFuture<GoRunBuildContextSnapshot>
+    /** BGT only. A cancel that wins before this call must prevent all process creation. */
+    fun start()
+    override fun dispose()
+}
+
+/** One bounded, selected-SDK metadata command per load; no shared engine or language server. */
+internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuildContextSource {
+    private val closed = AtomicBoolean()
+    private val operations = ConcurrentHashMap.newKeySet<Operation>()
+
+    override fun create(request: GoRunBuildContextRequest): GoRunBuildContextOperation {
+        val copy = request.copy(values = request.values.independentCopy(), overlays = request.overlays.map { it.copy() })
+        val operation = Operation(copy)
+        operations += operation
+        if (closed.get()) operation.dispose()
+        return operation
+    }
+
+    override fun dispose() {
+        closed.set(true)
+        operations.toList().forEach { it.dispose() }
+    }
+
+    private inner class Operation(private val request: GoRunBuildContextRequest) : GoRunBuildContextOperation {
+        override val future = CompletableFuture<GoRunBuildContextSnapshot>()
+        private val cancelled = AtomicBoolean()
+        private val started = AtomicBoolean()
+        private var deadline = Long.MAX_VALUE
+        init { future.whenComplete { _, _ ->
+            if (future.isCancelled) cancelled.set(true)
+            operations.remove(this)
+        } }
+        override fun dispose() { cancelled.set(true); future.cancel(false); operations.remove(this) }
+        private fun checkCurrent() {
+            if (cancelled.get() || closed.get() || project.isDisposed || Thread.currentThread().isInterrupted)
+                throw CancellationException("Go build context loading was cancelled")
+            require(System.nanoTime() < deadline) { "Go build-context loading exceeded 60 seconds" }
+            ProgressManager.checkCanceled()
+        }
+        override fun start() {
+            check(!ApplicationManager.getApplication().isDispatchThread) { "Go build context loading must run in background" }
+            if (!started.compareAndSet(false, true)) return
+            deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(60)
+            try {
+                checkCurrent()
+                val snapshot = load(request, ::checkCurrent)
+                checkCurrent()
+                future.complete(snapshot)
+            } catch (failure: Throwable) {
+                if (failure is CancellationException || failure is ProcessCanceledException || failure is InterruptedException || cancelled.get()) future.cancel(false)
+                else future.completeExceptionally(failure)
+            } finally { operations.remove(this) }
+        }
+    }
+
+    private fun load(input: GoRunBuildContextRequest, checkCurrent: () -> Unit): GoRunBuildContextSnapshot {
+        checkCurrent()
+        val guards = Guards()
+        val originalDirectory = Path.of(input.workingDirectory)
+        require(originalDirectory.isAbsolute) { "The Go package directory must be absolute" }
+        val directory = guards.physical(originalDirectory)
+        require(Files.isDirectory(directory)) { "The Go package directory disappeared" }
+        val originalSource = GoTypeCatalogCodec.path(input.sourceUri)
+        val source = guards.physical(originalSource)
+        require(source.parent == directory) { "The exact Go source is outside the selected package directory" }
+        // Reuse the existing Go Test/Delve argument contract, including legacy
+        // build flags in Test arguments and the explicit -args/-- boundary.
+        val rawBuildFlags = ParametersListUtil.parse(input.values.buildFlags, false, true)
+        val rawArguments = ParametersListUtil.parse(input.values.arguments, false, true)
+        val arguments = GoTestDebugArguments.create(
+            if (input.debug) rawBuildFlags else GoTestDebugArguments.runMetadataFlags(rawBuildFlags),
+            if (input.debug) rawArguments else GoTestDebugArguments.runMetadataFlags(rawArguments), "", input.debug).buildFlags
+        require(arguments.none { it == "-C" || it.startsWith("-C=") }) { "Use the package working directory instead of -C for an exact Go source entry" }
+        val staging = Files.createTempDirectory("open-goland-go-build-context-")
+        try {
+            // Resolve candidate buffers once without retaining unrelated aliases as
+            // guards. Only effective input paths become watched sources below.
+            val candidates = input.overlays.groupBy { GoTypeCatalogCodec.physicalPath(GoTypeCatalogCodec.path(it.uri)).toString() }
+            fun dirtyText(path: Path): String? {
+                val matches = candidates[GoTypeCatalogCodec.physicalPath(path).toString()].orEmpty()
+                if (matches.isEmpty()) return null
+                require(matches.all { it.text == matches.first().text }) { "Two editor buffers refer to different text for the same Go input" }
+                matches.forEach { guards.file(GoTypeCatalogCodec.path(it.uri)) }
+                return matches.first().text.also { text ->
+                    require(text.length <= MAX_FILE && Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
+                        .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(text)).remaining() <= MAX_FILE) { "A Go input overlay exceeds its size limit" }
+                }
+            }
+            var privateGoEnv: Path? = null
+            fun useDirtyEnvironment(path: Path) {
+                guards.file(path)
+                dirtyText(path)?.let { text ->
+                    privateGoEnv = staging.resolve("go.env").also { Files.writeString(it, text, Charsets.UTF_8) }
+                }
+            }
+            fun metadataCommand(args: List<String>) = command(input, args, directory).apply {
+                privateGoEnv?.let { withEnvironment("GOENV", it.toString()) }
+            }
+            val base = command(input, listOf("env", "-json", "GOENV"), directory)
+            val effective = base.effectiveEnvironment
+            guards.file(Path.of(base.exePath), 128 * 1024 * 1024)
+            effectiveValue(effective, "GOROOT")?.takeIf(String::isNotBlank)?.let { value ->
+                val sdk = Path.of(value)
+                if (sdk.isAbsolute) { guards.file(sdk.resolve("go.env")); guards.file(sdk.resolve("VERSION")) }
+            }
+            var environmentPath = effectiveValue(effective, "GOENV")?.takeUnless { it == "off" || it.isBlank() }?.let {
+                Path.of(it).also { value -> require(value.isAbsolute) { "Go requires GOENV to be an absolute path or off" } }
+            }
+            environmentPath?.let(::useDirtyEnvironment)
+            val location = objectJson(execute(metadataCommand(listOf("env", "-json", "GOENV")), checkCurrent))
+            val envLocation = string(location, "GOENV", allowEmpty = true)
+            if (environmentPath == null && envLocation.isNotBlank() && envLocation != "off") {
+                environmentPath = resolve(directory, envLocation)
+                useDirtyEnvironment(environmentPath)
+            }
+            // Capture the real Go environment file before asking Go for its flags.
+            val environment = objectJson(execute(metadataCommand(listOf("env", "-json", "GOFLAGS", "GOENV", "GOWORK", "GO111MODULE")), checkCurrent))
+            val goFlags = ParametersListUtil.parse(string(environment, "GOFLAGS", allowEmpty = true), false, true)
+            val allFlags = goFlags + arguments
+            val externalOverlay = lastFlag(allFlags, "-overlay")?.takeIf(String::isNotBlank)
+            val modFile = lastFlag(allFlags, "-modfile")?.takeIf(String::isNotBlank)?.let { resolve(directory, it) }
+            modFile?.let { guards.file(it); guards.file(it.resolveSibling(it.fileName.toString().removeSuffix(".mod") + ".sum")) }
+            val ancestors = generateSequence(directory) { it.parent }.toList()
+            val metadata = setOf("go.mod", "go.sum", "go.work", "go.work.sum")
+            ancestors.forEach { ancestor ->
+                guards.directory(ancestor, metadataOnly = true)
+                metadata.forEach { guards.file(ancestor.resolve(it)) }
+            }
+            effectiveValue(effective, "GOWORK")?.takeUnless { it.isBlank() || it == "off" }?.let {
+                val work = resolve(directory, it)
+                guards.file(work); guards.file(work.resolveSibling(work.fileName.toString() + ".sum"))
+            }
+            guards.directory(directory, metadataOnly = false)
+            guards.directory(originalDirectory, metadataOnly = false)
+            guards.file(originalSource)
+            Files.newDirectoryStream(directory, "*.go").use { files -> files.forEach { guards.file(it) } }
+            val replacements = linkedMapOf<String, String>()
+            externalOverlay?.let { value ->
+                val path = resolve(directory, value)
+                val parsed = objectJson(dirtyText(path) ?: guards.text(path))
+                guards.file(path)
+                val replace = parsed.get("Replace")
+                require(replace != null && replace.isJsonObject) { "The configured Go overlay has no Replace object" }
+                replace.asJsonObject.entrySet().forEach { (from, to) ->
+                    require(to.isJsonPrimitive && to.asJsonPrimitive.isString) { "A Go overlay replacement must be a string" }
+                    val target = guards.physical(resolve(directory, from))
+                    val backing = to.asString
+                    replacements[target.toString()] = if (backing.isEmpty()) "" else guards.physical(resolve(directory, backing)).also { guards.file(it) }.toString()
+                    guards.file(target)
+                }
+            }
+            val overlays = linkedMapOf<String, GoRunBuildOverlay>()
+            for (overlay in input.overlays) {
+                checkCurrent()
+                val original = GoTypeCatalogCodec.path(overlay.uri)
+                val path = GoTypeCatalogCodec.physicalPath(original)
+                val relevant = path.parent == directory && path.fileName.toString().endsWith(".go") ||
+                    path.fileName.toString() in metadata && (path.parent in ancestors || uri(path) in guards.fileUris) ||
+                    uri(path) in setOfNotNull(modFile?.let(::uri), externalOverlay?.let { uri(GoTypeCatalogCodec.physicalPath(resolve(directory, it))) }, environmentPath?.let { uri(GoTypeCatalogCodec.physicalPath(it)) })
+                if (!relevant) continue
+                guards.file(original)
+                val previous = overlays.putIfAbsent(path.toString(), overlay)
+                require(previous == null || previous.text == overlay.text) { "Two editor buffers refer to different text for the same Go source" }
+            }
+            overlays.forEach { (path, overlay) ->
+                val encoded = Charsets.UTF_8.newEncoder().onMalformedInput(CodingErrorAction.REPORT)
+                    .onUnmappableCharacter(CodingErrorAction.REPORT).encode(CharBuffer.wrap(overlay.text))
+                val bytes = ByteArray(encoded.remaining()).also { encoded.get(it) }
+                require(bytes.size <= MAX_FILE) { "A Go editor overlay exceeds the build-context input limit" }
+                val backing = staging.resolve("source-${replacements.size}")
+                Files.write(backing, bytes)
+                replacements[path] = backing.toString()
+            }
+            fun overlayFlags(): List<String> = if (replacements.isEmpty()) emptyList() else {
+                val replace = JsonObject()
+                replacements.forEach { (from, to) -> replace.addProperty(from, to) }
+                val manifest = staging.resolve("overlay.json")
+                Files.writeString(manifest, JsonObject().apply { add("Replace", replace) }.toString(), Charsets.UTF_8)
+                listOf("-overlay=$manifest")
+            }
+            val flags = removeFlag(arguments, "-overlay")
+            fun effectiveText(path: Path): String? {
+                val key = guards.physical(path).toString()
+                val replacement = replacements[key]
+                return dirtyText(path) ?: when {
+                    replacement == "" -> null
+                    replacement != null -> GoTypeCatalogCodec.text(readBounded(Path.of(replacement)))
+                    Files.isRegularFile(path) -> guards.text(path)
+                    else -> null
+                }
+            }
+            val explicitWork = effectiveValue(effective, "GOWORK")
+            val work = when {
+                explicitWork == "off" -> null
+                !explicitWork.isNullOrBlank() && explicitWork != "auto" -> Path.of(explicitWork).also {
+                    require(it.isAbsolute) { "Go requires GOWORK to be an absolute path, auto, or off" }
+                }.normalize()
+                else -> ancestors.map { it.resolve("go.work") }.firstOrNull { effectiveText(it) != null }
+            }
+            var ownedWork: Path? = null
+            var workspaceEdits = emptyList<String>()
+            var moduleFlags = emptyList<String>()
+            if (work != null) {
+                val text = effectiveText(work) ?: error("The selected Go workspace file disappeared")
+                ownedWork = staging.resolve("go.work")
+                Files.writeString(ownedWork, text, Charsets.UTF_8)
+                val sum = work.resolveSibling(work.fileName.toString() + ".sum")
+                val ownedSum = staging.resolve("go.work.sum")
+                Files.writeString(ownedSum, effectiveText(sum).orEmpty(), Charsets.UTF_8)
+                // Keep the real workspace path first: Go itself chooses vendor
+                // mode and validates relative replacements/modules.txt unchanged.
+                replacements[work.toString()] = ownedWork.toString()
+                replacements[guards.physical(work).toString()] = ownedWork.toString()
+                replacements[sum.toString()] = ownedSum.toString()
+                replacements[guards.physical(sum).toString()] = ownedSum.toString()
+                val vendor = work.parent.resolve("vendor")
+                if (Files.isDirectory(vendor)) watchVendor(vendor, guards, checkCurrent)
+                workspaceEdits = workspacePlan(work.parent, ownedWork, guards, checkCurrent, ::metadataCommand)
+                // Other declared workspace modules/replacements can change the
+                // build context too. Apply only their now-authoritative manifests.
+                for (known in guards.fileUris.toList()) {
+                    val path = GoTypeCatalogCodec.path(known)
+                    if (path.fileName.toString() !in setOf("go.mod", "go.sum")) continue
+                    val text = dirtyText(path) ?: continue
+                    val backing = staging.resolve("workspace-source-${replacements.size}")
+                    Files.writeString(backing, text, Charsets.UTF_8)
+                    replacements[guards.physical(path).toString()] = backing.toString()
+                }
+            } else if (string(environment, "GO111MODULE", allowEmpty = true) != "off") {
+                val rootMod = ancestors.map { it.resolve("go.mod") }.firstOrNull { effectiveText(it) != null }
+                if (rootMod != null) {
+                    val vendor = rootMod.parent.resolve("vendor")
+                    if (Files.isDirectory(vendor)) watchVendor(vendor, guards, checkCurrent)
+                    val selected = modFile ?: rootMod
+                    require(selected.fileName.toString().endsWith(".mod")) { "Go -modfile must name a .mod file" }
+                    val ownedMod = staging.resolve("selected.mod")
+                    Files.writeString(ownedMod, effectiveText(selected) ?: error("The selected Go module file disappeared"), Charsets.UTF_8)
+                    effectiveText(selected.resolveSibling(selected.fileName.toString().removeSuffix(".mod") + ".sum"))?.let { Files.writeString(staging.resolve("selected.sum"), it, Charsets.UTF_8) }
+                    // Go's -modfile keeps the actual module root, including relative
+                    // replace directives, while updates affect only our private copy.
+                    moduleFlags = listOf("-modfile=$ownedMod")
+                }
+            }
+            fun listCommand() = metadataCommand(listOf("list", "-e", "-find", "-json=$FIELDS") + flags + overlayFlags() + moduleFlags + ".")
+            val output = try { execute(listCommand(), checkCurrent) }
+            catch (failure: MetadataCommandFailure) {
+                // Go refuses to write an overlaid sum. That precise failure is
+                // the only retry: move the workspace/sum to our private copy,
+                // preserving module roots via Go's own workspace editor. Native
+                // vendor mode does not fetch/update sums and stays on the first lane.
+                if (work == null || ownedWork == null || !failure.stderr.contains("updates to go.sum needed") ||
+                    !failure.stderr.contains("part of the overlay specified with -overlay")) throw failure
+                checkCurrent()
+                if (workspaceEdits.isNotEmpty()) execute(metadataCommand(listOf("work", "edit") + workspaceEdits + ownedWork.toString()), checkCurrent)
+                execute(listCommand().withEnvironment("GOWORK", ownedWork.toString()), checkCurrent)
+            }
+            val result = objectJson(output)
+            val reported = guards.physical(Path.of(string(result, "Dir")))
+            require(reported == directory) { "Go returned metadata for a different package directory" }
+            val packagePath = string(result, "ImportPath")
+            // This is the same selected-SDK query that classified the source.
+            // Retain its real package/module roots for failure links and coverage;
+            // another go list after verification could write the user's module
+            // in a legitimate -mod=mod context and invalidate our own guards.
+            val parsedMetadata = GoPackageDirectories.parseMetadata(output)
+            val packageMetadata = GoPackageMetadata(
+                java.util.Collections.unmodifiableMap(LinkedHashMap(parsedMetadata.directories)),
+                java.util.Collections.unmodifiableList(parsedMetadata.modules.toList()),
+            )
+            require(packageMetadata.directories.size == 1 && packageMetadata.directories[packagePath]?.let {
+                guards.physical(Path.of(it)) == directory
+            } == true) { "Go returned incomplete package location metadata" }
+            val invalid = members(result, "InvalidGoFiles", directory, originalDirectory, guards)
+            val active = (members(result, "GoFiles", directory, originalDirectory, guards) +
+                members(result, "CgoFiles", directory, originalDirectory, guards) +
+                members(result, "TestGoFiles", directory, originalDirectory, guards) +
+                members(result, "XTestGoFiles", directory, originalDirectory, guards)).toMutableSet()
+            val ignored = members(result, "IgnoredGoFiles", directory, originalDirectory, guards) - invalid
+            active.removeAll(invalid)
+            require((active intersect ignored).isEmpty()) { "Go returned contradictory active and ignored source membership" }
+            val sourceUri = uri(source)
+            fun selectedAliases(values: Set<String>): Set<String> = if (sourceUri in values) values + input.sourceUri else values
+            require(sourceUri in active || sourceUri in ignored || sourceUri in invalid) { "Go did not report build membership for the selected source" }
+            val error = result.get("Error")
+            val diagnostics = if (error == null || error.isJsonNull) emptyList() else {
+                require(error.isJsonObject) { "Go returned malformed package diagnostics" }
+                listOf(string(error.asJsonObject, "Err"))
+            }
+            val sourceText = overlays[source.toString()]?.text ?: replacements[source.toString()]?.let {
+                require(it.isNotEmpty()) { "The selected source is deleted by the configured Go overlay" }
+                GoTypeCatalogCodec.text(readBounded(Path.of(it)))
+            } ?: GoTypeCatalogCodec.text(readBounded(source))
+            checkCurrent(); guards.validate()
+            return GoRunBuildContextSnapshot(input.sourceUri, sourceText, packagePath, uri(directory), selectedAliases(active),
+                selectedAliases(ignored), guards.fileUris.toSet(), guards.directoryUris.toSet(), { guards.validate() }, selectedAliases(invalid), diagnostics, guards.allDirectoryUris,
+                packageMetadata)
+        } finally {
+            Files.walk(staging).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach { Files.deleteIfExists(it) } }
+        }
+    }
+
+    private fun workspacePlan(originalParent: Path, owned: Path, guards: Guards, checkCurrent: () -> Unit,
+                              command: (List<String>) -> GeneralCommandLine): List<String> {
+        val parsed = objectJson(execute(command(listOf("work", "edit", "-json", owned.toString())), checkCurrent))
+        val edits = mutableListOf<String>()
+        val seen = mutableSetOf<String>()
+        parsed.get("Use")?.takeUnless { it.isJsonNull }?.also { require(it.isJsonArray) { "Go returned malformed workspace uses" } }?.asJsonArray?.forEach { entry ->
+            require(entry.isJsonObject) { "Go returned malformed workspace use entries" }
+            val path = string(entry.asJsonObject, "DiskPath")
+            val actual = guards.physical(resolve(originalParent, path))
+            require(seen.add(uri(actual))) { "The Go workspace selects the same module more than once" }
+            guards.file(actual.resolve("go.mod")); guards.file(actual.resolve("go.sum")); guards.directory(actual, metadataOnly = true)
+            if (!Path.of(path).isAbsolute) { edits += "-dropuse=$path"; edits += "-use=$actual" }
+        }
+        parsed.get("Replace")?.takeUnless { it.isJsonNull }?.also { require(it.isJsonArray) { "Go returned malformed workspace replacements" } }?.asJsonArray?.forEach { entry ->
+            require(entry.isJsonObject) { "Go returned malformed workspace replacements" }
+            val old = entry.asJsonObject.getAsJsonObject("Old") ?: error("Go workspace replacement has no old module")
+            val replacement = entry.asJsonObject.getAsJsonObject("New") ?: error("Go workspace replacement has no new module")
+            val path = string(replacement, "Path")
+            val version = replacement.get("Version")?.let { string(replacement, "Version", allowEmpty = true) }.orEmpty()
+            if (version.isEmpty()) {
+                val actual = guards.physical(resolve(originalParent, path))
+                guards.file(actual.resolve("go.mod")); guards.file(actual.resolve("go.sum")); guards.directory(actual, metadataOnly = true)
+                if (Path.of(path).isAbsolute) return@forEach
+                val oldVersion = old.get("Version")?.let { string(old, "Version", allowEmpty = true) }.orEmpty()
+                val key = string(old, "Path") + if (oldVersion.isEmpty()) "" else "@$oldVersion"
+                edits += "-dropreplace=$key"; edits += "-replace=$key=$actual"
+            }
+        }
+        return edits.toList()
+    }
+
+    /** Guard the native vendor tree without rewriting its bytes or path spelling. */
+    private fun watchVendor(from: Path, guards: Guards, checkCurrent: () -> Unit) {
+        var count = 0
+        Files.walk(from).use { paths -> paths.forEach { path ->
+            checkCurrent(); require(++count <= 50_000) { "The Go vendor tree exceeds the build-context file limit" }
+            if (Files.isDirectory(path)) guards.directory(path, metadataOnly = false, allEntries = true)
+            else if (path.fileName.toString().endsWith(".go") || path.fileName.toString() == "modules.txt") guards.file(path)
+        } }
+    }
+
+    private fun command(input: GoRunBuildContextRequest, args: List<String>, directory: Path): GeneralCommandLine =
+        GoToolchain.command(project, "go", args, input.settings).withWorkDirectory(directory.toFile()).withEnvironment(input.values.environment)
+            .withCharset(Charsets.UTF_8).apply {
+                if (!input.values.passParentEnvironment) withParentEnvironmentType(GeneralCommandLine.ParentEnvironmentType.NONE)
+            }
+
+    private fun execute(command: GeneralCommandLine, checkCurrent: () -> Unit): String {
+        checkCurrent()
+        val windows = SystemInfo.isWindows
+        val commandLine = listOf(command.exePath) + command.parametersList.list
+        val process: Process = if (windows) ProcessBuilder(commandLine).directory(command.workDirectory).apply {
+            environment().clear(); environment().putAll(command.effectiveEnvironment)
+        }.start() else {
+            check(JnaLoader.isLoaded()) { "The IDE process launcher is unavailable" }
+            PtyProcessBuilder(commandLine.toTypedArray()).setDirectory(command.workDirectory!!.toString())
+                .setEnvironment(command.effectiveEnvironment).setConsole(true).setRedirectErrorStream(false).setSpawnProcessUsingJdkOnMacIntel(false).start()
+        }
+        val children = linkedMapOf<Long, ProcessHandle>()
+        val failures = AtomicReference<Throwable?>()
+        val stdout = ByteArrayOutputStream(); val stderr = ByteArrayOutputStream()
+        fun reader(stream: InputStream, output: ByteArrayOutputStream) = Thread({
+            try { stream.use { input ->
+                val buffer = ByteArray(4096)
+                while (true) {
+                    val count = input.read(buffer); if (count < 0) break
+                    if (output.size() + count > MAX_OUTPUT) error("Go build-context output exceeded its limit")
+                    output.write(buffer, 0, count)
+                }
+            } } catch (failure: Throwable) { failures.compareAndSet(null, failure) }
+        }, "open Goland build-context output").apply { isDaemon = true; start() }
+        val readers = mutableListOf<Thread>()
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(30)
+        fun stop() {
+            if (windows) {
+                children.values.toList().asReversed().filter { it.isAlive }.forEach { it.destroyForcibly() }
+                if (process.isAlive) process.destroyForcibly()
+            } else {
+                val native = PtyHelpers.getInstance()
+                val pid = process.pid().also { require(it in 1..Int.MAX_VALUE.toLong()) }.toInt()
+                if (native.killpg(pid, 0) == 0) { native.killpg(pid, 15); if (!process.waitFor(300, TimeUnit.MILLISECONDS)) native.killpg(pid, 9) }
+                // Parent exit alone does not prove its dedicated group is gone.
+                if (native.killpg(pid, 0) == 0) native.killpg(pid, 9)
+            }
+            process.waitFor(1000, TimeUnit.MILLISECONDS)
+        }
+        try {
+            readers += reader(process.inputStream, stdout)
+            readers += reader(process.errorStream, stderr)
+            while (true) {
+                checkCurrent(); failures.get()?.let { throw it }
+                if (windows) process.descendants().use { found -> found.forEach { children[it.pid()] = it } }
+                if (process.waitFor(25, TimeUnit.MILLISECONDS)) break
+                require(System.nanoTime() < deadline) { "The selected Go SDK did not finish build-context metadata within 30 seconds" }
+            }
+            stop()
+            val drain = System.nanoTime() + TimeUnit.SECONDS.toNanos(2)
+            while (readers.any { it.isAlive }) {
+                checkCurrent(); failures.get()?.let { throw it }
+                require(System.nanoTime() < drain) { "Go build-context output did not close" }
+                readers.forEach { it.join(20) }
+            }
+            failures.get()?.let { throw it }; checkCurrent()
+            fun decode(bytes: ByteArray) = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+                .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
+            val out = decode(stdout.toByteArray()); val err = decode(stderr.toByteArray())
+            if (process.exitValue() != 0) throw MetadataCommandFailure(process.exitValue(), err)
+            return out
+        } finally {
+            val interrupted = Thread.interrupted()
+            try {
+                stop()
+                runCatching { process.outputStream.close() }; runCatching { process.inputStream.close() }; runCatching { process.errorStream.close() }
+                readers.forEach { it.join(1000) }
+            } finally { if (interrupted) Thread.currentThread().interrupt() }
+        }
+    }
+
+    private class MetadataCommandFailure(exit: Int, val stderr: String) : IllegalStateException("Go build-context metadata failed (exit $exit): ${stderr.take(4096)}")
+
+    private class Guards {
+        private val aliases = linkedMapOf<String, Path>()
+        private val files = linkedMapOf<String, Pair<Path, String?>>()
+        private val directories = linkedMapOf<String, Pair<Path, List<String>>>()
+        private val limits = mutableMapOf<String, Int>()
+        private val metadataDirectories = mutableSetOf<String>()
+        private val allDirectories = mutableSetOf<String>()
+        val fileUris = linkedSetOf<String>()
+        val directoryUris = linkedSetOf<String>()
+        val allDirectoryUris: Set<String> get() = allDirectories.toSet()
+        fun physical(path: Path): Path {
+            require(path.isAbsolute) { "A build-context path must be absolute" }
+            val result = GoTypeCatalogCodec.physicalPath(path)
+            val previous = aliases.putIfAbsent(path.normalize().toString(), result)
+            require(previous == null || previous == result) { "A Go path alias changed while loading build context" }
+            return result
+        }
+        fun file(path: Path, limit: Int = MAX_FILE) {
+            val actual = physical(path); val key = uri(actual)
+            fileUris += key; fileUris += uri(path)
+            limits[key] = maxOf(limits[key] ?: 0, limit)
+            val hash = hash(actual, limits.getValue(key))
+            val previous = files.putIfAbsent(key, actual to hash)
+            require(previous == null || previous.second == hash) { "A Go build-context input changed while loading" }
+        }
+        fun text(path: Path): String {
+            file(path)
+            require(Files.isRegularFile(path)) { "A required Go build-context input disappeared: $path" }
+            require(Files.size(path) <= MAX_FILE) { "A Go build-context input exceeds its size limit" }
+            return rawText(readBounded(path))
+        }
+        private fun hash(path: Path, limit: Int): String? {
+            if (!Files.exists(path)) return null
+            require(Files.isRegularFile(path) && Files.size(path) <= limit) { "Invalid or oversized Go build-context file: $path" }
+            return GoTypeCatalogCodec.hash(readBounded(path, limit))
+        }
+        fun directory(path: Path, metadataOnly: Boolean, allEntries: Boolean = false) {
+            val actual = physical(path); val key = uri(actual)
+            if (!metadataOnly) metadataDirectories -= key else if (key !in directories) metadataDirectories += key
+            if (allEntries || key in allDirectories) { allDirectories += key; allDirectories += uri(path) }
+            directoryUris += key; directoryUris += uri(path)
+            directories[key] = actual to entries(actual, key in metadataDirectories, key in allDirectories)
+        }
+        private fun entries(path: Path, metadataOnly: Boolean, allEntries: Boolean): List<String> =
+            Files.newDirectoryStream(path).use { children -> children.filter { entry ->
+                val name = entry.fileName.toString()
+                allEntries || name in setOf("go.mod", "go.sum", "go.work", "go.work.sum", "vendor") || !metadataOnly && name.endsWith(".go")
+            }.map { entry ->
+                // Filter before stat: unrelated entries in /tmp or other
+                // ancestors can disappear while this metadata-only guard loads.
+                val attrs = Files.readAttributes(entry, java.nio.file.attribute.BasicFileAttributes::class.java, java.nio.file.LinkOption.NOFOLLOW_LINKS)
+                val kind = when { attrs.isSymbolicLink -> "l"; attrs.isDirectory -> "d"; attrs.isRegularFile -> "f"; else -> "o" }
+                "$kind:${entry.fileName}"
+            }.sorted() }
+        fun validate() {
+            check(!ApplicationManager.getApplication().isDispatchThread) { "Go build-context disk validation must run in background" }
+            aliases.forEach { (path, expected) -> require(GoTypeCatalogCodec.physicalPath(Path.of(path)) == expected) { "A Go path alias changed" } }
+            files.forEach { (key, value) -> val (path, expected) = value; require(hash(path, limits.getValue(key)) == expected) { "A Go build-context source or manifest changed" } }
+            directories.forEach { (key, value) -> require(entries(value.first, key in metadataDirectories, key in allDirectories) == value.second) { "Go package membership changed" } }
+        }
+    }
+
+    private fun members(json: JsonObject, field: String, directory: Path, originalDirectory: Path, guards: Guards): Set<String> {
+        val raw = json.get(field) ?: return emptySet()
+        require(raw.isJsonArray) { "Go returned malformed $field membership" }
+        return buildSet {
+            raw.asJsonArray.forEach { value ->
+                require(value.isJsonPrimitive && value.asJsonPrimitive.isString) { "Go returned a non-string source member" }
+                val name = value.asString
+                require(name.isNotBlank() && name.endsWith(".go") && '/' !in name && '\\' !in name && name != "." && name != "..") { "Go returned an invalid source member" }
+                val path = guards.physical(directory.resolve(name))
+                require(path.parent == directory) { "Go returned a source member outside the selected package" }
+                guards.file(path)
+                guards.file(originalDirectory.resolve(name))
+                add(uri(path)); add(uri(originalDirectory.resolve(name)))
+            }
+        }
+    }
+    private fun objectJson(text: String): JsonObject {
+        require(!text.trimStart().startsWith("\uFEFF")) { "Go JSON input must not contain a UTF-8 byte order mark" }
+        val value = JsonParser.parseString(text)
+        require(value.isJsonObject) { "Go returned no single build-context JSON object" }
+        return value.asJsonObject
+    }
+    private fun string(json: JsonObject, key: String, allowEmpty: Boolean = false): String {
+        val value = json.get(key)
+        require(value != null && value.isJsonPrimitive && value.asJsonPrimitive.isString && (allowEmpty || value.asString.isNotBlank())) { "Go did not report $key" }
+        return value.asString
+    }
+    private fun lastFlag(flags: List<String>, name: String): String? {
+        var result: String? = null
+        for (index in flags.indices) if (flags[index] == name) result = flags.getOrNull(index + 1) ?: error("Missing $name value")
+        else if (flags[index].startsWith("$name=")) result = flags[index].substring(name.length + 1)
+        return result
+    }
+    private fun removeFlag(flags: List<String>, name: String): List<String> = buildList {
+        var index = 0
+        while (index < flags.size) {
+            val flag = flags[index++]
+            if (flag == name) { require(index < flags.size) { "Missing $name value" }; index++ }
+            else if (!flag.startsWith("$name=")) add(flag)
+        }
+    }
+    private fun effectiveValue(environment: Map<String, String>, key: String): String? = environment.entries.lastOrNull { it.key.equals(key, ignoreCase = SystemInfo.isWindows) }?.value
+    private fun resolve(directory: Path, text: String): Path = Path.of(text).let { if (it.isAbsolute) it.normalize() else directory.resolve(it).normalize() }
+    private companion object {
+        const val FIELDS = "Dir,ImportPath,Module,GoFiles,CgoFiles,TestGoFiles,XTestGoFiles,IgnoredGoFiles,InvalidGoFiles,Error"
+        const val MAX_FILE = 8 * 1024 * 1024
+        const val MAX_OUTPUT = 2 * 1024 * 1024
+        fun readBounded(path: Path, limit: Int = MAX_FILE): ByteArray = Files.newInputStream(path).use { stream ->
+            stream.readNBytes(limit + 1).also { require(it.size <= limit) { "A Go build-context input exceeds its size limit" } }
+        }
+        fun rawText(bytes: ByteArray): String = Charsets.UTF_8.newDecoder().onMalformedInput(CodingErrorAction.REPORT)
+            .onUnmappableCharacter(CodingErrorAction.REPORT).decode(ByteBuffer.wrap(bytes)).toString()
+        fun uri(path: Path) = GoDocumentSync.fileUri(path)
+    }
+}

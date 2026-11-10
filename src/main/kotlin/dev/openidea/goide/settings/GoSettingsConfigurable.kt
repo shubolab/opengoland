@@ -89,6 +89,8 @@ class GoSettingsConfigurable(private val project: Project) : SearchableConfigura
         s.buildTags = tags.text.trim(); s.goos = goos.text.trim(); s.goarch = goarch.text.trim(); s.cgoEnabled = cgo.text.trim(); s.environment = env.text
         s.indentRawStringsOnEnter = rawStringIndent.isSelected
         if (previousLanguageServerSettings != languageServerSettings(s)) {
+            // Memory-only invalidation; package metadata work is scheduled by the native entry service.
+            dev.openidea.goide.run.GoRunBuildContextService.settingsChanged(project)
             ApplicationManager.getApplication().executeOnPooledThread {
                 if (!project.isDisposed) {
                     val definition = LanguageServersRegistry.getInstance().getServerDefinition("openidea.gopls")

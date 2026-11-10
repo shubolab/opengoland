@@ -11,9 +11,9 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "5ee384a7b6a5083445a2d736b72ec18065b9b397f97a4055d42d6c72d1c9b1ce",
+  "patchSha256": "337191c739f2c7cc61ce2d905375b9ab0e1ef5d5fcddf3f6383444e8e05c56f3",
   "scope": {
-    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。；高亮请求等待已打开文档的didOpen/didChange，通过同一FIFO发送，并以原生文档序列及已连接服务器/文档身份保护排队、交付与缓存；取消只影响请求自己的future。；标准Pause使用真实线程ID异步请求，并等待ACK与真实暂停事件共同完成；支持allThreadsStopped但无threadId的暂停事件。标准Step/Continue绑定原生选中栈、当前暂停context与CAS认领的代次；冷/热栈加载不改变选择，过期回包不发布。；延迟本地调试源码的导航对象在父描述符中保留真实行号，使原生编辑器首次冷打开通过canNavigateTo并定位到执行行。",
+    "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。；高亮请求等待已打开文档的didOpen/didChange，通过同一FIFO发送，并以原生文档序列及已连接服务器/文档身份保护排队、交付与缓存；取消只影响请求自己的future。；标准Pause使用真实线程ID异步请求，并等待ACK与真实暂停事件共同完成；支持allThreadsStopped但无threadId的暂停事件。标准Step/Continue绑定原生选中栈、当前暂停context与CAS认领的代次；冷/热栈加载不改变选择，过期回包不发布。；延迟本地调试源码的导航对象在父描述符中保留真实行号，使原生编辑器首次冷打开通过canNavigateTo并定位到执行行。；补全请求在捕获的原生文档代次上等待didOpen/didChange，并通过同一FIFO发送；单请求取消不传播到共享文档通知。",
     "preserves": [
       "Original client document version generation",
       "Native unsaved editor document content",
@@ -47,7 +47,7 @@
       "Original intermittent native stat-missing notification is not root-causally closed by this lifecycle fix; ordinary single/two-file and held-server controls did not reproduce it",
       "Find Usages still uses the server-provided locations and does not add Go-specific interface selection or read/write classification",
       "This revision does not establish full native navigation/hierarchy parity; standalone desktop verification is owned by the main task",
-      "The request FIFO and native-generation fence added here apply to documentHighlight. Other position-sensitive LSP features have not all been migrated.",
+      "The request FIFO and native-generation fence added here apply to documentHighlight and completion. Other position-sensitive LSP features have not all been migrated.",
       "Native standalone verification and complete build evidence remain separate from pinned-source compilation and controlled SDK regressions.",
       "The DAP session-control source integration is separate from standalone native validation; launch Stop zombie ownership/reaping remains outside this revision."
     ]
@@ -160,6 +160,12 @@
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/dap/client/files/DeferredSourcePositionBase.java",
       "upstreamSha256": "254f7eedef14541b8c56e7e15c30d5744c9cd09ec8c34989bd97f94a72fc8854",
       "patchedSha256": "29405d559617f00ecb647e0c2586c306357c95af24950f44e899fc18d9ccc02c"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport.java",
+      "upstreamSha256": "25ab0e8f6d3a2a1366de55c0111bc96c96c553e00b2078a5858bd9827403fbc6",
+      "patchedSha256": "287707bed9a4dd3196706336b947f386098302b3a7a61d5486ce2b97d2467f32"
     }
   ],
   "initialVerification": {
@@ -696,6 +702,55 @@
       "tamperedLocaleClassResourceAndDuplicateRejectedWithoutOverwrite": true,
       "proof": ".tools/debug-cold-source-controls/final-evidence.json",
       "platform": "macOS arm64 SDK2026.1.4; not a native standalone or Windows pass"
+    }
+  },
+  "completionOrderingRevision": {
+    "scope": "All native completion requests use their own captured document/UTF-16 position and existing shared notification barrier plus initialized FIFO; native lookup/snippet/additionalTextEdits/resolve behavior is retained.",
+    "sourceCount": 19,
+    "expectedClassCount": 40,
+    "source": "src/main/java/com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport.java",
+    "patchedSourceSha256": "287707bed9a4dd3196706336b947f386098302b3a7a61d5486ce2b97d2467f32",
+    "verificationStatus": "Actual macOS SDK 9-case cohort GREEN; unchanged production with the same final native completion test RED. Full product, Windows and desktop acceptance remain separate.",
+    "sourceOwnership": "No source SDK or reference application changes; only verified owned output copies.",
+    "preserves": [
+      "Shared initialized/didOpen/didChange futures are never canceled by the completion request.",
+      "Each server receives independent URI/context/position params.",
+      "Existing 38 patched classes are expected unchanged and must be checked from the actual official builder output.",
+      "Raw LSP4J request cancellation is forwarded on a worker; no pipe write/wait is added to native document listeners."
+    ],
+    "boundaries": [
+      "Not an implementation of completionItem/resolve.",
+      "Native desktop and Windows runtime evidence remain separate.",
+      "No full generic/incomplete/multicaret completion parity claim."
+    ],
+    "classSha256": {
+      "com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport$CompletionSnapshot.class": "dbe577389c638a60c8259b9752e701161c5097e37fccc7f634582bc826d79731",
+      "com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport.class": "fc0aea2cb565c15bd35b804f7910f28a275332d1fa4ec4f2c6c3180571f9d836"
+    },
+    "previous38CompiledClassesUnchanged": true,
+    "officialBuilder": {
+      "artifactSha256": "fb03e414209c2ebe315ce9426730475ee5c2b0f693e220077ef6de28b20dc8a9",
+      "sourceCount": 19,
+      "classCount": 40,
+      "compilerOptions": [
+        "--release",
+        "17",
+        "-encoding",
+        "UTF-8",
+        "-implicit:none",
+        "-sourcepath",
+        ""
+      ],
+      "verifiedOriginalJarSha256": "c874e03849aeab974483913ea72161bca0c315c7800c77cbf530d82da0001900"
+    },
+    "controlledTests": {
+      "nativeRealGoplsLookup": 1,
+      "auxiliaryLifecycle": 3,
+      "existingInitializationAndRuntimeSeal": 5,
+      "greenTotal": 9,
+      "greenSeconds": 21.462,
+      "unchangedProductionNativeTests": 1,
+      "unchangedProductionFailures": 1
     }
   }
 }

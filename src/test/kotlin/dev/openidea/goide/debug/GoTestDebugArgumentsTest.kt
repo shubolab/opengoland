@@ -9,8 +9,41 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
+import kotlin.test.assertFalse
 
 class GoTestDebugArgumentsTest {
+    @Test fun runOnlyMetadataProjectionPreservesValuesAndExplicitRuntimeBoundaries() {
+        assertEquals(listOf("-tags", "alpha", "-count=1"), GoTestDebugArguments.runMetadataFlags(
+            listOf("-c=false", "-o", "owned output", "-exec=owned wrapper", "-tags", "alpha", "-count=1")))
+        assertEquals(listOf("-tags", "-o", "-ldflags", "-exec", "-timeout", "-c"), GoTestDebugArguments.runMetadataFlags(
+            listOf("-tags", "-o", "-ldflags", "-exec", "-timeout", "-c")))
+        for (boundary in listOf("-args", "--args", "--")) {
+            val raw = listOf(boundary, "-o", "custom", "-exec=custom", "-c=false")
+            assertEquals(raw, GoTestDebugArguments.runMetadataFlags(raw))
+        }
+        assertEquals(emptyList(), GoTestDebugArguments.runMetadataFlags(listOf("-c", "--c=0", "-o=owned", "--exec", "owned")))
+        for (invalid in listOf(listOf("-o"), listOf("-exec"), listOf("-c=invalid")))
+            assertFailsWith<IllegalArgumentException> { GoTestDebugArguments.runMetadataFlags(invalid) }
+        // Its existing Debug rejection remains authoritative, independently of Run metadata.
+        assertFailsWith<IllegalArgumentException> { GoTestDebugArguments.create(listOf("-o=owned"), emptyList()) }
+    }
+
+    @Test fun explicitRuntimeSelectorUsesKnownFlagNormalizationLastValueAndBinaryBoundaries() {
+        fun selected(vararg arguments: String) = GoTestDebugArguments.explicitSelector(arguments.toList(), "run")
+        assertFalse(selected("-timeout", "20s", "-count=2").declared)
+        assertEquals("^A$", selected("-v", "--run", "^A$", "-timeout=20s").value)
+        assertEquals("^B$", selected("-run=^A$", "-test.run", "^B$").value)
+        assertEquals("", selected("-run=").value)
+        assertFalse(selected("-args", "-run", "custom-binary-value").declared)
+        assertEquals("^B$", selected("-args", "-test.run=^B$").value)
+        assertFalse(selected("--", "-test.run=^B$").declared)
+        assertFalse(selected("-args", "--", "-test.run=^B$").declared)
+        assertFalse(selected("-bench=BenchmarkB").declared)
+        assertTrue(selected("-custom", "value", "-run=^B$").uncertain)
+        assertTrue(selected("-run").uncertain)
+        assertTrue(selected("-run").declared)
+    }
+
     @Test fun compileAndTestFlagsRetainTheirValuesAndLastFlagWinsOrder() {
         val plan = GoTestDebugArguments.create(
             listOf("-race", "-tags", "unit", "-ldflags", "-v", "-count=1", "-timeout", "20s"),
