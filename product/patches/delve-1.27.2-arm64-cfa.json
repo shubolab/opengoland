@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "open-goland-delve-arm64-cfi-v1",
+  "upstream": {
+    "module": "github.com/go-delve/delve",
+    "version": "v1.27.2",
+    "package": "github.com/go-delve/delve/cmd/dlv",
+    "sum": "h1:dhcjFjiVoQI53uwsG7EqYiMhdvFuywsBZx4KDOK+sYE=",
+    "goModSum": "h1:nkFriKZ7rywF+tspcCgJeouzq6b0krJlJiGp15T81hA=",
+    "goModSha256": "a051c5064f4deb852b56ddde2b0cc4d14e96a38a3ae413ac7dd62fd8ff7786fc",
+    "zipSha256": "0d47915ae1b6ca7f474baedc8ceeee74d8cfb5815414b47f4b1c9b8d48adfc99",
+    "zipBytes": 7544304
+  },
+  "patchFile": "delve-1.27.2-arm64-cfa.patch",
+  "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+  "sources": {
+    "pkg/proc/stack.go": {
+      "upstreamSha256": "3c04a13ff7816d16a364787e49f16e7df90873f2734bc9003d43ef6fe0192bf0",
+      "patchedSha256": "f0334c3d4ee647c7ab416f2e2b26bff2e214e4bbc02c87aca2b6455114b7f041"
+    }
+  },
+  "architectureGuard": "arm64",
+  "buildInfoModuleVersion": "(devel)",
+  "sourceTree": {
+    "upstreamSha256": "e78da6543c3956f079bfd1d0e7a6fdd4ac53fd096b0aa27685c4c3118e55219a",
+    "patchedSha256": "fc2159b89932251e2b129a331a20f4654aed85baa16583651f216e1cde99969c",
+    "fileCount": 664
+  }
+}

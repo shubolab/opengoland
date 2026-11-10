@@ -1,0 +1,33 @@
+--- a/pkg/proc/stack.go
++++ b/pkg/proc/stack.go
+@@ -670,6 +670,30 @@
+ 	}
+ 
+ 	cfa := int64(bp + 2*ptrSize)
++	if it.bi.Arch.Name == "arm64" {
++		// Go arm64 stores BP at SP-8, not at the top of its frame.
++		// The current PC's CFI determines the caller SP/CFA, including
++		// prologue and epilogue transitions. Only use the FP shortcut when
++		// CFI also confirms that BP+PtrSize is the saved return-address slot.
++		fde, err := it.bi.frameEntries.FDEForPC(it.pc)
++		if err != nil {
++			return op.DwarfRegisters{}, 0, 0, false
++		}
++		fctxt, err := fde.EstablishFrame(it.pc)
++		if err != nil || fctxt == nil {
++			return op.DwarfRegisters{}, 0, 0, false
++		}
++		fctxt = it.bi.Arch.fixFrameUnwindContext(fctxt, it.pc, it.bi)
++		cfareg, err := it.executeFrameRegRule(0, fctxt.CFA, 0)
++		if err != nil || cfareg == nil {
++			return op.DwarfRegisters{}, 0, 0, false
++		}
++		returnRule := fctxt.Regs[fctxt.RetAddrReg]
++		if returnRule.Rule != frame.RuleOffset || int64(cfareg.Uint64Val)+returnRule.Offset != int64(retaddr) {
++			return op.DwarfRegisters{}, 0, 0, false
++		}
++		cfa = int64(cfareg.Uint64Val)
++	}
+ 
+ 	if ret == 0 || it.bi.PCToFunc(ret) == nil {
+ 		return op.DwarfRegisters{}, 0, 0, false

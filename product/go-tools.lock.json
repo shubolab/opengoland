@@ -59,7 +59,11 @@
       "sum": "h1:dhcjFjiVoQI53uwsG7EqYiMhdvFuywsBZx4KDOK+sYE=",
       "goModSum": "h1:nkFriKZ7rywF+tspcCgJeouzq6b0krJlJiGp15T81hA=",
       "goModSha256": "a051c5064f4deb852b56ddde2b0cc4d14e96a38a3ae413ac7dd62fd8ff7786fc",
-      "sumdb": "https://sum.golang.org/lookup/github.com/go-delve/delve@v1.27.2"
+      "sumdb": "https://sum.golang.org/lookup/github.com/go-delve/delve@v1.27.2",
+      "sourcePatch": {
+        "pin": "product/patches/delve-1.27.2-arm64-cfa.json",
+        "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51"
+      }
     }
   },
   "compatibility": {

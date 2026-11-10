@@ -23,6 +23,10 @@ import zipfile
 ROOT = Path(__file__).resolve().parent.parent
 LOCK = ROOT / 'product/go-tools.lock.json'
 SCRIPT_SHA256 = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
+sys.path.insert(0, str(ROOT / 'scripts'))
+from source_patch import apply_source_patch, SOURCE_PATCH_RUNNER_SHA256
+from go_tool_receipts import SCHEMA, source_patch_inputs, tree_digest, validate_bundle
+RECEIPT_VERIFIER_SHA256 = hashlib.sha256((ROOT / 'scripts/go_tool_receipts.py').read_bytes()).hexdigest()
 
 
 def digest(path):
@@ -354,9 +358,9 @@ def build_runtime_test2json(lock, cache, staging, target, offline):
     }
 
 
-def copy_licenses(go, info, environment, cwd, target):
+def copy_licenses(go, info, environment, cwd, target, main_module=None):
     records = []
-    modules = [info['module'], *info['dependencies']]
+    modules = [main_module or info['module'], *info['dependencies']]
     for module in modules:
         spec = module['module'] + '@' + module['version']
         data = json.loads(execute([go, 'mod', 'download', '-json', spec], environment, cwd))
@@ -378,6 +382,96 @@ def copy_licenses(go, info, environment, cwd, target):
     return records
 
 
+def build_derived_tool(go, tool, record, environment, staging, target, inputs, lock):
+    """Compile only an authenticated owned source copy; cache inputs are read-only."""
+    pin = inputs['pin']
+    archive = Path(record['Zip'])
+    if archive.is_symlink() or archive.stat().st_size != pin['upstream']['zipBytes'] or digest(archive) != pin['upstream']['zipSha256']:
+        raise ValueError('Derived tool official module ZIP changed')
+    upstream_dir = Path(record['Dir'])
+    cache_before = files(upstream_dir)
+    go_mod_before = digest(Path(record['GoMod']))
+    prefix = tool['module'] + '@' + tool['version'] + '/'
+    suffix = '.exe' if target.startswith('windows-') else ''
+    destination = staging / 'bin' / ('dlv' + suffix)
+    with tempfile.TemporaryDirectory(prefix='dlv-source-', dir=staging.parent) as temporary:
+        source = Path(temporary)
+        with zipfile.ZipFile(archive) as bundle:
+            names = set()
+            total = 0
+            for member in bundle.infolist():
+                if not member.filename.startswith(prefix):
+                    raise ValueError('Module ZIP entry has the wrong upstream prefix')
+                relative = member.filename[len(prefix):]
+                if member.is_dir(): continue
+                parts = relative.split('/')
+                if (not relative or '\\' in relative or ':' in relative or any(part in ('', '.', '..') for part in parts)
+                        or stat.S_ISLNK(member.external_attr >> 16) or relative.casefold() in names):
+                    raise ValueError('Unsafe/duplicate module ZIP entry')
+                names.add(relative.casefold())
+                total += member.file_size
+                if len(names) > 20000 or total > 256 * 1024 * 1024 or member.file_size > 32 * 1024 * 1024:
+                    raise ValueError('Module ZIP exceeds source extraction bounds')
+                output = source.joinpath(*parts)
+                output.parent.mkdir(parents=True, exist_ok=True)
+                output.write_bytes(bundle.read(member))
+        original = files(source)
+        if len(original) != pin['sourceTree']['fileCount'] or tree_digest(original) != pin['sourceTree']['upstreamSha256']:
+            raise ValueError('Authenticated upstream source tree differs')
+        if cache_before != original:
+            raise ValueError('Authenticated source cache differs from official module ZIP')
+        if digest(source / 'go.mod') != tool['goModSha256']:
+            raise ValueError('Authenticated upstream go.mod differs')
+        for relative, expected in pin['sources'].items():
+            if original.get(relative, {}).get('sha256') != expected['upstreamSha256']:
+                raise ValueError('Upstream tool source digest differs: ' + relative)
+        apply_source_patch(inputs['patchPath'], source, pin['patchSha256'])
+        patched = files(source)
+        changed = {name for name in original.keys() | patched.keys() if original.get(name) != patched.get(name)}
+        if changed != set(pin['sources']) or tree_digest(patched) != pin['sourceTree']['patchedSha256']:
+            raise ValueError('Derived tool has undeclared source changes')
+        for relative, expected in pin['sources'].items():
+            if patched[relative]['sha256'] != expected['patchedSha256']:
+                raise ValueError('Patched tool source digest differs: ' + relative)
+        arguments = ['build', '-mod=readonly', '-trimpath', '-buildvcs=false', '-o', str(destination), './cmd/dlv']
+        execute([go, *arguments], environment, source)
+        info = build_info(go, destination, environment, source)
+        if (info.get('module') != {'module': tool['module'], 'version': '(devel)'}
+                or info['goVersion'] != lock['builderVersion']
+                or info['build'].get('GOOS') + '-' + info['build'].get('GOARCH') != target
+                or info['build'].get('CGO_ENABLED') != '0' or info['build'].get('-trimpath') != 'true'
+                or any(key.startswith('vcs') for key in info['build'])):
+            raise ValueError('Derived tool build identity differs')
+        if files(source) != patched:
+            raise ValueError('Derived tool source changed during compilation')
+    directory = staging / 'source-patches/dlv'
+    directory.mkdir(parents=True)
+    shutil.copyfile(inputs['pinPath'], directory / 'pin.json')
+    shutil.copyfile(inputs['patchPath'], directory / 'source.patch')
+    receipt = {'schema': SCHEMA, 'pinSha256': inputs['pinSha256'], 'upstream': pin['upstream'],
+               'patchSha256': pin['patchSha256'], 'changedSources': pin['sources'],
+               'sourceFileCount': len(original),
+               'sourceTreeDigests': {'upstream': tree_digest(original), 'derived': tree_digest(patched)},
+               'artifactSha256': digest(destination), 'buildInfo': info, 'builderVersion': lock['builderVersion'],
+               'builder': {'host': host_target(), 'archiveSha256': lock['builders'][host_target()]['sha256'],
+                           'executableSha256': digest(go)},
+               'command': ['go', *arguments[:5], '<staged-dlv>', './cmd/dlv'],
+               'sourcePatchRunnerSha256': SOURCE_PATCH_RUNNER_SHA256}
+    atomic_json(directory / 'receipt.json', receipt)
+    main = {key: tool[key] for key in ('module', 'version', 'sum')}
+    notices = copy_licenses(go, info, environment, staging, staging / 'licenses', main_module=main)
+    if (files(upstream_dir) != cache_before or digest(Path(record['GoMod'])) != go_mod_before
+            or digest(archive) != pin['upstream']['zipSha256']):
+        raise ValueError('Authenticated module cache changed during derived build/license copy')
+    return {'version': tool['version'], 'executable': destination.relative_to(staging).as_posix(),
+            'sha256': digest(destination), 'buildInfo': info, 'licenses': notices,
+            'distributionKind': 'source-derived',
+            'derivation': {'receipt': (directory / 'receipt.json').relative_to(staging).as_posix(),
+                           'receiptSha256': digest(directory / 'receipt.json'),
+                           'pin': (directory / 'pin.json').relative_to(staging).as_posix(),
+                           'patch': (directory / 'source.patch').relative_to(staging).as_posix()}}
+
+
 def host_target():
     os_name = {'Darwin': 'darwin', 'Windows': 'windows', 'Linux': 'linux'}.get(platform.system())
     arch = {'arm64': 'arm64', 'aarch64': 'arm64', 'x86_64': 'amd64', 'amd64': 'amd64'}.get(platform.machine().lower())
@@ -387,6 +481,7 @@ def host_target():
 def bundle(args):
     lock = json.loads(LOCK.read_text(encoding='utf-8'))
     lock_sha = digest(LOCK)
+    derivations = {name: source_patch_inputs(ROOT, name, tool) for name, tool in lock['tools'].items()}
     if args.target not in lock['sdk'] or host_target() not in lock['builders']:
         raise ValueError('Unsupported target or builder host')
     output = owned(args.output)
@@ -404,7 +499,9 @@ def bundle(args):
                 expected = previous['files']
                 current = files(output); current.pop('manifest.json', None)
                 if (previous['lockSha256'] == lock_sha and previous.get('builderScriptSha256') == SCRIPT_SHA256
-                        and previous['target'] == args.target and expected == current):
+                        and previous['target'] == args.target and expected == current
+                        and previous.get('receiptVerifierSha256') == RECEIPT_VERIFIER_SHA256):
+                    validate_bundle(output, ROOT, previous)
                     return {**previous, 'cacheHit': True, 'output': str(output), 'builderGoExecutable': str(go)}
             except (OSError, ValueError, KeyError):
                 pass
@@ -423,6 +520,9 @@ def bundle(args):
                 progress('Verifying/building ' + name + ' ' + tool['version'] + ' for ' + args.target)
                 record = module_info(go, tool, environment, temporary)
                 execute([go, 'mod', 'verify'], environment, Path(record['Dir']))
+                if derivations[name] is not None:
+                    tools[name] = build_derived_tool(go, tool, record, environment, temporary, args.target, derivations[name], lock)
+                    continue
                 execute([go, 'install', '-trimpath', '-buildvcs=false', tool['package'] + '@' + tool['version']], environment, temporary)
                 suffix = '.exe' if args.target.startswith('windows-') else ''
                 directory = Path(environment['GOPATH']) / 'bin'
@@ -437,13 +537,17 @@ def bundle(args):
                 notices = copy_licenses(go, info, environment, temporary, temporary / 'licenses')
                 tools[name] = {'version': tool['version'], 'executable': destination.relative_to(temporary).as_posix(), 'sha256': digest(destination), 'buildInfo': info, 'licenses': notices}
             payload = files(temporary)
-            if lock_sha != digest(LOCK) or SCRIPT_SHA256 != digest(Path(__file__)):
+            if (lock_sha != digest(LOCK) or SCRIPT_SHA256 != digest(Path(__file__))
+                    or SOURCE_PATCH_RUNNER_SHA256 != digest(ROOT / 'scripts/source_patch.py')
+                    or RECEIPT_VERIFIER_SHA256 != digest(ROOT / 'scripts/go_tool_receipts.py')):
                 raise ValueError('Tool builder source or lock changed during the build')
             manifest = {'schemaVersion': 1, 'lockSha256': lock_sha, 'builderScriptSha256': SCRIPT_SHA256, 'target': args.target,
                         'runtimeSdkVersion': lock['runtimeSdkVersion'], 'builderVersion': lock['builderVersion'],
+                        'receiptVerifierSha256': RECEIPT_VERIFIER_SHA256,
                         'tools': tools, 'derivedSdkTools': derived_sdk_tools, 'files': payload,
                         'scope': 'Complete official SDK with an independently compiled official test2json added only to its staged tool directory, plus checksum-verified source-built language/debug tools; runtime tests recorded separately.'}
             atomic_json(temporary / 'manifest.json', manifest)
+            validate_bundle(temporary, ROOT, manifest)
             backup = None
             if output.exists():
                 backup = Path(tempfile.mkdtemp(prefix='previous-tools-', dir=output.parent))

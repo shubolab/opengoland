@@ -8,11 +8,13 @@ editor behavior. Only the subprocess/session started here is terminated.
 
 import json
 import os
+from pathlib import Path
 import queue
 import signal
 import subprocess
 import threading
 import time
+from go_tool_receipts import validate_bundle
 
 
 def process_options():
@@ -56,6 +58,7 @@ def _stop_owned(process):
 
 def engine_work(engine, go, env, workspace, output):
     """Create a new scratch project and retain wire/stderr under output."""
+    receipt_checks = validate_bundle(Path(go).parent.parent.parent, Path(__file__).resolve().parent.parent)
     output.mkdir(parents=True, exist_ok=True)
     workspace.mkdir(parents=True)
     (workspace / "go.mod").write_text("module example.org/installedsmoke\n\ngo 1.26.0\n", encoding="utf-8")
@@ -141,7 +144,8 @@ def engine_work(engine, go, env, workspace, output):
         process.wait(timeout=20)
         if process.returncode != 0:
             raise AssertionError("Engine did not shut down normally")
-        return {"pid": process.pid, "exitCode": process.returncode, "test": "TestBundledInstalledRuntime", "testCount": 1, "cached": False}
+        return {"pid": process.pid, "exitCode": process.returncode, "test": "TestBundledInstalledRuntime", "testCount": 1, "cached": False,
+                "bundledToolReceiptChecks": receipt_checks}
     finally:
         _stop_owned(process)
         reader.join(timeout=5)
