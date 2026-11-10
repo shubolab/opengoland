@@ -33,6 +33,8 @@ class GoLanguageServerFactory : LanguageServerFactory {
             setDocumentSymbolFeature(GoDocumentSymbolFeature())
             setSemanticTokensFeature(GoBuildContextSemanticTokensFeature())
             setCodeActionFeature(GoBuildContextCodeActionFeature())
+            setInlayHintFeature(GoBuildContextInlayHintFeature())
+            setDocumentHighlightFeature(GoBuildContextDocumentHighlightFeature())
             // Find Usages locates references and declarations. Type definitions
             // and implementations remain available through their own actions;
             // gopls legitimately rejects those queries on ordinary functions.

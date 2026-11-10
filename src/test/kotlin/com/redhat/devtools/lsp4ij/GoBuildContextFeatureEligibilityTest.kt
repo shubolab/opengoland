@@ -35,6 +35,12 @@ import org.eclipse.lsp4j.CodeActionContext
 import org.eclipse.lsp4j.CodeActionParams
 import org.eclipse.lsp4j.ClientCapabilities
 import org.eclipse.lsp4j.Command
+import org.eclipse.lsp4j.DocumentHighlight
+import org.eclipse.lsp4j.DocumentHighlightKind
+import org.eclipse.lsp4j.DocumentHighlightParams
+import org.eclipse.lsp4j.InlayHint
+import org.eclipse.lsp4j.InlayHintParams
+import org.eclipse.lsp4j.InlayHintRegistrationOptions
 import org.eclipse.lsp4j.InitializeParams
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.Range
@@ -83,7 +89,7 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
                 checking += f.providers(f.host, kind)
             }
             assertEquals(GoRunBuildStatus.CHECKING, GoRunBuildContextService.get(f.owner).lookup(f.host).status)
-            assertTrue("Both before filters must inspect the actual registered started wrapper", f.beforeExisting.get() >= 2)
+            assertTrue("Every before filter must inspect the actual registered started wrapper", f.beforeExisting.get() >= Kind.entries.size)
             assertTrue(f.wrapper.requests.isEmpty())
         }
         checking.forEach { assertTrue("The before filter must reject its CHECKING generation", it.get(10, TimeUnit.SECONDS).isEmpty()) }
@@ -92,7 +98,7 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
             assertTrue(f.leafSupported(f.host, kind))
             assertEquals(1, f.dispatch(f.host, kind).get(10, TimeUnit.SECONDS))
         }
-        assertEquals(setOf("semanticTokensFull", "codeAction"), f.wrapper.requests.map { it.first }.toSet())
+        assertEquals(setOf("semanticTokensFull", "codeAction", "inlayHint", "documentHighlight"), f.wrapper.requests.map { it.first }.toSet())
     }
 
     fun testIgnoredFileHasNoSemanticOrActionRpcWhileAnotherActiveFileStillUsesTheProvider() = fixture { f ->
@@ -126,7 +132,7 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
             assertTrue("A real RPC failure must not become a successful empty result", error is ExecutionException)
             assertSame(f.wrapper.failure, error?.cause)
         }
-        assertEquals(2, f.wrapper.requests.size)
+        assertEquals(Kind.entries.size, f.wrapper.requests.size)
     }
 
     fun testActualSdkInvalidGoFileDoesNotBecomeAnExcludedFeature() = fixture { f ->
@@ -144,22 +150,22 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
         val requestsBefore = f.wrapper.requests.size
         val beforeChecks = f.beforeExisting.get()
         val held = Kind.entries.map { f.providers(f.extra, it) }
-        assertTrue("Both real accessor calls must enter getInitializedServer", f.wrapper.awaitHeldInitializationEntries())
+        assertTrue("Every real accessor call must enter getInitializedServer", f.wrapper.awaitHeldInitializationEntries())
         assertTrue(held.none { it.isDone })
-        assertTrue(f.beforeExisting.get() >= beforeChecks + 2)
-        assertTrue("The real accessor must be waiting for initialized servers", f.wrapper.initializationRequests.get() >= 2)
+        assertTrue(f.beforeExisting.get() >= beforeChecks + Kind.entries.size)
+        assertTrue("The real accessor must be waiting for initialized servers", f.wrapper.initializationRequests.get() >= Kind.entries.size)
 
         f.tags("")
         f.await(f.extra, GoRunBuildStatus.IGNORED)
         f.wrapper.releaseInitialization()
         held.forEach { assertTrue("After filter must not use the old active decision", it.get(10, TimeUnit.SECONDS).isEmpty()) }
         assertEquals(requestsBefore, f.wrapper.requests.size)
-        assertTrue(f.afterExisting.get() >= 2)
+        assertTrue(f.afterExisting.get() >= Kind.entries.size)
 
         f.tags("native_extra")
         f.await(f.extra, GoRunBuildStatus.ACTIVE)
         for (kind in Kind.entries) assertEquals(1, f.dispatch(f.extra, kind).get(10, TimeUnit.SECONDS))
-        assertEquals(requestsBefore + 2, f.wrapper.requests.size)
+        assertEquals(requestsBefore + Kind.entries.size, f.wrapper.requests.size)
     }
 
     fun testDirtyBuildConstraintAndActualUndoInvalidateMembershipWithoutSavingTheSource() = fixture { f ->
@@ -261,6 +267,8 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
                 read {
                     assertFalse(f.wrapper.features.semanticTokensFeature.isEnabled(f.host))
                     assertFalse(f.wrapper.features.codeActionFeature.isEnabled(f.host))
+                    assertFalse(f.wrapper.features.inlayHintFeature.isEnabled(f.host))
+                    assertFalse(f.wrapper.features.documentHighlightFeature.isEnabled(f.host))
                 }
                 f.wrapper.releaseInitialization()
                 held.forEach { pending ->
@@ -281,7 +289,7 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
         }
     }
 
-    private enum class Kind { SEMANTIC, ACTION }
+    private enum class Kind { SEMANTIC, ACTION, INLAY, HIGHLIGHT }
 
     private inner class Fixture(val owner: Project, val root: Path, val wrapper: OwnedWrapper,
                                 val lifetime: Disposable, val accessor: LanguageServiceAccessor) {
@@ -294,6 +302,13 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
             when (kind) {
                 Kind.SEMANTIC -> wrapper.features.semanticTokensFeature.isSemanticTokensSupported(file)
                 Kind.ACTION -> wrapper.features.codeActionFeature.isCodeActionSupported(file)
+                Kind.INLAY -> wrapper.features.inlayHintFeature.let { feature ->
+                    val supported = feature.isInlayHintSupported(file)
+                    assertEquals("Inlay resolve must honor the same membership and initialize epoch", supported,
+                        feature.isResolveInlayHintSupported(file))
+                    supported
+                }
+                Kind.HIGHLIGHT -> wrapper.features.documentHighlightFeature.isDocumentHighlightSupported(file)
             }
         }
 
@@ -314,12 +329,16 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
                 when (kind) {
                     Kind.SEMANTIC -> features.semanticTokensFeature.isEnabled(file)
                     Kind.ACTION -> features.codeActionFeature.isEnabled(file)
+                    Kind.INLAY -> features.inlayHintFeature.isEnabled(file)
+                    Kind.HIGHLIGHT -> features.documentHighlightFeature.isEnabled(file)
                 }
             }, { features ->
                 if (features === wrapper.features) afterExisting.incrementAndGet()
                 when (kind) {
                     Kind.SEMANTIC -> features.semanticTokensFeature.isSupported(file)
                     Kind.ACTION -> features.codeActionFeature.isSupported(file)
+                    Kind.INLAY -> features.inlayHintFeature.isSupported(file)
+                    Kind.HIGHLIGHT -> features.documentHighlightFeature.isSupported(file)
                 }
             })
         }
@@ -335,6 +354,9 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
                     Kind.SEMANTIC -> wrapper.remote.textDocumentService.semanticTokensFull(SemanticTokensParams(id))
                     Kind.ACTION -> wrapper.remote.textDocumentService.codeAction(CodeActionParams(id,
                         Range(Position(0, 0), Position(0, 0)), CodeActionContext(emptyList())))
+                    Kind.INLAY -> wrapper.remote.textDocumentService.inlayHint(InlayHintParams(id,
+                        Range(Position(0, 0), Position(0, 0))))
+                    Kind.HIGHLIGHT -> wrapper.remote.textDocumentService.documentHighlight(DocumentHighlightParams(id, Position(0, 0)))
                 }
                 rpc.thenApply { 1 }
             }
@@ -414,6 +436,8 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
         @Volatile private var heldInitializationEntries: CountDownLatch? = null
         private val capabilities = ServerCapabilities().apply {
             codeActionProvider = Either.forLeft(true)
+            inlayHintProvider = Either.forRight(InlayHintRegistrationOptions().apply { resolveProvider = true })
+            setDocumentHighlightProvider(true)
             semanticTokensProvider = SemanticTokensWithRegistrationOptions().apply {
                 legend = SemanticTokensLegend(listOf("variable"), emptyList())
                 full = Either.forLeft(true)
@@ -432,6 +456,19 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
                     requests += method.name to (args[0] as CodeActionParams).textDocument.uri
                     failure?.let { CompletableFuture.failedFuture<List<Either<Command, CodeAction>>>(it) }
                         ?: CompletableFuture.completedFuture(listOf(Either.forRight<Command, CodeAction>(CodeAction("owned action"))))
+                }
+                "inlayHint" -> {
+                    requests += method.name to (args[0] as InlayHintParams).textDocument.uri
+                    failure?.let { CompletableFuture.failedFuture<List<InlayHint>>(it) }
+                        ?: CompletableFuture.completedFuture(listOf(InlayHint().apply {
+                            position = Position(0, 0); label = Either.forLeft("owned hint")
+                        }))
+                }
+                "documentHighlight" -> {
+                    requests += method.name to (args[0] as DocumentHighlightParams).textDocument.uri
+                    failure?.let { CompletableFuture.failedFuture<List<DocumentHighlight>>(it) }
+                        ?: CompletableFuture.completedFuture(listOf(DocumentHighlight(
+                            Range(Position(0, 0), Position(0, 1)), DocumentHighlightKind.Read)))
                 }
                 "hashCode" -> System.identityHashCode(proxy)
                 "equals" -> proxy === args.firstOrNull()
@@ -461,7 +498,7 @@ class GoBuildContextFeatureEligibilityTest : LightPlatformTestCase() {
         }
         fun holdInitialization() {
             check(heldInitialization == null)
-            heldInitializationEntries = CountDownLatch(2)
+            heldInitializationEntries = CountDownLatch(Kind.entries.size)
             heldInitialization = CompletableFuture()
         }
         fun awaitHeldInitializationEntries() = requireNotNull(heldInitializationEntries).await(10, TimeUnit.SECONDS)

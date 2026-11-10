@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "status": "sdk-fix-and-negative-controls-verified-full-native-public-pending",
+  "baseCommit": "b5083987d41ed5bc17087e7f0c703b81fe900c85",
+  "fixedWorkingTreeSourceFiles": 504,
+  "fixedWorkingTreeSourceDigest": "b989beab9445aac03eca30b54be4f17851433519b158255ad14adc2944928ffd",
+  "observedNativeFailure": {
+    "summary": ".tools/excluded-lsp-native-plan/runtime/session-final.json",
+    "sha256": "4cbe271c2cd7907c0a8e2d811b8d9bd523296a85b6ce14d3faafcc262dd1216a",
+    "hostEvidenceId": "ev_b6a2814583eb97b573da41cd647b68861b2abfb0bc5d4f9d5e341aa95946f2d8",
+    "excludedEvidenceId": "ev_07e3ae9f3db4840ce34a805b44b1ed9c5c447698ac50d4cf25284bc5ba625945",
+    "observation": "On b508, native first-open host semanticTokens/full request11 and codeAction9/12/13 returned without errors. Excluded extra_test.go issued inlayHint17 with RPC Error code0 and a visible package-metadata balloon; documentHighlight15 returned normally but emitted a gopls error-level no-package log. These failures remain historical evidence, not current fixed native acceptance."
+  },
+  "independentSourceReview": {
+    "path": ".tools/excluded-inlay-highlight-reviews/review-v3-20261110T183153Z.json",
+    "sha256": "78fdf310b06fcbcb5c15ed0c7d9620699889fa92c3e10e7c996fe983c8362817"
+  },
+  "implementation": {
+    "eligibility": "Add selected-Go metadata and current initialize-epoch checks to inlayHint full/resolve and documentHighlight; CHECKING/IGNORED defer requests, ACTIVE/INVALID/ERROR preserve genuine provider behavior. Non-Go language paths retain superclass decisions.",
+    "cache": "Metadata completion/invalidation and the existing current-server started callback invalidate the same semantic/action/inlay/highlight supports on a pool thread outside read lock. Document sync/diagnostics remain attached.",
+    "ui": "The single guarded UI callback enumerates only existing cached documents and current project editor views; each live view uses the public declarative recompute API. No filesystem loading or RPC cancellation is performed on EDT.",
+    "scope": "Direct cancellation covers the four request supports for observing Go files and may include multiple matching providers. The public platform API resets all declarative providers in a target editor and restarts project daemon analysis, which can indirectly cancel/restart analysis elsewhere. Stale queued refreshes may conservatively cancel a newer request; zero redundant cancellation is not claimed."
+  },
+  "sdkEvidence": {
+    "firstOld": ".tools/excluded-inlay-feature-controls/actual-old-b508-001/review.json",
+    "firstOldBoundary": "Actual15:9 genuine assertions,2 fixture lock timeouts not counted as genuine,4pass. Preserved unchanged.",
+    "finalOld": ".tools/excluded-inlay-feature-controls/actual-old-b508-002/review.json",
+    "finalOldCounts": {
+      "actual": 15,
+      "failure": 11,
+      "pass": 4,
+      "fixtureTimeout": 0
+    },
+    "fixedResult": ".tools/excluded-inlay-feature-controls/actual-fixed-v3-001/result.json",
+    "fixedResultSha256": "9dc5fbde581b30d17c9a3c1a164bcaf8b85dfe9b1e9ef1d0d6b4ac262119ece2",
+    "fixedCounts": {
+      "actual": 15,
+      "failure": 0,
+      "pass": 15
+    },
+    "boundary": "Actual pinned SDK/accessor/support and selected Go metadata; controlled protocol peer. Same-support cache recovery does not establish native declarative presentation recovery.",
+    "actualSelectedGoAndSdkScope": "Real selected-Go metadata plus real pinned SDK supports/accessor. Protocol peer responses are controlled; inlay/full/resolve and highlight gates retain error propagation, unsaved constraint/Undo and disposal checks."
+  },
+  "negativeControls": {
+    "status": "three-genuine-cache-negative-controls-verified-and-source-restored",
+    "summarySha256": "51f8460fd02248d7236ab10127b026bdbf94ab591095640923e432639733729a",
+    "variants": [
+      {
+        "mode": "without-inlay-cache-cancel",
+        "sourceFiles": 504,
+        "sourceDigest": "a16c381f5c4225ffdf6b86152759add7102231efb8caa327e02864d5136c785c",
+        "method": "testFirstCheckingNullAndEmptyCachesWakeOnActualMetadataCompletionWithoutReplacingSupports",
+        "failureMessage": "java.lang.IllegalStateException: Same SDK feature caches did not reach positive=true",
+        "actualXml": [
+          {
+            "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-feature-controls/negative-controls/actual-v3-001--without-inlay-cache-cancel/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+            "bytes": 24526,
+            "sha256": "ee333cfdca23b0d9578cf7c862ac29eb01c95da7715274fa6e37b24666e4c381"
+          }
+        ],
+        "actualGradleExitCode": 1,
+        "runtimeFresh": true,
+        "allOwnedGone": true,
+        "signals": [],
+        "restorationReceipt": {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-feature-controls/negative-controls/orchestration-actual-v3-001/without-inlay-cache-cancel/restored-gold-source.json",
+          "bytes": 1240,
+          "sha256": "0c750f783900bfcc53878b6d219388286f3d6a7b3cb2aee0f6af6d3839e0a57a"
+        }
+      },
+      {
+        "mode": "without-highlight-cache-cancel",
+        "sourceFiles": 504,
+        "sourceDigest": "e3a007c1fef2d7597eff7a9406fe1072e361aab87a4f69a1d564ca899fd81aa4",
+        "method": "testActualHighlightSupportFollowsTagsWithoutChangingItsPositionDocumentOrOwner",
+        "failureMessage": "java.lang.AssertionError: Same native highlight support must reach positive=false",
+        "actualXml": [
+          {
+            "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-feature-controls/negative-controls/actual-v3-001--without-highlight-cache-cancel/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+            "bytes": 26066,
+            "sha256": "9b2638e2b82f2ce7e7d1dff735e6bf57cd727d3c42050861faceda890c1ddd9a"
+          }
+        ],
+        "actualGradleExitCode": 1,
+        "runtimeFresh": true,
+        "allOwnedGone": true,
+        "signals": [],
+        "restorationReceipt": {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-feature-controls/negative-controls/orchestration-actual-v3-001/without-highlight-cache-cancel/restored-gold-source.json",
+          "bytes": 1240,
+          "sha256": "6fb1e7bf4ca9b5d40cf4b4007bd0689403fdb4c942dab419a3ec2899654ae493"
+        }
+      },
+      {
+        "mode": "without-current-server-started-refresh",
+        "sourceFiles": 504,
+        "sourceDigest": "25bcaf9710f5b19ee1ffa1072037f039cb08a2539034eb74a9b9ce77a7fbccd8",
+        "method": "testCurrentServerStartedEventWakesEmptyCachesLeftByAnOldInitializeEpoch",
+        "failureMessage": "java.lang.IllegalStateException: Same SDK feature caches did not reach positive=true",
+        "actualXml": [
+          {
+            "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-feature-controls/negative-controls/actual-v3-001--without-current-server-started-refresh/actual-TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+            "bytes": 25459,
+            "sha256": "9aada25afb8ab8951c6edfa8760e3bc75b147bbd7daa915b6816d48bf68bc02c"
+          }
+        ],
+        "actualGradleExitCode": 1,
+        "runtimeFresh": true,
+        "allOwnedGone": true,
+        "signals": [],
+        "restorationReceipt": {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-feature-controls/negative-controls/orchestration-actual-v3-001/without-current-server-started-refresh/restored-gold-source.json",
+          "bytes": 1240,
+          "sha256": "93823495e87b29d3909d0220a72c0738084413401c5e628e3cf2adcb33c3a3e9"
+        }
+      }
+    ],
+    "finalSourceFiles": 504,
+    "finalSourceDigest": "b989beab9445aac03eca30b54be4f17851433519b158255ad14adc2944928ffd",
+    "compiledOutputsRestoredOrVerified": false,
+    "nextAction": "Commit clean exact gold source, then execute fresh full test/buildPlugin with --rerun-tasks and fresh Go race/vet before packaging.",
+    "atUtc": "2026-11-10T18:49:51.217256+00:00"
+  },
+  "fullChecks": "pending-current-fix; b508 full785 is historical source only",
+  "fixedNative": "pending-actual",
+  "bothPlatformPublicInstallers": "pending-actual; no v6 tag/Release was created",
+  "fullProductAcceptance": "Full36-by2 GoLand matrix remains open",
+  "atUtc": "2026-11-10T18:49:51.218727+00:00"
+}

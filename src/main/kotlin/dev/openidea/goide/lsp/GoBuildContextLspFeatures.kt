@@ -1,13 +1,18 @@
 package dev.openidea.goide.lsp
 
 import com.intellij.codeInsight.daemon.DaemonCodeAnalyzer
+import com.intellij.codeInsight.hints.declarative.impl.DeclarativeInlayHintsPassFactory
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.application.ReadAction
+import com.intellij.openapi.editor.EditorFactory
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.fileEditor.FileDocumentManager
 import com.intellij.psi.PsiFile
 import com.intellij.util.concurrency.AppExecutorUtil
 import com.redhat.devtools.lsp4ij.LSPFileSupport
 import com.redhat.devtools.lsp4ij.client.features.LSPCodeActionFeature
+import com.redhat.devtools.lsp4ij.client.features.LSPDocumentHighlightFeature
+import com.redhat.devtools.lsp4ij.client.features.LSPInlayHintFeature
 import com.redhat.devtools.lsp4ij.client.features.LSPSemanticTokensFeature
 import dev.openidea.goide.lang.GoLanguage
 import dev.openidea.goide.run.GoRunBuildContextService
@@ -52,7 +57,24 @@ internal class GoBuildContextCodeActionFeature : LSPCodeActionFeature() {
         super.isCodeActionSupported(file)
 }
 
-/** Metadata can change without a PSI edit, while these SDK supports cache by PSI stamp. */
+internal class GoBuildContextInlayHintFeature : LSPInlayHintFeature() {
+    override fun isEnabled(file: PsiFile) = super.isEnabled(file) && GoLspBuildContextEligibility.isEnabled(file)
+    override fun isInlayHintSupported(file: PsiFile) = GoLspBuildContextEligibility.isEnabled(file) &&
+        (file.language != GoLanguage || (clientFeatures as? GoLspBuildContextEpoch)?.isBuildContextCurrent() != false) &&
+        super.isInlayHintSupported(file)
+    override fun isResolveInlayHintSupported(file: PsiFile) = GoLspBuildContextEligibility.isEnabled(file) &&
+        (file.language != GoLanguage || (clientFeatures as? GoLspBuildContextEpoch)?.isBuildContextCurrent() != false) &&
+        super.isResolveInlayHintSupported(file)
+}
+
+internal class GoBuildContextDocumentHighlightFeature : LSPDocumentHighlightFeature() {
+    override fun isEnabled(file: PsiFile) = super.isEnabled(file) && GoLspBuildContextEligibility.isEnabled(file)
+    override fun isDocumentHighlightSupported(file: PsiFile) = GoLspBuildContextEligibility.isEnabled(file) &&
+        (file.language != GoLanguage || (clientFeatures as? GoLspBuildContextEpoch)?.isBuildContextCurrent() != false) &&
+        super.isDocumentHighlightSupported(file)
+}
+
+/** Build membership can change without a source edit; refresh the dependent Go features. */
 internal object GoBuildContextLspRefresh {
     fun refresh(project: Project, files: List<PsiFile>) {
         if (project.isDisposed) return
@@ -68,10 +90,28 @@ internal object GoBuildContextLspRefresh {
             supports.forEach {
                 it.semanticTokensSupport.cancel()
                 it.intentionCodeActionSupport.cancel()
+                it.inlayHintsSupport.cancel()
+                it.highlightSupport.cancel()
             }
             ApplicationManager.getApplication().invokeLater {
-                if (!project.isDisposed) files.filter { it.isValid }.forEach {
-                    DaemonCodeAnalyzer.getInstance(project).restart(it)
+                if (!project.isDisposed) {
+                    // Enumerate current views here so a split/reopened editor cannot miss
+                    // the reset. Both APIs only read existing in-memory documents/editors.
+                    supports.map { it.file }.filter { it.isValid }.forEach { file ->
+                        file.virtualFile?.let { virtualFile ->
+                            FileDocumentManager.getInstance().getCachedDocument(virtualFile)?.let { document ->
+                                EditorFactory.getInstance().getEditors(document, project)
+                                    .filter { !it.isDisposed }.forEach {
+                                        // Public platform API resets this editor's declarative
+                                        // stamp and requests project-level daemon analysis.
+                                        DeclarativeInlayHintsPassFactory.scheduleRecompute(it, project)
+                                    }
+                            }
+                        }
+                    }
+                    files.filter { it.isValid }.forEach {
+                        DaemonCodeAnalyzer.getInstance(project).restart(it)
+                    }
                 }
             }
         }

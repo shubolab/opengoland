@@ -3,6 +3,7 @@ package com.redhat.devtools.lsp4ij
 import com.intellij.openapi.application.ReadAction
 import com.intellij.openapi.application.WriteAction
 import com.intellij.openapi.application.WriteIntentReadAction
+import com.intellij.openapi.editor.ex.DocumentEx
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.LocalFileSystem
@@ -16,6 +17,8 @@ import com.intellij.testFramework.LightPlatformTestCase
 import com.intellij.testFramework.PlatformTestUtil
 import com.intellij.util.xmlb.XmlSerializerUtil
 import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
+import com.redhat.devtools.lsp4ij.client.features.FileUriSupport
+import com.redhat.devtools.lsp4ij.features.highlight.LSPDocumentHighlightParams
 import com.redhat.devtools.lsp4ij.server.definition.LanguageServerDefinition
 import dev.openidea.goide.lsp.GoLanguageServerFactory
 import dev.openidea.goide.run.GoRunBuildContextService
@@ -27,6 +30,12 @@ import org.eclipse.lsp4j.CodeAction
 import org.eclipse.lsp4j.CodeActionContext
 import org.eclipse.lsp4j.CodeActionParams
 import org.eclipse.lsp4j.Command
+import org.eclipse.lsp4j.DocumentHighlight
+import org.eclipse.lsp4j.DocumentHighlightKind
+import org.eclipse.lsp4j.DocumentHighlightParams
+import org.eclipse.lsp4j.InlayHint
+import org.eclipse.lsp4j.InlayHintParams
+import org.eclipse.lsp4j.InlayHintRegistrationOptions
 import org.eclipse.lsp4j.InitializeParams
 import org.eclipse.lsp4j.Position
 import org.eclipse.lsp4j.Range
@@ -52,7 +61,7 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
 
 /**
- * Actual LSPFileSupport semantic/intention caches and actual selected-SDK metadata.
+ * Actual LSPFileSupport semantic/intention/inlay caches and actual selected-SDK metadata.
  * No test calls cancel(), replaces a support, or invokes the new refresh helper.
  * Only the protocol peer is controlled. Re-querying the same support proves its
  * cache was invalidated; this is not a native UI/daemon automatically issuing RPC proof.
@@ -66,21 +75,25 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         val stamp = read { f.host.modificationStamp }
         write {
             assertEquals(GoRunBuildStatus.CHECKING, GoRunBuildContextService.get(project).lookup(f.host).status)
+            assertCheckingInlayRejected(f.host, f.wrapper)
             cache = CachedFeatures(f.host)
             first = cache.query()
             assertEmpty(first)
             val again = cache.query()
             assertSame("Semantic null is a real cached SDK future", first.semantic, again.semantic)
             assertSame("Intention empty list is a real cached SDK future", first.actions, again.actions)
+            assertSame("Inlay empty list is a real cached SDK future", first.inlays, again.inlays)
             assertEquals(0, f.wrapper.rpcCount.get())
         }
         f.await(f.host, GoRunBuildStatus.ACTIVE)
         val ready = awaitResult(cache, positive = true)
         assertNotSame(first.semantic, ready.semantic)
         assertNotSame(first.actions, ready.actions)
+        assertNotSame(first.inlays, ready.inlays)
         assertEquals("No edit may accidentally invalidate the cache for this test", stamp, read { f.host.modificationStamp })
         assertTrue(f.wrapper.semanticCount.get() > 0)
         assertTrue(f.wrapper.actionCount.get() > 0)
+        assertTrue(f.wrapper.inlayCount.get() > 0)
         cache.assertSameSupports()
     }
 
@@ -97,6 +110,7 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         val excluded = awaitResult(cache, positive = false)
         assertNotSame(initial.semantic, excluded.semantic)
         assertNotSame(initial.actions, excluded.actions)
+        assertNotSame(initial.inlays, excluded.inlays)
         val issued = f.wrapper.rpcCount.get()
         assertEmpty(cache.query())
         assertEquals("An excluded cached support cannot send another RPC", issued, f.wrapper.rpcCount.get())
@@ -107,8 +121,37 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         val restored = awaitResult(cache, positive = true)
         assertNotSame(excluded.semantic, restored.semantic)
         assertNotSame(excluded.actions, restored.actions)
+        assertNotSame(excluded.inlays, restored.inlays)
         assertEquals(stamp, read { f.extra.modificationStamp })
         cache.assertSameSupports()
+    }
+
+    fun testActualHighlightSupportFollowsTagsWithoutChangingItsPositionDocumentOrOwner() = fixture { f ->
+        f.tags("native_extra")
+        f.wrapper.initializeFeatures()
+        f.await(f.extra, GoRunBuildStatus.ACTIVE)
+        val cache = CachedHighlights(f.extra, f.wrapper)
+        val initial = awaitHighlights(cache, positive = true)
+        cache.captureConnectedOwner()
+        val initialIssued = f.wrapper.highlightCount.get()
+        assertTrue("A real SDK highlight support must reach the owned RPC", initialIssued > 0)
+
+        f.tags("")
+        f.wrapper.initializeFeatures()
+        f.await(f.extra, GoRunBuildStatus.IGNORED)
+        val excluded = awaitHighlights(cache, positive = false)
+        assertNotSame("The prior positive result cannot remain visible for an excluded source", initial, excluded)
+        val excludedIssued = f.wrapper.highlightCount.get()
+        repeat(3) { assertTrue(awaitHighlights(cache, positive = false).get(10, TimeUnit.SECONDS).isEmpty()) }
+        assertEquals("Excluded sources must not send highlight RPCs", excludedIssued, f.wrapper.highlightCount.get())
+
+        f.tags("native_extra")
+        f.wrapper.initializeFeatures()
+        f.await(f.extra, GoRunBuildStatus.ACTIVE)
+        val restored = awaitHighlights(cache, positive = true)
+        assertNotSame(excluded, restored)
+        assertTrue("The same support must issue a real RPC after reactivation", f.wrapper.highlightCount.get() > excludedIssued)
+        cache.assertSameInputsAndSupport()
     }
 
     fun testCurrentServerStartedEventWakesEmptyCachesLeftByAnOldInitializeEpoch() = fixture { f ->
@@ -119,6 +162,7 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         lateinit var firstChecking: Replies
         write {
             assertEquals(GoRunBuildStatus.CHECKING, GoRunBuildContextService.get(project).lookup(host).status)
+            assertCheckingInlayRejected(host, f.wrapper)
             cache = CachedFeatures(host)
             firstChecking = cache.query()
             assertEmpty(firstChecking)
@@ -136,6 +180,7 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         lateinit var checking: Replies
         write {
             assertEquals(GoRunBuildStatus.CHECKING, GoRunBuildContextService.get(project).lookup(f.host).status)
+            assertCheckingInlayRejected(f.host, f.wrapper)
             checking = cache.query()
             assertEmpty(checking)
         }
@@ -152,12 +197,14 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         val beforeStarted = cache.query()
         assertSame(empty.semantic, beforeStarted.semantic)
         assertSame(empty.actions, beforeStarted.actions)
+        assertSame(empty.inlays, beforeStarted.inlays)
         assertEmpty(beforeStarted)
         assertEquals(issued, f.wrapper.rpcCount.get())
         f.wrapper.features.handleServerStatusChanged(ServerStatus.started)
         val ready = awaitResult(cache, positive = true)
         assertNotSame(empty.semantic, ready.semantic)
         assertNotSame(empty.actions, ready.actions)
+        assertNotSame(empty.inlays, ready.inlays)
         cache.assertSameSupports()
     }
 
@@ -172,6 +219,9 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         read {
             assertTrue(f.wrapper.features.semanticTokensFeature.isSemanticTokensSupported(mod))
             assertTrue(f.wrapper.features.codeActionFeature.isCodeActionSupported(work))
+            assertTrue(f.wrapper.features.inlayHintFeature.isInlayHintSupported(mod))
+            assertTrue(f.wrapper.features.inlayHintFeature.isResolveInlayHintSupported(mod))
+            assertTrue(f.wrapper.features.documentHighlightFeature.isDocumentHighlightSupported(work))
         }
         edt {
             GoProjectSettings.get(project).environment += "\nOWNED_MANIFEST_EPOCH=changed"
@@ -183,6 +233,9 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
             for (file in listOf(mod, work)) {
                 assertTrue(f.wrapper.features.semanticTokensFeature.isSemanticTokensSupported(file))
                 assertTrue(f.wrapper.features.codeActionFeature.isCodeActionSupported(file))
+                assertTrue(f.wrapper.features.inlayHintFeature.isInlayHintSupported(file))
+                assertTrue(f.wrapper.features.inlayHintFeature.isResolveInlayHintSupported(file))
+                assertTrue(f.wrapper.features.documentHighlightFeature.isDocumentHighlightSupported(file))
             }
         }
         awaitResult(modCache, positive = true)
@@ -191,43 +244,146 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
             project.getServiceIfCreated(GoRunBuildContextService::class.java))
     }
 
-    private data class Replies(val semantic: CompletableFuture<*>, val actions: CompletableFuture<*>)
+    private data class Replies(val semantic: CompletableFuture<*>, val actions: CompletableFuture<*>, val inlays: CompletableFuture<*>)
 
     private inner class CachedFeatures(val file: PsiFile) {
         private val support = read { LSPFileSupport.getSupport(file) }
         private val semantic = read { support.semanticTokensSupport }
         private val actions = read { support.intentionCodeActionSupport }
+        private val inlays = read { support.inlayHintsSupport }
         private val tokens = SemanticTokensParams(TextDocumentIdentifier(file.virtualFile.url))
         private val codes = CodeActionParams(TextDocumentIdentifier(file.virtualFile.url),
             Range(Position(0, 0), Position(0, 0)), CodeActionContext(emptyList()))
+        private val hints = InlayHintParams(TextDocumentIdentifier(file.virtualFile.url),
+            Range(Position(0, 0), Position(0, 0)))
 
         fun query(): Replies = read {
             assertSame(semantic, support.semanticTokensSupport)
             assertSame(actions, support.intentionCodeActionSupport)
-            Replies(semantic.getSemanticTokens(tokens), actions.getCodeActions(codes))
+            assertSame(inlays, support.inlayHintsSupport)
+            Replies(semantic.getSemanticTokens(tokens), actions.getCodeActions(codes), inlays.getInlayHints(hints))
         }
         fun assertSameSupports() = read {
             assertSame(support, LSPFileSupport.getSupport(file))
             assertSame(semantic, support.semanticTokensSupport)
             assertSame(actions, support.intentionCodeActionSupport)
+            assertSame(inlays, support.inlayHintsSupport)
         }
         fun hasReleased(replies: Replies): Boolean = read {
-            semantic.future !== replies.semantic && actions.future !== replies.actions
+            semantic.future !== replies.semantic && actions.future !== replies.actions && inlays.future !== replies.inlays
         }
+    }
+
+    private inner class CachedHighlights(val file: PsiFile, val wrapper: OwnedWrapper) {
+        private val support = read { LSPFileSupport.getSupport(file) }
+        private val highlights = read { support.highlightSupport }
+        private val document = read { requireNotNull(PsiDocumentManager.getInstance(project).getDocument(file)) as DocumentEx }
+        private val stamp = read { file.modificationStamp }
+        private val sequence = read { document.modificationSequence }
+        private val offset = read { document.text.indexOf("TestExtra").also { check(it >= 0) } }
+        private val params = read { LSPDocumentHighlightParams(TextDocumentIdentifier(file.virtualFile.url),
+            LSPIJUtils.toPosition(offset, document), offset) }
+        private var opened: OpenedDocument? = null
+        private var server: LanguageServer? = null
+        private var connectionEpoch: Long? = null
+
+        fun captureConnectedOwner() = read {
+            check(opened == null)
+            opened = requireNotNull(wrapper.getOpenedDocument(FileUriSupport.getFileUri(file.virtualFile, wrapper.features)))
+            assertSame(file.virtualFile, requireNotNull(opened).file)
+            server = requireNotNull(wrapper.languageServer)
+            connectionEpoch = wrapper.modificationTracker.modificationCount
+        }
+
+        fun query(): CompletableFuture<List<DocumentHighlight>> = read {
+            assertSameInputsAndSupport()
+            highlights.getHighlights(params)
+        }
+
+        fun isPositiveFutureStillCached(future: CompletableFuture<List<DocumentHighlight>>): Boolean = read {
+            synchronized(highlights) {
+                if (highlights.future !== future) false
+                else {
+                    // Hold the actual support monitor across the identity check
+                    // and same-position getter, matching its real cancel/get lock.
+                    assertSame("A current completed positive result is the SDK's cache", future, query())
+                    true
+                }
+            }
+        }
+
+        fun assertSameInputsAndSupport() = read {
+            assertSame(support, LSPFileSupport.getSupport(file))
+            assertSame(highlights, support.highlightSupport)
+            assertSame(document, PsiDocumentManager.getInstance(project).getDocument(file))
+            assertEquals("No edit may stand in for build-context invalidation", stamp, file.modificationStamp)
+            assertEquals(sequence, document.modificationSequence)
+            assertEquals(offset, params.offset)
+            assertEquals(LSPIJUtils.toPosition(offset, document), params.position)
+            opened?.let {
+                assertSame("The real opened-document owner must remain unchanged", it,
+                    wrapper.getOpenedDocument(FileUriSupport.getFileUri(file.virtualFile, wrapper.features)))
+                assertSame(server, wrapper.languageServer)
+                assertEquals(connectionEpoch, wrapper.modificationTracker.modificationCount)
+            }
+        }
+    }
+
+    private fun awaitHighlights(cache: CachedHighlights, positive: Boolean): CompletableFuture<List<DocumentHighlight>> {
+        var pending = cache.query()
+        var accepted: CompletableFuture<List<DocumentHighlight>>? = null
+        edt {
+            PlatformTestUtil.waitWithEventsDispatching("Same native highlight support must reach positive=$positive", {
+                // Keep each actual future until its completion event; requesting
+                // again first would replace an ownerless empty highlight future.
+                if (!pending.isDone) false
+                else {
+                    try {
+                        val result = pending.join()
+                        if (result.isNotEmpty() == positive && (!positive || cache.isPositiveFutureStillCached(pending))) {
+                            accepted = pending
+                            true
+                        } else {
+                            pending = cache.query()
+                            false
+                        }
+                    } catch (failure: Throwable) {
+                        var cause = failure
+                        while ((cause is ExecutionException || cause is CompletionException) && cause.cause != null) cause = cause.cause!!
+                        if (cause !is CancellationException && cause !is com.intellij.openapi.progress.ProcessCanceledException) throw failure
+                        pending = cache.query()
+                        false
+                    }
+                }
+            }, 45)
+        }
+        return requireNotNull(accepted)
     }
 
     private fun awaitReleased(cache: CachedFeatures, replies: Replies) {
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(45)
         while (!cache.hasReleased(replies)) {
             flushUi()
-            check(System.nanoTime() < deadline) { "Actual refresh did not release both existing support futures" }
+            check(System.nanoTime() < deadline) { "Actual refresh did not release every existing support future" }
             Thread.sleep(10)
         }
+    }
+
+    private fun assertCheckingInlayRejected(file: PsiFile, wrapper: OwnedWrapper) {
+        // This is a real feature-policy assertion before a cache query, not an
+        // assumption that the SDK's asynchronous empty future is already done.
+        // An ungated provider would enter connect's background ReadAction while
+        // this fixture intentionally holds the native write lock for CHECKING.
+        val feature = wrapper.features.inlayHintFeature
+        assertFalse("CHECKING must reject the inlay provider before awaiting its future under the write lock", feature.isEnabled(file))
+        assertFalse("Direct inlay support must reject the same CHECKING generation", feature.isInlayHintSupported(file))
+        assertFalse("Inlay resolve must reject the same CHECKING generation", feature.isResolveInlayHintSupported(file))
     }
 
     private fun assertEmpty(replies: Replies) {
         assertNull(replies.semantic.get(10, TimeUnit.SECONDS))
         assertTrue((replies.actions.get(10, TimeUnit.SECONDS) as List<*>).isEmpty())
+        assertTrue((replies.inlays.get(10, TimeUnit.SECONDS) as List<*>).isEmpty())
     }
 
     private fun awaitResult(cache: CachedFeatures, positive: Boolean): Replies {
@@ -238,8 +394,9 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
             try {
                 val semantic = result.semantic.get(10, TimeUnit.SECONDS)
                 val actions = result.actions.get(10, TimeUnit.SECONDS) as List<*>
-                if ((semantic != null && actions.isNotEmpty()) == positive &&
-                    (positive || semantic == null && actions.isEmpty())) return result
+                val inlays = result.inlays.get(10, TimeUnit.SECONDS) as List<*>
+                if ((semantic != null && actions.isNotEmpty() && inlays.isNotEmpty()) == positive &&
+                    (positive || semantic == null && actions.isEmpty() && inlays.isEmpty())) return result
             } catch (failure: Throwable) {
                 var cause = failure
                 while ((cause is ExecutionException || cause is CompletionException) && cause.cause != null) cause = cause.cause!!
@@ -335,13 +492,17 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
         val rpcCount = AtomicInteger()
         val semanticCount = AtomicInteger()
         val actionCount = AtomicInteger()
+        val inlayCount = AtomicInteger()
+        val highlightCount = AtomicInteger()
         private val capabilities = ServerCapabilities().apply {
             codeActionProvider = Either.forLeft(true)
+            inlayHintProvider = Either.forRight(InlayHintRegistrationOptions().apply { resolveProvider = true })
+            setDocumentHighlightProvider(true)
             semanticTokensProvider = SemanticTokensWithRegistrationOptions().apply {
                 legend = SemanticTokensLegend(listOf("variable"), emptyList()); full = Either.forLeft(true)
             }
         }
-        private val text = Proxy.newProxyInstance(TextDocumentService::class.java.classLoader, arrayOf(TextDocumentService::class.java)) { _, method, _ ->
+        private val text = Proxy.newProxyInstance(TextDocumentService::class.java.classLoader, arrayOf(TextDocumentService::class.java)) { _, method, supplied ->
             when (method.name) {
                 "semanticTokensFull" -> {
                     rpcCount.incrementAndGet(); semanticCount.incrementAndGet()
@@ -350,6 +511,19 @@ class GoBuildContextFeatureCacheRefreshTest : LightPlatformTestCase() {
                 "codeAction" -> {
                     rpcCount.incrementAndGet(); actionCount.incrementAndGet()
                     CompletableFuture.completedFuture(listOf(Either.forRight<Command, CodeAction>(CodeAction("owned cache action"))))
+                }
+                "inlayHint" -> {
+                    rpcCount.incrementAndGet(); inlayCount.incrementAndGet()
+                    CompletableFuture.completedFuture(listOf(InlayHint().apply {
+                        position = Position(0, 0); label = Either.forLeft("owned cache hint")
+                    }))
+                }
+                "documentHighlight" -> {
+                    rpcCount.incrementAndGet(); highlightCount.incrementAndGet()
+                    val position = (requireNotNull(supplied)[0] as DocumentHighlightParams).position
+                    CompletableFuture.completedFuture(listOf(DocumentHighlight(
+                        Range(Position(position.line, position.character), Position(position.line, position.character + 1)),
+                        DocumentHighlightKind.Read)))
                 }
                 else -> null
             }
