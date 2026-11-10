@@ -51,6 +51,17 @@ def repo_pin(value):
     return path
 
 
+def platform_patch_script(patch):
+    producers = {
+        "public-source": "patch-platform-unicode.py",
+        "compatible-marketplace": "patch-platform-compatible-marketplace.py",
+    }
+    name = patch.get("producer", "public-source")
+    if name not in producers:
+        raise ValueError("Unknown authenticated Windows platform repair producer: " + str(name))
+    return ROOT / "scripts" / producers[name]
+
+
 def plugin_metadata(directory):
     matches = []
     for archive in sorted((directory / "lib").glob("*.jar")):
@@ -104,7 +115,7 @@ def assemble(sdk, plugins, output, version):
         patches = []
         for patch in pin["platformPatches"]:
             report = json.loads(subprocess.check_output([
-                sys.executable, str(ROOT / "scripts/patch-platform-unicode.py"),
+                sys.executable, str(platform_patch_script(patch)),
                 "--sdk", str(layout.sdk_root), "--target-app", str(app),
                 "--pin", str(repo_pin(patch["pin"])), "--marker", patch["marker"],
                 "--cache-name", patch["cacheName"],

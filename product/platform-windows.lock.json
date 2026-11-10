@@ -25,6 +25,12 @@
       "pin": "product/patches/platform-psi-listener-windows-2026.1.4.json",
       "marker": "META-INF/open-goland-platform-psi-listener.json",
       "cacheName": "platform-psi-listener-windows"
+    },
+    {
+      "producer": "compatible-marketplace",
+      "pin": "product/patches/platform-compatible-marketplace-windows-2026.1.4.json",
+      "marker": "META-INF/open-goland-compatible-marketplace.json",
+      "cacheName": "platform-compatible-marketplace-windows"
     }
   ]
 }

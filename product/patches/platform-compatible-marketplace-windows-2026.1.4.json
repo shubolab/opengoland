@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "productionMode": "source-correlated-jvm-boolean-delta",
+  "platformVersion": "2026.1.4",
+  "platformBuild": "261.26222.65",
+  "upstream": {
+    "repository": "https://github.com/JetBrains/intellij-community",
+    "tag": "idea/2026.1.4",
+    "commit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "license": "Apache-2.0; original public class, sources and platform notices retained"
+  },
+  "upstreamJar": {
+    "path": "lib/intellij.platform.ide.impl.jar",
+    "sha256": "3a63e65997ccdccde255e47559a550777183513a46967b9cc0d2ee49646d530a"
+  },
+  "source": {
+    "path": "platform/platform-impl/src/com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor.kt",
+    "url": "https://raw.githubusercontent.com/JetBrains/intellij-community/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor.kt",
+    "upstreamSha256": "7f2d729375376cc3185180566a2a84412b5979a032a80f34b16bd264d2ea1242",
+    "patchedSha256": "e8efcc0729dffa1f1b6bf643ae3c87c237b49fcdb907f7e0ef5aa0edd5e8afef",
+    "changedLine": 53
+  },
+  "patchFile": "platform-compatible-marketplace-2026.1.4.patch",
+  "patchSha256": "c237efe57a2bd8c7ef8d4dbbb9d220459d941d038222d7f4497fc7efe7e79c53",
+  "classDelta": {
+    "path": "com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor$performMarketplaceSearch$2.class",
+    "bytes": 4135,
+    "upstreamSha256": "028dfa935305c116f3e7f34d3c0ec9314666881e2288c9c75e335a50596d8441",
+    "patchedSha256": "b63a21608656460238801ee6ff003c7eb4a0c9fb5559956c61254ce9b03f9cbf",
+    "method": "invokeSuspend(Ljava/lang/Object;)Ljava/lang/Object;",
+    "fileOffset": 3517,
+    "bytecodeOffset": 51,
+    "beforeHex": "04",
+    "afterHex": "03",
+    "meaning": "iconst_1 to iconst_0 for includeUpgradeToCommercialIde; the coroutine label iconst_1 at BCI65 is unchanged",
+    "callBytecodeOffset": 69,
+    "callConstantPoolIndex": 83,
+    "call": "com/intellij/ide/plugins/newui/UiPluginManager.executeMarketplaceQuery(Ljava/lang/String;IZLkotlin/coroutines/Continuation;)Ljava/lang/Object;"
+  },
+  "scope": {
+    "purpose": "Native Marketplace search requests current-host-compatible plugins without alternate-commercial-host upgrade candidates.",
+    "preserves": [
+      "Actual IC261 compatibility build and original native module/API/dependency/signature gates",
+      "All current-host-compatible ordinary free and third-party Paid plugins",
+      "Marketplace UI, local-disk installation, repository/proxy configuration and ordinary updates",
+      "All class bytes except the one boolean literal; no Kotlin recompilation or ABI changes"
+    ],
+    "limits": [
+      "This is a source-correlated binary delta, not recompiled Kotlin.",
+      "No paid-plugin license check or authorization result is altered.",
+      "Custom repository results and more-plugins/direct request entry points outside the patched native text-search executor are not claimed to be comprehensively filtered."
+    ]
+  }
+}

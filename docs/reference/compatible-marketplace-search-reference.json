@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "target": {
+    "kind": "Open-source IntelliJ Platform, not proprietary GoLand implementation",
+    "version": "2026.1.4",
+    "build": "IC-261.26222.65",
+    "sourceCommit": "456919a9624bae72ac12efafc35d2b916cb0c5c5",
+    "jarSha256": "3a63e65997ccdccde255e47559a550777183513a46967b9cc0d2ee49646d530a"
+  },
+  "question": "Suppress alternate-commercial-host IDE upgrade candidates while retaining native compatible free and third-party Paid plugin management.",
+  "observations": [
+    {
+      "authority": "Pinned public source",
+      "source": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor.kt#L48-L54",
+      "fact": "Local native Marketplace text-search executor passes true for includeUpgradeToCommercialIde; the UI routes through the original controller and request parser."
+    },
+    {
+      "authority": "Pinned public source",
+      "source": "https://github.com/JetBrains/intellij-community/blob/456919a9624bae72ac12efafc35d2b916cb0c5c5/platform/platform-impl/src/com/intellij/ide/plugins/marketplace/MarketplaceRequests.kt#L592-L632",
+      "fact": "On IC, the true argument enables IU-only nearest updates as suggestedCommercialIde candidates; ordinary compatible candidates return independently of that branch."
+    },
+    {
+      "authority": "REA artifact/member authentication",
+      "evidenceIds": [
+        "ev_7953d1ec4c850f4bfc22f43cace86a841de73f32c93f91f85caa4b67e21da6c7",
+        "ev_4865fef1778c4b00c440992f2e424df5cdfcb062e8758c4a1aa9be8214b48c24",
+        "ev_138307acafc25ee4ac944ecdb05c8adeb3fbe5fe5063fb5c023e794558028d3a"
+      ],
+      "fact": "Authenticated original OSS JAR and exact closure class. REA did not provide JVM disassembly; the optional configured Rizin byte-window command was unavailable ENOENT. The target was closed."
+    },
+    {
+      "authority": "Independent classfile structure parser and actual JDK javap cross-check",
+      "fact": "invokeSuspend Code starts at file3466; source line53 starts at BCI43. BCI51/file3517 iconst_1 supplies the third argument to call at BCI69/cp83 UiPluginManager.executeMarketplaceQuery(String,int,boolean,Continuation). The separate coroutine label iconst_1 at BCI65 remains unchanged.",
+      "classSha256": "028dfa935305c116f3e7f34d3c0ec9314666881e2288c9c75e335a50596d8441"
+    },
+    {
+      "authority": "Same-source actual SDK controlled tests",
+      "fact": "Three tests on original SDK are RED: alternate-host result, visible native suggestion banner, missing repair receipt. Same test classes with owned repaired JAR are3/3 GREEN4.282s. Native executor/controller/HTTP/parser keep compatible free and Paid candidates, request actual IC261/all=false, and omit IU-only nearest candidate.",
+      "boundary": "Loopback source customization replaces server URL/payload only. This is not a desktop screenshot, external install/update or Windows run."
+    }
+  ],
+  "inferences": [
+    {
+      "fact": "Changing only that Boolean to false suppresses the native text-search host-upgrade expansion without changing core compatibility, modules, dependencies, signature checks or paid-plugin license terms."
+    },
+    {
+      "fact": "MarketplaceCustomizationService exposes URLs, while PluginManagementPolicy exposes install/enable/update permissions. Neither offers a local-mode result-filter toggle; combined-manager controller/customizer EPs are remote-mode conditional."
+    }
+  ],
+  "implementation": {
+    "productionMode": "source-correlated-jvm-boolean-delta",
+    "recompiled": false,
+    "sourcePatch": "../../product/patches/platform-compatible-marketplace-2026.1.4.patch",
+    "pins": [
+      "../../product/patches/platform-compatible-marketplace-2026.1.4.json",
+      "../../product/patches/platform-compatible-marketplace-windows-2026.1.4.json"
+    ],
+    "producer": "../../scripts/patch-platform-compatible-marketplace.py",
+    "classBytes": 4135,
+    "changedFileOffset": 3517,
+    "beforeHex": "04",
+    "afterHex": "03",
+    "patchedClassSha256": "b63a21608656460238801ee6ff003c7eb4a0c9fb5559956c61254ce9b03f9cbf",
+    "abi": "All other class bytes, constant pool, method/field declarations, closures and JAR entry contents remain exact original bytes. An explicit provenance marker is added; rewritten ZIP index trailer handling follows the native loader contract."
+  },
+  "unknowns": [
+    "Actual next packaged application/native Marketplace search acceptance remains pending parent verification.",
+    "Actual Windows source authentication/execution remains for Windows CI; this Mac investigation does not claim a Windows run.",
+    "Custom repositories, more-plugins/direct callers outside this one native text-search executor are not comprehensively filtered by this change.",
+    "No claim of hiding third-party Paid plugin terms, universal absence of all host marketing or complete GoLand feature parity."
+  ],
+  "preserved": [
+    "Original IC product/build identity",
+    "Native Marketplace/Installed/repository/proxy/local disk management and ordinary plugin update paths",
+    "All current-host-compatible ordinary free and third-party Paid plugins",
+    "Separate removal of bundled IDE-account/billing/promoter registrations",
+    "Immutable source SDK and commercial reference applications"
+  ]
+}

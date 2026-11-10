@@ -1,0 +1,7 @@
+--- a/platform/platform-impl/src/com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor.kt
++++ b/platform/platform-impl/src/com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor.kt
+@@ -52,3 +52,3 @@
+       val pluginManager = UiPluginManager.getInstance()
+-      pluginManager.executeMarketplaceQuery(query, 10000, true)
++      pluginManager.executeMarketplaceQuery(query, 10000, false)
+     }

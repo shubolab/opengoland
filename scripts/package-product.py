@@ -521,6 +521,12 @@ def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None)
         ], text=True))
         psi_listener_patch = {key: value for key, value in psi_listener_patch.items()
                               if key not in {"patchJar", "sourceSdk", "installedJar"}}
+        compatible_marketplace_patch = json.loads(subprocess.check_output([
+            sys.executable, str(ROOT / "scripts/patch-platform-compatible-marketplace.py"),
+            "--sdk", str(sdk), "--target-app", str(app),
+        ], text=True, encoding="utf-8"))
+        compatible_marketplace_patch = {key: value for key, value in compatible_marketplace_patch.items()
+                                        if key not in {"patchJar", "sourceSdk", "installedJar"}}
         info_path = contents / "Info.plist"
         info = plistlib.loads(info_path.read_bytes())
         native_launcher = info["CFBundleExecutable"]
@@ -611,7 +617,7 @@ def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None)
         if not (contents / "MacOS" / native_launcher).is_file():
             raise ValueError("The target Mac native launcher is missing")
         branding, product_policy = specialize_go_product(contents, sdk / "Contents", launcher_script=native_launcher)
-        platform_patches = [unicode_patch, psi_listener_patch]
+        platform_patches = [unicode_patch, psi_listener_patch, compatible_marketplace_patch]
         local_ide = specialize_local_ide(contents, sdk / "Contents", product_policy, platform_patches)
         archive_paths = [record["path"] for record in local_ide["jars"]]
         archive_paths += [patch["upstreamJarRelativePath"].removeprefix("Contents/") for patch in platform_patches]

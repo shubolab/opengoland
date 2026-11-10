@@ -105,26 +105,45 @@ val preparePlatformPsiListenerPatch by tasks.registering(Exec::class) {
         "--jar-output", platformPsiListenerJar.get().asFile.absolutePath,
         "--output", platformPsiListenerManifest.get().asFile.absolutePath)
 }
+val platformCompatibleMarketplaceManifest = layout.buildDirectory.file("provenance/platform-compatible-marketplace-patch.json")
+val platformCompatibleMarketplaceJar = layout.buildDirectory.file("platform-patches/compatible-marketplace/intellij.platform.ide.impl.jar")
+val preparePlatformCompatibleMarketplacePatch by tasks.registering(Exec::class) {
+    description = "Verify the one-byte source-correlated native Marketplace search repair."
+    inputs.files("scripts/patch-platform-compatible-marketplace.py", "scripts/source_patch.py", "scripts/platform_layout.py", "scripts/product_archives.py",
+        fileTree("product/patches") { include("platform-compatible-marketplace*") })
+    inputs.property("platformPath", platformPath)
+    outputs.files(platformCompatibleMarketplaceManifest, platformCompatibleMarketplaceJar)
+    outputs.upToDateWhen { false }
+    commandLine(pythonCommand, "scripts/patch-platform-compatible-marketplace.py", "--sdk", platformPath.get(),
+        "--pin", platformRepairPin("compatible-marketplace"),
+        "--cache-name", "platform-compatible-marketplace$platformPinSuffix",
+        "--jar-output", platformCompatibleMarketplaceJar.get().asFile.absolutePath,
+        "--output", platformCompatibleMarketplaceManifest.get().asFile.absolutePath)
+}
 tasks.test {
-    dependsOn(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch)
+    dependsOn(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch, preparePlatformCompatibleMarketplacePatch)
     systemProperty("openidea.platformUnicodePatchManifest", platformUnicodeManifest.get().asFile.absolutePath)
     systemProperty("openidea.platformPsiListenerPatchManifest", platformPsiListenerManifest.get().asFile.absolutePath)
-    inputs.files(platformUnicodeManifest, platformPsiListenerManifest)
+    systemProperty("openidea.platformCompatibleMarketplacePatchManifest", platformCompatibleMarketplaceManifest.get().asFile.absolutePath)
+    inputs.files(platformUnicodeManifest, platformPsiListenerManifest, platformCompatibleMarketplaceManifest)
     val originalRuntime = classpath
     classpath = files(originalRuntime.elements.map { locations ->
         val upstream = file("${platformContentsPath.get()}/lib/intellij.platform.lang.impl.jar").canonicalFile
         val runtime = locations.map { it.asFile }
         check(runtime.count { it.canonicalFile == upstream } == 1) { "Expected exactly one pinned platform language implementation JAR" }
+        val ideUpstream = file("${platformContentsPath.get()}/lib/intellij.platform.ide.impl.jar").canonicalFile
+        check(runtime.count { it.canonicalFile == ideUpstream } == 1) { "Expected exactly one pinned platform IDE implementation JAR" }
         val unicodeUpstream = file("${platformContentsPath.get()}/lib/util-8.jar").canonicalFile
         check(runtime.count { it.canonicalFile == unicodeUpstream } == 1) { "Expected exactly one pinned platform utility JAR" }
         runtime.map {
             when (it.canonicalFile) {
                 upstream -> platformPsiListenerJar.get().asFile
+                ideUpstream -> platformCompatibleMarketplaceJar.get().asFile
                 unicodeUpstream -> platformUnicodeJar.get().asFile
                 else -> it
             }
         }
-    }).builtBy(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch)
+    }).builtBy(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch, preparePlatformCompatibleMarketplacePatch)
 }
 val captureBuildInputs by tasks.registering(Exec::class) {
     inputs.files(fileTree("src"), fileTree("engine") { include("**/*.go", "go.mod", "go.sum", "licenses/**") })
