@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "status": "source-integrated-native-and-next-release-pending",
+  "scope": "Owned Go Test adapter startup/shutdown; separate from Go Attach and child debug sessions. Not included in public preview .4.",
+  "baseCommit": "d9082c3",
+  "implementation": [
+    "Shared shutdown future never reports successful ACK for NEW or CLOSED null-endpoint state.",
+    "Monotonic startup/Stop phase CAS rejects later unclaimed connect with genuine cancellation.",
+    "CONNECTING endpoint lookup has independent3-second bound; virtual getter claims one owned terminateDebuggee=true disconnect and cancels ordinary late initialization before exposing a proxy.",
+    "Timeout/completed-disconnect claim still cancels late initialization; polling never starts a connection.",
+    "Completion transport disposal runs on BGT; natural result is frozen before super.terminated can trigger SDK user-stop cancellation.",
+    "Existing target exit precedence, naturalEnd, converter flow, profile identity and scope retained; no shared handler/public patch/pin change."
+  ],
+  "changedFiles": [
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/debug/GoTestDapClient.kt",
+      "candidateSha256": "4dc76ec1fde0f338e7e2a964a29b26ed1211bb632437157fc89c345ad988f264",
+      "baseSha256": "cc798734f6e7c25b41fcfa8c66fbb166518ebe7d847436acaaa76bca5297f9dc",
+      "bytes": 7365
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/debug/GoTestDapPreconnectLifecycleTest.kt",
+      "candidateSha256": "97a22e6d31fbd186823247d99c24e107227198992741c7cbb0a4705955e94847",
+      "baseSha256": null,
+      "bytes": 33781
+    }
+  ],
+  "inputSnapshot": {
+    "files": 487,
+    "digest": "fb1c87e18aefe22d23c9896fbc5959db9cc351ec75af25fe2027b8abcb23c23b",
+    "rootMatchesTestedPrivateSource": true
+  },
+  "behavioralControls": {
+    "old": {
+      "cases": 5,
+      "failures": 5,
+      "normalSdkStopEntries": [
+        "testNativeGoTestStopDuringClientConstructionCannotInventDisconnectAcknowledgement",
+        "testManualTestStopDuringClientConstructionCannotInventDisconnectAcknowledgement"
+      ],
+      "lowerLayerProbes": [
+        "testStateProbeStopBeforePublicServerPublicationSendsOneRealDisconnectWithoutInitialize",
+        "testStateProbeMissingEndpointTimesOutAndCannotLaterInitialize",
+        "testStateProbeAlreadyDisposedEndpointCannotBeReportedAsAcknowledged"
+      ]
+    },
+    "candidate": {
+      "tests": 20,
+      "newCases": 8,
+      "fixtureInstances": 9,
+      "existingEventsCases": 12,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "seconds": 22.792,
+      "errorOrSevereCount": 0
+    },
+    "description": {
+      "normalStop": "Real GoDebugTestState, native SM console/events ProcessHandler and XDebugSession.stop, controlled actual transport supplier constructor timing. No proxy session or fake null getter.",
+      "lowerLayerProbes": "Additional real GoTestDapClient/independent GoDebugTestSession over owned real TCP; delegated ProgressIndicator holds actual public-super setIndeterminate before endpoint publication. Direct terminate only; explicitly NOT normal Stop acceptance.",
+      "rawState": "Pinned public DAPClient raw server and existing GoDapClient disposed read only; never written or faked.",
+      "adapter": "Portable owned Go helper plus real test2json converter. Peer launch only records protocol args; no Go debuggee executes.",
+      "results": "User Stop0 remains cancellation/ignored sentinel, never a natural Go success. Natural missing-exited stays1; typed exited7 survives actual Stop.",
+      "currentRelease": "Not part of current .4, no production app/native/UI/Windows/Gradle/package validation or release claim."
+    },
+    "ownedPids": 28,
+    "allRecordedPidsAbsent": true,
+    "actualGoDebuggeeLaunched": false
+  },
+  "privateFullValidation": {
+    "tests": 718,
+    "reports": 131,
+    "failures": 0,
+    "errors": 0,
+    "skips": 0,
+    "tasks": [
+      "test",
+      "buildPlugin",
+      "prepareSandbox",
+      "verifyPluginStructure"
+    ],
+    "sourceIdentity": "Same 487-file digest as integrated root; executed in isolated candidate worktree, not relabeled as a root or native test."
+  },
+  "evidence": [
+    {
+      "path": ".tools/go-test-preconnect-controls/final-evidence.json",
+      "bytes": 31320,
+      "sha256": "f0f4ec59d267d92d50c911f825d13df7cdfe48c091158f99f5bdf924e0547b8f"
+    },
+    {
+      "path": ".tools/go-test-preconnect-full-gradle/final-evidence.json",
+      "bytes": 8913,
+      "sha256": "0a929051bfe6f8497157d2601039dc6418503950ca65678e0e4c102f3d74d1a0"
+    },
+    {
+      "path": ".tools/debug-session-native-tools/go-test-preconnect-shutdown-review.json",
+      "bytes": 6806,
+      "sha256": "f09f1d1ca6951d5e4e657ababe6cb973a201005b6100cea54e1378c052867ba7"
+    }
+  ],
+  "limits": [
+    "No real Delve/debuggee, native desktop toolbar, Windows or new public installer validation in this record.",
+    "Two real normal-SDK Stop entries and additional lower-level publication probes have distinct scopes.",
+    "Standalone helpers/converters were owned by fixtures; no claim about arbitrary stalled descendants.",
+    "Partial SDK XDebugSession initialization exception cleanup and broader multi-client/child lifecycle remain separate."
+  ],
+  "recordedAtUtc": "2026-11-10T08:56:17.671780+00:00"
+}
