@@ -10,6 +10,9 @@
     <depends>com.intellij.modules.platform</depends>
     <depends>com.redhat.devtools.lsp4ij</depends>
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceInterface="com.intellij.ide.plugins.PluginManagementPolicy"
+                            serviceImplementation="dev.openidea.goide.product.GoProductPluginManagementPolicy"
+                            overrides="true"/>
         <applicationService serviceInterface="com.intellij.lang.IdeLanguageCustomization"
                             serviceImplementation="dev.openidea.goide.navigation.search.GoIdeLanguageCustomization"
                             overrides="true"/>
