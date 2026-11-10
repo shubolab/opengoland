@@ -105,46 +105,26 @@ val preparePlatformPsiListenerPatch by tasks.registering(Exec::class) {
         "--jar-output", platformPsiListenerJar.get().asFile.absolutePath,
         "--output", platformPsiListenerManifest.get().asFile.absolutePath)
 }
-val platformLocalPluginsManifest = layout.buildDirectory.file("provenance/platform-local-plugins-patch.json")
-val platformLocalPluginsJar = layout.buildDirectory.file("platform-patches/local-plugins/intellij.platform.ide.impl.jar")
-val preparePlatformLocalPluginsPatch by tasks.registering(Exec::class) {
-    description = "Build the public platform local-only plugin manager for this distribution."
-    inputs.files("scripts/patch-platform-unicode.py", "scripts/source_patch.py", fileTree("product/patches") { include("platform-local-plugins*") })
-    inputs.property("platformPath", platformPath)
-    outputs.files(platformLocalPluginsManifest, platformLocalPluginsJar)
-    outputs.upToDateWhen { false }
-    commandLine(pythonCommand, "scripts/patch-platform-unicode.py", "--sdk", platformPath.get(),
-        "--pin", platformRepairPin("local-plugins"),
-        "--marker", "META-INF/open-goland-platform-local-plugins.json",
-        "--cache-name", "platform-local-plugins$platformPinSuffix",
-        "--jar-output", platformLocalPluginsJar.get().asFile.absolutePath,
-        "--output", platformLocalPluginsManifest.get().asFile.absolutePath)
-}
 tasks.test {
-    dependsOn(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch, preparePlatformLocalPluginsPatch)
+    dependsOn(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch)
     systemProperty("openidea.platformUnicodePatchManifest", platformUnicodeManifest.get().asFile.absolutePath)
     systemProperty("openidea.platformPsiListenerPatchManifest", platformPsiListenerManifest.get().asFile.absolutePath)
-    systemProperty("openidea.platformLocalPluginsPatchManifest", platformLocalPluginsManifest.get().asFile.absolutePath)
-    systemProperty("opengoland.plugins.local.only", "true")
-    inputs.files(platformUnicodeManifest, platformPsiListenerManifest, platformLocalPluginsManifest)
+    inputs.files(platformUnicodeManifest, platformPsiListenerManifest)
     val originalRuntime = classpath
     classpath = files(originalRuntime.elements.map { locations ->
         val upstream = file("${platformContentsPath.get()}/lib/intellij.platform.lang.impl.jar").canonicalFile
         val runtime = locations.map { it.asFile }
         check(runtime.count { it.canonicalFile == upstream } == 1) { "Expected exactly one pinned platform language implementation JAR" }
-        val ideUpstream = file("${platformContentsPath.get()}/lib/intellij.platform.ide.impl.jar").canonicalFile
-        check(runtime.count { it.canonicalFile == ideUpstream } == 1) { "Expected exactly one pinned platform IDE implementation JAR" }
         val unicodeUpstream = file("${platformContentsPath.get()}/lib/util-8.jar").canonicalFile
         check(runtime.count { it.canonicalFile == unicodeUpstream } == 1) { "Expected exactly one pinned platform utility JAR" }
         runtime.map {
             when (it.canonicalFile) {
                 upstream -> platformPsiListenerJar.get().asFile
-                ideUpstream -> platformLocalPluginsJar.get().asFile
                 unicodeUpstream -> platformUnicodeJar.get().asFile
                 else -> it
             }
         }
-    }).builtBy(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch, preparePlatformLocalPluginsPatch)
+    }).builtBy(preparePlatformUnicodePatch, preparePlatformPsiListenerPatch)
 }
 val captureBuildInputs by tasks.registering(Exec::class) {
     inputs.files(fileTree("src"), fileTree("engine") { include("**/*.go", "go.mod", "go.sum", "licenses/**") })

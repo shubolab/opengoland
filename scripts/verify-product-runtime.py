@@ -97,6 +97,11 @@ def verify(application: Path, pid: int):
         if hashlib.sha256(data).hexdigest() != app_info["brandedSha256"]:
             raise ValueError("The product application-info policy resource changed")
         xml = ET.fromstring(data)
+        names_node = next((node for node in xml if node.tag.rsplit("}", 1)[-1] == "names"), None)
+        if names_node is None or names_node.get("script") != app_info["launcherScript"]:
+            raise ValueError("The branded internal launcher script is inconsistent")
+        if not (contents / "MacOS" / app_info["launcherScript"]).is_file():
+            raise ValueError("The internal restart launcher does not exist in this application")
         essential = [node.text.strip() for node in xml if node.tag.rsplit("}", 1)[-1] == "essential-plugin"]
         if essential != app_info["essentialAfter"]:
             raise ValueError("The product essential-plugin list is inconsistent")
@@ -135,8 +140,13 @@ def verify(application: Path, pid: int):
                          "startupPrimaryLanguageConflictAbsent": True}
     local_checks = None
     if local_ide:
-        if properties.get(local_ide["localPluginManagerProperty"]) != "true":
-            raise ValueError("The local-only plugin manager is not enabled in this process")
+        if local_ide.get("pluginManagement") != "upstream":
+            raise ValueError("The product must retain the upstream compatible-plugin manager")
+        if properties.get("opengoland.plugins.local.only") == "true":
+            raise ValueError("An obsolete local-only plugin restriction remains enabled")
+        with zipfile.ZipFile(contents / "lib/intellij.platform.ide.impl.jar") as bundle:
+            if "META-INF/open-goland-platform-local-plugins.json" in bundle.namelist():
+                raise ValueError("The obsolete local-only plugin manager patch remains installed")
         for entry in local_ide["removedFiles"]:
             if (contents / entry["path"]).exists():
                 raise ValueError("An excluded account/commercial component remains in this app")
@@ -170,9 +180,9 @@ def verify(application: Path, pid: int):
             raise ValueError("A removed account/commercial component remains in product-info")
         if not set(local_ide["productInfoInventory"]["preservedBundledIds"]).issubset(product_info["bundledPlugins"]):
             raise ValueError("A retained development-service plugin is missing")
-        local_checks = {"localPluginManagerEnabled": True, "removedFilesAbsent": len(local_ide["removedFiles"]),
+        local_checks = {"pluginManagement": "upstream", "obsoleteLocalOnlyRestrictionAbsent": True, "removedFilesAbsent": len(local_ide["removedFiles"]),
                         "resourcesChecked": resources_checked, "retainedSharedLibraries": local_ide["retainedFiles"],
-                        "excludedInventoryIds": sorted(excluded), "scope": "Runtime property and packaged registration/resource identity; native UI and feature behavior require their separate observations."}
+                        "excludedInventoryIds": sorted(excluded), "scope": "Packaged registration/resource identity and absence of the obsolete local-only restriction; native UI and feature behavior require separate observations."}
     archive_checks = metadata.get("archiveChecks")
     if archive_checks:
         if archive_checks["status"] != "pass":

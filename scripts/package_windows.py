@@ -130,13 +130,12 @@ def assemble(sdk, plugins, output, version):
         inherited = [line for line in original_vm_options.read_text(encoding="utf-8").splitlines()
                      if not line.startswith(("-Didea.paths.selector=", "-Didea.vendor.name=", "-Dplugin.path="))]
         own_options = app / "bin/opengoland64.exe.vmoptions"
-        own_options.write_text("\n".join(inherited) + "\n-Didea.no.platform.update=true\n-Dopengoland.plugins.local.only=true\n", encoding="utf-8")
+        own_options.write_text("\n".join(inherited) + "\n-Didea.no.platform.update=true\n", encoding="utf-8")
         launch["launcherPath"] = "bin/opengoland64.exe"
         launch["vmOptionsFilePath"] = "bin/opengoland64.exe.vmoptions"
         overrides = {
             "idea.vendor.name": "OpenGoland", "idea.paths.selector": "OpenIDEAGo2026.1",
             "intellij.platform.load.app.info.from.resources": "true",
-            "opengoland.plugins.local.only": "true",
             "plugin.path": ",".join("%IDE_HOME%/plugins/" + directory.name for directory in selected.values()),
         }
         launch["additionalJvmArguments"] = [argument for argument in launch.get("additionalJvmArguments", [])
@@ -172,7 +171,7 @@ def assemble(sdk, plugins, output, version):
         if "go1.27.3" not in engine_build.splitlines()[0]:
             raise ValueError("The release engine must be compiled by the pinned Go 1.27.3 builder")
         branding, go_policy = shared.specialize_go_product(
-            app, layout.contents, repo_pin(pin["productPolicies"]["goProduct"]), "product-info.json")
+            app, layout.contents, repo_pin(pin["productPolicies"]["goProduct"]), "product-info.json", launcher_script="opengoland")
         local_ide = shared.specialize_local_ide(
             app, layout.contents, go_policy, patches,
             repo_pin(pin["productPolicies"]["localIde"]), "product-info.json")

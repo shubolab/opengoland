@@ -157,10 +157,12 @@ def go_product_policy(contents: Path, pin_path: Path | None = None,
     return policy
 
 
-def brand_resources(contents: Path, policy: dict) -> list:
+def brand_resources(contents: Path, policy: dict, launcher_script: str = "opengoland") -> list:
     """Brand copied resources and retain only this Go product's essential IDs."""
     if not contents.resolve().is_relative_to((ROOT / "build").resolve()):
         raise ValueError("Product resources must belong to an owned build copy")
+    if not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]*", launcher_script):
+        raise ValueError("The internal launcher script must be a plain executable basename")
     changed = []
     for archive in (contents / "lib").glob("app.jar"):
         if archive.is_symlink() or not archive.resolve().is_relative_to(contents.resolve()):
@@ -181,7 +183,7 @@ def brand_resources(contents: Path, policy: dict) -> list:
                     continue
                 names_node.set("product", "open Goland")
                 names_node.set("fullname", "open Goland")
-                names_node.set("script", "opengoland")
+                names_node.set("script", launcher_script)
                 names_node.set("motto", "An independent IDE for Go development")
                 names_node.attrib.pop("edition", None)
                 company = xml.find(tag("company"))
@@ -295,10 +297,11 @@ def specialize_go_metadata(contents: Path, sdk_contents: Path, policy: dict,
 
 
 def specialize_go_product(contents: Path, sdk_contents: Path, pin_path: Path | None = None,
-                          product_info_relative: str = "Resources/product-info.json") -> tuple:
+                          product_info_relative: str = "Resources/product-info.json",
+                          launcher_script: str = "opengoland") -> tuple:
     policy = go_product_policy(contents, pin_path, product_info_relative)
     metadata = specialize_go_metadata(contents, sdk_contents, policy, product_info_relative)
-    branding = brand_resources(contents, policy)
+    branding = brand_resources(contents, policy, launcher_script)
     for item in policy["bundledPluginExclusions"]:
         shutil.rmtree(contents / item["relativeDirectory"])
     with zipfile.ZipFile(contents / policy["applicationInfo"]["jar"]) as bundle:
@@ -310,6 +313,7 @@ def specialize_go_product(contents: Path, sdk_contents: Path, pin_path: Path | N
         "bundledPluginExclusions": policy["bundledPluginExclusions"],
         "applicationInfo": {**policy["applicationInfo"],
                             "brandedSha256": hashlib.sha256(branded_app_info).hexdigest(),
+                            "launcherScript": launcher_script,
                             "publisher": {"name": "open Goland contributors", "shortName": "open Goland",
                                           "url": "https://github.com/shubolab/opengoland"}},
         "retainedBundledDirectories": policy["retainedBundledDirectories"],
@@ -362,7 +366,7 @@ def specialize_local_ide(contents: Path, sdk_contents: Path, product_policy: dic
         patch = patches_by_path.get(item["path"])
         if patch is not None:
             if hashlib.sha256(target.read_bytes()).hexdigest() != patch["patchedJarSha256"]:
-                raise ValueError("The local plugin manager source rebuild changed before resource cleanup")
+                raise ValueError("A platform source rebuild changed before resource cleanup")
         elif item["path"] == product_policy["applicationInfo"]["jar"]:
             app_info = product_policy["applicationInfo"]
             with zipfile.ZipFile(source) as before, zipfile.ZipFile(target) as after:
@@ -444,8 +448,8 @@ def specialize_local_ide(contents: Path, sdk_contents: Path, product_policy: dic
     return {"pin": pin_path.relative_to(ROOT).as_posix(), "pinSha256": hashlib.sha256(pin_path.read_bytes()).hexdigest(),
             "pluginClasspath": cache_record, "jars": jar_records, "removedFiles": pin["removedFiles"],
             "retainedFiles": pin["retainedFiles"], "productInfoInventory": inventory,
-            "localPluginManagerProperty": "opengoland.plugins.local.only", "localPluginManagerEnabled": True,
-            "scope": "Bundled IDE-account, settings-sync, Grazie license/cloud and paid-promotion registrations; local plugin management without Marketplace. Development-service credentials remain available."}
+            "pluginManagement": "upstream",
+            "scope": "Bundled IDE-account, settings-sync, Grazie license/cloud and paid-promotion registrations; native compatible-plugin Marketplace, updates and local-disk installation retained. Development-service credentials remain available."}
 
 
 def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None):
@@ -517,15 +521,6 @@ def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None)
         ], text=True))
         psi_listener_patch = {key: value for key, value in psi_listener_patch.items()
                               if key not in {"patchJar", "sourceSdk", "installedJar"}}
-        local_plugins_patch = json.loads(subprocess.check_output([
-            sys.executable, str(ROOT / "scripts/patch-platform-unicode.py"),
-            "--sdk", str(sdk), "--target-app", str(app),
-            "--pin", str(ROOT / "product/patches/platform-local-plugins-2026.1.4.json"),
-            "--marker", "META-INF/open-goland-platform-local-plugins.json",
-            "--cache-name", "platform-local-plugins",
-        ], text=True))
-        local_plugins_patch = {key: value for key, value in local_plugins_patch.items()
-                               if key not in {"patchJar", "sourceSdk", "installedJar"}}
         info_path = contents / "Info.plist"
         info = plistlib.loads(info_path.read_bytes())
         native_launcher = info["CFBundleExecutable"]
@@ -553,14 +548,13 @@ def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None)
         own_vm_options = contents / "bin/opengoland.vmoptions"
         inherited_vm_options = [line for line in vm_options.read_text().splitlines() if not line.startswith(("-Didea.paths.selector=", "-Didea.vendor.name=", "-Dplugin.path="))]
         own_vm_options.write_text("\n".join(inherited_vm_options) +
-                                  "\n-Didea.no.platform.update=true\n-Dopengoland.plugins.local.only=true\n")
+                                  "\n-Didea.no.platform.update=true\n")
         vm_options.write_text(own_vm_options.read_text())
         launch["vmOptionsFilePath"] = "../bin/opengoland.vmoptions"
         overrides = {
             "idea.vendor.name": "OpenGoland",
             "idea.paths.selector": "OpenIDEAGo2026.1",
             "intellij.platform.load.app.info.from.resources": "true",
-            "opengoland.plugins.local.only": "true",
             "plugin.path": ",".join(f"$APP_PACKAGE/Contents/plugins/{directory.name}" for directory in selected.values()),
         }
         arguments = [argument for argument in launch.get("additionalJvmArguments", []) if not any(argument.startswith(f"-D{key}=") for key in overrides)]
@@ -614,8 +608,10 @@ def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None)
 
         lsp4ij = selected["com.redhat.devtools.lsp4ij"]
         runtime_resources = prepare_lsp4ij_runtime_resources(contents / "plugins" / lsp4ij.name)
-        branding, product_policy = specialize_go_product(contents, sdk / "Contents")
-        platform_patches = [unicode_patch, psi_listener_patch, local_plugins_patch]
+        if not (contents / "MacOS" / native_launcher).is_file():
+            raise ValueError("The target Mac native launcher is missing")
+        branding, product_policy = specialize_go_product(contents, sdk / "Contents", launcher_script=native_launcher)
+        platform_patches = [unicode_patch, psi_listener_patch]
         local_ide = specialize_local_ide(contents, sdk / "Contents", product_policy, platform_patches)
         archive_paths = [record["path"] for record in local_ide["jars"]]
         archive_paths += [patch["upstreamJarRelativePath"].removeprefix("Contents/") for patch in platform_patches]
