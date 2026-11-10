@@ -1,0 +1,100 @@
+{
+  "schemaVersion": 1,
+  "status": "source-integrated-root-tool-build-pass-native-and-next-release-pending",
+  "rootIntegrationCommit": "6fcd44d",
+  "privateSourceCommit": "d7c7cb54002bbc976ca96b383d2cf44e244252af",
+  "currentPublicRelease": "Not part of preview .4; public assets remain unchanged.",
+  "problem": "While stopped inside a Darwin native write stack, the selected Go caller and PC were correct but user locals were read from the wrong CFA. A separate same-binary raw DAP control reproduced the error without the IDE.",
+  "repair": {
+    "path": "pkg/proc/stack.go::tryFramePointerUnwind",
+    "architecture": "arm64",
+    "method": "Use the current PC CFI CFA only when its saved-return-address rule confirms the existing BP+PtrSize slot; otherwise fall back to existing DWARF unwinding.",
+    "addedLines": 24,
+    "upstreamVersion": "v1.27.2",
+    "buildInfoModuleVersion": "(devel)",
+    "patchFile": "product/patches/delve-1.27.2-arm64-cfa.patch",
+    "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+    "pinFile": "product/patches/delve-1.27.2-arm64-cfa.json",
+    "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51"
+  },
+  "sourceBuild": {
+    "officialModuleZipSha256": "0d47915ae1b6ca7f474baedc8ceeee74d8cfb5815414b47f4b1c9b8d48adfc99",
+    "officialModuleZipBytes": 7544304,
+    "sourceFiles": 664,
+    "sourceChanges": 1,
+    "ownedSourceCopyOnly": true,
+    "licensesFromAuthenticatedUpstream": true,
+    "derivedReceiptsBundled": true,
+    "artifactMetadataTruthful": true,
+    "verificationAnchor": "Reviewed repository lock, source pin and patch plus actual build and external artifact seals; receipt self-consistency is not independent proof of arbitrary binary origin."
+  },
+  "controls": {
+    "rawRootCause": "Stock pure-Go loop marker202, blocked native syscall marker0; corrected CFA memory holds202. Historical native marker2 remains separately attributed.",
+    "privateDerived": "Same original binary returns202 for loop and blocked-write; variant caller frames224/4336/528 and marker202/303/404 checks retained.",
+    "formalMacBundle": "Two fresh full payloads/manifests identical; formal bundled Delve returns202 in both raw lanes, normal disconnect, all8 captured PIDs absent, no signals.",
+    "precisePc": "6 states times stock/derived =12 exact instruction-PC controls with caller777. These execute ordinary DWARF, not a dynamic run of the new hybrid guard; independent CFI predicate is true only for established BP.",
+    "python": "33 targeted controls:19 bundled-Delve (14new),4 actual source-patch,10 Go-check reuse. Root whole Python suite independently passes76 tests.",
+    "windows": "Real cross-compiled PE metadata verified; no Windows runtime or GUI claim in private controls."
+  },
+  "rootTools": {
+    "target": "darwin-arm64",
+    "goVersion": "go1.26.10",
+    "builderVersion": "go1.27.3",
+    "dlvSha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+    "payloadFiles": 15105,
+    "manifestSha256": "beef0f40efacf890caa5a8ea425adf7447d01754a0fd90fd86e8725bf23150cc",
+    "reaEvidenceId": "ev_0c4701a2e237c9dd9d73d65ba47f75757e291eaf08093a907ba903f5450d2002",
+    "completeActualPayloadReadOnlyValidated": true
+  },
+  "evidence": [
+    {
+      "path": ".tools/worktrees/derived-delve-bundle/.tools/derived-delve-bundle-controls/final-evidence.json",
+      "bytes": 17513,
+      "sha256": "6b128715479fa4dbe2fa4042b8135b27b54fd21407479bd905ae1d076be9dfa6"
+    },
+    {
+      "path": ".tools/delve-native-syscall-controls/stock-root-cause-evidence.json",
+      "bytes": 111413,
+      "sha256": "e01b7e4019b217fb6d7e3051dc874726849646022c100bb0ecdd6952d4501ea8"
+    },
+    {
+      "path": ".tools/delve-arm64-pc-controls/final-evidence.json",
+      "bytes": 88644,
+      "sha256": "f9601caad72dceefd435aa1aa438bf30d5e3aa9b54c062d05cee1c9e486e5566"
+    },
+    {
+      "path": ".tools/derived-delve-bundler-peer/review-d7c7cb5.json",
+      "bytes": 4324,
+      "sha256": "db935b6bf7b9e5a5d6ba36c757c03764da570f80a18540b32d1f9ec00be38580"
+    },
+    {
+      "path": ".tools/next-debug-root-checks/root-derived-delve.rea.json",
+      "bytes": 12330,
+      "sha256": "15d568fbb6936f6f1cb169607fa96e99417b49d45b6934f877ac9edb2a6a7a21"
+    },
+    {
+      "path": ".tools/next-debug-root-checks/root-derived-tool-receipt-validation.json",
+      "bytes": 713,
+      "sha256": "b849a8f5c09fdc0ad82b0ed4eef5dcdd39e8744b556b3cd590feadc8c198cb9c"
+    },
+    {
+      "path": ".tools/next-debug-root-checks/bundle-tools.log",
+      "bytes": 935,
+      "sha256": "1dd403fd34e83d60646237ca17d82fc998f033177d958f630574204d83172aa5"
+    },
+    {
+      "path": ".tools/next-debug-root-checks/python-controls.log",
+      "bytes": 8829,
+      "sha256": "b60d8ce7066eb40c763fa15b71a2cbc79175d5afe6125cae90b7bf9f356af5bb"
+    }
+  ],
+  "limits": [
+    "No root Gradle, product assembly, installer, IDE GUI, push or publication performed for this candidate.",
+    "Windows artifact was cross-compiled on macOS and REA-inspected, not executed; native Windows host/installer and Linux builder host remain unverified.",
+    "Actual installer validation now invokes portable reviewed-pin receipt checks through the shared engine smoke, but new EXE/DMG integration must still run after root cherry-pick.",
+    "Normal plugin manager fixed-component policy already protects the Go/LSP product plugins; no new restriction added, and explicit user external Delve overrides remain supported.",
+    "Derived receipts are build provenance bound to reviewed source pins and sealed payloads, not a replacement for installer signatures/checksums.",
+    "Existing release Go-proof fingerprint includes complete tool payload, so this change intentionally invalidates old exact-toolset reuse rather than relaxing evidence rules."
+  ],
+  "recordedAtUtc": "2026-11-10T09:11:56.478237+00:00"
+}

@@ -1,0 +1,200 @@
+{
+  "schemaVersion": 1,
+  "status": "source-integrated-native-and-next-release-pending",
+  "rootIntegrationCommit": "f32be7f",
+  "privateSourceCommit": "4d1b37386bb470e81f259a8b1cb464a9d4e085ad",
+  "currentPublicRelease": "Not part of preview .4.",
+  "behavior": {
+    "selectedSdkPreserved": true,
+    "silentBundledFallback": false,
+    "readyGate": "Official Action=start, Package exactly the selected package, no Test field; same converter process",
+    "preparationDeadlineSeconds": 60,
+    "existingEofCleanupDeadlineSeconds": 3,
+    "runner": "Real protected AsyncProgramRunner delegate, actual CancellablePromise cancellation; no RunManager/UI acceptance claim",
+    "cancelAndDispose": "Local terminal state first; own converter/compiler subtree stopped on BGT; no EDT process wait",
+    "uiHandoff": "CAS partitions preparation/error ownership and UI ownership. Existing UI catch disposes GoDebugTestSession on starter/descriptor failure."
+  },
+  "controlCounts": {
+    "newTests": 7,
+    "fixtureInstancesPerGreenOwnSuite": 8,
+    "privateOwnSuite": 7,
+    "combinedOwnPreconnectEventsSuite": 27,
+    "combinedBreakdown": {
+      "readiness": 7,
+      "frozenPreconnect": 8,
+      "existingDebugTestEvents": 12
+    },
+    "fullGradleRun": false,
+    "nativeUiOrDebuggeeRun": false,
+    "windowsRuntimeRun": false
+  },
+  "sameFinalTestsRed": [
+    {
+      "label": "final-old-session-red",
+      "sessionSource": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/go-test-converter-readiness-controls/baseline/GoDebugTestSession.kt",
+        "bytes": 18281,
+        "sha256": "cd36c160d755a315b81e0b257db8fe6f6a021a491ae5a8d8680e4d29c03836ea"
+      },
+      "stateSource": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/go-test-converter-readiness-controls/baseline/GoDebugTestState.kt",
+        "bytes": 7756,
+        "sha256": "6451c3ea358c284d6c4c1d0f61900f3d3fafab5dc684c0144ab8a8f858eecff6"
+      },
+      "testSource": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/worktrees/go-test-converter-readiness/src/test/kotlin/dev/openidea/goide/debug/GoTestConverterReadinessTest.kt",
+        "bytes": 25858,
+        "sha256": "9492a5c18e1313cccd9867e34b128a5383bc4acfe7ef641d5f433c5e0d5d3edb"
+      },
+      "assertion": "Compiler is held before official test2json can emit start"
+    },
+    {
+      "label": "final-old-runner-red",
+      "sessionSource": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/worktrees/go-test-converter-readiness/src/main/kotlin/dev/openidea/goide/debug/GoDebugTestSession.kt",
+        "bytes": 21629,
+        "sha256": "c374ea102997bce6dd4b00ced4f00151bf82ba7aede026fb92122aca261b83b1"
+      },
+      "stateSource": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/go-test-converter-readiness-controls/baseline/GoDebugTestState.kt",
+        "bytes": 7756,
+        "sha256": "6451c3ea358c284d6c4c1d0f61900f3d3fafab5dc684c0144ab8a8f858eecff6"
+      },
+      "testSource": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/worktrees/go-test-converter-readiness/src/test/kotlin/dev/openidea/goide/debug/GoTestConverterReadinessTest.kt",
+        "bytes": 25858,
+        "sha256": "9492a5c18e1313cccd9867e34b128a5383bc4acfe7ef641d5f433c5e0d5d3edb"
+      },
+      "assertion": "Owned converter/compiler subtree must exit after cancelled or failed startup"
+    }
+  ],
+  "candidateRuns": [
+    {
+      "label": "readiness-seven-final",
+      "status": "green",
+      "tests": 7,
+      "failures": 0,
+      "skips": 0,
+      "seconds": 157.154,
+      "runnerLog": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/go-test-converter-readiness-controls/harness/standalone-readiness-seven-final/run.log",
+        "bytes": 2040,
+        "sha256": "4235acdc361e51b0899f4fd5c032f2a7dc1733a19c4b039820eef5bc739c8fd4"
+      },
+      "ideaLogLevelCounts": {
+        "ERROR": 0,
+        "SEVERE": 0,
+        "WARN": 4
+      }
+    },
+    {
+      "label": "readiness-preconnect-compat27",
+      "status": "green",
+      "tests": 27,
+      "failures": 0,
+      "skips": 0,
+      "seconds": 139.35,
+      "runnerLog": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/go-test-converter-readiness-controls/harness/standalone-readiness-preconnect-compat27/run.log",
+        "bytes": 8037,
+        "sha256": "8ed2ec2b809a80e91bd91090549cdc405f2e8804383d1a1f51f7deb8b53351f6"
+      },
+      "ideaLogLevelCounts": {
+        "ERROR": 0,
+        "SEVERE": 0,
+        "WARN": 5
+      }
+    },
+    {
+      "label": "final-old-session-red",
+      "status": "expected-red",
+      "tests": 1,
+      "failures": 1,
+      "skips": 0,
+      "seconds": null,
+      "runnerLog": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/go-test-converter-readiness-controls/harness/standalone-final-old-session-red/run.log",
+        "bytes": 22202,
+        "sha256": "7e921d353cdf759a273a35e6f46af92f8155482e2a1b1e4e2ed5790e7a84200f"
+      },
+      "ideaLogLevelCounts": {
+        "ERROR": 0,
+        "SEVERE": 0,
+        "WARN": 4
+      }
+    },
+    {
+      "label": "final-old-runner-red",
+      "status": "expected-red",
+      "tests": 1,
+      "failures": 1,
+      "skips": 0,
+      "seconds": null,
+      "runnerLog": {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/go-test-converter-readiness-controls/harness/standalone-final-old-runner-red/run.log",
+        "bytes": 19596,
+        "sha256": "9df201f47e415dd14af0f920c828c4514ee331991db5c7bad2b7b49efd0ea93a"
+      },
+      "ideaLogLevelCounts": {
+        "ERROR": 0,
+        "SEVERE": 0,
+        "WARN": 4
+      }
+    }
+  ],
+  "originalSdk": {
+    "version": "go1.26.10",
+    "regularFileTreeSha256s": [
+      "f156b5e70dd672dfc2dd8cd35c8b3bd0ddf86de780cb0db42b02c74b7f55b2d3"
+    ],
+    "all18FinalFixtureReportsOriginalSdkUnchanged": true,
+    "finalFixtureReports": 18,
+    "instrumentation": "Independent owned SDK copy with compiler gate; -V and unrelated compiler invocations forwarded to authenticated original compiler. No hardlink overwrite. Instrumented lanes are not exact stock SDK bytes.",
+    "stockControl": "Separate uninstrumented cold selected SDK with private empty converter GOCACHE, genuine start/buildInfo/framed Unicode stream. Helper compilation uses existing helper cache and is not claimed cold."
+  },
+  "ownedCleanup": {
+    "capturedPidCount": 63,
+    "allCapturedPidsAbsent": true,
+    "testAndCompileCommandsTerminal": true,
+    "liveCommandHandlesRemaining": false
+  },
+  "frozenSourceFiles": [
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/worktrees/go-test-converter-readiness/src/main/kotlin/dev/openidea/goide/debug/GoDebugTestSession.kt",
+      "bytes": 21629,
+      "sha256": "c374ea102997bce6dd4b00ced4f00151bf82ba7aede026fb92122aca261b83b1"
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/worktrees/go-test-converter-readiness/src/main/kotlin/dev/openidea/goide/debug/GoDebugTestState.kt",
+      "bytes": 8412,
+      "sha256": "7b7d470e8c02d9f10ac7facf240e48832fab02ad8b5a9d37c296a1b48974bb35"
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/worktrees/go-test-converter-readiness/src/test/kotlin/dev/openidea/goide/debug/GoTestConverterReadinessTest.kt",
+      "bytes": 25858,
+      "sha256": "9492a5c18e1313cccd9867e34b128a5383bc4acfe7ef641d5f433c5e0d5d3edb"
+    }
+  ],
+  "evidence": [
+    {
+      "path": ".tools/go-test-converter-readiness-controls/final-evidence.json",
+      "bytes": 58917,
+      "sha256": "578d0a7cc96c943d422547af21797ba9feea9e44134773e3f510f091ddc09395"
+    },
+    {
+      "path": ".tools/go-test-converter-readiness-peer-review.json",
+      "bytes": 2635,
+      "sha256": "53fb66898ea0459ce05f8fbf0477ded508e981a922f245cb9e97fd48c3a97c89"
+    }
+  ],
+  "limits": [
+    "Future-version candidate, not public .4 evidence. Full integrated Gradle/product/native acceptance pending parent.",
+    "No Windows runtime test in this candidate; only actual Mac SDK controls.",
+    "The finite 60-second deadline expiry was not separately elapsed-tested. Cancellation, disposal, early exit and wrong start are tested.",
+    "No claim all process-construction to field-publication micro-windows are covered.",
+    "UI catch cleans owned GoDebugTestSession/tools; arbitrary partially constructed IntelliJ XDebugSession coroutine/tab scope cleanup is inherited and deferred, not verified by this candidate.",
+    "No actual target/debuggee, DAP connection or UI was started; owned adapter is a test helper.",
+    "A cancellable native preparation Task is a separate follow-up: cancellation of the protected Runner promise alone does not establish a user-visible preparation cancel entry."
+  ],
+  "recordedAtUtc": "2026-11-10T09:11:56.475213+00:00"
+}
