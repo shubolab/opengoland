@@ -40,11 +40,22 @@ import org.eclipse.lsp4j.debug.ExitedEventArguments
 import org.eclipse.lsp4j.debug.TerminatedEventArguments
 import org.eclipse.lsp4j.debug.SetBreakpointsArguments
 import org.eclipse.lsp4j.debug.SetBreakpointsResponse
+import org.eclipse.lsp4j.debug.ScopesArguments
+import org.eclipse.lsp4j.debug.ScopesResponse
+import org.eclipse.lsp4j.debug.StackFrame
+import org.eclipse.lsp4j.debug.StackTraceArguments
+import org.eclipse.lsp4j.debug.StackTraceResponse
+import org.eclipse.lsp4j.debug.StoppedEventArguments
+import org.eclipse.lsp4j.debug.Thread as DapThread
 import org.eclipse.lsp4j.debug.ThreadsResponse
 import org.eclipse.lsp4j.debug.launch.DSPLauncher
 import org.eclipse.lsp4j.debug.services.IDebugProtocolClient
 import org.eclipse.lsp4j.debug.services.IDebugProtocolServer
+import org.eclipse.lsp4j.jsonrpc.RemoteEndpoint
+import org.eclipse.lsp4j.jsonrpc.messages.NotificationMessage
+import org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint
 import java.io.InputStream
+import java.lang.management.ManagementFactory
 import java.lang.reflect.InvocationTargetException
 import java.lang.reflect.Proxy
 import java.net.InetAddress
@@ -56,6 +67,7 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.CancellationException
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.ExecutorService
@@ -65,7 +77,12 @@ import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicReference
 import java.util.function.Supplier
+import java.util.logging.Handler
+import java.util.logging.Level
+import java.util.logging.LogRecord
+import java.util.logging.Logger
 import kotlin.jvm.internal.CallableReference
 
 /** Real Go Test state/events/SDK Stop; only an owned transport's constructor timing is held. */
@@ -179,6 +196,152 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
         edt { assertFalse(f.console.resultsViewer.root.isPassed); assertFalse(f.console.resultsViewer.root.allTests.single { it.name == "TestFailed" }.isIgnored) }
         assertEquals(listOf("TestFailed"), f.tests.output.failures().values.single())
         f.finishAdapterNaturally()
+    }
+
+    fun testLateStoppedAfterNativeStopIsIgnoredByRemoteEndpointWithoutRpcOrUiRevival() {
+        for (manual in listOf(false, true)) Fixture(manualProfile = manual).use { f ->
+            f.ready()
+            val client = f.client()
+            StoppedNotifications(client).use { notifications ->
+                edt { f.session.stop() }
+                waitFor { f.peer.disconnects.size == 1 }
+                val generation = client.suspensionGeneration
+                val requests = f.peer.notificationRequests()
+                // The held real disconnect ACK keeps the client in CLOSING.
+                notifications.deliver(allThreadsStopped())
+                notifications.deliver(allThreadsStopped().apply { threadId = 41 })
+                assertEquals(requests, f.peer.notificationRequests())
+                assertEquals(generation, client.suspensionGeneration)
+                notifications.assertNoDispatchFailure()
+                edt { UIUtil.dispatchAllInvocationEvents(); assertTrue(f.session.isStopped); assertFalse(f.session.isPaused) }
+                try {
+                    client.debugProtocolServer
+                    fail("A notification fix must retain cancellation of an ordinary late endpoint lookup")
+                } catch (_: CancellationException) { }
+                val shutdown = f.shutdown()
+                assertFalse(shutdown.isDone)
+                f.peer.ack.complete(null)
+                shutdown.get(3, TimeUnit.SECONDS)
+                f.finishAdapterNaturally()
+                // Repeat after real transport disposal, now CLOSED rather than
+                // claiming only the pre-ACK state was covered.
+                val closedGeneration = client.suspensionGeneration
+                notifications.deliver(allThreadsStopped())
+                assertEquals(requests, f.peer.notificationRequests())
+                assertEquals(closedGeneration, client.suspensionGeneration)
+                notifications.assertNoDispatchFailure()
+                edt { assertTrue(f.session.isStopped); assertFalse(f.session.isPaused) }
+            }
+        }
+    }
+
+    fun testStopBetweenStoppedEntryAndEndpointLookupDoesNotEscapeRemoteEndpoint() = Fixture().use { f ->
+        f.ready()
+        val client = f.client()
+        StoppedNotifications(client).use { notifications ->
+            val connectionPhase = GoTestDapClient::class.java.getDeclaredField("connectionPhase")
+                .apply { isAccessible = true }.get(client) as AtomicReference<*>
+            val delivered = CompletableFuture<Unit>()
+            val receiver = Thread({
+                try { notifications.deliver(allThreadsStopped()); delivered.complete(Unit) }
+                catch (failure: Throwable) { delivered.completeExceptionally(failure) }
+            }, "Go-test-owned-late-stopped").apply { isDaemon = true }
+            var generationAfterStop = -1L
+            var requestsAfterStop = emptyList<Int>()
+            try {
+                edt {
+                    // GoDapClient's actual endpoint getter synchronizes on this
+                    // real client. Hold that monitor on EDT so the notification
+                    // passes its entry check and blocks inside the real getter;
+                    // native Stop below can still enter the monitor reentrantly.
+                    synchronized(client) {
+                        receiver.start()
+                        waitFor {
+                            val info = ManagementFactory.getThreadMXBean().getThreadInfo(receiver.id, 32)
+                            info != null && info.threadState == Thread.State.BLOCKED &&
+                                info.lockOwnerId == Thread.currentThread().id && info.stackTrace.any {
+                                    it.className == GoDapClient::class.java.name && it.methodName == "getDebugProtocolServer"
+                                }
+                        }
+                        assertFalse(delivered.isDone)
+                        f.session.stop()
+                        // Native Stop schedules the registered owner shutdown.
+                        // Reuse it and observe only its real atomic phase here:
+                        // its wire dispatcher may need this monitor released.
+                        f.shutdown()
+                        waitFor { connectionPhase.get().toString() in setOf("CLOSING", "CLOSED") }
+                        generationAfterStop = client.suspensionGeneration
+                        requestsAfterStop = f.peer.notificationRequests().dropLast(1)
+                    }
+                }
+                delivered.get(3, TimeUnit.SECONDS)
+                notifications.assertNoDispatchFailure()
+                assertEquals(generationAfterStop, client.suspensionGeneration)
+                assertEquals(requestsAfterStop, f.peer.notificationRequests().dropLast(1))
+                waitFor { f.peer.disconnects.size == 1 }
+                edt { UIUtil.dispatchAllInvocationEvents(); assertTrue(f.session.isStopped); assertFalse(f.session.isPaused) }
+                f.peer.ack.complete(null)
+                f.shutdown().get(3, TimeUnit.SECONDS)
+                f.finishAdapterNaturally()
+            } finally {
+                if (receiver.state != Thread.State.NEW) receiver.join(3_000)
+                assertFalse("The owned notification receiver must finish", receiver.isAlive)
+            }
+        }
+    }
+
+    fun testActiveStoppedStillLoadsRealPeerFramesAndPausesTheNativeTestSession() = Fixture().use { f ->
+        f.ready()
+        val client = f.client()
+        StoppedNotifications(client).use { notifications ->
+            val before = client.suspensionGeneration
+            val threadsBefore = f.peer.threadRequests.get()
+            f.peer.returnStoppedFrames.set(true)
+            notifications.deliver(allThreadsStopped())
+            waitFor { edt { f.session.isPaused } }
+            assertTrue(client.suspensionGeneration > before)
+            assertTrue(f.peer.threadRequests.get() > threadsBefore)
+            assertTrue(f.peer.stackRequests.get() > 0)
+            notifications.assertNoDispatchFailure()
+            edt {
+                assertFalse(f.session.isStopped)
+                assertNotNull(f.session.suspendContext?.activeExecutionStack?.topFrame)
+                f.session.stop()
+            }
+            waitFor { f.peer.disconnects.size == 1 }
+            f.peer.ack.complete(null)
+            f.shutdown().get(3, TimeUnit.SECONDS)
+            f.finishAdapterNaturally()
+        }
+    }
+
+    private fun allThreadsStopped() = StoppedEventArguments().apply { reason = "pause"; allThreadsStopped = true }
+
+    /** The real SDK dispatcher and actual Go Test client, with deterministic
+     * local notification delivery; ordinary server RPCs still use the owned
+     * socket peer above. No production hook or synthetic cancellation exception. */
+    private inner class StoppedNotifications(client: GoTestDapClient) : AutoCloseable {
+        private val warnings = CopyOnWriteArrayList<LogRecord>()
+        private val logger = Logger.getLogger(RemoteEndpoint::class.java.name)
+        private val handler = object : Handler() {
+            init { level = Level.ALL }
+            override fun publish(record: LogRecord) {
+                if (record.level.intValue() >= Level.WARNING.intValue()) warnings += record
+            }
+            override fun flush() {}
+            override fun close() {}
+        }
+        private val unexpectedResponses = AtomicInteger()
+        private val endpoint = RemoteEndpoint({ unexpectedResponses.incrementAndGet() }, GenericEndpoint(client))
+        init { logger.addHandler(handler) }
+        fun deliver(args: StoppedEventArguments) {
+            endpoint.consume(NotificationMessage().apply { method = "stopped"; params = args })
+        }
+        fun assertNoDispatchFailure() {
+            assertEquals("A notification cannot fabricate a response", 0, unexpectedResponses.get())
+            assertTrue("RemoteEndpoint must not log an exception/unknown-handler warning: " + warnings.joinToString { it.message + " " + it.thrown }, warnings.isEmpty())
+        }
+        override fun close() { logger.removeHandler(handler); handler.close() }
     }
 
     fun testStateProbeStopBeforePublicServerPublicationSendsOneRealDisconnectWithoutInitialize() {
@@ -513,6 +676,10 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
         val disconnects = CopyOnWriteArrayList<DisconnectArguments>()
         val ready = CompletableFuture<Unit>()
         val ack = CompletableFuture<Void>()
+        val threadRequests = AtomicInteger()
+        val stackRequests = AtomicInteger()
+        val returnStoppedFrames = AtomicBoolean()
+        fun notificationRequests() = listOf(threadRequests.get(), stackRequests.get(), initializes.size, launches.size, disconnects.size)
         override fun initialize(args: InitializeRequestArguments): CompletableFuture<Capabilities> {
             initializes += args
             return CompletableFuture.completedFuture(Capabilities().apply { supportsConfigurationDoneRequest = true })
@@ -521,7 +688,16 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
             launches += args; client.initialized(); return CompletableFuture.completedFuture(null)
         }
         override fun configurationDone(args: ConfigurationDoneArguments) = CompletableFuture.completedFuture<Void>(null)
-        override fun threads() = CompletableFuture.completedFuture(ThreadsResponse().apply { threads = emptyArray(); ready.complete(Unit) })
+        override fun threads() = CompletableFuture.completedFuture(ThreadsResponse().apply {
+            threadRequests.incrementAndGet()
+            threads = if (returnStoppedFrames.get()) arrayOf(DapThread().apply { id = 41; name = "owned active Go test" }) else emptyArray()
+            ready.complete(Unit)
+        })
+        override fun stackTrace(args: StackTraceArguments) = CompletableFuture.completedFuture(StackTraceResponse().apply {
+            stackRequests.incrementAndGet()
+            stackFrames = arrayOf(StackFrame().apply { id = 4101; name = "TestControlled"; line = 1; column = 1 })
+        })
+        override fun scopes(args: ScopesArguments) = CompletableFuture.completedFuture(ScopesResponse().apply { scopes = emptyArray() })
         override fun setBreakpoints(args: SetBreakpointsArguments) = CompletableFuture.completedFuture(SetBreakpointsResponse().apply { breakpoints = emptyArray() })
         override fun disconnect(args: DisconnectArguments): CompletableFuture<Void> { disconnects += args; return ack }
     }

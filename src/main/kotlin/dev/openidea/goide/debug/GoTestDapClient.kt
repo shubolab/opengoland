@@ -10,6 +10,7 @@ import org.eclipse.lsp4j.debug.DisconnectArguments
 import org.eclipse.lsp4j.debug.ExitedEventArguments
 import org.eclipse.lsp4j.debug.OutputEventArguments
 import org.eclipse.lsp4j.debug.ProcessEventArguments
+import org.eclipse.lsp4j.debug.StoppedEventArguments
 import org.eclipse.lsp4j.debug.TerminatedEventArguments
 import org.eclipse.lsp4j.debug.services.IDebugProtocolServer
 import java.util.concurrent.CancellationException
@@ -56,6 +57,23 @@ internal class GoTestDapClient(process: DAPDebugProcess, parameters: Map<String,
             }
             else -> return server
         }
+    }
+
+    override fun stopped(args: StoppedEventArguments) {
+        if (connectionStopped()) return
+        try {
+            super.stopped(args)
+        } catch (cancelled: CancellationException) {
+            // Stop can win after the entry check but before the superclass
+            // looks up its endpoint. Abandon only this terminal notification;
+            // ordinary endpoint lookup must still cancel late initialization.
+            if (!connectionStopped()) throw cancelled
+        }
+    }
+
+    private fun connectionStopped() = when (connectionPhase.get()) {
+        ConnectionPhase.CLOSING, ConnectionPhase.CLOSED -> true
+        else -> false
     }
 
     override fun output(args: OutputEventArguments) {

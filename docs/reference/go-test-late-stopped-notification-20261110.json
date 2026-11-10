@@ -1,0 +1,68 @@
+{
+  "schema": 1,
+  "status": "native-observation-with-unverified-source-candidate",
+  "observedProductVersion": "0.1.0-preview.20261110.5",
+  "observedProductSourceCommit": "8167eb3811c79ac1e0d1a754640b38325a600484",
+  "platform": "macOS arm64, native installed public DMG copy; parent owns full desktop acceptance record",
+  "log": {
+    "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/idea.log",
+    "sha256": "325493f69a7a2a0991e827df20a44d04b358a6220a04c8c5892d258a132d6b7c",
+    "bytes": 192963,
+    "exceptionFirstLine": 654,
+    "exceptionLastLine": 679,
+    "exception": "2026-11-10 22:12:15,252 [ 672352]   WARN - org.eclipse.lsp4j.jsonrpc.RemoteEndpoint - Notification threw an exception: {\n  \"type\": \"event\",\n  \"seq\": 12,\n  \"event\": \"stopped\",\n  \"body\": {\n    \"reason\": \"pause\",\n    \"allThreadsStopped\": true\n  }\n}\njava.util.concurrent.CancellationException: Go test debugger connection was stopped\n\tat dev.openidea.goide.debug.GoTestDapClient.getDebugProtocolServer(GoTestDapClient.kt:55)\n\tat com.redhat.devtools.lsp4ij.dap.client.DAPClient.stopped(DAPClient.java:368)\n\tat java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:565)\n\tat org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.lambda$recursiveFindRpcMethods$0(GenericEndpoint.java:65)\n\tat org.eclipse.lsp4j.jsonrpc.services.GenericEndpoint.notify(GenericEndpoint.java:160)\n\tat org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.handleNotification(RemoteEndpoint.java:225)\n\tat org.eclipse.lsp4j.jsonrpc.RemoteEndpoint.consume(RemoteEndpoint.java:192)\n\tat org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.handleMessage(StreamMessageProducer.java:189)\n\tat org.eclipse.lsp4j.jsonrpc.json.StreamMessageProducer.listen(StreamMessageProducer.java:97)\n\tat org.eclipse.lsp4j.jsonrpc.json.ConcurrentMessageProcessor.run(ConcurrentMessageProcessor.java:97)\n\tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:545)\n\tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:328)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1090)\n\tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:614)\n\tat java.base/java.lang.Thread.run(Thread.java:1474)"
+  },
+  "observation": [
+    "After the parent performed native Stop, the runtime received stopped/pause/allThreadsStopped seq12 and RemoteEndpoint logged a CancellationException.",
+    "Stack identifies GoTestDapClient.getDebugProtocolServer:55 -> DAPClient.stopped:368; this is a WARN, not an ERROR/SEVERE entry.",
+    "Owned desktop session later quit normally; parent recorded all122 owned identities absent and no signals. This child did not repeat that desktop procedure."
+  ],
+  "sourceInference": [
+    "getDebugProtocolServer intentionally throws while CLOSING/CLOSED to prevent late ordinary initialization after Stop.",
+    "Inherited DAPClient.stopped looks up that getter before checking its own disposed flag, so a late notification can escape as expected cancellation and be logged by the actual RPC dispatcher.",
+    "Frozen E/F does not modify GoTestDapClient or the relevant inherited stopped handler; this warning is not fixed by importing E/F."
+  ],
+  "candidate": {
+    "status": "source-written-not-compiled-or-executed",
+    "files": [
+      "src/main/kotlin/dev/openidea/goide/debug/GoTestDapClient.kt",
+      "src/test/kotlin/dev/openidea/goide/debug/GoTestDapPreconnectLifecycleTest.kt"
+    ],
+    "behavior": "Ignore stopped notifications only for terminal Go Test connection phases; catch cancellation from the entry/getter race only after phase became terminal. Keep strict ordinary endpoint cancellation.",
+    "testScope": "Actual SDK RemoteEndpoint/GenericEndpoint around actual native-session GoTest client; locally delivered notification and real owned socket server RPCs; terminal, real monitor race and active-frame control. Not a new desktop or real Delve execution claim.",
+    "requiredFutureEvidence": [
+      "Focused actual old-client regression fails for escaped RemoteEndpoint cancellation, not a compile/setup failure.",
+      "Final root full suite executes the new regressions and existing preconnect/normal DAP controls.",
+      "Future actual installed-product Stop no longer emits the same late-notification warning."
+    ]
+  },
+  "backgroundWriteWarnings": [
+    {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-1676707111.txt",
+      "sha256": "f425a6eb60cc3c4029578786ecba8f325a3da2539d48f6733c7cd8513c605ba0",
+      "bytes": 1064652,
+      "logLine": 871,
+      "observedEdt": "WAITING in AWT modal event loop; Edit Run Configurations dialog",
+      "observedBackgroundWriter": "refresh opened files requests flow processing, SUSPENDED at RWMutexIdeaImpl.acquireWriteIntentActionPermit and NestedLocksThreadingSupport.acquireWriteIntentPermitSuspending",
+      "appKitThread": "RUNNABLE, in native; no finer native stack captured",
+      "causalConclusion": "unknown; snapshot establishes a write-intent wait while a modal dialog is open, not a root cause of failed SDK selection/focus"
+    },
+    {
+      "path": ".tools/delve-next-native-plan/kit-f56y0x1k/simple/profile/log/bg-wa/thread-dump-864495529.txt",
+      "sha256": "ebdc09c2ef7cee6c2ba71a5cfa302e3ded607ea59b755e1a9633a67b6a396fef",
+      "bytes": 1096924,
+      "logLine": 893,
+      "observedEdt": "WAITING in AWT modal event loop; Go SDK Add local native file chooser",
+      "observedBackgroundWriter": "refresh opened files requests flow processing, SUSPENDED at RWMutexIdeaImpl.acquireWriteIntentActionPermit and NestedLocksThreadingSupport.acquireWriteIntentPermitSuspending",
+      "appKitThread": "RUNNABLE, in native; no finer native stack captured",
+      "causalConclusion": "unknown; snapshot establishes a write-intent wait while a modal dialog is open, not a root cause of failed SDK selection/focus"
+    }
+  ],
+  "unknown": [
+    "No native call-stack evidence explains why the GoTo SDK chooser loses focus or returns to Settings.",
+    "No established causal connection between the stopped-notification warning and the later modal write-intent waits.",
+    "No evidence blaming CUA or external user activity; no modality patch justified from these snapshots alone.",
+    "A thread dump is a snapshot; it does not establish every lock owner or a persistent deadlock."
+  ],
+  "preparedAtUtc": "2026-11-10T14:44:22.217952+00:00"
+}
