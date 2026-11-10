@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "platformBuild": "261.26222.65",
+  "ideaVersion": "2026.1.4",
+  "downloadUrl": "https://download.jetbrains.com/idea/idea-2026.1.4.win.zip",
+  "archiveBytes": 1591745512,
+  "archiveSha256": "5c92bc8dcca7b39857e7b24029432b558cac61ed518761e3b824590b849d548a",
+  "archiveEntry": "plugins/localization-zh/lib/localization-zh.jar",
+  "jarBytes": 13274509,
+  "jarSha256": "b3df0a2b65b7e18bcbf2abaeedc994b5be3da76fed4b153f7fd11ce32170ae0d",
+  "descriptorEntry": "META-INF/plugin.xml",
+  "descriptorBytes": 3815,
+  "descriptorSha256": "8020bd5ceb0966ffd2af51e313500cfc259b4d724221634ede6e407abae79dd0",
+  "pluginId": "com.intellij.zh",
+  "pluginName": "Chinese (Simplified) Language Pack / 中文语言包",
+  "pluginVersion": "261.26222.65",
+  "dependencies": [
+    "com.intellij.modules.platform"
+  ],
+  "locale": "zh-CN",
+  "sourcePage": "https://www.jetbrains.com/idea/download/other.html",
+  "licensePage": "https://www.jetbrains.com/legal/docs/toolbox/user/",
+  "supportPage": "https://intellij-support.jetbrains.com/hc/en-us/community/posts/31963256883730-IntelliJ-IDEA-2025-3-No-Chinese-Language-Pack",
+  "redistributedByProduct": false,
+  "dataOffset": 1076967468,
+  "compressedBytes": 3572072,
+  "compressedSha256": "a7ef1fe66b556417fae1fbb9e53c74c16195bef5dd4402a6715a472c9acf55b6",
+  "compressionMethod": 8,
+  "compressionFlags": 0,
+  "fullArchiveHashUsage": "Source provenance and complete local ZIP verification only; remote range download verifies the pinned compressed segment and the final JAR."
+}

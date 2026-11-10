@@ -121,6 +121,10 @@
         <debugAdapterServer id="openidea.delve" name="Go (Delve)" factoryClass="dev.openidea.goide.debug.GoDebugAdapterFactory" icon="/icons/go.svg"/>
     </extensions>
     <actions>
+        <action id="OpenIDEA.InstallChineseLanguagePack" class="dev.openidea.goide.plugins.InstallChineseLanguagePackAction" text="安装简体中文语言包… / Install Chinese Language Pack…" description="从 JetBrains 官方获取与当前平台匹配的简体中文语言包">
+            <add-to-group group-id="HelpMenu" anchor="last"/>
+            <add-to-group group-id="ToolsMenu" anchor="last"/>
+        </action>
         <action id="OpenIDEA.Go.TypeFromJson" class="dev.openidea.goide.generate.jsonstruct.GoGenerateJsonTypeAction" text="Type from JSON…" description="Analyze a JSON sample and preview Go types">
             <add-to-group group-id="GenerateGroup" anchor="last"/>
         </action>
