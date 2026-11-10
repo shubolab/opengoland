@@ -20,6 +20,9 @@ class InstallChineseLanguagePackAction : DumbAwareAction() {
     override fun actionPerformed(event: AnActionEvent) {
         val project = event.project
         val application = ApplicationManager.getApplication()
+        // A dialog entered from ANY becomes write-unsafe itself. Preserve the
+        // user's current context before leaving the EDT for metadata loading.
+        val modality = ModalityState.current()
         application.executeOnPooledThread {
             try {
                 val source = ChinesePackSource.load()
@@ -27,12 +30,12 @@ class InstallChineseLanguagePackAction : DumbAwareAction() {
                 application.invokeLater({
                     if (!application.isDisposed && project?.isDisposed != true)
                         ChineseLanguagePackDialog(project, source, build).show()
-                }, ModalityState.any())
+                }, modality)
             } catch (error: Exception) {
                 application.invokeLater({
                     if (!application.isDisposed && project?.isDisposed != true)
                         Messages.showErrorDialog(project, error.message ?: "无法准备语言包安装入口，请重试。", "中文语言包")
-                }, ModalityState.any())
+                }, modality)
             }
         }
     }

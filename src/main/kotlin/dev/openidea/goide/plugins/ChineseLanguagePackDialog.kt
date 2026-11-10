@@ -51,12 +51,14 @@ internal class ChineseLanguagePackDialog(
     private var busy = false
     private var generation = 0L
     private var lastProgress = 0L
+    @Volatile private var uiModality = ModalityState.current()
 
     init {
         title = "安装简体中文语言包"
         setOKButtonText("继续安装")
         setCancelButtonText("取消")
         init()
+        uiModality = ModalityState.stateForComponent(download)
         ButtonGroup().apply { add(download); add(local) }
         download.addActionListener { updateEnabled() }
         local.addActionListener { updateEnabled() }
@@ -72,7 +74,7 @@ internal class ChineseLanguagePackDialog(
             ownerClosed.set(true)
             cancellation.cancel()
             pending.getAndSet(null)?.close()
-            ApplicationManager.getApplication().invokeLater({ if (!isDisposed) close(CANCEL_EXIT_CODE) }, ModalityState.any())
+            ApplicationManager.getApplication().invokeLater({ if (!isDisposed) close(CANCEL_EXIT_CODE) }, uiModality)
         }
         if (!Disposer.tryRegister(owner, lifetime)) lifetime.dispose()
         else Disposer.register(disposable, Disposable { Disposer.dispose(lifetime) })
@@ -89,7 +91,7 @@ internal class ChineseLanguagePackDialog(
             add(JPanel(BorderLayout(8, 0)).apply { add(file, BorderLayout.CENTER); add(browse, BorderLayout.EAST) })
         }
         val information = JTextArea(
-            "下一步会打开原生插件安装窗口，请确认已选中的语言包。\n" +
+            "下一步会打开原生插件安装窗口，请选中 localization-zh.zip 并确认安装。\n" +
                 "安装完成后请重新打开 IDE，再到“设置 → 语言和区域 / Language and Region”选择简体中文。"
         ).apply { isEditable = false; isOpaque = false; lineWrap = true; wrapStyleWord = true }
         val links = JPanel().apply {
@@ -118,6 +120,10 @@ internal class ChineseLanguagePackDialog(
         val input = if (local.isSelected) Path.of(file.text) else null
         cancellation.cancel(); cancellation = ChinesePackCancellation()
         val token = cancellation
+        // Capture the active dialog modality on the EDT. The native installer
+        // may update PSI/indexes; ANY would discard TransactionGuard safety.
+        val modality = ModalityState.current()
+        uiModality = modality
         val ticket = ++generation
         busy = true; progress.isIndeterminate = true; status.text = "正在准备语言包…"; updateEnabled()
         ApplicationManager.getApplication().executeOnPooledThread {
@@ -127,7 +133,7 @@ internal class ChineseLanguagePackDialog(
                     val now = System.nanoTime()
                     if (value.total == null || value.completed == value.total || now - lastProgress > 100_000_000) {
                         lastProgress = now
-                        deliver(ticket, token) {
+                        deliver(ticket, token, modality) {
                             status.text = value.message; progress.isIndeterminate = value.total == null
                             value.total?.takeIf { it > 0 }?.let { progress.value = (value.completed * 1000 / it).toInt().coerceIn(0, 1000) }
                         }
@@ -153,10 +159,10 @@ internal class ChineseLanguagePackDialog(
                                 Messages.showErrorDialog(project, error.message ?: "原生插件安装未完成，请重试。", "中文语言包")
                         } finally { prepared.close() }
                     }
-                }, ModalityState.any())
+                }, modality)
             } catch (error: Exception) {
                 ready?.let { pending.compareAndSet(it, null); it.close() }
-                if (!token.isCancelled()) deliver(ticket, token) {
+                if (!token.isCancelled()) deliver(ticket, token, modality) {
                     busy = false; progress.isIndeterminate = false; progress.value = 0
                     status.text = if (error is ProcessCanceledException || error is CancellationException) "已取消语言包准备。"
                         else error.message ?: "语言包准备失败，请检查网络后重试。"
@@ -170,8 +176,8 @@ internal class ChineseLanguagePackDialog(
     private fun valid(ticket: Long, token: ChinesePackCancellation) =
         !isDisposed && !ownerClosed.get() && project?.isDisposed != true && generation == ticket && !token.isCancelled()
 
-    private fun deliver(ticket: Long, token: ChinesePackCancellation, action: () -> Unit) {
-        ApplicationManager.getApplication().invokeLater({ if (valid(ticket, token)) action() }, ModalityState.any())
+    private fun deliver(ticket: Long, token: ChinesePackCancellation, modality: ModalityState, action: () -> Unit) {
+        ApplicationManager.getApplication().invokeLater({ if (valid(ticket, token)) action() }, modality)
     }
 
     private fun updateEnabled() {

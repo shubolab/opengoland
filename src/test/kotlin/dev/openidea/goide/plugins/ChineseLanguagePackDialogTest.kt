@@ -7,6 +7,15 @@ import com.intellij.openapi.Disposable
 import com.intellij.openapi.actionSystem.ActionManager
 import com.intellij.openapi.actionSystem.DefaultActionGroup
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.application.ModalityState
+import com.intellij.openapi.application.TransactionGuard
+import com.intellij.openapi.application.TransactionGuardImpl
+import com.intellij.openapi.application.impl.LaterInvocator
+import com.intellij.openapi.command.WriteCommandAction
+import com.intellij.openapi.fileEditor.FileDocumentManager
+import com.intellij.openapi.application.ReadAction
+import com.intellij.psi.PsiDocumentManager
+import com.intellij.psi.PsiManager
 import com.intellij.openapi.application.WriteIntentReadAction
 import com.intellij.openapi.fileChooser.*
 import com.intellij.openapi.progress.ProcessCanceledException
@@ -31,6 +40,7 @@ import java.util.concurrent.CompletableFuture
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicBoolean
 import java.util.concurrent.atomic.AtomicReference
 import java.util.zip.ZipEntry
 import java.util.zip.ZipOutputStream
@@ -49,6 +59,75 @@ class ChineseLanguagePackDialogTest : LightPlatformTestCase() {
             val group = manager.getAction(id) as DefaultActionGroup
             assertTrue(id, group.getChildren(manager).any { it === action })
         }
+    }
+
+    fun testNonModalNativeHandoffKeepsAWriteSafePlatformContext() =
+        verifyWriteSafeHandoff(false)
+
+    fun testModalNativeHandoffKeepsItsOwnWriteSafeStateWithoutWaitingForTheDialogToClose() =
+        verifyWriteSafeHandoff(true)
+
+    private fun verifyWriteSafeHandoff(modal: Boolean) = withRoot { root ->
+        val source = ChinesePackSource.load()
+        val owner = Disposer.newDisposable()
+        val invoked = CountDownLatch(1)
+        val writeSafe = AtomicBoolean()
+        val failure = AtomicReference<Throwable?>()
+        val guard = TransactionGuard.getInstance()
+        val entity = Any()
+        var state = ModalityState.nonModal()
+        val path = Files.writeString(root.resolve("owned-chinese-write-safety.txt"), "before")
+        val virtual = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(path))
+        val document = requireNotNull(FileDocumentManager.getInstance().getDocument(virtual))
+        val psi = ReadAction.compute<com.intellij.psi.PsiFile, RuntimeException> {
+            requireNotNull(PsiManager.getInstance(project).findFile(virtual))
+        }
+        val dialog = edt { ChineseLanguagePackDialog(project, source, source.platformBuild,
+            preparation(root), ChinesePackInstaller { _, _, _, _ ->
+                try {
+                    writeSafe.set(guard.isWritingAllowed)
+                    if (writeSafe.get()) WriteCommandAction.runWriteCommandAction(project) {
+                        document.setText("after 中文😀")
+                        PsiDocumentManager.getInstance(project).commitDocument(document)
+                    }
+                } catch (error: Throwable) { failure.set(error) }
+                finally { invoked.countDown() }
+            }, owner) }
+        try {
+            edt {
+                (guard as TransactionGuardImpl).performUserActivity {
+                    if (modal) LaterInvocator.enterModal(entity)
+                    state = ModalityState.current()
+                    assertTrue("The actual starting user context must be write-safe", guard.isWritingAllowed)
+                    dialog.performOKAction()
+                }
+            }
+            val end = System.nanoTime() + TimeUnit.SECONDS.toNanos(10)
+            while (invoked.count > 0 && System.nanoTime() < end) {
+                inState(state) { UIUtil.dispatchAllInvocationEvents() }
+                Thread.sleep(5)
+            }
+            assertEquals("Handoff must execute while the originating modality is still active", 0L, invoked.count)
+            assertTrue("Native installation cannot run in TransactionGuard's write-unsafe ANY context", writeSafe.get())
+            assertNull("An ordinary platform PSI write must complete without a transaction violation", failure.get())
+            assertEquals("after 中文😀", inState(state) { psi.text })
+        } finally {
+            inState(state) {
+                if (!dialog.isDisposed) dialog.close(1)
+                if (modal && LaterInvocator.getCurrentModalEntities().contains(entity)) LaterInvocator.leaveModal(entity)
+                Disposer.dispose(owner)
+            }
+            // Keep the shared SDK file-document service free of this owned
+            // physical fixture's dirty buffer before deleting its directory.
+            edt { FileDocumentManager.getInstance().saveDocument(document) }
+            assertFalse(FileDocumentManager.getInstance().isDocumentUnsaved(document))
+        }
+    }
+
+    private fun <T> inState(state: ModalityState, action: () -> T): T {
+        var value: T? = null
+        ApplicationManager.getApplication().invokeAndWait({ WriteIntentReadAction.run { value = action() } }, state)
+        @Suppress("UNCHECKED_CAST") return value as T
     }
 
     fun testBackgroundReadyResultUsesNativeVfsAndEdtHandoffAndRetainsItsArchive() = withRoot { root ->
