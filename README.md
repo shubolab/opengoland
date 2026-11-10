@@ -9,6 +9,19 @@ IntelliJ Platform. The product reference is the locally installed GoLand
 2026.1.4. GoLand and PyCharm installations are reference applications, not
 components of the generated product.
 
+## See it running
+
+![Actual open Goland workflow: editor, Go output, tests, breakpoint and single step](docs/demo/native-go-workflow.gif)
+
+The repository's [Go example](fixtures/go-workspace) in the real native IDE:
+open code, run the Chinese greeting, inspect passing tests, then debug and
+evaluate an expression. These are actual operation stages with idle time
+compressed, captured on macOS Apple silicon from development build
+**0.1.0-preview.20261110.4**. See [capture details and reproduction steps](docs/demo/README.md).
+The published installers are listed below.
+
+## Download
+
 Download executable installers from [GitHub Releases](https://github.com/shubolab/opengoland/releases):
 `.dmg` for Apple silicon macOS and `.exe` for Windows x64. The distribution
 includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscription

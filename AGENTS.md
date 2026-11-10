@@ -23,6 +23,10 @@ and editor. Go tools and the Go engine provide language and engineering services
 - Every delivered version must have a GitHub Release with real Windows `.exe`
   and macOS `.dmg` installers, checksums, and installation instructions. Build and
   check each platform's actual product; source archives alone are not a release.
+- Keep a clear, accurate Chinese README alongside the English README. Include a
+  GIF of an example project actually running in the native IDE, identify its
+  recorded version and system, and refresh it when the demonstrated workflow
+  materially changes. Do not substitute mock UI for runtime captures.
 
 Verification: `./gradlew test buildPlugin`, `cd engine && go test -race ./...`,
 then actual native desktop checks and real Go project workflows. Use the

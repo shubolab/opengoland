@@ -8,6 +8,14 @@
 
 适合希望使用原生桌面界面开发 Go、并愿意试用预览版本的开发者。**目前还不能当作完整的 GoLand 替代品**；下面列出的功能有各自的验证范围，完整验收仍在进行。
 
+## 运行起来是什么样
+
+![open Goland 真实运行示例：编辑器、中文输出、测试、断点和单步调试](docs/demo/native-go-workflow.gif)
+
+用仓库自带的 [Go 示例项目](fixtures/go-workspace)实际演示：打开代码 → 运行中文输出 → 查看测试结果 → 断点调试、单步执行和表达式求值。
+
+画面来自 macOS Apple silicon 上的 **0.1.0-preview.20261110.4 开发构建**，按真实操作步骤播放，压缩了中间的空闲等待。[录制版本与复现方法](docs/demo/README.md)有更详细的说明；可下载安装的版本以下面的下载说明为准。
+
 ## 下载与安装
 
 当前公开版本是 [0.1.0-preview.20261110.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.3)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。

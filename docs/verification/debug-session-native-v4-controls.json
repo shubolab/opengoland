@@ -1,0 +1,1609 @@
+{
+  "schemaVersion": 1,
+  "status": "native-first-step-and-continue-passed-syscall-locals-failure-retained",
+  "generatedAtUtc": "2026-11-10T07:02:33.712460+00:00",
+  "authority": {
+    "nativeUi": "Root operator; retained checkpoint observations and parent message.",
+    "thisAuditor": "Read retained files, hash/parse raw DAP and compare bindings only. No UI, DAP, target launch, or signals."
+  },
+  "cohort": {
+    "version": "0.1.0-preview.20261110.4",
+    "sourceCommit": "17ca02adf80000501dc9ec6a061d7931a0b9d037",
+    "sourceDirty": false,
+    "productManifest": {
+      "path": "build/product/open Goland.app/Contents/Resources/openidea-product.json",
+      "bytes": 4917949,
+      "sha256": "74b5ebe9d405a6321c909f7b2aba532eea8b0e26a16dba6d5e0ba65373d1b157"
+    },
+    "inputDigest": "612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e",
+    "inputFiles": 486,
+    "sourceCommitBinding": "Packaged engineBuildInfo vcs.revision agrees with all three retained launch intents.",
+    "versions": {
+      "go": "go version go1.26.10 darwin/arm64",
+      "dlv": "Delve Debugger\nVersion: 1.27.2\nBuild: $Id: 360e7b2181d3da54115aaee4f569954bca95cfe3 $"
+    },
+    "goSha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+    "delveSha256": "417ef04195c53501e1d0584002da9b8c533b8c5a7a05fff0205a8c16792c57a7",
+    "lsp": {
+      "jar": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/lsp4ij/lib/lsp4ij-0.21.0.jar",
+      "sha256": "9da584e5ade15a7080637f14df25b6f205168bbab8a98cc6c799fba935380db2",
+      "marker": "META-INF/open-goland-document-sync.json",
+      "markerSha256": "3b2700052b0457d6217bc47af9f21858a879439e6923e7a704bc8148f4cbc0ac",
+      "sources": 18,
+      "classes": 38
+    },
+    "lspClassMapSha256": "3c9d1d88596313dd0bfc201356f5c4167beccdec6178d8960b55896f3ffbd3f5",
+    "preservedParser": {
+      "path": ".tools/debug-session-native-tools/parse_dap.py",
+      "bytes": 7483,
+      "sha256": "883388f38f255c00e6407fec2faa3aa1af63dd23096959c1e31e538a99572796"
+    },
+    "currentAnalyzerSource": {
+      "path": ".tools/debug-session-native-tools/analyze_native_cold.py",
+      "bytes": 7334,
+      "sha256": "d1fae5ed6ec841f4cd361282a8b36dfa1a744f2aada0c95d7c35362a1c53ed9f"
+    },
+    "analyzerSourceScope": "Current retained analyzer source is hashed for follow-up, not asserted to be the original producing bytes."
+  },
+  "lanes": [
+    {
+      "id": "first-b-step",
+      "outcome": "PASS-limited-first-B-Step",
+      "directory": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85",
+      "sourceCommit": "17ca02adf80000501dc9ec6a061d7931a0b9d037",
+      "sourceDirty": false,
+      "bindingMatchesSharedCohort": true,
+      "fixture": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/fixture.json",
+        "bytes": 10578,
+        "sha256": "4d5909b9e23694dfb3d3d4e842621b2ee7051a268c1fa15a5a5a93c3b8aa1fef"
+      },
+      "fixtureSource": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/main.go",
+        "bytes": 1897,
+        "sha256": "58da3da2094523f3065908b0acabd491b5495b18d77b27f4d18f6b1beef39592"
+      },
+      "module": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/go.mod",
+        "bytes": 61,
+        "sha256": "c0cd07442c62327ff3f4f30817491610de476b8e463a88bbc84775278adf6290"
+      },
+      "tools": {
+        "sharedToolHashesMatchCohort": true,
+        "wrapper": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/dlv-with-native-log",
+          "bytes": 2882,
+          "sha256": "30e5c25b67404af1ac95e5ab2aec050b56ce05ce284a17cbe8fb706c6622d26a"
+        },
+        "actualInvocation": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/dap-logs/shim-invocations.jsonl",
+          "bytes": 1660,
+          "sha256": "62fad3db51eaef4e03867cc7e3f1b0158c6af86050d2531449c242e97f78b27e"
+        }
+      },
+      "launchIntent": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/launch-intent-launchservices.json",
+        "bytes": 8856,
+        "sha256": "c2bb37e3df2030cc59affb113a19923029f77d3579ac08587c049681295e7a5f"
+      },
+      "liveRuntime": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/runtime.json",
+          "bytes": 8404,
+          "sha256": "b42674d159ce5096d24f378f5abe2972bce8aa8f3af7ae4c37357bd2259ab1b9"
+        },
+        "status": "pass",
+        "pid": 42615,
+        "logPathSource": "live-jvm-property",
+        "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity"
+      },
+      "rawDapLog": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/dap-logs/delve-42739-1794292394160700000.log",
+        "bytes": 23623,
+        "sha256": "8d02fff71e68205e870dd56953bedd596d3ca0c2489c098e0eb90ba1c8b1e8a9"
+      },
+      "retainedParser": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/native-cold-wire.json",
+          "bytes": 64227,
+          "sha256": "77ec87f8fed4391d0ebd3cde8da0343dd129369353bdfecbcccca7102ca821b2"
+        },
+        "status": "protocol-criteria-met-native-ui-record-required",
+        "checks": {
+          "noWorkerStackBeforeCheckpoint": true,
+          "firstControlMatchesRequestedKind": true,
+          "firstControlTargetsWorkerB": true,
+          "marker202BoundBeforeFirstControl": true
+        },
+        "issues": [],
+        "originalParserSha256": "883388f38f255c00e6407fec2faa3aa1af63dd23096959c1e31e538a99572796",
+        "priorWorkerStackRequestCount": 0,
+        "workerStackRequestsAfterCheckpoint": 2,
+        "originalOperatorNativeAcceptanceField": "pending separate parent record"
+      },
+      "independentWireRead": {
+        "recordCount": 59,
+        "requestCount": 24,
+        "responseCount": 24,
+        "pairedCount": 24,
+        "duplicateKeys": [],
+        "unpairedRequests": [],
+        "orphanedResponses": [],
+        "failedResponses": [],
+        "markerMappings": [
+          {
+            "request": {
+              "line": 71,
+              "byteOffset": 16456,
+              "rawLineSha256": "0ca49008ecd45f8870283255f5a5cda210b62c0bcbaf4336679644a8c2fb282d",
+              "message": {
+                "seq": 15,
+                "type": "request",
+                "command": "evaluate",
+                "arguments": {
+                  "expression": "marker",
+                  "frameId": 1005,
+                  "context": "repl"
+                }
+              }
+            },
+            "response": {
+              "line": 72,
+              "byteOffset": 16631,
+              "rawLineSha256": "ab67860c7772ff7ed0b26e31d5ab83c3d5d28d505f9c2bbddd95d77306c64646",
+              "message": {
+                "seq": 21,
+                "type": "response",
+                "request_seq": 15,
+                "success": true,
+                "command": "evaluate",
+                "body": {
+                  "result": "202",
+                  "type": "int",
+                  "variablesReference": 0
+                }
+              }
+            },
+            "frameMapping": {
+              "threadId": 7,
+              "epoch": 1,
+              "frame": {
+                "id": 1005,
+                "name": "main.coldWorker",
+                "source": {
+                  "name": "main.go",
+                  "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/main.go"
+                },
+                "line": 41,
+                "column": 0,
+                "instructionPointerReference": "0x104190904"
+              },
+              "stackTraceRequest": {
+                "line": 65,
+                "byteOffset": 14047,
+                "rawLineSha256": "389edd095bd00fba91b1d7738260441bba87055d5aa41511bac4f12c8c615225",
+                "message": {
+                  "seq": 12,
+                  "type": "request",
+                  "command": "stackTrace",
+                  "arguments": {
+                    "threadId": 7
+                  }
+                }
+              },
+              "stackTraceResponse": {
+                "line": 66,
+                "byteOffset": 14183,
+                "rawLineSha256": "b807bb1cba79bd62eb11787e4fe2994218081b8fd4b78ae2f961eb6f1b9a7aea"
+              }
+            },
+            "frameMappingSha256": "8702fbe3a6cc89387ea702cd809585b646bdc1fa8375b50ddc447fe452be1983"
+          }
+        ],
+        "userSourcePositions": [
+          {
+            "epoch": 1,
+            "threadId": 1,
+            "frameId": 1002,
+            "function": "main.main",
+            "line1": 57,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 9,
+            "responseLine": 60,
+            "rawResponseLineSha256": "20b262591ef41a956eee336aa7d3b46af94e396812c9afa445d31accdedbdee7"
+          },
+          {
+            "epoch": 1,
+            "threadId": 7,
+            "frameId": 1005,
+            "function": "main.coldWorker",
+            "line1": 41,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 12,
+            "responseLine": 66,
+            "rawResponseLineSha256": "b807bb1cba79bd62eb11787e4fe2994218081b8fd4b78ae2f961eb6f1b9a7aea"
+          },
+          {
+            "epoch": 1,
+            "threadId": 7,
+            "frameId": 1006,
+            "function": "main.main.gowrap1",
+            "line1": 52,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 12,
+            "responseLine": 66,
+            "rawResponseLineSha256": "b807bb1cba79bd62eb11787e4fe2994218081b8fd4b78ae2f961eb6f1b9a7aea"
+          },
+          {
+            "epoch": 2,
+            "threadId": 7,
+            "frameId": 1000,
+            "function": "main.coldWorker",
+            "line1": 44,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 20,
+            "responseLine": 85,
+            "rawResponseLineSha256": "d1f9f036ea0960f25c1491a66bd0cd85e7f30fd66381caf01ab6a1b2e1aa2882"
+          },
+          {
+            "epoch": 2,
+            "threadId": 7,
+            "frameId": 1001,
+            "function": "main.main.gowrap1",
+            "line1": 52,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 20,
+            "responseLine": 85,
+            "rawResponseLineSha256": "d1f9f036ea0960f25c1491a66bd0cd85e7f30fd66381caf01ab6a1b2e1aa2882"
+          }
+        ],
+        "executionRequests": [
+          {
+            "line": 51,
+            "byteOffset": 8561,
+            "rawLineSha256": "27f615d52090cef434e82d32057f3400f2b600e01c7f4b010370bedef2ccdde0",
+            "message": {
+              "seq": 7,
+              "type": "request",
+              "command": "pause",
+              "arguments": {
+                "threadId": -1
+              }
+            }
+          },
+          {
+            "line": 77,
+            "byteOffset": 18057,
+            "rawLineSha256": "030ede480413772d59044d9997e65e880a7033790a14f0ae804ebdfcfd628826",
+            "message": {
+              "seq": 18,
+              "type": "request",
+              "command": "next",
+              "arguments": {
+                "threadId": 7
+              }
+            }
+          },
+          {
+            "line": 90,
+            "byteOffset": 22185,
+            "rawLineSha256": "e4de9c5242bb50ef8cc15d08d0af4e385f6ff1ff77170e728af1432bd2a450c1",
+            "message": {
+              "seq": 23,
+              "type": "request",
+              "command": "continue",
+              "arguments": {
+                "threadId": 7
+              }
+            }
+          },
+          {
+            "line": 92,
+            "byteOffset": 22493,
+            "rawLineSha256": "31ee76e10f3f12bfc8d8a4fef3f3a9c26d34aaeb669c3d23c9bd0f8ea7e4e382",
+            "message": {
+              "seq": 24,
+              "type": "request",
+              "command": "disconnect",
+              "arguments": {
+                "terminateDebuggee": true
+              }
+            }
+          }
+        ],
+        "stoppedEvents": [
+          {
+            "line": 55,
+            "byteOffset": 8948,
+            "rawLineSha256": "3fa515511096e797dfbdff565643fbff3b6691efb6d7bfe4412df0d84114369d",
+            "message": {
+              "seq": 12,
+              "type": "event",
+              "event": "stopped",
+              "body": {
+                "reason": "pause",
+                "allThreadsStopped": true
+              }
+            }
+          },
+          {
+            "line": 81,
+            "byteOffset": 18717,
+            "rawLineSha256": "cbf77a430eba5cff76f1c86184063f4cd9c16566cfc7c1bee7e28ef985f6c69c",
+            "message": {
+              "seq": 26,
+              "type": "event",
+              "event": "stopped",
+              "body": {
+                "reason": "step",
+                "threadId": 7,
+                "allThreadsStopped": true
+              }
+            }
+          },
+          {
+            "line": 97,
+            "byteOffset": 23080,
+            "rawLineSha256": "99cabcfb0e6c4c403377c45a20f0455210961b35a37b3dc940ca7cb0b7f9776f",
+            "message": {
+              "seq": 32,
+              "type": "event",
+              "event": "stopped",
+              "body": {
+                "reason": "pause",
+                "threadId": 7,
+                "allThreadsStopped": true
+              }
+            }
+          }
+        ],
+        "terminatedEvents": [
+          {
+            "line": 99,
+            "byteOffset": 23384,
+            "rawLineSha256": "903235602b39f7de5326d547a3520ae761feef9411f737b06c525af01df3a150",
+            "message": {
+              "seq": 35,
+              "type": "event",
+              "event": "terminated",
+              "body": {}
+            }
+          }
+        ],
+        "exitedEvents": []
+      },
+      "checkpointJsonl": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/checkpoints.jsonl",
+        "bytes": 13009,
+        "sha256": "06ed4511379a63e1b067fed8953f791fc2ab8fc1855c626c9bb67c64b1bca7a3"
+      },
+      "checkpoints": [
+        {
+          "label": "running-before-pause",
+          "utc": "2026-11-10T06:33:31.586091+00:00",
+          "rawJsonlLineSha256": "f5036b251568c2c9b2f3324e2394e4f5ae35d50e4efcf0c14bb286902f7ae5c8",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Native header Debug started explicit own logging shim; no thread or frames inspected.",
+          "ticks": {
+            "heartbeat": [
+              135,
+              139,
+              142
+            ],
+            "worker": [
+              4297000000,
+              4414000000,
+              4529000000
+            ]
+          },
+          "bothStable": false,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/running-before-pause.json",
+            "bytes": 2844,
+            "sha256": "42456c0a911fe9e26e04201d4817fd483c83a21939545f821e3b7f265cb6f0e4"
+          }
+        },
+        {
+          "label": "after-pause",
+          "utc": "2026-11-10T06:34:10.296324+00:00",
+          "rawJsonlLineSha256": "30b21bfcc384c6a1bef800d7e75841a329c7e120086f200c1862cd0e1033dbf0",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Standard native Pause auto-opens runtime/proc.go463:1; native suspended Frames runtime.gopark463; no B selected.",
+          "ticks": {
+            "heartbeat": [
+              331,
+              331,
+              331
+            ],
+            "worker": [
+              10493000000,
+              10493000000,
+              10493000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/after-pause.json",
+            "bytes": 2868,
+            "sha256": "d075761cbd71cda58e08cb95f71d4c147c493e3f634b02eb49339712bfa803a8"
+          }
+        },
+        {
+          "label": "before-cold-select",
+          "utc": "2026-11-10T06:34:11.100056+00:00",
+          "rawJsonlLineSha256": "d375b66ae3d0f1181f75a034d165c78a923003cbfd563f29184d26d3f32c9416",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Still initial main Go1 runtime.gopark463, no B UI selection or frames inspected; record worker receipt id below.",
+          "ticks": {
+            "heartbeat": [
+              331,
+              331,
+              331
+            ],
+            "worker": [
+              10493000000,
+              10493000000,
+              10493000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/before-cold-select.json",
+            "bytes": 2875,
+            "sha256": "808036b184a834f727983e2c6a756c46b758bdd87c2befff09813a347ee62370"
+          }
+        },
+        {
+          "label": "first-worker-before-step",
+          "utc": "2026-11-10T06:34:40.183944+00:00",
+          "rawJsonlLineSha256": "61b7bb7eab7ce4382532ab1b2a24571a970031f1c401a585c3766ae8dd663186",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "First UI select B Go7 main.coldWorker41, main.go41:1 blue execution line. Native inline evaluator marker result=202. No Step/Resume since initial Pause. Earlier only Go1 inspected.",
+          "ticks": {
+            "heartbeat": [
+              331,
+              331,
+              331
+            ],
+            "worker": [
+              10493000000,
+              10493000000,
+              10493000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/first-worker-before-step.json",
+            "bytes": 2949,
+            "sha256": "419a8eab642e0927b30d189c84e1cf4407ecb69f64e18f878141c7c277832d2c"
+          }
+        },
+        {
+          "label": "after-first-control",
+          "utc": "2026-11-10T06:35:11.842028+00:00",
+          "rawJsonlLineSha256": "23a271b486e00dec302419d602f48b0502aadf36a58018385ea00e1f58e50075",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "One standard toolbar Step Over; actual native screenshot shows Go7 main.coldWorker44 selected, source main.go44:1 blue execution highlight; before was41 with marker evaluate202. No preceding execution command since Pause.",
+          "ticks": {
+            "heartbeat": [
+              331,
+              331,
+              331
+            ],
+            "worker": [
+              10493000000,
+              10493000000,
+              10493000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/after-first-control.json",
+            "bytes": 2985,
+            "sha256": "436864880c3aeeff3edd85b9d1fe7322d7bc5a91b559f09e7b905733dd9facf3"
+          }
+        },
+        {
+          "label": "resumed-after-step",
+          "utc": "2026-11-10T06:35:50.461586+00:00",
+          "rawJsonlLineSha256": "daf2f397e2b02068b6f8a63ad56fdbbba47cf9657472561146e210e2cc16d4dc",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Native toolbar Resume after completed first Step; this is warm Resume, not first cold Continue evidence.",
+          "ticks": {
+            "heartbeat": [
+              411,
+              414,
+              418
+            ],
+            "worker": [
+              13010000000,
+              13123000000,
+              13238000000
+            ]
+          },
+          "bothStable": false,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/resumed-after-step.json",
+            "bytes": 2868,
+            "sha256": "4386c5f210ba6ffa37583187e747f5dfe0c2edcac842e067843b6009a57760e7"
+          }
+        }
+      ],
+      "rootNativeOutcome": {
+        "authority": "Parent /root direct CUA observation and task message; this auditor did not operate UI.",
+        "description": "Root observed first UI Go7 coldWorker41 and marker202; one standard toolbar Step Over reached44:1 with blue execution highlight. Later Resume was warm, not first-cold Continue. Standard Stop console exit0 and normal Quit.",
+        "consoleExitCode": 0,
+        "consoleExitCodeAuthority": "root native console observation; no DAP exited event with exitCode was present",
+        "screenshotArtifactPaths": "unknown"
+      },
+      "wholeAppQuit": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/whole-app-after-quit.json",
+          "bytes": 5581,
+          "sha256": "c6bd139afc6834d8beef1b7fcfad471c855ac7cec0700400c1f784dcfd9ac5e0"
+        },
+        "beforeRecord": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/whole-app-before-stop.json",
+          "bytes": 4467,
+          "sha256": "fcd2800dab698b35d1107d68ed2657e94f762b81a36c0403c186e33b123ff512"
+        },
+        "allCapturedPidsAbsent": true,
+        "allOriginalIdentitiesGone": true,
+        "anyOriginalRunning": false,
+        "zombiePids": [],
+        "observedAtUtc": "2026-11-10T06:36:25.698938+00:00",
+        "identityPrecision": "PID plus ps lstart at second precision; extraordinarily fast same-second PID reuse is not distinguished. No processes are signaled.",
+        "capturedOwnedPids": [
+          42624,
+          42864,
+          42866,
+          42739,
+          42740,
+          42742,
+          42615,
+          42714,
+          42715
+        ],
+        "roleByPid": {
+          "42624": "fsnotifier",
+          "42864": "debugserver",
+          "42866": "receipt-go-target",
+          "42739": "other-owned-descendant",
+          "42740": "delve-adapter",
+          "42742": "delve-telemetry",
+          "42615": "app",
+          "42714": "gopls",
+          "42715": "gopls-telemetry"
+        },
+        "allClassifiedAbsent": true,
+        "anySameOriginalIdentity": false,
+        "scope": "Captured owned PID/start cohort only. Instrumented wrapper cleanup is not plain/unwrapped Stop proof."
+      },
+      "profileLog": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/step-u6s0sw85/profile/log/idea.log",
+          "bytes": 74794,
+          "sha256": "55a2c317e6cec0fe9f58964232f6001419530bdc59847bb50ef76df1f9ef148b"
+        },
+        "counts": {
+          "ERROR": 0,
+          "SEVERE": 0,
+          "WARN": 4
+        },
+        "method": "Number of physical log lines containing each whole-word severity token; not a claim of no protocol errors."
+      }
+    },
+    {
+      "id": "first-b-continue",
+      "outcome": "PASS-limited-first-B-Continue",
+      "directory": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr",
+      "sourceCommit": "17ca02adf80000501dc9ec6a061d7931a0b9d037",
+      "sourceDirty": false,
+      "bindingMatchesSharedCohort": true,
+      "fixture": {
+        "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/fixture.json",
+        "bytes": 10610,
+        "sha256": "d0e0a1a927a6e7568fa8960c18a3ab66ff8fb8a135f19c8c4bfb0e3532e80f8f"
+      },
+      "fixtureSource": {
+        "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/双 Goroutine 中文😀/main.go",
+        "bytes": 1897,
+        "sha256": "58da3da2094523f3065908b0acabd491b5495b18d77b27f4d18f6b1beef39592"
+      },
+      "module": {
+        "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/双 Goroutine 中文😀/go.mod",
+        "bytes": 61,
+        "sha256": "c0cd07442c62327ff3f4f30817491610de476b8e463a88bbc84775278adf6290"
+      },
+      "tools": {
+        "sharedToolHashesMatchCohort": true,
+        "wrapper": {
+          "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/dlv-with-native-log",
+          "bytes": 2886,
+          "sha256": "3a1521c257ec37da393bc81a92f60fe7b15918954fbbbbac540accbaf0be29a2"
+        },
+        "actualInvocation": {
+          "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/dap-logs/shim-invocations.jsonl",
+          "bytes": 1680,
+          "sha256": "53464dce534f27976980bd50e78a63b161a001e31b5ffd82d00f2c73206055fd"
+        }
+      },
+      "launchIntent": {
+        "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/launch-intent-launchservices.json",
+        "bytes": 8901,
+        "sha256": "7cabc4c1eab852b2d55c5d6764600a8710f0058b82ad132c209da4b4164d6f3e"
+      },
+      "liveRuntime": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/runtime.json",
+          "bytes": 8408,
+          "sha256": "51d12737f0ab07f98644379a36aa430625f8d681f3d1c80bf5e25955c33885d9"
+        },
+        "status": "pass",
+        "pid": 43782,
+        "logPathSource": "live-jvm-property",
+        "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity"
+      },
+      "rawDapLog": {
+        "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/dap-logs/delve-43913-1794293367821593000.log",
+        "bytes": 19584,
+        "sha256": "0429563b4df485d2da7f3402d575c9e11be924efe4e6ccc22b7d2a27bbc2cbc2"
+      },
+      "retainedParser": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/native-cold-wire.json",
+          "bytes": 54701,
+          "sha256": "430c7510990bb1d5168a3bbf875c2eeac22d13341df7b2b24bd7b8b65e55de94"
+        },
+        "status": "protocol-criteria-met-native-ui-record-required",
+        "checks": {
+          "noWorkerStackBeforeCheckpoint": true,
+          "firstControlMatchesRequestedKind": true,
+          "firstControlTargetsWorkerB": true,
+          "marker202BoundBeforeFirstControl": true
+        },
+        "issues": [],
+        "originalParserSha256": "883388f38f255c00e6407fec2faa3aa1af63dd23096959c1e31e538a99572796",
+        "priorWorkerStackRequestCount": 0,
+        "workerStackRequestsAfterCheckpoint": 1,
+        "originalOperatorNativeAcceptanceField": "pending separate parent record"
+      },
+      "independentWireRead": {
+        "recordCount": 47,
+        "requestCount": 19,
+        "responseCount": 19,
+        "pairedCount": 19,
+        "duplicateKeys": [],
+        "unpairedRequests": [],
+        "orphanedResponses": [],
+        "failedResponses": [],
+        "markerMappings": [
+          {
+            "request": {
+              "line": 71,
+              "byteOffset": 16554,
+              "rawLineSha256": "e0a60c88e9e254a39498376325aff2bc6e1d4ef3c9db382497a9930629aeb2e9",
+              "message": {
+                "seq": 15,
+                "type": "request",
+                "command": "evaluate",
+                "arguments": {
+                  "expression": "marker",
+                  "frameId": 1005,
+                  "context": "repl"
+                }
+              }
+            },
+            "response": {
+              "line": 72,
+              "byteOffset": 16729,
+              "rawLineSha256": "94d69b2fbf5c857857e372d7535d45228b7d63cf099f0735b0e114e46fd418c0",
+              "message": {
+                "seq": 21,
+                "type": "response",
+                "request_seq": 15,
+                "success": true,
+                "command": "evaluate",
+                "body": {
+                  "result": "202",
+                  "type": "int",
+                  "variablesReference": 0
+                }
+              }
+            },
+            "frameMapping": {
+              "threadId": 19,
+              "epoch": 1,
+              "frame": {
+                "id": 1005,
+                "name": "main.coldWorker",
+                "source": {
+                  "name": "main.go",
+                  "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/双 Goroutine 中文😀/main.go"
+                },
+                "line": 41,
+                "column": 0,
+                "instructionPointerReference": "0x1008ac904"
+              },
+              "stackTraceRequest": {
+                "line": 65,
+                "byteOffset": 14133,
+                "rawLineSha256": "86702b4becbc1eb98ebc1f1d72f7391adf3520a23e47e62b25ad1cd842dbaa1f",
+                "message": {
+                  "seq": 12,
+                  "type": "request",
+                  "command": "stackTrace",
+                  "arguments": {
+                    "threadId": 19
+                  }
+                }
+              },
+              "stackTraceResponse": {
+                "line": 66,
+                "byteOffset": 14270,
+                "rawLineSha256": "ef72151cc66f1698c4f6d1d84007fe13c3a27ddb60475e5b765aca85c0b2805a"
+              }
+            },
+            "frameMappingSha256": "fa8d4c1919d05cca32460e852aea89432bb15c932f5ac5beeeb3c5d0a6a68380"
+          }
+        ],
+        "userSourcePositions": [
+          {
+            "epoch": 1,
+            "threadId": 1,
+            "frameId": 1002,
+            "function": "main.main",
+            "line1": 57,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 9,
+            "responseLine": 60,
+            "rawResponseLineSha256": "54fed60bf7437f81f077a909e908ce2eaeb3f7ced85ebd8db81d6bdfec6aaf12"
+          },
+          {
+            "epoch": 1,
+            "threadId": 19,
+            "frameId": 1005,
+            "function": "main.coldWorker",
+            "line1": 41,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 12,
+            "responseLine": 66,
+            "rawResponseLineSha256": "ef72151cc66f1698c4f6d1d84007fe13c3a27ddb60475e5b765aca85c0b2805a"
+          },
+          {
+            "epoch": 1,
+            "threadId": 19,
+            "frameId": 1006,
+            "function": "main.main.gowrap1",
+            "line1": 52,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 12,
+            "responseLine": 66,
+            "rawResponseLineSha256": "ef72151cc66f1698c4f6d1d84007fe13c3a27ddb60475e5b765aca85c0b2805a"
+          }
+        ],
+        "executionRequests": [
+          {
+            "line": 51,
+            "byteOffset": 8637,
+            "rawLineSha256": "c7a160c13adf6fe9baa01b15e497a98a233e98e57092c113a4ff180ebbfe77c2",
+            "message": {
+              "seq": 7,
+              "type": "request",
+              "command": "pause",
+              "arguments": {
+                "threadId": -1
+              }
+            }
+          },
+          {
+            "line": 77,
+            "byteOffset": 18158,
+            "rawLineSha256": "9ce2defa07d6708af86c8152b88793e5c98e197bd6e2b26384dd4eca3e832474",
+            "message": {
+              "seq": 18,
+              "type": "request",
+              "command": "continue",
+              "arguments": {
+                "threadId": 19
+              }
+            }
+          },
+          {
+            "line": 79,
+            "byteOffset": 18467,
+            "rawLineSha256": "377f843c702b00c2a3235ee4edcfbcea1ba91abb776813643320c802afc89a05",
+            "message": {
+              "seq": 19,
+              "type": "request",
+              "command": "disconnect",
+              "arguments": {
+                "terminateDebuggee": true
+              }
+            }
+          }
+        ],
+        "stoppedEvents": [
+          {
+            "line": 56,
+            "byteOffset": 9158,
+            "rawLineSha256": "65e7e2f057a32d5eef2d3e50b74e8c0b02ef7d9173a6816fcde742ce9ef80171",
+            "message": {
+              "seq": 12,
+              "type": "event",
+              "event": "stopped",
+              "body": {
+                "reason": "pause",
+                "allThreadsStopped": true
+              }
+            }
+          },
+          {
+            "line": 84,
+            "byteOffset": 19054,
+            "rawLineSha256": "e5dbda3bb9c3aeff08b945f5b4f50aeb3e2131e589f90282fa3db1126a82866d",
+            "message": {
+              "seq": 25,
+              "type": "event",
+              "event": "stopped",
+              "body": {
+                "reason": "pause",
+                "allThreadsStopped": true
+              }
+            }
+          }
+        ],
+        "terminatedEvents": [
+          {
+            "line": 86,
+            "byteOffset": 19345,
+            "rawLineSha256": "8752de9b99c52af3ef79a0127914996067ab724bc8fc17c02e116524bf84f0fa",
+            "message": {
+              "seq": 28,
+              "type": "event",
+              "event": "terminated",
+              "body": {}
+            }
+          }
+        ],
+        "exitedEvents": []
+      },
+      "checkpointJsonl": {
+        "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/checkpoints.jsonl",
+        "bytes": 8959,
+        "sha256": "c16b78d148f91af56a62a164f715ad129d72f9a3d977007577cf7e5ba0053802"
+      },
+      "checkpoints": [
+        {
+          "label": "after-pause",
+          "utc": "2026-11-10T06:51:04.324889+00:00",
+          "rawJsonlLineSha256": "ce110379740a110062ab66a52214878fe375d4d8a3f0d94356a20f07e220693a",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Fresh standard Pause auto-opens proc.go463:1 with blue execution highlight. Main Go1 runtime.gopark463 frame shown; no B selected.",
+          "ticks": {
+            "heartbeat": [
+              499,
+              499,
+              499
+            ],
+            "worker": [
+              15055000000,
+              15055000000,
+              15055000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/after-pause.json",
+            "bytes": 2904,
+            "sha256": "809c30450af9b3e55c0347671cda965f868def6641f90dbf2be9093b8afe9923"
+          }
+        },
+        {
+          "label": "before-cold-select",
+          "utc": "2026-11-10T06:51:05.136129+00:00",
+          "rawJsonlLineSha256": "364343f75417ec6e1e849d8beeadbae535dde3e98d0197b95f46f74861fae8e6",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Still main Go1 initial stack selected. Worker receipt Go19 marker202 read from file only, no B stack/UI selection. No Step, Resume, Continue or other execution controls since Pause.",
+          "ticks": {
+            "heartbeat": [
+              499,
+              499,
+              499
+            ],
+            "worker": [
+              15055000000,
+              15055000000,
+              15055000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/before-cold-select.json",
+            "bytes": 2962,
+            "sha256": "2365ee55043beab23965ed7c2068e55650408b593b5b32c482f77d0e6e2b18ef"
+          }
+        },
+        {
+          "label": "first-worker-before-continue",
+          "utc": "2026-11-10T06:54:16.105086+00:00",
+          "rawJsonlLineSha256": "46eb07cd1e801ef8d28c4f97a3d5685d57a2bb78d11d6c6729ab7886c4de2cda",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Actual native Go19 main.coldWorker41 selected, source41:1 blue line; inline evaluate marker result202. No Step/Resume/other execution command has occurred since initial Pause. Prior native6 syscall marker2 failure remains independent and unresolved.",
+          "ticks": {
+            "heartbeat": [
+              499,
+              499,
+              499
+            ],
+            "worker": [
+              15055000000,
+              15055000000,
+              15055000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/first-worker-before-continue.json",
+            "bytes": 3040,
+            "sha256": "79f194f9ca4c5938d0cce9ec6fbb1f0e28f9bed291c0f17c66e541312d1e4199"
+          }
+        },
+        {
+          "label": "after-first-control",
+          "utc": "2026-11-10T06:54:36.156164+00:00",
+          "rawJsonlLineSha256": "a08225b6e0c6e716b5a9943b6d23a4d247ab631bc999b427f15a5b585bccbfbe",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Standard native Resume clicked directly after first B selection/evaluate202, no preceding Step. Frames clears; verify actual both receipts grow and exact wire continue.threadId19 separately.",
+          "ticks": {
+            "heartbeat": [
+              587,
+              591,
+              594
+            ],
+            "worker": [
+              17920000000,
+              18032000000,
+              18147000000
+            ]
+          },
+          "bothStable": false,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/after-first-control.json",
+            "bytes": 2973,
+            "sha256": "4d5bf4060fc6e1b173f44ebd16dc12ad36eadc87bba5fa96d077125232686c33"
+          }
+        }
+      ],
+      "rootNativeOutcome": {
+        "authority": "Parent /root direct CUA observation and task message; this auditor did not operate UI.",
+        "description": "Root observed first UI Go19 coldWorker41 and marker202; first standard Resume occurred without prior Step, then both receipts advanced. Standard Stop console exit0 and normal Quit.",
+        "consoleExitCode": 0,
+        "consoleExitCodeAuthority": "root native console observation; no DAP exited event with exitCode was present",
+        "screenshotArtifactPaths": "unknown"
+      },
+      "wholeAppQuit": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/whole-app-after-quit.json",
+          "bytes": 5605,
+          "sha256": "1f7834f6f9fc90142c7b5f5864220545a09e71d80c10097178772751895c74e8"
+        },
+        "beforeRecord": {
+          "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/whole-app-before-stop.json",
+          "bytes": 4495,
+          "sha256": "2488734dfcaa47c8bd5eb248498feacfdaad4733e4e0c1a936d8a69ff7959bf1"
+        },
+        "allCapturedPidsAbsent": true,
+        "allOriginalIdentitiesGone": true,
+        "anyOriginalRunning": false,
+        "zombiePids": [],
+        "observedAtUtc": "2026-11-10T06:55:02.123172+00:00",
+        "identityPrecision": "PID plus ps lstart at second precision; extraordinarily fast same-second PID reuse is not distinguished. No processes are signaled.",
+        "capturedOwnedPids": [
+          43782,
+          44038,
+          44039,
+          43913,
+          43914,
+          43916,
+          43791,
+          43897,
+          43898
+        ],
+        "roleByPid": {
+          "43782": "app",
+          "44038": "debugserver",
+          "44039": "receipt-go-target",
+          "43913": "other-owned-descendant",
+          "43914": "delve-adapter",
+          "43916": "delve-telemetry",
+          "43791": "fsnotifier",
+          "43897": "gopls",
+          "43898": "gopls-telemetry"
+        },
+        "allClassifiedAbsent": true,
+        "anySameOriginalIdentity": false,
+        "scope": "Captured owned PID/start cohort only. Instrumented wrapper cleanup is not plain/unwrapped Stop proof."
+      },
+      "profileLog": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native8-logged-t_svr_f8/continue-toz8z8hr/profile/log/idea.log",
+          "bytes": 74640,
+          "sha256": "5b7f00983789650292c835bee70558315a04c7cfc946780246ab2687cdf4a26e"
+        },
+        "counts": {
+          "ERROR": 0,
+          "SEVERE": 0,
+          "WARN": 4
+        },
+        "method": "Number of physical log lines containing each whole-word severity token; not a claim of no protocol errors."
+      }
+    },
+    {
+      "id": "syscall-locals-failure",
+      "outcome": "FAILED-ABORTED-unresolved",
+      "directory": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w",
+      "sourceCommit": "17ca02adf80000501dc9ec6a061d7931a0b9d037",
+      "sourceDirty": false,
+      "bindingMatchesSharedCohort": true,
+      "fixture": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/fixture.json",
+        "bytes": 10610,
+        "sha256": "6aa83bc4c87cc242c25da4aa2dccf949d9d843ef92c391775f125fa52492b5db"
+      },
+      "fixtureSource": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/双 Goroutine 中文😀/main.go",
+        "bytes": 1897,
+        "sha256": "58da3da2094523f3065908b0acabd491b5495b18d77b27f4d18f6b1beef39592"
+      },
+      "module": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/双 Goroutine 中文😀/go.mod",
+        "bytes": 61,
+        "sha256": "c0cd07442c62327ff3f4f30817491610de476b8e463a88bbc84775278adf6290"
+      },
+      "tools": {
+        "sharedToolHashesMatchCohort": true,
+        "wrapper": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/dlv-with-native-log",
+          "bytes": 2886,
+          "sha256": "412e97f8e34ff81637e4522cfde54285a3f8ddd19207bc1300b03e7752439e0a"
+        },
+        "actualInvocation": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/dap-logs/shim-invocations.jsonl",
+          "bytes": 1680,
+          "sha256": "afc09100a75ce910491d7375886aca813c9f3ac6f54b2dd0433e676b8f5edcc8"
+        }
+      },
+      "launchIntent": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/launch-intent-launchservices.json",
+        "bytes": 8884,
+        "sha256": "05dd9a2cc17e45607615dc02c11eb042cb5ccae6c0aa6bab5310ed973c4e109d"
+      },
+      "liveRuntime": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/runtime.json",
+          "bytes": 8408,
+          "sha256": "612b67bbeb26e72ae79eec5bab58b28539752964608966acd15174f7f423699e"
+        },
+        "status": "pass",
+        "pid": 43036,
+        "logPathSource": "live-jvm-property",
+        "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity"
+      },
+      "rawDapLog": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/dap-logs/delve-43179-1794292773810818000.log",
+        "bytes": 23597,
+        "sha256": "500170d0c3177409da1cdee3df3508c9e79d4136d80ff8c91a75fdf590c84a5c"
+      },
+      "retainedParser": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/native-cold-wire-aborted.json",
+          "bytes": 59610,
+          "sha256": "2a726373d1129563a7899a0a49caeb417572cf7fe0781da3c12ff933554969a1"
+        },
+        "status": "protocol-criteria-incomplete",
+        "checks": {
+          "noWorkerStackBeforeCheckpoint": true,
+          "firstControlMatchesRequestedKind": false,
+          "firstControlTargetsWorkerB": false,
+          "marker202BoundBeforeFirstControl": false
+        },
+        "issues": [
+          "No continue after a first-cold marker frame was observed",
+          "No execution control follows native cold selection"
+        ],
+        "originalParserSha256": "883388f38f255c00e6407fec2faa3aa1af63dd23096959c1e31e538a99572796",
+        "priorWorkerStackRequestCount": 0,
+        "workerStackRequestsAfterCheckpoint": 1,
+        "originalOperatorNativeAcceptanceField": "pending separate parent record"
+      },
+      "independentWireRead": {
+        "recordCount": 48,
+        "requestCount": 20,
+        "responseCount": 20,
+        "pairedCount": 20,
+        "duplicateKeys": [],
+        "unpairedRequests": [],
+        "orphanedResponses": [],
+        "failedResponses": [
+          {
+            "request": {
+              "line": 67,
+              "byteOffset": 19124,
+              "rawLineSha256": "d7d749ee5ea3cba2a3e63908d4d51973d355f5e74ca5c3b0f82bc8b0b4783bb0",
+              "message": {
+                "seq": 13,
+                "type": "request",
+                "command": "scopes",
+                "arguments": {
+                  "frameId": 1005
+                }
+              }
+            },
+            "response": {
+              "line": 69,
+              "byteOffset": 19336,
+              "rawLineSha256": "10381f560c58281a02569669a6170c1acab58d0e971d93f49ed542aec77d316e",
+              "message": {
+                "seq": 19,
+                "type": "response",
+                "request_seq": 13,
+                "success": false,
+                "command": "scopes",
+                "message": "Unable to find enclosing function",
+                "body": {
+                  "error": {
+                    "id": 2006,
+                    "format": "Unable to find enclosing function: ",
+                    "showUser": false
+                  }
+                }
+              }
+            }
+          },
+          {
+            "request": {
+              "line": 70,
+              "byteOffset": 19612,
+              "rawLineSha256": "ce6853dfbd35c0aebb0dd4cf452f34ee5dd6c97f9c0e53793702168cfd985f79",
+              "message": {
+                "seq": 14,
+                "type": "request",
+                "command": "scopes",
+                "arguments": {
+                  "frameId": 1005
+                }
+              }
+            },
+            "response": {
+              "line": 72,
+              "byteOffset": 19824,
+              "rawLineSha256": "6f18798f2675200a418b8f5c19f8180f8df8f1a3f8d67a7cda505aab68135c2c",
+              "message": {
+                "seq": 20,
+                "type": "response",
+                "request_seq": 14,
+                "success": false,
+                "command": "scopes",
+                "message": "Unable to find enclosing function",
+                "body": {
+                  "error": {
+                    "id": 2006,
+                    "format": "Unable to find enclosing function: ",
+                    "showUser": false
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "markerMappings": [
+          {
+            "request": {
+              "line": 77,
+              "byteOffset": 21252,
+              "rawLineSha256": "1376fa90df785af8e1299abb561ece45935042e674360766e2e9f86a0de555a7",
+              "message": {
+                "seq": 17,
+                "type": "request",
+                "command": "evaluate",
+                "arguments": {
+                  "expression": "marker",
+                  "frameId": 1019,
+                  "context": "repl"
+                }
+              }
+            },
+            "response": {
+              "line": 78,
+              "byteOffset": 21427,
+              "rawLineSha256": "eab7a978182c6e1b1c2e8b1daf6215a7b1f60b3772586b287fb516f9d958c3be",
+              "message": {
+                "seq": 23,
+                "type": "response",
+                "request_seq": 17,
+                "success": true,
+                "command": "evaluate",
+                "body": {
+                  "result": "2",
+                  "type": "int",
+                  "variablesReference": 0
+                }
+              }
+            },
+            "frameMapping": {
+              "threadId": 7,
+              "epoch": 1,
+              "frame": {
+                "id": 1019,
+                "name": "main.coldWorker",
+                "source": {
+                  "name": "main.go",
+                  "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/双 Goroutine 中文😀/main.go"
+                },
+                "line": 42,
+                "column": 0,
+                "instructionPointerReference": "0x1049b0980"
+              },
+              "stackTraceRequest": {
+                "line": 65,
+                "byteOffset": 14131,
+                "rawLineSha256": "c0cb42c30b324d9bb27649f58a2d9a187f056b5538fa0c9a9280a53af50338f2",
+                "message": {
+                  "seq": 12,
+                  "type": "request",
+                  "command": "stackTrace",
+                  "arguments": {
+                    "threadId": 7
+                  }
+                }
+              },
+              "stackTraceResponse": {
+                "line": 66,
+                "byteOffset": 14267,
+                "rawLineSha256": "12e4c5974a23cd7e2bfb3389f852a403f46c9710aa34694e102bbb07716938ea"
+              }
+            },
+            "frameMappingSha256": "a41aeaf540d8e60fd0a3ef46f7b2bd1b5820f8ba5a4fa5008e305e2102d0674d"
+          }
+        ],
+        "userSourcePositions": [
+          {
+            "epoch": 1,
+            "threadId": 1,
+            "frameId": 1002,
+            "function": "main.main",
+            "line1": 57,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 9,
+            "responseLine": 60,
+            "rawResponseLineSha256": "1400b751b73c1ecc82aa98a9b0c62abb95b880d9196695bc3a02654775a6d7a4"
+          },
+          {
+            "epoch": 1,
+            "threadId": 7,
+            "frameId": 1018,
+            "function": "main.publish",
+            "line1": 31,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 12,
+            "responseLine": 66,
+            "rawResponseLineSha256": "12e4c5974a23cd7e2bfb3389f852a403f46c9710aa34694e102bbb07716938ea"
+          },
+          {
+            "epoch": 1,
+            "threadId": 7,
+            "frameId": 1019,
+            "function": "main.coldWorker",
+            "line1": 42,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 12,
+            "responseLine": 66,
+            "rawResponseLineSha256": "12e4c5974a23cd7e2bfb3389f852a403f46c9710aa34694e102bbb07716938ea"
+          },
+          {
+            "epoch": 1,
+            "threadId": 7,
+            "frameId": 1020,
+            "function": "main.main.gowrap1",
+            "line1": 52,
+            "column": 0,
+            "zeroColumnMeans": "unknown",
+            "source": {
+              "name": "main.go",
+              "path": "/Users/wangshubo/develop/openidea-go/.tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/双 Goroutine 中文😀/main.go"
+            },
+            "stackTraceRequestSeq": 12,
+            "responseLine": 66,
+            "rawResponseLineSha256": "12e4c5974a23cd7e2bfb3389f852a403f46c9710aa34694e102bbb07716938ea"
+          }
+        ],
+        "executionRequests": [
+          {
+            "line": 51,
+            "byteOffset": 8637,
+            "rawLineSha256": "0d1202b554c898731c9ab551f6669dfd147cbc43e9038c7a5cf1f61ea8ab602a",
+            "message": {
+              "seq": 7,
+              "type": "request",
+              "command": "pause",
+              "arguments": {
+                "threadId": -1
+              }
+            }
+          },
+          {
+            "line": 83,
+            "byteOffset": 22775,
+            "rawLineSha256": "c4bad66a879606b33cb44a2d22fe3e3a8f02f72b02a5190b7c0fe1595af632f0",
+            "message": {
+              "seq": 20,
+              "type": "request",
+              "command": "disconnect",
+              "arguments": {
+                "terminateDebuggee": true
+              }
+            }
+          }
+        ],
+        "stoppedEvents": [
+          {
+            "line": 56,
+            "byteOffset": 9158,
+            "rawLineSha256": "df9cc512b904c735387437f931ec9882cba47f36e6a0c4ee45d9259789f54a93",
+            "message": {
+              "seq": 12,
+              "type": "event",
+              "event": "stopped",
+              "body": {
+                "reason": "pause",
+                "allThreadsStopped": true
+              }
+            }
+          }
+        ],
+        "terminatedEvents": [
+          {
+            "line": 88,
+            "byteOffset": 23358,
+            "rawLineSha256": "5487e81ea2111cf0cd181575b1b58add85b93c3f55b50885b69d08e1259a96e2",
+            "message": {
+              "seq": 28,
+              "type": "event",
+              "event": "terminated",
+              "body": {}
+            }
+          }
+        ],
+        "exitedEvents": []
+      },
+      "checkpointJsonl": {
+        "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/checkpoints.jsonl",
+        "bytes": 6786,
+        "sha256": "743224b2c38d8fbb408561efb2898653049ae9d553b175b9c9f6913f69de80e4"
+      },
+      "checkpoints": [
+        {
+          "label": "after-pause",
+          "utc": "2026-11-10T06:42:52.783581+00:00",
+          "rawJsonlLineSha256": "348d7bad065f265bb3c0355bb0200722f6c1a81d1fd413b64149b4d6900a5af1",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Fresh native Pause, automatically opened proc.go463:1; Threads&Variables initial Go1 stack shown, worker never selected, no Step/Continue.",
+          "ticks": {
+            "heartbeat": [
+              1703,
+              1703,
+              1703
+            ],
+            "worker": [
+              55542000000,
+              55542000000,
+              55542000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/after-pause.json",
+            "bytes": 2912,
+            "sha256": "8b0fb39c7c6cb6c086957e9ed3b1f029fa2c012dd635e4bfa5ce689d97a47bde"
+          }
+        },
+        {
+          "label": "before-cold-select",
+          "utc": "2026-11-10T06:42:53.582113+00:00",
+          "rawJsonlLineSha256": "0c996deb3bc4332cd5aeb36e8e26abb6bf715ba75e3cf08015a4f607a047186e",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "Still initial Go1 selected. Worker receipt id7 marker202 read from own file only; no B stack/UI inspected. This lane has had no Step/RunToCursor/Resume.",
+          "ticks": {
+            "heartbeat": [
+              1703,
+              1703,
+              1703
+            ],
+            "worker": [
+              55542000000,
+              55542000000,
+              55542000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/before-cold-select.json",
+            "bytes": 2933,
+            "sha256": "ec5284bfc40fd637530925d53878f3997a885edf8f76479fc3af7d975c58b188"
+          }
+        },
+        {
+          "label": "worker-evaluate-invalid-aborted",
+          "utc": "2026-11-10T06:45:59.872723+00:00",
+          "rawJsonlLineSha256": "d8601d7de1482f94f22b57ec775eef20c3e5b3ae3b353bf632e8dc15304044b1",
+          "authority": "root native observation plus owned receipt/ps sampling",
+          "observedUiByOperator": "First B Go7 selected while top native syscall frame unavailable; selected user main.coldWorker42 shows source42:1. Actual native evaluate(marker)=2, not required202. Raw DAP evaluate frameId1019 confirmsresult2; directory unreadable. No Step/Resume/Continue performed; this first-Continue attempt is ABORTED/NOT-PASS, retained unchanged.",
+          "ticks": {
+            "heartbeat": [
+              1703,
+              1703,
+              1703
+            ],
+            "worker": [
+              55542000000,
+              55542000000,
+              55542000000
+            ]
+          },
+          "bothStable": true,
+          "sourceFile": {
+            "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/worker-evaluate-invalid-aborted.json",
+            "bytes": 3131,
+            "sha256": "a99ae4174b8a62cdc19bcf7449bd0916ace34261b98019a0d70996bdba3f20c9"
+          }
+        }
+      ],
+      "rootNativeOutcome": {
+        "authority": "Parent /root direct CUA observation and task message; this auditor did not operate UI.",
+        "description": "Root observed first B Go7 with a native syscall Write stack; selected coldWorker42 evaluated marker2 instead of202. No Step or Resume was performed. Attempt aborted, then standard Stop and normal Quit. This failure remains unresolved.",
+        "consoleExitCode": "unknown",
+        "consoleExitCodeAuthority": "root native console observation; no DAP exited event with exitCode was present",
+        "screenshotArtifactPaths": "unknown"
+      },
+      "wholeAppQuit": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/whole-app-after-quit.json",
+          "bytes": 5605,
+          "sha256": "c5ec805bf173bcb6624ec335f8c40c77420c612cbc8d6fdcab95c8f30eaa77b6"
+        },
+        "beforeRecord": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/whole-app-before-stop.json",
+          "bytes": 4495,
+          "sha256": "1ad29d6e08c940349167a0f786c2293082260291aced7dd93f532e18c7859eae"
+        },
+        "allCapturedPidsAbsent": true,
+        "allOriginalIdentitiesGone": true,
+        "anyOriginalRunning": false,
+        "zombiePids": [],
+        "observedAtUtc": "2026-11-10T06:46:29.063716+00:00",
+        "identityPrecision": "PID plus ps lstart at second precision; extraordinarily fast same-second PID reuse is not distinguished. No processes are signaled.",
+        "capturedOwnedPids": [
+          43044,
+          43305,
+          43306,
+          43179,
+          43181,
+          43183,
+          43121,
+          43122,
+          43036
+        ],
+        "roleByPid": {
+          "43044": "fsnotifier",
+          "43305": "debugserver",
+          "43306": "receipt-go-target",
+          "43179": "other-owned-descendant",
+          "43181": "delve-adapter",
+          "43183": "delve-telemetry",
+          "43121": "gopls",
+          "43122": "gopls-telemetry",
+          "43036": "app"
+        },
+        "allClassifiedAbsent": true,
+        "anySameOriginalIdentity": false,
+        "scope": "Captured owned PID/start cohort only. Instrumented wrapper cleanup is not plain/unwrapped Stop proof."
+      },
+      "profileLog": {
+        "record": {
+          "path": ".tools/debug-session-native-tools/native6-logged-qapqkzw4/continue-orxj2s1w/profile/log/idea.log",
+          "bytes": 74874,
+          "sha256": "d3d58980b829e48bbef1a5ea456ac076ad5d180e097f41e55b3d864e0f7c197f"
+        },
+        "counts": {
+          "ERROR": 0,
+          "SEVERE": 0,
+          "WARN": 4
+        },
+        "method": "Number of physical log lines containing each whole-word severity token; not a claim of no protocol errors."
+      }
+    }
+  ],
+  "boundaries": [
+    "Success covers these exact first-cold B Step and Continue samples only; syscall locals marker2 failure is unresolved.",
+    "Successful retry is not a fix for the retained syscall failure.",
+    "Logging-wrapper Stop/Quit and no-zombie cohort checks do not replace plain/unwrapped Stop acceptance.",
+    "Parser statuses intentionally still require separate native operator evidence; this draft adds attributed root observations without rewriting originals.",
+    "No DAP exited event carried a target exitCode; console exit0 is root UI observation for the two successful lanes.",
+    "Zero DAP columns remain unknown, not measured columns. Root UI source carets are separately attributed.",
+    "No source map, runtime counter, SDK suite, or this summary closes the full DEBUG-02 acceptance row."
+  ],
+  "generator": {
+    "path": ".tools/readme-demo/summarize-native-v4-controls.py",
+    "bytes": 15946,
+    "sha256": "b02f2ce9b991f80c92f47f0fa57f2756a10c4f31daf619452e1b98ab6d6ffc84"
+  },
+  "inputSealRecheck": {
+    "files": 56,
+    "unchangedDuringRead": true,
+    "scope": "Referenced retained files and current packaged manifest only; no source or artifact was modified."
+  },
+  "rootReview": {
+    "acceptedAtUtc": "2026-11-10T07:38:51.071634+00:00",
+    "scope": "Root reviewed own actual CUA observations and the source-bound records. Historical raw statuses and failed samples are retained. No full GoLand parity or public-installer acceptance claim.",
+    "frozenDraft": {
+      "path": ".tools/readme-demo/native-v4-controls-draft.json",
+      "sha256": "2dcfb773728bd434d593f6487504ec26f2aa8344e6e32b50ea3079c5d42e5e6f"
+    }
+  }
+}

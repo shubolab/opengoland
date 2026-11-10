@@ -153,3 +153,43 @@ The explicit public-source cohort is now 18 sources / 38 classes; the previous
 36 class bytes, locale-description guard and compiler options remain unchanged.
 Actual first-cold-file navigation and execution-line highlighting in the rebuilt
 standalone app, Windows and public installers remain pending at this point.
+
+## Native first-source and selected-goroutine controls at 17ca02a
+
+The [plain, unwrapped native retry](debug-cold-source-navigation-native.json)
+uses the 486-input candidate and its actual 18-source / 38-class LSP artifact.
+The first standard Pause automatically opens the never-opened bundled
+`runtime/proc.go` at `463:1`, with the execution-line highlight at 463.
+The native suspended Frames view agrees. Paused Stop and normal Quit leave all
+eight captured PIDs absent, with no zombies and zero profile ERROR/SEVERE lines.
+This repairs the first-cold-file failure retained in the earlier records.
+
+The separate [logged native controls](debug-session-native-v4-controls.json)
+attribute each request to a fresh session. First selection of worker Go7,
+`marker=202`, and one standard Step Over move `main.coldWorker` from 41 to 44;
+its first `next` targets Go7. Another fresh session first selects worker Go19
+with `marker=202`, then continues without any preceding Step. Its first
+`continue` targets Go19, receives its exact successful reply, and both user
+receipts grow. Neither worker had a stack request before its selection
+checkpoint. All captured identities are absent after normal Quit.
+
+A failed session is retained alongside those passes: worker Go7 was suspended
+inside a Darwin native write path. Although the selected user frame was
+`main.coldWorker:42` and the evaluator sent its correct frame ID, Delve returned
+`marker=2` instead of 202, an unreadable string address and invalid local values.
+That attempt was aborted before Step/Continue. It is not a pass, and the later
+successful pure-Go-frame retry does not repair this syscall-stack locals failure.
+Its exact underlying cause remains unknown; an unwind or debug-location-context
+error is an inference, not a confirmed diagnosis.
+
+These logged fixtures intentionally use an owned logging shim, so their process
+cleanup does not replace the separate unwrapped Stop proof. They verify the
+listed first-selection controls, not every DEBUG-02 race or GoLand feature.
+GoTest pre-connect shutdown and the syscall-stack locals failure remain open;
+actual Windows GUI and final public-installer acceptance are separate obligations.
+
+The [earlier source5d60 native worker Step](debug-session-native-step.json)
+remains attributed to its original 17-source / 36-class assembled app. It has no
+wire trace and does not claim protocol-cold selection. The separate default
+profile window accidentally restored by automation and its normal cleanup are
+retained explicitly in that record.

@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "status": "actual-native-demo-encoded-and-visually-checked",
+  "recordedAtUtc": "2026-11-10T07:43:00.342389+00:00",
+  "version": "0.1.0-preview.20261110.4",
+  "releaseStatusAtCapture": "unpublished development build",
+  "system": "macOS arm64",
+  "sourceCommit": "17ca02adf80000501dc9ec6a061d7931a0b9d037",
+  "buildInputFiles": 486,
+  "buildInputDigest": "612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e",
+  "appManifestSha256": "74b5ebe9d405a6321c909f7b2aba532eea8b0e26a16dba6d5e0ba65373d1b157",
+  "applicationKind": "assembled standalone app; not a development plugin sandbox or a public-DMG installation claim",
+  "capture": {
+    "kind": "native-step-screenshots",
+    "method": "REA observe_native_ui, exact own PID44488/window7588; native actions through CUA",
+    "sourceCanvas": [
+      1400,
+      909
+    ],
+    "oneWindowOnly": true,
+    "continuousRecording": false,
+    "idleTimeCompressed": true,
+    "fakeUiOrTransitions": false,
+    "sourceFramesStorage": "Original PNGs are local verification artifacts under .tools/readme-demo/frames, not files distributed beside this JSON."
+  },
+  "frames": [
+    {
+      "sha256": "318deffb89e65b40809f26dcc3dbfc186778ad04413c5ab7098416ae2c8f93b6",
+      "width": 1400,
+      "height": 909,
+      "evidenceId": "ev_4fcca1f43bb90124808eef921af76c49d7d4b27081e10b8e37a2881695e74dee",
+      "scene": "Native editor with the unchanged repository example",
+      "durationMs": 2600,
+      "sourceCaptureFileName": "01-editor.png"
+    },
+    {
+      "sha256": "f06f11c182bc7177580e825e3b4568bdcd8091c3641cd33b5e63dc7334fd041b",
+      "width": 1400,
+      "height": 909,
+      "evidenceId": "ev_be49a07fe1908531470643ab780b6cdb72e38805cc85dc773ab51d6682f2e964",
+      "scene": "Actual Go run: Chinese greeting, Total:37, exit0",
+      "durationMs": 3200,
+      "sourceCaptureFileName": "02-run.png"
+    },
+    {
+      "sha256": "50df73f2bdb75c918b6bb366ad801ed908addfdf675749150b812980ae2acdf1",
+      "width": 1400,
+      "height": 909,
+      "evidenceId": "ev_7e8891fbf518caa227ed0925330efee302afe3f6f57866e4d7bbfa61f9b2735c",
+      "scene": "Actual native SM test tree: 6 tests passed",
+      "durationMs": 3400,
+      "sourceCaptureFileName": "03-tests.png"
+    },
+    {
+      "sha256": "72cf1f806bd4482c9f0eac1f0326db64fcba5c28b3e308a7da4e2ddf46014d5b",
+      "width": 1400,
+      "height": 909,
+      "evidenceId": "ev_2dae2ba4dd1becc4aeb404e8a21c4d73466f6a9f64d35fe053560f4ae4255d04",
+      "scene": "Actual breakpoint at main.go15, native locals cart and price",
+      "durationMs": 3400,
+      "sourceCaptureFileName": "04-breakpoint.png"
+    },
+    {
+      "sha256": "9aab54af7e492c0fd14f7180eb74bed78f258fe535d9a423d61fea36017a4863",
+      "width": 1400,
+      "height": 909,
+      "evidenceId": "ev_4963e4ed51ea47b7ec6ebd6ff75796b7294e798e9b62c36b517d4b5b07f0ac70",
+      "scene": "One native F8 Step15→16 and evaluate cart.Items[0].Name = Book",
+      "durationMs": 3800,
+      "sourceCaptureFileName": "05-step-evaluate.png"
+    }
+  ],
+  "sourceFiles": [
+    {
+      "path": "fixtures/go-workspace/app/main.go",
+      "sha256": "0501279a7d3546789ede7f39a2875ce1c896833f437a8641eb00e211c18191b8"
+    },
+    {
+      "path": "fixtures/go-workspace/app/go.mod",
+      "sha256": "a9c082ccb5d7385e443edab56f43ffbca109aefce2c02af6edf72eefd563874e"
+    },
+    {
+      "path": "fixtures/go-workspace/catalog/catalog.go",
+      "sha256": "71e54cab904c60dc3cb922cc6510c0525139e88cfdbcc2c0a369b02dc6d386ba"
+    },
+    {
+      "path": "fixtures/go-workspace/catalog/catalog_test.go",
+      "sha256": "1a6e0fd095c4c4eed200679f1e2b36bcf90863886b7913e641ce50e68e9b9073"
+    },
+    {
+      "path": "fixtures/go-workspace/catalog/go.mod",
+      "sha256": "68364887a250e850ae1f9063d295232319d7cb08c874636b3ef87cf098b69f3b"
+    },
+    {
+      "path": "fixtures/go-workspace/go.work",
+      "sha256": "a25a3e765139be95466b5d53e986725b0cb40b33eb0ed04696eafb65aec8e9ed"
+    }
+  ],
+  "gif": {
+    "path": "docs/demo/native-go-workflow.gif",
+    "bytes": 445753,
+    "sha256": "415811808cec06c2df2fb2d17d675c072f9f8ab130799e7f8c585ad2abe57a6a",
+    "canvas": [
+      1200,
+      779
+    ],
+    "frames": 5,
+    "durationMs": 16400,
+    "loop": 0,
+    "palette": "shared global 256 slots: 255 visible colors plus transparent index 255",
+    "alpha": "source 0 stays transparent; resized alpha <128 transparent, >=128 opaque; no background compositing",
+    "disposal": 2,
+    "localColorTables": 0,
+    "perFrameDecodedVerification": true
+  },
+  "nativeObservations": [
+    "Run main.go: Chinese greeting, Total:37, process exit0",
+    "Run catalog_test.go: native test tree 6 tests passed",
+    "Breakpoint at main.go15: native cart and price locals visible",
+    "One standard F8 StepOver reaches main.go16; evaluate cart.Items[0].Name returns Book",
+    "Resume: console explicitly reports target45572 exited withstatus0; normal Quit leaves captured8 PIDs absent, no zombies"
+  ],
+  "cleanup": {
+    "capturedPids": [
+      45571,
+      45572,
+      44488,
+      44794,
+      45559,
+      45561,
+      44538,
+      44795
+    ],
+    "allCapturedPidsAbsent": true,
+    "zombiePids": [],
+    "manualSignalsUsed": false,
+    "profileErrorOrSevereLines": 0
+  },
+  "limits": [
+    "Ordered actual step screenshots with authored dwell times, not a continuous movie.",
+    "Only the depicted macOS workflows are demonstrated; no Windows GUI or complete GoLand parity claim.",
+    "The independent syscall-stack invalid-locals failure remains unresolved; see docs/verification/debug-session-controls.md."
+  ],
+  "fullEncodingReport": {
+    "path": ".tools/readme-demo/encoding-report.json",
+    "sha256": "d9559c16fec88389708dde5e9305be1a220920f7fda5e29bd6477d8f5e70c529"
+  },
+  "visualReview": {
+    "path": ".tools/readme-demo/encoding-visual-review.json",
+    "sha256": "730ac27b6d4e76b35b3db3bf640b7cab3634eac09cf8cdfd0efc2a7f56f39123",
+    "decodedTestAndEvaluateFramesViewed": true,
+    "contactSheetViewed": true
+  }
+}

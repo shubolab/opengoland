@@ -1,0 +1,371 @@
+{
+  "schemaVersion": 1,
+  "status": "native-first-cold-source-navigation-and-plain-stop-observed",
+  "cohort": {
+    "name": "native7-plain-wuuz89jp/stop",
+    "sourceCommit": "17ca02adf80000501dc9ec6a061d7931a0b9d037",
+    "productVersion": "0.1.0-preview.20261110.4",
+    "mode": "production-default-unwrapped",
+    "appPid": 42233,
+    "adapterPid": 42307,
+    "targetPid": 42439,
+    "debugserverPid": 42438,
+    "dapListenPort": {
+      "value": 52832,
+      "authority": "Root native Console observation supplied with this task, not derived from unrecorded wire."
+    }
+  },
+  "productBinding": {
+    "manifest": {
+      "path": "build/product/open Goland.app/Contents/Resources/openidea-product.json",
+      "bytes": 4917949,
+      "sha256": "74b5ebe9d405a6321c909f7b2aba532eea8b0e26a16dba6d5e0ba65373d1b157"
+    },
+    "fullInputCount": 486,
+    "fullInputDigest": "612dfa94bfa64b7352dea586c73901989b850bad90b391cf2ec61e2b412f793e",
+    "fullInputDigestRecomputed": true,
+    "all486CurrentSourceBytesMatch": true,
+    "embeddedEngineVcsRevision": "17ca02adf80000501dc9ec6a061d7931a0b9d037",
+    "embeddedEngineVcsModified": false,
+    "lspJar": {
+      "path": "build/product/open Goland.app/Contents/plugins/lsp4ij/lib/lsp4ij-0.21.0.jar",
+      "bytes": 2422967,
+      "sha256": "9da584e5ade15a7080637f14df25b6f205168bbab8a98cc6c799fba935380db2"
+    },
+    "lspMarker": {
+      "resource": "META-INF/open-goland-document-sync.json",
+      "sha256": "3b2700052b0457d6217bc47af9f21858a879439e6923e7a704bc8148f4cbc0ac",
+      "explicitPublicSourceCount": 18,
+      "controlledClassCount": 38,
+      "allControlledClassBytesMatchMarker": true,
+      "patchSha256": "5ee384a7b6a5083445a2d736b72ec18065b9b397f97a4055d42d6c72d1c9b1ce",
+      "compilerOptions": [
+        "--release",
+        "17",
+        "-encoding",
+        "UTF-8",
+        "-implicit:none",
+        "-sourcepath",
+        ""
+      ],
+      "localeIntentionDescriptionGuard": {
+        "descriptionDirectoryName": "Empty",
+        "descriptionResource": {
+          "path": "intentionDescriptions/Empty/description.html",
+          "sha256": "b35eb2a1550989e8c26c5b28382d3d7056e5b245150e8a17738de911050d2f9e"
+        },
+        "intentionClassNames": [
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction0",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction1",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction2",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction3",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction4",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction5",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction6",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction7",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction8",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction9",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction10",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction11",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction12",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction13",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction14",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction15",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction16",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction17",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction18",
+          "com.redhat.devtools.lsp4ij.features.codeAction.intention.LSPIntentionAction19"
+        ],
+        "patchSha256": "7d421ded57d03140669676bd3a7ef2ba200bd89111216e292ccc4ce776271f01",
+        "patchedSha256": "037fb1659ef131fc12005b5b3df0a055fb74e984ec579c504f71b6f321f628ef",
+        "pinFile": "product/patches/lsp4ij-0.21.0-intention-descriptions.json",
+        "pinSha256": "e8c47a960afa3379cdadc12ecfb653df97f21c2efe1f93567a718ff38c6c7670",
+        "resourcePath": "META-INF/plugin.xml",
+        "upstreamSha256": "1be28f40b53e6084b1f6a26769656b9425bdeaa9949983942b183ae7c629bb68"
+      }
+    },
+    "runtimeVerifier": {
+      "status": "pass",
+      "scope": "live process identity, expanded plugin paths, startup plugin loading and on-disk platform patch identity",
+      "loadedPlugins": {
+        "dev.openidea.go": "Go Workbench",
+        "com.redhat.devtools.lsp4ij": "LSP4IJ"
+      },
+      "notLiveClassResolutionProof": true
+    }
+  },
+  "fixture": {
+    "mainGo": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/双 Goroutine 中文😀/main.go",
+      "bytes": 1897,
+      "sha256": "58da3da2094523f3065908b0acabd491b5495b18d77b27f4d18f6b1beef39592"
+    },
+    "goMod": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/双 Goroutine 中文😀/go.mod",
+      "bytes": 61,
+      "sha256": "c0cd07442c62327ff3f4f30817491610de476b8e463a88bbc84775278adf6290"
+    },
+    "matchesPreparedSourceAndModuleHashes": true,
+    "goExecutable": {
+      "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+      "sha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4"
+    },
+    "delveExecutable": {
+      "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv",
+      "sha256": "417ef04195c53501e1d0584002da9b8c533b8c5a7a05fff0205a8c16792c57a7"
+    },
+    "actualAdapterCommand": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/dlv dap --listen=127.0.0.1:0",
+    "toolOverrides": "None. Fresh profile has no Go executable or Delve override. Native default resolver must select these actual packaged binaries."
+  },
+  "observations": [
+    {
+      "id": "N7-RUN",
+      "record": {
+        "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/running-before-pause.json",
+        "bytes": 2645,
+        "sha256": "61cb7dccb24f6131cf21ba38ee85b053b5ff8588415660f2fe2f3ecb982bd024"
+      },
+      "utc": "2026-11-10T06:29:41.313000+00:00",
+      "authority": "Receipt/file and captured ps observations, plus separately retained root native UI statement.",
+      "mainTicks": [
+        423,
+        427,
+        430
+      ],
+      "workerTicks": [
+        13647000000,
+        13751000000,
+        13865000000
+      ],
+      "sameTargetPid": 42439,
+      "bothIncreasing": true,
+      "nativeUi": "Native Debug header launched exact plain bundled Delve; not paused yet, no runtime source manually opened."
+    },
+    {
+      "id": "N7-FIRST-COLD",
+      "record": {
+        "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/first-cold-runtime-source.json",
+        "bytes": 2777,
+        "sha256": "11e992c53a3e81c5596744def7935eeec2918646d2aa428a27eb9dd019e3e961"
+      },
+      "utc": "2026-11-10T06:30:19.745620+00:00",
+      "nativeUi": "Actual first standard Pause: automatically opens bundled runtime/proc.go at463:1 with blue current-execution full-line highlight on463; proc.go never manually opened or reselected. Native Console remains selected; no worker selection.",
+      "uiAuthority": "Root CUA actual screenshot/native action observation, retained as observedUiByOperator; this synthesis performs no GUI action or independent visual replay.",
+      "firstStandardPauseViaFindAction": true,
+      "automaticColdSource": {
+        "file": "bundled Go SDK runtime/proc.go",
+        "line1": 463,
+        "column1": 1,
+        "manuallyOpenedOrReselectedBeforeThis": false,
+        "blueFullLineExecutionHighlight": true
+      },
+      "mainTicks": [
+        630,
+        630,
+        630
+      ],
+      "workerTicks": [
+        20120000000,
+        20120000000,
+        20120000000
+      ],
+      "targetState": "TX",
+      "realSuspensionEvidence": "Both independent receipt values remain stable and the captured target state is traced/stopped; not an ACK-only conclusion."
+    },
+    {
+      "id": "N7-PAUSED-FRAMES",
+      "record": {
+        "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/paused-frames-before-stop.json",
+        "bytes": 2709,
+        "sha256": "d7fbd46486b64f33703c83f76f34d434681632293301fe1079639878496f444d"
+      },
+      "utc": "2026-11-10T06:30:35.555072+00:00",
+      "nativeUi": "Native Frames selected runtime.gopark:463, source proc.go463:1 remains correct blue execution highlight. Unwrapped default tools; no worker selection, Step or Resume.",
+      "selectedFrame": {
+        "name": "runtime.gopark",
+        "line1": 463
+      },
+      "sourceRemainsAt463Column1WithExecutionHighlight": true,
+      "sameMainAndWorkerTicksAsFirstColdCapture": true,
+      "noWorkerSelectionStepOrResume": true
+    },
+    {
+      "id": "N7-PAUSED-STOP",
+      "authority": "Root CUA observations supplied with task; console text is not separately retained in the plain DAP log directory.",
+      "standardPausedStop": true,
+      "consoleAdapterAndSessionExitCode": 0,
+      "consoleDisconnected": true,
+      "capturedCleanupRecord": {
+        "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-after-stop.json",
+        "bytes": 5956,
+        "sha256": "3bce34c7ecd09402bc734e7ff004a1cc97971cd0d9351d829c43dc29e9655dc6"
+      }
+    },
+    {
+      "id": "N7-NORMAL-QUIT",
+      "authority": "Root CUA observed normal Quit then Exit; retained idea.log has IDE SHUTDOWN and the captured post-Quit PID check is absent for all owned identities.",
+      "normalQuitAndExitObserved": true,
+      "capturedCleanupRecord": {
+        "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-after-quit.json",
+        "bytes": 4724,
+        "sha256": "ba0f481ad916e1861a7f9bc00543b02bdd9cbd9c08456f948acf3a7dfb9c8455"
+      }
+    }
+  ],
+  "cleanup": {
+    "capturedPidRoles": {
+      "fsnotifier": 42243,
+      "delve-adapter": 42307,
+      "delve-telemetry": 42309,
+      "debugserver": 42438,
+      "receipt-go-target": 42439,
+      "gopls": 42290,
+      "gopls-telemetry": 42291,
+      "app": 42233
+    },
+    "beforeStop": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-before-stop.json",
+      "bytes": 3740,
+      "sha256": "7d4090850fe9758790974dbfb28377da42291ffe74c4bf0445b442c1c7ac4af7"
+    },
+    "afterStop": {
+      "record": {
+        "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-after-stop.json",
+        "bytes": 5956,
+        "sha256": "3bce34c7ecd09402bc734e7ff004a1cc97971cd0d9351d829c43dc29e9655dc6"
+      },
+      "debugSessionPidsAbsent": [
+        42307,
+        42309,
+        42438,
+        42439
+      ],
+      "appAndLanguageServiceRemainExpected": true,
+      "allAppProcessesAbsent": false,
+      "zombiePids": [],
+      "observedAtUtc": "2026-11-10T06:30:48.321267+00:00"
+    },
+    "afterQuit": {
+      "record": {
+        "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-after-quit.json",
+        "bytes": 4724,
+        "sha256": "ba0f481ad916e1861a7f9bc00543b02bdd9cbd9c08456f948acf3a7dfb9c8455"
+      },
+      "all8CapturedPidsAbsent": true,
+      "allOriginalIdentitiesGone": true,
+      "zombiePids": [],
+      "observedAtUtc": "2026-11-10T06:31:06.705404+00:00"
+    },
+    "identityPrecision": "PID plus ps lstart at second precision; extraordinarily fast same-second PID reuse is not distinguished. No processes are signaled.",
+    "scope": "Captured PID/start identities only, not a new process scan by this synthesis; no signal, debugger command or target interaction."
+  },
+  "profileLog": {
+    "record": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/profile/log/idea.log",
+      "bytes": 85455,
+      "sha256": "d2a4aa27c511389327c4bfa9b2b2547be54866db07a4226a4f9e4602110faf2e"
+    },
+    "lines": 355,
+    "levelCounts": {
+      "ERROR": 0,
+      "SEVERE": 0,
+      "WARN": 5
+    },
+    "ideShutdownPresent": true,
+    "scope": "This exact closed profile idea.log; WARN retained rather than called absent. File-watcher exit0 is not relabeled adapter exit0."
+  },
+  "rawEvidence": {
+    "fixture.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/fixture.json",
+      "bytes": 3226,
+      "sha256": "53debc06fa64ca968546d2a86f7c0871102df257e5465a9e156a2a1f87e99c8c"
+    },
+    "launch-intent.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/launch-intent.json",
+      "bytes": 1826,
+      "sha256": "ec6cef6349d600b3a1de2f7067cb70a89ea541f4ca37dfc151d45d9e816ab38b"
+    },
+    "launch-native.sh": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/launch-native.sh",
+      "bytes": 875,
+      "sha256": "2a9595fb1fbcb16f37fd222b91bee6889fae16b96839e9a980e8d7ff476437da"
+    },
+    "native-launch.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/native-launch.json",
+      "bytes": 488,
+      "sha256": "15dadf28b33293435c726dca0ef912c0d6a3886969b4dac98c1dbbb141fcee1a"
+    },
+    "runtime.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/runtime.json",
+      "bytes": 8394,
+      "sha256": "a30c98f62bb7c742b95df13e7672f11e90dd4e88416eca69029491c378234ca0"
+    },
+    "runtime-command.log": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/runtime-command.log",
+      "bytes": 8394,
+      "sha256": "a30c98f62bb7c742b95df13e7672f11e90dd4e88416eca69029491c378234ca0"
+    },
+    "running-before-pause.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/running-before-pause.json",
+      "bytes": 2645,
+      "sha256": "61cb7dccb24f6131cf21ba38ee85b053b5ff8588415660f2fe2f3ecb982bd024"
+    },
+    "first-cold-runtime-source.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/first-cold-runtime-source.json",
+      "bytes": 2777,
+      "sha256": "11e992c53a3e81c5596744def7935eeec2918646d2aa428a27eb9dd019e3e961"
+    },
+    "paused-frames-before-stop.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/paused-frames-before-stop.json",
+      "bytes": 2709,
+      "sha256": "d7fbd46486b64f33703c83f76f34d434681632293301fe1079639878496f444d"
+    },
+    "checkpoints.jsonl": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/checkpoints.jsonl",
+      "bytes": 6019,
+      "sha256": "4069fee10ba2afbc9cf1a5672226145c028729af84d5bf5cb8a384cb4144db50"
+    },
+    "owned-before-stop.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-before-stop.json",
+      "bytes": 3740,
+      "sha256": "7d4090850fe9758790974dbfb28377da42291ffe74c4bf0445b442c1c7ac4af7"
+    },
+    "owned-after-stop.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-after-stop.json",
+      "bytes": 5956,
+      "sha256": "3bce34c7ecd09402bc734e7ff004a1cc97971cd0d9351d829c43dc29e9655dc6"
+    },
+    "owned-after-quit.json": {
+      "path": ".tools/debug-session-native-tools/native7-plain-wuuz89jp/stop/owned-after-quit.json",
+      "bytes": 4724,
+      "sha256": "ba0f481ad916e1861a7f9bc00543b02bdd9cbd9c08456f948acf3a7dfb9c8455"
+    }
+  },
+  "inference": "The 18/38 candidate native first cold-source navigation matches the production TextEditorImpl gate fix: the first standard Pause automatically opens the correct nonzero runtime line and highlights it without preopening or reselection.",
+  "notEstablished": [
+    "No worker B/goroutine selection, Step or Resume/Continue is exercised in this session.",
+    "Plain DAP logs are empty; there is no per-RPC wire attribution or proof that a goroutine stack was protocol-cold.",
+    "No published installer, Windows runtime, generalized Stop behavior or complete GoLand parity is claimed by this local-candidate session."
+  ],
+  "excludedCohorts": [
+    {
+      "path": ".tools/debug-session-native-tools/native6-plain-sim9al9u",
+      "disposition": "Excluded entirely: root reports invalid native launch. No assertions, processes or observations from it are merged into native7 pass."
+    }
+  ],
+  "synthesisMethod": {
+    "readOnlyInputs": true,
+    "trackedFilesChanged": false,
+    "guiOrGradleOrTargetActions": false,
+    "rawRecordsUnchanged": true,
+    "draftForRootReview": true
+  },
+  "rootReview": {
+    "acceptedAtUtc": "2026-11-10T07:38:51.070043+00:00",
+    "scope": "Root reviewed own actual CUA observations and the source-bound records. Historical raw statuses and failed samples are retained. No full GoLand parity or public-installer acceptance claim.",
+    "frozenDraft": {
+      "path": ".tools/debug-native7-plain-cold-source-evidence-draft.json",
+      "sha256": "6a5fa8aaeca5d2a0653117507dd2e3396da946c078a3d93bc4774eb599955bfc"
+    }
+  }
+}
