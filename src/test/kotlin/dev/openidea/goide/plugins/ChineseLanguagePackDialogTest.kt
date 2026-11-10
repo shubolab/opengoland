@@ -78,7 +78,9 @@ class ChineseLanguagePackDialogTest : LightPlatformTestCase() {
         var state = ModalityState.nonModal()
         val path = Files.writeString(root.resolve("owned-chinese-write-safety.txt"), "before")
         val virtual = requireNotNull(LocalFileSystem.getInstance().refreshAndFindFileByNioFile(path))
-        val document = requireNotNull(FileDocumentManager.getInstance().getDocument(virtual))
+        val document = ReadAction.compute<com.intellij.openapi.editor.Document, RuntimeException> {
+            requireNotNull(FileDocumentManager.getInstance().getDocument(virtual))
+        }
         val psi = ReadAction.compute<com.intellij.psi.PsiFile, RuntimeException> {
             requireNotNull(PsiManager.getInstance(project).findFile(virtual))
         }
@@ -120,7 +122,7 @@ class ChineseLanguagePackDialogTest : LightPlatformTestCase() {
             // Keep the shared SDK file-document service free of this owned
             // physical fixture's dirty buffer before deleting its directory.
             edt { FileDocumentManager.getInstance().saveDocument(document) }
-            assertFalse(FileDocumentManager.getInstance().isDocumentUnsaved(document))
+            assertFalse(edt { FileDocumentManager.getInstance().isDocumentUnsaved(document) })
         }
     }
 
