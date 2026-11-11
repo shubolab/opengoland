@@ -1,0 +1,242 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-11T16:07:23.796194+00:00",
+  "status": "snapshot-Windows-seven-pass; one newly-enabled cancellation control failed",
+  "evidenceDirectory": "windows-sdk-cancel-20261112-evidence",
+  "observation": {
+    "runId": 43049891202,
+    "attempt": 1,
+    "sourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+    "artifact": {
+      "id": 13870057281,
+      "name": "windows-x64",
+      "apiDigest": "sha256:715b2575e15809d514be55014d59ebb322587e3ed75af83fc5019f633b476ac3",
+      "downloadSha256": "715b2575e15809d514be55014d59ebb322587e3ed75af83fc5019f633b476ac3",
+      "downloadBytes": 965759
+    },
+    "kotlin": {
+      "tests": 797,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "uniqueIdentities": 797,
+    "duplicates": [],
+    "missing": [],
+    "unexpected": [],
+    "snapshotSeven": [
+      {
+        "identity": [
+          "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+          "testExplicitEmptyResolvesWorkspaceModuleThroughFactory"
+        ],
+        "seconds": 1.044,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+          "testExplicitAbsoluteWorkspaceResolvesModuleThroughFactory"
+        ],
+        "seconds": 0.684,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+          "testExplicitAutoResolvesWorkspaceModuleThroughFactory"
+        ],
+        "seconds": 0.687,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+          "testExplicitOffKeepsModuleIsolationThroughFactory"
+        ],
+        "seconds": 0.705,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+          "testRejectedProjectRegistrationCleansTheUnnotifiedOwnedAdapter"
+        ],
+        "seconds": 0.634,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+          "testCreationAndPreStartDisposalAreMemoryOnlyAndActiveCancelOwnsOnlyItsProcesses"
+        ],
+        "seconds": 3.024,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.run.GoRunBuildContextNativeTest",
+          "testRunnableEntryMustBelongToTheSelectedBuildContext"
+        ],
+        "seconds": 17.655,
+        "status": "pass"
+      }
+    ],
+    "formerlySkippedTwelve": [
+      {
+        "identity": [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "failedInitializationCanBeRetried"
+        ],
+        "seconds": 0.915,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange"
+        ],
+        "seconds": 1.244,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "settingsRestartDoesNotLetOldReaderDisconnectNewEngine"
+        ],
+        "seconds": 1.182,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "disposeShutsDownOwnedEngineAndRejectsReconnect"
+        ],
+        "seconds": 0.774,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest",
+          "capturedSettingsOwnTheGenerationPayloadEvenWhenTheLiveProjectUsesAnotherSdkAndBuildContext"
+        ],
+        "seconds": 0.015,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "plausibleMetadataStillCannotPublishWithoutARealGoMod"
+        ],
+        "seconds": 0.663,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "timeoutTerminatesTheOwnedCommandAndItsChildren"
+        ],
+        "seconds": 1.607,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "failedExecutableReportsTheToolErrorWithoutCreatingTheDestination"
+        ],
+        "seconds": 0.546,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "aCompletedLauncherCannotLeaveItsChildRunning"
+        ],
+        "seconds": 30.567,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "oversizedSingleLineOutputIsBoundedAndDoesNotPublishAProject"
+        ],
+        "seconds": 0.534,
+        "status": "pass"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher"
+        ],
+        "seconds": 30.59,
+        "status": "failure"
+      },
+      {
+        "identity": [
+          "dev.openidea.goide.project.GoSdkProbeTest",
+          "silentSuccessfulExecutableCannotCreateProjectParentsOrAModule"
+        ],
+        "seconds": 0.548,
+        "status": "pass"
+      }
+    ],
+    "failedCase": {
+      "identity": [
+        "dev.openidea.goide.project.GoSdkProbeTest",
+        "cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher"
+      ],
+      "kind": "failure",
+      "attributes": {
+        "message": "java.lang.AssertionError: An unrelated process must not receive the owned group's signals",
+        "type": "java.lang.AssertionError"
+      },
+      "text": "java.lang.AssertionError: An unrelated process must not receive the owned group's signals\n\tat org.junit.Assert.fail(Assert.java:89)\n\tat kotlin.test.junit.JUnitAsserter.fail(JUnitSupport.kt:56)\n\tat kotlin.test.Asserter.assertTrue(Assertions.kt:766)\n\tat kotlin.test.junit.JUnitAsserter.assertTrue(JUnitSupport.kt:30)\n\tat kotlin.test.Asserter.assertTrue(Assertions.kt:776)\n\tat kotlin.test.junit.JUnitAsserter.assertTrue(JUnitSupport.kt:30)\n\tat kotlin.test.AssertionsKt__AssertionsKt.assertTrue(Assertions.kt:44)\n\tat kotlin.test.AssertionsKt.assertTrue(Unknown Source)\n\tat dev.openidea.goide.project.GoSdkProbeTest.cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher$lambda$0(GoSdkProbeTest.kt:81)\n\tat dev.openidea.goide.project.GoSdkProbeTest.fixture(GoSdkProbeTest.kt:132)\n\tat dev.openidea.goide.project.GoSdkProbeTest.cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher(GoSdkProbeTest.kt:71)\n\tat java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:565)\n\tat org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)\n\tat org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)\n\tat org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)\n\tat org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)\n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\n\tat org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)\n\tat org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)\n\tat org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)\n\tat org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)\n\tat org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)\n\tat org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)\n\tat org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)\n\tat org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)\n\tat org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)\n\tat org.junit.runners.ParentRunner.run(ParentRunner.java:413)\n\tat org.junit.runner.JUnitCore.run(JUnitCore.java:137)\n\tat org.junit.runner.JUnitCore.run(JUnitCore.java:115)\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runRequest(JUnitTestClassExecutor.java:176)\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:84)\n\tat org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:45)\n\tat org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:61)\n\tat org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:54)\n\tat java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)\n\tat java.base/java.lang.reflect.Method.invoke(Method.java:565)\n\tat org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77)\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28)\n\tat org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19)\n\tat org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)\n\tat org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:88)\n\tat jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source)\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:177)\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:126)\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)\n\tat org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)\n\tat org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)\n\tat org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122)\n\tat org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)\n\tat worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)\n\tat worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)\n"
+    },
+    "timing": {
+      "cancelCaseSeconds": 30.59,
+      "completedLauncherCaseSeconds": 30.567,
+      "helperAndSentinelLifetimeSeconds": 30
+    }
+  },
+  "inference": [
+    "Windows cancellation can occur before the first process.descendants sample. The finally cleanup only uses the earlier saved list, and closing Java process streams can wait for an unsampled child retaining them. This matches the observed30s delay, but the run did not capture exact process/reader timing.",
+    "The assertion message about unrelated signals is not proof of a signal reaching the sentinel: natural30s completion is another explanation.",
+    "The completed-launcher test can pass after its child finishes naturally; its30.567s duration is weak evidence for prompt owned-child cleanup."
+  ],
+  "unknown": [
+    "Exact Windows exit causes, pipe/reader wait and actual first-descendant sample order were not recorded.",
+    "Whether a small resample change alone can cover a parent that exits before any child sample. A robust Windows job-owned child launch may be required.",
+    "Native UI handoff remains pending. Current source8df app has the SDK auto-refresh fix, not any future Windows cancellation repair."
+  ],
+  "next": [
+    "Do not weaken/remove sentinel ownership assertions, lengthen fixture sleeps or skip Windows cases to make CI green.",
+    "Add a bounded, genuinely live parent/child/sentinel regression with readiness and actual exit/pipe evidence; prevent natural child exit from masquerading as cleanup.",
+    "Inspect native Windows ownership primitives for a suspended/atomically job-bound launch, reusing the bundled Go engine if that is the smallest reliable boundary. Verify supported APIs against primary sources before implementation.",
+    "Run focused controls and full required checks, then a single source-bound actual Windows build; keep existing macOS job/run unchanged."
+  ],
+  "fullGoalStatus": "active, not complete",
+  "research": {
+    "status": "design evidence only, no new implementation or Windows retest yet",
+    "primarySources": [
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/procthread/job-objects",
+        "supports": "A job owns associated CreateProcess children by default; KILL_ON_JOB_CLOSE ends associated processes when its last handle closes. Avoid breakaway flags; WMI-created children are a documented exception."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/processthreadsapi/nf-processthreadsapi-updateprocthreadattribute",
+        "supports": "PROC_THREAD_ATTRIBUTE_JOB_LIST provides job handles for the child at process creation on Windows10/Server2016 and newer."
+      },
+      {
+        "url": "https://learn.microsoft.com/en-us/windows/win32/api/jobapi2/nf-jobapi2-assignprocesstojobobject",
+        "supports": "Already-running processes can be assigned to compatible nested jobs on Windows8+. A process launched suspended can be associated before it runs."
+      }
+    ],
+    "localSdkObservation": "Pinned builderGo1.27.3 src/syscall/exec_windows.go SysProcAttr has no job-list attribute API. An existing bundled-engine one-shot owner mode using official Win32 bindings is a candidate boundary; no added binary/SDK copies should be required.",
+    "openDesignChecks": [
+      "Choose atomic job-list or suspended-then-assign startup, fail closed before child code on unsupported/failed ownership setup.",
+      "Verify nested-job behavior under actual GitHub Windows runner, normal exit/orphan cleanup, owner termination, pipe completion, exact argument/environment propagation and unrelated live sentinel.",
+      "If a new Go module dependency is used, pin its sums and retain its required license notices.",
+      "Do not infer Windows implementation success from local cross-compilation or reuse native8df proof as new-source acceptance."
+    ]
+  }
+}

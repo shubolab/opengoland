@@ -1,0 +1,37 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "file": "windows-artifact.zip",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-002/audit-windows-x64/artifact.zip",
+      "bytes": 965759,
+      "sha256": "715b2575e15809d514be55014d59ebb322587e3ed75af83fc5019f633b476ac3"
+    },
+    {
+      "file": "raw-xml-audit.json",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-002/audit-windows-x64/result.json",
+      "bytes": 56312,
+      "sha256": "a18850eac42cee407c12bb713b77335c1ddcb4aedc51f339cabdf83de59e76e5"
+    },
+    {
+      "file": "classification.json",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-002/windows-sdk-cancel-classification.json",
+      "bytes": 12031,
+      "sha256": "95caa1965a054a6ff94cd4b28a9879d2c3e1ddd1a3588ae3923424357bf21083"
+    },
+    {
+      "file": "windows-job-terminal.json",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-002/windows-job-terminal.json",
+      "bytes": 3732,
+      "sha256": "b13d7a7d21b888f510726d17a277ac9cfc9ba1ecf70e7706dad58356188c1a21"
+    },
+    {
+      "file": "windows-check-annotations.json",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-002/windows-check-annotations.json",
+      "bytes": 1170,
+      "sha256": "2080a0551a35219de698fbdc02985ecc27bfbaeeed4182662664784840f2c9ae"
+    }
+  ],
+  "artifactApiDigest": "sha256:715b2575e15809d514be55014d59ebb322587e3ed75af83fc5019f633b476ac3",
+  "artifactDownloadSha256": "715b2575e15809d514be55014d59ebb322587e3ed75af83fc5019f633b476ac3"
+}
