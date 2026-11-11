@@ -1,0 +1,175 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-11T15:35:50.425214+00:00",
+  "status": "complete-local-checks; exact-source-dual-platform-installer-CI-dispatched; native-and-Windows-pending",
+  "sourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+  "sourceFiles": 506,
+  "sourceDigest": "28da8e21c4464ff0eda3fcb8c5a8ca933da4f96f85e7564dfa924a2f5b28deb3",
+  "evidenceDirectory": "sdk-settings-full-20261111-evidence",
+  "observation": {
+    "kotlin": {
+      "tests": 797,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reports": 143,
+      "uniqueIdentities": 797,
+      "missing": [],
+      "unexpected": []
+    },
+    "go": {
+      "passTestEvents": 347,
+      "passedPackages": [
+        "github.com/shubolab/opengoland/engine/internal/protocol",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags",
+        "github.com/shubolab/opengoland/engine/internal/engine",
+        "github.com/shubolab/opengoland/engine/internal/search/types",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "github.com/shubolab/opengoland/engine/internal/rpc",
+        "github.com/shubolab/opengoland/engine/internal/generate/structs",
+        "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+        "github.com/shubolab/opengoland/engine/internal/refactor/native",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature"
+      ],
+      "skippedPackages": [
+        "github.com/shubolab/opengoland/engine/cmd/opengoland-engine"
+      ],
+      "failedEvents": [],
+      "nonJsonLines": 0,
+      "cachedOutputLines": []
+    },
+    "phases": [
+      {
+        "name": "gradle",
+        "argv": [
+          "./gradlew",
+          "--no-daemon",
+          "--rerun-tasks",
+          "--no-build-cache",
+          "-PplatformPath=/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app",
+          "-PgoBuilder=/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+          "-PreleaseVersion=0.1.0-preview.20261110.6",
+          "-Pkotlin.compiler.execution.strategy=in-process",
+          "test",
+          "buildPlugin",
+          "verifyPluginStructure"
+        ],
+        "cwd": "/Users/wangshubo/develop/openidea-go",
+        "exitCode": 0
+      },
+      {
+        "name": "go-race",
+        "argv": [
+          "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+          "test",
+          "-race",
+          "-count=1",
+          "-json",
+          "./..."
+        ],
+        "cwd": "/Users/wangshubo/develop/openidea-go/engine",
+        "exitCode": 0
+      },
+      {
+        "name": "go-vet",
+        "argv": [
+          "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+          "vet",
+          "./..."
+        ],
+        "cwd": "/Users/wangshubo/develop/openidea-go/engine",
+        "exitCode": 0
+      }
+    ],
+    "sourceUnchanged": true,
+    "recordedOwnedIdentities": 1648,
+    "remaining": [],
+    "observerSignals": [],
+    "minimumFreeBytes": 124460376064,
+    "finishedAtUtc": "2026-11-11T15:35:19.164682+00:00",
+    "ci": {
+      "runId": 43049891202,
+      "attempt": 1,
+      "sourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+      "workflow": ".github/workflows/release.yml",
+      "url": "https://github.com/shubolab/opengoland/actions/runs/43049891202",
+      "payload": {
+        "ref": "main",
+        "inputs": {
+          "version": "0.1.0-preview.20261110.6",
+          "publish": false
+        }
+      },
+      "sourceDigest": "28da8e21c4464ff0eda3fcb8c5a8ca933da4f96f85e7564dfa924a2f5b28deb3",
+      "fullResultSha256": "dc178d51a51663b84d364c2f6cff9cee8d99402d154ac7a0502f02db19310561",
+      "singlePost": true,
+      "atUtc": "2026-11-11T15:35:40.433542+00:00"
+    },
+    "ciStateAtRecord": "Dispatch accepted and bound to this exact source. Terminal results not asserted.",
+    "postFullArtifacts": {
+      "atUtc": "2026-11-11T15:36:33.992115+00:00",
+      "sourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+      "sourceDigest": "28da8e21c4464ff0eda3fcb8c5a8ca933da4f96f85e7564dfa924a2f5b28deb3",
+      "artifacts": [
+        {
+          "path": "engine/bin/opengoland-engine",
+          "bytes": 10629570,
+          "sha256": "94752f95c67f71a7d25a31924def03e587f0559dcd97f6d1dc1130b7887acfb0"
+        },
+        {
+          "path": "build/libs/opengoland-0.1.0-preview.20261110.6-instrumented.jar",
+          "bytes": 2090204,
+          "sha256": "77a7999767fe096df75837cde94a192a376801fd40bee2e20c774056f1dbbac4",
+          "embeddedInputsMatchFull": true
+        },
+        {
+          "path": "build/libs/opengoland-0.1.0-preview.20261110.6.jar",
+          "bytes": 2090204,
+          "sha256": "20d40d581a43aa01621e5fcb897ab2ecfa04e4306681d959ab53517c1c5d532c",
+          "embeddedInputsMatchFull": true
+        },
+        {
+          "path": "build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.6.jar",
+          "bytes": 2090204,
+          "sha256": "20d40d581a43aa01621e5fcb897ab2ecfa04e4306681d959ab53517c1c5d532c",
+          "embeddedInputsMatchFull": true
+        }
+      ],
+      "engineBuildInfo": "/Users/wangshubo/develop/openidea-go/engine/bin/opengoland-engine: go1.27.3\n\tpath\tgithub.com/shubolab/opengoland/engine/cmd/opengoland-engine\n\tmod\tgithub.com/shubolab/opengoland/engine\t(devel)\t\n\tdep\tgithub.com/google/pprof\tv0.0.0-20241101162523-b92577c0c142\th1:sAGdeJj0bnMgUNVeUpp6AYlVdCt3/GdI3pGRqsNSQLs=\n\tdep\tgolang.org/x/mod\tv0.30.0\th1:fDEXFVZ/fmCKProc/yAXXUijritrDzahmwwefnjoPFk=\n\tdep\tgolang.org/x/sync\tv0.18.0\th1:kr88TuHDroi+UVf+0hZnirlk8o8T+4MrK6mr60WkH/I=\n\tdep\tgolang.org/x/tools\tv0.39.1-0.20260109155911-b69ac100ecb7\th1:UaaZx92hw3fDa9xRcX2//NBRE3sR4VHQLlt0TkN2geY=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=8dfdbe074f564897669cfd93fec24135ab50782b\n\tbuild\tvcs.time=2026-11-11T15:21:17Z\n\tbuild\tvcs.modified=false\n",
+      "scope": "Post-full artifact identity before any replacement build; source code unchanged. Documentation evidence is being archived separately."
+    },
+    "completedCacheCleanup": {
+      "atUtc": "2026-11-11T15:36:44.813546+00:00",
+      "fullSourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+      "fullResultSha256": "dc178d51a51663b84d364c2f6cff9cee8d99402d154ac7a0502f02db19310561",
+      "removed": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/system-test/index",
+          "bytes": 40939285,
+          "lsofExit": 1,
+          "openFiles": []
+        },
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/system-test/caches",
+          "bytes": 164626603,
+          "lsofExit": 1,
+          "openFiles": []
+        }
+      ],
+      "activeProjectGradleWorkers": [],
+      "freeBeforeBytes": 124558462976,
+      "freeAfterBytes": 124783742976,
+      "preserved": "Source/worktrees, logs/XML/results, configuration/LocalHistory, SDK/tool bundles and Go caches, oldC temporary app, public5 app/DMG, CI Mac archive/DMG, and all GitHub assets."
+    }
+  },
+  "inference": [
+    "Local verification includes all795 snapshot identities, the real-child pre-sampling cancellation regression and the new settings refresh regression. None is removed or replaced by a skip."
+  ],
+  "unknown": [
+    "Actual new Windows797 test execution, raw XML, seven prior repaired failures and12 formerly Unix-only controls require the newly dispatched run.",
+    "Automatic Go panel refresh after a real SDK selection requires the updated standalone native app.",
+    "Both-platform native installation and workflow acceptance, real EXE/DMG publication, updated demonstration where needed and full GoLand comparison remain open."
+  ],
+  "fullGoalStatus": "active, not complete"
+}

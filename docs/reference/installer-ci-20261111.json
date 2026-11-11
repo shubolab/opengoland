@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "recordedAtUtc": "2026-11-11T15:20:57.060829+00:00",
+  "recordedAtUtc": "2026-11-11T15:37:26.530000+00:00",
   "status": "terminal-runner-loss; macOS-artifact-audited; no-release",
   "evidenceDirectory": "installer-ci-20261111-evidence",
   "observation": {
@@ -115,8 +115,23 @@
         "localPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/mac-installer/open-Goland-0.1.0-preview.20261110.6-macos-arm64.dmg",
         "bytes": 1016125880,
         "sha256": "59b0b4cbb7a9642af45464d2163cb725d6c8b157b89f61b05ecc5b490fac24fc",
-        "imageVerifiedLocally": false,
-        "installedNativeAcceptanceLocally": false
+        "imageVerifiedLocally": true,
+        "installedNativeAcceptanceLocally": false,
+        "imageVerification": {
+          "atUtc": "2026-11-11T15:22:14.492739+00:00",
+          "command": [
+            "hdiutil",
+            "verify",
+            ".tools/resume-snapshot-20261111/ci-001/mac-installer/open-Goland-0.1.0-preview.20261110.6-macos-arm64.dmg"
+          ],
+          "unifiedExecSession": 54918,
+          "exitCode": 0,
+          "observedTerminalOutput": "hdiutil: verify: checksum is VALID; CRC32 $FC06205D",
+          "completeRawStdoutRetained": false,
+          "outputLocation": "tool transcript; earlier origin receipt independently retains SHA256 and download binding",
+          "imageBytes": 1016125880,
+          "boundary": "Image checksum only. No mounting, installation, native acceptance or publication."
+        }
       },
       "proofRetention": "Original artifact ZIP retained. 9775642 bytes of original selected non-cache proofs extracted; disposable IDE cache members were not extracted. Original member hashes/dispositions retained in receipt.",
       "publicRelease": false
