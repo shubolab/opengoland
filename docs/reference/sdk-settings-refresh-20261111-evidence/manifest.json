@@ -1,0 +1,117 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "file": "launch.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/launch.json",
+      "originalBytes": 2959,
+      "originalSha256": "4ee7040580f43f56cbc3248c28a3a921fb3d1c4653bd20c4972b4e19feb43670",
+      "gzipBytes": 1200,
+      "gzipSha256": "c025a4ce6a6ae17351d8d4cac6ce00420357f8b5af9cd5dd79f4ccdc7000c34d"
+    },
+    {
+      "file": "identity.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/identity.json",
+      "originalBytes": 244,
+      "originalSha256": "144d351c18cc2c2f7e5a31d4f453e58b44f8b3e7880ca7344f09819a77ff604e",
+      "gzipBytes": 211,
+      "gzipSha256": "57e8eb8be6637a85d5c3504d208a1caff3cfb9a6dbebff87f9d9eb2e266f2795"
+    },
+    {
+      "file": "process-summary.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/process-summary.json",
+      "originalBytes": 6866,
+      "originalSha256": "1eba16d2b7b18bd281a54540cb73be93d679e04b5af6049bc9e20594d25bc01c",
+      "gzipBytes": 1151,
+      "gzipSha256": "09097c8cbc3b57cc260c856969f496d32c53c510c942bfedc800e6ad0e48ea0a"
+    },
+    {
+      "file": "post-quit-and-cleanup.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/post-quit-and-cleanup.json",
+      "originalBytes": 2662,
+      "originalSha256": "74d20f1283373bea95fd840c4279420f8722e0649fb1af68f2280a68e836fcbb",
+      "gzipBytes": 1178,
+      "gzipSha256": "f3784581adebfbedfa71d22cd98b16224f984ddcf63fc76574d960e8fc1dd8cd"
+    },
+    {
+      "file": "rea-native-picker-state.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/rea-native-picker-state.json",
+      "originalBytes": 558,
+      "originalSha256": "c1b4a133c891e893cf224fc92f6ca476cfa519c054122583df0335afdfb1a0bb",
+      "gzipBytes": 299,
+      "gzipSha256": "01e0d93d71e1e3b6e30d2bcf2acfc044971ad75afbde0cd12e9f8791f4b2d65c"
+    },
+    {
+      "file": "rea-local-sdk-verified.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/rea-local-sdk-verified.json",
+      "originalBytes": 512133,
+      "originalSha256": "b2ae1811cec76f890fc39476f1376a25c982c6d2a9f0dae2bb5a4662c97516db",
+      "gzipBytes": 353644,
+      "gzipSha256": "929680f7b3f4e04457ef5f8006f5ec983b2c38829effeb8491740ec12e256ace"
+    },
+    {
+      "file": "rea-selected-sdk-run-stale-panel.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/rea-selected-sdk-run-stale-panel.json",
+      "originalBytes": 656781,
+      "originalSha256": "ccdf774f74592823ec9a16b6b49f972ad7f6ea1f35fe41dea74a3a46640f6a9e",
+      "gzipBytes": 434940,
+      "gzipSha256": "ef5fbe17ec6b44c8dbae6ae5ae1903794e747f0138f6da7eac9fc53ad0d8004b"
+    },
+    {
+      "file": "rea-alternate-sdk-test-after-reload.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-C/rea-alternate-sdk-test-after-reload.json",
+      "originalBytes": 844972,
+      "originalSha256": "8eeeb4fec431bcce754611d75f989cf5f99cad2e327dd6d08459ecce5550ace2",
+      "gzipBytes": 573906,
+      "gzipSha256": "56a55e649a5baade5169f91656d93c3d8f501236bc64b9233a2555c4768b8312"
+    },
+    {
+      "file": "red-invocation.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/settings-refresh-red-001/invocation.json",
+      "originalBytes": 679,
+      "originalSha256": "e4cea88a7cc3acd30aa5ff2a16cfda424b86c21f9d3758fc9ca2c4d887c2987a",
+      "gzipBytes": 437,
+      "gzipSha256": "64329f6f27bd9619a94da03c7708084459b619ef5c611aaef590a4f84de5fdae"
+    },
+    {
+      "file": "red-result.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/settings-refresh-red-001/result.json",
+      "originalBytes": 695,
+      "originalSha256": "cdd5f993df367b1e08b71d336c4e2db5a4b079cd10c1394655dbaa9e90576f54",
+      "gzipBytes": 399,
+      "gzipSha256": "4622e9e547b314dd2880e77c218005dd6b1826b62392d36183b3f3f51bf3fc02"
+    },
+    {
+      "file": "red-TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/settings-refresh-red-001/TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml",
+      "originalBytes": 12275,
+      "originalSha256": "1e2414c71e272af7e76e685fe3973dfc061528149c4f16cae8cebd0f3a29ca6f",
+      "gzipBytes": 2115,
+      "gzipSha256": "80d6cf185adb32d0f9ca7da5f604d91d62e8bfa42e1919584f0766ac65995c9d"
+    },
+    {
+      "file": "green-invocation.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/settings-refresh-green-001/invocation.json",
+      "originalBytes": 679,
+      "originalSha256": "620f8973810f10444ac163bc6ae19168f73ddcceb0c8d15106fcd27731775ea1",
+      "gzipBytes": 436,
+      "gzipSha256": "396da03204a6a200e666d582575e3ec9399dda213a9401c6bf602e56a4838152"
+    },
+    {
+      "file": "green-result.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/settings-refresh-green-001/result.json",
+      "originalBytes": 449,
+      "originalSha256": "61d5c460a11e4a8a0b328cf226f38af2865cfd0ab9585ced8c9c15233da484c1",
+      "gzipBytes": 310,
+      "gzipSha256": "46ab2b51b874bfc86fa40be81695f612bebf346cb040598e4c333cb65da23377"
+    },
+    {
+      "file": "green-TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/settings-refresh-green-001/TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml",
+      "originalBytes": 2653,
+      "originalSha256": "1ba978b9e77c7b331b2d4fa972d3bf025f78da67e99df2ed71abfed8bbb8df0a",
+      "gzipBytes": 975,
+      "gzipSha256": "ba9fe5fbafe4e61e44da6b4930086d89eb8b8aa426825b8b48a8781d1d905e15"
+    }
+  ]
+}

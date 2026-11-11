@@ -13,6 +13,7 @@ import com.intellij.ui.components.JBCheckBox
 import com.intellij.util.ui.FormBuilder
 import com.redhat.devtools.lsp4ij.LanguageServerManager
 import com.redhat.devtools.lsp4ij.LanguageServersRegistry
+import dev.openidea.goide.engine.GoTaskTargetsService
 import dev.openidea.goide.sdk.GoSdkSelector
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
@@ -91,6 +92,9 @@ class GoSettingsConfigurable(private val project: Project) : SearchableConfigura
         if (previousLanguageServerSettings != languageServerSettings(s)) {
             // Memory-only invalidation; package metadata work is scheduled by the native entry service.
             dev.openidea.goide.run.GoRunBuildContextService.settingsChanged(project)
+            // Notify after committing all settings. The tool window schedules its metadata
+            // request in the background and discards replies from older refreshes.
+            if (!project.isDisposed) project.messageBus.syncPublisher(GoTaskTargetsService.REFRESH_TOPIC).finished()
             ApplicationManager.getApplication().executeOnPooledThread {
                 if (!project.isDisposed) {
                     val definition = LanguageServersRegistry.getInstance().getServerDefinition("openidea.gopls")

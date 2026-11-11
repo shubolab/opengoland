@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "file": "terminal.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/terminal.json",
+      "originalBytes": 1759,
+      "originalSha256": "1325dee374d252a1fbcb88c7e61125b74aa2091637f5ceb6af092623c5f13cde",
+      "gzipBytes": 673,
+      "gzipSha256": "4440c9c8ef032cbc3efeb5fbb7c88524b48914258db3531d1480b65aa11bf9ad"
+    },
+    {
+      "file": "windows-job-terminal.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/windows-job-terminal.json",
+      "originalBytes": 3327,
+      "originalSha256": "7c2a1e42e4c5a1b2f53b25efde0cfa2ddaa3085cf8fc6cdb00162679562ce5b9",
+      "gzipBytes": 817,
+      "gzipSha256": "7b99de05bb68c16433a59edb61b75c893b3d9f8e875019b7a8905a338f407593"
+    },
+    {
+      "file": "windows-check-run.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/windows-check-run.json",
+      "originalBytes": 3803,
+      "originalSha256": "2cf1b80956734903b3b1c52edebbce0cb3536b307a6c969525cfe10571ed2629",
+      "gzipBytes": 1216,
+      "gzipSha256": "b29b9e3f8f1f2bce7b9e68e21bc69fa899d45f9bd764d7e530275c25840705b3"
+    },
+    {
+      "file": "windows-check-annotations.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/windows-check-annotations.json",
+      "originalBytes": 524,
+      "originalSha256": "0e85ccb88ea5638faa0a0b68438464814ec58dedf983ac42a907f47520c9a853",
+      "gzipBytes": 334,
+      "gzipSha256": "6a448e76b6681be0ac9d465808cb5e6aeade997802f70dab59a3b74b3f1329ce"
+    },
+    {
+      "file": "windows-job-terminal.log.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/windows-job-terminal.log",
+      "originalBytes": 215,
+      "originalSha256": "21c20e8be18448c2cf7c1341b9a0f9a5b14dcbb71433c9e18f1c0077afef748e",
+      "gzipBytes": 204,
+      "gzipSha256": "71b4b789bf1cd76afba98b3c717735c95f8a0d4855ed302566e6fda027cb4b00"
+    },
+    {
+      "file": "macos-raw-xml-audit.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/audit-macos-arm64/result.json",
+      "originalBytes": 55350,
+      "originalSha256": "7d9d4a4a09f38a46614cc26fc402e64e0ec2312481a9d9ca939686de3392ba32",
+      "gzipBytes": 9177,
+      "gzipSha256": "cec7321cde939a4cf2afb6765695ad82af9a747678d2ef6c9204b4ef243eace5"
+    },
+    {
+      "file": "macos-origin-and-download.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/mac-installer/origin-and-local-download.json",
+      "originalBytes": 76825,
+      "originalSha256": "7e922092e1bb088920814133f209588a10e0ff8df39deac18d266ea535fe4ada",
+      "gzipBytes": 15384,
+      "gzipSha256": "44a9202c8328ac2cbb9fb96f01a1f2fd4bddc3d16d6e8d0e66dd2e8e64c178bb"
+    }
+  ]
+}

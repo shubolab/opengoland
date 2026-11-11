@@ -1,0 +1,205 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-11T15:20:57.060829+00:00",
+  "status": "native-defect-reproduced; focused-source-regression-red-to-green; updated-native-acceptance-pending",
+  "evidenceDirectory": "sdk-settings-refresh-20261111-evidence",
+  "observation": {
+    "historicalProductSourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+    "manifestSha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+    "workflow": [
+      "Native Settings > Go > Add local selected the pinned Go1.27.3 directory through the macOS system picker and completed verification.",
+      "Native Run used selected Go1.27.3, printed12 12 and exited0, while the Go Modules & Toolchain tree still showed Go1.26.10.",
+      "Only after manual Reload Project did the panel show1.27.3. Native TestWorkspaceSignature then executed1test,passed0.472s,notcached.",
+      "Remove local registration kept the external SDK bytes. Bundled Go1.26.10 was restored and applied before normal UI Quit."
+    ],
+    "actualBug": "Committing a different SDK did not notify the already-open Go module panel. The run configuration used the committed SDK but displayed project metadata remained stale.",
+    "sourceBeforeFix": "GoSettingsConfigurable.apply invalidated run metadata and restarted enabled gopls, without publishing the topic consumed by GoToolWindowFactory.",
+    "sourceFix": "After all settings commit, publish the existing project-scoped refresh topic for changed Go/language-server settings. Its native listener queues project/info off the EDT and rejects stale/disposed replies. Editor-only, debugger-only, no-op and invalid edits do not publish.",
+    "regression": {
+      "red": {
+        "exitCode": 1,
+        "reports": [
+          {
+            "class": "dev.openidea.goide.settings.GoSettingsConfigurableTest",
+            "tests": 5,
+            "failures": 1,
+            "errors": 0,
+            "skipped": 0,
+            "failedCases": [
+              {
+                "name": "testAppliedToolchainRefreshContainsCommittedSettingsAndIgnoresUnappliedOrEditorOnlyChanges",
+                "classname": "dev.openidea.goide.settings.GoSettingsConfigurableTest",
+                "time": "0.073"
+              }
+            ]
+          }
+        ],
+        "minimumFreeBytes": 124870762496,
+        "recordedOwnedIdentities": 13,
+        "remaining": [],
+        "scope": "Focused local source tests only; no Windows/native/release claim",
+        "finishedAtUtc": "2026-11-11T15:14:57.340614+00:00"
+      },
+      "redFailure": "expected:<1> but was:<0>: the actual Go Settings apply path published no project refresh",
+      "green": {
+        "exitCode": 0,
+        "reports": [
+          {
+            "class": "dev.openidea.goide.settings.GoSettingsConfigurableTest",
+            "tests": 5,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0,
+            "failedCases": []
+          }
+        ],
+        "minimumFreeBytes": 124792954880,
+        "recordedOwnedIdentities": 11,
+        "remaining": [],
+        "scope": "Focused local source tests only; no Windows/native/release claim",
+        "finishedAtUtc": "2026-11-11T15:20:21.956843+00:00"
+      },
+      "coverage": "Real platform project/message bus and Swing settings form; listener sees committed immutable settings on EDT. This is a notification contract check, not a native SDK chooser test."
+    },
+    "worktreeSourceBase": "81e53dbf9dbde48ce971d49d58b3cfb98b451543",
+    "changedSourceBytes": [
+      {
+        "path": "src/main/kotlin/dev/openidea/goide/settings/GoSettingsConfigurable.kt",
+        "sha256": "dadcaaabc0a35984f2c5740b4dc2b8051aa4fd5fc965c21ca125984bfcd928a6"
+      },
+      {
+        "path": "src/test/kotlin/dev/openidea/goide/settings/GoSettingsConfigurableTest.kt",
+        "sha256": "c80fff4048261610b578b2499d9f7d563a01bd1f7f7c89a0df155cbabdff9d6c"
+      }
+    ],
+    "restorationAndCleanup": {
+      "atUtc": "2026-11-11T15:09:48.640121+00:00",
+      "productSourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+      "nativeScope": "Historical C; successful OS local directory selection and verification of pinned Go1.27.3; real Run12 12 and actual one-test execution; manual refresh needed for Go panel; Remove registration; restore bundled SDK; normal UI Quit. Not current CI-DMG acceptance.",
+      "sampledOwnedIdentities": 66,
+      "freshPostQuitRemaining": [],
+      "observerSignalsUsed": false,
+      "sources": [
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/api/api.go",
+          "sha256": "4d589585c8afdc5b57a85f9547d077a2084ad56ed198fd7c86544189b8d8a11e",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/api/go.mod",
+          "sha256": "0a715ddfddaa32e65d32d2043a63c681367188dadaa5bb0bd7d830e634aa6896",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/go.mod",
+          "sha256": "d690b122bfdc17cf07d6b7274a5dec4a9b51f5ac311f4b41f4fac0e6ebd0c34c",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/main.go",
+          "sha256": "38ae1476284deda992a995e82cbbc2b46cfdf0941efd659c371a20f437579cb2",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/main_test.go",
+          "sha256": "6468c18de30462b2e4874c54a02119c39ed0f7d6f5bda06aff2a0541fbe85a19",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/go.work",
+          "sha256": "c605833a3aac357147217271c092d8e8d0653137d4740349c2c8708aea0dc724",
+          "matchesOriginal": true
+        }
+      ],
+      "settingsExists": false,
+      "registryExists": false,
+      "externalPinnedSdkGoSha256": "aa355b078a81158d418079a3f8c776719eb99cc6f527e39ffa3250c66566aafb",
+      "removedCompletedCaches": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-native-plan/runtime/profile/system/index",
+          "bytes": 127683964,
+          "lsofExit": 1,
+          "openFiles": []
+        },
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/.tools/excluded-inlay-native-plan/runtime/profile/system/caches",
+          "bytes": 164626629,
+          "lsofExit": 1,
+          "openFiles": []
+        }
+      ],
+      "freeBeforeBytes": 125845061632,
+      "freeAfterBytes": 126143635456,
+      "preserved": "Source/worktrees, isolated config/log/LocalHistory, Go caches, all SDK/tools, C App, public5 App/DMG, new CI artifact ZIP/DMG/proofs and all GitHub assets."
+    },
+    "rea": [
+      {
+        "file": "rea-local-sdk-verified.json.gz",
+        "evidenceId": "ev_e7c4a22d99fdd9a9d76c840cbadce6756aa63daa859b662c420b446b42781add",
+        "targetSha256": "eadfb6dfa95cc6d356d666fe5b2e4040ff51c9a8318027d8112a8bddf0bcffc9",
+        "captureKeys": [
+          "window",
+          "nodes",
+          "truncated",
+          "screenshot",
+          "gaps"
+        ],
+        "limitations": [
+          "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+          "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+          "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+          "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+          "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+        ]
+      },
+      {
+        "file": "rea-selected-sdk-run-stale-panel.json.gz",
+        "evidenceId": "ev_31e70908b663dd2b3e7dc93b2b2f7369aeda5c6760f9e847bf771b89059362f7",
+        "targetSha256": "eadfb6dfa95cc6d356d666fe5b2e4040ff51c9a8318027d8112a8bddf0bcffc9",
+        "captureKeys": [
+          "window",
+          "nodes",
+          "truncated",
+          "screenshot",
+          "gaps"
+        ],
+        "limitations": [
+          "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+          "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+          "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+          "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+          "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+        ]
+      },
+      {
+        "file": "rea-alternate-sdk-test-after-reload.json.gz",
+        "evidenceId": "ev_fc4ffb729cc84134f047dcc421bf44a675e6c7dfe19e52493f51df1d57e800b7",
+        "targetSha256": "eadfb6dfa95cc6d356d666fe5b2e4040ff51c9a8318027d8112a8bddf0bcffc9",
+        "captureKeys": [
+          "window",
+          "nodes",
+          "truncated",
+          "screenshot",
+          "gaps"
+        ],
+        "limitations": [
+          "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+          "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+          "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+          "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+          "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+        ]
+      }
+    ]
+  },
+  "inference": [
+    "The common changed-settings branch covers SDK and environment updates. The focused regression exercises an environment change; the native failure was observed with an actual selected SDK."
+  ],
+  "unknown": [
+    "The updated compiled native product has not yet demonstrated automatic panel refresh after SDK selection.",
+    "This historical C native session is not acceptance of source94d CI DMG, current-source installers, Windows SDK behavior or the full GoLand matrix.",
+    "REA captures may truncate accessibility. The wrong-process/window picker observation is retained as an error, not passing evidence.",
+    "Descendant sampling can miss very short children; no claim beyond sampled identities."
+  ],
+  "fullGoalStatus": "active, not complete"
+}

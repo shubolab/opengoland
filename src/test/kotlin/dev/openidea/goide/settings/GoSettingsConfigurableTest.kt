@@ -2,8 +2,12 @@ package dev.openidea.goide.settings
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.options.ConfigurationException
+import com.intellij.openapi.util.Disposer
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
+import com.redhat.devtools.lsp4ij.LanguageServersRegistry
+import dev.openidea.goide.engine.GoTaskRefreshListener
+import dev.openidea.goide.engine.GoTaskTargetsService
 import dev.openidea.goide.sdk.GoSdkSelector
 import java.awt.Component
 import java.awt.Container
@@ -119,6 +123,48 @@ class GoSettingsConfigurableTest : LightPlatformTestCase() {
             configurable.reset()
             assertEquals(previous, selector(configurable).configuredExecutable)
             assertFalse(configurable.isModified())
+        }
+    }
+
+    fun testAppliedToolchainRefreshContainsCommittedSettingsAndIgnoresUnappliedOrEditorOnlyChanges() = withSettings {
+        val definition = requireNotNull(LanguageServersRegistry.getInstance().getServerDefinition("openidea.gopls"))
+        val enabled = definition.isEnabled(project)
+        definition.setEnabled(false, project)
+        Disposer.register(testRootDisposable) { definition.setEnabled(enabled, project) }
+        onEdt {
+            val observed = mutableListOf<GoToolchain.Settings>()
+            // This is the same project-scoped notification consumed by the actual Go tool window.
+            project.messageBus.connect(testRootDisposable).subscribe(GoTaskTargetsService.REFRESH_TOPIC, GoTaskRefreshListener {
+                assertTrue(ApplicationManager.getApplication().isDispatchThread)
+                observed.add(GoToolchain.capture(project))
+            })
+            val configurable = configurable()
+            val panel = configurable.createComponent() as Container
+            configurable.reset()
+            val environment = components(panel).filterIsInstance<JTextArea>().single()
+            environment.text = "GOWORK=off\nSDK_PANEL_CONTEXT=changed"
+            assertTrue(configurable.isModified())
+            assertTrue("Editing an unapplied value must not refresh the project", observed.isEmpty())
+
+            configurable.apply()
+            assertEquals("The Go panel must see the new committed toolchain without a manual Reload", 1, observed.size)
+            assertEquals(GoToolchain.capture(project), observed.single())
+            assertEquals("GOWORK=off\nSDK_PANEL_CONTEXT=changed", observed.single().environment)
+            assertFalse("Applying settings must not enable a disabled language server", definition.isEnabled(project))
+
+            configurable.apply()
+            components(panel).filterIsInstance<JCheckBox>().single { it.text == "Indent on Enter in raw strings" }.isSelected = true
+            configurable.apply()
+            field(panel, "Delve executable:").text = Path.of(System.getProperty("java.io.tmpdir"), "uninstalled delve ${UUID.randomUUID()}").toString()
+            configurable.apply()
+            assertEquals("No-op, editor-only and debugger-only preferences do not change module metadata", 1, observed.size)
+
+            val beforeInvalidEdit = GoToolchain.capture(project)
+            environment.text = "MISSING_EQUALS"
+            assertTrue(runCatching { configurable.apply() }.exceptionOrNull() is ConfigurationException)
+            assertEquals(beforeInvalidEdit, GoToolchain.capture(project))
+            assertEquals("A rejected edit must not publish a refresh", 1, observed.size)
+            configurable.reset()
         }
     }
 

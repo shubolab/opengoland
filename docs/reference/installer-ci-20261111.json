@@ -1,0 +1,134 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-11T15:20:57.060829+00:00",
+  "status": "terminal-runner-loss; macOS-artifact-audited; no-release",
+  "evidenceDirectory": "installer-ci-20261111-evidence",
+  "observation": {
+    "run": {
+      "id": 43033769561,
+      "head_sha": "94d1b89ad4b7cd3a3dae7f33b3c637f7a576827b",
+      "event": "workflow_dispatch",
+      "path": ".github/workflows/release.yml",
+      "status": "completed",
+      "conclusion": "failure",
+      "run_attempt": 1,
+      "html_url": "https://github.com/shubolab/opengoland/actions/runs/43033769561"
+    },
+    "jobs": [
+      {
+        "id": 130567181848,
+        "name": "version",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 130567219862,
+        "name": "windows",
+        "status": "completed",
+        "conclusion": "failure"
+      },
+      {
+        "id": 130567220056,
+        "name": "macos",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 130605057850,
+        "name": "publish",
+        "status": "completed",
+        "conclusion": "skipped"
+      }
+    ],
+    "windows": {
+      "annotation": "The hosted runner lost communication with the server. Anything in your workflow that terminates the runner process, starves it for CPU/Memory, or blocks its network access can cause this error.",
+      "rawReportsAvailable": false,
+      "installerAvailable": false,
+      "terminalLogFetch": "Authenticated job log endpoint returned HTTP404/Azure BlobNotFound. The retained .log is that error response, not a build log.",
+      "existingSevenFixes": "Unknown on actual Windows; no raw XML was uploaded."
+    },
+    "macos": {
+      "artifact": {
+        "id": 13864942716,
+        "name": "macos-arm64",
+        "apiDigest": "sha256:cf2fd69e633041b31e862ba3015ec7083bf1075a955fd8a03ee7f9788e803fff",
+        "downloadSha256": "cf2fd69e633041b31e862ba3015ec7083bf1075a955fd8a03ee7f9788e803fff",
+        "downloadBytes": 939738115
+      },
+      "rawXmlTotals": {
+        "tests": 796,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "uniqueIdentities": 796,
+      "duplicates": [],
+      "missing": [],
+      "unexpected": [],
+      "failedCases": [],
+      "skippedCases": [],
+      "sourceCommit": "94d1b89ad4b7cd3a3dae7f33b3c637f7a576827b",
+      "sourceFiles": 506,
+      "sourceDigest": "fef099e829b8f1aaebb78511123ac94ffe7ac639d63eaadcf0346f4a01ad76ed",
+      "gitSourceCaptureVerified": true,
+      "goRacePassTestEvents": 347,
+      "goPackageResults": {
+        "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+        "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+        "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+        "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+        "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+        "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+      },
+      "ciInstalledEngineSmoke": {
+        "pid": 76235,
+        "exitCode": 0,
+        "test": "TestBundledInstalledRuntime",
+        "testCount": 1,
+        "cached": false,
+        "bundledToolReceiptChecks": {
+          "target": "darwin-arm64",
+          "tools": {
+            "gopls": {
+              "kind": "upstream-source-built",
+              "sha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f"
+            },
+            "dlv": {
+              "kind": "source-derived",
+              "upstreamVersion": "v1.27.2",
+              "sha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+              "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+              "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+              "receiptSha256": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb"
+            }
+          },
+          "binding": "reviewed repository lock/pin/patch and actual installed tool bytes"
+        }
+      },
+      "installer": {
+        "localPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/mac-installer/open-Goland-0.1.0-preview.20261110.6-macos-arm64.dmg",
+        "bytes": 1016125880,
+        "sha256": "59b0b4cbb7a9642af45464d2163cb725d6c8b157b89f61b05ecc5b490fac24fc",
+        "imageVerifiedLocally": false,
+        "installedNativeAcceptanceLocally": false
+      },
+      "proofRetention": "Original artifact ZIP retained. 9775642 bytes of original selected non-cache proofs extracted; disposable IDE cache members were not extracted. Original member hashes/dispositions retained in receipt.",
+      "publicRelease": false
+    }
+  },
+  "inference": [
+    "Windows evidence collection did not complete because the hosted runner lost communication. A terminal failure permits a new source-bound build, but does not identify the root cause or prove any test result."
+  ],
+  "unknown": [
+    "Runner loss could involve process termination, memory/CPU pressure, networking or host failure. No precise cause is established.",
+    "Source36a portable control execution, new settings regression and updated native behavior require a new-source build. The old source94d Mac artifact does not include them.",
+    "No new EXE, dual-platform installer acceptance or public .6 release exists. Latest public .5 installers remain protected."
+  ],
+  "fullGoalStatus": "active, not complete"
+}
