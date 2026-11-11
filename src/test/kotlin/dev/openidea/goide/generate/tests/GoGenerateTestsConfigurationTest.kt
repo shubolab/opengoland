@@ -1,6 +1,7 @@
 package dev.openidea.goide.generate.tests
 
 import com.intellij.openapi.project.Project
+import dev.openidea.goide.process.GoOwnedTestExecutable
 import dev.openidea.goide.settings.GoProjectSettings
 import dev.openidea.goide.settings.GoToolchain
 import java.lang.reflect.Proxy
@@ -13,7 +14,6 @@ import kotlin.test.assertTrue
 
 class GoGenerateTestsConfigurationTest {
     @Test fun capturedSettingsOwnTheGenerationPayloadEvenWhenTheLiveProjectUsesAnotherSdkAndBuildContext() {
-        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
         val root = Files.createTempDirectory("open-goland-generation-settings-").toRealPath()
         try {
             val sdkA = root.resolve("captured sdk A")
@@ -32,9 +32,9 @@ class GoGenerateTestsConfigurationTest {
             } as Project
             service = GoProjectSettings(project)
             service.state.apply {
-                goExecutable = sdkA.resolve("bin/go").toString()
-                goplsExecutable = sdkA.resolve("bin/gopls").toString()
-                delveExecutable = sdkA.resolve("bin/dlv").toString()
+                goExecutable = tool(sdkA, "go").toString()
+                goplsExecutable = tool(sdkA, "gopls").toString()
+                delveExecutable = tool(sdkA, "dlv").toString()
                 buildTags = "captured, integration"
                 goos = "linux"; goarch = "arm64"; cgoEnabled = "0"
                 environment = "GOOS=freebsd\nGOFLAGS=-mod=vendor\nPATH=/captured/path\nGENERATION_CONTEXT=A\n"
@@ -47,9 +47,9 @@ class GoGenerateTestsConfigurationTest {
             assertEquals(1, settingsReads)
 
             service.state.apply {
-                goExecutable = sdkB.resolve("bin/go").toString()
-                goplsExecutable = sdkB.resolve("bin/gopls").toString()
-                delveExecutable = sdkB.resolve("bin/dlv").toString()
+                goExecutable = tool(sdkB, "go").toString()
+                goplsExecutable = tool(sdkB, "gopls").toString()
+                delveExecutable = tool(sdkB, "dlv").toString()
                 buildTags = "feature"
                 goos = "windows"; goarch = "amd64"; cgoEnabled = "1"
                 environment = "GOFLAGS=-mod=readonly\nPATH=/live/path\nGENERATION_CONTEXT=B\n"
@@ -59,7 +59,7 @@ class GoGenerateTestsConfigurationTest {
             // Exercise the exact background resolver used by Generate Tests, rather than a copied JSON fixture.
             val wire = generationToolchainParameters(project, captured)
             assertEquals(1, settingsReads, "Preparing the captured request must not reread mutable project settings")
-            assertEquals(sdkA.resolve("bin/go").toString(), wire.get("goExecutable").asString)
+            assertEquals(tool(sdkA, "go").toString(), wire.get("goExecutable").asString)
             assertEquals(listOf("captured", "integration"), wire.getAsJsonArray("buildTags").map { it.asString })
             val env = wire.getAsJsonObject("environment")
             assertEquals("linux", env.get("GOOS").asString)
@@ -73,7 +73,7 @@ class GoGenerateTestsConfigurationTest {
             assertEquals(capturedKey, captured.key)
 
             val live = GoToolchain.command(project, "go", emptyList())
-            assertEquals(sdkB.resolve("bin/go").toString(), live.exePath)
+            assertEquals(tool(sdkB, "go").toString(), live.exePath)
             assertEquals("windows", live.environment["GOOS"])
             assertEquals("B", live.environment["GENERATION_CONTEXT"])
             assertEquals("-mod=readonly -tags=feature", live.environment["GOFLAGS"])
@@ -83,10 +83,13 @@ class GoGenerateTestsConfigurationTest {
     private fun createSdk(root: Path) {
         Files.createDirectories(root.resolve("src/runtime"))
         Files.createDirectories(root.resolve("bin"))
-        for (tool in listOf("go", "gopls", "dlv")) {
-            val executable = root.resolve("bin/$tool")
-            Files.writeString(executable, "#!/bin/sh\nexit 0\n")
+        for (name in listOf("go", "gopls", "dlv")) {
+            val executable = tool(root, name)
+            // This is a path-resolution control, never a launched or verified SDK.
+            Files.write(executable, byteArrayOf())
             check(executable.toFile().setExecutable(true))
         }
     }
+
+    private fun tool(root: Path, name: String): Path = root.resolve("bin").resolve(GoOwnedTestExecutable.name(name))
 }

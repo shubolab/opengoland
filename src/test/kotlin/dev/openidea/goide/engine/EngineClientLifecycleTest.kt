@@ -38,38 +38,41 @@ class EngineClientLifecycleTest {
         } as Project
 
     private fun fixture(run: (Path, GoProjectSettings, EngineClient) -> Unit) {
-        org.junit.Assume.assumeFalse(System.getProperty("os.name").startsWith("Windows"))
         val root = Files.createTempDirectory("opengoland-engine-client")
         val previous = System.getProperty("openidea.workspace")
-        val executable = root.resolve("engine/bin/opengoland-engine")
+        val executable = root.resolve("engine/bin/" + GoOwnedTestExecutable.name("opengoland-engine"))
         Files.createDirectories(executable.parent)
-        Files.writeString(executable, """
-            |#!/usr/bin/env python3
-            |import json, os, pathlib, sys, time
-            |def send(body):
-            |    data=json.dumps(body).encode()
-            |    sys.stdout.buffer.write(('Content-Length: %d\r\n\r\n' % len(data)).encode()+data)
-            |    sys.stdout.buffer.flush()
-            |while True:
-            |    length=None
-            |    while True:
-            |        line=sys.stdin.buffer.readline()
-            |        if not line: sys.exit(0)
-            |        if line in (b'\r\n',b'\n'): break
-            |        if line.lower().startswith(b'content-length:'): length=int(line.split(b':',1)[1])
-            |    message=json.loads(sys.stdin.buffer.read(length))
-            |    method=message['method']
-            |    if method=='shutdown':
-            |        time.sleep(.2)
-            |        sys.exit(0)
-            |    if method=='initialize' and pathlib.Path('fail-once').exists():
-            |        pathlib.Path('fail-once').unlink()
-            |        sys.exit(1)
-            |    result={'pid':os.getpid(),'goExecutable':message.get('params',{}).get('goExecutable'),'goos':os.getenv('GOOS')}
-            |    if method=='task/start': result={'accepted':True,'id':message['params']['id']}
-            |    send({'jsonrpc':'2.0','id':message['id'],'result':result})
-        """.trimMargin().trimStart())
-        executable.toFile().setExecutable(true)
+        GoOwnedTestExecutable.compile(executable, """
+            package main
+            import ("bufio"; "encoding/json"; "fmt"; "io"; "os"; "strconv"; "strings"; "time")
+            func main() {
+                launches, err := os.OpenFile("launched-pids", os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600); if err != nil { panic(err) }
+                fmt.Fprintln(launches, os.Getpid()); launches.Close()
+                input := bufio.NewReader(os.Stdin)
+                for {
+                    length := -1
+                    for {
+                        line, err := input.ReadString('\n'); if err == io.EOF { return }; if err != nil { panic(err) }
+                        line = strings.TrimSpace(line); if line == "" { break }
+                        if strings.HasPrefix(strings.ToLower(line), "content-length:") {
+                            length, err = strconv.Atoi(strings.TrimSpace(strings.SplitN(line, ":", 2)[1])); if err != nil { panic(err) }
+                        }
+                    }
+                    if length < 0 { panic("Missing Content-Length") }
+                    data := make([]byte, length); if _, err := io.ReadFull(input, data); err != nil { panic(err) }
+                    var message struct { ID json.RawMessage `json:"id"`; Method string `json:"method"`; Params map[string]any `json:"params"` }
+                    if err := json.Unmarshal(data, &message); err != nil { panic(err) }
+                    if message.Method == "shutdown" { time.Sleep(200*time.Millisecond); return }
+                    if message.Method == "initialize" {
+                        if _, err := os.Stat("fail-once"); err == nil { os.Remove("fail-once"); os.Exit(1) }
+                    }
+                    result := map[string]any{"pid":os.Getpid(), "goExecutable":message.Params["goExecutable"], "goos":os.Getenv("GOOS")}
+                    if message.Method == "task/start" { result = map[string]any{"accepted":true, "id":message.Params["id"]} }
+                    packet, err := json.Marshal(map[string]any{"jsonrpc":"2.0", "id":message.ID, "result":result}); if err != nil { panic(err) }
+                    fmt.Fprintf(os.Stdout, "Content-Length: %d\r\n\r\n", len(packet)); if _, err := os.Stdout.Write(packet); err != nil { panic(err) }
+                }
+            }
+        """.trimIndent())
         System.setProperty("openidea.workspace", root.toString())
         lateinit var settings: GoProjectSettings
         val owner = project(root) { settings }
@@ -80,6 +83,12 @@ class EngineClientLifecycleTest {
         } finally {
             engine.dispose()
             if (previous == null) System.clearProperty("openidea.workspace") else System.setProperty("openidea.workspace", previous)
+            val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
+            val launched = root.resolve("launched-pids")
+            val handles = if (Files.exists(launched)) Files.readAllLines(launched).map(String::toLong)
+                .mapNotNull { ProcessHandle.of(it).orElse(null) } else emptyList()
+            while (handles.any { it.isAlive } && System.nanoTime() < deadline) Thread.sleep(10)
+            assertTrue(handles.none { it.isAlive }, "Disposal must release each owned engine before deleting its executable")
             root.toFile().deleteRecursively()
         }
     }
@@ -89,7 +98,7 @@ class EngineClientLifecycleTest {
         assertFailsWith<java.util.concurrent.ExecutionException> { engine.connect().get(10, TimeUnit.SECONDS) }
         val ready = engine.connect().get(10, TimeUnit.SECONDS).asJsonObject
         assertTrue(ready.get("pid").asLong > 0)
-        assertTrue(ready.get("goExecutable").asString.endsWith("/go"))
+        assertEquals(GoOwnedTestExecutable.name("go"), Path.of(ready.get("goExecutable").asString).fileName.toString())
     }
 
     @Test fun settingsRestartDoesNotLetOldReaderDisconnectNewEngine() = fixture { _, settings, engine ->

@@ -1,5 +1,6 @@
 package dev.openidea.goide.project
 
+import dev.openidea.goide.process.GoOwnedTestExecutable
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
@@ -11,7 +12,6 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import org.junit.Assume.assumeFalse
 
 class GoSdkProbeTest {
     @Test fun realSdkReportsTheVerifiedExecutableAndParsesTheActualModuleGrammar() = fixture { root ->
@@ -27,8 +27,8 @@ class GoSdkProbeTest {
         assertFailsWith<IOException> { GoSdkProbe.validateModule(sdk, root, "example.com/expected") { false } }
     }
 
-    @Test fun silentSuccessfulExecutableCannotCreateProjectParentsOrAModule() = unixFixture { root ->
-        val program = script(root, "silent success", "exit 0\n")
+    @Test fun silentSuccessfulExecutableCannotCreateProjectParentsOrAModule() = fixture { root ->
+        val program = program(root, "silent success", "silent")
         val destination = root.resolve("new parent/project")
         val failure = assertFailsWith<IOException> {
             GoModuleGenerator.generate(GoModuleRequest("example.com/false", destination, program.toString(), false))
@@ -37,18 +37,11 @@ class GoSdkProbeTest {
         assertFalse(Files.exists(destination.parent))
     }
 
-    @Test fun plausibleMetadataStillCannotPublishWithoutARealGoMod() = unixFixture { root ->
+    @Test fun plausibleMetadataStillCannotPublishWithoutARealGoMod() = fixture { root ->
         val fake = Files.createDirectories(root.resolve("fake sdk with spaces"))
         Files.createDirectories(fake.resolve("src/runtime"))
         Files.createDirectories(fake.resolve("bin"))
-        val env = "{\"GOROOT\":${quoteJson(fake.toString())},\"GOVERSION\":\"go1.24.3\"}"
-        val program = script(fake.resolve("bin"), "go", """
-            case "${'$'}1" in
-              version) printf '%s\n' 'go version go1.24.3 test/arch' ;;
-              env) printf '%s\n' ${shellQuote(env)} ;;
-            esac
-            exit 0
-        """.trimIndent())
+        val program = program(fake.resolve("bin"), "go", "plausible")
         val destination = root.resolve("published")
         val failure = assertFailsWith<IOException> {
             GoModuleGenerator.generate(GoModuleRequest("example.com/missing", destination, program.toString(), false))
@@ -58,8 +51,8 @@ class GoSdkProbeTest {
         assertFalse(Files.list(root).use { files -> files.anyMatch { it.fileName.toString().startsWith(".openidea-go-module-") } })
     }
 
-    @Test fun failedExecutableReportsTheToolErrorWithoutCreatingTheDestination() = unixFixture { root ->
-        val program = script(root, "failed sdk", "printf '%s\\n' 'this is not a working Go SDK' >&2\nexit 7\n")
+    @Test fun failedExecutableReportsTheToolErrorWithoutCreatingTheDestination() = fixture { root ->
+        val program = program(root, "failed sdk", "failed")
         val destination = root.resolve("project")
         val failure = assertFailsWith<IOException> { GoModuleGenerator.generate(GoModuleRequest("example.com/failure", destination, program.toString())) }
         assertTrue(failure.message.orEmpty().contains("exit 7"), failure.message)
@@ -67,24 +60,18 @@ class GoSdkProbeTest {
         assertFalse(Files.exists(destination))
     }
 
-    @Test fun oversizedSingleLineOutputIsBoundedAndDoesNotPublishAProject() = unixFixture { root ->
-        val program = script(root, "large sdk output", "dd if=/dev/zero bs=4096 count=80 2>/dev/null\n")
+    @Test fun oversizedSingleLineOutputIsBoundedAndDoesNotPublishAProject() = fixture { root ->
+        val program = program(root, "large sdk output", "oversized")
         val destination = root.resolve("project")
         val failure = assertFailsWith<IOException> { GoModuleGenerator.generate(GoModuleRequest("example.com/large", destination, program.toString())) }
         assertTrue(failure.message.orEmpty().contains("256 KiB"), failure.message)
         assertFalse(Files.exists(destination))
     }
 
-    @Test fun cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher() = unixFixture { root ->
+    @Test fun cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher() = fixture { root ->
         val pidFile = root.resolve("owned pids")
-        val program = script(root, "blocked sdk", """
-            trap '' TERM
-            sleep 30 &
-            child=${'$'}!
-            printf '%s\n%s\n' "${'$'}${'$'}" "${'$'}child" > ${shellQuote(pidFile.toString())}
-            wait
-        """.trimIndent())
-        val sentinel = ProcessBuilder("sleep", "30").start()
+        val program = program(root, "blocked sdk", "cancel")
+        val sentinel = ProcessBuilder(program.toString(), "owned-child").start()
         try {
             assertFailsWith<CancellationException> {
                 GoModuleGenerator.generate(GoModuleRequest("example.com/cancel", root.resolve("project"), program.toString()), { Files.exists(pidFile) })
@@ -93,31 +80,19 @@ class GoSdkProbeTest {
             pids.forEach(::assertStopped)
             assertTrue(sentinel.isAlive, "An unrelated process must not receive the owned group's signals")
             assertFalse(Files.exists(root.resolve("project")))
-        } finally { sentinel.destroyForcibly(); sentinel.waitFor(3, TimeUnit.SECONDS) }
+        } finally { sentinel.destroyForcibly(); assertTrue(sentinel.waitFor(3, TimeUnit.SECONDS)) }
     }
 
-    @Test fun aCompletedLauncherCannotLeaveItsChildRunning() = unixFixture { root ->
+    @Test fun aCompletedLauncherCannotLeaveItsChildRunning() = fixture { root ->
         val pidFile = root.resolve("orphan pid")
-        val program = script(root, "exiting sdk", """
-            sleep 30 &
-            printf '%s\n' "${'$'}!" > ${shellQuote(pidFile.toString())}
-            printf '%s\n' 'not go'
-            exit 0
-        """.trimIndent())
+        val program = program(root, "exiting sdk", "orphan")
         assertFailsWith<IOException> { GoSdkProbe.inspect(program.toString()) }
         assertStopped(Files.readString(pidFile).trim().toLong())
     }
 
-    @Test fun timeoutTerminatesTheOwnedCommandAndItsChildren() = unixFixture { root ->
+    @Test fun timeoutTerminatesTheOwnedCommandAndItsChildren() = fixture { root ->
         val pidFile = root.resolve("timeout pids")
-        val pendingPids = root.resolve("timeout pids pending")
-        val program = script(root, "timeout sdk", """
-            sleep 1
-            sleep 30 &
-            printf '%s\n%s\n' "${'$'}${'$'}" "${'$'}!" > ${shellQuote(pendingPids.toString())}
-            mv ${shellQuote(pendingPids.toString())} ${shellQuote(pidFile.toString())}
-            wait
-        """.trimIndent())
+        val program = program(root, "timeout sdk", "timeout")
         var beforeLaunch = true
         var ownedPids: List<Long>? = null
         val failure = assertFailsWith<IOException> {
@@ -125,7 +100,7 @@ class GoSdkProbeTest {
                 // The first cancellation check precedes launch. At the first
                 // post-launch check, establish that the fixture has really
                 // started both processes before allowing the timeout loop to
-                // run. A loaded machine may otherwise time out before /bin/sh
+                // run. A loaded machine may otherwise time out before the helper
                 // reaches its PID marker; this fixture deliberately starts more
                 // slowly than the timeout. The production 500ms deadline stays
                 // unchanged, and cancellation is never requested by this test.
@@ -152,15 +127,69 @@ class GoSdkProbeTest {
         while (ProcessHandle.of(pid).map { it.isAlive }.orElse(false) && System.nanoTime() < deadline) Thread.sleep(20)
         assertFalse(ProcessHandle.of(pid).map { it.isAlive }.orElse(false), "Owned process $pid must terminate")
     }
-    private fun unixFixture(action: (Path) -> Unit) { assumeFalse(System.getProperty("os.name").startsWith("Windows")); fixture(action) }
     private fun fixture(action: (Path) -> Unit) {
         val root = Files.createTempDirectory("open-goland-sdk-test-")
-        try { action(root) } finally { Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) } }
+        try { action(root) } finally {
+            // Failure recovery runs after the assertions; it cannot turn a
+            // leaked child into a successful cleanup assertion. These records
+            // are written only by our native helper in this exclusive root.
+            val records = Files.walk(root).use { paths -> paths.filter { it.fileName.toString() == "launched-pids" }.toList() }
+            val handles = records.flatMap { Files.readAllLines(it) }.map(String::toLong).distinct()
+                .mapNotNull { ProcessHandle.of(it).orElse(null) }
+            handles.filter { it.isAlive }.forEach { handle ->
+                val command = handle.info().command().orElseThrow { AssertionError("Cannot establish owned fixture process ${handle.pid()}") }
+                check(Path.of(command).toAbsolutePath().normalize().startsWith(root.toAbsolutePath().normalize())) {
+                    "The fixture PID was reused or its command changed"
+                }
+                handle.destroyForcibly()
+            }
+            val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(3)
+            while (handles.any { it.isAlive } && System.nanoTime() < deadline) Thread.sleep(10)
+            assertTrue(handles.none { it.isAlive }, "Release all owned helper binaries before removing the fixture")
+            val paths = Files.walk(root).use { it.sorted(Comparator.reverseOrder()).toList() }
+            paths.forEach(Files::deleteIfExists)
+        }
     }
-    private fun script(directory: Path, filename: String, body: String): Path = directory.resolve(filename).also {
-        Files.writeString(it, "#!/bin/sh\n$body\n")
-        assertTrue(it.toFile().setExecutable(true))
-    }
-    private fun shellQuote(text: String) = "'" + text.replace("'", "'\"'\"'") + "'"
-    private fun quoteJson(text: String) = com.google.gson.Gson().toJson(text)
+
+    private fun program(directory: Path, filename: String, mode: String): Path =
+        GoOwnedTestExecutable.compile(directory.resolve(GoOwnedTestExecutable.name(filename)), """
+            package main
+            import ("encoding/json"; "fmt"; "os"; "os/exec"; "os/signal"; "path/filepath"; "syscall"; "time")
+            func main() {
+                // Unix's TERM-resistant parent/child coverage is preserved. On
+                // Windows the same real executables exercise process-tree ownership.
+                if len(os.Args)>1 && os.Args[1]=="owned-child" {
+                    signal.Ignore(syscall.SIGTERM); time.Sleep(30*time.Second); return
+                }
+                executable, err := os.Executable(); if err != nil { panic(err) }
+                root := filepath.Dir(executable)
+                launches, err := os.OpenFile(filepath.Join(root, "launched-pids"), os.O_CREATE|os.O_APPEND|os.O_WRONLY, 0600); if err != nil { panic(err) }
+                if _, err := fmt.Fprintln(launches, os.Getpid()); err != nil { panic(err) }; launches.Close()
+                switch "$mode" {
+                case "silent": return
+                case "failed": fmt.Fprintln(os.Stderr, "this is not a working Go SDK"); os.Exit(7)
+                case "oversized": os.Stdout.Write(make([]byte, 4096*80)); return
+                case "plausible":
+                    if len(os.Args)>1 && os.Args[1]=="version" { fmt.Println("go version go1.24.3 test/arch") }
+                    if len(os.Args)>1 && os.Args[1]=="env" {
+                        if err := json.NewEncoder(os.Stdout).Encode(map[string]string{"GOROOT":filepath.Dir(root), "GOVERSION":"go1.24.3"}); err != nil { panic(err) }
+                    }
+                    return
+                }
+                signal.Ignore(syscall.SIGTERM)
+                if "$mode"=="timeout" { time.Sleep(time.Second) }
+                child := exec.Command(executable, "owned-child"); child.Stdout=os.Stdout; child.Stderr=os.Stderr
+                if err := child.Start(); err != nil { panic(err) }
+                launches, err = os.OpenFile(filepath.Join(root, "launched-pids"), os.O_APPEND|os.O_WRONLY, 0600); if err != nil { panic(err) }
+                if _, err := fmt.Fprintln(launches, child.Process.Pid); err != nil { panic(err) }; launches.Close()
+                name := "owned pids"; data := fmt.Sprintf("%d\n%d\n", os.Getpid(), child.Process.Pid)
+                if "$mode"=="orphan" { name="orphan pid"; data=fmt.Sprintf("%d\n", child.Process.Pid) }
+                if "$mode"=="timeout" { name="timeout pids" }
+                pending := filepath.Join(root, name+" pending")
+                if err := os.WriteFile(pending, []byte(data), 0600); err != nil { panic(err) }
+                if err := os.Rename(pending, filepath.Join(root, name)); err != nil { panic(err) }
+                if "$mode"=="orphan" { fmt.Println("not go"); return }
+                child.Wait()
+            }
+        """.trimIndent())
 }
