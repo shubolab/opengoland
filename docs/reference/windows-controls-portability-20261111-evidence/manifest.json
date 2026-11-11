@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "file": "full-002--result.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/full-002/result.json",
+      "originalSha256": "72e86e25d38b6f3c217afbd1d8c31f34a22524e584408d7acebba10a8300b5cc",
+      "originalBytes": 31036,
+      "gzipSha256": "2f55366be6a308bab521b09c6c3197b882f46a2d2fd3d14384808410e8be6918",
+      "gzipBytes": 9259
+    },
+    {
+      "file": "portable-001--result.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-001/result.json",
+      "originalSha256": "96b141fd485f362e541ed5ef70e925c8b3d3f023d23fe726d91233c535228a35",
+      "originalBytes": 821,
+      "gzipSha256": "996179db5dcf6156cb0cd4c38063c31175a7ec477542472b81038a1c0596c9d3",
+      "gzipBytes": 367
+    },
+    {
+      "file": "portable-windows-build-only--result.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-windows-build-only/result.json",
+      "originalSha256": "1d468f5d4ff5853a130b803adf372c6ae54f75d5464464ab6cb7126315ea2aad",
+      "originalBytes": 1931,
+      "gzipSha256": "f3a6a5edc37cc650349bff3eae3f33cc470261629993221e70ab6851a04d9b3f",
+      "gzipBytes": 737
+    },
+    {
+      "file": "portable-001--TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-001/TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml",
+      "originalSha256": "a4fbddaa00495872057043f5e5633b4de192ebdc0940fee7bd0d2decb7151c71",
+      "originalBytes": 954,
+      "gzipSha256": "f9da2f3c4d213b017c1160c889f697c4e323991feb8e6219c2eff9a6cadf3fca",
+      "gzipBytes": 444
+    },
+    {
+      "file": "portable-001--TEST-dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest.xml.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-001/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest.xml",
+      "originalSha256": "6827cebf924999a1aa7836ae03b75944a781402a37131f70915907bc9e6f11d5",
+      "originalBytes": 572,
+      "gzipSha256": "b4f07ea793f65de8681c631b60d6a63fdfac2f6e187046d0536eeb059d74df25",
+      "gzipBytes": 351
+    },
+    {
+      "file": "portable-001--TEST-dev.openidea.goide.project.GoSdkProbeTest.xml.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-001/TEST-dev.openidea.goide.project.GoSdkProbeTest.xml",
+      "originalSha256": "fb7a1d7c99b46e9ce14283a6606138618d670ea42df6d08bb2afb3aca84ef5b1",
+      "originalBytes": 1514,
+      "gzipSha256": "610777fb88511c0ff71e1d3c9357f082591079d989bd21fc1c63187862268798",
+      "gzipBytes": 603
+    }
+  ]
+}

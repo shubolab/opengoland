@@ -1,0 +1,327 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-11T14:35:05.517674+00:00",
+  "status": "local-full-pass; actual-Windows-portable-controls-pending",
+  "sourceCommit": "36a838d276974c4358d0bd5dfa3f059402252931",
+  "sourceFiles": 506,
+  "sourceDigest": "a3cf5f925c1011ff1a0389929a5affc594badcc2409cea87fb6bdfa08ba4aec4",
+  "evidenceDirectory": "windows-controls-portability-20261111-evidence",
+  "observation": {
+    "changes": "Four EngineClient lifecycle controls use an owned compiled Go protocol peer instead of Python. Seven SDK controls use owned Go executables instead of shell/sleep/dd. Generation settings control uses platform filenames and never executes its path-only placeholders. No Windows Assume/skip guards remain in these three classes.",
+    "retainedAssertions": [
+      "Initialization retry; settings restart/old reader isolation; disposal and frozen settings",
+      "Invalid/silent SDK; plausible metadata without go.mod; stderr/exit status; 256 KiB output bound",
+      "Cancellation stops own parent and child while unrelated sentinel remains alive; completed launcher child cleanup; original500ms timeout",
+      "Captured settings remain authoritative after live SDK/build environment changes"
+    ],
+    "focused": {
+      "exitCode": 0,
+      "reports": [
+        {
+          "class": "dev.openidea.goide.engine.EngineClientLifecycleTest",
+          "tests": 4,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "failedCases": []
+        },
+        {
+          "class": "dev.openidea.goide.project.GoSdkProbeTest",
+          "tests": 8,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "failedCases": []
+        },
+        {
+          "class": "dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest",
+          "tests": 1,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0,
+          "failedCases": []
+        }
+      ],
+      "minimumFreeBytes": 128792440832,
+      "recordedOwnedIdentities": 43,
+      "remaining": [],
+      "scope": "Focused local source tests only; no Windows/native/release claim",
+      "finishedAtUtc": "2026-11-11T14:18:51.903655+00:00"
+    },
+    "windowsCrossCompilationOnly": {
+      "atUtc": "2026-11-11T14:20:17.935236+00:00",
+      "goSha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+      "controls": [
+        {
+          "source": "src/test/kotlin/dev/openidea/goide/engine/EngineClientLifecycleTest.kt",
+          "sourceControlSha256": "ccabc915827d5a616a403b7ce5b673c18910179c28cf6d7a53b1117a12bafe76",
+          "argv": [
+            "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go/bin/go",
+            "build",
+            "-trimpath",
+            "-buildvcs=false",
+            "-o",
+            "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-windows-build-only/engine-control.exe",
+            "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-windows-build-only/engine-control.go"
+          ],
+          "exitCode": 0,
+          "windowsBinaryBytes": 3278848,
+          "windowsBinarySha256": "4f54ea69b97a7fcfb6f0a7f2a4edfb7d462fe34861c12e98774df1d7dd10d144",
+          "MZ": true
+        },
+        {
+          "source": "src/test/kotlin/dev/openidea/goide/project/GoSdkProbeTest.kt",
+          "sourceControlSha256": "30b14f484ef67068e5e49bde6172ad0c93de35bf9717b3528e9d6ef5227d068b",
+          "argv": [
+            "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go/bin/go",
+            "build",
+            "-trimpath",
+            "-buildvcs=false",
+            "-o",
+            "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-windows-build-only/sdk-control.exe",
+            "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/portable-windows-build-only/sdk-control.go"
+          ],
+          "exitCode": 0,
+          "windowsBinaryBytes": 3000832,
+          "windowsBinarySha256": "6981cf602146f7ee9087a691cb2557703f0521dd4d3d57c6c56d716bc0ba9db4",
+          "MZ": true
+        }
+      ],
+      "boundary": "Cross-compilation only, NOT execution on Windows or a product installer. Temporary .exe controls removed after retaining source/hash/log."
+    },
+    "localFull": {
+      "finishedAtUtc": "2026-11-11T14:33:38.079083+00:00",
+      "kotlin": {
+        "tests": 796,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "reports": 143,
+        "uniqueIdentities": 796,
+        "missing": [],
+        "unexpected": []
+      },
+      "go": {
+        "passTestEvents": 347,
+        "passedPackages": [
+          "github.com/shubolab/opengoland/engine/internal/protocol",
+          "github.com/shubolab/opengoland/engine/internal/generate/tags",
+          "github.com/shubolab/opengoland/engine/internal/engine",
+          "github.com/shubolab/opengoland/engine/internal/search/types",
+          "github.com/shubolab/opengoland/engine/internal/generate/tests",
+          "github.com/shubolab/opengoland/engine/internal/rpc",
+          "github.com/shubolab/opengoland/engine/internal/generate/structs",
+          "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+          "github.com/shubolab/opengoland/engine/internal/refactor/native",
+          "github.com/shubolab/opengoland/engine/internal/generate/methods",
+          "github.com/shubolab/opengoland/engine/internal/refactor/signature"
+        ],
+        "skippedPackages": [
+          "github.com/shubolab/opengoland/engine/cmd/opengoland-engine"
+        ],
+        "failedEvents": [],
+        "nonJsonLines": 0,
+        "cachedOutputLines": []
+      },
+      "phases": [
+        {
+          "name": "gradle",
+          "argv": [
+            "./gradlew",
+            "--no-daemon",
+            "--rerun-tasks",
+            "--no-build-cache",
+            "-PplatformPath=/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app",
+            "-PgoBuilder=/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+            "-PreleaseVersion=0.1.0-preview.20261110.6",
+            "-Pkotlin.compiler.execution.strategy=in-process",
+            "test",
+            "buildPlugin",
+            "verifyPluginStructure"
+          ],
+          "cwd": "/Users/wangshubo/develop/openidea-go",
+          "exitCode": 0
+        },
+        {
+          "name": "go-race",
+          "argv": [
+            "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+            "test",
+            "-race",
+            "-count=1",
+            "-json",
+            "./..."
+          ],
+          "cwd": "/Users/wangshubo/develop/openidea-go/engine",
+          "exitCode": 0
+        },
+        {
+          "name": "go-vet",
+          "argv": [
+            "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+            "vet",
+            "./..."
+          ],
+          "cwd": "/Users/wangshubo/develop/openidea-go/engine",
+          "exitCode": 0
+        }
+      ],
+      "remaining": [],
+      "recordedOwnedIdentities": 1574,
+      "observerSignals": [],
+      "sourceUnchanged": true
+    },
+    "existingInstallerCi": {
+      "runId": 43033769561,
+      "sourceCommit": "94d1b89ad4b7cd3a3dae7f33b3c637f7a576827b",
+      "boundary": "Different earlier source. Its Windows results cannot prove execution of these portable controls."
+    },
+    "workflowValidatorOnly": {
+      "atUtc": "2026-11-11T14:35:57.529071+00:00",
+      "workflowYaml": "parsed with string-preserving YAML loader",
+      "embeddedPython": "parsed and executed against actual local XML plus four negative controls",
+      "PowerShellParserAvailable": false,
+      "controls": [
+        {
+          "control": "actual-local-36",
+          "exitCode": 0,
+          "expectedExitCode": 0,
+          "counts": {
+            "tests": 36,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "duplicates": [],
+          "missing": [],
+          "malformedCounters": []
+        },
+        {
+          "control": "one-skipped",
+          "exitCode": 1,
+          "expectedExitCode": 1,
+          "counts": {
+            "tests": 36,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 1
+          },
+          "duplicates": [],
+          "missing": [],
+          "malformedCounters": []
+        },
+        {
+          "control": "duplicate-and-missing",
+          "exitCode": 1,
+          "expectedExitCode": 1,
+          "counts": {
+            "tests": 36,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "duplicates": [
+            [
+              "dev.openidea.goide.engine.EngineClientLifecycleTest",
+              "failedInitializationCanBeRetried"
+            ]
+          ],
+          "missing": [
+            [
+              "dev.openidea.goide.engine.EngineClientLifecycleTest",
+              "frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange"
+            ]
+          ],
+          "malformedCounters": []
+        },
+        {
+          "control": "counter-tamper",
+          "exitCode": 1,
+          "expectedExitCode": 1,
+          "counts": {
+            "tests": 36,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "duplicates": [],
+          "missing": [],
+          "malformedCounters": [
+            "TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml"
+          ]
+        },
+        {
+          "control": "missing-class",
+          "exitCode": 1,
+          "expectedExitCode": 1,
+          "counts": {
+            "tests": 32,
+            "failures": 0,
+            "errors": 0,
+            "skipped": 0
+          },
+          "duplicates": [],
+          "missing": [
+            [
+              "dev.openidea.goide.engine.EngineClientLifecycleTest",
+              "disposeShutsDownOwnedEngineAndRejectsReconnect"
+            ],
+            [
+              "dev.openidea.goide.engine.EngineClientLifecycleTest",
+              "failedInitializationCanBeRetried"
+            ],
+            [
+              "dev.openidea.goide.engine.EngineClientLifecycleTest",
+              "frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange"
+            ],
+            [
+              "dev.openidea.goide.engine.EngineClientLifecycleTest",
+              "settingsRestartDoesNotLetOldReaderDisconnectNewEngine"
+            ]
+          ],
+          "malformedCounters": []
+        }
+      ],
+      "actualWindowsJobExecutions": 0,
+      "boundary": "Validator-only local controls. The input XML is from macOS. No Windows tests, PowerShell execution, installer or native product workflow is claimed."
+    },
+    "completedCacheCleanup": {
+      "atUtc": "2026-11-11T14:36:25.551398+00:00",
+      "fullSourceCommit": "36a838d276974c4358d0bd5dfa3f059402252931",
+      "removed": [
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/system-test/index",
+          "bytes": 40925901,
+          "openFiles": [],
+          "lsofExit": 1
+        },
+        {
+          "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/system-test/caches",
+          "bytes": 164626603,
+          "openFiles": [],
+          "lsofExit": 1
+        }
+      ],
+      "freeBeforeBytes": 128013189120,
+      "freeAfterBytes": 128238751744,
+      "preserved": "LocalHistory, logs, XML/results, source, SDKs/tool bundles/Go caches, current historical candidate, latest public installer/application and all GitHub assets."
+    },
+    "workflowProposal": {
+      "state": "not pushed; preserved locally",
+      "commit": "240ea4b",
+      "localBranch": "codex_windows_controls_workflow_proposal",
+      "reason": "GitHub rejected the OAuth App push because workflow scope is missing. Remote main remains36a838d at this observation.",
+      "fallback": "Use existing release.yml for actual Windows execution; no expanded authorization requested."
+    }
+  },
+  "inference": [
+    "The three classes no longer require Unix interpreters or utilities. Two Go helper sources compile to Windows binaries, but their Windows process behavior is still unknown.",
+    "The new focused workflow must check all36 exact expected identities in seven classes, actual XML counts, zero failure/error/skip and unchanged captured source."
+  ],
+  "unknown": [
+    "Actual Windows execution including cancellation before descendant sampling and a parent that exits before its children. GoModuleProcesses still needs that evidence; no cleanup fix is asserted by these test-only changes.",
+    "The standalone PowerShell workflow is an unpushed proposal. Actual new-source Windows execution will use the existing release workflow.",
+    "A focused control job cannot establish full product installation, interactive native workflows, a public release or complete GoLand parity."
+  ],
+  "fullGoalStatus": "active, not complete"
+}
