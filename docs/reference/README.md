@@ -53,3 +53,5 @@ python3 scripts/inspect_reference.py
 [新源码完整检查](sdk-settings-full-20261111.json)保留实际 797 项 Kotlin 测试的全部 143 份原始 XML、Gradle 日志、347 个 Go race 测试 PASS 事件、vet 和源码/产物摘要。全部检查通过，没有 Kotlin 跳过项。新源码仅调度一次双平台安装检查：[run 43049891202](https://github.com/shubolab/opengoland/actions/runs/43049891202)，当前结果仍待验收。
 
 [上一轮安装检查终态](installer-ci-20261111.json)明确区分 Windows 运行器失联、macOS 构建报告、下载和磁盘映像校验。已校验的旧源码 DMG 尚未进行本机原生安装验收，不能代表新修复已在安装包中通过。`.6` 仍未公开发布。
+
+[新版原生 SDK 自动刷新验证](sdk-settings-native-20261111.json)记录了源码 `8dfdbe0` 的独立应用：实际选择 Go 1.27.3 并保存后，Go 面板自动更新，REA 截图已保留。旧 C 候选在检查进程、文件占用和保留摘要后被替换，同一路径现指向新应用。第一次原生测试命中了 Go 缓存；后续配置窗口暂时无法在当前桌面操作，实际无缓存测试、运行、恢复 SDK 和正常退出仍待完成，不能写成全部通过。

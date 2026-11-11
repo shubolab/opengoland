@@ -1,0 +1,166 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-11T16:00:45.701809+00:00",
+  "status": "native-SDK-auto-refresh-observed; remainder-handoff-pending",
+  "evidenceDirectory": "sdk-settings-native-20261111-evidence",
+  "observation": {
+    "candidate": {
+      "atUtc": "2026-11-11T15:41:36.182208+00:00",
+      "status": "pass-assembled-and-sealed-native-pending",
+      "sourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+      "documentationHead": "a239fb1870dc4c38b0b427a9d814fa053a67c385",
+      "sourceFiles": 506,
+      "sourceDigest": "28da8e21c4464ff0eda3fcb8c5a8ca933da4f96f85e7564dfa924a2f5b28deb3",
+      "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "productMetadata": {
+        "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/Resources/openidea-product.json",
+        "bytes": 4925846,
+        "sha256": "f06cda47059a88bb5ca971df3052cf58d29455f75fcda8d68a1ab2e55b05aa1c"
+      },
+      "engineSha256": "94752f95c67f71a7d25a31924def03e587f0559dcd97f6d1dc1130b7887acfb0",
+      "ownPluginClasses": 715,
+      "completeOwnClassesMatchPreparedAndInstrumented": true,
+      "sealedPluginAndToolFiles": 15138,
+      "codesignExitCode": 0,
+      "sdkSevenKeysAndToolPinsUnchanged": true,
+      "sourceInputsUnchanged": true,
+      "sampledOwnIdentities": 34,
+      "remaining": [],
+      "minimumFreeBytes": 124475674624,
+      "public5Protected": true,
+      "boundary": "Standalone source8df candidate only. No native workflow, installer download, Windows execution, notarization, public6 or full goal completion claim."
+    },
+    "oldCandidateRetirement": {
+      "atUtc": "2026-11-11T15:40:51.210473+00:00",
+      "removedHistoricalPath": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "oldSourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+      "manifestSha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+      "logicalBytes": 2835400136,
+      "files": 16749,
+      "freeBeforeBytes": 124764712960,
+      "freeAfterBytes": 125567418368,
+      "applicationAbsent": true,
+      "noActiveDependencies": true,
+      "noOpenFiles": true,
+      "protectedPublicAppAndDmgPreserved": true,
+      "compactArchives": [
+        {
+          "role": "manifest",
+          "originalPath": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/Resources/openidea-product.json",
+          "originalSha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+          "archivedPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/candidate-replacement-plan/old-C-compact/openidea-product.json.gz"
+        },
+        {
+          "role": "own-plugin-jar",
+          "originalPath": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.6.jar",
+          "sha256": "b12ba453fb5fd42828bd416181f3efb71299487b80d60d9d4f197b50e15d46a0",
+          "bytes": 2089879,
+          "archivedPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/candidate-replacement-plan/old-C-compact/opengoland-0.1.0-preview.20261110.6.jar"
+        }
+      ],
+      "signalsUsed": false,
+      "boundary": "Historical evidence paths for this e6b app are retired, not available binaries. New source candidate will reuse the same documented path."
+    },
+    "native": {
+      "atUtc": "2026-11-11T15:59:16.636774+00:00",
+      "productSourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+      "identity": {
+        "pid": 45974,
+        "createTime": 1794411730.742509,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+        "sourceCommit": "8dfdbe074f564897669cfd93fec24135ab50782b",
+        "historical": false
+      },
+      "status": "automatic-SDK-panel-refresh-observed; cached-test-only; native-handoff-pending",
+      "observation": [
+        "Documented launch started one source8df standalone instance with isolated profile and same6-file owned fixture.",
+        "Settings Add local accepted pinned Go1.27.3 SDK through the actual macOS native directory chooser; ready/verified detail and Apply enabled were observed in CUA.",
+        "Settings OK automatically updated the visible Go module tree from1.26.10 to1.27.3. No Reload Project was clicked. Actual REA selected-main-window screenshot confirms1.27.3.",
+        "Toolbar current-file test invoked Go1.27.3 go test -json ., native tree1testpassed/327ms/exit0, but console explicitly says(cached). This does not prove a fresh fixture test execution.",
+        "Opened native Run/Debug Configurations, which has0registered configurations. No -count=1 configuration was created yet.",
+        "Documented second launch without-n reused samePID45974 and exposed Run/Debug Configurations once. Subsequent coordinate click returned noWindowsAvailable. Read-only CG metadata still identifies this own dialog1048 and main890, while neither was on the active screen."
+      ],
+      "reaEvidence": {
+        "bundle": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-sdk-8df/rea-sdk-panel.bundle.json",
+        "bundleSha256": "e7eb81e9e0ada8437040412f7798168d43f77c5f2e4130eef8a9e4c04041ee0f",
+        "evidenceId": "ev_ab994a953eba5cafc91437c06f803ce1374f68df24a0b4e3cbd98d994b48734e",
+        "targetSha256": "213079a0bdad0429ed2a8ccb24bdcace03febd0c599051a931898dcc1aae0273",
+        "screenshotSha256": "547a0d4585225ea43526c125583e31cfd92f2ca769e4cc0cf326d15a7fb0a5c7",
+        "width": 1400,
+        "height": 909,
+        "accessibility": false,
+        "gaps": [
+          "Accessibility capture was disabled"
+        ]
+      },
+      "failedReaSettingsCapture": "rea-local-sdk-verified.json preserves an ambiguous-window/AX candidates empty error. It has no successful EvidenceID.",
+      "captureStorageRecovery": "Large Node code serialization was rejected by64000-byte auto-review size limit. No capture was repeated: retained original provider evidence was saved with REA export_evidence_bundle instead.",
+      "sources": [
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/api/api.go",
+          "bytes": 198,
+          "sha256": "4d589585c8afdc5b57a85f9547d077a2084ad56ed198fd7c86544189b8d8a11e",
+          "currentSha256": "4d589585c8afdc5b57a85f9547d077a2084ad56ed198fd7c86544189b8d8a11e",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/api/go.mod",
+          "bytes": 56,
+          "sha256": "0a715ddfddaa32e65d32d2043a63c681367188dadaa5bb0bd7d830e634aa6896",
+          "currentSha256": "0a715ddfddaa32e65d32d2043a63c681367188dadaa5bb0bd7d830e634aa6896",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/go.mod",
+          "bytes": 110,
+          "sha256": "d690b122bfdc17cf07d6b7274a5dec4a9b51f5ac311f4b41f4fac0e6ebd0c34c",
+          "currentSha256": "d690b122bfdc17cf07d6b7274a5dec4a9b51f5ac311f4b41f4fac0e6ebd0c34c",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/main.go",
+          "bytes": 256,
+          "sha256": "38ae1476284deda992a995e82cbbc2b46cfdf0941efd659c371a20f437579cb2",
+          "currentSha256": "38ae1476284deda992a995e82cbbc2b46cfdf0941efd659c371a20f437579cb2",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/main_test.go",
+          "bytes": 314,
+          "sha256": "6468c18de30462b2e4874c54a02119c39ed0f7d6f5bda06aff2a0541fbe85a19",
+          "currentSha256": "6468c18de30462b2e4874c54a02119c39ed0f7d6f5bda06aff2a0541fbe85a19",
+          "matchesOriginal": true
+        },
+        {
+          "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/go.work",
+          "bytes": 33,
+          "sha256": "c605833a3aac357147217271c092d8e8d0653137d4740349c2c8708aea0dc724",
+          "currentSha256": "c605833a3aac357147217271c092d8e8d0653137d4740349c2c8708aea0dc724",
+          "matchesOriginal": true
+        }
+      ],
+      "selectedProjectSettingsCurrentlyPresent": true,
+      "sdkRegistryCurrentlyPresent": true,
+      "observerUnifiedExecSession": 47431,
+      "applicationStillRunning": true,
+      "observerSignals": [],
+      "handoff": "Pending human response to bring own app onto current desktop. Do not send competing mouse/keyboard actions while handoff is pending.",
+      "remaining": [
+        "Create/run an explicit native Go Test with Go tool arguments-count=1, verify actual uncached test and native tree.",
+        "Native Run12 12 with chosen SDK; remove temporary run config/SDK registration; restore bundled SDK and verify reverse automatic panel refresh.",
+        "Normal UI Quit, fresh own descendant absence check, fixture/settings restoration, bounded cache cleanup.",
+        "Exact CI installers, actual Windows results and full acceptance matrix remain open."
+      ]
+    }
+  },
+  "inference": [
+    "The actual current-source settings notification reaches the real Go tool window and refreshes its SDK display in the exercised macOS fixture. The source regression and native observation support this bounded fix."
+  ],
+  "unknown": [
+    "The first new-source test reports(cached); no fresh fixture test execution is claimed.",
+    "Current-screen window availability/focus became unavailable. A pending human request asks to bring own app to current desktop; root cause is not established as a product defect.",
+    "An explicit uncached test configuration, native Run12 12, reverse SDK restoration, registration cleanup and normalQuit/lifecycle checks remain pending for this new candidate.",
+    "The currently running source8df Windows/macOS installer jobs, actual installer acceptance and full GoLand parity are separate open obligations."
+  ],
+  "fullGoalStatus": "active, not complete"
+}
