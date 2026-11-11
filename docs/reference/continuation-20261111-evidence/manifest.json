@@ -1,0 +1,109 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "file": "local-full-result.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/full-001/result.json",
+      "originalBytes": 31036,
+      "originalSha256": "cb255cc0b0a534156610a3468df6324f602617483a24dacbb7b9ab4a305518b1",
+      "gzipBytes": 9235,
+      "gzipSha256": "2ddb403d23f79de1acbd1cf49fd67acdfce0892754318f45c0e62acf7a454654"
+    },
+    {
+      "file": "completed-native-cache-cleanup.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/completed-native-cache-cleanup.json",
+      "originalBytes": 851,
+      "originalSha256": "f9e5c611e3f4bff462fec26fecb069cb76755c23bfc92adcae4bef1f3e2c26aa",
+      "gzipBytes": 446,
+      "gzipSha256": "ba140b8d56f7c4577050028e99f2bda5e638527a664f0b75fd1af9cd1760658e"
+    },
+    {
+      "file": "generate-applied-disk.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/generate-applied-disk.json",
+      "originalBytes": 834,
+      "originalSha256": "9bfc420a3140148e700048d81aa2ff64561b95ae3bcf23254e38b5d6ae49ce4f",
+      "gzipBytes": 494,
+      "gzipSha256": "54c5407435771da211f09f82778f8e611be8f119fe117f1235d10d392f95b9d0"
+    },
+    {
+      "file": "identity.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/identity.json",
+      "originalBytes": 244,
+      "originalSha256": "d315275bc39ee309bf0154ee347b7baf5056423cee502f6de6e12c6ac24770a3",
+      "gzipBytes": 211,
+      "gzipSha256": "b51684f6b28433441675db711f569e9bab48d5a25fd62e0f9089272376f44459"
+    },
+    {
+      "file": "launch.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/launch.json",
+      "originalBytes": 2917,
+      "originalSha256": "44078645516b7dfa9c5c8d11acd254d826dfe51895a5ddaabd7cf245cbe610ee",
+      "gzipBytes": 1176,
+      "gzipSha256": "3168a7ad6c0826cf43b3459176fa86c0404771673dffd5b9f6efe54c5e9691ac"
+    },
+    {
+      "file": "post-native-restoration.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/post-native-restoration.json",
+      "originalBytes": 2197,
+      "originalSha256": "cc1a7fad23ca0ddedae985b9aae6ce3d3bdfea82673798fb44399b98f43d1797",
+      "gzipBytes": 761,
+      "gzipSha256": "8cd159e09da19dc0010cde12c7c9f58b2e47ed65b76751e5992c80d22a0fe122"
+    },
+    {
+      "file": "process-summary.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/process-summary.json",
+      "originalBytes": 3840,
+      "originalSha256": "c3e580315b5623ea22c2575ccc10fbe1739a9ad5ed8d1e1d78aa342905d965bd",
+      "gzipBytes": 871,
+      "gzipSha256": "a0b47bf7653f748ca94cc910afb45a10a0ee0b1b04a14e7f93d05cab5c9a5db1"
+    },
+    {
+      "file": "rea-generate-preview.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/rea-generate-preview.json",
+      "originalBytes": 517691,
+      "originalSha256": "2014e5734e4d7658b60ccb8f915b09488a9b5d9e4c18d0f4c818125c93387a42",
+      "gzipBytes": 383514,
+      "gzipSha256": "c2a7bba09b08bd5401246d5b3ea3a53d8fa411889cfebac8e3b6d2f9adbc74e5"
+    },
+    {
+      "file": "rea-signature-dialog.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/rea-signature-dialog.json",
+      "originalBytes": 333255,
+      "originalSha256": "034be1c99db36cd2d319ba8fffc1682d3d88d1cf8ac8c8912b84a543eb5ea162",
+      "gzipBytes": 221711,
+      "gzipSha256": "6a9e3e236059b513dae20b626b40515f124060e73cd38da5f546d274d093717c"
+    },
+    {
+      "file": "rea-signature-preview.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/rea-signature-preview.json",
+      "originalBytes": 511419,
+      "originalSha256": "2fbabf6e69ee975895656cb5b6094b2300669ca49d6f7ba520f8a72ca7a2ef3a",
+      "gzipBytes": 365765,
+      "gzipSha256": "a8d3271604a1ac56927444f78554fc74c15cd0c6fdcc3b7a453db76c8637c212"
+    },
+    {
+      "file": "rea-signature-run.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/rea-signature-run.json",
+      "originalBytes": 706255,
+      "originalSha256": "e2a5b5dbd540e01b3956194d6d677f9f3dfea28b578e79afbf07d9b643a31bb9",
+      "gzipBytes": 471402,
+      "gzipSha256": "da3e2280eee4789874d3f7c8a80d94497ecd1fdc629e24d664f3cc22fec6d90f"
+    },
+    {
+      "file": "signature-applied-disk.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/signature-applied-disk.json",
+      "originalBytes": 1494,
+      "originalSha256": "350d2b5e19b852cb1d13a693a8778cd97289b892e9c1a888b5e361d4843707eb",
+      "gzipBytes": 744,
+      "gzipSha256": "566f7431a38ee98958df3e96e6d4dd12d5e2339cdfcdb6b297db042e73c87e97"
+    },
+    {
+      "file": "signature-once-undo-restoration.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/native-historical-C/signature-once-undo-restoration.json",
+      "originalBytes": 1956,
+      "originalSha256": "02d19bbcc0b0fc4c9cf7895ed3772167a6c574994cacd06c762300958c6e0345",
+      "gzipBytes": 617,
+      "gzipSha256": "a65deaa035321cd21ae4976339d23af554272bb2a465a29cea38a63540aff1b4"
+    }
+  ]
+}
