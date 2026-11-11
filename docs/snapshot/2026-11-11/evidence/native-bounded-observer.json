@@ -1,0 +1,193 @@
+{
+  "scope": "Read-only exact owned app tree; captured identities remain checked after reparenting.",
+  "identityPrecision": "PID plus ps lstart at second precision; same-second PID reuse is not distinguished. Sampling is not exhaustive for very short subprocesses.",
+  "appIdentity": {
+    "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+    "sourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+    "sourceFiles": 506,
+    "sourceDigest": "3229d2b438af1a1e43184665e4893e81cfdead9e1431f595bf884a7cb1e2ccdc",
+    "manifestSha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+    "engineSha256": "75db2a329d999fc0b41937a5cab501d0d6cdb29f750d62ddb9853887b84b78be",
+    "ownClassCount": 715,
+    "version": "0.1.0-preview.20261110.6",
+    "status": "bound-to-actual-native-app",
+    "boundary": "Supplemental source/evidence gate only. Does not reexecute complete class/tool/platform/module/archive/signature checks or prove native/public release acceptance.",
+    "pid": 50839,
+    "started": "Wed Nov 11 07:11:30 2026",
+    "actualCommand": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/Go 多模块与改签名😀",
+    "createTime": 1794352290.003554,
+    "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+    "launchAtUtc": "2026-11-10T23:11:29.902171+00:00"
+  },
+  "sourceBinding": {
+    "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+    "sourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+    "sourceFiles": 506,
+    "sourceDigest": "3229d2b438af1a1e43184665e4893e81cfdead9e1431f595bf884a7cb1e2ccdc",
+    "manifestSha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+    "engineSha256": "75db2a329d999fc0b41937a5cab501d0d6cdb29f750d62ddb9853887b84b78be",
+    "ownClassCount": 715,
+    "version": "0.1.0-preview.20261110.6",
+    "status": "source-binding-pass-only",
+    "boundary": "Supplemental source/evidence gate only. Does not reexecute complete class/tool/platform/module/archive/signature checks or prove native/public release acceptance."
+  },
+  "processes": [
+    {
+      "pid": 50869,
+      "ppid": 50839,
+      "pgid": 50839,
+      "state": "S",
+      "started": "Wed Nov 11 07:11:39 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/bin/fsnotifier"
+    },
+    {
+      "pid": 50839,
+      "ppid": 1,
+      "pgid": 50839,
+      "state": "S",
+      "started": "Wed Nov 11 07:11:30 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/Go 多模块与改签名😀"
+    },
+    {
+      "pid": 51087,
+      "ppid": 50839,
+      "pgid": 50839,
+      "state": "R",
+      "started": "Wed Nov 11 07:12:27 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+    },
+    {
+      "pid": 51089,
+      "ppid": 51087,
+      "pgid": 51089,
+      "state": "Ss",
+      "started": "Wed Nov 11 07:12:27 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    },
+    {
+      "pid": 51090,
+      "ppid": 50839,
+      "pgid": 51090,
+      "state": "R",
+      "started": "Wed Nov 11 07:12:27 2026",
+      "command": "(go)"
+    },
+    {
+      "pid": 51095,
+      "ppid": 50839,
+      "pgid": 51095,
+      "state": "R",
+      "started": "Wed Nov 11 07:12:27 2026",
+      "command": "(go)"
+    },
+    {
+      "pid": 51094,
+      "ppid": 50839,
+      "pgid": 50839,
+      "state": "S",
+      "started": "Wed Nov 11 07:12:27 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+    },
+    {
+      "pid": 51096,
+      "ppid": 51094,
+      "pgid": 51096,
+      "state": "R",
+      "started": "Wed Nov 11 07:12:28 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go env -json"
+    },
+    {
+      "pid": 51098,
+      "ppid": 51096,
+      "pgid": 51096,
+      "state": "R",
+      "started": "Wed Nov 11 07:12:28 2026",
+      "command": "clang -### -x c -c -"
+    },
+    {
+      "pid": 51104,
+      "ppid": 51087,
+      "pgid": 50839,
+      "state": "R",
+      "started": "Wed Nov 11 07:12:28 2026",
+      "command": "go list -e -json=Name,ImportPath,Error,Dir,GoFiles,IgnoredGoFiles,IgnoredOtherFiles,CFiles,CgoFiles,CXXFiles,MFiles,HFiles,FFiles,SFiles,SwigFiles,SwigCXXFiles,SysoFiles,TestGoFiles,XTestGoFiles,CompiledGoFiles,Export,DepOnly,Imports,ImportMap,TestImports,XTestImports,ForTest,DepsErrors,Module,EmbedFiles -compiled=true -test=true -export=false -deps=true -find=false -buildvcs=false -pgo=off -- /Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/Go 多模块与改签名😀/api/... /Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/... builtin"
+    },
+    {
+      "pid": 51107,
+      "ppid": 51094,
+      "pgid": 51107,
+      "state": "R",
+      "started": "Wed Nov 11 07:12:28 2026",
+      "command": "(go)"
+    },
+    {
+      "pid": 51699,
+      "ppid": 50839,
+      "pgid": 51699,
+      "state": "R",
+      "started": "Wed Nov 11 07:14:21 2026",
+      "command": "(go)"
+    },
+    {
+      "pid": 52149,
+      "ppid": 50839,
+      "pgid": 50839,
+      "state": "R",
+      "started": "Wed Nov 11 07:15:54 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go run ."
+    },
+    {
+      "pid": 52156,
+      "ppid": 52149,
+      "pgid": 50839,
+      "state": "R",
+      "started": "Wed Nov 11 07:15:54 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/pkg/tool/darwin_arm64/link -o /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go-build422356445/b001/exe/app -importcfg /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go-build422356445/b001/importcfg.link -s -w -X=runtime.godebugDefault=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0 -buildmode=pie -buildid=oRcUC6o6L0NGxyiTNBq3/Amo9AwLgtb8B7jeUaEAw/IF3f90STYvrI1P-aMhPq/oRcUC6o6L0NGxyiTNBq3 -extld=clang /var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go-build422356445/b001/_pkg_.a"
+    },
+    {
+      "pid": 52158,
+      "ppid": 52149,
+      "pgid": 50839,
+      "state": "S",
+      "started": "Wed Nov 11 07:15:54 2026",
+      "command": "/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go-build422356445/b001/exe/app"
+    },
+    {
+      "pid": 52287,
+      "ppid": 51087,
+      "pgid": 50839,
+      "state": "R",
+      "started": "Wed Nov 11 07:16:20 2026",
+      "command": "(go)"
+    }
+  ],
+  "lastStates": {
+    "50869|Wed Nov 11 07:11:39 2026": "original-running",
+    "50839|Wed Nov 11 07:11:30 2026": "original-running",
+    "51087|Wed Nov 11 07:12:27 2026": "original-running",
+    "51089|Wed Nov 11 07:12:27 2026": "original-running",
+    "51090|Wed Nov 11 07:12:27 2026": "absent",
+    "51095|Wed Nov 11 07:12:27 2026": "absent",
+    "51094|Wed Nov 11 07:12:27 2026": "original-running",
+    "51096|Wed Nov 11 07:12:28 2026": "absent",
+    "51098|Wed Nov 11 07:12:28 2026": "absent",
+    "51104|Wed Nov 11 07:12:28 2026": "absent",
+    "51107|Wed Nov 11 07:12:28 2026": "absent",
+    "51699|Wed Nov 11 07:14:21 2026": "absent",
+    "52149|Wed Nov 11 07:15:54 2026": "absent",
+    "52156|Wed Nov 11 07:15:54 2026": "absent",
+    "52158|Wed Nov 11 07:15:54 2026": "absent",
+    "52287|Wed Nov 11 07:16:20 2026": "absent"
+  },
+  "capturedCount": 16,
+  "allCapturedOriginalIdentitiesGone": false,
+  "zombiePids": [],
+  "signalsUsed": false,
+  "signalBoundary": "This observer sends no signals; this is not a claim about providers, fixtures or external actions.",
+  "boundSeconds": 7200,
+  "elapsedSeconds": 7200.206,
+  "stopReason": "7200-second-observer-bound",
+  "minimumObservedFreeBytes": 122162888704,
+  "manifestUnchanged": true,
+  "finishedAtUtc": "2026-11-11T01:11:49.131383+00:00"
+}

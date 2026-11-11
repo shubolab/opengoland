@@ -1,0 +1,48 @@
+{
+  "sixOriginalFilesUnchanged": true,
+  "projectGoSettingsFileAbsent": true,
+  "files": [
+    {
+      "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/api/api.go",
+      "bytes": 198,
+      "sha256": "4d589585c8afdc5b57a85f9547d077a2084ad56ed198fd7c86544189b8d8a11e",
+      "actualSha256": "4d589585c8afdc5b57a85f9547d077a2084ad56ed198fd7c86544189b8d8a11e",
+      "unchanged": true
+    },
+    {
+      "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/api/go.mod",
+      "bytes": 56,
+      "sha256": "0a715ddfddaa32e65d32d2043a63c681367188dadaa5bb0bd7d830e634aa6896",
+      "actualSha256": "0a715ddfddaa32e65d32d2043a63c681367188dadaa5bb0bd7d830e634aa6896",
+      "unchanged": true
+    },
+    {
+      "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/go.mod",
+      "bytes": 110,
+      "sha256": "d690b122bfdc17cf07d6b7274a5dec4a9b51f5ac311f4b41f4fac0e6ebd0c34c",
+      "actualSha256": "d690b122bfdc17cf07d6b7274a5dec4a9b51f5ac311f4b41f4fac0e6ebd0c34c",
+      "unchanged": true
+    },
+    {
+      "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/main.go",
+      "bytes": 256,
+      "sha256": "38ae1476284deda992a995e82cbbc2b46cfdf0941efd659c371a20f437579cb2",
+      "actualSha256": "38ae1476284deda992a995e82cbbc2b46cfdf0941efd659c371a20f437579cb2",
+      "unchanged": true
+    },
+    {
+      "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/app/main_test.go",
+      "bytes": 314,
+      "sha256": "6468c18de30462b2e4874c54a02119c39ed0f7d6f5bda06aff2a0541fbe85a19",
+      "actualSha256": "6468c18de30462b2e4874c54a02119c39ed0f7d6f5bda06aff2a0541fbe85a19",
+      "unchanged": true
+    },
+    {
+      "path": ".tools/gowork-native-plan-20261111/Go 多模块与改签名😀/go.work",
+      "bytes": 33,
+      "sha256": "c605833a3aac357147217271c092d8e8d0653137d4740349c2c8708aea0dc724",
+      "actualSha256": "c605833a3aac357147217271c092d8e8d0653137d4740349c2c8708aea0dc724",
+      "unchanged": true
+    }
+  ]
+}

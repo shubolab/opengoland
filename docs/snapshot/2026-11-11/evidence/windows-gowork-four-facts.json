@@ -1,0 +1,282 @@
+{
+  "status": "compact-actual-windows-gowork-identity-facts",
+  "atUtc": "2026-11-10T22:54:20.900595+00:00",
+  "runId": 42915342968,
+  "sourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+  "rawXml": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/public-v6-e6b7-preflight/windows-failed-evidence-run42915342968-art13810666855/extracted/windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+    "bytes": 232576,
+    "sha256": "23151881c664d635239044fff9304d47aca5f6b8c68171774b2d700a8bc59f88"
+  },
+  "modes": [
+    {
+      "mode": "EMPTY",
+      "expectedLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20中文😀%205697959442730407325/consumer/source.go",
+      "actualLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%205697959442730407325/consumer/source.go",
+      "decodedUriStringsEqual": true,
+      "difference": "Unicode literal versus UTF8 percent encoding; same driveC and otherwise same decoded path",
+      "actualLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "expectedLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "localFailureKind": null,
+      "cross": {
+        "targets": [
+          {
+            "uri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%205697959442730407325/provider/target.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 5
+              },
+              "end": {
+                "line": 2,
+                "character": 13
+              }
+            }
+          }
+        ]
+      },
+      "transportAtFinallyEntry": {
+        "present": true,
+        "isDone": false,
+        "isCancelled": false
+      },
+      "cleanupErrors": [
+        "java.nio.file.FileSystemException: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\owned gowork 中文😀 5697959442730407325\\consumer: The process cannot access the file because it is being used by another process"
+      ],
+      "ownedRemaining": [],
+      "fixtureExplicitProcessSignalAttempts": [
+        {
+          "pid": 2284,
+          "action": "destroy",
+          "role": "owned-descendant",
+          "reason": "still-alive-after-provider-stop",
+          "attemptedAtUtc": "2026-11-10T22:38:07.673594500Z",
+          "returnValue": true,
+          "outcome": "returned",
+          "completedAtUtc": "2026-11-10T22:38:07.673594500Z"
+        },
+        {
+          "pid": 9180,
+          "action": "destroy",
+          "role": "owned-descendant",
+          "reason": "still-alive-after-provider-stop",
+          "attemptedAtUtc": "2026-11-10T22:38:07.674588700Z",
+          "returnValue": true,
+          "outcome": "returned",
+          "completedAtUtc": "2026-11-10T22:38:07.674588700Z"
+        }
+      ]
+    },
+    {
+      "mode": "ABSOLUTE",
+      "expectedLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20中文😀%2016472276675080234404/consumer/source.go",
+      "actualLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2016472276675080234404/consumer/source.go",
+      "decodedUriStringsEqual": true,
+      "difference": "Unicode literal versus UTF8 percent encoding; same driveC and otherwise same decoded path",
+      "actualLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "expectedLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "localFailureKind": null,
+      "cross": {
+        "targets": [
+          {
+            "uri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2016472276675080234404/provider/target.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 5
+              },
+              "end": {
+                "line": 2,
+                "character": 13
+              }
+            }
+          }
+        ]
+      },
+      "transportAtFinallyEntry": {
+        "present": true,
+        "isDone": false,
+        "isCancelled": false
+      },
+      "cleanupErrors": [
+        "java.nio.file.FileSystemException: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\owned gowork 中文😀 16472276675080234404\\consumer: The process cannot access the file because it is being used by another process"
+      ],
+      "ownedRemaining": [],
+      "fixtureExplicitProcessSignalAttempts": [
+        {
+          "pid": 9716,
+          "action": "destroy",
+          "role": "owned-descendant",
+          "reason": "still-alive-after-provider-stop",
+          "attemptedAtUtc": "2026-11-10T22:38:08.104728300Z",
+          "returnValue": true,
+          "outcome": "returned",
+          "completedAtUtc": "2026-11-10T22:38:08.104728300Z"
+        },
+        {
+          "pid": 880,
+          "action": "destroy",
+          "role": "owned-descendant",
+          "reason": "still-alive-after-provider-stop",
+          "attemptedAtUtc": "2026-11-10T22:38:08.105515700Z",
+          "returnValue": true,
+          "outcome": "returned",
+          "completedAtUtc": "2026-11-10T22:38:08.105515700Z"
+        }
+      ]
+    },
+    {
+      "mode": "AUTO",
+      "expectedLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20中文😀%2013719581760780383691/consumer/source.go",
+      "actualLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2013719581760780383691/consumer/source.go",
+      "decodedUriStringsEqual": true,
+      "difference": "Unicode literal versus UTF8 percent encoding; same driveC and otherwise same decoded path",
+      "actualLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "expectedLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "localFailureKind": null,
+      "cross": {
+        "targets": [
+          {
+            "uri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2013719581760780383691/provider/target.go",
+            "range": {
+              "start": {
+                "line": 2,
+                "character": 5
+              },
+              "end": {
+                "line": 2,
+                "character": 13
+              }
+            }
+          }
+        ]
+      },
+      "transportAtFinallyEntry": {
+        "present": true,
+        "isDone": false,
+        "isCancelled": false
+      },
+      "cleanupErrors": [],
+      "ownedRemaining": [],
+      "fixtureExplicitProcessSignalAttempts": []
+    },
+    {
+      "mode": "OFF",
+      "expectedLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20中文😀%2011375832368244457025/consumer/source.go",
+      "actualLocalUri": "file:///C:/Users/runneradmin/AppData/Local/Temp/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2011375832368244457025/consumer/source.go",
+      "decodedUriStringsEqual": true,
+      "difference": "Unicode literal versus UTF8 percent encoding; same driveC and otherwise same decoded path",
+      "actualLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "expectedLocalRange": {
+        "start": {
+          "line": 4,
+          "character": 5
+        },
+        "end": {
+          "line": 4,
+          "character": 10
+        }
+      },
+      "localFailureKind": null,
+      "cross": {
+        "targets": []
+      },
+      "transportAtFinallyEntry": {
+        "present": true,
+        "isDone": false,
+        "isCancelled": false
+      },
+      "cleanupErrors": [
+        "java.nio.file.FileSystemException: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\owned gowork 中文😀 11375832368244457025\\consumer: The process cannot access the file because it is being used by another process"
+      ],
+      "ownedRemaining": [],
+      "fixtureExplicitProcessSignalAttempts": [
+        {
+          "pid": 8884,
+          "action": "destroy",
+          "role": "owned-descendant",
+          "reason": "still-alive-after-provider-stop",
+          "attemptedAtUtc": "2026-11-10T22:38:08.910139900Z",
+          "returnValue": true,
+          "outcome": "returned",
+          "completedAtUtc": "2026-11-10T22:38:08.910139900Z"
+        },
+        {
+          "pid": 4688,
+          "action": "destroy",
+          "role": "owned-descendant",
+          "reason": "still-alive-after-provider-stop",
+          "attemptedAtUtc": "2026-11-10T22:38:08.910139900Z",
+          "returnValue": true,
+          "outcome": "returned",
+          "completedAtUtc": "2026-11-10T22:38:08.910139900Z"
+        }
+      ]
+    }
+  ],
+  "observation": "All4 local equality failures have only Unicode URI encoding spelling difference; exact UTF16ranges and replies present. Cross actual3exact andOffempty.3cleanup errors remain independently blocking.",
+  "inferenceBoundary": "Decoded URI strings match; physical Windows Files.isSameFile cannot be rerun on Mac. Do not relax ranges/declaration/normal-response/cleanup oracles. No source or test execution changes."
+}

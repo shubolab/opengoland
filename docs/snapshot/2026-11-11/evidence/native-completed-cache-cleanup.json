@@ -1,0 +1,22 @@
+{
+  "status": "completed-exact-session-cache-cleanup",
+  "checkedAtUtc": "2026-11-11T02:30:48.738659+00:00",
+  "deleted": [
+    {
+      "path": ".tools/excluded-inlay-native-plan/runtime/profile/system/index",
+      "logicalBytes": 127914313,
+      "absent": true
+    },
+    {
+      "path": ".tools/excluded-inlay-native-plan/runtime/profile/system/caches",
+      "logicalBytes": 164626629,
+      "absent": true
+    }
+  ],
+  "protectedMetadataSha256Unchanged": {
+    "build/product/open Goland.app/Contents/Resources/openidea-product.json": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+    "build/public-plugin-install-vnz28s86/open Goland.app/Contents/Resources/openidea-product.json": "ed24ee342a157e28633b38a1ad652bd6f8c4873e75896f3c52f6a5642143f5f9"
+  },
+  "freeBytesAfter": 122735419392,
+  "preserved": "Source, fixture six files, current app, latest public app+DMG, config/log/LocalHistory/screenshots/results, shared SDK and Go caches retained."
+}

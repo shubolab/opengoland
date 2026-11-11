@@ -1,0 +1,96 @@
+{
+  "status": "actual-windows-795-identities-observed-but-not-pass",
+  "rawReports": 143,
+  "totals": {
+    "tests": 795,
+    "failures": 7,
+    "errors": 0,
+    "skipped": 12
+  },
+  "uniqueCaseIdentities": 795,
+  "duplicates": 0,
+  "fullExpected795Matches": true,
+  "missing": [],
+  "unexpected": [],
+  "failures": [
+    [
+      "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+      "testExplicitEmptyResolvesWorkspaceModuleThroughFactory"
+    ],
+    [
+      "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+      "testExplicitAbsoluteWorkspaceResolvesModuleThroughFactory"
+    ],
+    [
+      "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+      "testExplicitAutoResolvesWorkspaceModuleThroughFactory"
+    ],
+    [
+      "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+      "testExplicitOffKeepsModuleIsolationThroughFactory"
+    ],
+    [
+      "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+      "testRejectedProjectRegistrationCleansTheUnnotifiedOwnedAdapter"
+    ],
+    [
+      "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+      "testCreationAndPreStartDisposalAreMemoryOnlyAndActiveCancelOwnsOnlyItsProcesses"
+    ],
+    [
+      "dev.openidea.goide.run.GoRunBuildContextNativeTest",
+      "testRunnableEntryMustBelongToTheSelectedBuildContext"
+    ]
+  ],
+  "skipped": [
+    [
+      "dev.openidea.goide.engine.EngineClientLifecycleTest",
+      "failedInitializationCanBeRetried"
+    ],
+    [
+      "dev.openidea.goide.engine.EngineClientLifecycleTest",
+      "frozenRequestReusesOnlyItsCapturedConfigurationAfterTheLiveSettingsChange"
+    ],
+    [
+      "dev.openidea.goide.engine.EngineClientLifecycleTest",
+      "settingsRestartDoesNotLetOldReaderDisconnectNewEngine"
+    ],
+    [
+      "dev.openidea.goide.engine.EngineClientLifecycleTest",
+      "disposeShutsDownOwnedEngineAndRejectsReconnect"
+    ],
+    [
+      "dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest",
+      "capturedSettingsOwnTheGenerationPayloadEvenWhenTheLiveProjectUsesAnotherSdkAndBuildContext"
+    ],
+    [
+      "dev.openidea.goide.project.GoSdkProbeTest",
+      "plausibleMetadataStillCannotPublishWithoutARealGoMod"
+    ],
+    [
+      "dev.openidea.goide.project.GoSdkProbeTest",
+      "timeoutTerminatesTheOwnedCommandAndItsChildren"
+    ],
+    [
+      "dev.openidea.goide.project.GoSdkProbeTest",
+      "failedExecutableReportsTheToolErrorWithoutCreatingTheDestination"
+    ],
+    [
+      "dev.openidea.goide.project.GoSdkProbeTest",
+      "aCompletedLauncherCannotLeaveItsChildRunning"
+    ],
+    [
+      "dev.openidea.goide.project.GoSdkProbeTest",
+      "oversizedSingleLineOutputIsBoundedAndDoesNotPublishAProject"
+    ],
+    [
+      "dev.openidea.goide.project.GoSdkProbeTest",
+      "cancellationKillsOnlyTheOwnedGroupIncludingATermResistantLauncher"
+    ],
+    [
+      "dev.openidea.goide.project.GoSdkProbeTest",
+      "silentSuccessfulExecutableCannotCreateProjectParentsOrAModule"
+    ]
+  ],
+  "boundary": "No product/installer/Windows795PASS claim;7failures12skips retained. No retries/changes."
+}

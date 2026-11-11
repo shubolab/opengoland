@@ -1,0 +1,9 @@
+{
+  "atUtc": "2026-11-10T23:11:48.771542+00:00",
+  "status": "app-launched-once-observer-rebound-only",
+  "appPid": 50839,
+  "observer": ".tools/gowork-native-plan-20261111/observe-owned.v2.py",
+  "observerSha256": "983e86aee5052997810678870a103fa2d46769d8337f25e8f26e6bad18b9e42a",
+  "cause": "V2 launcher loaded the unchanged observer which imported original gate; observer failed before sampling. No second application launch.",
+  "boundary": "There is an unsampled gap between actual app launch and v2 observer start; no claim of exhaustive startup process coverage."
+}

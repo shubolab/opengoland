@@ -1,0 +1,53 @@
+{
+  "snapshotAtUtc": "2026-11-11T02:31:44.302166+00:00",
+  "snapshotAtShanghai": "2026-11-11T10:31:44.302372+08:00",
+  "productSourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+  "productSourceFiles": 506,
+  "productSourceDigest": "3229d2b438af1a1e43184665e4893e81cfdead9e1431f595bf884a7cb1e2ccdc",
+  "snapshotIsDocumentationOnly": true,
+  "goalComplete": false,
+  "handoffRequestedByUser": true,
+  "goalToolStatusAtHandoff": "usageLimited",
+  "publicVersion": "0.1.0-preview.20261110.5",
+  "unpublishedCandidate": "0.1.0-preview.20261110.6",
+  "ciRun": 42915342968,
+  "localFull": {
+    "kotlinTests": 795,
+    "kotlinXmlReports": 143,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "goRacePassEvents": 347,
+    "goRacePackagesPassed": 11,
+    "commandPackageHasNoTestFiles": true,
+    "goVetExit": 0
+  },
+  "windows": {
+    "tests": 795,
+    "xmlReports": 143,
+    "failures": 7,
+    "errors": 0,
+    "skipped": 12,
+    "installerAssemblyReached": false
+  },
+  "native": {
+    "singleApplicationLaunch": true,
+    "appNormalQuitObserved": true,
+    "freshPostQuitAll16RecordedIdentitiesGone": true,
+    "observerEndedAt7200SecondsBeforeQuit": true,
+    "initialObserverGap": true,
+    "wholeLifetimeExhaustiveProcessCoverage": false,
+    "goWorkTwoModules": "REA observed",
+    "crossModuleDeclaration": "CUA goto api.Call then REA screenshot api.go; caret10:6 observed by CUA",
+    "goplsOwnedChildGowork": "Two sampled owned gopls processes had present empty GOWORK and matching own sentinel",
+    "initializeEnvKeyAbsent": "UNVERIFIED-native-wire-not-captured",
+    "goOrDelveRawAutoControl": "UNVERIFIED-short-Go-missed-no-Delve-captured",
+    "run": "CUA observed actual bundled Go run output12 12 and exit0; no dedicated REA final capture",
+    "debug": "UNVERIFIED-breakpoint-set; toolbar attempt showed no confirmed active session, no dlv sampled",
+    "explicitAuto": "NOT-EXECUTED",
+    "changeSignatureAuto": "NOT-EXECUTED",
+    "generateTestsTypedEditUndo": "NOT-EXECUTED"
+  },
+  "freeDiskBytes": 122730012672,
+  "noNewReleaseOrSourceFixPerformedAtWrapUp": true
+}

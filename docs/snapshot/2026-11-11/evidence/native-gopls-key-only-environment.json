@@ -1,0 +1,66 @@
+{
+  "status": "snapshot-only-not-native-acceptance",
+  "sourceBinding": {
+    "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+    "sourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+    "sourceFiles": 506,
+    "sourceDigest": "3229d2b438af1a1e43184665e4893e81cfdead9e1431f595bf884a7cb1e2ccdc",
+    "manifestSha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+    "engineSha256": "75db2a329d999fc0b41937a5cab501d0d6cdb29f750d62ddb9853887b84b78be",
+    "ownClassCount": 715,
+    "version": "0.1.0-preview.20261110.6",
+    "status": "source-binding-pass-only",
+    "boundary": "Supplemental source/evidence gate only. Does not reexecute complete class/tool/platform/module/archive/signature checks or prove native/public release acceptance."
+  },
+  "app": {
+    "pid": 50839,
+    "createTime": 1794352290.003554,
+    "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea"
+  },
+  "selectedKeys": [
+    "GOWORK",
+    "OPENGOLAND_GOWORK_NATIVE_CONTROL"
+  ],
+  "observations": [
+    {
+      "pid": 51087,
+      "createTime": 1794352347.53352,
+      "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls",
+      "tool": "gopls",
+      "atUtc": "2026-11-10T23:12:36.798499+00:00",
+      "status": "observed",
+      "keys": {
+        "GOWORK": {
+          "present": true,
+          "value": ""
+        },
+        "OPENGOLAND_GOWORK_NATIVE_CONTROL": {
+          "present": true,
+          "value": "e6b7-native-auto-001"
+        }
+      },
+      "ownControlMatches": true
+    },
+    {
+      "pid": 51089,
+      "createTime": 1794352347.705185,
+      "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls",
+      "tool": "gopls",
+      "atUtc": "2026-11-10T23:12:36.799683+00:00",
+      "status": "observed",
+      "keys": {
+        "GOWORK": {
+          "present": true,
+          "value": ""
+        },
+        "OPENGOLAND_GOWORK_NATIVE_CONTROL": {
+          "present": true,
+          "value": "e6b7-native-auto-001"
+        }
+      },
+      "ownControlMatches": true
+    }
+  ],
+  "signalsUsed": false,
+  "scope": "One sampled owned-tool snapshot; no short-lived coverage or clean-exit claim."
+}

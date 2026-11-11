@@ -1,0 +1,199 @@
+{
+  "status": "independent-readonly-review-with-unexecuted-small-proposals",
+  "atUtc": "2026-11-10T22:57:44.824051+00:00",
+  "run": 42915342968,
+  "job": 130176290411,
+  "sourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+  "scope": "Only these3 existing Windows failures. Four GOWORK failures delegated elsewhere. No main/source/binding/producer/SDK/app/remote modifications or Go/Gradle/GUI execution. No proposal run, RED/GREEN or fix claim.",
+  "rawXml": [
+    {
+      "file": {
+        "path": ".tools/public-v6-e6b7-preflight/windows-failed-evidence-run42915342968-art13810666855/extracted/windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.xml",
+        "bytes": 29105,
+        "sha256": "fa6728268f7b8d44d43804e1774a18068a0204190af71b4349a7b4db28bc5600"
+      },
+      "suiteCounters": {
+        "name": "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+        "tests": "6",
+        "skipped": "0",
+        "failures": "1",
+        "errors": "0",
+        "timestamp": "2026-11-10T22:39:31.402Z",
+        "hostname": "runnervmm7ud1",
+        "time": "8.585"
+      },
+      "failures": [
+        {
+          "test": "testRejectedProjectRegistrationCleansTheUnnotifiedOwnedAdapter",
+          "message": "junit.framework.AssertionFailedError",
+          "firstStackLines": [
+            "junit.framework.AssertionFailedError",
+            "\tat junit.framework.Assert.fail(Assert.java:55)",
+            "\tat junit.framework.Assert.assertTrue(Assert.java:22)",
+            "\tat junit.framework.Assert.assertFalse(Assert.java:39)",
+            "\tat junit.framework.Assert.assertFalse(Assert.java:47)",
+            "\tat junit.framework.TestCase.assertFalse(TestCase.java:216)",
+            "\tat dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.testRejectedProjectRegistrationCleansTheUnnotifiedOwnedAdapter(GoLaunchedAdapterLifecycleTest.kt:180)",
+            "\tat java.base@25.0.3/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)",
+            "\tat java.base@25.0.3/java.lang.reflect.Method.invoke(Method.java:565)",
+            "\tat junit.framework.TestCase.runTest(TestCase.java:177)"
+          ]
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": ".tools/public-v6-e6b7-preflight/windows-failed-evidence-run42915342968-art13810666855/extracted/windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunBuildContextLoaderTest.xml",
+        "bytes": 75969,
+        "sha256": "3181a9f28c9fde5bdd3b78683ec2f104433461fedcab7f6795d70b9b25f3dfad"
+      },
+      "suiteCounters": {
+        "name": "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "tests": "11",
+        "skipped": "0",
+        "failures": "1",
+        "errors": "0",
+        "timestamp": "2026-11-10T22:47:23.722Z",
+        "hostname": "runnervmm7ud1",
+        "time": "41.548"
+      },
+      "failures": [
+        {
+          "test": "testCreationAndPreStartDisposalAreMemoryOnlyAndActiveCancelOwnsOnlyItsProcesses",
+          "message": "java.util.concurrent.TimeoutException",
+          "firstStackLines": [
+            "java.util.concurrent.TimeoutException",
+            "\tat java.base/java.util.concurrent.FutureTask.get(FutureTask.java:206)",
+            "\tat dev.openidea.goide.run.GoRunBuildContextLoaderTest.testCreationAndPreStartDisposalAreMemoryOnlyAndActiveCancelOwnsOnlyItsProcesses(GoRunBuildContextLoaderTest.kt:266)",
+            "\tat java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)",
+            "\tat java.base/java.lang.reflect.Method.invoke(Method.java:565)",
+            "\tat junit.framework.TestCase.runTest(TestCase.java:177)",
+            "\tat com.intellij.testFramework.UsefulTestCase.lambda$runBare$12(UsefulTestCase.java:529)",
+            "\tat com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99)",
+            "\tat com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99)",
+            "\tat com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:81)"
+          ]
+        }
+      ]
+    },
+    {
+      "file": {
+        "path": ".tools/public-v6-e6b7-preflight/windows-failed-evidence-run42915342968-art13810666855/extracted/windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunBuildContextNativeTest.xml",
+        "bytes": 157650,
+        "sha256": "0323f828942a15c82883eef41a5ff082fc2077e5b7953102d16e591a5752f371"
+      },
+      "suiteCounters": {
+        "name": "dev.openidea.goide.run.GoRunBuildContextNativeTest",
+        "tests": "1",
+        "skipped": "0",
+        "failures": "1",
+        "errors": "0",
+        "timestamp": "2026-11-10T22:48:05.276Z",
+        "hostname": "runnervmm7ud1",
+        "time": "11.908"
+      },
+      "failures": [
+        {
+          "test": "testRunnableEntryMustBelongToTheSelectedBuildContext",
+          "message": "java.lang.AssertionError: The real Run gutter action must register its native configuration",
+          "firstStackLines": [
+            "java.lang.AssertionError: The real Run gutter action must register its native configuration",
+            "\tat org.junit.Assert.fail(Assert.java:89)",
+            "\tat kotlin.test.junit.JUnitAsserter.fail(JUnitSupport.kt:56)",
+            "\tat kotlin.test.Asserter.assertTrue(Assertions.kt:766)",
+            "\tat kotlin.test.junit.JUnitAsserter.assertTrue(JUnitSupport.kt:30)",
+            "\tat kotlin.test.Asserter.assertTrue(Assertions.kt:776)",
+            "\tat kotlin.test.junit.JUnitAsserter.assertTrue(JUnitSupport.kt:30)",
+            "\tat kotlin.test.AssertionsKt__AssertionsKt.assertTrue(Assertions.kt:44)",
+            "\tat kotlin.test.AssertionsKt.assertTrue(Unknown Source)",
+            "\tat dev.openidea.goide.run.GoNativeGutterInvocationKt.invokeNativeGoGutter(GoNativeGutterInvocation.kt:84)"
+          ]
+        }
+      ]
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/debug/GoLaunchedAdapterLifecycleTest.kt",
+      "bytes": 29907,
+      "sha256": "2e06978e0f149b3c1165f1476acb39d419582840b50b4688af19022e2930a905"
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/run/GoNativeGutterInvocation.kt",
+      "bytes": 5639,
+      "sha256": "a0b7e3679cc0a79f889b2843d0fba1fddcd989022fb5d00da5a41c0568caac24"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/run/GoRunBuildContextLoader.kt",
+      "bytes": 40155,
+      "sha256": "542ecaf1227a253b94572064ec2c578107530eaee3026c790a8a5f79873cd693"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/debug/GoDebugDescriptor.kt",
+      "bytes": 6630,
+      "sha256": "6ff4c048d80bd2a802fe762000b9e0f590b3a09cbd266e40524a916ef4138342"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/debug/GoOwnedDapAdapterProcessHandler.kt",
+      "bytes": 3196,
+      "sha256": "719ef47109d15f884791188ce9029e277b4c353f495f98fbbae04ea74ae2a296"
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/run/GoRunBuildContextLoaderTest.kt",
+      "bytes": 35569,
+      "sha256": "399d334200312b22a0142898b9e60af1c90a82a1bf34a3c01b77b3a86b76aaa1"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/run/GoRunContext.kt",
+      "bytes": 21389,
+      "sha256": "cddbe8eacd6a1d4c3b9fbc651462b6a76234fcb816e6b7d5601c62a31913149b"
+    }
+  ],
+  "findings": [
+    {
+      "case": "GoRunBuildContextNativeTest:135 / GoNativeGutterInvocation:84",
+      "classification": "Strong source+log evidence of fixture path-string mismatch, not absence of native registration.",
+      "observed": "Windows log22:48:07.071 Create run configuration;22:48:07.075 TEMPORARY Go Test TestHost;22:48:07.083 Execute. The10second RunManager listener latch nevertheless times out.",
+      "source": "Producer stores source.directory from VirtualFile parent (system-independent C:/ form); fixture passes Path.toString C:\\ form. Listener compares raw strings at GoNativeGutterInvocation line51. Existing platform action genuinely created/executed configuration.",
+      "proposal": "Test-only pure Path.normalize comparison with absolute expected directory. No toRealPath/IO on EDT; no extra timeout, skip, manual configuration or simulated action. Preserve actual RunManager event, popup perform, test pattern and selected command.",
+      "needed": "Actual Windows same cohort and gutter callers; log both normalized directories on future mismatch. This does not broaden production path-alias semantics."
+    },
+    {
+      "case": "GoLaunchedAdapterLifecycleTest:180",
+      "classification": "Observed process-exit-oracle disagreement; physical exit confirmation required before assigning production versus fixture fault.",
+      "observed": "Rejected registration test lasts0.489s. process.onExit().get(8s) returns, immediate process.isAlive remains true. This is the adapter, not sentinel-child assertion. Raw XML has no process implementation/start identity/real exit code or later exit observation at this failure point.",
+      "source": "GoDebugDescriptor catch activates startNotify then destroys exact owned handler and rethrows; termination is asynchronous BGT. GoOwnedDapAdapterProcessHandler also uses onExit to disable fallback timers. Therefore a proven early/exceptional completion issue could matter to production; do not dismiss the failure as only flaky.",
+      "primaryApiSource": {
+        "url": "https://raw.githubusercontent.com/openjdk/jdk/jdk-25%2B36/src/java.base/windows/classes/java/lang/ProcessImpl.java",
+        "lines": "510-565,591-596",
+        "fact": "OpenJDK25 base Windows waitFor uses the owned process handle; onExit is ProcessHandleImpl.completion(pid,false).handleAsync returning this regardless of callback throwable. isAlive uses its native process handle.",
+        "limit": "Primary25base source, not a byte-identical audit of the actual JetBrains25.0.3 runtime. No exact API root cause established."
+      },
+      "proposal": "Test-only switch the existing8second cleanup barrier to actual process.waitFor(8s), retain isAlive/no disconnect/no launch assertions. Record onExit completion, process class/PID/start and actual exitValue/handler state in subsequent real evidence. This is a physical-exit barrier, not a widened timeout.",
+      "needed": "Actual Windows rejected-registration rerun. If waitFor or physical exit fails, treat as production RED. If onExit proves early completion, separately review production deadline logic: delayed actions should still re-check actual isAlive; no production change proposed here without that evidence."
+    },
+    {
+      "case": "GoRunBuildContextLoaderTest:266",
+      "classification": "Potential production cancellation/descendant ownership gap; not justified as timeout-only fixture failure.",
+      "observed": "The real worker future did not return in5s after EDT cancel; it had already seen owned.json with helper parent+child alive. Operation.future is cancelled immediately; that does not prove BGT teardown completed.",
+      "source": "Actual Windows execute uses JDK ProcessBuilder pipes, not PTY. Main loop calls checkCurrent before process.descendants sampling; cancelling before this sample throws to finally. Windows stop kills only cached children, never refreshes live descendants. A child spawned before owned.json may be missing from the map and survive parent kill, keeping output pipes open while stream close/join runs.",
+      "inferenceBoundary": "This code ordering is a concrete missing-coverage path and fits the failure. No worker/native thread dump or child snapshot was captured at timeout, so the exact blocking call and actual leaked child are not proven by current XML alone.",
+      "proposal": "Small production candidate: refresh exact current process descendants in stop before any parent kill; also sample before cancellation checks in the normal loop. Retain captured ProcessHandles, deepest-first child kills, exact parent kill, existing bounded waits, no shared engine/LSP touches, no new timeout/skip.",
+      "needed": "Deterministic Windows control cancel after the real helper child/record exists but before first ordinary sample, then require worker completion, both recorded owned identities gone and no reply release; keep pre-start zero-exec and EDT under500ms assertions. Include a separate unowned sentinel still alive. Repeat existing success/output/malformed/guard controls.",
+      "residualRisk": "A general child-spawns-during-enumeration or already-reparented process race is not eliminated by one refresh; do not claim Windows JobObject-level ownership. If exact physical child cleanup or pipe close still fails, collect only owned worker/reader stack+PID/start/pipe state before designing further changes."
+    }
+  ],
+  "proposals": [
+    {
+      "path": ".tools/windows-existing-failures-review-20261111/fixture-only-proposal.diff",
+      "bytes": 2432,
+      "sha256": "901b1dafc2fcbac16379e2610a262a99ba5ca74ae4c9091b01e269f6ba2fe98a"
+    },
+    {
+      "path": ".tools/windows-existing-failures-review-20261111/loader-production-proposal.diff",
+      "bytes": 1495,
+      "sha256": "edcbd7b276c3c3fbe4a00ebe35e2de18a1b1159f0f1e43bc7cd616a82b7f607c"
+    }
+  ],
+  "finalBoundary": "Keep C506/3229 source and native candidate frozen. Parent may review these unexecuted proposals for a separate future source version; failed Windows preflight is not an installer, release or product PASS."
+}

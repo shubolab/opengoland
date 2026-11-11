@@ -1,0 +1,208 @@
+{
+  "atUtc": "2026-11-11T02:31:44.302166+00:00",
+  "records": [
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/local-full-result.json.gz",
+      "originalPath": ".tools/root-gowork-full-checks-v3-20261111/attempt-e6b7d78-001/result.json",
+      "originalBytes": 1119728,
+      "originalSha256": "2b199588b78f75ea38f0f620948b75772b49c5791c861ba5ed677ddc58a8a520",
+      "storedBytes": 74233,
+      "storedSha256": "a02f710c5733d4127ed7bb7badb7f558abed823de5b07921d10f7231312c1542",
+      "encoding": "gzip"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/source-inputs-C.json",
+      "originalPath": ".tools/root-gowork-full-checks-v3-20261111/attempt-e6b7d78-001/inputs-before.json",
+      "originalBytes": 86948,
+      "originalSha256": "9bf8c5d9c9ed0f2e9c3fb8a3b9fce6f0c5243e1077d2ef533f4cfb04f2c35f97",
+      "storedBytes": 86948,
+      "storedSha256": "9bf8c5d9c9ed0f2e9c3fb8a3b9fce6f0c5243e1077d2ef533f4cfb04f2c35f97",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-binding-v2.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/binding.v2.json",
+      "originalBytes": 4155,
+      "originalSha256": "8887b99cd554244e06ee8b43c61c0f88514752d1b9c12e71c8caa5db3f27a414",
+      "storedBytes": 4155,
+      "storedSha256": "8887b99cd554244e06ee8b43c61c0f88514752d1b9c12e71c8caa5db3f27a414",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-launch.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/launch.json",
+      "originalBytes": 3776,
+      "originalSha256": "97b1ec746b17cee37d8729704a625e9a417a08202d649ec85eed766e575b15be",
+      "storedBytes": 3776,
+      "storedSha256": "97b1ec746b17cee37d8729704a625e9a417a08202d649ec85eed766e575b15be",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-app-identity.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/app-identity.json",
+      "originalBytes": 1182,
+      "originalSha256": "9fd4ecde5683eb5e451d423093df0113a7685cb772f95567b8d06bab6d9a37a4",
+      "storedBytes": 1182,
+      "storedSha256": "9fd4ecde5683eb5e451d423093df0113a7685cb772f95567b8d06bab6d9a37a4",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-observer-rebind.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/observer-rebind.json",
+      "originalBytes": 574,
+      "originalSha256": "05e30be6e6e3be252144ffb228435782d96c62c8db5d561d3c9cab351fd6f636",
+      "storedBytes": 574,
+      "storedSha256": "05e30be6e6e3be252144ffb228435782d96c62c8db5d561d3c9cab351fd6f636",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-bounded-observer.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/process-timeline-summary.json",
+      "originalBytes": 8464,
+      "originalSha256": "ad4b28dea6d0aa0e1046a25cd4f5a5b74e273738fced16b6d9d461f0232755d4",
+      "storedBytes": 8464,
+      "storedSha256": "ad4b28dea6d0aa0e1046a25cd4f5a5b74e273738fced16b6d9d461f0232755d4",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-post-quit-recheck.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/post-quit-recheck.json",
+      "originalBytes": 2320,
+      "originalSha256": "d176693cc176f56e182c41b2e99594ff3db1635c51d2cbd800b154b4af5c73b2",
+      "storedBytes": 2320,
+      "storedSha256": "d176693cc176f56e182c41b2e99594ff3db1635c51d2cbd800b154b4af5c73b2",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-completed-cache-cleanup.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/completed-cache-cleanup.json",
+      "originalBytes": 978,
+      "originalSha256": "b38dd6fc97a4669bd310838c4ad9b0d88e9848f2abdb22655e61953bb355bbce",
+      "storedBytes": 978,
+      "storedSha256": "b38dd6fc97a4669bd310838c4ad9b0d88e9848f2abdb22655e61953bb355bbce",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/native-gopls-key-only-environment.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/inherited-auto-tool-env-002.json",
+      "originalBytes": 2350,
+      "originalSha256": "0b93302717c3a079c6b235b29e6c3ee392a208e3f964c492a8ba3dc3e9982d1d",
+      "storedBytes": 2350,
+      "storedSha256": "0b93302717c3a079c6b235b29e6c3ee392a208e3f964c492a8ba3dc3e9982d1d",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/rea-inherited-workspace.json.gz",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/rea-inherited-workspace-001.json",
+      "originalBytes": 587789,
+      "originalSha256": "dc3b6578c29dd71d255dcc7a29ed310e9df89034c798683332ddcbfda979b73a",
+      "storedBytes": 385641,
+      "storedSha256": "4a2f1e243227d4c952d71c4c42d14364ab3989d6f9287c738df93556911f6fc7",
+      "encoding": "gzip"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/rea-cross-module.json.gz",
+      "originalPath": ".tools/gowork-native-plan-20261111/runtime-e6b7-001/rea-inherited-cross-module-002.json",
+      "originalBytes": 564861,
+      "originalSha256": "d58912c745c00e48cac41a96ef7ebddf434b1d4108fc518ed9383acb7e55c12e",
+      "storedBytes": 390031,
+      "storedSha256": "ce1abcd57029d198c7bacd099ec1f1916cbab673d7bb5966f98a61dceb9746cb",
+      "encoding": "gzip"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/candidate-strict-postcheck.json",
+      "originalPath": ".tools/gowork-native-plan-20261111/candidate-postchecks/runs/actual-e6b7-001/summary.json",
+      "originalBytes": 2372,
+      "originalSha256": "46cadad172b329a72378e14e0a37522e8b10739650c96c5812d6b8ce9bc97313",
+      "storedBytes": 2372,
+      "storedSha256": "46cadad172b329a72378e14e0a37522e8b10739650c96c5812d6b8ce9bc97313",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/ci-terminal.json",
+      "originalPath": ".tools/public-v6-e6b7-preflight/remote-watch/sample-20261110T231417Z.json",
+      "originalBytes": 10064,
+      "originalSha256": "6ca4d0eff4a100a967f62c1bee9e7b0f3dde7a5d3dcc4ddf9c5f2de4c87eb525",
+      "storedBytes": 10064,
+      "storedSha256": "6ca4d0eff4a100a967f62c1bee9e7b0f3dde7a5d3dcc4ddf9c5f2de4c87eb525",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/windows-xml-summary.json",
+      "originalPath": ".tools/public-v6-e6b7-preflight/windows-failed-evidence-run42915342968-art13810666855/raw-xml-summary.json",
+      "originalBytes": 3035,
+      "originalSha256": "c724bd320a2515d31bbf7891382cb1ef5586f762d176e33117cca44f882a76a4",
+      "storedBytes": 3035,
+      "storedSha256": "c724bd320a2515d31bbf7891382cb1ef5586f762d176e33117cca44f882a76a4",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/windows-gowork-four-facts.json",
+      "originalPath": ".tools/public-v6-e6b7-preflight/windows-failed-evidence-run42915342968-art13810666855/gowork-four-identity-facts.json",
+      "originalBytes": 9860,
+      "originalSha256": "9388b55b567bab154ec84ce41653bdc357c84fdd842629943cd19ab702d694ef",
+      "storedBytes": 9860,
+      "storedSha256": "9388b55b567bab154ec84ce41653bdc357c84fdd842629943cd19ab702d694ef",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/windows-failure-artifact.zip",
+      "originalPath": ".tools/public-v6-e6b7-preflight/windows-failed-evidence-run42915342968-art13810666855/artifact.zip",
+      "originalBytes": 1032789,
+      "originalSha256": "cf7218e3dab11fe2154b162848b090bea243fc04ad67d4be54e55f7f8f7711cc",
+      "storedBytes": 1032789,
+      "storedSha256": "cf7218e3dab11fe2154b162848b090bea243fc04ad67d4be54e55f7f8f7711cc",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/evidence/historical-cleanup-summary.json",
+      "originalPath": ".tools/local-history-cleanup-root/latest-cleanup-summary-20261111.json",
+      "originalBytes": 3670,
+      "originalSha256": "a5e755693fce1b533eb2865158657e0e6a1bddff0aa1d1ff097342e8774529d4",
+      "storedBytes": 3670,
+      "storedSha256": "a5e755693fce1b533eb2865158657e0e6a1bddff0aa1d1ff097342e8774529d4",
+      "encoding": "identity"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/unapplied-proposals/fixture-only.diff.gz",
+      "originalPath": ".tools/windows-existing-failures-review-20261111/fixture-only-proposal.diff",
+      "originalSha256": "901b1dafc2fcbac16379e2610a262a99ba5ca74ae4c9091b01e269f6ba2fe98a",
+      "storedSha256": "9534112ce0cac735062c18cba9fd4bf4f9ae7bbe379e8f7a3e60580d919e6fd4",
+      "encoding": "gzip",
+      "status": "UNAPPLIED-UNTESTED-NOT-A-FIX"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/unapplied-proposals/loader-production-v1.diff.gz",
+      "originalPath": ".tools/windows-existing-failures-review-20261111/loader-production-proposal.diff",
+      "originalSha256": "edcbd7b276c3c3fbe4a00ebe35e2de18a1b1159f0f1e43bc7cd616a82b7f607c",
+      "storedSha256": "38d8773cd1db567fd93dfcb53ab0c4d6128bfbd86b39b37d60a54becad207b8f",
+      "encoding": "gzip",
+      "status": "UNAPPLIED-UNTESTED-NOT-A-FIX"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/unapplied-proposals/existing-failures-review.json",
+      "originalPath": ".tools/windows-existing-failures-review-20261111/review.json",
+      "originalSha256": "3853ebf1212ed7b9cb773fb5b578e39baf70b257f5277a6c0e30d263b8edbe57",
+      "storedSha256": "3853ebf1212ed7b9cb773fb5b578e39baf70b257f5277a6c0e30d263b8edbe57",
+      "encoding": "identity",
+      "status": "UNAPPLIED-UNTESTED-NOT-A-FIX"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/unapplied-proposals/gowork-uri-identity-v1.diff.gz",
+      "originalPath": ".tools/windows-gowork-uri-proposal-20261111/proposal.diff",
+      "originalSha256": "f01c3fbecc024d933343c7a300b2ec912245d2a2d3350616b7055a1ac69607a0",
+      "storedSha256": "6ba1995fb598fba1309a0854cd31f27c0dab6c6e0ba30b9f6090956908bbdb01",
+      "encoding": "gzip",
+      "status": "UNAPPLIED-UNTESTED-NOT-A-FIX"
+    },
+    {
+      "snapshotPath": "docs/snapshot/2026-11-11/unapplied-proposals/gowork-uri-review.md",
+      "originalPath": ".tools/windows-gowork-uri-proposal-20261111/REVIEW.md",
+      "originalSha256": "73f2614dcb9dde9b96bd91ac01cd115fbd89fcad07ec901bd663bd92a5f36e46",
+      "storedSha256": "73f2614dcb9dde9b96bd91ac01cd115fbd89fcad07ec901bd663bd92a5f36e46",
+      "encoding": "identity",
+      "status": "UNAPPLIED-UNTESTED-NOT-A-FIX"
+    }
+  ],
+  "boundary": "Compressed records preserve original bytes. Absolute local .tools paths are historical origins, not required portable paths or fresh-runtime claims. Proposals are not applied or validated."
+}

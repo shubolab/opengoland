@@ -1,0 +1,298 @@
+{
+  "observedAtUtc": "2026-11-10T23:14:16.305445+00:00",
+  "run": {
+    "id": 42915342968,
+    "run_attempt": 1,
+    "head_sha": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+    "event": "workflow_dispatch",
+    "head_branch": "main",
+    "path": ".github/workflows/release.yml",
+    "status": "completed",
+    "conclusion": "failure",
+    "created_at": "2026-11-10T22:31:28Z",
+    "updated_at": "2026-11-10T23:13:52Z",
+    "html_url": "https://github.com/shubolab/opengoland/actions/runs/42915342968"
+  },
+  "jobs": [
+    {
+      "id": 130176224681,
+      "name": "version",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-10T22:31:32Z",
+      "completed_at": "2026-11-10T22:31:37Z",
+      "html_url": "https://github.com/shubolab/opengoland/actions/runs/42915342968/job/130176224681",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:33Z",
+          "completed_at": "2026-11-10T22:31:33Z"
+        },
+        {
+          "number": 2,
+          "name": "Run python3 - <<'PY'",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:33Z",
+          "completed_at": "2026-11-10T22:31:33Z"
+        },
+        {
+          "number": 3,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:33Z",
+          "completed_at": "2026-11-10T22:31:34Z"
+        }
+      ]
+    },
+    {
+      "id": 130176290411,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-11-10T22:31:40Z",
+      "completed_at": "2026-11-10T22:48:37Z",
+      "html_url": "https://github.com/shubolab/opengoland/actions/runs/42915342968/job/130176290411",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:42Z",
+          "completed_at": "2026-11-10T22:31:43Z"
+        },
+        {
+          "number": 2,
+          "name": "Preserve authenticated LF source bytes",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:43Z",
+          "completed_at": "2026-11-10T22:31:49Z"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:49Z",
+          "completed_at": "2026-11-10T22:31:54Z"
+        },
+        {
+          "number": 4,
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:54Z",
+          "completed_at": "2026-11-10T22:31:54Z"
+        },
+        {
+          "number": 5,
+          "name": "Run actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:54Z",
+          "completed_at": "2026-11-10T22:32:27Z"
+        },
+        {
+          "number": 6,
+          "name": "Build, install, start and uninstall the Windows product",
+          "status": "completed",
+          "conclusion": "failure",
+          "started_at": "2026-11-10T22:32:27Z",
+          "completed_at": "2026-11-10T22:48:31Z"
+        },
+        {
+          "number": 7,
+          "name": "Retain Windows installers and evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:48:31Z",
+          "completed_at": "2026-11-10T22:48:33Z"
+        },
+        {
+          "number": 12,
+          "name": "Post Run actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started_at": "2026-11-10T22:48:33Z",
+          "completed_at": "2026-11-10T22:48:33Z"
+        },
+        {
+          "number": 13,
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "skipped",
+          "started_at": "2026-11-10T22:48:33Z",
+          "completed_at": "2026-11-10T22:48:33Z"
+        },
+        {
+          "number": 14,
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:48:33Z",
+          "completed_at": "2026-11-10T22:48:34Z"
+        },
+        {
+          "number": 15,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:48:34Z",
+          "completed_at": "2026-11-10T22:48:35Z"
+        }
+      ]
+    },
+    {
+      "id": 130176290496,
+      "name": "macos",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-10T22:31:40Z",
+      "completed_at": "2026-11-10T23:13:51Z",
+      "html_url": "https://github.com/shubolab/opengoland/actions/runs/42915342968/job/130176290496",
+      "steps": [
+        {
+          "number": 1,
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:40Z",
+          "completed_at": "2026-11-10T22:31:42Z"
+        },
+        {
+          "number": 2,
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:42Z",
+          "completed_at": "2026-11-10T22:31:44Z"
+        },
+        {
+          "number": 3,
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:44Z",
+          "completed_at": "2026-11-10T22:31:44Z"
+        },
+        {
+          "number": 4,
+          "name": "Run actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:31:44Z",
+          "completed_at": "2026-11-10T22:32:08Z"
+        },
+        {
+          "number": 5,
+          "name": "Prepare authenticated SDK and pinned builder",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:32:08Z",
+          "completed_at": "2026-11-10T22:34:01Z"
+        },
+        {
+          "number": 6,
+          "name": "Build and verify the macOS installer",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T22:34:01Z",
+          "completed_at": "2026-11-10T23:13:13Z"
+        },
+        {
+          "number": 7,
+          "name": "Retain macOS installer and evidence",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T23:13:13Z",
+          "completed_at": "2026-11-10T23:13:44Z"
+        },
+        {
+          "number": 12,
+          "name": "Post Run actions/setup-go@40f1582b2485089dde7abd97c1529aa768e1baff",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T23:13:44Z",
+          "completed_at": "2026-11-10T23:13:44Z"
+        },
+        {
+          "number": 13,
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T23:13:44Z",
+          "completed_at": "2026-11-10T23:13:45Z"
+        },
+        {
+          "number": 14,
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T23:13:45Z",
+          "completed_at": "2026-11-10T23:13:45Z"
+        },
+        {
+          "number": 15,
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "started_at": "2026-11-10T23:13:45Z",
+          "completed_at": "2026-11-10T23:13:48Z"
+        }
+      ]
+    },
+    {
+      "id": 130197555549,
+      "name": "publish",
+      "status": "completed",
+      "conclusion": "skipped",
+      "started_at": "2026-11-10T23:13:52Z",
+      "completed_at": "2026-11-10T23:13:52Z",
+      "html_url": "https://github.com/shubolab/opengoland/actions/runs/42915342968/job/130197555549",
+      "steps": []
+    }
+  ],
+  "boundary": "Read-only specific run/attempt watch; job status is not Windows795 or installed-product acceptance.",
+  "artifacts": [
+    {
+      "id": 13811243263,
+      "name": "macos-arm64",
+      "size_in_bytes": 939445566,
+      "digest": "sha256:e3e1aee7533a62180c562c7dcb6ec8e435801cf16ef3d5bfbf8a22796f01e3ae",
+      "expired": false,
+      "created_at": "2026-11-10T23:13:45Z",
+      "updated_at": "2026-11-10T23:13:45Z",
+      "expires_at": "2026-11-24T23:13:14Z",
+      "workflow_run": {
+        "id": 42915342968,
+        "repository_id": 1450286669,
+        "head_repository_id": 1450286669,
+        "head_branch": "main",
+        "head_sha": "e6b7d7816f0d68395ec2a0b77ccf205e10554917"
+      }
+    },
+    {
+      "id": 13810666855,
+      "name": "windows-x64",
+      "size_in_bytes": 1032789,
+      "digest": "sha256:cf7218e3dab11fe2154b162848b090bea243fc04ad67d4be54e55f7f8f7711cc",
+      "expired": false,
+      "created_at": "2026-11-10T22:48:33Z",
+      "updated_at": "2026-11-10T22:48:33Z",
+      "expires_at": "2026-11-24T22:48:32Z",
+      "workflow_run": {
+        "id": 42915342968,
+        "repository_id": 1450286669,
+        "head_repository_id": 1450286669,
+        "head_branch": "main",
+        "head_sha": "e6b7d7816f0d68395ec2a0b77ccf205e10554917"
+      }
+    }
+  ]
+}

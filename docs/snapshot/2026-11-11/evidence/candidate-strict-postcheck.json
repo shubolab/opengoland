@@ -1,0 +1,52 @@
+{
+  "status": "pass-readonly-candidate-seals-native-pending",
+  "startedAtUtc": "2026-11-10T22:44:24.056454+00:00",
+  "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+  "sourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+  "sourceFiles": 506,
+  "sourceDigest": "3229d2b438af1a1e43184665e4893e81cfdead9e1431f595bf884a7cb1e2ccdc",
+  "productMetadata": {
+    "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/Resources/openidea-product.json",
+    "bytes": 4925846,
+    "sha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0"
+  },
+  "engineSha256": "75db2a329d999fc0b41937a5cab501d0d6cdb29f750d62ddb9853887b84b78be",
+  "sealedPluginAndToolFiles": 15138,
+  "ownPluginClasses": 715,
+  "ownClassesMatchPreparedAndInstrumented": true,
+  "lspSources": 19,
+  "lspClassHashes": 40,
+  "lspJarSha256": "fb03e414209c2ebe315ce9426730475ee5c2b0f693e220077ef6de28b20dc8a9",
+  "toolFiles": 15105,
+  "toolValidation": {
+    "target": "darwin-arm64",
+    "tools": {
+      "gopls": {
+        "kind": "upstream-source-built",
+        "sha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f"
+      },
+      "dlv": {
+        "kind": "source-derived",
+        "upstreamVersion": "v1.27.2",
+        "sha256": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+        "patchSha256": "c43a4352cac2a47c7ecb2e23e1c530a6f98c81b8942aae5b52c3f2d1d39641fc",
+        "pinSha256": "54721dc097492ba459348b77b4c0ef40a20f71855e7429c25f416f766476ff51",
+        "receiptSha256": "6b3a3869f4926dab07ccb97cda088c4dd391e625ff0ed48efabdbc90664a03eb"
+      }
+    },
+    "binding": "reviewed repository lock/pin/patch and actual installed tool bytes"
+  },
+  "platformRepairMarkers": 3,
+  "moduleDescriptorCount": 1070,
+  "packagerArchiveReaderRecords": 12,
+  "moduleApiFreshInThisPostcheck": false,
+  "signatureExitCode": 0,
+  "sdkSevenKeysUnchanged": true,
+  "sourceStayedFrozen": true,
+  "finishedAtUtc": "2026-11-10T22:44:28.663262+00:00",
+  "boundaries": [
+    "No IDE launch, native workflow, Windows product or public6 installer proof here.",
+    "No Go commands, build/test tasks, new Java class compilation, source edits, SDK copies or reference-app changes.",
+    "Root owns actual engine REA metadata; this script binds its file bytes to the tested formal engine."
+  ]
+}

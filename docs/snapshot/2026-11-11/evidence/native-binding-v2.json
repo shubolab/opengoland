@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "status": "BOUND-final-full-and-new-candidate-postcheck",
+  "reason": "V2 source gate dereferences the reviewed buildInputs sealed record; actual candidate/source/full evidence unchanged.",
+  "application": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+  "version": "0.1.0-preview.20261110.6",
+  "sourceCommit": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+  "sourceFiles": 506,
+  "sourceDigest": "3229d2b438af1a1e43184665e4893e81cfdead9e1431f595bf884a7cb1e2ccdc",
+  "sourceGate": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/candidate-source-gate.v2.py",
+    "bytes": 10687,
+    "sha256": "ce8067dab7a5b4f32fa8e936dfed2dd26908a8b5d7dca665a1fa4380f4313cd0"
+  },
+  "reviewedSourceCapture": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/root-gowork-full-checks-v3-20261111/attempt-e6b7d78-001/inputs-before.json",
+    "bytes": 86948,
+    "sha256": "9bf8c5d9c9ed0f2e9c3fb8a3b9fce6f0c5243e1077d2ef533f4cfb04f2c35f97"
+  },
+  "reviewedSourceBinding": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/root-gowork-full-checks-v3-20261111/bound-reviewed-source.json",
+    "bytes": 9513,
+    "sha256": "361ba740189b0d1da24ffa587675d80eb0e778c61294d95514dd5d5a8a0e150e"
+  },
+  "formalResult": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/root-gowork-full-checks-v3-20261111/attempt-e6b7d78-001/result.json",
+    "bytes": 1119728,
+    "sha256": "2b199588b78f75ea38f0f620948b75772b49c5791c861ba5ed677ddc58a8a520"
+  },
+  "formalInputsBefore": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/root-gowork-full-checks-v3-20261111/attempt-e6b7d78-001/inputs-before.json",
+    "bytes": 86948,
+    "sha256": "9bf8c5d9c9ed0f2e9c3fb8a3b9fce6f0c5243e1077d2ef533f4cfb04f2c35f97"
+  },
+  "formalInputsAfter": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/root-gowork-full-checks-v3-20261111/attempt-e6b7d78-001/inputs-after.json",
+    "bytes": 86948,
+    "sha256": "9bf8c5d9c9ed0f2e9c3fb8a3b9fce6f0c5243e1077d2ef533f4cfb04f2c35f97"
+  },
+  "assemblyResult": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/assembly-20261110T224137Z/result.json",
+    "bytes": 32354,
+    "sha256": "4be2c9220ecf2da92c61474fe34a33fa1663caf0bc7de494b82cdeb54c961a9a"
+  },
+  "candidatePostcheck": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/candidate-postchecks/runs/actual-e6b7-001/summary.json",
+    "bytes": 2372,
+    "sha256": "46cadad172b329a72378e14e0a37522e8b10739650c96c5812d6b8ce9bc97313"
+  },
+  "completeOwnClassMap": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/candidate-postchecks/runs/actual-e6b7-001/own-plugin-complete-class-map.json",
+    "bytes": 355913,
+    "sha256": "7449bba0ba160adce3a0c5ceb97926e14bcf99c472f3241783f6768d86132c14"
+  },
+  "manifestSha256": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+  "engineSha256": "75db2a329d999fc0b41937a5cab501d0d6cdb29f750d62ddb9853887b84b78be",
+  "formalEngineArtifact": {
+    "path": "/Users/wangshubo/develop/openidea-go/engine/bin/opengoland-engine",
+    "bytes": 10629570,
+    "sha256": "75db2a329d999fc0b41937a5cab501d0d6cdb29f750d62ddb9853887b84b78be"
+  },
+  "engineREA": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/candidate-engine-rea.json",
+    "bytes": 16316,
+    "sha256": "82c6ef068fc32fa819b27501659e72b4cfc89e3168139cdf5632e994d1417dbb"
+  },
+  "engineREAEvidenceId": "ev_a7473ce15e77844f740306ee81eaa9c2822308068bc11dbd3d75ac2655d83af8",
+  "ownClassCount": 715,
+  "fullTests": 795,
+  "fullReports": 143,
+  "criticalIdentities": 149,
+  "nativeStatus": "pending-not-launched",
+  "boundAtUtc": "2026-11-10T22:50:55.950000+00:00",
+  "boundary": "Supplemental evidence/source gate only; does not execute or prove native UI, installer or public release acceptance.",
+  "supersedesNativeKitBinding": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/gowork-native-plan-20261111/binding.json",
+    "sha256": "150452dfc014e153edb5ea28c2502af580cf27202355af48d3571a65056a3e4e"
+  }
+}

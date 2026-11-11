@@ -1,0 +1,50 @@
+{
+  "status": "completed-local-historical-test-version-cleanup",
+  "checkedAtUtc": "2026-11-10T23:09:34.499557+00:00",
+  "historicalLogicalBytes": 89141129417,
+  "additionalLogicalBytes": 6829811204,
+  "totalRecordedLogicalBytes": 95970940621,
+  "additionalRootsConfirmedAbsent": 52,
+  "freeBytesNow": 123021946880,
+  "sourceAndWorktreeTrackedFilesUnchanged": {
+    "/Users/wangshubo/develop/openidea-go": {
+      "head": "e6b7d7816f0d68395ec2a0b77ccf205e10554917",
+      "status": "",
+      "trackedFiles": 674,
+      "digest": "c3098836609dfda59f73437b8932ad305a68982098e6c8491299166171cef024"
+    },
+    "/Users/wangshubo/develop/openidea-go/.tools/worktrees/derived-delve-bundle": {
+      "head": "d7c7cb54002bbc976ca96b383d2cf44e244252af",
+      "status": "",
+      "trackedFiles": 634,
+      "digest": "8483eb3a027a506d5c562603a46f5b0b93211b1d2b80110e813e561728c5465b"
+    }
+  },
+  "protectedFilesUnchanged": {
+    "build/product/open Goland.app/Contents/Resources/openidea-product.json": "8a446d850a5ab06d713a823db07960dfb1ec3d44d3b63d9e8dc51161880dafe0",
+    "build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine": "75db2a329d999fc0b41937a5cab501d0d6cdb29f750d62ddb9853887b84b78be",
+    "build/public-plugin-install-vnz28s86/open Goland.app/Contents/Resources/openidea-product.json": "ed24ee342a157e28633b38a1ad652bd6f8c4873e75896f3c52f6a5642143f5f9",
+    ".tools/public-v5-release-audit/anonymous-actual-attempt2/open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg": "24fbb2509b757a33e9e4bbaa1cdb144d347c4f06cfe14cbf5b3541e29da7a7ce",
+    ".tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go": "aa355b078a81158d418079a3f8c776719eb99cc6f527e39ffa3250c66566aafb",
+    ".tools/release-tools/darwin-arm64/go/bin/go": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+    ".tools/release-tools/darwin-arm64/bin/gopls": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f",
+    ".tools/release-tools/darwin-arm64/bin/dlv": "11f5b9f46f495ecead5630e5bcd048f0864b2f1301004a11f2382e795f12b13c",
+    ".tools/gowork-native-plan-20261111/binding.json": "150452dfc014e153edb5ea28c2502af580cf27202355af48d3571a65056a3e4e",
+    ".tools/gowork-native-plan-20261111/native-launch-preparation.json": "e321ddc71ad2aa4d67dbd61cc01ee1fec9583875a139c161a2e20a4eb8182d07",
+    ".tools/gowork-native-plan-20261111/candidate-source-gate.template.py": "f6d9bc8f7bd42750288e2218d761f61b6e74f9107e095a9e6ee21bafd7dde18b",
+    ".tools/gowork-native-plan-20261111/runtime-e6b7-001/launch-and-observe.py": "fcd29857689a5f18f2895fa9f097e6c87e202f331081ad9db2be036840d28bbe"
+  },
+  "receipts": [
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/local-history-cleanup-root/cleanup-complete-20261111.json",
+      "sha256": "2b960a7ad96680a9be6e0e5aaa7a2aad8f7d535e2b5f92ccc039198c60f12c48"
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/local-history-cleanup-root/final-sweep-20261111/after.json",
+      "sha256": "4f73ec5db9b7b6b686709e9eb24976f152aeb1e40dafea22ca147369b96fe2b1"
+    }
+  ],
+  "manifestArchive": "/Users/wangshubo/develop/openidea-go/.tools/local-history-cleanup-root/final-sweep-20261111/manifest-archive.json",
+  "measurement": "Deleted logical file sizes are cumulative and are not equal to exact physical APFS reclaimed space. Available disk space is measured after cleanup.",
+  "retention": "Keep one current candidate, latest verified published app/installer, canonical shared SDK/toolchains, source/worktrees, test results/logs/config/LocalHistory/runtime captures. Preserve reference apps, user data and GitHub Release assets. Reuse SDKs; retain >=20 GiB free."
+}

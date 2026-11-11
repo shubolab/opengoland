@@ -1,0 +1,94 @@
+{
+  "checkedAtUtc": "2026-11-11T02:28:42.661921+00:00",
+  "status": "fresh-post-normal-quit-recheck",
+  "originalObserverSummarySha256": "ad4b28dea6d0aa0e1046a25cd4f5a5b74e273738fced16b6d9d461f0232755d4",
+  "originalObserverEndedAtBoundBeforeQuit": true,
+  "recordedIdentityCount": 16,
+  "identities": [
+    {
+      "pid": 50869,
+      "started": "Wed Nov 11 07:11:39 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 50839,
+      "started": "Wed Nov 11 07:11:30 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51087,
+      "started": "Wed Nov 11 07:12:27 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51089,
+      "started": "Wed Nov 11 07:12:27 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51090,
+      "started": "Wed Nov 11 07:12:27 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51095,
+      "started": "Wed Nov 11 07:12:27 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51094,
+      "started": "Wed Nov 11 07:12:27 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51096,
+      "started": "Wed Nov 11 07:12:28 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51098,
+      "started": "Wed Nov 11 07:12:28 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51104,
+      "started": "Wed Nov 11 07:12:28 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51107,
+      "started": "Wed Nov 11 07:12:28 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 51699,
+      "started": "Wed Nov 11 07:14:21 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 52149,
+      "started": "Wed Nov 11 07:15:54 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 52156,
+      "started": "Wed Nov 11 07:15:54 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 52158,
+      "started": "Wed Nov 11 07:15:54 2026",
+      "state": "absent"
+    },
+    {
+      "pid": 52287,
+      "started": "Wed Nov 11 07:16:20 2026",
+      "state": "absent"
+    }
+  ],
+  "allRecordedOriginalIdentitiesGone": true,
+  "signalsUsedByRecheck": false,
+  "nativeQuit": "CUA Command-Q followed by Confirm Exit > Exit, result App quit.",
+  "boundary": "Observer had an initial unsampled gap and ended at its 7200 second bound. This fresh post-quit check proves only the recorded identities, not exhaustive lifetime coverage.",
+  "freeBytes": 122440167424
+}
