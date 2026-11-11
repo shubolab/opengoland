@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "recordedAtUtc": "2026-11-11T15:37:26.530000+00:00",
+  "recordedAtUtc": "2026-11-11T16:13:35.292861+00:00",
   "status": "terminal-runner-loss; macOS-artifact-audited; no-release",
   "evidenceDirectory": "installer-ci-20261111-evidence",
   "observation": {
@@ -131,9 +131,11 @@
           "outputLocation": "tool transcript; earlier origin receipt independently retains SHA256 and download binding",
           "imageBytes": 1016125880,
           "boundary": "Image checksum only. No mounting, installation, native acceptance or publication."
-        }
+        },
+        "localFileRetired": true,
+        "currentlyExistsLocally": false
       },
-      "proofRetention": "Original artifact ZIP retained. 9775642 bytes of original selected non-cache proofs extracted; disposable IDE cache members were not extracted. Original member hashes/dispositions retained in receipt.",
+      "proofRetention": "The old artifactZIP and DMG were retired after fresh open-file/mount/dependency checks and retaining3MB of original selected proof bytes, all143rawXML, provenance, logs and hashes. Original selected files remain locally; the compact original-proof archive is local-only, not part of a fresh clone. See retirement receipt. No GitHub asset was removed.",
       "publicRelease": false
     }
   },
@@ -145,5 +147,38 @@
     "Source36a portable control execution, new settings regression and updated native behavior require a new-source build. The old source94d Mac artifact does not include them.",
     "No new EXE, dual-platform installer acceptance or public .6 release exists. Latest public .5 installers remain protected."
   ],
-  "fullGoalStatus": "active, not complete"
+  "fullGoalStatus": "active, not complete",
+  "retirement": {
+    "atUtc": "2026-11-11T16:12:25.542044+00:00",
+    "oldSourceCommit": "94d1b89ad4b7cd3a3dae7f33b3c637f7a576827b",
+    "oldRunId": 43033769561,
+    "reason": "Earlier source cannot be released with currentSDK/Windows repairs and its temporary binaries are no longer needed for comparison. Current8df native candidate has been independently assembled and checked.",
+    "removedHistoricalBinaries": [
+      {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/audit-macos-arm64/artifact.zip",
+        "bytes": 939738115,
+        "sha256": "cf2fd69e633041b31e862ba3015ec7083bf1075a955fd8a03ee7f9788e803fff"
+      },
+      {
+        "path": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/mac-installer/open-Goland-0.1.0-preview.20261110.6-macos-arm64.dmg",
+        "bytes": 1016125880,
+        "sha256": "59b0b4cbb7a9642af45464d2163cb725d6c8b157b89f61b05ecc5b490fac24fc"
+      }
+    ],
+    "mountedOldImages": [],
+    "lsofExit": 1,
+    "openFiles": [],
+    "runtimeDependency": "No install/mount was made from this oldDMG; current native app source8df is from local verified prepared outputs and sharedSDK/tools. Only the two exact olddownload files are removed.",
+    "retainedCompactOriginalProofs": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/retired-mac94d/compact-original-proofs.zip",
+      "bytes": 3002139,
+      "sha256": "4db3d1144f2ac2f90e0e4a31876fb1420d8275694aa126a8d7a08f26bf342bb5",
+      "originalFiles": 336
+    },
+    "freeBeforeBytes": 123609620480,
+    "freeAfterBytes": 125565820928,
+    "protected": "Latestverified public5 app/DMG, current source8df app/PID45974/profile, source/worktrees, SDK/tools/caches, rawreports/originalselectedproofs, currentWindowsartifact13870057281 and all GitHubassets",
+    "public5StillExists": true,
+    "observerSignals": []
+  }
 }

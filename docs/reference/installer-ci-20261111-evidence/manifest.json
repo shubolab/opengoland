@@ -64,6 +64,22 @@
       "originalSha256": "8a5c359d71f2fd3e300b11c31dd7801871a8a625896e1993f2ea17e9bdf32c78",
       "gzipBytes": 439,
       "gzipSha256": "367569b3634055d2655eca474171f2d7b668c141b8287dec16caec3f2ff1dc7c"
+    },
+    {
+      "file": "retired-old-mac-downloads.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/retired-mac94d/retirement.json",
+      "originalBytes": 1844,
+      "originalSha256": "1ba601cf22b5ffec0430d9f77b9f07c1bc7519b9250eb95dbcf141b40b3ff91d",
+      "gzipBytes": 1001,
+      "gzipSha256": "301cb86e88a18e9690ec5e378521734b03de0ec9e441f6f2b3ff9a2b63bbcda2"
+    },
+    {
+      "file": "retained-old-mac-proof-manifest.json.gz",
+      "originalLocalPath": "/Users/wangshubo/develop/openidea-go/.tools/resume-snapshot-20261111/ci-001/retired-mac94d/compact-manifest.json",
+      "originalBytes": 87783,
+      "originalSha256": "53b1ddea0f872fbe917fc037c3da284ab7164d9ef335b06bb0ac4e174217881a",
+      "gzipBytes": 19162,
+      "gzipSha256": "086bb53f4bad15a2ae20a0a8369fdd7dbab3602ee63bf118ca46d807f3a34b32"
     }
   ]
 }
