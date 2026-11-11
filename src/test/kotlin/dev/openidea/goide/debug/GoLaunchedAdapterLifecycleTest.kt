@@ -176,7 +176,8 @@ class GoLaunchedAdapterLifecycleTest : LightPlatformTestCase() {
             assertNotNull(f.registrationFailure)
             assertTrue(f.registrationFailure!!.message.orEmpty().contains("disposed", ignoreCase = true))
             assertTrue("No runner can start notifications after startServer throws", f.handler.isStartNotified)
-            f.handler.process.onExit().get(8, TimeUnit.SECONDS)
+            assertTrue("The exact owned adapter must physically exit after registration rejection",
+                f.handler.process.waitFor(8, TimeUnit.SECONDS))
             assertFalse(f.handler.process.isAlive)
             assertTrue(f.peer.disconnects.isEmpty())
             assertTrue(f.peer.launches.isEmpty())

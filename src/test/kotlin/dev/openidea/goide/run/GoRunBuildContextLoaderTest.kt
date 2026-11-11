@@ -3,6 +3,7 @@ package dev.openidea.goide.run
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.intellij.execution.process.CapturingProcessHandler
+import com.intellij.execution.configurations.GeneralCommandLine
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.util.SystemInfo
 import com.intellij.testFramework.LightPlatformTestCase
@@ -15,7 +16,10 @@ import java.security.MessageDigest
 import java.util.concurrent.CancellationException
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
+import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.atomic.AtomicBoolean
+import java.util.concurrent.atomic.AtomicInteger
 
 /** Actual selected Go metadata, including dirty views; no editor, engine or language server fallback. */
 class GoRunBuildContextLoaderTest : LightPlatformTestCase() {
@@ -277,6 +281,69 @@ class GoRunBuildContextLoaderTest : LightPlatformTestCase() {
         }
     }
 
+    fun testCancelBeforeFirstDescendantSampleClosesInheritedPipesWithoutTouchingAnotherProcess() = Fixture().use { f ->
+        val helper = GoOwnedTestExecutable.compile(f.directory.resolve(GoOwnedTestExecutable.name("owned-go")), HELPER)
+        val sentinel = ProcessBuilder(helper.toString(), "child").directory(f.directory.toFile()).start()
+        val loader = GoRunBuildContextLoader(project)
+        val entered = CountDownLatch(1)
+        val release = CountDownLatch(1)
+        val cancelled = AtomicBoolean()
+        val checks = AtomicInteger()
+        val priorReaders = Thread.getAllStackTraces().keys.toSet()
+        val execute = GoRunBuildContextLoader::class.java.getDeclaredMethod(
+            "execute", GeneralCommandLine::class.java, kotlin.jvm.functions.Function0::class.java,
+        ).apply { isAccessible = true }
+        val command = GeneralCommandLine(helper.toString(), "list").withWorkDirectory(f.directory.toFile())
+            .withEnvironment("OWNED_LOADER", f.directory.toString())
+            .withEnvironment("OWNED_MODE", "spawn-after-check")
+        val worker = f.workers.submit {
+            val ensureCurrent: () -> Unit = {
+                // The first check precedes process creation. Hold the next check
+                // before execute's first normal-loop descendant snapshot.
+                if (checks.incrementAndGet() == 2) {
+                    entered.countDown()
+                    check(release.await(10, TimeUnit.SECONDS)) { "Test gate was not released" }
+                }
+                if (cancelled.get()) throw CancellationException("owned pre-sample cancellation")
+            }
+            try { execute.invoke(loader, command, ensureCurrent); error("Cancellation was not observed") }
+            catch (failure: java.lang.reflect.InvocationTargetException) {
+                if (failure.cause !is CancellationException) throw failure
+            }
+        }
+        var owned = emptyList<ProcessHandle>()
+        try {
+            assertTrue("The real metadata process must reach the pre-sample check", entered.await(5, TimeUnit.SECONDS))
+            Files.writeString(f.directory.resolve("spawn"), "create the child only after the check was entered")
+            val record = f.directory.resolve("owned.json")
+            f.awaitFile(record)
+            owned = JsonParser.parseString(Files.readString(record)).asJsonObject.getAsJsonArray("pids")
+                .map { ProcessHandle.of(it.asLong).orElseThrow() }
+            f.ownedPids += owned.map(ProcessHandle::pid)
+            assertEquals(2, owned.size)
+            assertTrue(owned.all { it.isAlive })
+            val readers = Thread.getAllStackTraces().keys.filter {
+                it !in priorReaders && it.name == "open Goland build-context output"
+            }
+            assertEquals("Both real pipe readers must be running before cancellation", 2, readers.size)
+            val start = System.nanoTime()
+            ApplicationManager.getApplication().invokeAndWait { cancelled.set(true); release.countDown() }
+            assertTrue("Cancel must not wait for child/pipe cleanup on EDT", System.nanoTime() - start < TimeUnit.MILLISECONDS.toNanos(500))
+            worker.get(5, TimeUnit.SECONDS)
+            assertTrue("Only the captured metadata parent and child must have exited", owned.none { it.isAlive })
+            assertTrue("Both pipe readers must have exited", readers.none { it.isAlive })
+            assertTrue("The independent control process must remain alive", sentinel.isAlive)
+        } finally {
+            cancelled.set(true); release.countDown(); loader.dispose()
+            // Failure recovery owns only these explicitly created processes.
+            // It cannot turn the assertions above into a successful result.
+            owned.asReversed().filter { it.isAlive }.forEach { it.destroyForcibly() }
+            sentinel.destroyForcibly(); check(sentinel.waitFor(3, TimeUnit.SECONDS))
+            owned.forEach { if (it.isAlive) it.onExit().get(3, TimeUnit.SECONDS) }
+            worker.get(5, TimeUnit.SECONDS)
+        }
+    }
+
     fun testDirtyCustomModOverlayAndGoEnvironmentUseTheirCapturedInputs() = Fixture().use { f ->
         val source = f.write("source.go", "package sample\n")
         val custom = f.write("custom.mod", "module example.test/disk\n\ngo 1.26\n")
@@ -460,6 +527,10 @@ class GoRunBuildContextLoaderTest : LightPlatformTestCase() {
                 if len(os.Args)>1&&os.Args[1]=="env"{fmt.Println(`{"GOENV":"off","GOFLAGS":"","GO111MODULE":"","GOWORK":"off"}`);return}
                 if len(os.Args)<2||os.Args[1]!="list"{panic("unexpected owned command")}
                 mode:=os.Getenv("OWNED_MODE")
+                if mode=="spawn-after-check"{
+                    deadline:=time.Now().Add(10*time.Second)
+                    for{if _,err:=os.Stat(filepath.Join(dir,"spawn"));err==nil{break};if time.Now().After(deadline){panic("spawn gate not released")};time.Sleep(time.Millisecond)}
+                }
                 switch mode{
                 case "invalid-json":fmt.Println("not-json");return
                 case "unknown":fmt.Printf(`{"Dir":%q,"ImportPath":"example.test/loader"}`,dir);return

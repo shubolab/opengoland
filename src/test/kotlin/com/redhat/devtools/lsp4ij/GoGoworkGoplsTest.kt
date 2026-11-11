@@ -30,6 +30,7 @@ import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
 import java.util.concurrent.Future
+import java.util.concurrent.ScheduledFuture
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
 
@@ -78,6 +79,11 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
         val protocolWire = StringWriter()
         val ownedStderr = CopyOnWriteArrayList<String>()
         val pool = Executors.newCachedThreadPool()
+        val processSampler = Executors.newSingleThreadScheduledExecutor { task ->
+            Thread(task, "owned-gowork-process-sampler").apply { isDaemon = true }
+        }
+        val children = ConcurrentHashMap<Long, ProcessHandle>()
+        var sampling: ScheduledFuture<*>? = null
         var connection: OSProcessStreamConnectionProvider? = null
         var owned: ProcessHandle? = null
         var remote: LanguageServer? = null
@@ -112,6 +118,12 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
             provider.start()
             val handle = ProcessHandle.of(requireNotNull(provider.pid) { "Owned provider PID missing after start" }).orElseThrow()
             owned = handle
+            // Keep exact owned handles even if a child is later reparented.
+            // A single snapshot just before shutdown misses children spawned
+            // while the real initial workspace diagnosis is still running.
+            sampling = processSampler.scheduleWithFixedDelay({
+                handle.descendants().use { found -> found.forEach { children[it.pid()] = it } }
+            }, 0, 20, TimeUnit.MILLISECONDS)
             evidence["ownedGoplsPid"] = handle.pid()
             val client = Client(messages)
             val launcher = wrapper.features.createLauncherBuilder<LanguageServer>()
@@ -122,8 +134,8 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
             val server = launcher.remoteProxy; remote = server
             val params = InitializeParams().apply {
                 capabilities = ClientCapabilitiesFactory.create(null)
-                rootUri = consumer.toUri().toString()
-                workspaceFolders = listOf(WorkspaceFolder(consumer.toUri().toString(), "owned-gowork"))
+                rootUri = consumer.toUri().toASCIIString()
+                workspaceFolders = listOf(WorkspaceFolder(consumer.toUri().toASCIIString(), "owned-gowork"))
             }
             wrapper.features.initializeParams(params)
             val initializeEnvironment = (params.initializationOptions as Map<*, *>)["env"] as Map<*, *>
@@ -141,7 +153,7 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
                 params.capabilities.window?.workDoneProgress == true)
             server.initialize(params).get(45, TimeUnit.SECONDS)
             server.initialized(InitializedParams())
-            server.textDocumentService.didOpen(DidOpenTextDocumentParams(TextDocumentItem(source.toUri().toString(), "go", 1, sourceText)))
+            server.textDocumentService.didOpen(DidOpenTextDocumentParams(TextDocumentItem(source.toUri().toASCIIString(), "go", 1, sourceText)))
 
             // Definition can succeed through cmd/go despite incorrect gopls workspace
             // metadata. Diagnose that real workspace error before adapter assertions.
@@ -149,13 +161,13 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
             val cross = query(server, source, position(sourceText, sourceText.indexOf("Exported()")))
             evidence["localDefinition"] = local; evidence["crossModuleDefinition"] = cross
             assertEquals("The local symbol must resolve even in the off control: $local", null, local.failureKind)
-            assertEquals(listOf(Target(source.toUri().toString(), range(sourceText, sourceText.indexOf("Local()"), "Local".length))), local.targets)
+            assertEquals(listOf(Target(source.toUri().toASCIIString(), range(sourceText, sourceText.indexOf("Local()"), "Local".length))), local.targets)
             assertEquals("A real response is required; timeout/transport errors are not an off control: $cross", null, cross.failureKind)
             if (mode == Mode.OFF) {
                 assertTrue("GOWORK=off must not find the sibling module without replace/network: $cross", cross.targets.isEmpty())
             } else {
                 assertEquals("The workspace must resolve the sibling module's exact declaration",
-                    listOf(Target(target.toUri().toString(), range(targetText, targetText.indexOf("Exported"), "Exported".length))), cross.targets)
+                    listOf(Target(target.toUri().toASCIIString(), range(targetText, targetText.indexOf("Exported"), "Exported".length))), cross.targets)
             }
             // Setting-up progress alone does not wait for initial diagnosis in
             // gopls0.24. This matching-token end covers that initial diagnosis group,
@@ -229,18 +241,23 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
             }
             fun attempt(action: () -> Unit) { try { action() } catch (error: Throwable) { cleanup += error } }
             // Capture only handles below the process launched by this fixture.
-            val children = owned?.descendants()?.use { it.toList() }.orEmpty()
-            attempt { remote?.shutdown()?.get(3, TimeUnit.SECONDS); remote?.exit() }
-            attempt { connection?.stop() } // Also closes GoDocumentSync's owned session.
+            attempt { owned?.descendants()?.use { found -> found.forEach { children[it.pid()] = it } } }
+            // Give the protocol shutdown/exit a chance to finish naturally.
+            // stop() before EOF can race a still-running Windows compiler child.
+            attempt { remote?.shutdown()?.get(3, TimeUnit.SECONDS) }
+            attempt { remote?.exit() }
             owned?.let { handle -> attempt {
                 if (handle.isAlive) try { handle.onExit().get(8, TimeUnit.SECONDS) }
                 catch (timeout: TimeoutException) {
-                    signal(handle, "destroyForcibly", "owned-gopls", "provider-stop-wait-timeout") { handle.destroyForcibly() }
+                    signal(handle, "destroyForcibly", "owned-gopls", "protocol-exit-wait-timeout") { handle.destroyForcibly() }
                     handle.onExit().get(3, TimeUnit.SECONDS); throw timeout
                 }
                 check(!handle.isAlive) { "Owned gopls ${handle.pid()} survived stop" }
             } }
-            for (child in children) attempt {
+            sampling?.cancel(false)
+            processSampler.shutdown()
+            attempt { check(processSampler.awaitTermination(3, TimeUnit.SECONDS)) { "Owned process sampler survived" } }
+            for (child in children.values) attempt {
                 if (child.isAlive) {
                     signal(child, "destroy", "owned-descendant", "still-alive-after-provider-stop") { child.destroy() }
                     try { child.onExit().get(2, TimeUnit.SECONDS) }
@@ -251,13 +268,18 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
                 }
                 check(!child.isAlive) { "Owned descendant ${child.pid()} survived cleanup" }
             }
-            transport?.cancel(true)
+            attempt { transport?.get(3, TimeUnit.SECONDS) }
+            attempt { connection?.stop() } // Also closes GoDocumentSync's owned session.
+            if (transport?.isDone == false) transport?.cancel(true)
             attempt { Disposer.dispose(wrapper) }
             pool.shutdownNow(); attempt { check(pool.awaitTermination(5, TimeUnit.SECONDS)) { "Owned LSP stdio pool survived" } }
             attempt { edt { restore(previous) } }
-            val remaining = (listOfNotNull(owned) + children).filter(ProcessHandle::isAlive).map(ProcessHandle::pid)
+            val remaining = (listOfNotNull(owned) + children.values).filter(ProcessHandle::isAlive).map(ProcessHandle::pid)
             if (remaining.isEmpty()) attempt {
-                Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
+                // Close Windows directory enumeration handles before deleting
+                // those directories, including the consumer working directory.
+                val paths = Files.walk(root).use { it.sorted(Comparator.reverseOrder()).toList() }
+                paths.forEach(Files::deleteIfExists)
             }
             // Trace and stderr belong only to this fixture's real provider/launcher.
             val wireText = protocolWire.toString()
@@ -271,7 +293,7 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
                 "source" to "addLogErrorHandler of only this fixture's launched OSProcessStreamConnectionProvider")
             evidence["protocolProgressAndAcks"] = messages.filter { it["source"] in setOf("progress", "client-ack") }
             evidence["messages"] = messages.takeLast(32)
-            evidence["ownedDescendantPids"] = children.map(ProcessHandle::pid)
+            evidence["ownedDescendantPids"] = children.values.map(ProcessHandle::pid)
             evidence["ownedRemaining"] = remaining
             evidence["fixtureExplicitProcessSignalAttempts"] = explicitSignals
             evidence["providerStopSignalObservation"] = mapOf("invoked" to (connection != null),
@@ -295,7 +317,7 @@ class GoGoworkGoplsTest : LightPlatformTestCase() {
     private data class Reply(val targets: List<Target>, val failureKind: String? = null, val code: Int? = null, val message: String? = null)
 
     private fun query(server: LanguageServer, file: Path, position: Position): Reply = try {
-        val response = server.textDocumentService.definition(DefinitionParams(TextDocumentIdentifier(file.toUri().toString()), position)).get(45, TimeUnit.SECONDS)
+        val response = server.textDocumentService.definition(DefinitionParams(TextDocumentIdentifier(file.toUri().toASCIIString()), position)).get(45, TimeUnit.SECONDS)
         Reply(when {
             response == null -> emptyList()
             response.isLeft -> response.left.orEmpty().map { Target(it.uri, it.range) }

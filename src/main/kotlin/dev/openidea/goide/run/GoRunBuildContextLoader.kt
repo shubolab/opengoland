@@ -454,8 +454,15 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         }, "open Goland build-context output").apply { isDaemon = true; start() }
         val readers = mutableListOf<Thread>()
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(30)
+        fun rememberChildren() {
+            process.descendants().use { found -> found.forEach { children[it.pid()] = it } }
+        }
         fun stop() {
             if (windows) {
+                // A cancel can win before the first loop sample. Capture the
+                // current exact owned tree before killing its parent, or an
+                // inherited pipe can stay open in a now-orphaned child.
+                rememberChildren()
                 children.values.toList().asReversed().filter { it.isAlive }.forEach { it.destroyForcibly() }
                 if (process.isAlive) process.destroyForcibly()
             } else {
@@ -472,7 +479,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             readers += reader(process.errorStream, stderr)
             while (true) {
                 checkCurrent(); failures.get()?.let { throw it }
-                if (windows) process.descendants().use { found -> found.forEach { children[it.pid()] = it } }
+                if (windows) rememberChildren()
                 if (process.waitFor(25, TimeUnit.MILLISECONDS)) break
                 require(System.nanoTime() < deadline) { "The selected Go SDK did not finish build-context metadata within 30 seconds" }
             }

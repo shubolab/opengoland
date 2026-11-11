@@ -20,6 +20,7 @@ import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiFile
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.IndexingTestUtil
+import java.nio.file.Path
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicReference
@@ -42,6 +43,8 @@ internal fun invokeNativeGoGutter(file: PsiFile, anchor: PsiElement, executorId:
         requireNotNull(PsiDocumentManager.getInstance(project).getDocument(file))
     }
     val registered = CountDownLatch(1)
+    val expectedDirectory = Path.of(directory).normalize()
+    require(expectedDirectory.isAbsolute)
     val captured = AtomicReference<RunnerAndConfigurationSettings>()
     val connection = project.messageBus.connect()
     var editor: Editor? = null
@@ -50,7 +53,10 @@ internal fun invokeNativeGoGutter(file: PsiFile, anchor: PsiElement, executorId:
         connection.subscribe(RunManagerListener.TOPIC, object : RunManagerListener {
             override fun runConfigurationAdded(settings: RunnerAndConfigurationSettings) {
                 val configuration = settings.configuration as? GoRunConfiguration ?: return
-                if (configuration.parameters.workingDirectory == directory) {
+                // VFS paths use '/', while a native Windows Path uses '\\'.
+                // This listener runs on EDT: compare syntax without filesystem I/O.
+                val actualDirectory = runCatching { Path.of(configuration.parameters.workingDirectory).normalize() }.getOrNull()
+                if (actualDirectory == expectedDirectory) {
                     captured.set(settings)
                     registered.countDown()
                 }

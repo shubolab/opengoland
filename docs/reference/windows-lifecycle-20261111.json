@@ -1,0 +1,431 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-11T13:42:46.499830+00:00",
+  "status": "local-focused-pass-windows-and-full-pending",
+  "continuationSnapshot": "../snapshot/2026-11-11/README.zh-CN.md",
+  "priorWindowsRun": 42915342968,
+  "observation": {
+    "localReports": [
+      {
+        "name": "TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+        "sha256": "e73a7f67e377695dbb02e1cc3ea3358936be6399b7061d53899274686ed33410",
+        "tests": 4,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "name": "TEST-dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.xml",
+        "sha256": "d98936ff3b133308ced662288ebe541aa5d1e677de6d86fac48fed9ac3afe349",
+        "tests": 6,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "name": "TEST-dev.openidea.goide.run.GoRunBuildContextLoaderTest.xml",
+        "sha256": "3a5168aaabfbd574a09b76b92184a907c0018ccfbd8e4c43662988f9b4936f20",
+        "tests": 12,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "name": "TEST-dev.openidea.goide.run.GoRunBuildContextNativeTest.xml",
+        "sha256": "b244484c936fed5cd0202eb4610226a43934c4adad0b450d01309b3983881da8",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "uniqueTestCases": 23,
+    "testIdentities": [
+      [
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+        "testExplicitAbsoluteWorkspaceResolvesModuleThroughFactory"
+      ],
+      [
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+        "testExplicitAutoResolvesWorkspaceModuleThroughFactory"
+      ],
+      [
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+        "testExplicitEmptyResolvesWorkspaceModuleThroughFactory"
+      ],
+      [
+        "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest",
+        "testExplicitOffKeepsModuleIsolationThroughFactory"
+      ],
+      [
+        "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+        "testFailedDisconnectFallsBackWithoutDuplicatingRequestsOrTouchingChildren"
+      ],
+      [
+        "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+        "testNativeSessionStopWaitsForOneLaunchDisconnectAndNaturalAdapterExit"
+      ],
+      [
+        "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+        "testNativeStopDeadlineIsOffEdtAndNeverKillsAnOwnedSentinelChild"
+      ],
+      [
+        "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+        "testRejectedProjectRegistrationCleansTheUnnotifiedOwnedAdapter"
+      ],
+      [
+        "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+        "testStopBeforeClientBindingRejectsTheAdaptersLateReadyAnnouncement"
+      ],
+      [
+        "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest",
+        "testStopWhileInitializeIsHeldCannotSendALateLaunch"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testCancelBeforeFirstDescendantSampleClosesInheritedPipesWithoutTouchingAnotherProcess"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testCreationAndPreStartDisposalAreMemoryOnlyAndActiveCancelOwnsOnlyItsProcesses"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testDirectoryAliasesAndSourceOrMembershipChangesInvalidateCompletedSnapshots"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testDirtyConstraintsNewFilesAndManifestsNeverWriteTheOriginalInputs"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testDirtyCustomModOverlayAndGoEnvironmentUseTheirCapturedInputs"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testDirtyWorkspaceUseAndVendorViewKeepRealRootsAndOriginalSums"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testInvalidMembersTakePriorityButDiagnosticsDoNotEraseKnownMembership"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testMalformedAndUnknownMetadataNeverBecomeIgnoredOrActive"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testModModAndUserModfileUseOwnedCopiesWithoutChangingRelativeReplacementMeaning"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testRunMetadataProjectsOnlyExecutionControlsAndPreservesBinaryBoundaries"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testSelectedSdkTagsOsCgoAndPerRunEnvironmentChooseActualSourceMembers"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+        "testWorkspaceMissingChecksumsMayUpdateOnlyItsOwnedAlternateSum"
+      ],
+      [
+        "dev.openidea.goide.run.GoRunBuildContextNativeTest",
+        "testRunnableEntryMustBelongToTheSelectedBuildContext"
+      ]
+    ],
+    "sampledOwnedIdentities": 69,
+    "sampledOwnedRemaining": [],
+    "minimumFreeBytes": 129094238208,
+    "goworkModes": [
+      {
+        "mode": "EMPTY",
+        "status": "pass-real-cross-module-and-environment-checks",
+        "localDefinition": {
+          "targets": [
+            {
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2012639812840598533613/consumer/source.go",
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 5
+                },
+                "end": {
+                  "line": 4,
+                  "character": 10
+                }
+              }
+            }
+          ]
+        },
+        "crossModuleDefinition": {
+          "targets": [
+            {
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2012639812840598533613/provider/target.go",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 5
+                },
+                "end": {
+                  "line": 2,
+                  "character": 13
+                }
+              }
+            }
+          ]
+        },
+        "initialDiagnosisBarrier": {
+          "status": "completed-initial-diagnosis",
+          "token": "string:19431258666934354",
+          "title": "diagnosing initial workspace load",
+          "end": {
+            "source": "progress",
+            "token": "string:19431258666934354",
+            "kind": "end",
+            "title": "diagnosing initial workspace load",
+            "atUtc": "2026-11-11T13:41:07.847735Z"
+          }
+        },
+        "workspaceErrorNotifications": [],
+        "cleanupErrors": [],
+        "ownedRemaining": [],
+        "fixtureExplicitProcessSignalAttempts": [
+          {
+            "pid": 3080,
+            "action": "destroy",
+            "role": "owned-descendant",
+            "reason": "still-alive-after-provider-stop",
+            "attemptedAtUtc": "2026-11-11T13:41:07.855425Z",
+            "returnValue": true,
+            "outcome": "returned",
+            "completedAtUtc": "2026-11-11T13:41:07.855486Z"
+          }
+        ]
+      },
+      {
+        "mode": "ABSOLUTE",
+        "status": "pass-real-cross-module-and-environment-checks",
+        "localDefinition": {
+          "targets": [
+            {
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%203148043729577182479/consumer/source.go",
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 5
+                },
+                "end": {
+                  "line": 4,
+                  "character": 10
+                }
+              }
+            }
+          ]
+        },
+        "crossModuleDefinition": {
+          "targets": [
+            {
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%203148043729577182479/provider/target.go",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 5
+                },
+                "end": {
+                  "line": 2,
+                  "character": 13
+                }
+              }
+            }
+          ]
+        },
+        "initialDiagnosisBarrier": {
+          "status": "completed-initial-diagnosis",
+          "token": "string:2746358188151166338",
+          "title": "diagnosing initial workspace load",
+          "end": {
+            "source": "progress",
+            "token": "string:2746358188151166338",
+            "kind": "end",
+            "title": "diagnosing initial workspace load",
+            "atUtc": "2026-11-11T13:41:08.470947Z"
+          }
+        },
+        "workspaceErrorNotifications": [],
+        "cleanupErrors": [],
+        "ownedRemaining": [],
+        "fixtureExplicitProcessSignalAttempts": [
+          {
+            "pid": 3091,
+            "action": "destroy",
+            "role": "owned-descendant",
+            "reason": "still-alive-after-provider-stop",
+            "attemptedAtUtc": "2026-11-11T13:41:08.474307Z",
+            "returnValue": true,
+            "outcome": "returned",
+            "completedAtUtc": "2026-11-11T13:41:08.474336Z"
+          }
+        ]
+      },
+      {
+        "mode": "AUTO",
+        "status": "pass-real-cross-module-and-environment-checks",
+        "localDefinition": {
+          "targets": [
+            {
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2015619755306693406854/consumer/source.go",
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 5
+                },
+                "end": {
+                  "line": 4,
+                  "character": 10
+                }
+              }
+            }
+          ]
+        },
+        "crossModuleDefinition": {
+          "targets": [
+            {
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%2015619755306693406854/provider/target.go",
+              "range": {
+                "start": {
+                  "line": 2,
+                  "character": 5
+                },
+                "end": {
+                  "line": 2,
+                  "character": 13
+                }
+              }
+            }
+          ]
+        },
+        "initialDiagnosisBarrier": {
+          "status": "completed-initial-diagnosis",
+          "token": "string:259208822001802961",
+          "title": "diagnosing initial workspace load",
+          "end": {
+            "source": "progress",
+            "token": "string:259208822001802961",
+            "kind": "end",
+            "title": "diagnosing initial workspace load",
+            "atUtc": "2026-11-11T13:41:09.000510Z"
+          }
+        },
+        "workspaceErrorNotifications": [],
+        "cleanupErrors": [],
+        "ownedRemaining": [],
+        "fixtureExplicitProcessSignalAttempts": [
+          {
+            "pid": 3102,
+            "action": "destroy",
+            "role": "owned-descendant",
+            "reason": "still-alive-after-provider-stop",
+            "attemptedAtUtc": "2026-11-11T13:41:09.005459Z",
+            "returnValue": true,
+            "outcome": "returned",
+            "completedAtUtc": "2026-11-11T13:41:09.005494Z"
+          }
+        ]
+      },
+      {
+        "mode": "OFF",
+        "status": "pass-real-cross-module-and-environment-checks",
+        "localDefinition": {
+          "targets": [
+            {
+              "uri": "file:///private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/owned%20gowork%20%E4%B8%AD%E6%96%87%F0%9F%98%80%208924008782173706547/consumer/source.go",
+              "range": {
+                "start": {
+                  "line": 4,
+                  "character": 5
+                },
+                "end": {
+                  "line": 4,
+                  "character": 10
+                }
+              }
+            }
+          ]
+        },
+        "crossModuleDefinition": {
+          "targets": []
+        },
+        "initialDiagnosisBarrier": {
+          "status": "completed-initial-diagnosis",
+          "token": "string:2538710601067542808",
+          "title": "diagnosing initial workspace load",
+          "end": {
+            "source": "progress",
+            "token": "string:2538710601067542808",
+            "kind": "end",
+            "title": "diagnosing initial workspace load",
+            "atUtc": "2026-11-11T13:41:09.503556Z"
+          }
+        },
+        "workspaceErrorNotifications": [],
+        "cleanupErrors": [],
+        "ownedRemaining": [],
+        "fixtureExplicitProcessSignalAttempts": [
+          {
+            "pid": 3113,
+            "action": "destroy",
+            "role": "owned-descendant",
+            "reason": "still-alive-after-provider-stop",
+            "attemptedAtUtc": "2026-11-11T13:41:09.507330Z",
+            "returnValue": true,
+            "outcome": "returned",
+            "completedAtUtc": "2026-11-11T13:41:09.507356Z"
+          }
+        ]
+      }
+    ]
+  },
+  "changes": [
+    "Use ASCII file URIs consistently in real gopls fixtures, keeping exact target lists and UTF-16 ranges.",
+    "Observe owned gopls descendants throughout the fixture; await protocol exit, reap captured children and transport EOF before provider disposal. Close directory enumeration before deleting directories.",
+    "Compare native gutter listener paths with pure Path.normalize instead of different Windows separator strings; no EDT filesystem resolution.",
+    "Use physical Process.waitFor within the existing 8 second adapter-registration-rejection test budget.",
+    "Resample the current exact metadata process descendants during Windows stop, including cancellation before the first normal-loop sample.",
+    "Add a real delayed-spawn child/inherited-pipe cancellation regression with both reader threads and an independent process control."
+  ],
+  "inference": [
+    "The Windows URI assertion failures have an exact encoding mismatch in the preserved raw XML.",
+    "The loader previously could cancel before recording its Windows child; the targeted regression covers that ordering when run on Windows. Local macOS uses its existing process group path."
+  ],
+  "unknown": [
+    "Actual Windows results for these changes.",
+    "Whether the prior adapter onExit/isAlive disagreement is resolved by physical waiting or exposes a production cleanup fault.",
+    "Whether prior Windows directory-in-use errors are fully resolved.",
+    "Remaining full native acceptance and both installer workflows."
+  ],
+  "sourcePins": [
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/run/GoRunBuildContextLoader.kt",
+      "sha256": "af0552f716d846c6277c315bc7d09a19542ab655f256290e139ec128d240bd14"
+    },
+    {
+      "path": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoGoworkGoplsTest.kt",
+      "sha256": "5de5480a932262cd28b6d10e678f6feee0e899050d4d7c35f25a144cfb056e76"
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/debug/GoLaunchedAdapterLifecycleTest.kt",
+      "sha256": "76711ba9907c3e5098b7c2c7b7f88dc96a8089343a5efd204276a28a50e583e6"
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/run/GoNativeGutterInvocation.kt",
+      "sha256": "fb7f3f1ddb3e46659b46fcf03c659c2f12fafaab66abac8f40240c666be454bd"
+    },
+    {
+      "path": "src/test/kotlin/dev/openidea/goide/run/GoRunBuildContextLoaderTest.kt",
+      "sha256": "c7ac88502628d527ea9f6ec3b091a2753cc134e5f041007036bcec6fb8043130"
+    }
+  ],
+  "localRawEvidence": ".tools/resume-snapshot-20261111/focused-001",
+  "scope": "Source-level integration evidence only. The runner sent no signals; the fixtures and providers perform their own explicitly scoped subprocess cleanup. No installed-product or new release claim."
+}
