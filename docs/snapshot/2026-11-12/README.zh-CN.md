@@ -2,13 +2,15 @@
 
 **完整目标仍是 active，尚未完成。** 本文件是下一轮 goal 的唯一续接入口：先读完“当前权威状态”和“下一次会话起手式”，再以实时 Git、GitHub Actions、Release、安装包与桌面验收结果为准。
 
+本快照于 **2026-11-12 22:40 CST** 冻结。冻结前已正常终止用于支持文件验收的本地 App，未留下 `dlv`、`debugserver` 或测试进程。
+
 ## 当前权威状态
 
-- 本次快照生成时，`main` 已推送基线为 `530ee08 Verify contextual Go completion`；快照自身的后续提交以远端 `main` HEAD 为准。
+- 本次快照生成时，`main` 已推送基线为 `e6bc6d2 Refresh resumed goal snapshot`；快照自身的后续提交以远端 `main` HEAD 为准。
 - `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。发布 workflow attempt 2 已成功，五个资产已公开；这是当前 README 的正式下载版本。
-- `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。macOS 已成功；Windows 首次 runner 异常终止，当前 attempt 2 正在运行。
-- `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。Windows 已成功；macOS 首次 `hdiutil create` 失败后，当前 attempt 2 正在运行。
-- `.11` tag：`v0.1.0-preview.20261112.11`，精确指向 `09ef68c`。Windows 正在构建；macOS 首次任务在排队后取消，当前 workflow 尚未结束，因此 GitHub 暂不允许失败作业重跑。结束后必须重跑 macOS。
+- `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。冻结时 workflow `43223334622` 仍在运行：version 与 macOS 成功，Windows attempt 2 进行中。
+- `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。冻结时 workflow `43227109296` 仍在运行：version 与 Windows 成功，macOS attempt 2 进行中。
+- `.11` tag：`v0.1.0-preview.20261112.11`，精确指向 `09ef68c`。冻结时 workflow `43235043231` 仍在运行：version 成功、Windows 进行中、macOS 已取消。workflow 结束后必须重跑 macOS。
 - 当前公开版本：[open Goland 0.1.0-preview.20261112.8](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8)。五个资产齐全，安装包/GitHub API/SHA256SUMS 摘要一致，Windows 安装卸载退出码均为 0，macOS DMG 已验证挂载复制与安装后 engine smoke。
 - `.9` 修复了 Windows 终端补全错误假设 `Ctrl-U` 普遍可用的问题：Unix 保留 `0x15` 清行，Windows 按命令长度发送 Backspace；真实 Windows PowerShell/cmd/Git Bash 验收仍未完成。
 - `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
@@ -16,7 +18,34 @@
 - 最新本地完整门禁为 **819 Kotlin tests + 86 Python tests**；Kotlin 为 148 reports、0 failures/errors/skips，Python 也无失败。`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
 - 原生格式化验收：真实 App 中一个未格式化 Go 文件经 Shift+Command+L 变为规范 gofmt 布局，一次 Command+Z 恢复原始 malformed 字节；探针未保存，fixture 已恢复。证据见 `docs/verification/go-formatting-native-20261112.json`。
 - 上下文补全：真实 gopls 0.24.0 已验证普通包成员、接口方法 `Total`、泛型函数 `Map` 和未保存不完整文档中的 `catalog.Cart` 候选；证据见 `docs/verification/lsp-context-completion-native-20261112.json`。
-- 当前工作树在 snapshot 写入前为干净状态。本轮重新实测：Computer Use 可读取桌面应用清单；REA 6.5.0 通过 Ghidra 12.1.4 打开 `/bin/echo` 的 arm64e 薄切片，读取 12 个 segment/19 个 procedure 的 overview，完整分析 `entry`（724 bytes、pseudocode/assembly/CFG），随后关闭目标并清理临时文件。
+- 冻结前工作树只新增了 `fixtures/supporting-files/` 支持文件验收夹具；没有修改已有源码。夹具已在本快照同一提交中保留，不应丢弃。
+- 本轮重新实测：Computer Use 可读取桌面应用清单；REA 6.5.0 通过 Ghidra 12.1.4 打开 `/bin/echo` 的 arm64e 薄切片，读取 12 个 segment/19 个 procedure 的 overview，完整分析 `entry`（724 bytes、pseudocode/assembly/CFG），随后关闭目标并清理临时文件。
+
+## 冻结时的支持文件验收缺口
+
+已在真实 macOS App 打开 `fixtures/supporting-files/`，观察到以下边界。它们只能记为 partial evidence，`TOOLS-04` 仍必须保持 `unverified`：
+
+| 文件 | 已观察 | 仍欠缺/当前行为 |
+| --- | --- | --- |
+| `config.yaml` | 识别为 YAML | 补全、校验和 schema 支持尚未验收 |
+| `payload.json` | 识别为 JSON | 格式化、路径补全和 schema 校验尚未验收 |
+| `Dockerfile` | 可以作为文件打开 | 未确认语法高亮、括号匹配、注释或 Docker 运行能力 |
+| `query.sql` | 显示为“自定义类型的文件” | 没有 SQL 高亮；没有数据库连接、补全、导航和运行能力 |
+| `api.http` | 作为普通文本打开 | 没有 HTTP 请求 gutter 或执行入口；必须用兼容插件补足 |
+| `view.gotmpl` | 作为普通文本打开 | 当前没有 Go Template 文件类型、动作高亮、模板执行或 inspection |
+
+验收夹具包含 Dockerfile、SQL、YAML、JSON、Go Template 和 HTTP 请求文档，均不包含凭据。其 SHA-256 为：
+
+| 文件 | SHA-256 |
+| --- | --- |
+| `Dockerfile` | `01d3807b919812bb509017eaac31986a0abc7d844a0437d8dd3b7029ee2e9126` |
+| `query.sql` | `90292ebdd1a671c6cdb01172e57cfd9c592211be5e6b2d6f488378b5fff54d91` |
+| `config.yaml` | `6b1d64bac5e0a22361d076174c2767946383fc9af070b574005bb32730e47dae` |
+| `payload.json` | `e864a7f29de8da82fff232ba9885632a50344e809e22ab85c5df5c27b258c715` |
+| `view.gotmpl` | `06e2aef13ecae4e7dcc0a465b4ddc7e3fd4fb1c7d6aadbd9d2e8866d8df6541b` |
+| `api.http` | `8ac9a6ff5215a7930cbbf04e49b3b88822d27486612a6afba6608743ebf08f17` |
+
+下一次优先实现可靠的 `.gotmpl` / `.go.html` 文件类型与 Go Template 动作高亮，再判断平台 TextMate SQL grammar 是否真的启用。不要在没有数据库模块时宣称 SQL 数据源、补全或导航；也不要增加伪造的 Docker/HTTP 执行按钮。
 
 ## 恢复后的剩余工作与工期估算
 
@@ -162,7 +191,8 @@ REA 配置已写入对应 `HOPPER_LAUNCHER_PATH`。Hopper 第一次启动仍停�
 
 ## 续接顺序
 
-1. 先读取本文件和 `docs/verification/releases/0.1.0-preview.20261112.7.json`，再核对当前 Git、GitHub Release、进程和磁盘。
-2. 在本机管理员终端执行 `sudo DevToolsSecurity -enable`，之后用当前源码重新打包并完成真实 Go Test Debug、断点、PASS 和 Stop 进程树验收。
-3. 若需要 Hopper provider，再确认 Demo 或许可证选择并在重连后验证；REA 本身已通过 Ghidra 完成 native open、分析、关闭闭环。
-4. 按 36 × 2 矩阵继续找真实缺口，每一版仍执行双平台测试、安装完成后再发布，并保持已公开版本不可变。
+1. 先读取本文件和当前最近一个完整 Release 记录，再核对当前 Git、GitHub Actions、Release、进程和磁盘；完成 `.9/.10/.11` 的失败作业重跑、五资产/SHA-256/provenance/公开状态验证，只有五项齐全后才更新 README 的正式下载版本。
+2. 从 `fixtures/supporting-files/` 继续：先实现可靠的 `.gotmpl` / `.go.html` Go Template 文件类型与动作高亮，并为 SQL、Dockerfile、HTTP 补真实验收证据；边界能力必须明确标为未实现或依赖插件。
+3. 在本机管理员终端执行 `sudo DevToolsSecurity -enable`，之后用当前源码重新打包并完成真实 Go Test Debug、断点、PASS 和 Stop 进程树验收。
+4. 若需要 Hopper provider，再确认 Demo 或许可证选择并在重连后验证；REA 本身已通过 Ghidra 完成 native open、分析、关闭闭环。
+5. 按 36 × 2 矩阵继续找真实缺口，每一版仍执行双平台测试、安装完成后再发布，并保持已公开版本不可变。

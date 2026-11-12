@@ -1,0 +1,6 @@
+server:
+  addr: ":8080"
+  readTimeout: 5s
+features:
+  - catalog
+  - checkout
