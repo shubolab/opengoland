@@ -4,12 +4,14 @@
 
 ## 当前权威状态
 
-- 本次快照生成时，`main` 已推送基线为 `f23bc48 Fix Windows terminal completion line clearing`；快照自身的后续提交以远端 `main` HEAD 为准。
-- `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。其 [Actions 43213216834](https://github.com/shubolab/opengoland/actions/runs/43213216834) 中 `version` 和 `macos` 已成功，Windows 仍在执行，Release 尚未出现。
+- 本次快照生成时，`main` 已推送基线为 `e7da5d6 Add terminal completion candidate chooser`；快照自身的后续提交以远端 `main` HEAD 为准。
+- `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。首次 Windows job 无可用日志地异常结束；已用 GitHub 原生失败作业重跑启动 attempt 2，Release 尚未出现。
 - `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。其 [Actions 43223334622](https://github.com/shubolab/opengoland/actions/runs/43223334622) 中 Windows/macOS 均已启动，尚在运行。
+- `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。其 [Actions 43227109296](https://github.com/shubolab/opengoland/actions/runs/43227109296) 已排队，包含终端歧义候选选择器。
 - 最近一个已完整发布的版本仍是 [open Goland 0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)。
 - `.9` 修复了 Windows 终端补全错误假设 `Ctrl-U` 普遍可用的问题：Unix 保留 `0x15` 清行，Windows 按命令长度发送 Backspace；真实 Windows PowerShell/cmd/Git Bash 验收仍未完成。
-- 最新本地完整门禁为 **815/815 tests、148 reports、0 failures/errors/skips**；`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
+- `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
+- 最新本地完整门禁为 **819/819 tests、148 reports、0 failures/errors/skips**；`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
 - 当前工作树在 snapshot 写入前为干净状态；Computer Use、REA 6.5.0、Ghidra 12.1.4 均已实际验证可用。
 
 ## 下一次会话起手式
@@ -20,11 +22,11 @@
 cd /Users/wangshubo/develop/openidea-go
 git status --short --branch
 git log -5 --oneline
-for run in 43213216834 43223334622; do
+for run in 43213216834 43223334622 43227109296; do
   gh run view "$run" --json status,conclusion,url,headSha,jobs \
     --jq '{status,conclusion,url,headSha,jobs:[.jobs[]|{name,status,conclusion}]}'
 done
-for tag in v0.1.0-preview.20261112.8 v0.1.0-preview.20261112.9; do
+for tag in v0.1.0-preview.20261112.8 v0.1.0-preview.20261112.9 v0.1.0-preview.20261112.10; do
   gh release view "$tag" --json tagName,isPrerelease,isDraft,assets \
     --jq '{tagName,isPrerelease,isDraft,assets:[.assets[]|{name,size,state}]}' 2>&1 || true
 done
@@ -32,16 +34,16 @@ done
 
 - 每个成功 workflow 都应生成一个不可变 Release，且恰有 Windows EXE、macOS DMG、`windows-provenance.tar.gz`、`macos-provenance.tar.gz`、`SHA256SUMS` 五个资产。核对大小、SHA-256、公开/预发布状态与 tag 指向。
 - 若任一 workflow 失败：先运行 `gh run view <id> --log-failed`。远端瞬时失败可原 tag rerun；需要源码变化时发布后续版本，不要移动已推送 tag 或覆盖已公开资产。
-- `.8/.9` 发布闭环后，优先在真实 Windows Terminal 中验收 `.9` 的 cmd.exe、PowerShell/PSReadLine、Windows Git Bash 补全，再继续 36×2 验收矩阵；CI 变绿不等于 GoLand 行为对齐完成。
+- `.8/.9/.10` 发布闭环后，优先在真实 Windows Terminal 中验收 `.10` 的 cmd.exe、PowerShell/PSReadLine、Windows Git Bash 歧义候选，再继续 36×2 验收矩阵；CI 变绿不等于 GoLand 行为对齐完成。
 
 ## 本轮新增与保留边界（2026-11-12）
 
 - 前序终端补全修复：`ce0e579 Fix native Go terminal completion`；后续跨平台清行修复：`f23bc48 Fix Windows terminal completion line clearing`。
-- 已创建并推送 tag：`.8` 指向 `ce0e579`，`.9` 指向 `f23bc48`。
+- 已创建并推送 tag：`.8` 指向 `ce0e579`，`.9` 指向 `f23bc48`，`.10` 指向 `e7da5d6`。
 - 双平台安装包 workflow 已启动：[GitHub Actions 43213216834](https://github.com/shubolab/opengoland/actions/runs/43213216834)。收尾时它仍在运行；下次先检查最终结论。成功时 Release 地址为 `https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8`。
 - 若 workflow 失败，不要移动已推送 tag 或覆盖已公开资产。先读取 `gh run view 43213216834 --log-failed`；若只是远端瞬时失败可 rerun，若需要源码修复则发布 `.9`。
 - 本轮已经删除三份关闭的临时 macOS 候选 App，释放约 8.1 GB；固定 SDK、构建缓存和公开 Release 资产未删除。
-- 下一轮先检查 `.8/.9` 的五个发布资产、SHA-256、公开状态和 provenance，再在真实 Windows Terminal 中验收 `.9`，然后继续 36×2 验收矩阵。
+- 下一轮先检查 `.8/.9/.10` 的五个发布资产、SHA-256、公开状态和 provenance，再在真实 Windows Terminal 中验收 `.10`，然后继续 36×2 验收矩阵。
 
 ## 本轮调试缺口进展
 
@@ -54,7 +56,7 @@ done
 - Attach 模式关闭后代清理，继续保证断开时不会错误杀死用户的被调试进程。
 - 新真实进程测试验证了 adapter 的 child/grandchild 被回收，而同 executable 下的无关进程保持运行。
 
-最新验证结果：Kotlin **815/815，148 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
+最新验证结果：Kotlin **819/819，148 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
 
 仍差最后一步运行时证据：本机管理员未开放 Developer Mode，而当前自动化会话不能输入管理员密码，因此尚未在同一个候选包中完成“启用权限 → 真实测试运行 → 断点 → PASS → Stop 清理”闭环。机器可读记录：[debug-hang-20261112.json](evidence/debug-hang-20261112.json)。
 
