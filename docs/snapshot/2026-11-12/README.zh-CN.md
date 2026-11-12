@@ -6,18 +6,19 @@
 
 ## 当前权威状态
 
-- 本次快照生成时，`main` 已推送基线为 `e6bc6d2 Refresh resumed goal snapshot`；快照自身的后续提交以远端 `main` HEAD 为准。
+- 本次快照生成时，`main` 已包含 `9ac948e Add native Go template support`；快照自身的后续提交以远端 `main` HEAD 为准。
 - `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。发布 workflow attempt 2 已成功，五个资产已公开；这是当前 README 的正式下载版本。
-- `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。冻结时 workflow `43223334622` 仍在运行：version 与 macOS 成功，Windows attempt 2 进行中。
+- `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。workflow `43223334622` 最终失败：version 与 macOS 成功；Windows 已安装包 GUI 启动日志出现 ERROR/SEVERE，因此发布作业被跳过。原始日志只暴露 smoke 断言，未直接给出具体日志行，下一轮需从 `windows-x64` artifact 中的安装日志定位。
 - `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。冻结时 workflow `43227109296` 仍在运行：version 与 Windows 成功，macOS attempt 2 进行中。
 - `.11` tag：`v0.1.0-preview.20261112.11`，精确指向 `09ef68c`。冻结时 workflow `43235043231` 仍在运行：version 成功、Windows 进行中、macOS 已取消。workflow 结束后必须重跑 macOS。
 - 当前公开版本：[open Goland 0.1.0-preview.20261112.8](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8)。五个资产齐全，安装包/GitHub API/SHA256SUMS 摘要一致，Windows 安装卸载退出码均为 0，macOS DMG 已验证挂载复制与安装后 engine smoke。
 - `.9` 修复了 Windows 终端补全错误假设 `Ctrl-U` 普遍可用的问题：Unix 保留 `0x15` 清行，Windows 按命令长度发送 Backspace；真实 Windows PowerShell/cmd/Git Bash 验收仍未完成。
 - `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
 - `.11` 修复了生产启动只改 app.jar 无法生效的问题：同时打开 Gradle PlatformExtensions 与 `plugins/plugin-classpath.txt!core` 的精确 service 注册。完整打包候选 fresh profile 中原 `InstanceNotOverridableException` 已消失，启动日志无 ERROR/SEVERE。
-- 最新本地完整门禁为 **819 Kotlin tests + 86 Python tests**；Kotlin 为 148 reports、0 failures/errors/skips，Python 也无失败。`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
+- 最新本地完整门禁为 **825 Kotlin tests + 86 Python tests**；Kotlin 为 150 reports、0 failures/errors/skips，Python 也无失败。`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
 - 原生格式化验收：真实 App 中一个未格式化 Go 文件经 Shift+Command+L 变为规范 gofmt 布局，一次 Command+Z 恢复原始 malformed 字节；探针未保存，fixture 已恢复。证据见 `docs/verification/go-formatting-native-20261112.json`。
 - 上下文补全：真实 gopls 0.24.0 已验证普通包成员、接口方法 `Total`、泛型函数 `Map` 和未保存不完整文档中的 `catalog.Cart` 候选；证据见 `docs/verification/lsp-context-completion-native-20261112.json`。
+- Go Template：新增独立 `OpenIDEAGoTemplate` 语言、文件类型、解析器、词法高亮与注释器；`.gotmpl`、`.gohtml`、`.gotext`、`.go.html`、`.go.tmpl`、`.go.txt` 均由原生类型接管。真实当前构建 App 中已逐一打开并确认动作、关键字、内置函数、字段、变量、字符串和管道高亮；证据见 `docs/verification/go-template-native-20261112.json`。
 - 冻结前工作树只新增了 `fixtures/supporting-files/` 支持文件验收夹具；没有修改已有源码。夹具已在本快照同一提交中保留，不应丢弃。
 - 本轮重新实测：Computer Use 可读取桌面应用清单；REA 6.5.0 通过 Ghidra 12.1.4 打开 `/bin/echo` 的 arm64e 薄切片，读取 12 个 segment/19 个 procedure 的 overview，完整分析 `entry`（724 bytes、pseudocode/assembly/CFG），随后关闭目标并清理临时文件。
 
