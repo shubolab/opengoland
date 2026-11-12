@@ -49,7 +49,7 @@ IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitH
 
 SDK 下载会核对官方目录中的大小与 SHA-256，再验证解包后的 Go 版本和主目录；目标必须是新目录，已有 SDK 不会被覆盖。取消或验证失败不会登记为已安装 SDK。下载需要联网，项目依赖也可能需要访问网络。
 
-SDK 选择器已经实现并有自动化验证；外部 SDK 的 **Add local…** 原生目录选择，以及测试调试准备过程的原生取消按钮，目前仍缺少完整的桌面验收，不能把自动化测试当作这些操作已经通过。此前公开安装副本使用内置 SDK 建项目、运行与测试的记录见[SDK 与新建项目验证](docs/verification/sdk-project-management-public-native.json)。
+外部 SDK 的 **Add local…** 已经在当前 macOS 候选包中完成原生目录选择、版本校验、Apply、重启后保留、实际 Go 测试以及恢复内置 SDK 的完整流程；长路径把下拉箭头挤出窗口的问题也已修复。测试调试准备过程的原生 Cancel 按钮仍需单独验收，不能把 SDK 选择通过等同于所有调试步骤通过。[本机 SDK 流程记录](docs/reference/sdk-local-chooser-native-20261112.json)与[SDK 与新建项目验证](docs/verification/sdk-project-management-public-native.json)分别覆盖不同范围。
 
 ### macOS 调试提示
 

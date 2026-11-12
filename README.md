@@ -229,10 +229,13 @@ Preview `.5` retains the standard Pause and first-load source-navigation repairs
 and repairs the reproduced Apple silicon syscall caller-variable case and Go
 Test pre-connect Stop handling. Test debugging also prepares and probes
 `test2json` with the selected SDK before opening the debug session. Native
-external-SDK directory selection and the preparation task's visible Cancel
-control still need complete desktop verification. See the
+external-SDK directory selection, verification, Apply, restart persistence,
+real test execution and restoration have been exercised in the current macOS
+candidate; the preparation task's visible Cancel control still needs complete
+desktop verification. See the
 [candidate native checks](docs/verification/derived-delve-candidate-native.json),
 [preparation task checks](docs/verification/go-test-preparation-task.json), and
+[local SDK workflow](docs/reference/sdk-local-chooser-native-20261112.json),
 [public installed-copy record](docs/verification/debug-session-public-v5-native.json)
 for their separate scopes; these passes do not close every debugger race.
 
