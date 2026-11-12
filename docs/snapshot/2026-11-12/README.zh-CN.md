@@ -5,10 +5,10 @@
 ## 当前权威状态
 
 - 已发布源码提交：`585964bb7e53ab2066c6ea079c3f78ba5469e602`
-- 当前已推送源码：`e684148`，包含调试权限/进程清理、SDK 设置布局、项目终端 SDK 环境以及 Go 终端命令规范
+- 当前已推送源码：`e47e9d1`，包含调试权限/进程清理、SDK 设置布局、项目终端 SDK 环境、Go 终端命令规范和原生 Git 冲突流程证据
 - 当前候选源码：520 个输入文件；最终摘要会在文档证据提交后重新生成
-- 公开版本：[open Goland 0.1.0-preview.20261110.6](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.6)
-- 构建运行：[GitHub Actions 43129280667](https://github.com/shubolab/opengoland/actions/runs/43129280667)
+- 公开版本：[open Goland 0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)
+- 构建运行：[GitHub Actions 43175443788](https://github.com/shubolab/opengoland/actions/runs/43175443788)
 
 ## 本轮调试缺口进展
 
@@ -102,7 +102,7 @@ REA 配置已写入对应 `HOPPER_LAUNCHER_PATH`。Hopper 第一次启动仍停�
 
 ## 续接顺序
 
-1. 先读取本文件和 `docs/verification/releases/0.1.0-preview.20261110.6.json`，再核对当前 Git、GitHub Release、进程和磁盘。
+1. 先读取本文件和 `docs/verification/releases/0.1.0-preview.20261112.7.json`，再核对当前 Git、GitHub Release、进程和磁盘。
 2. 在本机管理员终端执行 `sudo DevToolsSecurity -enable`，之后用当前源码重新打包并完成真实 Go Test Debug、断点、PASS 和 Stop 进程树验收。
 3. 若需要 Hopper provider，再确认 Demo 或许可证选择并在重连后验证；REA 本身已通过 Ghidra 完成 native open、分析、关闭闭环。
 4. 按 36 × 2 矩阵继续找真实缺口，每一版仍执行双平台测试、安装完成后再发布，并保持已公开版本不可变。

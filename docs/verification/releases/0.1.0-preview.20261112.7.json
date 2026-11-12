@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261112.7",
+  "status": "published-preview",
+  "draft": false,
+  "summaryZh": ".7 已提供真实 Windows x64 EXE 与 macOS arm64 DMG，两平台构建均通过同一份 806 个 Kotlin 测试、安装/启动检查并由 publish 作业校验五个资产。该版本加入 Go 终端命令规范、项目 SDK 终端环境和当前中文/通用插件候选改进；原生终端弹窗和 macOS Developer Mode 调试闭环仍是明确限制。",
+  "release": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7",
+  "installerSource": {
+    "commit": "0ce4a988f7b7e4ea94a49569d377c55d3447b0ba",
+    "tag": "v0.1.0-preview.20261112.7",
+    "inputFiles": 520,
+    "inputDigest": "898171e8f717b614f7ad271d58125aeb7c21351cffed63c23d6aa697c6360cea",
+    "sourceDirtyAtTag": false,
+    "evidence": "Both provenance archives bind version .7 and the exact tag commit; the release workflow verified the tag commit before publishing."
+  },
+  "publication": {
+    "workflowRun": "https://github.com/shubolab/opengoland/actions/runs/43175443788",
+    "runId": 43175443788,
+    "conclusion": "success",
+    "publishedAt": "2026-11-12T08:21:53Z",
+    "prerelease": true,
+    "jobs": [
+      {
+        "id": 131038472995,
+        "name": "version",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-11-12T07:27:53Z",
+        "completedAt": "2026-11-12T07:27:57Z",
+        "url": "https://github.com/shubolab/opengoland/actions/runs/43175443788/job/131038472995"
+      },
+      {
+        "id": 131038511262,
+        "name": "macos",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-11-12T07:28:00Z",
+        "completedAt": "2026-11-12T08:20:45Z",
+        "url": "https://github.com/shubolab/opengoland/actions/runs/43175443788/job/131038511262"
+      },
+      {
+        "id": 131038511299,
+        "name": "windows",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-11-12T07:28:00Z",
+        "completedAt": "2026-11-12T08:20:24Z",
+        "url": "https://github.com/shubolab/opengoland/actions/runs/43175443788/job/131038511299"
+      },
+      {
+        "id": 131060545570,
+        "name": "publish",
+        "status": "completed",
+        "conclusion": "success",
+        "startedAt": "2026-11-12T08:20:47Z",
+        "completedAt": "2026-11-12T08:21:55Z",
+        "url": "https://github.com/shubolab/opengoland/actions/runs/43175443788/job/131060545570"
+      }
+    ]
+  },
+  "localFullChecks": {
+    "kotlin": {
+      "tests": 807,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "reports": 147
+    },
+    "boundary": "807 tests are the current post-tag main branch. The published .7 installer source contains 806 tests; both provenance archives independently total 806 tests in 147 reports with zero failures, errors or skipped."
+  },
+  "releaseRawAudit": {
+    "status": "pass-publish-workflow-asset-verification",
+    "windows": {
+      "archive": "windows-provenance.tar.gz",
+      "reports": 147,
+      "totals": {
+        "tests": 806,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "macos": {
+      "archive": "macos-provenance.tar.gz",
+      "reports": 147,
+      "totals": {
+        "tests": 806,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "checksumFile": "SHA256SUMS downloaded from the public release; provenance archives independently match their recorded checksums. The publish job verified installer sizes and API sha256 digests before making the release public."
+  },
+  "artifacts": {
+    "macos-provenance.tar.gz": {
+      "bytes": 4215689,
+      "sha256": "e528803c1a2529059f8eedbe7b5b3292de487ee9606fd1793d7c6de94c0ea310",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/macos-provenance.tar.gz"
+    },
+    "open-Goland-0.1.0-preview.20261112.7-macos-arm64.dmg": {
+      "bytes": 1026525936,
+      "sha256": "e4fd56654c783bf2d856238017fa59b0540fea9825fd188a195ece5aa8b33838",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/open-Goland-0.1.0-preview.20261112.7-macos-arm64.dmg"
+    },
+    "open-Goland-0.1.0-preview.20261112.7-windows-x64-setup.exe": {
+      "bytes": 870916677,
+      "sha256": "74d7deb6d61a5c99a86e49c13ffb660fab7f0a0464ad4a65669c410c81adb15f",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/open-Goland-0.1.0-preview.20261112.7-windows-x64-setup.exe"
+    },
+    "SHA256SUMS": {
+      "bytes": 434,
+      "sha256": "3add75b1d0ebedb7c7ea9cdf65bb7cd521304d3ead37bd67ea46964a68c972e1",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/SHA256SUMS"
+    },
+    "windows-provenance.tar.gz": {
+      "bytes": 6770116,
+      "sha256": "22187e1179500ad72a25f6d751a24d6fb2a9c84f501079c49028078cb2c330b1",
+      "url": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/windows-provenance.tar.gz"
+    }
+  },
+  "limitations": [
+    "Native terminal Go command completion popup is still under acceptance even though the command-spec pipeline passes its fixture.",
+    "Real macOS Delve attach/debug acceptance requires administrator Developer Mode.",
+    "Windows installer is not publisher-signed; macOS app is ad-hoc signed and not notarized.",
+    "The full 36 x 2 GoLand comparison matrix remains in progress."
+  ],
+  "fullGoalStatus": "active"
+}
