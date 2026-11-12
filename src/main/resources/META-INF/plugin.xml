@@ -9,6 +9,7 @@
     ]]></description>
     <depends>com.intellij.modules.platform</depends>
     <depends>com.redhat.devtools.lsp4ij</depends>
+    <depends>org.jetbrains.plugins.terminal</depends>
     <extensions defaultExtensionNs="com.intellij">
         <applicationService serviceInterface="com.intellij.ide.plugins.PluginManagementPolicy"
                             serviceImplementation="dev.openidea.goide.product.GoProductPluginManagementPolicy"
@@ -119,6 +120,9 @@
         <languageMapping language="OpenIDEAGoMod" serverId="openidea.gopls" languageId="go.mod"/>
         <languageMapping language="OpenIDEAGoWork" serverId="openidea.gopls" languageId="go.work"/>
         <debugAdapterServer id="openidea.delve" name="Go (Delve)" factoryClass="dev.openidea.goide.debug.GoDebugAdapterFactory" icon="/icons/go.svg"/>
+    </extensions>
+    <extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
+        <localTerminalCustomizer implementation="dev.openidea.goide.terminal.GoTerminalCustomizer"/>
     </extensions>
     <actions>
         <action id="OpenIDEA.InstallChineseLanguagePack" class="dev.openidea.goide.plugins.InstallChineseLanguagePackAction" text="安装简体中文语言包… / Install Chinese Language Pack…" description="从 JetBrains 官方获取与当前平台匹配的简体中文语言包">

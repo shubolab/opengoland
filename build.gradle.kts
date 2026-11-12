@@ -178,6 +178,7 @@ val captureBuildInputs by tasks.registering(Exec::class) {
 dependencies {
     intellijPlatform {
         local(platformPath)
+        bundledPlugin("org.jetbrains.plugins.terminal")
         plugin("com.redhat.devtools.lsp4ij", "0.21.0")
         testFramework(TestFrameworkType.Platform)
     }
