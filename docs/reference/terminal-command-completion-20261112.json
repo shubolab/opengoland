@@ -67,7 +67,7 @@
   },
   "automatedVerification": {
     "reports": 147,
-    "tests": 806,
+    "tests": 807,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
@@ -76,7 +76,12 @@
       "GoShellCommandSpecsProviderTest.testGoSpecExposesSubcommandsAndCommonBuildNavigation",
       "GoTerminalCustomizerTest.testProjectGoSdkPrecedesShellPathAndAppliesProjectEnvironment"
     ],
-    "fullGate": "test, buildPlugin, prepareSandbox and verifyPluginStructure passed"
+    "fullGate": "test, buildPlugin, prepareSandbox and verifyPluginStructure passed",
+    "endToEndFixture": {
+      "input": "go te and go test -",
+      "result": "The platform ShellCompletionTestFixture returned the test subcommand and common options including -run, -bench, -count, -race and -cover.",
+      "scope": "Complete command text, zsh tokenization, provider conflict resolution, command tree and suggestion generation within the platform test fixture."
+    }
   },
   "platformInspection": {
     "terminalJar": ".tools/platform/idea-2026.1.4/IntelliJ IDEA.app/Contents/plugins/terminal/lib/terminal.jar",
@@ -93,8 +98,9 @@
     "tabAttempt": "Tab fell back to zsh path completion and produced go _test.go.",
     "shortcutAttempts": "Control+Space is intercepted by macOS input-source handling. Temporary test-only mappings for Terminal.CommandCompletion.Invoke on Control+Option+K and F2 did not visibly open the popup.",
     "menuAttempt": "A temporary Go Terminal Completion menu action invoked Terminal.CommandCompletion.Invoke in terminal context but still produced no popup. The temporary action was removed before the final full gate.",
-    "classification": "Native Go command completion is not accepted. The automated provider and manager registration are verified, but visible terminal candidates remain open."
+    "classification": "Native Go command completion is not accepted. The automated provider and manager registration are verified, but visible terminal candidates remain open.",
+    "classicEngineAttempt": "A packaged candidate switched to the classic terminal engine still fell back to shell path completion for go te, so changing the engine alone does not close the native action-state gap."
   },
   "evidenceBoundary": "This record does not claim native terminal completion or full GoLand terminal parity. It proves the installed terminal manager resolves the Go command spec in the platform test environment and the full regression gate remains green.",
-  "nextProbe": "Determine whether AppMode/EEL or reworked-terminal shell integration disables the Gen2 completion action in the packaged monolith, then verify visible go test and go test option candidates with screenshot evidence before release."
+  "nextProbe": "The command-spec pipeline is proven end to end in the platform fixture. Investigate why the packaged terminal never reaches a native completion context, focusing on shell-integration outputStatus, active output editor and action enablement, then verify visible go test candidates with screenshot evidence before release."
 }

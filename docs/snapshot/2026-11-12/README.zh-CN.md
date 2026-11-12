@@ -21,7 +21,7 @@
 - Attach 模式关闭后代清理，继续保证断开时不会错误杀死用户的被调试进程。
 - 新真实进程测试验证了 adapter 的 child/grandchild 被回收，而同 executable 下的无关进程保持运行。
 
-最新验证结果：Kotlin **806/806，147 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
+最新验证结果：Kotlin **807/807，147 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
 
 仍差最后一步运行时证据：本机管理员未开放 Developer Mode，而当前自动化会话不能输入管理员密码，因此尚未在同一个候选包中完成“启用权限 → 真实测试运行 → 断点 → PASS → Stop 清理”闭环。机器可读记录：[debug-hang-20261112.json](evidence/debug-hang-20261112.json)。
 
@@ -37,7 +37,7 @@
 
 真实关闭测试启动前台 `sleep 300`，确认进程树后关闭 Terminal 并选择 Terminate；shell 与子进程均退出。参考 GoLand 的已安装 JAR 仅用于确认其公开 Terminal customizer 扩展边界，记录绑定到 artifact SHA-256 `198efc87…55f0`，没有复制商业实现。机器可读记录：[terminal-native-20261112.json](../../reference/terminal-native-20261112.json)。
 
-当前源码还注册了覆盖 `go build/test/run/mod/work` 等命令与常用选项的终端命令规范，平台管理器测试能够解析该 provider。但独立 App 中自动弹出、Tab 和临时快捷键均未显示 Go 候选，Tab 仍回退到 zsh 文件名补全；因此原生终端命令补全仍列为未完成项，不能由自动化测试替代。[机器可读记录](../../reference/terminal-command-completion-20261112.json)。
+当前源码还注册了覆盖 `go build/test/run/mod/work` 等命令与常用选项的终端命令规范。平台 `ShellCompletionTestFixture` 已经走完整条文本、zsh token、provider 和候选生成链路，能够返回 `go test` 与常用测试参数。但独立 App 的重制终端和经典终端中，自动弹出、Tab 和临时快捷键均未显示 Go 候选，Tab 仍回退到 zsh 文件名补全；因此原生终端命令补全仍列为未完成项，不能由自动化测试替代。[机器可读记录](../../reference/terminal-command-completion-20261112.json)。
 
 ## 当前源码插件与中文包复核
 

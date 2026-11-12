@@ -44,7 +44,7 @@
   "tests": {
     "suite": "GoTerminalCustomizerTest",
     "assertions": "Project SDK path precedes shell PATH; the shell PATH and shell variables remain present; GOROOT, GOPROXY, GOFLAGS, GOOS, GOARCH and CGO_ENABLED are force-set for shell integration.",
-    "fullGate": "806/806 Kotlin tests, 147 reports, 0 failures, 0 errors, 0 skipped; buildPlugin, prepareSandbox and verifyPluginStructure passed."
+    "fullGate": "807/807 Kotlin tests, 147 reports, 0 failures, 0 errors, 0 skipped; buildPlugin, prepareSandbox and verifyPluginStructure passed."
   },
   "evidenceBoundary": "This verifies a local macOS interactive terminal and foreground child cleanup on one selected project SDK. Detached/background daemons, remote/WSL terminals, every shell/profile combination and Windows interactive terminal behavior remain separate checks.",
   "implementationCommit": "e253587"

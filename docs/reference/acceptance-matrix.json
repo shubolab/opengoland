@@ -523,7 +523,7 @@
         "native_terminal_environment": "../reference/terminal-native-20261112.json",
         "native_terminal_observation": "Recorded 2026-11-12: a packaged macOS app opened an interactive terminal at the project root; `go version` and `go env GOROOT` resolved to the project bundled Go1.26.10 rather than the global mise1.24.3; closing a foreground `sleep 300` session terminated the shell and child. Remote/WSL, detached daemon and Windows interactive terminal behavior remain open.",
         "terminal_command_specs": "../reference/terminal-command-completion-20261112.json",
-        "terminal_command_specs_observation": "Recorded 2026-11-12: the installed ShellCommandSpecsManager resolves the REPLACE Go provider and the full 806-test gate passes. In the packaged macOS candidate, automatic and explicit terminal completion attempts did not visibly show Go candidates; Tab fell back to zsh path completion. Native command completion remains open."
+        "terminal_command_specs_observation": "Recorded 2026-11-12: the platform ShellCompletionTestFixture returns the go test subcommand and common options, the installed ShellCommandSpecsManager resolves the REPLACE Go provider, and the full 807-test gate passes. In packaged reworked and classic macOS terminals, automatic and explicit attempts did not visibly show Go candidates; Tab fell back to shell path completion. Native command completion remains open."
       }
     },
     {
