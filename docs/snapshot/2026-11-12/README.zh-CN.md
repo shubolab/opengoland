@@ -6,11 +6,12 @@
 
 ## 当前权威状态
 
-- 本次快照生成时，`main` 已包含 `9ac948e Add native Go template support`；快照自身的后续提交以远端 `main` HEAD 为准。
+- 本次快照生成时，`main` 已包含 `aed535d Add native supporting file languages`，其中接续了 `9ac948e Add native Go template support`；快照自身的后续提交以远端 `main` HEAD 为准。
 - `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。发布 workflow attempt 2 已成功，五个资产已公开；这是当前 README 的正式下载版本。
 - `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。workflow `43223334622` 最终失败：version 与 macOS 成功；Windows 已安装包 GUI 启动日志出现 ERROR/SEVERE，因此发布作业被跳过。原始日志只暴露 smoke 断言，未直接给出具体日志行，下一轮需从 `windows-x64` artifact 中的安装日志定位。
 - `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。冻结时 workflow `43227109296` 仍在运行：version 与 Windows 成功，macOS attempt 2 进行中。
 - `.11` tag：`v0.1.0-preview.20261112.11`，精确指向 `09ef68c`。冻结时 workflow `43235043231` 仍在运行：version 成功、Windows 进行中、macOS 已取消。workflow 结束后必须重跑 macOS。
+- `.12` tag：`v0.1.0-preview.20261112.12`，精确指向 `1d61302`，包含 Go Template 支持。workflow `43244003072` 的 version 已成功，Windows 与 macOS 仍在构建。
 - 当前公开版本：[open Goland 0.1.0-preview.20261112.8](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8)。五个资产齐全，安装包/GitHub API/SHA256SUMS 摘要一致，Windows 安装卸载退出码均为 0，macOS DMG 已验证挂载复制与安装后 engine smoke。
 - `.9` 修复了 Windows 终端补全错误假设 `Ctrl-U` 普遍可用的问题：Unix 保留 `0x15` 清行，Windows 按命令长度发送 Backspace；真实 Windows PowerShell/cmd/Git Bash 验收仍未完成。
 - `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
