@@ -56,7 +56,10 @@
         "native_workflows": "../verification/native-workflows.md",
         "native_workflows_native": "../verification/native-workflows-native.json",
         "native_workflows_build": "../verification/native-workflows-build.json",
-        "native_workflows_observation": "Native extraction and two-file Inline All support one-step Undo/Redo in the 395-input 625e694e standalone cohort. Dirty type close/reopen and subsequent Undo are observed; disk checkpoints do not prove an unsaved disk state immediately after close. Full editor/IME/multicaret/close parity remains open."
+        "native_workflows_observation": "Native extraction and two-file Inline All support one-step Undo/Redo in the 395-input 625e694e standalone cohort. Dirty type close/reopen and subsequent Undo are observed; disk checkpoints do not prove an unsaved disk state immediately after close. Full editor/IME/multicaret/close parity remains open.",
+        "multicaret_gopls": "../verification/multicaret-gopls.md",
+        "multicaret_gopls_native": "../verification/multicaret-gopls-native.json",
+        "multicaret_gopls_observation": "A native editor multi-caret paste into two Go struct tags produced two ordered incremental ranges in one didChange; real gopls hover, warning and undeclared-name diagnostics followed the unsaved overlay across Paste, Undo and Redo. The exact disk snapshots stayed unchanged until the explicit save. Broad caret/selection/dirty-close intersections and commercial runtime equivalence remain open."
       }
     },
     {
@@ -537,7 +540,7 @@
         "native_terminal_environment": "../reference/terminal-native-20261112.json",
         "native_terminal_observation": "Recorded 2026-11-12: a packaged macOS app opened an interactive terminal at the project root; `go version` and `go env GOROOT` resolved to the project bundled Go1.26.10 rather than the global mise1.24.3; closing a foreground `sleep 300` session terminated the shell and child. Remote/WSL, detached daemon and Windows interactive terminal behavior remain open.",
         "terminal_command_specs": "../reference/terminal-command-completion-20261112.json",
-        "terminal_command_specs_observation": "Recorded 2026-11-12: the platform ShellCompletionTestFixture returns the go test subcommand and common options, the installed ShellCommandSpecsManager resolves the REPLACE Go provider, and the full 807-test gate passes. In packaged reworked and classic macOS terminals, automatic and explicit attempts did not visibly show Go candidates; Tab fell back to shell path completion. Native command completion remains open."
+        "terminal_command_specs_observation": "Recorded 2026-11-12 on the current standalone candidate: deterministic go te to go test and go test -r to go test -run replacement passed through the real PTY on macOS zsh/Powerlevel10k and Bash. A later focused repair keeps Ctrl-U on Unix and uses shell-editor Backspaces on Windows so the fallback no longer assumes a Unix line-kill binding. PowerShell, cmd.exe, Windows Git Bash, WSL and remote terminals still require native acceptance."
       }
     },
     {

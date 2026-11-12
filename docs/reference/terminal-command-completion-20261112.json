@@ -1,15 +1,15 @@
 {
   "schema": 1,
   "recordedAtUtc": "2026-11-12T11:30:53Z",
-  "status": "native-go-subcommand-and-test-option-auto-completion-verified",
-  "sourceBaseCommit": "fecfa045ed308208198ec821faf04cecb95af594",
+  "status": "native-macos-verified-cross-platform-line-clearing-unit-hardened-windows-native-pending",
+  "sourceBaseCommit": "ce0e579d2c56294ca026211a74a5248cd46385c3",
   "platform": "IntelliJ Platform 2026.1.4 (build 261.26222.65), macOS 27.2 arm64",
   "implementation": {
     "installedSpec": "The terminal plugin bundled completionSpecs/go.json is loaded by the installed ShellCommandSpecsManagerImpl.",
     "fallback": "src/main/kotlin/dev/openidea/goide/terminal/GoTerminalCompletionFallback.kt",
     "fallbackRegistration": "com.intellij.editorFactoryListener",
     "inputSource": "The active TerminalOutputModel line at the terminal cursor. The reworked input text is not present in Editor.document while it is being typed.",
-    "replacement": "TerminalInput.sendBytes(0x15) clears the shell edit line, then TerminalInput.sendString writes the completed command. This is a real PTY edit, not a visual-only action.",
+    "replacement": "The fallback observes the active shell edit line and sends replacement bytes through TerminalInput. macOS/Linux use Ctrl-U (0x15) to clear a readline/zle edit line; Windows uses one Backspace (0x08) per completed-command character so cmd.exe, PowerShell/PSReadLine and Windows Git Bash all have a shell-editor path without changing user startup files.",
     "ranking": "Go subcommands: test, telemetry, tool, build and the remaining standard commands. The first prefix match wins; go te therefore becomes go test.",
     "testOptions": "-run, -bench, -count, -race, -cover, coverage controls, JSON/verbose/status controls, build flags and execution flags.",
     "triggerDelayMs": 180,
@@ -18,7 +18,7 @@
   },
   "automatedVerification": {
     "reports": 148,
-    "tests": 812,
+    "tests": 815,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
@@ -27,7 +27,7 @@
       "GoTerminalCompletionFallbackTest",
       "GoTerminalCustomizerTest"
     ],
-    "fullGate": "test, buildPlugin, prepareSandbox and verifyPluginStructure passed.",
+    "fullGate": "815 tests in 148 reports with zero failures/errors/skips; test, buildPlugin, prepareSandbox and verifyPluginStructure passed.",
     "candidateSelection": [
       {
         "input": "go te",
@@ -54,8 +54,8 @@
     "rejectedFix": "Setting POWERLEVEL9K_INSTANT_PROMPT=off in a test process did not complete shell integration. The product therefore does not mutate the user shell environment.",
     "fallbackDesign": "Read the active output model, resolve a Go command line independently of shell-integration markers, and send the replacement through the terminal input channel."
   },
-  "evidenceBoundary": "This verifies deterministic Go command/option insertion on macOS with the user zsh profile and the built-in Bash profile. It does not claim a visible multi-candidate lookup, Windows terminal parity, remote/WSL shells, every custom prompt, or complete GoLand terminal parity.",
-  "nextProbe": "Add an explicit candidate chooser for ambiguous prefixes, then verify the same behavior in Windows Terminal/ConPTY and at least one remote or WSL terminal.",
+  "evidenceBoundary": "This verifies deterministic Go command/option insertion on macOS with the user zsh profile and the built-in Bash profile. It also verifies the platform-specific line-clear byte sequence in focused tests. It does not claim native Windows terminal completion, a visible multi-candidate lookup, remote/WSL shells, every custom prompt, or complete GoLand terminal parity.",
+  "nextProbe": "Run go te and go test -r in packaged Windows Terminal under cmd.exe, PowerShell/PSReadLine and Windows Git Bash; then add an explicit candidate chooser for ambiguous prefixes and verify one remote/WSL terminal.",
   "nativeVerification": {
     "application": "build/product/open Goland startup completion.app",
     "project": "fixtures/native-workflow",
@@ -88,5 +88,16 @@
       "A temporary Go Terminal Completion menu action invoked Terminal.CommandCompletion.Invoke in terminal context but still produced no popup. The temporary action was removed before the final full gate.",
       "A packaged candidate switched to the classic terminal engine still fell back to shell path completion for go te, so changing the engine alone does not close the native action-state gap."
     ]
+  },
+  "crossPlatformReplacement": {
+    "defectFound": "The first implementation sent Ctrl-U on every platform. cmd.exe and PowerShell do not provide the same Ctrl-U line-kill behavior as zsh/bash.",
+    "repair": "terminalLineClearSequence(osName, commandLength) keeps Ctrl-U on Unix and emits commandLength Backspace bytes on Windows.",
+    "focusedTests": {
+      "testUnixClearSequenceUsesLineKill": "passed",
+      "testWindowsClearSequenceUsesEditableLineBackspaces": "passed",
+      "testWindowsClearSequenceNeverSendsAnEmptyControlSequence": "passed"
+    },
+    "command": "./gradlew test --tests 'dev.openidea.goide.terminal.GoTerminalCompletionFallbackTest'",
+    "boundary": "The byte-selection and line-clearing invariants are verified. A real Windows ConPTY session in cmd.exe, PowerShell and Windows Git Bash remains required before claiming native Windows completion."
   }
 }

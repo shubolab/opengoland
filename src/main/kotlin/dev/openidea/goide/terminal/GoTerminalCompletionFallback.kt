@@ -76,7 +76,11 @@ class GoTerminalCompletionFallback : EditorFactoryListener {
             TerminalViewImpl::class.java,
         )
         val input = accessor.invoke(null, implementation) ?: return
-        input.javaClass.getMethod("sendBytes", ByteArray::class.java).invoke(input, byteArrayOf(0x15))
+        val clearLine = terminalLineClearSequence(
+            System.getProperty("os.name").orEmpty(),
+            command.length,
+        )
+        input.javaClass.getMethod("sendBytes", ByteArray::class.java).invoke(input, clearLine)
         input.javaClass.getMethod("sendString", String::class.java).invoke(input, command)
     }
 
@@ -103,6 +107,19 @@ class GoTerminalCompletionFallback : EditorFactoryListener {
         fun isReworkedTerminalEditor(editor: Editor): Boolean = TERMINAL_EDITOR_PREDICATE(editor)
     }
 }
+
+/**
+ * Unix shells normally bind Ctrl-U to "delete to line start". Windows cmd and
+ * PowerShell screens do not share that binding, so use shell-editor backspaces
+ * there. The observed line may already include the prompt; extra backspaces at
+ * the line start are ignored by the shell's editable region.
+ */
+internal fun terminalLineClearSequence(osName: String, currentLineLength: Int): ByteArray =
+    if (osName.startsWith("Windows", ignoreCase = true)) {
+        ByteArray(currentLineLength.coerceAtLeast(1)) { 0x08 }
+    } else {
+        byteArrayOf(0x15)
+    }
 
 internal fun resolveGoTerminalCompletion(commandLine: String): String? {
     val match = GO_COMMAND.findAll(commandLine).lastOrNull() ?: return null

@@ -25,4 +25,19 @@ class GoTerminalCompletionFallbackTest : TestCase() {
     fun testLeavesUnrelatedCommandsUnchanged() {
         assertNull(resolveGoTerminalCompletion("git status"))
     }
+
+    fun testUnixClearSequenceUsesLineKill() {
+        assertTrue(terminalLineClearSequence("Mac OS X", 42).contentEquals(byteArrayOf(0x15)))
+        assertTrue(terminalLineClearSequence("Linux", 42).contentEquals(byteArrayOf(0x15)))
+    }
+
+    fun testWindowsClearSequenceUsesEditableLineBackspaces() {
+        val sequence = terminalLineClearSequence("Windows 11", 7)
+        assertEquals(7, sequence.size)
+        assertTrue(sequence.all { it == 0x08.toByte() })
+    }
+
+    fun testWindowsClearSequenceNeverSendsAnEmptyControlSequence() {
+        assertTrue(terminalLineClearSequence("Windows 11", 0).contentEquals(byteArrayOf(0x08)))
+    }
 }
