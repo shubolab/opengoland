@@ -294,7 +294,9 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "Native Code > Optimize Imports removed an unused import from an unsaved Go editor and preserved Unicode/source bytes in snapshot867caa4. Format/save combinations and broader undo cases remain open."
+        "observation": "Native Code > Optimize Imports removed an unused import from an unsaved Go editor and preserved Unicode/source bytes in snapshot867caa4. Format/save combinations and broader undo cases remain open.",
+        "formatting_native": "../verification/go-formatting-native-20261112.json",
+        "formatting_native_observation": "A parseable but unformatted Go file was opened in the native editor; Shift+Command+L produced canonical gofmt grouping and whitespace, and one Command+Z restored the exact malformed source bytes. The probe did not save the file. Save-triggered formatting, multi-file scope, cursor preservation, invalid syntax, cancellation and cross-platform formatting remain open."
       }
     },
     {

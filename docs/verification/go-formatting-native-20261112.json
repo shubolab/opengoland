@@ -1,0 +1,28 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T14:30:00Z",
+  "status": "native-format-and-single-undo-verified",
+  "application": "build/open Goland terminal force env.app",
+  "platform": "macOS 27.2 arm64; IntelliJ Platform 2026.1.4; bundled gopls 0.24.0",
+  "project": "fixtures/native-workflow",
+  "fixture": {
+    "path": "completion.go",
+    "before": "package nativev6\nimport(\"fmt\";\"strings\")\nfunc use(){x:=  1;fmt.Println(strings.TrimSpace(\" x \"),x)}\n",
+    "purpose": "The malformed but parseable source forces import grouping, blank-line, brace and whitespace changes while preserving semantics."
+  },
+  "steps": [
+    "The file was written to the isolated tracked fixture and opened in the native Go editor.",
+    "The native Reformat Code action was invoked with Shift+Command+L.",
+    "The editor changed to canonical gofmt layout with a grouped import block and normalized function body.",
+    "A single Command+Z restored the exact original malformed bytes."
+  ],
+  "afterFormat": "package nativev6\n\nimport (\n\t\"fmt\"\n\t\"strings\"\n)\n\nfunc use() { x := 1; fmt.Println(strings.TrimSpace(\" x \"), x) }\n",
+  "observations": {
+    "formatApplied": true,
+    "singleUndoRestoredOriginal": true,
+    "cursorReturnedToOriginalStart": false,
+    "diskWasNotSavedDuringProbe": true,
+    "fixtureRestoredAfterProbe": true
+  },
+  "boundary": "This verifies one native formatting transaction and one Undo in a parseable single Go file. Save-triggered formatting, multi-file scope, cursor preservation, invalid syntax, cancellation and cross-platform behavior remain separate checks."
+}
