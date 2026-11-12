@@ -4,7 +4,7 @@
 
 ## 当前权威状态
 
-- 本次快照生成时，`main` 已推送基线为 `7b03a9f Publish preview 8 download metadata`；快照自身的后续提交以远端 `main` HEAD 为准。
+- 本次快照生成时，`main` 已推送基线为 `b6994ba Record native Go formatting acceptance`；快照自身的后续提交以远端 `main` HEAD 为准。
 - `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。发布 workflow attempt 2 已成功，五个资产已公开；这是当前 README 的正式下载版本。
 - `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。macOS 已成功；Windows 首次 runner 异常终止，当前 attempt 2 正在运行。
 - `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。Windows 已成功；macOS 首次 `hdiutil create` 失败后，当前 attempt 2 已排队。
@@ -14,6 +14,7 @@
 - `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
 - `.11` 修复了生产启动只改 app.jar 无法生效的问题：同时打开 Gradle PlatformExtensions 与 `plugins/plugin-classpath.txt!core` 的精确 service 注册。完整打包候选 fresh profile 中原 `InstanceNotOverridableException` 已消失，启动日志无 ERROR/SEVERE。
 - 最新本地完整门禁为 **819 Kotlin tests + 86 Python tests**；Kotlin 为 148 reports、0 failures/errors/skips，Python 也无失败。`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
+- 原生格式化验收：真实 App 中一个未格式化 Go 文件经 Shift+Command+L 变为规范 gofmt 布局，一次 Command+Z 恢复原始 malformed 字节；探针未保存，fixture 已恢复。证据见 `docs/verification/go-formatting-native-20261112.json`。
 - 当前工作树在 snapshot 写入前为干净状态；Computer Use、REA 6.5.0、Ghidra 12.1.4 均已实际验证可用。
 
 ## 下一次会话起手式
