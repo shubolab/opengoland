@@ -6,7 +6,11 @@ import java.nio.file.Files
 import java.nio.file.Path
 import java.util.Comparator
 import java.util.concurrent.CancellationException
+import java.util.concurrent.Callable
+import java.util.concurrent.ExecutionException
+import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.TimeoutException
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -74,7 +78,9 @@ class GoSdkProbeTest {
         val sentinel = ProcessBuilder(program.toString(), "owned-child").start()
         try {
             assertFailsWith<CancellationException> {
-                GoModuleGenerator.generate(GoModuleRequest("example.com/cancel", root.resolve("project"), program.toString()), { Files.exists(pidFile) })
+                bounded(root) {
+                    GoModuleGenerator.generate(GoModuleRequest("example.com/cancel", root.resolve("project"), program.toString()), { Files.exists(pidFile) })
+                }
             }
             val pids = Files.readAllLines(pidFile).map(String::toLong)
             pids.forEach(::assertStopped)
@@ -83,10 +89,41 @@ class GoSdkProbeTest {
         } finally { sentinel.destroyForcibly(); assertTrue(sentinel.waitFor(3, TimeUnit.SECONDS)) }
     }
 
+    @Test fun cancellationBeforeTheFirstChildSampleClosesOwnedPipesAndLeavesTheSentinelAlive() = fixture { root ->
+        val pidFile = root.resolve("owned pids")
+        val program = program(root, "cancel before sampling", "cancel")
+        val sentinel = ProcessBuilder(program.toString(), "owned-child").start()
+        try {
+            var beforeLaunch = true
+            assertFailsWith<CancellationException> {
+                bounded(root) {
+                    GoModuleProcesses.run(program.toString(), listOf("version"), root, {
+                        if (beforeLaunch) { beforeLaunch = false; false }
+                        else {
+                            // This is the first post-launch cancellation check, before
+                            // the old Windows descendant scan. Real children must exist
+                            // while the caller is held at that precise boundary.
+                            val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(5)
+                            while (!Files.exists(pidFile) && System.nanoTime() < deadline) Thread.sleep(10)
+                            assertTrue(Files.exists(pidFile), "The owned helper must start before requesting cancellation")
+                            val pids = Files.readAllLines(pidFile).map(String::toLong)
+                            assertEquals(2, pids.size)
+                            pids.forEach { assertTrue(ProcessHandle.of(it).map { handle -> handle.isAlive }.orElse(false)) }
+                            assertTrue(sentinel.isAlive, "The unrelated sentinel must be live before cancellation")
+                            true
+                        }
+                    })
+                }
+            }
+            Files.readAllLines(pidFile).map(String::toLong).forEach(::assertStopped)
+            assertTrue(sentinel.isAlive, "Cancellation must leave the unrelated sentinel running")
+        } finally { sentinel.destroyForcibly(); assertTrue(sentinel.waitFor(3, TimeUnit.SECONDS)) }
+    }
+
     @Test fun aCompletedLauncherCannotLeaveItsChildRunning() = fixture { root ->
         val pidFile = root.resolve("orphan pid")
         val program = program(root, "exiting sdk", "orphan")
-        assertFailsWith<IOException> { GoSdkProbe.inspect(program.toString()) }
+        assertFailsWith<IOException> { bounded(root) { GoSdkProbe.inspect(program.toString()) } }
         assertStopped(Files.readString(pidFile).trim().toLong())
     }
 
@@ -127,28 +164,52 @@ class GoSdkProbeTest {
         while (ProcessHandle.of(pid).map { it.isAlive }.orElse(false) && System.nanoTime() < deadline) Thread.sleep(20)
         assertFalse(ProcessHandle.of(pid).map { it.isAlive }.orElse(false), "Owned process $pid must terminate")
     }
+    /** A 30-second helper ending naturally must never masquerade as prompt cleanup. */
+    private fun <T> bounded(root: Path, action: () -> T): T {
+        val executor = Executors.newSingleThreadExecutor()
+        val result = executor.submit(Callable { action() })
+        try {
+            return result.get(5, TimeUnit.SECONDS)
+        } catch (error: ExecutionException) {
+            throw error.cause ?: error
+        } catch (error: TimeoutException) {
+            // Recovery follows a failed deadline. It cannot make a leaked child
+            // satisfy the test; it only releases this fixture's own binaries.
+            result.cancel(true)
+            stopRecordedFixtureProcesses(root)
+            throw AssertionError("Owned SDK command did not finish within 5 seconds; do not wait for the helper's natural 30-second exit", error)
+        } finally {
+            executor.shutdownNow()
+            assertTrue(executor.awaitTermination(5, TimeUnit.SECONDS), "The SDK control worker must terminate")
+        }
+    }
+
     private fun fixture(action: (Path) -> Unit) {
         val root = Files.createTempDirectory("open-goland-sdk-test-")
         try { action(root) } finally {
             // Failure recovery runs after the assertions; it cannot turn a
             // leaked child into a successful cleanup assertion. These records
             // are written only by our native helper in this exclusive root.
-            val records = Files.walk(root).use { paths -> paths.filter { it.fileName.toString() == "launched-pids" }.toList() }
-            val handles = records.flatMap { Files.readAllLines(it) }.map(String::toLong).distinct()
-                .mapNotNull { ProcessHandle.of(it).orElse(null) }
-            handles.filter { it.isAlive }.forEach { handle ->
-                val command = handle.info().command().orElseThrow { AssertionError("Cannot establish owned fixture process ${handle.pid()}") }
-                check(Path.of(command).toAbsolutePath().normalize().startsWith(root.toAbsolutePath().normalize())) {
-                    "The fixture PID was reused or its command changed"
-                }
-                handle.destroyForcibly()
-            }
-            val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(3)
-            while (handles.any { it.isAlive } && System.nanoTime() < deadline) Thread.sleep(10)
-            assertTrue(handles.none { it.isAlive }, "Release all owned helper binaries before removing the fixture")
+            stopRecordedFixtureProcesses(root)
             val paths = Files.walk(root).use { it.sorted(Comparator.reverseOrder()).toList() }
             paths.forEach(Files::deleteIfExists)
         }
+    }
+
+    private fun stopRecordedFixtureProcesses(root: Path) {
+        val records = Files.walk(root).use { paths -> paths.filter { it.fileName.toString() == "launched-pids" }.toList() }
+        val handles = records.flatMap { Files.readAllLines(it) }.map(String::toLong).distinct()
+            .mapNotNull { ProcessHandle.of(it).orElse(null) }
+        handles.filter { it.isAlive }.forEach { handle ->
+            val command = handle.info().command().orElseThrow { AssertionError("Cannot establish owned fixture process ${handle.pid()}") }
+            check(Path.of(command).toAbsolutePath().normalize().startsWith(root.toAbsolutePath().normalize())) {
+                "The fixture PID was reused or its command changed"
+            }
+            handle.destroyForcibly()
+        }
+        val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(3)
+        while (handles.any { it.isAlive } && System.nanoTime() < deadline) Thread.sleep(10)
+        assertTrue(handles.none { it.isAlive }, "Release all owned helper binaries before removing the fixture")
     }
 
     private fun program(directory: Path, filename: String, mode: String): Path =

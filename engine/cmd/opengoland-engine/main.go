@@ -10,6 +10,7 @@ import (
 	structgen "github.com/shubolab/opengoland/engine/internal/generate/structs"
 	taggen "github.com/shubolab/opengoland/engine/internal/generate/tags"
 	testgen "github.com/shubolab/opengoland/engine/internal/generate/tests"
+	"github.com/shubolab/opengoland/engine/internal/processowner"
 	nativerefactor "github.com/shubolab/opengoland/engine/internal/refactor/native"
 	"github.com/shubolab/opengoland/engine/internal/refactor/signature"
 	"github.com/shubolab/opengoland/engine/internal/rpc"
@@ -17,6 +18,12 @@ import (
 )
 
 func main() {
+	if handled, code, err := processowner.WorkerMain(os.Args[1:]); handled {
+		if err != nil {
+			fmt.Fprintln(os.Stderr, err)
+		}
+		os.Exit(code)
+	}
 	if handled, err := nativerefactor.WorkerMain(os.Args[1:], os.Stdin, os.Stdout); handled {
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)

@@ -3,6 +3,7 @@ package dev.openidea.goide.project
 import com.intellij.jna.JnaLoader
 import com.pty4j.PtyProcessBuilder
 import com.pty4j.unix.PtyHelpers
+import dev.openidea.goide.engine.GoEngineExecutable
 import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
@@ -30,7 +31,11 @@ internal object GoModuleProcesses {
     ): GoModuleCommandOutput {
         checkCancelled(cancelled)
         require(executable.isNotBlank() && '\u0000' !in executable && arguments.none { '\u0000' in it }) { "Invalid Go command arguments." }
-        val command = listOf(executable) + arguments
+        val target = listOf(executable) + arguments
+        val command = if (windows) {
+            val owner = GoEngineExecutable.resolve() ?: throw IOException("The bundled Go engine is missing. Reinstall open Goland and try again.")
+            listOf(owner.toString(), "--opengoland-owned-command", "--") + target
+        } else target
         val environment = creationEnvironment(System.getenv(), windows)
         val process = if (windows) ProcessBuilder(command).directory(directory.toFile()).apply {
             environment().clear(); environment().putAll(environment)
@@ -40,7 +45,6 @@ internal object GoModuleProcesses {
                 .setConsole(true).setRedirectErrorStream(false).setSpawnProcessUsingJdkOnMacIntel(false).start()
         }
         val pid = process.pid()
-        val descendants = linkedMapOf<Long, ProcessHandle>()
         val failure = AtomicReference<Throwable?>()
         val stdout = StringBuilder()
         val stderr = StringBuilder()
@@ -66,13 +70,12 @@ internal object GoModuleProcesses {
             while (true) {
                 checkCancelled(cancelled)
                 failure.get()?.let { throw IOException("Unable to read Go command output: ${it.message}", it) }
-                if (windows) process.descendants().use { children -> children.forEach { descendants[it.pid()] = it } }
                 if (process.waitFor(50, TimeUnit.MILLISECONDS)) break
                 if (System.nanoTime() >= deadline) throw IOException("Go ${arguments.joinToString(" ")} timed out. Check the selected SDK and try again.")
             }
             // A launcher may exit while its children retain stdout or stderr.
             // End only its dedicated group before waiting for output completion.
-            terminate(process, pid, descendants.values.toList())
+            terminate(process, pid)
             val drainDeadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(2)
             while (readers.any { it.isAlive }) {
                 checkCancelled(cancelled)
@@ -93,7 +96,7 @@ internal object GoModuleProcesses {
         } finally {
             val interrupted = Thread.interrupted()
             try {
-                terminate(process, pid, descendants.values.toList())
+                terminate(process, pid)
                 runCatching { process.outputStream.close() }
                 runCatching { process.inputStream.close() }
                 runCatching { process.errorStream.close() }
@@ -114,7 +117,7 @@ internal object GoModuleProcesses {
         return result
     }
 
-    private fun terminate(process: Process, pid: Long, descendants: List<ProcessHandle>) {
+    private fun terminate(process: Process, pid: Long) {
         if (!windows) {
             require(pid in 1..Int.MAX_VALUE.toLong()) { "Invalid owned Go process group." }
             val native = PtyHelpers.getInstance()
@@ -127,10 +130,10 @@ internal object GoModuleProcesses {
                 native.killpg(pid.toInt(), 9)
             }
         } else {
-            descendants.asReversed().filter { it.isAlive }.forEach { it.destroy() }
+            // The bundled owner holds a non-inherited KILL_ON_JOB_CLOSE handle.
+            // Ending it also ends late children and completed-launcher orphans.
             if (process.isAlive) process.destroy()
             if (!process.waitFor(300, TimeUnit.MILLISECONDS)) process.destroyForcibly()
-            descendants.asReversed().filter { it.isAlive }.forEach { it.destroyForcibly() }
         }
         process.waitFor(1000, TimeUnit.MILLISECONDS)
     }

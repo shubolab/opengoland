@@ -226,12 +226,17 @@ class EngineClient(private val project: Project) : Disposable {
         disconnect(IllegalStateException("Project closed"), reason = "project_closed")
         listeners.clear(); io.shutdown()
     }
-    private fun executable(): Path? {
+    private fun executable(): Path? = GoEngineExecutable.resolve()
+}
+
+/** Background-only executable resolution shared with finite command ownership. */
+internal object GoEngineExecutable {
+    fun resolve(): Path? {
         val workspace = System.getProperty("openidea.workspace")
-        val plugin = PluginManagerCore.getPlugin(PluginId.getId("dev.openidea.go"))?.pluginPath
         val filename = if (System.getProperty("os.name").startsWith("Windows")) "opengoland-engine.exe" else "opengoland-engine"
-        return listOfNotNull(workspace?.let { Path.of(it, "engine", "bin", filename) }, plugin?.resolve("bin/$filename"))
-            .firstOrNull { Files.isExecutable(it) }
+        workspace?.let { Path.of(it, "engine", "bin", filename) }?.takeIf { Files.isExecutable(it) }?.let { return it }
+        val plugin = PluginManagerCore.getPlugin(PluginId.getId("dev.openidea.go"))?.pluginPath
+        return plugin?.resolve("bin/$filename")?.takeIf { Files.isExecutable(it) }
     }
 }
 

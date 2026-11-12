@@ -5,6 +5,7 @@ go 1.24.0
 require (
 	github.com/google/pprof v0.0.0-20241101162523-b92577c0c142
 	golang.org/x/mod v0.30.0
+	golang.org/x/sys v0.38.0
 )
 
 require (
