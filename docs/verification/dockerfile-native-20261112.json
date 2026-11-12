@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T15:18:00Z",
+  "status": "native-dockerfile-file-type-and-lexical-highlighting-passed",
+  "application": "build/product/open Goland.app",
+  "platform": "macOS arm64; IntelliJ Platform 2026.1.4",
+  "process": {
+    "pid": 98781,
+    "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+    "launchMode": "LightEdit"
+  },
+  "artifacts": {
+    "pluginJar": {
+      "path": "build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar",
+      "sha256": "bfe5a90db6e71c779d0eec1896cf9de0f8c8918c79579ca8cb67c3733030e1b5"
+    },
+    "screenshot": {
+      "path": "docs/verification/assets/dockerfile-native-observation-20261112.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1400,
+      "height": 1000,
+      "sha256": "f53188f41f776208e3d0e489a631692be7e15a2f5ea52e092c5a8a2bd9f5444b"
+    }
+  },
+  "fixture": {
+    "path": "fixtures/supporting-files/Dockerfile",
+    "sha256": "01d3807b919812bb509017eaac31986a0abc7d844a0437d8dd3b7029ee2e9126"
+  },
+  "fileTypeAssociations": {
+    "extensions": ["dockerfile"],
+    "patterns": ["Dockerfile", "Dockerfile.*", "*.dockerfile"]
+  },
+  "observations": {
+    "runtimeFileOpened": true,
+    "instructionsHighlighted": ["FROM", "WORKDIR", "COPY", "RUN", "ENTRYPOINT"],
+    "argumentsRemainNeutral": true,
+    "variablesHighlighted": true,
+    "stringsHighlighted": true,
+    "signatureVerified": true,
+    "engineBuiltWith": "go1.27.3"
+  },
+  "tests": {
+    "targetedCount": 5,
+    "failures": 0,
+    "errors": 0,
+    "classes": ["DockerfileLexerTest", "DockerfileNativeTest"],
+    "pluginChecks": ["buildPlugin", "prepareSandbox", "verifyPluginStructure"]
+  },
+  "fullGate": {"tests": 839, "reports": 156, "failures": 0, "errors": 0, "skipped": 0},
+  "boundary": "This proves native Dockerfile recognition and lexical highlighting only. Docker image build, daemon/socket access, Compose navigation, registry operations, completion and inspections are not implemented by this change."
+}

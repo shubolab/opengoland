@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T15:23:00Z",
+  "status": "native-http-request-file-type-and-lexical-highlighting-passed",
+  "application": "build/product/open Goland.app",
+  "platform": "macOS arm64; IntelliJ Platform 2026.1.4",
+  "process": {
+    "pid": 99371,
+    "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+    "launchMode": "LightEdit"
+  },
+  "artifacts": {
+    "pluginJar": {
+      "path": "build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar",
+      "sha256": "7f4686f1e28f4582273dabeb9e8b93742fdafd29cf524423faf82a29746b8e6b"
+    },
+    "screenshot": {
+      "path": "docs/verification/assets/http-request-native-observation-20261112.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1400,
+      "height": 1000,
+      "sha256": "ba334ee9cd53f43ea6588384995f18ff43a7d297325b9d657de60044fc67ee50"
+    }
+  },
+  "fixture": {
+    "path": "fixtures/supporting-files/api.http",
+    "sha256": "8ac9a6ff5215a7930cbbf04e49b3b88822d27486612a6afba6608743ebf08f17"
+  },
+  "fileTypeAssociations": {
+    "extensions": ["http"]
+  },
+  "observations": {
+    "runtimeFileOpened": true,
+    "methodsHighlighted": true,
+    "requestUrlHighlighted": true,
+    "headersHighlighted": true,
+    "variablesHighlighted": true,
+    "requestSeparatorHighlighted": true,
+    "signatureVerified": true,
+    "engineBuiltWith": "go1.27.3"
+  },
+  "tests": {
+    "targetedCount": 4,
+    "failures": 0,
+    "errors": 0,
+    "classes": ["HttpRequestLexerTest", "HttpRequestNativeTest"],
+    "pluginChecks": ["buildPlugin", "prepareSandbox", "verifyPluginStructure"]
+  },
+  "fullGate": {"tests": 839, "reports": 156, "failures": 0, "errors": 0, "skipped": 0},
+  "boundary": "This proves native .http file recognition and lexical highlighting only. The file still has no built-in request gutter, execution engine, environment selection, response viewer, redirect/cookie handling, authentication secret storage or test runner. A compatible Marketplace HTTP Client plugin remains required for execution."
+}

@@ -1,0 +1,58 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T15:13:00Z",
+  "status": "native-sql-file-type-and-lexical-highlighting-passed",
+  "application": "build/product/open Goland.app",
+  "platform": "macOS arm64; IntelliJ Platform 2026.1.4",
+  "process": {
+    "pid": 97345,
+    "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+    "launchMode": "LightEdit"
+  },
+  "artifacts": {
+    "pluginJar": {
+      "path": "build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar",
+      "sha256": "d9b168c3387a748791140929a14bd10328ac241723712de5bf4f51d96feec9a1"
+    },
+    "screenshot": {
+      "path": "docs/verification/assets/sql-native-observation-20261112.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1400,
+      "height": 1000,
+      "sha256": "475191726db1bc0fc6a679a2300506222284965bf9fc46f40e784d22027427a7"
+    }
+  },
+  "fixture": {
+    "path": "fixtures/supporting-files/query.sql",
+    "sha256": "90292ebdd1a671c6cdb01172e57cfd9c592211be5e6b2d6f488378b5fff54d91"
+  },
+  "observations": {
+    "registeredName": "SQL source file",
+    "registeredPattern": "*.sql",
+    "platformAlsoLists": "SQL (仅语法高亮显示)",
+    "runtimeFileOpened": true,
+    "keywordsVisiblyHighlighted": true,
+    "identifiersRemainNeutral": true,
+    "signatureVerified": true,
+    "engineBuiltWith": "go1.27.3"
+  },
+  "testedSyntax": [
+    "case-insensitive SQL keywords",
+    "line and nested block comments",
+    "single-quoted strings with doubled quotes",
+    "PostgreSQL dollar-quoted strings",
+    "quoted SQL and bracket identifiers",
+    "numbered parameters",
+    "numbers, operators, parentheses and brackets",
+    "UTF-16-safe bounded lexer offsets"
+  ],
+  "tests": {
+    "targetedCount": 5,
+    "failures": 0,
+    "errors": 0,
+    "classes": ["SqlLexerTest", "SqlNativeTest"],
+    "pluginChecks": ["buildPlugin", "prepareSandbox", "verifyPluginStructure"]
+  },
+  "fullGate": {"tests": 839, "reports": 156, "failures": 0, "errors": 0, "skipped": 0},
+  "boundary": "This proves native file association and lexical SQL highlighting in the packaged product. Database connections, schema resolution, dialect-aware completion, inspections, formatting, navigation, query execution and result grids are not implemented by this change."
+}

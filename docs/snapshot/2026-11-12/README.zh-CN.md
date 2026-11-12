@@ -15,7 +15,7 @@
 - `.9` 修复了 Windows 终端补全错误假设 `Ctrl-U` 普遍可用的问题：Unix 保留 `0x15` 清行，Windows 按命令长度发送 Backspace；真实 Windows PowerShell/cmd/Git Bash 验收仍未完成。
 - `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
 - `.11` 修复了生产启动只改 app.jar 无法生效的问题：同时打开 Gradle PlatformExtensions 与 `plugins/plugin-classpath.txt!core` 的精确 service 注册。完整打包候选 fresh profile 中原 `InstanceNotOverridableException` 已消失，启动日志无 ERROR/SEVERE。
-- 最新本地完整门禁为 **825 Kotlin tests + 86 Python tests**；Kotlin 为 150 reports、0 failures/errors/skips，Python 也无失败。`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
+- 最新本地完整门禁为 **839 Kotlin tests + 86 Python tests**；Kotlin 为 156 reports、0 failures/errors/skips，Python 也无失败。`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
 - 原生格式化验收：真实 App 中一个未格式化 Go 文件经 Shift+Command+L 变为规范 gofmt 布局，一次 Command+Z 恢复原始 malformed 字节；探针未保存，fixture 已恢复。证据见 `docs/verification/go-formatting-native-20261112.json`。
 - 上下文补全：真实 gopls 0.24.0 已验证普通包成员、接口方法 `Total`、泛型函数 `Map` 和未保存不完整文档中的 `catalog.Cart` 候选；证据见 `docs/verification/lsp-context-completion-native-20261112.json`。
 - Go Template：新增独立 `OpenIDEAGoTemplate` 语言、文件类型、解析器、词法高亮与注释器；`.gotmpl`、`.gohtml`、`.gotext`、`.go.html`、`.go.tmpl`、`.go.txt` 均由原生类型接管。真实当前构建 App 中已逐一打开并确认动作、关键字、内置函数、字段、变量、字符串和管道高亮；证据见 `docs/verification/go-template-native-20261112.json`。
@@ -30,9 +30,9 @@
 | --- | --- | --- |
 | `config.yaml` | 识别为 YAML | 补全、校验和 schema 支持尚未验收 |
 | `payload.json` | 识别为 JSON | 格式化、路径补全和 schema 校验尚未验收 |
-| `Dockerfile` | 可以作为文件打开 | 未确认语法高亮、括号匹配、注释或 Docker 运行能力 |
-| `query.sql` | 显示为“自定义类型的文件” | 没有 SQL 高亮；没有数据库连接、补全、导航和运行能力 |
-| `api.http` | 作为普通文本打开 | 没有 HTTP 请求 gutter 或执行入口；必须用兼容插件补足 |
+| `Dockerfile` | 已由 `open Goland Dockerfile` 接管；FROM/WORKDIR/COPY/RUN/ENTRYPOINT 等指令、变量、字符串和运算符有原生词法高亮 | 没有 Docker 镜像构建、daemon/socket、Compose、registry、补全或 inspection |
+| `query.sql` | 已由 `SQL source file`（`*.sql`）接管；关键字、注释、字符串、变量、数字和运算符有原生词法高亮 | 没有数据库连接、schema 补全、方言检查、导航、格式化和查询执行能力 |
+| `api.http` | 已由 `open Goland HTTP Request` 接管；方法、URL、请求头、变量和分隔符有原生词法高亮 | 没有请求 gutter、执行引擎、环境选择、响应查看器；执行能力仍需兼容 Marketplace 插件 |
 | `view.gotmpl` | 已作为 Go Template 打开；动作、关键字、内置函数、字段、变量、字符串、管道和 trim 分隔符均有原生高亮 | 模板执行、模板补全、嵌入 Go 语义分析、模板 inspection 和 HTML 结构合并仍未实现 |
 
 验收夹具包含 Dockerfile、SQL、YAML、JSON、Go Template 和 HTTP 请求文档，均不包含凭据。其 SHA-256 为：
@@ -47,6 +47,12 @@
 | `api.http` | `8ac9a6ff5215a7930cbbf04e49b3b88822d27486612a6afba6608743ebf08f17` |
 
 2026-11-12 23:02 CST 已在当前 `build/product/open Goland.app` 中实际打开 `.gotmpl`、`.go.html`、`.go.tmpl` 和 `.go.txt`，确认复合后缀不会被通用 HTML/Text 类型抢占，并观察到模板动作高亮。证据见 `docs/verification/go-template-native-20261112.json`，截图见 `docs/verification/assets/go-template-native-20261112.jpg`。下一步应判断平台 TextMate SQL grammar 是否真的启用，并验证 Dockerfile/HTTP 插件边界。不要在没有数据库模块时宣称 SQL 数据源、补全或导航；也不要增加伪造的 Docker/HTTP 执行按钮。
+
+SQL 支持文件随后也已补齐原生词法高亮。真实 App 中 `query.sql` 的关键字有独立颜色，标识符保持普通颜色；设置页同时列出平台的 `SQL (仅语法高亮显示)` 与本仓库的 `SQL source file`，后者注册了 `*.sql`。证据见 `docs/verification/sql-supporting-file-native-20261112.json`。数据库能力仍不存在，后续必须验证 Dockerfile 和 HTTP，并保持 `TOOLS-04` 为未完成。
+
+Dockerfile 支持也已完成：真实 App 中 `Dockerfile` 的指令词有独立颜色，参数保持普通颜色；证据见 `docs/verification/dockerfile-native-20261112.json`。当前仍没有 Docker 构建或执行能力，不支持镜像、Compose 或 registry 操作。剩余支持文件缺口集中在 HTTP 请求文档和更深的 SQL/Docker 语义功能。
+
+HTTP 请求文档现已补齐原生文件类型与词法高亮，真实 App 中 `api.http` 的 GET、URL 和请求头有独立颜色；证据见 `docs/verification/http-request-native-20261112.json`。HTTP 执行、请求 gutter、环境选择和响应查看器仍未实现，`TOOLS-04` 继续保持未完成。
 
 ## 恢复后的剩余工作与工期估算
 

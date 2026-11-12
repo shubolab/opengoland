@@ -24,23 +24,37 @@
         <notificationGroup id="open Goland Project Creation" displayType="BALLOON" isLogByDefault="true"/>
         <fileType name="open Goland" language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoFileType" fieldName="INSTANCE" extensions="go"/>
         <fileType name="open Goland Go Template" language="OpenIDEAGoTemplate" implementationClass="dev.openidea.goide.lang.GoTemplateFileType" fieldName="INSTANCE" extensions="gotmpl;gohtml;gotext" patterns="*.go.html;*.go.tmpl;*.go.txt"/>
+        <fileType name="open Goland SQL" language="OpenIDEAGoSql" implementationClass="dev.openidea.goide.lang.SqlFileType" fieldName="INSTANCE" extensions="sql"/>
+        <fileType name="open Goland Dockerfile" language="OpenIDEAGoDockerfile" implementationClass="dev.openidea.goide.lang.DockerfileFileType" fieldName="INSTANCE" extensions="dockerfile" patterns="Dockerfile;Dockerfile.*;*.dockerfile"/>
+        <fileType name="open Goland HTTP Request" language="OpenIDEAGoHttpRequest" implementationClass="dev.openidea.goide.lang.HttpRequestFileType" fieldName="INSTANCE" extensions="http"/>
         <fileType name="open Goland Module" language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModFileType" fieldName="INSTANCE" patterns="go.mod"/>
         <fileType name="open Goland Workspace" language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkFileType" fieldName="INSTANCE" patterns="go.work"/>
         <fileType name="open Goland Fuzz Corpus" language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.run.corpus.GoFuzzCorpusFileType" fieldName="INSTANCE"/>
         <fileTypeDetector implementation="dev.openidea.goide.run.corpus.GoFuzzCorpusFileTypeDetector"/>
         <lang.parserDefinition language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoTemplate" implementationClass="dev.openidea.goide.lang.GoTemplateParserDefinition"/>
+        <lang.parserDefinition language="OpenIDEAGoSql" implementationClass="dev.openidea.goide.lang.SqlParserDefinition"/>
+        <lang.parserDefinition language="OpenIDEAGoDockerfile" implementationClass="dev.openidea.goide.lang.DockerfileParserDefinition"/>
+        <lang.parserDefinition language="OpenIDEAGoHttpRequest" implementationClass="dev.openidea.goide.lang.HttpRequestParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoModParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.run.corpus.GoFuzzCorpusParserDefinition"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGoTemplate" implementationClass="dev.openidea.goide.lang.GoTemplateSyntaxHighlighterFactory"/>
+        <lang.syntaxHighlighterFactory language="OpenIDEAGoSql" implementationClass="dev.openidea.goide.lang.SqlSyntaxHighlighterFactory"/>
+        <lang.syntaxHighlighterFactory language="OpenIDEAGoDockerfile" implementationClass="dev.openidea.goide.lang.DockerfileSyntaxHighlighterFactory"/>
+        <lang.syntaxHighlighterFactory language="OpenIDEAGoHttpRequest" implementationClass="dev.openidea.goide.lang.HttpRequestSyntaxHighlighterFactory"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGoMod" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
         <lang.syntaxHighlighterFactory language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.lang.GoSyntaxHighlighterFactory"/>
         <lang.commenter language="OpenIDEAGoTemplate" implementationClass="dev.openidea.goide.lang.GoTemplateCommenter"/>
+        <lang.commenter language="OpenIDEAGoSql" implementationClass="dev.openidea.goide.lang.SqlCommenter"/>
+        <lang.commenter language="OpenIDEAGoDockerfile" implementationClass="dev.openidea.goide.lang.DockerfileCommenter"/>
+        <lang.commenter language="OpenIDEAGoHttpRequest" implementationClass="dev.openidea.goide.lang.HttpRequestCommenter"/>
         <lang.commenter language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoCommenter"/>
         <lang.braceMatcher language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoBraceMatcher"/>
+        <lang.braceMatcher language="OpenIDEAGoSql" implementationClass="dev.openidea.goide.lang.SqlBraceMatcher"/>
+        <lang.braceMatcher language="OpenIDEAGoDockerfile" implementationClass="dev.openidea.goide.lang.DockerfileBraceMatcher"/>
         <lang.quoteHandler language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoQuoteHandler"/>
         <typedHandler implementation="dev.openidea.goide.lang.GoQuoteTypedHandler"/>
         <typedHandler implementation="dev.openidea.goide.lang.GoTypedIndentHandler"/>
