@@ -4,12 +4,12 @@
 
 ## 当前权威状态
 
-- 本次快照生成时，`main` 已推送基线为 `09ef68c Fix plugin management policy activation`；快照自身的后续提交以远端 `main` HEAD 为准。
-- `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。首次 Windows job 无可用日志地异常结束；已用 GitHub 原生失败作业重跑启动 attempt 2，Release 尚未出现。
-- `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。其 [Actions 43223334622](https://github.com/shubolab/opengoland/actions/runs/43223334622) 中 Windows/macOS 均已启动，尚在运行。
-- `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。其 [Actions 43227109296](https://github.com/shubolab/opengoland/actions/runs/43227109296) 已启动，包含终端歧义候选选择器。
+- 本次快照生成时，`main` 已推送基线为 `7b03a9f Publish preview 8 download metadata`；快照自身的后续提交以远端 `main` HEAD 为准。
+- `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。发布 workflow attempt 2 已成功，五个资产已公开；这是当前 README 的正式下载版本。
+- `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。macOS 已成功；Windows 首次 runner 异常终止，当前 attempt 2 正在运行。
+- `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。Windows 已成功；macOS 首次 `hdiutil create` 失败后，当前 attempt 2 已排队。
 - `.11` tag：`v0.1.0-preview.20261112.11`，精确指向 `09ef68c`。其 [Actions 43235043231](https://github.com/shubolab/opengoland/actions/runs/43235043231) 已排队，包含 PluginManagementPolicy 实际激活修复。
-- 最近一个已完整发布的版本仍是 [open Goland 0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)。
+- 当前公开版本：[open Goland 0.1.0-preview.20261112.8](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8)。五个资产齐全，安装包/GitHub API/SHA256SUMS 摘要一致，Windows 安装卸载退出码均为 0，macOS DMG 已验证挂载复制与安装后 engine smoke。
 - `.9` 修复了 Windows 终端补全错误假设 `Ctrl-U` 普遍可用的问题：Unix 保留 `0x15` 清行，Windows 按命令长度发送 Backspace；真实 Windows PowerShell/cmd/Git Bash 验收仍未完成。
 - `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
 - `.11` 修复了生产启动只改 app.jar 无法生效的问题：同时打开 Gradle PlatformExtensions 与 `plugins/plugin-classpath.txt!core` 的精确 service 注册。完整打包候选 fresh profile 中原 `InstanceNotOverridableException` 已消失，启动日志无 ERROR/SEVERE。
@@ -24,11 +24,11 @@
 cd /Users/wangshubo/develop/openidea-go
 git status --short --branch
 git log -5 --oneline
-for run in 43213216834 43223334622 43227109296 43235043231; do
+for run in 43223334622 43227109296 43235043231; do
   gh run view "$run" --json status,conclusion,url,headSha,jobs \
     --jq '{status,conclusion,url,headSha,jobs:[.jobs[]|{name,status,conclusion}]}'
 done
-for tag in v0.1.0-preview.20261112.8 v0.1.0-preview.20261112.9 v0.1.0-preview.20261112.10 v0.1.0-preview.20261112.11; do
+for tag in v0.1.0-preview.20261112.9 v0.1.0-preview.20261112.10 v0.1.0-preview.20261112.11; do
   gh release view "$tag" --json tagName,isPrerelease,isDraft,assets \
     --jq '{tagName,isPrerelease,isDraft,assets:[.assets[]|{name,size,state}]}' 2>&1 || true
 done
@@ -36,7 +36,7 @@ done
 
 - 每个成功 workflow 都应生成一个不可变 Release，且恰有 Windows EXE、macOS DMG、`windows-provenance.tar.gz`、`macos-provenance.tar.gz`、`SHA256SUMS` 五个资产。核对大小、SHA-256、公开/预发布状态与 tag 指向。
 - 若任一 workflow 失败：先运行 `gh run view <id> --log-failed`。远端瞬时失败可原 tag rerun；需要源码变化时发布后续版本，不要移动已推送 tag 或覆盖已公开资产。
-- `.8/.9/.10/.11` 发布闭环后，优先在真实 Windows Terminal 中验收 `.10+` 的 cmd.exe、PowerShell/PSReadLine、Windows Git Bash 歧义候选，再继续 36×2 验收矩阵；CI 变绿不等于 GoLand 行为对齐完成。
+- `.9/.10/.11` 发布闭环后，优先在真实 Windows Terminal 中验收 `.10+` 的 cmd.exe、PowerShell/PSReadLine、Windows Git Bash 歧义候选，再继续 36×2 验收矩阵；CI 变绿不等于 GoLand 行为对齐完成。
 
 ## 本轮新增与保留边界（2026-11-12）
 
