@@ -1,0 +1,42 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T08:15:00Z",
+  "status": "native-local-git-status-diff-stage-commit-history-conflict-verified",
+  "sourceCommit": "e0550b7",
+  "application": "build/product/open Goland git workflow.app",
+  "platform": "IntelliJ Platform 2026.1.4, macOS 27.2 arm64",
+  "fixture": {
+    "root": "/Users/wangshubo/develop/openidea-go/.tools/native-git-workflow-yb3or_k3",
+    "initialCommit": "ea3470273570d5266ca70723278123acaf2c09f4",
+    "initialBranch": "main",
+    "initialStatus": [
+      "M main.go",
+      "?? notes.txt"
+    ],
+    "commits": {
+      "verifiedChange": "1cc38d0",
+      "mainConflictSide": "5b655d7",
+      "featureConflictSide": "e164585",
+      "merge": "ff04e25"
+    }
+  },
+  "nativeWorkflow": [
+    "The Commit tool window displayed tracked main.go and untracked notes.txt.",
+    "Selecting main.go enabled native Show Diff; the two-column diff showed initial versus changed.",
+    "The file checkbox staged main.go, the Commit button accepted “Verify native diff and stage”, and the notification reported one file committed.",
+    "The Git log tool window displayed the new commit and the preceding initial commit.",
+    "A real content conflict was created on main and feature. Refresh exposed the in-progress merge, conflict group, merge message and conflict-resolution action.",
+    "The native three-way merge editor showed main, result and feature panes; accepting the right side and applying produced the feature content.",
+    "The resolved file was staged and committed through the Commit panel."
+  ],
+  "shellVerification": {
+    "logGraph": "Merge commit ff04e25 has parents 5b655d7 and e164585; it descends from 1cc38d0 and ea34702.",
+    "mergedMainGo": "package main\n\nimport \"fmt\"\n\nfunc main() {\n\tfmt.Println(\"feature\")\n}\n",
+    "finalStatus": [
+      "?? .idea/",
+      "?? notes.txt"
+    ]
+  },
+  "evidenceBoundary": "This verifies local macOS UI status, diff, stage, commit, history display and one content-conflict resolution in an isolated repository. Remote authentication, fetch/pull/push, partial staging, rename/delete conflicts, conflict variants and Windows Git UI behavior remain open.",
+  "cleanup": "The isolated app and fixture are temporary and are removed after evidence capture; no global Git configuration or user business repository is modified."
+}

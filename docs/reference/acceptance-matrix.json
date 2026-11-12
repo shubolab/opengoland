@@ -547,7 +547,11 @@
       "reference": "Platform VCS modules; selected Go inventory does not establish behavior",
       "probe": "Owned temporary Git fixture, untracked/edit/rename, partial stage, commit, history and merge conflict",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "native_git": "../reference/git-native-20261112.json",
+        "observation": "Recorded 2026-11-12 in an isolated macOS repository: native status, two-column diff, file staging, Commit panel commit, Git log history and a real content-conflict three-way resolution all succeeded. The resulting merge commit had both expected parents and the resolved source content matched the accepted side. Remote auth/fetch/pull/push, partial staging, more conflict kinds and Windows Git UI remain open."
+      }
     },
     {
       "id": "TOOLS-03",
