@@ -46,6 +46,24 @@ class GoSdkSelectorTest : LightPlatformTestCase() {
         assertTrue(fixture.registry.list().isEmpty())
     }
 
+    fun testLongSdkPathCannotPushTheComboArrowOrActionButtonsOutsideSettings() = controlled { fixture ->
+        val long = sdk("sdks/" + "very-long-location-segment-".repeat(7) + "go")
+        fixture.registry.register(long)
+        val selector = fixture.create(long.executable.toString())
+        fixture.next().answer.complete(long)
+        await { selector.isReady }
+        onEdt {
+            val combo = components(selector.component).filterIsInstance<JComboBox<*>>().single()
+            assertTrue("The SDK path is long enough to exercise overflow", combo.selectedItem.toString().length > 120)
+            assertTrue("The combo preferred width must remain bounded", combo.preferredSize.width in 1..520)
+            assertEquals("A bounded combo must still be compressible with its parent", 0, combo.minimumSize.width)
+            components(selector.component).filterIsInstance<JLabel>().forEach { label ->
+                assertTrue("A long SDK detail must not expand the full Settings form", label.preferredSize.width <= 520)
+            }
+            assertTrue(components(selector.component).filterIsInstance<JButton>().all { it.isVisible && it.preferredSize.width > 0 })
+        }
+    }
+
     fun testInvalidConfiguredSdkStaysVisibleAndNeverFallsBack() = controlled { fixture ->
         val invalid = Path.of(project.basePath!!).resolve("missing SDK/bin/go").toString()
         val selector = fixture.create(invalid)

@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T05:22:00Z",
+  "status": "verified-native-external-select-persist-run-restore-and-layout-fix",
+  "sourceCommit": "650d56a52a9bf4255b2b5422f5bd347ff8614e10",
+  "application": "build/open Goland SDK layout verified.app",
+  "platform": "macOS 27.2 arm64",
+  "project": ".tools/native-local-ide-nu9mdv0v/本地 Go IDE 无账号 😀",
+  "operation": "Computer Use opened the exact locally packaged application, selected an external GOROOT through the native macOS directory chooser, applied it, ran a real Go test, restarted the IDE to verify persistence, restored Bundled / automatic, and exited normally.",
+  "observations": [
+    "Settings > Go showed the bundled Go 1.26.10 SDK, Add local…, Download…, and separate gopls and Delve executable fields.",
+    "Add local… opened a native macOS dialog titled 'Select Go SDK Home (GOROOT)' with Finder navigation, search, New Folder, Cancel and Open controls.",
+    "Cancel returned to the unchanged Go settings page; no SDK was registered or selected in this check."
+  ],
+  "evidenceBoundary": "The native run verifies local SDK directory selection, validation, registration, persistence, Run, layout and restoration. It does not claim that every external SDK version or remote/container SDK workflow is compatible.",
+  "processesAfterVerification": "The exact local candidate process was subsequently closed only after this observation.",
+  "selectedSdk": {
+    "version": "go1.26.10",
+    "goroot": "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go",
+    "selection": "Add local… → native Select Go SDK Home (GOROOT) → Open → Apply → OK"
+  },
+  "testResult": {
+    "command": "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go/bin/go test -json -run ^TestNativeDebug$ .",
+    "tests": "2 passed",
+    "status": "passed",
+    "duration": "1 sec 386 ms",
+    "exitCode": 0
+  },
+  "persistence": "After a normal IDE Exit and relaunch, Settings > Go still selected the external go1.26.10 GOROOT.",
+  "layoutDefectAndFix": {
+    "observed": "Before the layout fix, the long SDK model/details text widened the form beyond the Settings viewport and moved the combo arrow and right edge off-screen.",
+    "source": "src/main/kotlin/dev/openidea/goide/sdk/GoSdkSelector.kt",
+    "fix": "Cap the combo and detail preferred width at 520 while keeping zero minimum width and full text in the tooltip.",
+    "regression": "GoSdkSelectorTest.testLongSdkPathCannotPushTheComboArrowOrActionButtonsOutsideSettings",
+    "nativeRecheck": "The rebuilt macOS app showed the combo arrow, Add local, Download and Remove registration inside the visible Settings width."
+  },
+  "restore": "After persistence and run verification, bundled / automatic was selected again and the reopened Settings page showed the bundled SDK, leaving the test project at its original SDK policy.",
+  "remediation": "Restored the test project to Bundled / automatic and exited the exact candidate application normally."
+}

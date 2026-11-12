@@ -13,6 +13,7 @@ import dev.openidea.goide.project.GoModuleSdk
 import dev.openidea.goide.project.GoSdkProbe
 import dev.openidea.goide.settings.GoToolchain
 import java.awt.BorderLayout
+import java.awt.Dimension
 import java.awt.FlowLayout
 import java.nio.file.Path
 import java.util.concurrent.CancellationException
@@ -171,6 +172,16 @@ class GoSdkSelector internal constructor(
     private fun render() {
         details.text = verified?.let { "${it.version} — GOROOT: ${it.root}" } ?: validationMessage
         details.toolTipText = details.text
+        // SDK paths are commonly longer than the Settings viewport. Keep the
+        // action row and the combo arrow reachable; the untruncated value stays
+        // available through the tooltip and the selected model entry.
+        capPreferredWidth(combo)
+        capPreferredWidth(details)
+    }
+    private fun capPreferredWidth(component: JComponent) {
+        val preferred = component.preferredSize
+        component.minimumSize = Dimension(0, preferred.height)
+        component.preferredSize = Dimension(minOf(preferred.width, MAX_SELECTOR_WIDTH), preferred.height)
     }
     private fun alive() = !disposed && project?.isDisposed != true
     private fun notifyState() { listeners.forEach { it() } }
@@ -181,4 +192,6 @@ class GoSdkSelector internal constructor(
         if (SwingUtilities.isEventDispatchThread()) action()
         else application.invokeLater({ if (alive()) action() }, ModalityState.any())
     }
+
+    private companion object { const val MAX_SELECTOR_WIDTH = 520 }
 }
