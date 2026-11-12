@@ -24,8 +24,8 @@ The published installers are listed below.
 
 This additional real-window sequence shows build-tag selection, test debugging,
 completion with an automatic import, and one Undo. It was captured from the
-**unpublished 0.1.0-preview.20261110.6 development candidate on macOS 27.2 arm64**.
-The final frame deliberately restores unfinished code. See the
+**pre-release 0.1.0-preview.20261110.6 development candidate on macOS 27.2 arm64**.
+The .6 installers have since passed both-platform build checks and are published. The final frame deliberately restores unfinished code. See the
 [example and steps](fixtures/native-workflow) and
 [capture record](docs/demo/build-context-completion-recording.json).
 
@@ -37,20 +37,22 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261110.5](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.5).
+[Download preview 0.1.0-preview.20261110.6](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.6).
 Both installers include checksums and platform verification records.
 
-This release repairs a reproduced Go caller-variable issue while blocked in a
-native syscall on Apple silicon macOS, improves Go Test debug preparation/Stop,
-and removes remaining IDE trial promotions. Its bundled Delve is a source-derived
-1.27.2 build with the reviewed arm64 unwind patch and build receipts. See the
-[public installed-copy record](docs/verification/debug-session-public-v5-native.json)
-for the actual installer verification boundary.
+This release adds automatic refresh of an open Go project after SDK/toolchain
+settings are saved. On Windows, finite Go commands now run under a dedicated
+kill-on-close Job Object, so cancellation, timeout or IDE exit cannot depend on a
+term-resistant child ending by itself. Both platform builds ran all 798 Kotlin
+tests with zero failures, errors or skips; Windows also executed all seven new processowner
+tests, including five Windows Job Object controls. The .5 Delve repair remains included. See the
+[.6 verification record](docs/verification/releases/0.1.0-preview.20261110.6.json)
+for exact evidence and remaining boundaries.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.6/open-Goland-0.1.0-preview.20261110.6-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.6/open-Goland-0.1.0-preview.20261110.6-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -122,7 +124,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261110.5.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261110.6.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,

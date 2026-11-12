@@ -18,22 +18,22 @@
 
 ![原生构建标签、测试调试、补全自动导入和一次撤销](docs/demo/native-build-context-completion.gif)
 
-这个补充片段展示切换构建标签后的测试、补全时自动导入，以及一次撤销。录于 **0.1.0-preview.20261110.6 开发候选版，macOS 27.2 arm64**，由真实操作截图制作；末帧有意撤回到尚未写完的代码。候选版尚未发布，[示例与复现步骤](fixtures/native-workflow)和[录制记录](docs/demo/build-context-completion-recording.json)保留了具体范围。
+这个补充片段展示切换构建标签后的测试、补全时自动导入，以及一次撤销。录于 **0.1.0-preview.20261110.6 构建前的开发候选版，macOS 27.2 arm64**，由真实操作截图制作；末帧有意撤回到尚未写完的代码。对应的 .6 安装包现已通过双平台构建并发布，[示例与复现步骤](fixtures/native-workflow)和[录制记录](docs/demo/build-context-completion-recording.json)保留了具体范围。
 
 ## 下载与安装
 
-当前公开版本是 [0.1.0-preview.20261110.5](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.5)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
+当前公开版本是 [0.1.0-preview.20261110.6](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.6)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
 
 | 系统 | 直接下载 | 安装方法 |
 | --- | --- | --- |
-| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
-| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/open-Goland-0.1.0-preview.20261110.5-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
+| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.6/open-Goland-0.1.0-preview.20261110.6-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
+| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.6/open-Goland-0.1.0-preview.20261110.6-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
 
 安装包自带 JVM（运行 IDE 所需的 Java 环境）、**Go 1.26.10、gopls 0.24.0，以及基于 Delve 1.27.2 的补丁构建**。基本的 Go 编辑、构建与测试无需另装 Java、Go 或语言服务工具；也可以选择自己安装的 Go SDK。
 
-每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.5/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
+每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261110.6/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
 
-这一版修复了 Apple silicon Mac 上一个已复现的调试问题：程序阻塞在系统调用时，上层 Go 代码的局部变量可能显示不准。也改进了测试调试的准备与停止处理，并删除残留的 IDE 试用推广入口。Delve 的补丁来源和构建记录随安装包提供。公开安装包的验证范围见[公开安装副本验证](docs/verification/debug-session-public-v5-native.json)，完整功能对齐仍在进行。
+这一版在 .5 的基础上加入：保存 SDK/工具链设置后，已打开的 Go 项目面板会自动刷新；Windows 有限时长的 Go 命令使用独立、关闭即杀进程树的 Job Object，取消、超时或 IDE 退出时不会再依赖被忽略终止的子进程自行结束。两平台构建都完成了 798 个 Kotlin 测试且无失败、错误或跳过，Windows 还实际执行了新增的 7 个 processowner 测试，其中 5 个是 Job Object 专项控制。.5 的 Delve 修复继续保留。具体边界见[.6 发布验证记录](docs/verification/releases/0.1.0-preview.20261110.6.json)，完整 GoLand 对齐仍在进行。
 
 IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitHub、私有仓库和项目依赖所需的认证仍然保留，使用这些服务时需要它们各自的凭据。
 
@@ -194,7 +194,7 @@ Windows 构建在 Windows 上执行，入口与完整安装/卸载检查见[发�
 
 - [插件与中文安装验证](docs/verification/plugin-compatibility.md)：匹配语言包、原生插件流程、重启与具体证据范围。
 - [公开 .3 中文与插件原生检查](docs/verification/plugin-compatibility-public-native.json)：完整下载 DMG 后的安装、中文启用、插件动作及 Go Run/Test。
-- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261110.5.json)：两个系统的安装包、校验值、构建与安装检查。
+- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261110.6.json)：两个系统的安装包、校验值、构建与安装检查。
 - [此前 .2 macOS 公开版本的新建项目检查](docs/verification/sdk-project-management-public-native.json)：默认 SDK 新建项目、Run/Test、状态恢复，以及未完成的本地 SDK 文件选择器验证。
 - [完整产品验收矩阵](docs/reference/acceptance-matrix.json)：完整目标和仍未完成的验收项。
 - [参考调查](docs/reference/README.md)、[REA 证据台账](docs/reference/rea-ledger.md)：实际参考版本、可见资源和证据局限。
