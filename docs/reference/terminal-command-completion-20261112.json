@@ -1,108 +1,92 @@
 {
   "schema": 1,
-  "recordedAtUtc": "2026-11-12T07:20:53Z",
-  "status": "automated-command-spec-verified-native-popup-pending",
-  "sourceBaseCommit": "62a30b502231af1bb61cf7b80c9f9fc791b841f3",
+  "recordedAtUtc": "2026-11-12T11:30:53Z",
+  "status": "native-go-subcommand-and-test-option-auto-completion-verified",
+  "sourceBaseCommit": "fecfa045ed308208198ec821faf04cecb95af594",
   "platform": "IntelliJ Platform 2026.1.4 (build 261.26222.65), macOS 27.2 arm64",
   "implementation": {
-    "provider": "src/main/kotlin/dev/openidea/goide/terminal/GoShellCommandSpecsProvider.kt",
-    "extensionPoint": "org.jetbrains.plugins.terminal.commandSpecsProvider",
-    "conflictStrategy": "REPLACE",
-    "commands": [
-      "bug",
-      "build",
-      "clean",
-      "doc",
-      "env",
-      "fix",
-      "fmt",
-      "generate",
-      "get",
-      "help",
-      "install",
-      "list",
-      "mod",
-      "run",
-      "telemetry",
-      "test",
-      "tool",
-      "version",
-      "vet",
-      "work"
-    ],
-    "nestedGroups": {
-      "go mod": [
-        "download",
-        "edit",
-        "graph",
-        "init",
-        "tidy",
-        "vendor",
-        "verify",
-        "why"
-      ],
-      "go work": [
-        "edit",
-        "init",
-        "sync",
-        "use",
-        "vendor"
-      ]
-    },
-    "commonOptions": [
-      "-C",
-      "-mod",
-      "-modfile",
-      "-tags",
-      "-race",
-      "-ldflags",
-      "-gcflags",
-      "-run",
-      "-bench",
-      "-count",
-      "-coverprofile",
-      "-timeout"
-    ],
-    "registryActivation": "GoTerminalCustomizer enables terminal.new.ui.completion.popup with the project as the disposable owner."
+    "installedSpec": "The terminal plugin bundled completionSpecs/go.json is loaded by the installed ShellCommandSpecsManagerImpl.",
+    "fallback": "src/main/kotlin/dev/openidea/goide/terminal/GoTerminalCompletionFallback.kt",
+    "fallbackRegistration": "com.intellij.editorFactoryListener",
+    "inputSource": "The active TerminalOutputModel line at the terminal cursor. The reworked input text is not present in Editor.document while it is being typed.",
+    "replacement": "TerminalInput.sendBytes(0x15) clears the shell edit line, then TerminalInput.sendString writes the completed command. This is a real PTY edit, not a visual-only action.",
+    "ranking": "Go subcommands: test, telemetry, tool, build and the remaining standard commands. The first prefix match wins; go te therefore becomes go test.",
+    "testOptions": "-run, -bench, -count, -race, -cover, coverage controls, JSON/verbose/status controls, build flags and execution flags.",
+    "triggerDelayMs": 180,
+    "startupDefaults": "A one-time migration enables the completion popup, ALWAYS showing mode and IDE shortcut override without rewriting later user choices.",
+    "removedWorkaround": "The redundant custom commandSpecsProvider and temporary shell-environment mutation were removed after the fallback was verified in both zsh and bash."
   },
   "automatedVerification": {
-    "reports": 147,
-    "tests": 807,
+    "reports": 148,
+    "tests": 812,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
     "focusedTests": [
-      "GoShellCommandSpecsProviderTest.testGoSpecIsVisibleToTheInstalledTerminalManager",
-      "GoShellCommandSpecsProviderTest.testGoSpecExposesSubcommandsAndCommonBuildNavigation",
-      "GoTerminalCustomizerTest.testProjectGoSdkPrecedesShellPathAndAppliesProjectEnvironment"
+      "GoTerminalCommandCompletionTest",
+      "GoTerminalCompletionFallbackTest",
+      "GoTerminalCustomizerTest"
     ],
-    "fullGate": "test, buildPlugin, prepareSandbox and verifyPluginStructure passed",
-    "endToEndFixture": {
-      "input": "go te and go test -",
-      "result": "The platform ShellCompletionTestFixture returned the test subcommand and common options including -run, -bench, -count, -race and -cover.",
-      "scope": "Complete command text, zsh tokenization, provider conflict resolution, command tree and suggestion generation within the platform test fixture."
-    }
+    "fullGate": "test, buildPlugin, prepareSandbox and verifyPluginStructure passed.",
+    "candidateSelection": [
+      {
+        "input": "go te",
+        "result": "go test"
+      },
+      {
+        "input": "go test -r",
+        "result": "go test -run"
+      },
+      {
+        "input": "go ",
+        "result": "unchanged"
+      },
+      {
+        "input": "git status",
+        "result": "unchanged"
+      }
+    ]
   },
   "platformInspection": {
-    "terminalJar": ".tools/platform/idea-2026.1.4/IntelliJ IDEA.app/Contents/plugins/terminal/lib/terminal.jar",
-    "terminalJarSha256": "edc3e91cb3efa09534171889491926ab76d01c3549c6c9880da27a9a282e1d79",
-    "observedPlatformContract": "ShellCommandSpecsManagerImpl reads commandSpecsProvider extensions, keys specs by ShellCommandSpec.name and resolves REPLACE before DEFAULT.",
-    "registryObservation": "IDE Registry showed terminal.new.ui.autocompletion=1 and terminal.new.ui.completion.popup=1.",
-    "boundary": "Only public platform extension contracts and compiled API signatures were inspected; no proprietary source was copied."
+    "platform": "IntelliJ Platform 2026.1.4 build 261.26222.65",
+    "observedPlatformContract": "ShellCommandSpecsManagerImpl reads commandSpecsProvider extensions and the bundled completion database. TerminalCommandCompletion.isEnabled requires local monolith mode, local EEL and the terminal completion registry.",
+    "rootCause": "For the user Powerlevel10k zsh session, TerminalView.shellIntegrationDeferred never completed. TerminalCommandCompletionTypingListener therefore did not invoke the platform service even though the terminal itself was usable.",
+    "rejectedFix": "Setting POWERLEVEL9K_INSTANT_PROMPT=off in a test process did not complete shell integration. The product therefore does not mutate the user shell environment.",
+    "fallbackDesign": "Read the active output model, resolve a Go command line independently of shell-integration markers, and send the replacement through the terminal input channel."
   },
-  "nativeAttempt": {
-    "application": "build/product/open Goland terminal completion action.app",
+  "evidenceBoundary": "This verifies deterministic Go command/option insertion on macOS with the user zsh profile and the built-in Bash profile. It does not claim a visible multi-candidate lookup, Windows terminal parity, remote/WSL shells, every custom prompt, or complete GoLand terminal parity.",
+  "nextProbe": "Add an explicit candidate chooser for ambiguous prefixes, then verify the same behavior in Windows Terminal/ConPTY and at least one remote or WSL terminal.",
+  "nativeVerification": {
+    "application": "build/product/open Goland startup completion.app",
     "project": "fixtures/native-workflow",
-    "input": "go te",
-    "automaticPopup": "No Go subcommand popup appeared after opening new terminals with automatic completion enabled.",
-    "tabAttempt": "Tab fell back to zsh path completion and produced go _test.go.",
-    "shortcutAttempts": "Control+Space is intercepted by macOS input-source handling. Temporary test-only mappings for Terminal.CommandCompletion.Invoke on Control+Option+K and F2 did not visibly open the popup.",
-    "menuAttempt": "A temporary Go Terminal Completion menu action invoked Terminal.CommandCompletion.Invoke in terminal context but still produced no popup. The temporary action was removed before the final full gate.",
-    "classification": "Native Go command completion is not accepted. The automated provider and manager registration are verified, but visible terminal candidates remain open.",
-    "classicEngineAttempt": "A packaged candidate switched to the classic terminal engine still fell back to shell path completion for go te, so changing the engine alone does not close the native action-state gap.",
-    "promptToolbarAttempt": "A temporary action in Terminal.PromptToolbar and Platform TerminalCommandCompletion.Invoke delegation was loaded in a fresh packaged app; the terminal still showed no Go candidates. The probe action and shortcut were removed before committing.",
-    "shortcutProbe": "Temporary action shortcuts Meta+Alt+G and Control+Shift+G were consumed by the terminal or operating-system layer; the shell received or submitted the text instead of opening the IntelliJ lookup. This distinguishes input routing from command-spec generation."
+    "runs": [
+      {
+        "shell": "zsh with the user Powerlevel10k profile",
+        "input": "go te",
+        "observed": "go test"
+      },
+      {
+        "shell": "zsh with the user Powerlevel10k profile",
+        "continuedInput": " -r",
+        "observed": "go test -run"
+      },
+      {
+        "shell": "bash",
+        "input": "go te",
+        "observed": "go test"
+      }
+    ],
+    "visibleLookup": "No multi-candidate popup was observed. The fallback deterministically inserts the first ranked candidate so completion remains usable when the platform lookup cannot open.",
+    "classification": "Native Go command and test-option auto-completion is accepted for the verified macOS shells."
   },
-  "evidenceBoundary": "This record does not claim native terminal completion or full GoLand terminal parity. It proves the installed terminal manager resolves the Go command spec in the platform test environment and the full regression gate remains green.",
-  "nextProbe": "The command-spec pipeline is proven end to end in the platform fixture. Investigate why the packaged terminal never reaches a native completion context, focusing on shell-integration outputStatus, active output editor and action enablement, then verify visible go test candidates with screenshot evidence before release."
+  "previousFailedAttempts": {
+    "summary": "Platform-only popup attempts were superseded after shell integration was identified as the failed prerequisite.",
+    "observed": [
+      "No Go subcommand popup appeared after opening new terminals with automatic completion enabled.",
+      "Tab fell back to zsh path completion and produced go _test.go.",
+      "Control+Space is intercepted by macOS input-source handling. Temporary test-only mappings for Terminal.CommandCompletion.Invoke on Control+Option+K and F2 did not visibly open the popup.",
+      "A temporary Go Terminal Completion menu action invoked Terminal.CommandCompletion.Invoke in terminal context but still produced no popup. The temporary action was removed before the final full gate.",
+      "A packaged candidate switched to the classic terminal engine still fell back to shell path completion for go te, so changing the engine alone does not close the native action-state gap."
+    ]
+  }
 }

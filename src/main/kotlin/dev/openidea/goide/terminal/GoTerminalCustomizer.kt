@@ -2,8 +2,11 @@ package dev.openidea.goide.terminal
 
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.registry.Registry
+import com.intellij.ide.util.PropertiesComponent
 import dev.openidea.goide.settings.GoToolchain
 import org.jetbrains.plugins.terminal.LocalTerminalCustomizer
+import org.jetbrains.plugins.terminal.TerminalOptionsProvider
+import org.jetbrains.plugins.terminal.block.completion.TerminalCommandCompletionShowingMode
 import java.io.File
 
 /** Make the project-selected Go toolchain authoritative in new local terminals. */
@@ -20,8 +23,29 @@ class GoTerminalCustomizer : LocalTerminalCustomizer() {
         envs: MutableMap<String, String>,
     ): Array<String> {
         Registry.get(TERMINAL_COMPLETION_POPUP_REGISTRY_KEY).setValue(true, project)
+        GoTerminalCompletionDefaults.applyOnce()
         GoTerminalEnvironment.apply(project, envs)
         return command
+    }
+}
+
+internal object GoTerminalCompletionDefaults {
+    internal const val MIGRATION_KEY = "openideago.terminal.completion.defaults.v1"
+
+    fun applyOnce() {
+        val properties = PropertiesComponent.getInstance()
+        if (properties.getBoolean(MIGRATION_KEY, false)) return
+        val options = TerminalOptionsProvider.instance
+        options.showCompletionPopupAutomatically = true
+        options.commandCompletionShowingMode = TerminalCommandCompletionShowingMode.ALWAYS
+        options.overrideIdeShortcuts = true
+        properties.setValue(MIGRATION_KEY, true)
+    }
+}
+
+internal class GoTerminalCompletionInitializer : com.intellij.ide.ApplicationInitializedListener {
+    override suspend fun execute() {
+        GoTerminalCompletionDefaults.applyOnce()
     }
 }
 

@@ -18,6 +18,8 @@
                             serviceImplementation="dev.openidea.goide.navigation.search.GoIdeLanguageCustomization"
                             overrides="true"/>
         <applicationInitializedListener implementation="dev.openidea.goide.lifecycle.StandaloneProxyWarmup"/>
+        <applicationInitializedListener implementation="dev.openidea.goide.terminal.GoTerminalCompletionInitializer"/>
+        <editorFactoryListener implementation="dev.openidea.goide.terminal.GoTerminalCompletionFallback"/>
         <actionConfigurationCustomizer implementation="dev.openidea.goide.project.GoNewProjectActionCustomizer"/>
         <notificationGroup id="open Goland Project Creation" displayType="BALLOON" isLogByDefault="true"/>
         <fileType name="open Goland" language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoFileType" fieldName="INSTANCE" extensions="go"/>
@@ -123,7 +125,6 @@
     </extensions>
     <extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
         <localTerminalCustomizer implementation="dev.openidea.goide.terminal.GoTerminalCustomizer"/>
-        <commandSpecsProvider implementation="dev.openidea.goide.terminal.GoShellCommandSpecsProvider"/>
     </extensions>
     <actions>
         <action id="OpenIDEA.InstallChineseLanguagePack" class="dev.openidea.goide.plugins.InstallChineseLanguagePackAction" text="安装简体中文语言包… / Install Chinese Language Pack…" description="从 JetBrains 官方获取与当前平台匹配的简体中文语言包">

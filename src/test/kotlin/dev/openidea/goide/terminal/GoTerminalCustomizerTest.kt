@@ -1,11 +1,14 @@
 package dev.openidea.goide.terminal
 
+import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
 import com.intellij.util.xmlb.XmlSerializerUtil
 import dev.openidea.goide.settings.GoProjectSettings
+import org.jetbrains.plugins.terminal.TerminalOptionsProvider
+import org.jetbrains.plugins.terminal.block.completion.TerminalCommandCompletionShowingMode
 import java.io.File
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
@@ -13,6 +16,43 @@ import java.util.concurrent.TimeUnit
 
 class GoTerminalCustomizerTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = false
+
+    fun testTerminalCompletionDefaultsApplyOnceWithoutOverwritingLaterUserChoice() {
+        val properties = PropertiesComponent.getInstance()
+        val previousMigration = properties.getValue(GoTerminalCompletionDefaults.MIGRATION_KEY)
+        val options = TerminalOptionsProvider.instance
+        val previousAutomatic = options.showCompletionPopupAutomatically
+        val previousMode = options.commandCompletionShowingMode
+        val previousOverride = options.overrideIdeShortcuts
+        try {
+            properties.unsetValue(GoTerminalCompletionDefaults.MIGRATION_KEY)
+            options.showCompletionPopupAutomatically = false
+            options.commandCompletionShowingMode = TerminalCommandCompletionShowingMode.ONLY_PARAMETERS
+            options.overrideIdeShortcuts = false
+
+            GoTerminalCompletionDefaults.applyOnce()
+
+            assertTrue(options.showCompletionPopupAutomatically)
+            assertEquals(TerminalCommandCompletionShowingMode.ALWAYS, options.commandCompletionShowingMode)
+            assertTrue(options.overrideIdeShortcuts)
+            assertTrue(properties.getBoolean(GoTerminalCompletionDefaults.MIGRATION_KEY, false))
+
+            options.showCompletionPopupAutomatically = false
+            options.commandCompletionShowingMode = TerminalCommandCompletionShowingMode.ONLY_PARAMETERS
+            options.overrideIdeShortcuts = false
+            GoTerminalCompletionDefaults.applyOnce()
+
+            assertFalse(options.showCompletionPopupAutomatically)
+            assertEquals(TerminalCommandCompletionShowingMode.ONLY_PARAMETERS, options.commandCompletionShowingMode)
+            assertFalse(options.overrideIdeShortcuts)
+        } finally {
+            if (previousMigration == null) properties.unsetValue(GoTerminalCompletionDefaults.MIGRATION_KEY)
+            else properties.setValue(GoTerminalCompletionDefaults.MIGRATION_KEY, previousMigration)
+            options.showCompletionPopupAutomatically = previousAutomatic
+            options.commandCompletionShowingMode = previousMode
+            options.overrideIdeShortcuts = previousOverride
+        }
+    }
 
     fun testProjectGoSdkPrecedesShellPathAndAppliesProjectEnvironment() {
         val settings = GoProjectSettings.get(project)

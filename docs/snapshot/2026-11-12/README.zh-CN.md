@@ -1,12 +1,12 @@
 # 2026-11-12 续接快照：open Goland
 
-**完整目标仍是 active，尚未完成。** 本快照记录本轮已经落地的 Windows 进程所有权修复、`.6` 双平台安装包发布、当前工具状态和下一步工作。
+**完整目标仍是 active，尚未完成。** 本快照记录已经落地的 Windows 进程所有权修复、`.7` 双平台安装包发布、macOS 原生终端补全修复、当前工具状态和下一步工作。
 
 ## 当前权威状态
 
 - 已发布源码提交：`585964bb7e53ab2066c6ea079c3f78ba5469e602`
-- 当前已推送源码：`e47e9d1`，包含调试权限/进程清理、SDK 设置布局、项目终端 SDK 环境、Go 终端命令规范和原生 Git 冲突流程证据
-- 当前候选源码：520 个输入文件；最终摘要会在文档证据提交后重新生成
+- 当前已推送基线：`fecfa04`，包含调试权限/进程清理、SDK 设置布局、项目终端 SDK 环境、Git 冲突流程、Unicode 与构建上下文证据
+- 最新工作树：新增原生 Go 终端自动补全回退、webview 无关的 PTY 输入替换、812 项回归测试和对应证据
 - 公开版本：[open Goland 0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)
 - 构建运行：[GitHub Actions 43175443788](https://github.com/shubolab/opengoland/actions/runs/43175443788)
 
@@ -21,7 +21,7 @@
 - Attach 模式关闭后代清理，继续保证断开时不会错误杀死用户的被调试进程。
 - 新真实进程测试验证了 adapter 的 child/grandchild 被回收，而同 executable 下的无关进程保持运行。
 
-最新验证结果：Kotlin **807/807，147 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
+最新验证结果：Kotlin **812/812，148 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
 
 仍差最后一步运行时证据：本机管理员未开放 Developer Mode，而当前自动化会话不能输入管理员密码，因此尚未在同一个候选包中完成“启用权限 → 真实测试运行 → 断点 → PASS → Stop 清理”闭环。机器可读记录：[debug-hang-20261112.json](evidence/debug-hang-20261112.json)。
 
@@ -37,7 +37,7 @@
 
 真实关闭测试启动前台 `sleep 300`，确认进程树后关闭 Terminal 并选择 Terminate；shell 与子进程均退出。参考 GoLand 的已安装 JAR 仅用于确认其公开 Terminal customizer 扩展边界，记录绑定到 artifact SHA-256 `198efc87…55f0`，没有复制商业实现。机器可读记录：[terminal-native-20261112.json](../../reference/terminal-native-20261112.json)。
 
-当前源码还注册了覆盖 `go build/test/run/mod/work` 等命令与常用选项的终端命令规范。平台 `ShellCompletionTestFixture` 已经走完整条文本、zsh token、provider 和候选生成链路，能够返回 `go test` 与常用测试参数。但独立 App 的重制终端和经典终端中，自动弹出、Tab 和临时快捷键均未显示 Go 候选，Tab 仍回退到 zsh 文件名补全；因此原生终端命令补全仍列为未完成项，不能由自动化测试替代。[机器可读记录](../../reference/terminal-command-completion-20261112.json)。
+原生终端补全已经修通。根因是当前用户的 Powerlevel10k zsh 会话中，JetBrains `TerminalView.shellIntegrationDeferred` 始终未完成，平台内置的 Go command-spec 服务因此没有被调用；提高补全设置或关闭 instant prompt 都不能解决。现在的产品回退直接读取活动 `TerminalOutputModel`，解析光标所在命令，并通过 `TerminalInput` 向真实 PTY 发送行清空与完成后的命令。独立 App 中已经实测 `go te → go test` 和 `go test -r → go test -run`，zsh 与 Bash 均通过。当前限制是不会显示多候选弹窗，而是确定性地选择排序最高的候选；Windows、WSL 和其他自定义提示符仍需单独验收。[机器可读记录](../../reference/terminal-command-completion-20261112.json)。
 
 ## 当前源码插件与中文包复核
 
