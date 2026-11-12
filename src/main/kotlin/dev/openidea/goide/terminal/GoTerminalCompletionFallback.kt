@@ -1,12 +1,12 @@
 package dev.openidea.goide.terminal
 
-import com.intellij.codeInsight.lookup.LookupManager
 import com.intellij.ide.DataManager
 import com.intellij.openapi.editor.Editor
 import com.intellij.openapi.editor.event.DocumentEvent
 import com.intellij.openapi.editor.event.DocumentListener
 import com.intellij.openapi.editor.event.EditorFactoryEvent
 import com.intellij.openapi.editor.event.EditorFactoryListener
+import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.util.Key
 import com.intellij.terminal.frontend.view.TerminalView
@@ -51,22 +51,30 @@ class GoTerminalCompletionFallback : EditorFactoryListener {
         val project = editor.project ?: return
         val dataManager = DataManager.getInstance()
         val focusOwner = KeyboardFocusManager.getCurrentKeyboardFocusManager().focusOwner
-        val view = listOfNotNull(focusOwner, editor.contentComponent)
+        val dataContext = listOfNotNull(focusOwner, editor.contentComponent)
             .asSequence()
             .map(dataManager::getDataContext)
-            .mapNotNull(TerminalView.DATA_KEY::getData)
-            .firstOrNull() ?: return
+            .firstOrNull { TerminalView.DATA_KEY.getData(it) != null } ?: return
+        val view = TerminalView.DATA_KEY.getData(dataContext) ?: return
+        // When the bundled platform completion is active, preserve its richer
+        // lookup instead of replacing it with the deterministic fallback.
+        if (com.intellij.codeInsight.lookup.LookupManager.getActiveLookup(editor) != null) return
         val outputModel = view.outputModels.active.value
         val cursorOffset = outputModel.cursorOffset
         val line = outputModel.getLineByOffset(cursorOffset)
         val lineStart = outputModel.getStartOfLine(line)
         val commandLine = outputModel.getText(lineStart, cursorOffset).toString()
-        val completedCommand = resolveGoTerminalCompletion(commandLine) ?: return
-
-        if (LookupManager.getActiveLookup(editor) != null) {
-            LookupManager.getInstance(project).hideActiveLookup()
+        val completions = resolveGoTerminalCompletions(commandLine)
+        when (completions.size) {
+            0 -> return
+            1 -> sendReplacement(view, completions.single())
+            else -> JBPopupFactory.getInstance()
+                .createPopupChooserBuilder(completions)
+                .setTitle("Go Command Completion")
+                .setItemChosenCallback { command -> sendReplacement(view, command) }
+                .createPopup()
+                .showInBestPositionFor(dataContext)
         }
-        sendReplacement(view, completedCommand)
     }
 
     private fun sendReplacement(view: TerminalView, command: String) {
@@ -121,20 +129,31 @@ internal fun terminalLineClearSequence(osName: String, currentLineLength: Int): 
         byteArrayOf(0x15)
     }
 
-internal fun resolveGoTerminalCompletion(commandLine: String): String? {
-    val match = GO_COMMAND.findAll(commandLine).lastOrNull() ?: return null
+internal fun resolveGoTerminalCompletion(commandLine: String): String? =
+    resolveGoTerminalCompletions(commandLine).firstOrNull()
+
+internal fun resolveGoTerminalCompletions(commandLine: String): List<String> {
+    val match = GO_COMMAND.findAll(commandLine).lastOrNull() ?: return emptyList()
     val commandStart = match.range.first + match.value.indexOf("go")
-    val remainder = commandLine.substring(match.range.last + 1)
-    val prefix = remainder.substringAfterLast(' ')
-    if (prefix.isEmpty()) return null
-    val showOptions = prefix.startsWith('-') && remainder.substringBeforeLast(' ', "").trim() == "test"
-    val candidates = if (showOptions) GO_TEST_OPTIONS else GO_SUBCOMMANDS
-    val completion = candidates.firstOrNull { it.startsWith(prefix) } ?: return null
-    if (completion == prefix) return null
-    return commandLine.substring(commandStart).removeSuffix(prefix) + completion
+    val remainderStart = match.range.last + 1
+    val remainder = commandLine.substring(remainderStart)
+    val firstNonSpace = remainder.indexOfFirst { !it.isWhitespace() }
+    if (firstNonSpace < 0) return emptyList()
+    val arguments = remainder.substring(firstNonSpace).trimEnd().split(WHITESPACE)
+    val prefix = arguments.last()
+    val candidates = when {
+        arguments.size == 1 -> GO_SUBCOMMANDS
+        arguments.size == 2 && arguments[0] == "test" && prefix.startsWith('-') -> GO_TEST_OPTIONS
+        else -> return emptyList()
+    }
+    val matches = candidates.filter { it.startsWith(prefix) && it != prefix }
+    val prefixStart = remainderStart + remainder.lastIndexOf(prefix)
+    val stem = commandLine.substring(commandStart, prefixStart)
+    return matches.map { stem + it }
 }
 
 private val GO_COMMAND = Regex("(?:^|\\s)go\\s+")
+private val WHITESPACE = Regex("\\s+")
 private val GO_SUBCOMMANDS = listOf(
     "test", "telemetry", "tool", "bug", "build", "clean", "doc", "env", "fix", "fmt",
     "generate", "get", "help", "install", "list", "mod", "run", "version", "vet", "work",

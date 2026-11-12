@@ -1,7 +1,7 @@
 {
   "schema": 1,
-  "recordedAtUtc": "2026-11-12T11:30:53Z",
-  "status": "native-macos-verified-cross-platform-line-clearing-unit-hardened-windows-native-pending",
+  "recordedAtUtc": "2026-11-12T13:17:30Z",
+  "status": "native-macos-visible-ambiguous-chooser-cross-platform-line-clearing-verified-windows-native-pending",
   "sourceBaseCommit": "ce0e579d2c56294ca026211a74a5248cd46385c3",
   "platform": "IntelliJ Platform 2026.1.4 (build 261.26222.65), macOS 27.2 arm64",
   "implementation": {
@@ -10,7 +10,7 @@
     "fallbackRegistration": "com.intellij.editorFactoryListener",
     "inputSource": "The active TerminalOutputModel line at the terminal cursor. The reworked input text is not present in Editor.document while it is being typed.",
     "replacement": "The fallback observes the active shell edit line and sends replacement bytes through TerminalInput. macOS/Linux use Ctrl-U (0x15) to clear a readline/zle edit line; Windows uses one Backspace (0x08) per completed-command character so cmd.exe, PowerShell/PSReadLine and Windows Git Bash all have a shell-editor path without changing user startup files.",
-    "ranking": "Go subcommands: test, telemetry, tool, build and the remaining standard commands. The first prefix match wins; go te therefore becomes go test.",
+    "ranking": "Prefix matches remain in the Go spec order. One match is written directly; multiple matches open a native chooser such as go test / go telemetry / go tool. Exact input remains unchanged, and an active bundled lookup is never replaced by the fallback.",
     "testOptions": "-run, -bench, -count, -race, -cover, coverage controls, JSON/verbose/status controls, build flags and execution flags.",
     "triggerDelayMs": 180,
     "startupDefaults": "A one-time migration enables the completion popup, ALWAYS showing mode and IDE shortcut override without rewriting later user choices.",
@@ -18,7 +18,7 @@
   },
   "automatedVerification": {
     "reports": 148,
-    "tests": 815,
+    "tests": 819,
     "failures": 0,
     "errors": 0,
     "skipped": 0,
@@ -27,19 +27,31 @@
       "GoTerminalCompletionFallbackTest",
       "GoTerminalCustomizerTest"
     ],
-    "fullGate": "815 tests in 148 reports with zero failures/errors/skips; test, buildPlugin, prepareSandbox and verifyPluginStructure passed.",
+    "fullGate": "819 tests in 148 reports with zero failures/errors/skips; test, buildPlugin, prepareSandbox and verifyPluginStructure passed.",
     "candidateSelection": [
       {
+        "input": "go t",
+        "result": "choices: go test, go telemetry, go tool"
+      },
+      {
         "input": "go te",
+        "result": "choices: go test, go telemetry"
+      },
+      {
+        "input": "go tes",
         "result": "go test"
       },
       {
         "input": "go test -r",
+        "result": "choices: go test -run, go test -race"
+      },
+      {
+        "input": "go test -ru",
         "result": "go test -run"
       },
       {
-        "input": "go ",
-        "result": "unchanged"
+        "input": "go test -run te",
+        "result": "unchanged because this is a test argument"
       },
       {
         "input": "git status",
@@ -54,30 +66,31 @@
     "rejectedFix": "Setting POWERLEVEL9K_INSTANT_PROMPT=off in a test process did not complete shell integration. The product therefore does not mutate the user shell environment.",
     "fallbackDesign": "Read the active output model, resolve a Go command line independently of shell-integration markers, and send the replacement through the terminal input channel."
   },
-  "evidenceBoundary": "This verifies deterministic Go command/option insertion on macOS with the user zsh profile and the built-in Bash profile. It also verifies the platform-specific line-clear byte sequence in focused tests. It does not claim native Windows terminal completion, a visible multi-candidate lookup, remote/WSL shells, every custom prompt, or complete GoLand terminal parity.",
-  "nextProbe": "Run go te and go test -r in packaged Windows Terminal under cmd.exe, PowerShell/PSReadLine and Windows Git Bash; then add an explicit candidate chooser for ambiguous prefixes and verify one remote/WSL terminal.",
+  "evidenceBoundary": "This verifies visible ambiguous terminal completion, unique replacement, and platform-specific line-clear bytes on macOS candidate builds. It does not claim native Windows terminal completion, remote/WSL terminals, every custom prompt, or complete GoLand terminal parity.",
+  "nextProbe": "Run go t, go te and go test -r in packaged Windows Terminal under cmd.exe, PowerShell/PSReadLine and Windows Git Bash; then verify at least one remote/WSL terminal.",
   "nativeVerification": {
-    "application": "build/product/open Goland startup completion.app",
+    "application": "build/open Goland terminal force env.app",
     "project": "fixtures/native-workflow",
     "runs": [
       {
-        "shell": "zsh with the user Powerlevel10k profile",
-        "input": "go te",
-        "observed": "go test"
+        "shell": "macOS user zsh with Powerlevel10k",
+        "input": "go t",
+        "observed": "visible native chooser: go test, go telemetry, go tool",
+        "selection": "go tool was written to the real terminal edit line"
       },
       {
-        "shell": "zsh with the user Powerlevel10k profile",
-        "continuedInput": " -r",
-        "observed": "go test -run"
+        "shell": "macOS user zsh with Powerlevel10k",
+        "input": "go te",
+        "observed": "visible native chooser: go test, go telemetry",
+        "selection": "go test was written to the real terminal edit line"
       },
       {
-        "shell": "bash",
-        "input": "go te",
-        "observed": "go test"
+        "shell": "previous macOS candidate cohorts",
+        "observed": "go tes and unique go test options complete directly; go te and go test -r expose all matching choices"
       }
     ],
-    "visibleLookup": "No multi-candidate popup was observed. The fallback deterministically inserts the first ranked candidate so completion remains usable when the platform lookup cannot open.",
-    "classification": "Native Go command and test-option auto-completion is accepted for the verified macOS shells."
+    "visibleLookup": "Ambiguous prefixes show a native list popup anchored in the terminal. The fallback yields to any active bundled platform lookup.",
+    "classification": "Native visible candidate selection and real PTY replacement are accepted for the recorded macOS zsh session."
   },
   "previousFailedAttempts": {
     "summary": "Platform-only popup attempts were superseded after shell integration was identified as the failed prerequisite.",

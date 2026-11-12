@@ -540,7 +540,7 @@
         "native_terminal_environment": "../reference/terminal-native-20261112.json",
         "native_terminal_observation": "Recorded 2026-11-12: a packaged macOS app opened an interactive terminal at the project root; `go version` and `go env GOROOT` resolved to the project bundled Go1.26.10 rather than the global mise1.24.3; closing a foreground `sleep 300` session terminated the shell and child. Remote/WSL, detached daemon and Windows interactive terminal behavior remain open.",
         "terminal_command_specs": "../reference/terminal-command-completion-20261112.json",
-        "terminal_command_specs_observation": "Recorded 2026-11-12 on the current standalone candidate: deterministic go te to go test and go test -r to go test -run replacement passed through the real PTY on macOS zsh/Powerlevel10k and Bash. A later focused repair keeps Ctrl-U on Unix and uses shell-editor Backspaces on Windows so the fallback no longer assumes a Unix line-kill binding. PowerShell, cmd.exe, Windows Git Bash, WSL and remote terminals still require native acceptance."
+        "terminal_command_specs_observation": "Recorded 2026-11-12 on the current standalone macOS candidate: go t opened a native chooser with go test, go telemetry and go tool; selecting go tool wrote the chosen command through the real PTY. go te showed go test and go telemetry, and selecting go test produced go test. Unique prefixes replace directly, and active bundled lookups are preserved. Unix uses Ctrl-U while Windows uses shell-editor Backspaces. Native Windows PowerShell, cmd.exe, Git Bash, WSL and remote terminal acceptance remain open."
       }
     },
     {
