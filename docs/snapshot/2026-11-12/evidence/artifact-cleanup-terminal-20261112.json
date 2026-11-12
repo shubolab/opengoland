@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T05:45:00Z",
+  "status": "completed-exact-path-cleanup",
+  "policy": "Remove only superseded project-generated candidate application trees after process/open-file checks; preserve public .6 installed app and the latest verified terminal-force candidate.",
+  "preserved": [
+    "/Users/wangshubo/develop/openidea-go/build/open Goland terminal force env.app",
+    "/Users/wangshubo/develop/openidea-go/.tools/release-06-native-20261112/installed/open Goland.app",
+    "/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app"
+  ],
+  "processCheck": {
+    "ideaExecutablesBefore": [],
+    "matchingOpenFilesBefore": []
+  },
+  "removed": [
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/build/open Goland 09.app",
+      "exists": true,
+      "fileCount": 16971,
+      "logicalBytes": 2836703928,
+      "manifestSha256": "1426a9c5af0167c1699a90b7b792481151e68a38e9789276f31b08497a4d7e58",
+      "pluginJar": "/Users/wangshubo/develop/openidea-go/build/open Goland 09.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar",
+      "pluginJarSha256": "66e0c4af1ece72db2f2f3eb2b2193b85b004c3b34ec7c6b1fe3b0854229d5b6c",
+      "engineSha256": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e",
+      "removed": true
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/build/open Goland SDK layout verified.app",
+      "exists": true,
+      "fileCount": 16971,
+      "logicalBytes": 2836705108,
+      "manifestSha256": "e3f5eb8ae1cc68a138ff09585b406f7df958a297effacbef6db481cd196fe3ea",
+      "pluginJar": "/Users/wangshubo/develop/openidea-go/build/open Goland SDK layout verified.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar",
+      "pluginJarSha256": "1d79cfe41f1d36889eec64a08063ffe1de437808102f371ab549d60b1c3a1dc4",
+      "engineSha256": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e",
+      "removed": true
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/build/open Goland terminal env.app",
+      "exists": true,
+      "fileCount": 16971,
+      "logicalBytes": 2836710552,
+      "manifestSha256": "1772e8365d5d87d87d7084c364604e29bb7d671f3ca273511ccc9596b085423a",
+      "pluginJar": "/Users/wangshubo/develop/openidea-go/build/open Goland terminal env.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar",
+      "pluginJarSha256": "6fb82c85f9bb73220f2fcdcb08f09ac42871028b5b85b3b386d63eaf6c110e9a",
+      "engineSha256": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e",
+      "removed": true
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app",
+      "exists": true,
+      "fileCount": 16970,
+      "logicalBytes": 2836686956,
+      "manifestSha256": "f06cda47059a88bb5ca971df3052cf58d29455f75fcda8d68a1ab2e55b05aa1c",
+      "pluginJar": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.6.jar",
+      "pluginJarSha256": "20d40d581a43aa01621e5fcb897ab2ecfa04e4306681d959ab53517c1c5d532c",
+      "engineSha256": "94752f95c67f71a7d25a31924def03e587f0559dcd97f6d1dc1130b7887acfb0",
+      "removed": true
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app",
+      "exists": true,
+      "fileCount": 16970,
+      "logicalBytes": 2836577089,
+      "manifestSha256": "ed24ee342a157e28633b38a1ad652bd6f8c4873e75896f3c52f6a5642143f5f9",
+      "pluginJar": "/Users/wangshubo/develop/openidea-go/build/public-plugin-install-vnz28s86/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.5.jar",
+      "pluginJarSha256": "daa607a429441e6bf11b8d9718bc65c592a33222d0337a68134bdbd85cea8faf",
+      "engineSha256": "039f4787efc6720deb43a2ab9bcc12bab924b229ff50b96c684c3a1c5d31144a",
+      "removed": true
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/build/release07-product/open Goland.app",
+      "exists": true,
+      "fileCount": 16971,
+      "logicalBytes": 2836690649,
+      "manifestSha256": "0969a2044ae47ccec8b1949bcd81026e5d829eb0479209ab07c1a3e8b0437f4b",
+      "pluginJar": "/Users/wangshubo/develop/openidea-go/build/release07-product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.7.jar",
+      "pluginJarSha256": "b7b1fdaaab3aade5deddf0fbe0d066c99643bf0d0701844e21fc3a91229c4450",
+      "engineSha256": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e",
+      "removed": true
+    },
+    {
+      "path": "/Users/wangshubo/develop/openidea-go/build/release08-product/open Goland.app",
+      "exists": true,
+      "fileCount": 16971,
+      "logicalBytes": 2836693167,
+      "manifestSha256": "ffa5487dd52fdb133e0fd635e430f681a289dd6a0effd63633b4d131e27ecee7",
+      "pluginJar": "/Users/wangshubo/develop/openidea-go/build/release08-product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.8.jar",
+      "pluginJarSha256": "72fabf9f6de23402b7d7e4d191f69bc74ac1008853d9f737972aa7a03e6b9784",
+      "engineSha256": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e",
+      "removed": true
+    }
+  ],
+  "freeBytesBefore": 107218001920,
+  "freeBytesAfter": 114948550656,
+  "freeBytesIncrease": 7730548736
+}

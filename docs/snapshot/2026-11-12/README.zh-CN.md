@@ -37,6 +37,8 @@
 
 真实关闭测试启动前台 `sleep 300`，确认进程树后关闭 Terminal 并选择 Terminate；shell 与子进程均退出。参考 GoLand 的已安装 JAR 仅用于确认其公开 Terminal customizer 扩展边界，记录绑定到 artifact SHA-256 `198efc87…55f0`，没有复制商业实现。机器可读记录：[terminal-native-20261112.json](../../reference/terminal-native-20261112.json)。
 
+本轮同时清理了 7 个已被最新候选取代、无进程或文件占用且不属于公开 Release 的开发 App 副本，逻辑大小约 19.9 GB；APFS 实际新增可用空间约 7.73 GB。保留了公开 `.6` 安装副本、固定平台和最新 `open Goland terminal force env.app`。完整路径、manifest、插件 JAR 与 engine 哈希记录在 [artifact-cleanup-terminal-20261112.json](evidence/artifact-cleanup-terminal-20261112.json)。
+
 ## 本轮完成的代码修复
 
 Windows 上有限时长的 Go module/SDK 命令现在通过本仓库 Go 引擎的私有 owner 模式启动。目标进程在启动前被原子加入一个不继承的 Windows Job Object，并设置 `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`。因此取消、超时、IDE 退出，甚至启动器正常结束后仍留下后代进程时，整个命令树都会随 owner 关闭而结束。Unix 继续使用原有的独占 PTY 进程组。
