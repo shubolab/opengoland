@@ -498,7 +498,11 @@
         "session_control_gaps": "../verification/debug-session-controls.md",
         "session_control_sdk_baseline": "../verification/debug-session-controls-baseline.json",
         "session_control_native_baseline": "../verification/debug-pause-baseline-native.json",
-        "known_failed_controls": "Source83af952: enabled standard native Pause did not suspend an owned heartbeat program; native Stop left one non-running defunct target under PID1 while seven other known processes disappeared. Independent actual-SDK/LSP4J controls select/evaluate cold thread202 but Step/Continue still send thread101; warm/A/held-unselected controls pass. This is not a native cold-goroutine comparison or a repaired feature; full rows remain open."
+        "session_control_tests": "../../src/test/kotlin/dev/openidea/goide/debug/GoDapSessionControlTest.kt",
+        "variable_and_watch_tests": "../../src/test/kotlin/dev/openidea/goide/debug/GoDapClientRoutingTest.kt",
+        "public_debug_native": "../verification/debug-session-public-v5-native.json",
+        "controlled_thread_observation": "Real-platform SDK/DAP controls keep two suspended thread contexts distinct: a cold B stack can be selected, its frame evaluated with watch context, and Step/Continue target B; delayed unselected stacks cannot hijack control. Pause acknowledgement, repeated pause, stop/disposal cancellation and variable-scope failure paths also have controlled regressions. A native simultaneous-goroutine UI, JetBrains thread filters, persistent watches and full type-presentation comparison remain open.",
+        "historical_failed_controls": "Historical source 83af952: native Pause did not stop an owned heartbeat and cold B Step/Continue used thread101. Those observations remain failure history only; later controlled regressions listed in controlled_thread_observation supersede the protocol target-selection behavior. No native simultaneous-goroutine/filter/watch acceptance is inferred."
       }
     },
     {
