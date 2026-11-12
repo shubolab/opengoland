@@ -4,18 +4,40 @@
 
 ## 当前权威状态
 
-- 本次快照生成时，`main` 已推送基线为 `b6994ba Record native Go formatting acceptance`；快照自身的后续提交以远端 `main` HEAD 为准。
+- 本次快照生成时，`main` 已推送基线为 `530ee08 Verify contextual Go completion`；快照自身的后续提交以远端 `main` HEAD 为准。
 - `.8` tag：`v0.1.0-preview.20261112.8`，指向 `ce0e579`。发布 workflow attempt 2 已成功，五个资产已公开；这是当前 README 的正式下载版本。
 - `.9` tag：`v0.1.0-preview.20261112.9`，精确指向 `f23bc48`。macOS 已成功；Windows 首次 runner 异常终止，当前 attempt 2 正在运行。
-- `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。Windows 已成功；macOS 首次 `hdiutil create` 失败后，当前 attempt 2 已排队。
-- `.11` tag：`v0.1.0-preview.20261112.11`，精确指向 `09ef68c`。其 [Actions 43235043231](https://github.com/shubolab/opengoland/actions/runs/43235043231) 已排队，包含 PluginManagementPolicy 实际激活修复。
+- `.10` tag：`v0.1.0-preview.20261112.10`，精确指向 `e7da5d6`。Windows 已成功；macOS 首次 `hdiutil create` 失败后，当前 attempt 2 正在运行。
+- `.11` tag：`v0.1.0-preview.20261112.11`，精确指向 `09ef68c`。Windows 正在构建；macOS 首次任务在排队后取消，当前 workflow 尚未结束，因此 GitHub 暂不允许失败作业重跑。结束后必须重跑 macOS。
 - 当前公开版本：[open Goland 0.1.0-preview.20261112.8](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8)。五个资产齐全，安装包/GitHub API/SHA256SUMS 摘要一致，Windows 安装卸载退出码均为 0，macOS DMG 已验证挂载复制与安装后 engine smoke。
 - `.9` 修复了 Windows 终端补全错误假设 `Ctrl-U` 普遍可用的问题：Unix 保留 `0x15` 清行，Windows 按命令长度发送 Backspace；真实 Windows PowerShell/cmd/Git Bash 验收仍未完成。
 - `.10` 将歧义前缀改成原生选择列表；真实 macOS zsh 中 `go t` 显示 `go test / go telemetry / go tool`，选择后写入真实 PTY；同时阻止把 `go test -run te` 这类参数误当子命令。
 - `.11` 修复了生产启动只改 app.jar 无法生效的问题：同时打开 Gradle PlatformExtensions 与 `plugins/plugin-classpath.txt!core` 的精确 service 注册。完整打包候选 fresh profile 中原 `InstanceNotOverridableException` 已消失，启动日志无 ERROR/SEVERE。
 - 最新本地完整门禁为 **819 Kotlin tests + 86 Python tests**；Kotlin 为 148 reports、0 failures/errors/skips，Python 也无失败。`test`、`buildPlugin`、`prepareSandbox`、`verifyPluginStructure` 均通过。
 - 原生格式化验收：真实 App 中一个未格式化 Go 文件经 Shift+Command+L 变为规范 gofmt 布局，一次 Command+Z 恢复原始 malformed 字节；探针未保存，fixture 已恢复。证据见 `docs/verification/go-formatting-native-20261112.json`。
-- 当前工作树在 snapshot 写入前为干净状态；Computer Use、REA 6.5.0、Ghidra 12.1.4 均已实际验证可用。
+- 上下文补全：真实 gopls 0.24.0 已验证普通包成员、接口方法 `Total`、泛型函数 `Map` 和未保存不完整文档中的 `catalog.Cart` 候选；证据见 `docs/verification/lsp-context-completion-native-20261112.json`。
+- 当前工作树在 snapshot 写入前为干净状态。本轮重新实测：Computer Use 可读取桌面应用清单；REA 6.5.0 通过 Ghidra 12.1.4 打开 `/bin/echo` 的 arm64e 薄切片，读取 12 个 segment/19 个 procedure 的 overview，完整分析 `entry`（724 bytes、pseudocode/assembly/CFG），随后关闭目标并清理临时文件。
+
+## 恢复后的剩余工作与工期估算
+
+**严格完成口径：** 当前 36 条矩阵的 `reference_runtime` 与 `reconstruction` 仍全部是 `unverified`。已有大量 partial evidence，但这不等于 GoLand 运行时等价，不能宣称“完美版已经完成”。
+
+预计剩余工期按当前单机、无专用 Windows 真机的条件估算：
+
+| 阶段 | 剩余工作 | 预计 |
+| --- | --- | --- |
+| 发布收尾 | 等 `.9/.10/.11` 双平台构建、重跑失败作业、验证五资产/SHA-256/provenance、更新 README 与 Release 正文 | 0.5-1 个工作日，主要受 GitHub runner 排队影响 |
+| 双平台稳定版 | 真实 Windows 交互安装与启动、插件/中文包、终端、Git、测试、调试；macOS 对应复验与性能/IME/多光标 | 3-5 个工作日 |
+| 核心 GoLand 对齐 | 36×2 矩阵：项目/SDK/多模块、语言服务、重构、生成、运行/测试/覆盖/fuzz、调试/goroutine/watch、profile、lint、支持文件、生命周期与性能 | 10-20 个工作日 |
+| 高保真收口 | 边界缺陷、真实大型项目回归、故障恢复、发行签名与 macOS 公证、最终 GIF/README/验收证据 | 3-8 个工作日，取决于签名凭据和 Windows 真机 |
+
+因此：
+
+- **“可日常使用且接近 GoLand 核心体验”** 的目标，预计还需要约 **10-20 个工作日**。
+- **严格完成当前 36×2 全矩阵、双平台真实工作流和可发布质量**，预计还需要约 **15-30 个工作日**。
+- **“每个专有插件、每个商业 GoLand 行为绝对完全一致”** 无法给出可信有限工期；它依赖 JetBrains 专有模块、插件边界、签名证书、公证账号和目标硬件。若坚持这个口径，必须先把它定义为可执行的兼容矩阵，而不是时间承诺。
+
+不建议把工作台整体改成 Go。当前方案是 Kotlin/IntelliJ Platform 原生 UI + Go engine/toolchain；整体 Go 重写会失去 IntelliJ 编辑器、插件、调试器和 GoLand 视觉行为的基础，反而降低还原度。继续沿当前混合架构补齐矩阵是更可信的路线。
 
 ## 下一次会话起手式
 
