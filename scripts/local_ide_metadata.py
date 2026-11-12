@@ -158,6 +158,71 @@ def _allowed_selector(selector: dict) -> None:
     raise ValueError("Unsupported local IDE XML removal selector")
 
 
+def _allowed_attribute_update(update: dict) -> None:
+    tag = _value(update, "tag", str)
+    attributes = _value(update, "attributes", dict)
+    parent = _value(update, "parent", str)
+    additions = _value(update, "add", dict)
+    if (tag == "applicationService" and parent == "extensions"
+            and attributes == {
+                "serviceInterface": "com.intellij.ide.plugins.PluginManagementPolicy",
+                "serviceImplementation": "com.intellij.ide.plugins.DefaultPluginManagementPolicy",
+            }
+            and additions == {"open": "true"}):
+        return
+    raise ValueError("Unsupported local IDE XML attribute-update selector")
+
+
+def _apply_attribute_updates(data: bytes, updates: list) -> tuple[bytes, list[dict]]:
+    if not updates:
+        return data, []
+    selected = []
+    records = []
+    elements = _elements(data)
+    for update in updates:
+        if type(update) is not dict:
+            raise ValueError("Invalid local IDE XML attribute-update rule")
+        _allowed_attribute_update(update)
+        matches = [item for item in elements
+                   if item.tag == update["tag"] and item.parent == update["parent"]
+                   and item.attributes == update["attributes"]]
+        if len(matches) != 1:
+            raise ValueError("Expected exactly one local IDE XML attribute-update target")
+        item = matches[0]
+        raw = data[item.start:item.end]
+        close = raw.rfind(b"/>")
+        if close < 0 or any(name in item.attributes for name in update["add"]):
+            raise ValueError("Local IDE XML attribute-update target must be one unique empty element")
+        insert_at = close
+        while insert_at > 0 and raw[insert_at - 1] in b" \t\r\n":
+            insert_at -= 1
+        for name, value in update["add"].items():
+            if type(name) is not str or type(value) is not str or not name or '"' in value or "<" in value:
+                raise ValueError("Invalid local IDE XML attribute-update value")
+        added = b"".join(f' {name}="{value}"'.encode("utf-8") for name, value in sorted(update["add"].items()))
+        replaced = raw[:insert_at] + added + raw[insert_at:]
+        selected.append((item, replaced))
+        records.append({"tag": item.tag, "parent": item.parent, "attributes": item.attributes,
+                        "add": update["add"], "beforeBytes": len(raw), "beforeSha256": _sha(raw),
+                        "afterBytes": len(replaced), "afterSha256": _sha(replaced)})
+    selected.sort(key=lambda pair: pair[0].start)
+    if any(left[0].end > right[0].start for left, right in zip(selected, selected[1:])):
+        raise ValueError("Repeated or overlapping local IDE XML attribute updates")
+    chunks, cursor = [], 0
+    for item, replacement in selected:
+        chunks.extend((data[cursor:item.start], replacement))
+        cursor = item.end
+    chunks.append(data[cursor:])
+    result = b"".join(chunks)
+    reparsed = _elements(result)
+    for record in records:
+        expected = {**record["attributes"], **record["add"]}
+        if sum(item.tag == record["tag"] and item.parent == record["parent"] and item.attributes == expected
+               for item in reparsed) != 1:
+            raise ValueError("Local IDE XML attribute update did not produce its exact target")
+    return result, records
+
+
 def _selected_spans(data: bytes, removals: list) -> list[tuple[_Element, dict]]:
     elements = _elements(data)
     selected = []
@@ -193,8 +258,11 @@ def _absent(data: bytes, rule: dict) -> None:
 
 def _filter_xml(data: bytes, rule: dict) -> tuple[bytes, dict]:
     removals = _value(rule, "removals", list)
-    if not removals:
-        raise ValueError("Local IDE XML transformation must remove a registration")
+    updates = rule.get("attributeUpdates", [])
+    if not removals and not updates:
+        raise ValueError("Local IDE XML transformation must remove or update a registration")
+    if type(updates) is not list:
+        raise ValueError("Invalid local IDE XML attribute-update list")
     selected = _selected_spans(data, removals)
     chunks = []
     cursor = 0
@@ -203,6 +271,7 @@ def _filter_xml(data: bytes, rule: dict) -> tuple[bytes, dict]:
         cursor = item.end
     chunks.append(data[cursor:])
     result = b"".join(chunks)
+    result, updated = _apply_attribute_updates(result, updates)
     _authenticate(result, rule, "output")
     _elements(result)
     _absent(result, rule)
@@ -213,6 +282,7 @@ def _filter_xml(data: bytes, rule: dict) -> tuple[bytes, dict]:
         "removed": [{"tag": item.tag, "attributes": item.attributes,
                      "parent": item.parent, "bytes": item.end - item.start,
                      "sha256": _sha(data[item.start:item.end])} for item, unused in selected],
+        "attributeUpdates": updated,
         "otherRawBytesPreserved": True,
     }
 

@@ -99,5 +99,52 @@ class LocalPromotionRegistrationTest(unittest.TestCase):
             filter_local_ide_metadata(changed, rule)
 
 
+class LocalPluginManagementPolicyTest(unittest.TestCase):
+    def fixture(self):
+        service = (b'<applicationService serviceInterface="com.intellij.ide.plugins.PluginManagementPolicy" '
+                   b'serviceImplementation="com.intellij.ide.plugins.DefaultPluginManagementPolicy" />')
+        removed = b'<applicationConfigurable instance="com.intellij.ide.gdpr.ConsentConfigurable" id="consents" parentId="preferences.general" bundle="messages.IdeBundle" key="consent.configurable"/>'
+        data = b'<idea-plugin><extensions>' + removed + service + b'</extensions></idea-plugin>'
+        output = data.replace(removed, b'').replace(service, service[:-3] + b' open="true" />')
+        rule = {
+            "kind": "xml", "path": "policy-override-control", "inputBytes": len(data),
+            "inputSha256": hashlib.sha256(data).hexdigest(), "outputBytes": len(output),
+            "outputSha256": hashlib.sha256(output).hexdigest(),
+            "removals": [{
+                "tag": "applicationConfigurable", "parent": "extensions", "attributes": {
+                    "parentId": "preferences.general", "instance": "com.intellij.ide.gdpr.ConsentConfigurable",
+                    "id": "consents", "bundle": "messages.IdeBundle", "key": "consent.configurable",
+                }, "bytes": len(removed), "sha256": hashlib.sha256(removed).hexdigest(),
+            }],
+            "attributeUpdates": [{
+                "tag": "applicationService", "parent": "extensions", "attributes": {
+                    "serviceInterface": "com.intellij.ide.plugins.PluginManagementPolicy",
+                    "serviceImplementation": "com.intellij.ide.plugins.DefaultPluginManagementPolicy",
+                }, "add": {"open": "true"},
+            }],
+            "absentTokens": ["com.intellij.ide.gdpr.ConsentConfigurable"],
+        }
+        return data, output, rule
+
+    def test_only_plugin_management_policy_service_becomes_open(self):
+        data, expected, rule = self.fixture()
+        result, record = filter_local_ide_metadata(data, rule)
+        self.assertEqual(expected, result)
+        self.assertEqual(1, result.count(b'PluginManagementPolicy" open="true"'))
+        self.assertEqual(1, len(record["attributeUpdates"]))
+
+    def test_other_service_targets_or_attributes_are_rejected(self):
+        data, unused, rule = self.fixture()
+        for key, value in (("serviceInterface", "example.OtherPolicy"), ("serviceImplementation", "example.Other"),
+                           ("add", {"enabled": "true"})):
+            changed = copy.deepcopy(rule)
+            if key == "add":
+                changed["attributeUpdates"][0][key] = value
+            else:
+                changed["attributeUpdates"][0]["attributes"][key] = value
+            with self.subTest(key=key), self.assertRaisesRegex(ValueError, "Unsupported.*attribute-update"):
+                filter_local_ide_metadata(data, changed)
+
+
 if __name__ == '__main__':
     unittest.main()

@@ -1,0 +1,61 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T14:00:00Z",
+  "status": "verified-product-policy-startup-warning-repaired",
+  "platform": "IntelliJ Platform 2026.1.4 build 261.26222.65, macOS 27.2 arm64",
+  "candidate": "Temporary build/policy override QA.app assembled by scripts/package-product.py from the pinned platform and prepared plugins",
+  "problem": {
+    "startupWarning": "InstanceNotOverridableException: Override failed for com.intellij.ide.plugins.PluginManagementPolicy: dev.openidea.goide.product.GoProductPluginManagementPolicy attempts to override com.intellij.ide.plugins.DefaultPluginManagementPolicy, but the existing implementation is not overriddable (not declared as 'open=true')",
+    "impact": "The authenticated PluginManagementPolicy replacement was not constructed, so the intended guard against replacing the bundled dev.openidea.go and com.intellij.zh-adjacent LSP4IJ components was not proven active.",
+    "whyAppJarAloneWasInsufficient": "Production startup loads the main descriptor from the binary core record inside plugins/plugin-classpath.txt. Editing only app.jar/META-INF/IdeaPlugin.xml did not change the active service registration."
+  },
+  "repair": {
+    "testClasspath": {
+      "path": "lib/intellij.platform.ide.impl.jar!/META-INF/PlatformExtensions.xml",
+      "change": "Add open=\"true\" only to the PluginManagementPolicy applicationService registration.",
+      "producer": "scripts/patch-platform-compatible-marketplace.py",
+      "pin": "product/patches/platform-compatible-marketplace-2026.1.4.json and Windows variant"
+    },
+    "productionCore": {
+      "path": "plugins/plugin-classpath.txt!core",
+      "change": "Add open=\"true\" only to the PluginManagementPolicy applicationService registration while retaining the existing exclusions and remaining raw bytes.",
+      "producer": "scripts/local_ide_metadata.py",
+      "pin": "product/patches/platform-local-ide-2026.1.4.json and Windows variant"
+    },
+    "sourceDescriptor": {
+      "path": "lib/app.jar!/META-INF/IdeaPlugin.xml",
+      "change": "Keep the visible source descriptor consistent with the production core registration."
+    }
+  },
+  "verification": {
+    "pythonTests": {
+      "tests": 86,
+      "failures": 0,
+      "command": "python3 -m unittest discover -s scripts/tests -v"
+    },
+    "kotlinTests": {
+      "reports": 148,
+      "tests": 819,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "command": "./gradlew -PplatformPath=<pinned platform> test buildPlugin prepareSandbox verifyPluginStructure"
+    },
+    "freshProfileRuntime": {
+      "application": "build/policy override QA.app",
+      "config": "Existing product config with a fresh system/log directory",
+      "before": "The exact PluginManagementPolicy InstanceNotOverridableException was present during startup of the earlier candidate.",
+      "after": "The full package produced by scripts/package-product.py started with the PluginManagementPolicy override warning absent.",
+      "errorSeverityScan": "The scoped fresh startup log contained no ERROR or SEVERE lines.",
+      "remainingUnrelatedWarning": "The pinned upstream ProjectStoreFactory InstanceNotOverridableException remains present and is outside this repair."
+    },
+    "actualChangedInputs": {
+      "platformExtensionsBeforeSha256": "e56ee99d29703f4bc67628e892e19631495ac08ca9fda594c4c0b7265be285ea",
+      "platformExtensionsAfterSha256": "7fef07149f325a360aa60b1b43bdbad854a848d06cd1962322d092f96898b2b9",
+      "productionCoreAfterBytes": 1409027,
+      "productionCoreAfterSha256": "d6a00d1eeaf07791c41b1eb8677ed35cb7d03fe0f2f505c6968100cba435234a"
+    },
+    "packagingCommand": "python3 scripts/package-product.py --sdk '<pinned SDK>' --plugins '<prepared plugins>' --output 'build/policy-override-product'"
+  },
+  "boundary": "This verifies activation of the product PluginManagementPolicy replacement and preservation of ordinary plugin installation/update behavior. It does not claim compatibility with every plugin, native Windows startup for this source change, or full GoLand parity."
+}

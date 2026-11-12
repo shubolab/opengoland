@@ -38,17 +38,27 @@
     "call": "com/intellij/ide/plugins/newui/UiPluginManager.executeMarketplaceQuery(Ljava/lang/String;IZLkotlin/coroutines/Continuation;)Ljava/lang/Object;"
   },
   "scope": {
-    "purpose": "Native Marketplace search requests current-host-compatible plugins without alternate-commercial-host upgrade candidates.",
+    "purpose": "Native Marketplace search requests current-host-compatible plugins without alternate-commercial-host upgrade candidates. It also enables the authenticated product PluginManagementPolicy override without changing service behavior for ordinary plugins.",
     "preserves": [
       "Actual IC261 compatibility build and original native module/API/dependency/signature gates",
       "All current-host-compatible ordinary free and third-party Paid plugins",
       "Marketplace UI, local-disk installation, repository/proxy configuration and ordinary updates",
-      "All class bytes except the one boolean literal; no Kotlin recompilation or ABI changes"
+      "All class bytes except the one boolean literal; no Kotlin recompilation or ABI changes",
+      "PluginManagementPolicy defaults and all service/API behavior; only the extension-point open attribute and Marketplace request boolean are changed"
     ],
     "limits": [
       "This is a source-correlated binary delta, not recompiled Kotlin.",
       "No paid-plugin license check or authorization result is altered.",
-      "Custom repository results and more-plugins/direct request entry points outside the patched native text-search executor are not claimed to be comprehensively filtered."
+      "Custom repository results and more-plugins/direct request entry points outside the patched native text-search executor are not claimed to be comprehensively filtered.",
+      "The policy override protects only the two fixed internal components declared by the product policy."
     ]
+  },
+  "xmlDelta": {
+    "path": "META-INF/PlatformExtensions.xml",
+    "bytes": 168880,
+    "upstreamSha256": "e56ee99d29703f4bc67628e892e19631495ac08ca9fda594c4c0b7265be285ea",
+    "patchedSha256": "7fef07149f325a360aa60b1b43bdbad854a848d06cd1962322d092f96898b2b9",
+    "serviceInterface": "com.intellij.ide.plugins.PluginManagementPolicy",
+    "change": "Add open=\"true\" to the exact DefaultPluginManagementPolicy service registration so the product replacement can be installed."
   }
 }

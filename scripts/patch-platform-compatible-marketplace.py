@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Apply one source-correlated JVM boolean delta to an owned platform copy.
+"""Apply source-correlated Marketplace and service-override repairs.
 
-This does not recompile Kotlin. The complete original JAR/class and the exact
-one-byte output are pinned. All other JAR entry contents stay byte-identical.
-The source SDK is read-only; an installation target must be an owned build copy.
+This does not recompile Kotlin. The complete original JAR/class, the exact
+one-byte boolean output and the exact service-descriptor edit are pinned. All
+other JAR entry contents stay byte-identical. The source SDK is read-only; an
+installation target must be an owned build copy.
 """
 import argparse
 import hashlib
@@ -25,6 +26,15 @@ MARKER = "META-INF/open-goland-compatible-marketplace.json"
 CLASS_ENTRY = "com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor$performMarketplaceSearch$2.class"
 SOURCE_PATH = "platform/platform-impl/src/com/intellij/ide/plugins/newui/PluginModelAsyncOperationsExecutor.kt"
 MODE = "source-correlated-jvm-boolean-delta"
+SERVICE_XML_ENTRY = "META-INF/PlatformExtensions.xml"
+SERVICE_XML_BEFORE = (
+    b'<applicationService serviceInterface="com.intellij.ide.plugins.PluginManagementPolicy"\n'
+    b'                        serviceImplementation="com.intellij.ide.plugins.DefaultPluginManagementPolicy"/>'
+)
+SERVICE_XML_AFTER = (
+    b'<applicationService open="true" serviceInterface="com.intellij.ide.plugins.PluginManagementPolicy"\n'
+    b'                        serviceImplementation="com.intellij.ide.plugins.DefaultPluginManagementPolicy"/>'
+)
 
 
 def sha(data):
@@ -63,6 +73,17 @@ def delta_class(data, pin):
     return result
 
 
+def delta_service_xml(data, pin):
+    delta = pin["xmlDelta"]
+    if (delta["path"] != SERVICE_XML_ENTRY or len(data) != delta["bytes"]
+            or sha(data) != delta["upstreamSha256"] or data.count(SERVICE_XML_BEFORE) != 1):
+        raise ValueError("Pinned PluginManagementPolicy service descriptor does not match")
+    result = data.replace(SERVICE_XML_BEFORE, SERVICE_XML_AFTER, 1)
+    if sha(result) != delta["patchedSha256"]:
+        raise ValueError("PluginManagementPolicy service override output does not match its pin")
+    return result
+
+
 def verify_jar(candidate, original, expected):
     try:
         with zipfile.ZipFile(original) as before, zipfile.ZipFile(candidate) as after:
@@ -74,7 +95,10 @@ def verify_jar(candidate, original, expected):
                 return None
             if sha(after.read(CLASS_ENTRY)) != expected["classSha256"][CLASS_ENTRY]:
                 return None
-            if any(before.read(name) != after.read(name) for name in before.namelist() if name != CLASS_ENTRY):
+            if sha(after.read(SERVICE_XML_ENTRY)) != expected["xmlSha256"]:
+                return None
+            if any(before.read(name) != after.read(name)
+                   for name in before.namelist() if name not in {CLASS_ENTRY, SERVICE_XML_ENTRY}):
                 return None
             return marker
     except (OSError, ValueError, KeyError, zipfile.BadZipFile):
@@ -138,11 +162,13 @@ def build(args):
         if len(source_jar.namelist()) != len(set(source_jar.namelist())) or MARKER in source_jar.namelist():
             raise ValueError("Ambiguous original Marketplace JAR")
         replacement = delta_class(source_jar.read(CLASS_ENTRY), pin)
+        service_xml = delta_service_xml(source_jar.read(SERVICE_XML_ENTRY), pin)
     metadata = {
         "platformVersion": pin["platformVersion"], "upstreamCommit": pin["upstream"]["commit"],
         "upstreamJarSha256": pin["upstreamJar"]["sha256"], "patchSha256": pin["patchSha256"],
         "productionMode": MODE, "recompiled": False, "source": pin["source"], "classDelta": pin["classDelta"],
-        "classSha256": {CLASS_ENTRY: sha(replacement)}, "pinSha256": sha(pin_bytes),
+        "classSha256": {CLASS_ENTRY: sha(replacement)}, "xmlDelta": pin["xmlDelta"],
+        "xmlSha256": sha(service_xml), "pinSha256": sha(pin_bytes),
         "producerSha256": sha(Path(__file__).read_bytes()), "sourcePatchRunnerSha256": SOURCE_PATCH_RUNNER_SHA256,
         "archiveWriterSha256": sha((ROOT / "scripts/product_archives.py").read_bytes()),
         "layoutHelperSha256": sha((ROOT / "scripts/platform_layout.py").read_bytes()),
@@ -156,7 +182,12 @@ def build(args):
             candidate = Path(temporary) / original.name
             with zipfile.ZipFile(original) as before, zipfile.ZipFile(candidate, "w", zipfile.ZIP_DEFLATED) as after:
                 for entry in before.infolist():
-                    after.writestr(entry, replacement if entry.filename == CLASS_ENTRY else before.read(entry))
+                    payload = before.read(entry)
+                    if entry.filename == CLASS_ENTRY:
+                        payload = replacement
+                    elif entry.filename == SERVICE_XML_ENTRY:
+                        payload = service_xml
+                    after.writestr(entry, payload)
                 marker = zipfile.ZipInfo(MARKER, date_time=(1980, 1, 1, 0, 0, 0))
                 marker.compress_type = zipfile.ZIP_DEFLATED
                 marker.create_system = 3

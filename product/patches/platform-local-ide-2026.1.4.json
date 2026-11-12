@@ -1,14 +1,14 @@
 {
   "schemaVersion": 1,
   "platformVersion": "2026.1.4",
-  "purpose": "Local IDE without IDE accounts, cloud settings sync, paid upsell registrations or active Grazie cloud/license plugin; Git/private-repository authentication retained. Inapplicable upstream Data Sharing configurable omitted for this independent vendor; consent APIs and records unchanged. The optional Java Ultimate-promotion module is omitted while Java language support remains.",
+  "purpose": "Local IDE without IDE accounts, cloud settings sync, paid upsell registrations or active Grazie cloud/license plugin; Git/private-repository authentication retained. Inapplicable upstream Data Sharing configurable omitted for this independent vendor; consent APIs and records unchanged. The optional Java Ultimate-promotion module is omitted while Java language support remains. The exact PluginManagementPolicy service registration is also made overridable so the product-only internal-component update guard can be installed.",
   "classpathRule": {
     "kind": "plugin-classpath",
     "path": "plugins/plugin-classpath.txt",
     "inputBytes": 3144040,
     "inputSha256": "b67cfca0af041c999c3c1841e55605bae507132c8fc8d0728a08050ee84ea766",
-    "outputBytes": 3113868,
-    "outputSha256": "126b1085fd5809898df1ba6a39ef0a6b5cbd1ba870021308fee725c63b4c97b4",
+    "outputBytes": 3113880,
+    "outputSha256": "3375fc9183bfc5ad3e4867efdf3cf4904dfb2d23028ca422c044741216b83196",
     "pluginCountBefore": 47,
     "pluginCountAfter": 46,
     "core": {
@@ -16,8 +16,8 @@
       "path": "plugins/plugin-classpath.txt!core",
       "inputBytes": 1415624,
       "inputSha256": "036ce94f40e5dd1ef56de3fe317937be7699a3ccb01da9937114fd176ae135f4",
-      "outputBytes": 1409015,
-      "outputSha256": "b6aa81088795da4928a272256e4172f625465f1323b92d6274d0085b8990e602",
+      "outputBytes": 1409027,
+      "outputSha256": "d6a00d1eeaf07791c41b1eb8677ed35cb7d03fe0f2f505c6968100cba435234a",
       "removals": [
         {
           "tag": "module",
@@ -87,6 +87,19 @@
         "com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.CheckSuggestedPluginsAction",
         "CheckSuggestedPlugins",
         "com.intellij.ide.gdpr.ConsentConfigurable"
+      ],
+      "attributeUpdates": [
+        {
+          "tag": "applicationService",
+          "parent": "extensions",
+          "attributes": {
+            "serviceInterface": "com.intellij.ide.plugins.PluginManagementPolicy",
+            "serviceImplementation": "com.intellij.ide.plugins.DefaultPluginManagementPolicy"
+          },
+          "add": {
+            "open": "true"
+          }
+        }
       ]
     },
     "dropPlugins": [
@@ -232,8 +245,8 @@
       "path": "lib/app.jar!/META-INF/IdeaPlugin.xml",
       "inputBytes": 1299666,
       "inputSha256": "bb158dfa10703af21dbadea381b7054947a4fca0463cc86ac7dfe065d1a39e38",
-      "outputBytes": 1294117,
-      "outputSha256": "f96e7cc9ff9f4d5453d7a3dc397ab62ba4a152df0f26d86723a0007f7cee52d0",
+      "outputBytes": 1294129,
+      "outputSha256": "80635d74042a9c0155ac478bab005c69da1b9d30f22ab308e1545dd04cea9eb1",
       "removals": [
         {
           "tag": "module",
@@ -305,15 +318,28 @@
         "com.intellij.ide.gdpr.ConsentConfigurable"
       ],
       "jar": "lib/app.jar",
-      "entry": "META-INF/IdeaPlugin.xml"
+      "entry": "META-INF/IdeaPlugin.xml",
+      "attributeUpdates": [
+        {
+          "tag": "applicationService",
+          "parent": "extensions",
+          "attributes": {
+            "serviceInterface": "com.intellij.ide.plugins.PluginManagementPolicy",
+            "serviceImplementation": "com.intellij.ide.plugins.DefaultPluginManagementPolicy"
+          },
+          "add": {
+            "open": "true"
+          }
+        }
+      ]
     },
     {
       "kind": "xml",
       "path": "lib/intellij.platform.ide.impl.jar!/META-INF/PlatformExtensions.xml",
-      "inputBytes": 168880,
-      "inputSha256": "e56ee99d29703f4bc67628e892e19631495ac08ca9fda594c4c0b7265be285ea",
-      "outputBytes": 168189,
-      "outputSha256": "2dc9c68147c5fe4db0f9e078e86ca5dfe189d492153385d098be11aeb521e2a2",
+      "inputBytes": 168892,
+      "inputSha256": "7fef07149f325a360aa60b1b43bdbad854a848d06cd1962322d092f96898b2b9",
+      "outputBytes": 168201,
+      "outputSha256": "7da6c5fd2598596f24e1c39c629c5c3eab75cc51fadd4c1a6b8cf7446017ec4c",
       "removals": [
         {
           "tag": "openAnotherToolHandler",
@@ -763,7 +789,8 @@
     "Actual Marketplace UI policy is a separate public-platform patch.",
     "Resource-key presence alone is not proof an IDE-account or subscription action is registered.",
     "This pin alone does not establish native startup or UI behavior; see the verification record for the final packaged build.",
-    "Removing the Data Sharing configurable does not grant consent or prove absence of all networking; independent-vendor default consent and ordinary collect/send guards are audited separately."
+    "Removing the Data Sharing configurable does not grant consent or prove absence of all networking; independent-vendor default consent and ordinary collect/send guards are audited separately.",
+    "Making PluginManagementPolicy overridable protects only dev.openidea.go and com.redhat.devtools.lsp4ij; ordinary plugin compatibility and lifecycle remain platform-native."
   ],
   "productInfoInventory": {
     "excludedIds": [
