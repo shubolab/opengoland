@@ -1,0 +1,4 @@
+<section>
+  <h2>{{ .Title }}</h2>
+  {{ if .Items }}<ul>{{ range .Items }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+</section>

@@ -1,0 +1,62 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T15:02:59Z",
+  "status": "native-go-template-file-types-and-highlighting-passed",
+  "application": "build/product/open Goland.app",
+  "applicationVersion": "0.1.0-SNAPSHOT",
+  "platform": "macOS arm64; IntelliJ Platform 2026.1.4",
+  "process": {
+    "pid": 95756,
+    "executable": "/Users/wangshubo/develop/openidea-go/build/product/open Goland.app/Contents/MacOS/idea",
+    "launchMode": "LightEdit"
+  },
+  "artifacts": {
+    "pluginJar": {
+      "path": "build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar",
+      "sha256": "8f2629ca7e8537bb3c948e248bdc2d9fd578105034e585f004bc57978090ef3e"
+    },
+    "screenshot": {
+      "path": "docs/verification/assets/go-template-native-20261112.jpg",
+      "mediaType": "image/jpeg",
+      "width": 1400,
+      "height": 1000,
+      "sha256": "55b62613e9520270cef143404d02be47f28b2f4fb986b12a7cfee108b490ea32"
+    }
+  },
+  "fileTypeAssociations": {
+    "extensions": ["gotmpl", "gohtml", "gotext"],
+    "patterns": ["*.go.html", "*.go.tmpl", "*.go.txt"],
+    "nativeFilesOpened": ["view.gotmpl", "view.go.html", "mail.go.tmpl", "script.go.txt"]
+  },
+  "observedHighlighting": {
+    "actionDelimiters": "Actions use the native brace color.",
+    "actionKeywords": "define, if, range, with, else and end are highlighted as keywords.",
+    "builtins": "printf is recognized separately as a template builtin.",
+    "variablesAndFields": "Dollar variables and dotted fields are highlighted without treating surrounding HTML or text as Go source.",
+    "stringsAndPipes": "Quoted strings and the pipeline operator are highlighted.",
+    "comments": "Template comments are tokenized atomically when starting with {{/* after the action delimiter."
+  },
+  "fixtureSha256": {
+    "view.gotmpl": "06e2aef13ecae4e7dcc0a465b4ddc7e3fd4fb1c7d6aadbd9d2e8866d8df6541b",
+    "view.go.html": "9f2d21739e30c33d3662ed1befb3be622b7cd914690a9b9c07132e78dff0966d",
+    "mail.go.tmpl": "10ec65d305095f5c22532a95974ebfd4f0af6ee821c79ca4159d43193bd3439e",
+    "script.go.txt": "46195551293553813d5cea6eddb581fcfd5ff28fc0cc41378d1310a6cbbab761"
+  },
+  "tests": {
+    "count": 825,
+    "reports": 150,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "targeted": [
+      "GoTemplateLexerTest",
+      "GoTemplateNativeTest"
+    ],
+    "pluginChecks": [
+      "buildPlugin",
+      "prepareSandbox",
+      "verifyPluginStructure"
+    ]
+  },
+  "boundary": "This proves native file associations, templates are not mapped to gopls, and lexical action highlighting works in a packaged application. Template execution, symbol completion inside templates, template-specific inspections, embedded Go semantic analysis, HTML/XML structure merging, and byte-for-byte GoLand runtime equivalence remain separate checks."
+}

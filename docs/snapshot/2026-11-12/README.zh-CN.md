@@ -32,7 +32,7 @@
 | `Dockerfile` | 可以作为文件打开 | 未确认语法高亮、括号匹配、注释或 Docker 运行能力 |
 | `query.sql` | 显示为“自定义类型的文件” | 没有 SQL 高亮；没有数据库连接、补全、导航和运行能力 |
 | `api.http` | 作为普通文本打开 | 没有 HTTP 请求 gutter 或执行入口；必须用兼容插件补足 |
-| `view.gotmpl` | 作为普通文本打开 | 当前没有 Go Template 文件类型、动作高亮、模板执行或 inspection |
+| `view.gotmpl` | 已作为 Go Template 打开；动作、关键字、内置函数、字段、变量、字符串、管道和 trim 分隔符均有原生高亮 | 模板执行、模板补全、嵌入 Go 语义分析、模板 inspection 和 HTML 结构合并仍未实现 |
 
 验收夹具包含 Dockerfile、SQL、YAML、JSON、Go Template 和 HTTP 请求文档，均不包含凭据。其 SHA-256 为：
 
@@ -45,7 +45,7 @@
 | `view.gotmpl` | `06e2aef13ecae4e7dcc0a465b4ddc7e3fd4fb1c7d6aadbd9d2e8866d8df6541b` |
 | `api.http` | `8ac9a6ff5215a7930cbbf04e49b3b88822d27486612a6afba6608743ebf08f17` |
 
-下一次优先实现可靠的 `.gotmpl` / `.go.html` 文件类型与 Go Template 动作高亮，再判断平台 TextMate SQL grammar 是否真的启用。不要在没有数据库模块时宣称 SQL 数据源、补全或导航；也不要增加伪造的 Docker/HTTP 执行按钮。
+2026-11-12 23:02 CST 已在当前 `build/product/open Goland.app` 中实际打开 `.gotmpl`、`.go.html`、`.go.tmpl` 和 `.go.txt`，确认复合后缀不会被通用 HTML/Text 类型抢占，并观察到模板动作高亮。证据见 `docs/verification/go-template-native-20261112.json`，截图见 `docs/verification/assets/go-template-native-20261112.jpg`。下一步应判断平台 TextMate SQL grammar 是否真的启用，并验证 Dockerfile/HTTP 插件边界。不要在没有数据库模块时宣称 SQL 数据源、补全或导航；也不要增加伪造的 Docker/HTTP 执行按钮。
 
 ## 恢复后的剩余工作与工期估算
 

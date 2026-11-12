@@ -1,0 +1,2 @@
+Subject: {{ .Subject }}
+{{ with .Body }}{{ . }}{{ else }}No body supplied.{{ end }}

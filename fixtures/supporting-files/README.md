@@ -6,7 +6,8 @@ Go projects:
 - `Dockerfile`: Dockerfile TextMate syntax and bracket/comment behavior.
 - `query.sql`: SQL TextMate syntax.
 - `config.yaml` and `payload.json`: bundled structured-language support.
-- `view.gotmpl`: Go template file type and editor behavior.
+- `view.gotmpl`, `view.go.html`, `mail.go.tmpl` and `script.go.txt`: Go
+  template file types and editor behavior.
 - `api.http`: plain-text request document unless a compatible HTTP client
   plugin is installed from Marketplace.
 

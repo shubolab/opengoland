@@ -1,0 +1,2 @@
+Generated at {{ now | date "2006-01-02" }}
+{{ if .Verbose }}{{ printf "%#v" .Value }}{{ end }}
