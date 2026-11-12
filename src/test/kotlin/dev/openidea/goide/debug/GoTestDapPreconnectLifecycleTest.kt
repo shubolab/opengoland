@@ -36,8 +36,11 @@ import org.eclipse.lsp4j.debug.ConfigurationDoneArguments
 import org.eclipse.lsp4j.debug.DisconnectArguments
 import org.eclipse.lsp4j.debug.InitializeRequestArguments
 import org.eclipse.lsp4j.debug.OutputEventArguments
+import org.eclipse.lsp4j.debug.ExceptionBreakpointsFilter
 import org.eclipse.lsp4j.debug.ExitedEventArguments
 import org.eclipse.lsp4j.debug.TerminatedEventArguments
+import org.eclipse.lsp4j.debug.SetExceptionBreakpointsArguments
+import org.eclipse.lsp4j.debug.SetExceptionBreakpointsResponse
 import org.eclipse.lsp4j.debug.SetBreakpointsArguments
 import org.eclipse.lsp4j.debug.SetBreakpointsResponse
 import org.eclipse.lsp4j.debug.ScopesArguments
@@ -698,8 +701,20 @@ class GoTestDapPreconnectLifecycleTest : LightPlatformTestCase() {
         fun notificationRequests() = listOf(threadRequests.get(), stackRequests.get(), initializes.size, launches.size, disconnects.size)
         override fun initialize(args: InitializeRequestArguments): CompletableFuture<Capabilities> {
             initializes += args
-            return CompletableFuture.completedFuture(Capabilities().apply { supportsConfigurationDoneRequest = true })
+            return CompletableFuture.completedFuture(Capabilities().apply {
+                supportsConfigurationDoneRequest = true
+                supportsConditionalBreakpoints = true
+                supportsHitConditionalBreakpoints = true
+                supportsFunctionBreakpoints = true
+                supportsInstructionBreakpoints = true
+                exceptionBreakpointFilters = arrayOf(
+                    ExceptionBreakpointsFilter().apply { filter = "unrecovered-panic"; label = "Unrecovered Panics"; default_ = true },
+                    ExceptionBreakpointsFilter().apply { filter = "fatal-throw"; label = "Fatal Throws"; default_ = true },
+                )
+            })
         }
+        override fun setExceptionBreakpoints(args: SetExceptionBreakpointsArguments) =
+            CompletableFuture.completedFuture(SetExceptionBreakpointsResponse())
         override fun launch(args: MutableMap<String, Any>): CompletableFuture<Void> {
             launches += args; client.initialized(); return CompletableFuture.completedFuture(null)
         }

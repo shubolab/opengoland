@@ -51,6 +51,16 @@ SDK 下载会核对官方目录中的大小与 SHA-256，再验证解包后的 G
 
 SDK 选择器已经实现并有自动化验证；外部 SDK 的 **Add local…** 原生目录选择，以及测试调试准备过程的原生取消按钮，目前仍缺少完整的桌面验收，不能把自动化测试当作这些操作已经通过。此前公开安装副本使用内置 SDK 建项目、运行与测试的记录见[SDK 与新建项目验证](docs/verification/sdk-project-management-public-native.json)。
 
+### macOS 调试提示
+
+macOS 可能禁止 Delve 调用系统调试器附加进程。open Goland 会在启动 Delve 前检查这一权限；如果看到“macOS has not enabled debugger attach permission”，请在终端执行：
+
+```sh
+sudo DevToolsSecurity -enable
+```
+
+随后输入本机管理员密码并重新执行 Debug。IDE 不会收集密码，也不会尝试绕过公司的设备管理策略；受管理电脑需要由管理员开放开发者工具权限。未开放时，Delve 会启动系统调试辅助进程后停住，不能把它误判为测试代码卡住。
+
 ## 插件与简体中文
 
 在 **Settings > Plugins** 中，可以从原生 **Marketplace** 搜索插件，在 **Installed** 管理已安装插件，也可以从磁盘安装或配置自己的插件仓库和代理。主题、编辑辅助等普通插件都可以使用这些入口；能否运行仍取决于插件支持的 IDE 版本、平台接口和依赖。恢复市场不等于所有 JetBrains 插件都兼容。

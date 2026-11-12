@@ -193,6 +193,15 @@ Run > Edit Configurations > **+** also provides these attach configurations:
   even when the client requests a non-terminating disconnect. These connections
   use DAP; generic JSON-RPC endpoints are unsupported.
 
+On macOS, the host must allow the system debugger to attach processes. open
+Goland checks this before starting Delve. If it reports that debugger attach
+permission is disabled, run `sudo DevToolsSecurity -enable` in Terminal, enter
+the administrator password there, and rerun Debug. The IDE never asks for or
+stores that password. Managed computers may require their administrator to
+allow developer tools. Without this permission, Delve starts the LLDB helper and
+waits at the launch step because macOS has blocked the attach, so change this
+system setting before diagnosing the Go test itself.
+
 Both configurations accept source mappings in the direction **local IDE prefix
 => remote server prefix**, one per line, for example
 `/Users/me/project => /srv/project`. The mapping translates local breakpoint

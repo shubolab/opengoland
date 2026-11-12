@@ -1,5 +1,6 @@
 package dev.openidea.goide.debug
 
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.openapi.progress.ProgressIndicator
 import com.intellij.util.concurrency.AppExecutorUtil
 import com.redhat.devtools.lsp4ij.dap.DAPDebugProcess
@@ -25,6 +26,8 @@ internal class GoTestDapClient(process: DAPDebugProcess, parameters: Map<String,
     mode: DebugMode, trace: ServerTrace, parent: DAPClient?, private val tests: GoDebugTestSession) :
     GoDapClient(process, parameters, debug, mode, trace, parent) {
     private val naturalEnd = AtomicBoolean()
+    private val traceEnabled = System.getenv("OPENGOLAND_DEBUG_TRACE") == "true"
+    private fun trace(message: String) { if (traceEnabled) LOG.info("Go test DAP $message") }
     private enum class ConnectionPhase { NEW, CONNECTING, CONNECTED, CLOSING, CLOSED }
     private val connectionPhase = AtomicReference(ConnectionPhase.NEW)
     private val disconnection = AtomicReference<CompletableFuture<Void>?>()
@@ -35,12 +38,23 @@ internal class GoTestDapClient(process: DAPDebugProcess, parameters: Map<String,
     override fun connectToServer(indicator: ProgressIndicator): CompletableFuture<Void> {
         if (!connectionPhase.compareAndSet(ConnectionPhase.NEW, ConnectionPhase.CONNECTING))
             return CompletableFuture<Void>().apply { cancel(false) }
+        trace("connect started")
         return super.connectToServer(indicator).also { future ->
             future.whenComplete { _, failure ->
-                if (failure == null) connectionPhase.compareAndSet(ConnectionPhase.CONNECTING, ConnectionPhase.CONNECTED)
-                else if (!future.isCancelled) tests.end(1)
+                if (failure == null) {
+                    connectionPhase.compareAndSet(ConnectionPhase.CONNECTING, ConnectionPhase.CONNECTED)
+                    trace("connect completed")
+                } else {
+                    trace("connect failed=${failure.javaClass.simpleName}")
+                    if (!future.isCancelled) tests.end(1)
+                }
             }
         }
+    }
+
+    override fun initialized() {
+        trace("initialized event")
+        super.initialized()
     }
 
     override fun getDebugProtocolServer(): IDebugProtocolServer? {
@@ -60,6 +74,7 @@ internal class GoTestDapClient(process: DAPDebugProcess, parameters: Map<String,
     }
 
     override fun stopped(args: StoppedEventArguments) {
+        trace("stopped event")
         if (connectionStopped()) return
         try {
             super.stopped(args)
@@ -71,22 +86,29 @@ internal class GoTestDapClient(process: DAPDebugProcess, parameters: Map<String,
         }
     }
 
+    private companion object {
+        private val LOG = Logger.getInstance(GoTestDapClient::class.java)
+    }
+
     private fun connectionStopped() = when (connectionPhase.get()) {
         ConnectionPhase.CLOSING, ConnectionPhase.CLOSED -> true
         else -> false
     }
 
     override fun output(args: OutputEventArguments) {
+        trace("output category=${args.category} chars=${args.output.orEmpty().length}")
         if (args.category in setOf("stdout", "stderr") && tests.targetOutput(args.output.orEmpty())) return
         if (args.category == "console") tests.delveConsoleStatus(args.output.orEmpty())
         super.output(args)
     }
     override fun process(args: ProcessEventArguments) {
+        trace("process event pid=${args.systemProcessId}")
         args.systemProcessId?.let { tests.processStarted(it.toLong()) }
         super.process(args)
     }
-    override fun exited(args: ExitedEventArguments) { tests.exitedEvent(args.exitCode) }
+    override fun exited(args: ExitedEventArguments) { trace("exited event code=${args.exitCode}"); tests.exitedEvent(args.exitCode) }
     override fun terminated(args: TerminatedEventArguments) {
+        trace("terminated event")
         if (!naturalEnd.compareAndSet(false, true)) return
         tests.naturalTermination()
         // Delve 1.24.2's PID/status diagnostic arrives during disconnect before

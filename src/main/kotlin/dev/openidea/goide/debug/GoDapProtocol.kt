@@ -1,5 +1,6 @@
 package dev.openidea.goide.debug
 
+import com.intellij.openapi.diagnostic.Logger
 import com.intellij.util.concurrency.AppExecutorUtil
 import org.eclipse.lsp4j.debug.EvaluateArguments
 import org.eclipse.lsp4j.debug.EvaluateResponse
@@ -43,11 +44,21 @@ import java.lang.reflect.Proxy
  * write synchronously, so neither may run under the lifecycle lock or on the EDT.
  */
 internal class GoDapProtocol(private val remote: IDebugProtocolServer, private val timeoutSeconds: Long = 12) : AutoCloseable {
+    private val traceEnabled = System.getenv("OPENGOLAND_DEBUG_TRACE") == "true"
+    private fun trace(message: String) { if (traceEnabled) LOG.info("Go DAP $message") }
+
     // Kotlin delegation does not forward Java default RPC methods. A public-interface
     // proxy forwards every non-intercepted method to the real LSP4J endpoint instead.
     val server: IDebugProtocolServer = Proxy.newProxyInstance(IDebugProtocolServer::class.java.classLoader, arrayOf(IDebugProtocolServer::class.java)) { proxy, method, supplied ->
         val args = supplied.orEmpty()
-        when (method.name) {
+        val name = method.name
+        when (name) {
+            "toString" -> return@newProxyInstance "open Goland Delve protocol"
+            "hashCode" -> return@newProxyInstance System.identityHashCode(proxy)
+            "equals" -> return@newProxyInstance proxy === args[0]
+        }
+        trace("request $name")
+        val response = when (name) {
             "scopes" -> scopes(args[0] as ScopesArguments)
             "variables" -> variables(args[0] as VariablesArguments)
             "setVariable" -> setVariable(args[0] as SetVariableArguments)
@@ -66,12 +77,13 @@ internal class GoDapProtocol(private val remote: IDebugProtocolServer, private v
                 close()
                 request(allowAfterClose = true, bounded = false) { invoke(method, args) }
             }
-            "toString" -> "open Goland Delve protocol"
-            "hashCode" -> System.identityHashCode(proxy)
-            "equals" -> proxy === args[0]
             // Preserve upstream deadlines for launch/build and other ordinary RPCs.
             else -> request(bounded = false) { invoke(method, args) }
         }
+        response.whenComplete { _, failure ->
+            trace("response $name" + if (failure == null) "" else " failed=${cause(failure).javaClass.simpleName}")
+        }
+        response
     } as IDebugProtocolServer
     private var closed = false
     private var tail = CompletableFuture.completedFuture(Unit)
@@ -313,6 +325,7 @@ internal class GoDapProtocol(private val remote: IDebugProtocolServer, private v
     }
 
     companion object {
+        private val LOG = Logger.getInstance(GoDapProtocol::class.java)
         private fun cause(failure: Throwable): Throwable {
             var value = failure
             while ((value is java.util.concurrent.CompletionException || value is java.util.concurrent.ExecutionException) && value.cause != null) value = value.cause!!

@@ -63,6 +63,7 @@ class GoDebugDescriptor(private val launchOptions: RunConfigurationOptions, envi
         else -> error("Unsupported Go debug configuration")
     }
     override fun startServer(): ProcessHandler {
+        GoDebugPrerequisites.requireMacDebuggerAccess()
         val command = GoToolchain.command(environment.project, "dlv", listOf("dap", "--listen=127.0.0.1:0"),
             (launchOptions as? GoDebugTestOptions)?.testSession?.settings ?: GoToolchain.capture(environment.project))
             .withWorkDirectory(launch.workingDirectory).withEnvironment(launch.environment)

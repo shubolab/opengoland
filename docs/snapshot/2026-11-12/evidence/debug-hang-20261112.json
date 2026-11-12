@@ -1,0 +1,106 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T04:40:00Z",
+  "status": "root-cause-confirmed-preflight-and-cleanup-native-verified-runtime-gate-blocked",
+  "candidate": {
+    "sourceCommit": "11939e1b0790db982718a856e2cdb16d03775965",
+    "productVersion": "0.1.0-preview.20261110.7",
+    "application": "build/release07-product/open Goland.app",
+    "sourceInputs": 513,
+    "sourceDigest": "7f6c2be03c64678679120c933d33da4fc8fd64f6f1ffa755c8762451761afded",
+    "engineClean": true,
+    "productInfoSha256": "0969a2044ae47ccec8b1949bcd81026e5d829eb0479209ab07c1a3e8b0437f4b",
+    "engineSha256": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e"
+  },
+  "successfulNativeRun": {
+    "scope": "Real published .6-installed-copy application upgraded locally to the .7 source candidate; no interactive trust override.",
+    "initialTest": "1 passed, 1 intentional failure",
+    "failureNavigation": "Double-clicking the failed subtest opened workflows_test.go at line 25.",
+    "correctedTest": "2/2 passed in 1.158 s",
+    "bundledToolchain": "Go 1.26.10 from the generated app",
+    "result": "The native test runner, test tree, failure navigation, dirty edit and re-run path operate."
+  },
+  "rootCause": {
+    "classification": "macOS debugger attach permission is disabled in the host environment",
+    "devToolsSecurityStatus": "Developer mode is currently disabled.",
+    "command": "/usr/sbin/DevToolsSecurity -status",
+    "directEvidence": [
+      "LLDB process launch failed with 'attach failed (Not allowed to attach to process)'.",
+      "A real `dlv dap` 1.27.2 session received initialize, accepted launch, built the Go test package and started the LLDB debugserver helper, but the helper never completed its attach handshake.",
+      "Because Delve had not yet sent initialized/launch responses, the native debug UI correctly remained at the Launching program step rather than pretending tests had started."
+    ],
+    "reproduction": {
+      "fixture": "A disposable Go test package under /private/tmp with one passing test.",
+      "go": "1.27.3 darwin/arm64",
+      "delve": "1.27.2",
+      "debugserver": "/Library/Developer/CommandLineTools/Library/PrivateFrameworks/LLDB.framework/Resources/debugserver",
+      "residualProcesses": "Only probe-owned debugserver/dlv processes were terminated after their exact paths and start times were checked."
+    },
+    "environmentRemediation": "Run `sudo DevToolsSecurity -enable` in Terminal and complete the administrator authentication. The IDE cannot and must not collect the administrator password."
+  },
+  "fixCandidate": {
+    "preflight": {
+      "file": "src/main/kotlin/dev/openidea/goide/debug/GoDebugPrerequisites.kt",
+      "behavior": "Before Delve starts on a non-headless macOS host, verify DevToolsSecurity status and fail with an actionable message instead of waiting indefinitely.",
+      "managedComputerGuidance": "Ask the machine administrator to allow developer tools when policy prevents enabling it."
+    },
+    "processOwnership": {
+      "file": "src/main/kotlin/dev/openidea/goide/debug/GoOwnedDapAdapterProcessHandler.kt",
+      "behavior": "For launch sessions, observe descendants under the exact Delve adapter and retain PID, start timestamp and ancestry depth. After bounded shutdown, reap only those identity-matched descendants, deepest first.",
+      "attachBoundary": "Go Attach and remote attach keep descendant tracking disabled so a user-owned debuggee is never killed when the adapter detaches.",
+      "pidReuseGuard": "A current process is signalled only when its start instant matches the process observed under this adapter."
+    },
+    "verification": {
+      "newRegression": "GoOwnedLaunchedAdapterLifecycleTest",
+      "covered": "A launch adapter's child and grandchild are reaped while an unrelated process launched from the same executable remains alive.",
+      "existingCompatibility": "GoAttachedAdapterLifecycleTest continues to prove attach descendants are not reaped; GoLaunchedAdapterLifecycleTest and GoTestDapPreconnectLifecycleTest cover native Stop and DAP lifecycle behavior."
+    }
+  },
+  "releaseDecision": {
+    "ciRunId": 43149178857,
+    "ciConclusion": "cancelled",
+    "remoteTagRemoved": "v0.1.0-preview.20261110.7",
+    "publishedThisRound": false,
+    "publicVersion": "0.1.0-preview.20261110.6",
+    "reason": "The source-level fixes are not yet proven by a real macOS debug session because this host requires an administrator to enable Developer Mode. Publishing would overstate runtime compatibility."
+  },
+  "next": [
+    "Enable macOS developer tools with `sudo DevToolsSecurity -enable`, then reconnect the integrated debugging workflow.",
+    "Rebuild a new candidate and verify real Go Test Debug: build, process event, initialized, breakpoints, configurationDone, stopped/running behavior, pass event and Stop cleanup.",
+    "Run the full Kotlin, plugin-structure, Go race/vet and cross-platform packaging gates.",
+    "Publish only a fully verified successor under a new version; do not restore the cancelled .7 tag."
+  ],
+  "nativePreflightVerification": {
+    "recordedAtUtc": "2026-11-12T05:02:00Z",
+    "application": "build/open Goland 09.app",
+    "applicationPid": 25144,
+    "project": ".tools/native-local-ide-nu9mdv0v/本地 Go IDE 无账号 😀",
+    "action": "Clicked the native Debug 'Native Entry Tests' toolbar button.",
+    "result": "The IDE rejected the launch before starting Delve and displayed the actionable DevToolsSecurity message.",
+    "processCheck": {
+      "delveAfterClick": false,
+      "debugserverAfterClick": false,
+      "__debug_binAfterClick": false
+    },
+    "notVerified": [
+      "A successful debug session after enabling Developer Mode",
+      "Breakpoints, pass events and Stop cleanup in the same packaged app"
+    ]
+  },
+  "sourceVerification": {
+    "kotlin": {
+      "reports": 145,
+      "tests": 802,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "tasks": "test buildPlugin verifyPluginStructure"
+    },
+    "go": {
+      "race": "passed",
+      "vet": "passed"
+    },
+    "processCleanupRegression": "GoOwnedLaunchedAdapterLifecycleTest passed",
+    "attachPreservation": "GoAttachedAdapterLifecycleTest passed"
+  }
+}

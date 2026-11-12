@@ -4,11 +4,26 @@
 
 ## 当前权威状态
 
-- 产品源码提交：`585964bb7e53ab2066c6ea079c3f78ba5469e602`
-- 源码摘要：`03f6d4612239c0ae95497da5f2519b4ed72dafdbb83fa9c9c040cc45381b2297`
-- 源码输入：512 个文件，已随两平台 provenance 发布
+- 已发布源码提交：`585964bb7e53ab2066c6ea079c3f78ba5469e602`
+- 当前工作树基线：`11939e1b0790db982718a856e2cdb16d03775965`，调试修复仍在本地待提交
+- 当前候选源码：516 个输入文件；最终摘要会在修复提交后重新生成
 - 公开版本：[open Goland 0.1.0-preview.20261110.6](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.6)
 - 构建运行：[GitHub Actions 43129280667](https://github.com/shubolab/opengoland/actions/runs/43129280667)
+
+## 本轮调试缺口进展
+
+此前 Go Test Debug 停在 `Launching program` 的直接原因已经确认：当前 Mac 的 `DevToolsSecurity -status` 返回 `Developer mode is currently disabled`。Delve 会完成测试编译并启动 LLDB `debugserver`，但 macOS 拒绝附加，随后界面一直等待 Delve 的启动握手。不是测试代码或 Go SDK 本身卡住。
+
+已经落地的修复：
+
+- 非 headless macOS 在启动 Delve 前检查系统调试权限；失败时明确提示执行 `sudo DevToolsSecurity -enable`，不会再次卡在启动进度条。
+- 对 Launch/Test Debug，持续记录 Delve 后代的 PID、启动时间和祖先深度；Stop 超时后只清理仍与这些身份匹配的后代，避免 `debugserver` 和停止态测试进程遗留。
+- Attach 模式关闭后代清理，继续保证断开时不会错误杀死用户的被调试进程。
+- 新真实进程测试验证了 adapter 的 child/grandchild 被回收，而同 executable 下的无关进程保持运行。
+
+本轮验证结果：Kotlin **802/802，145 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
+
+仍差最后一步运行时证据：本机管理员未开放 Developer Mode，而当前自动化会话不能输入管理员密码，因此尚未在同一个候选包中完成“启用权限 → 真实测试运行 → 断点 → PASS → Stop 清理”闭环。机器可读记录：[debug-hang-20261112.json](evidence/debug-hang-20261112.json)。
 
 ## 本轮完成的代码修复
 
@@ -66,6 +81,6 @@ REA 配置已写入对应 `HOPPER_LAUNCHER_PATH`。Hopper 第一次启动仍停�
 ## 续接顺序
 
 1. 先读取本文件和 `docs/verification/releases/0.1.0-preview.20261110.6.json`，再核对当前 Git、GitHub Release、进程和磁盘。
-2. 若需要 Hopper provider，再确认 Demo 或许可证选择并在重连后验证；REA 本身已通过 Ghidra 完成 native open、分析、关闭闭环。
-3. 恢复 `.6` 或后续源码的本机原生验收，不把发布前 `8dfdbe0` 的缓存测试冒充当前结果。
+2. 在本机管理员终端执行 `sudo DevToolsSecurity -enable`，之后用当前源码重新打包并完成真实 Go Test Debug、断点、PASS 和 Stop 进程树验收。
+3. 若需要 Hopper provider，再确认 Demo 或许可证选择并在重连后验证；REA 本身已通过 Ghidra 完成 native open、分析、关闭闭环。
 4. 按 36 × 2 矩阵继续找真实缺口，每一版仍执行双平台测试、安装完成后再发布，并保持已公开版本不可变。

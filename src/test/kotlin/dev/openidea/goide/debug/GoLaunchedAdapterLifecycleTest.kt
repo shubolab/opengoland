@@ -93,7 +93,7 @@ class GoLaunchedAdapterLifecycleTest : LightPlatformTestCase() {
         }
     }
 
-    fun testNativeStopDeadlineIsOffEdtAndNeverKillsAnOwnedSentinelChild() {
+    fun testNativeStopDeadlineIsOffEdtAndReapsOnlyTheObservedOwnedTree() {
         Fixture(ignoreTerm = true).use { f ->
             val client = f.ready()
             val child = f.child()
@@ -109,7 +109,8 @@ class GoLaunchedAdapterLifecycleTest : LightPlatformTestCase() {
             posted.get(1, TimeUnit.SECONDS)
             waitFor { f.peer.disconnects.size == 1 }
             f.handler.process.onExit().get(10, TimeUnit.SECONDS)
-            assertTrue("Fallback may terminate only its exact adapter, never a process tree", child.isAlive)
+            waitFor { !child.isAlive }
+            assertFalse("A descendant observed under this launch adapter must be reaped", child.isAlive)
             assertEquals(true, f.peer.disconnects.single().terminateDebuggee)
             assertTrue((client as GoLaunchedDapClient).disconnectLaunched().isCompletedExceptionally)
             if (!System.getProperty("os.name").startsWith("Windows"))
@@ -117,7 +118,7 @@ class GoLaunchedAdapterLifecycleTest : LightPlatformTestCase() {
         }
     }
 
-    fun testFailedDisconnectFallsBackWithoutDuplicatingRequestsOrTouchingChildren() {
+    fun testFailedDisconnectFallsBackWithoutDuplicatingRequestsAndReapsTheOwnedTree() {
         Fixture(ignoreTerm = true).use { f ->
             val client = f.ready()
             val child = f.child()
@@ -127,7 +128,8 @@ class GoLaunchedAdapterLifecycleTest : LightPlatformTestCase() {
             f.handler.process.onExit().get(8, TimeUnit.SECONDS)
             client.terminate()
             assertEquals(1, f.peer.disconnects.size)
-            assertTrue(child.isAlive)
+            waitFor { !child.isAlive }
+            assertFalse(child.isAlive)
             assertTrue((client as GoLaunchedDapClient).disconnectLaunched().isCompletedExceptionally)
         }
     }
@@ -391,7 +393,7 @@ class GoLaunchedAdapterLifecycleTest : LightPlatformTestCase() {
                     addProperty("adapterPid", handler.process.pid())
                     addProperty("adapterAliveAfterCleanup", handler.process.isAlive)
                     addProperty("adapterExitCode", handler.process.exitValue())
-                    ownedChild?.let { addProperty("sentinelChildPid", it.pid()); addProperty("sentinelChildAliveAfterCleanup", it.isAlive) }
+                    ownedChild?.let { addProperty("ownedChildPid", it.pid()); addProperty("ownedChildAliveAfterCleanup", it.isAlive) }
                     addProperty("disconnectRequests", peer.disconnects.size)
                     addProperty("allDisconnectsTerminateLaunchedTarget", peer.disconnects.all { it.terminateDebuggee == true })
                     addProperty("initializeReplyConsumedBeforeAck", initializeReplyConsumed.isDone)
