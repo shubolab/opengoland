@@ -22,18 +22,18 @@
 
 ## 下载与安装
 
-当前公开版本是 [0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
+当前公开版本是 [0.1.0-preview.20261112.8](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
 
 | 系统 | 直接下载 | 安装方法 |
 | --- | --- | --- |
-| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/open-Goland-0.1.0-preview.20261112.7-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
-| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/open-Goland-0.1.0-preview.20261112.7-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
+| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.8/open-Goland-0.1.0-preview.20261112.8-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
+| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.8/open-Goland-0.1.0-preview.20261112.8-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
 
 安装包自带 JVM（运行 IDE 所需的 Java 环境）、**Go 1.26.10、gopls 0.24.0，以及基于 Delve 1.27.2 的补丁构建**。基本的 Go 编辑、构建与测试无需另装 Java、Go 或语言服务工具；也可以选择自己安装的 Go SDK。
 
-每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.7/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
+每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.8/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
 
-这一版加入 Go 终端命令规范、项目所选 SDK 在新终端中的环境恢复、当前 JetBrains 官方中文语言包和通用插件候选流程，并继续保留 Windows Job Object 进程所有权、macOS SDK/工具链和此前调试修复。两个已发布平台构建都完成了 806 个 Kotlin 测试（147 个报告），无失败、错误或跳过；Windows 与 macOS 的安装、启动验证均通过。原生终端补全弹窗和 Developer Mode 调试闭环仍是明确限制。具体边界、资产哈希和流程结果见[.7 发布验证记录](docs/verification/releases/0.1.0-preview.20261112.7.json)，完整 GoLand 对齐仍在进行。
+这一版加入 macOS 原生终端的 Go 命令补全回退，并继续保留项目所选 SDK 在新终端中的环境恢复、当前 JetBrains 官方中文语言包和通用插件候选流程、Windows Job Object 进程所有权、macOS SDK/工具链和此前调试修复。两个已发布平台构建都完成了 812 个 Kotlin 测试（148 个报告），无失败、错误或跳过；Windows 与 macOS 的安装、启动验证均通过。原生终端多候选选择、Windows 终端和 Developer Mode 调试闭环仍是明确限制。具体边界、资产哈希和流程结果见[.8 发布验证记录](docs/verification/releases/0.1.0-preview.20261112.8.json)，完整 GoLand 对齐仍在进行。
 
 IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitHub、私有仓库和项目依赖所需的认证仍然保留，使用这些服务时需要它们各自的凭据。
 
@@ -137,7 +137,7 @@ Go Test 配置支持普通测试、benchmark 和 fuzz。测试树可展示进度
 - **macOS 调试需要 Command Line Tools 或 Xcode。** Delve 当前使用 Apple 的 `debugserver`；纯 Go 编辑、构建与测试使用内置 SDK。cgo 项目还需要其 C 工具链。
 - **外部 Go SDK 仍需完整桌面验收。** 测试调试会先用所选 SDK 准备并检查 `test2json`，首次准备可能较慢；添加本地 SDK 的原生目录选择与准备过程的原生取消操作尚未完整验收。
 - **插件兼容性有范围。** 插件市场和磁盘安装保留平台原有检查；需要其他 IDE 专有模块或不支持当前版本的插件仍不能使用。第三方插件的许可和账号规则不变。
-- **终端 Go 补全已能自动改写命令，但还不是完整候选弹窗。** 当前 `main` 在 macOS 的 zsh 和 Bash 中实测可把 `go te` 变成 `go test`、把 `go test -r` 变成 `go test -run`；遇到 `te` 等歧义前缀时会按排序选第一个，而不是显示多候选列表。Windows、远程与 WSL 终端仍未验收。修复原理和证据见[终端补全记录](docs/reference/terminal-command-completion-20261112.json)。公开 `.7` 安装包早于这项修复，下载最新源码构建或等待下一版 Release。
+- **终端 Go 补全正在分阶段完善。** 公开 `.8` 已在 macOS zsh/Bash 中提供确定性的单命令回退；当前 `main` 已加入歧义候选弹窗、Windows 清行修复和参数边界保护，但这些后续修改尚未出现在新的公开安装包中。Windows、远程与 WSL 终端仍未完成原生验收。修复原理和证据见[终端补全记录](docs/reference/terminal-command-completion-20261112.json)。
 - **中文界面尚未覆盖所有 Go 功能。** 平台界面可以使用匹配的官方语言包，部分新增 Go 对话框仍为英文；安装和更改语言后需要按提示重新打开 IDE。
 - **Windows 超长项目根目录仍有限制。** 子进程工作目录超过系统支持范围可能出现 `CreateProcess 267`，建议使用较短的项目路径；中文、空格和 emoji 路径与任意长度支持是不同问题。
 - **性能、语言细节与全部工程环境还需继续验证。** 冷类型目录加载、完整 Go PSI/解析能力、输入法，以及不同 build tags、SDK、依赖与大型项目场景，均不能只凭局部测试认定全部支持。
@@ -209,7 +209,7 @@ Windows 构建在 Windows 上执行，入口与完整安装/卸载检查见[发�
 
 - [插件与中文安装验证](docs/verification/plugin-compatibility.md)：匹配语言包、原生插件流程、重启与具体证据范围。
 - [公开 .3 中文与插件原生检查](docs/verification/plugin-compatibility-public-native.json)：完整下载 DMG 后的安装、中文启用、插件动作及 Go Run/Test。
-- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261112.7.json)：两个系统的安装包、校验值、构建与安装检查。
+- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261112.8.json)：两个系统的安装包、校验值、构建与安装检查。
 - [此前 .2 macOS 公开版本的新建项目检查](docs/verification/sdk-project-management-public-native.json)：默认 SDK 新建项目、Run/Test、状态恢复，以及未完成的本地 SDK 文件选择器验证。
 - [完整产品验收矩阵](docs/reference/acceptance-matrix.json)：完整目标和仍未完成的验收项。
 - [参考调查](docs/reference/README.md)、[REA 证据台账](docs/reference/rea-ledger.md)：实际参考版本、可见资源和证据局限。

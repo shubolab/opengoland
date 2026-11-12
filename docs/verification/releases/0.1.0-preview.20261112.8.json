@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "tag": "v0.1.0-preview.20261112.8",
+    "name": "open Goland 0.1.0-preview.20261112.8",
+    "status": "public-prerelease",
+    "publishedAt": "2026-11-12T13:59:22Z",
+    "sourceCommit": "ce0e579d2c56294ca026211a74a5248cd46385c3",
+    "workflowRun": 43213216834,
+    "workflowAttempt": 2,
+    "workflowConclusion": "success",
+    "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8"
+  },
+  "summaryZh": ".8 已公开提供 Windows x64 EXE 与 macOS arm64 DMG。第一次 Windows runner 异常终止后，使用同一 tag 的 GitHub 原生失败作业重试成功；两平台均完成 812 个 Kotlin 测试、安装/启动检查并由 publish 作业验证五个资产后发布。",
+  "assets": {
+    "open-Goland-0.1.0-preview.20261112.8-windows-x64-setup.exe": {
+      "bytes": 870915983,
+      "sha256": "0075ed11e582506d461c51a411143d282d22569cdb9955a4111c4c1c682b3ee7",
+      "state": "uploaded"
+    },
+    "open-Goland-0.1.0-preview.20261112.8-macos-arm64.dmg": {
+      "bytes": 1020931504,
+      "sha256": "2e3be4dce8ab0478df26ec8a908ecc85cab9ff39d76243c3ce8e29c4dd882d99",
+      "state": "uploaded"
+    },
+    "windows-provenance.tar.gz": {
+      "bytes": 6673175,
+      "sha256": "7dd9ab97563324ee1d707f0e74af05b67cc01b0fc368476bc8384bdf8353c761",
+      "state": "uploaded"
+    },
+    "macos-provenance.tar.gz": {
+      "bytes": 4226194,
+      "sha256": "7c54a0038d0519e2a16a7af8b46ac47083398907aa9a15bf35ed24583e3856be",
+      "state": "uploaded"
+    },
+    "SHA256SUMS": {
+      "bytes": 434,
+      "sha256": "17ee7126ee731df1a2878b3e66ca49cdac01a7b71a958d7ac8eaffe00af3681a",
+      "state": "uploaded"
+    }
+  },
+  "verification": {
+    "independentPublishedAssetAudit": {
+      "checksumAndProvenanceDownloaded": true,
+      "checksumFileMatchedGithubApiDigests": true,
+      "windowsProvenanceSha256Matched": true,
+      "macosProvenanceSha256Matched": true,
+      "installerFullRedownloadRepeatedLocally": false,
+      "installerAuthority": "GitHub API sha256 digest, published SHA256SUMS entry, and successful producer publish-job pre-publication size/digest verification"
+    },
+    "tests": {
+      "windows": {
+        "reports": 148,
+        "tests": 812,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "macos": {
+        "reports": 148,
+        "tests": 812,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "windows": {
+      "installExitCode": 0,
+      "uninstallExitCode": 0,
+      "installedSmoke": "pass",
+      "sourceCommit": "ce0e579d2c56294ca026211a74a5248cd46385c3"
+    },
+    "macos": {
+      "imageVerified": true,
+      "mountedAndCopied": true,
+      "signatureVerified": true,
+      "signing": "ad-hoc; not notarized",
+      "installedEngineSmokeExitCode": 0,
+      "sourceCommit": "ce0e579d2c56294ca026211a74a5248cd46385c3",
+      "sourceDirty": false,
+      "sourceDigest": "f6faf9bd817918a2ad19c2733e43ddcd5681e3145988d51ce824f04b6096857e"
+    }
+  },
+  "contentBoundary": [
+    "Includes the native macOS terminal Go completion fallback verified for the user zsh and Bash sessions.",
+    "Does not include the later Windows line-clear repair, ambiguous terminal chooser, or PluginManagementPolicy activation repair.",
+    "Native Windows interactive terminal/plugin/Chinese UI acceptance remains open.",
+    "Windows installer is not publisher-signed; macOS app is ad-hoc signed and not notarized.",
+    "Complete GoLand feature parity remains open."
+  ],
+  "references": [
+    "https://github.com/shubolab/opengoland/actions/runs/43213216834",
+    "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8"
+  ]
+}
