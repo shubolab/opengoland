@@ -47,6 +47,8 @@ IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitH
 4. **打开已有项目**：选择 **Open**；从远程仓库开始则选择 **Clone Repository**。多模块项目可使用 Go 自己的 `go.work` 工作区。
 5. **运行与测试**：使用代码旁的运行入口，或在 **Run > Edit Configurations** 中建立 Go Build、Go Test、Go Debug 配置。执行结果显示在原生 Run、Test、Debug 面板中。
 
+新建本地 **Terminal** 会使用当前项目选择的 Go SDK。即使你的 zsh、bash、fish 或 PowerShell 启动脚本重新设置了 `PATH`/`GOROOT`，IDE 也会在用户配置加载完成后恢复项目 SDK，并保留原有 shell 的 PATH 和自定义变量。终端仍从项目目录启动；关闭正在运行的终端并确认 Terminate 后，shell 及其前台子进程会一起结束。
+
 SDK 下载会核对官方目录中的大小与 SHA-256，再验证解包后的 Go 版本和主目录；目标必须是新目录，已有 SDK 不会被覆盖。取消或验证失败不会登记为已安装 SDK。下载需要联网，项目依赖也可能需要访问网络。
 
 外部 SDK 的 **Add local…** 已经在当前 macOS 候选包中完成原生目录选择、版本校验、Apply、重启后保留、实际 Go 测试以及恢复内置 SDK 的完整流程；长路径把下拉箭头挤出窗口的问题也已修复。测试调试准备过程的原生 Cancel 按钮仍需单独验收，不能把 SDK 选择通过等同于所有调试步骤通过。[本机 SDK 流程记录](docs/reference/sdk-local-chooser-native-20261112.json)与[SDK 与新建项目验证](docs/verification/sdk-project-management-public-native.json)分别覆盖不同范围。

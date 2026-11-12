@@ -1,0 +1,51 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T05:40:00Z",
+  "status": "native-project-terminal-sdk-and-foreground-cleanup-verified",
+  "sourceBaseCommit": "7ed4aaffd4afc0b144a67e571d7da0d76129b4b3",
+  "application": "build/open Goland terminal force env.app",
+  "platform": "macOS 27.2 arm64",
+  "project": ".tools/native-local-ide-nu9mdv0v/本地 Go IDE 无账号 😀",
+  "observedWithoutFix": {
+    "terminalCwd": "/Users/wangshubo/develop/openidea-go/.tools/native-local-ide-nu9mdv0v/本地 Go IDE 无账号 😀",
+    "goVersion": "go1.24.3 darwin/arm64",
+    "goroot": "/Users/wangshubo/.local/share/mise/installs/go/1.24.3",
+    "classification": "The pre-start environment contained the bundled SDK, but the user's interactive zsh startup changed GOROOT and PATH afterward."
+  },
+  "referenceArtifact": {
+    "target": "/Users/wangshubo/Applications/GoLand.app/Contents/plugins/go-plugin/lib/go-plugin.jar",
+    "sha256": "198efc87e023e13f166248e56421c90dab630dbd2552c756d172a56ca02155f0",
+    "inspectionEvidenceId": "ev_1bbe444ca99f806c351f57d339609565400246c3efe20f3108b70a77845a8cf3",
+    "summaryEvidenceId": "ev_68443be455b8d84d551704177c4148c37f90e10793189dbf35f976735a1a2773",
+    "customizerOccurrenceEvidenceId": "ev_d5782a240f0ae4dc465f6737a9caedcdc34cc87fba24458111e83a07ff7086eb",
+    "customizerClass": "com/goide/terminal/GoLocalTerminalCustomizer.class",
+    "terminalDescriptorOccurrenceEvidenceId": "ev_ef7a62ec1124ab585edab09868b7bd5c5bfd88176cf82fe87edccd914696a425",
+    "boundary": "Static shipped-artifact identity and class presence only. Runtime equivalence and proprietary source reconstruction are not claimed."
+  },
+  "implementation": {
+    "customizer": "src/main/kotlin/dev/openidea/goide/terminal/GoTerminalCustomizer.kt",
+    "platformExtension": "org.jetbrains.plugins.terminal.localTerminalCustomizer",
+    "environment": "The selected SDK's Go bin, gopls/dlv tool directories and GOPATH/bin are prepended. Project GOROOT, GOFLAGS, GOOS, GOARCH, CGO_ENABLED and user environment entries are carried through shell startup using the Terminal plugin's documented force-set/force-prepend integration variables.",
+    "interactiveShell": "The user's normal login shell and profile remain active.",
+    "fallback": "If no local terminal widget shell is available, no external command is launched by this customizer."
+  },
+  "nativeVerification": {
+    "cwdCommand": "pwd",
+    "cwdResult": "/Users/wangshubo/develop/openidea-go/.tools/native-local-ide-nu9mdv0v/本地 Go IDE 无账号 😀",
+    "goVersionResult": "go1.26.10 darwin/arm64",
+    "gorootResult": "/Users/wangshubo/develop/openidea-go/build/open Goland terminal force env.app/Contents/plugins/opengoland/tools/go",
+    "markerResult": "FORCED_TERMINAL_SDK_OK",
+    "processCleanup": {
+      "foregroundChild": "sleep 300",
+      "shellPid": 32914,
+      "result": "Closing the active terminal requested confirmation; Terminate removed both the shell and foreground sleep process with no remaining matching process."
+    }
+  },
+  "tests": {
+    "suite": "GoTerminalCustomizerTest",
+    "assertions": "Project SDK path precedes shell PATH; the shell PATH and shell variables remain present; GOROOT, GOPROXY, GOFLAGS, GOOS, GOARCH and CGO_ENABLED are force-set for shell integration.",
+    "fullGate": "804/804 Kotlin tests, 146 reports, 0 failures, 0 errors, 0 skipped; buildPlugin, prepareSandbox and verifyPluginStructure passed."
+  },
+  "evidenceBoundary": "This verifies a local macOS interactive terminal and foreground child cleanup on one selected project SDK. Detached/background daemons, remote/WSL terminals, every shell/profile combination and Windows interactive terminal behavior remain separate checks.",
+  "implementationCommit": "e253587"
+}

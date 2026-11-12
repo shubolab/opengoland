@@ -5,8 +5,8 @@
 ## 当前权威状态
 
 - 已发布源码提交：`585964bb7e53ab2066c6ea079c3f78ba5469e602`
-- 当前已推送源码：`0e2dd9dc4aa0c4ba62474ad1bd6a0a8c6c6cee85`，包含调试权限/进程清理和 SDK 设置布局修复
-- 当前候选源码：516 个输入文件；最终摘要会在修复提交后重新生成
+- 当前已推送源码：`e253587`，包含调试权限/进程清理、SDK 设置布局和项目终端 SDK 环境修复
+- 当前候选源码：518 个输入文件；最终摘要会在文档证据提交后重新生成
 - 公开版本：[open Goland 0.1.0-preview.20261110.6](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.6)
 - 构建运行：[GitHub Actions 43129280667](https://github.com/shubolab/opengoland/actions/runs/43129280667)
 
@@ -21,7 +21,7 @@
 - Attach 模式关闭后代清理，继续保证断开时不会错误杀死用户的被调试进程。
 - 新真实进程测试验证了 adapter 的 child/grandchild 被回收，而同 executable 下的无关进程保持运行。
 
-本轮验证结果：Kotlin **803/803，145 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
+本轮验证结果：Kotlin **804/804，146 个报告，0 失败、0 错误、0 跳过**；`buildPlugin`、`prepareSandbox`、`verifyPluginStructure`、Go `test -race ./...` 和 `go vet ./...` 均通过。独立 macOS App 中实际点击 Debug 后，应用在启动 Delve 前显示了上述权限说明，进程检查未发现 `dlv`、`debugserver` 或 `__debug_bin` 遗留。
 
 仍差最后一步运行时证据：本机管理员未开放 Developer Mode，而当前自动化会话不能输入管理员密码，因此尚未在同一个候选包中完成“启用权限 → 真实测试运行 → 断点 → PASS → Stop 清理”闭环。机器可读记录：[debug-hang-20261112.json](evidence/debug-hang-20261112.json)。
 
@@ -30,6 +30,12 @@
 当前 macOS 候选包已经完成一个真实外部 SDK 的完整桌面流程：从 Settings > Go 点击 **Add local…**，在原生 macOS 目录选择器中选取 Go 1.26.10 GOROOT，等待版本校验后 Apply/OK；随后 Go Test 实际使用外部 `.../bin/go test -json` 运行，结果为 2/2 passed、退出码 0。正常退出并重启 IDE 后，外部 SDK 仍被保留；再次打开设置后成功恢复 **Bundled / automatic**。
 
 这一步同时暴露并修复了一个真实布局缺陷：长 SDK 路径会把下拉框的箭头和右侧操作区挤出可视宽度。现在 SDK 下拉框和详情宽度有上限，仍可随父容器压缩，完整路径保留在 tooltip 中；新增长路径回归测试。机器可读记录：[sdk-local-chooser-native-20261112.json](../../reference/sdk-local-chooser-native-20261112.json)。
+
+## 原生 Terminal
+
+候选 App 中实际打开项目 Terminal 后，`pwd` 指向项目目录，`go version` 为项目内置 **go1.26.10**，`go env GOROOT` 指向安装包内的 SDK；修复前同一终端被用户 zsh 的 mise 配置改回全局 Go1.24.3。现在通过 Terminal 平台公开的 shell-integration force-set/force-prepend 机制，在用户 shell 配置执行后恢复项目 SDK，并保留用户 PATH 与自定义变量。
+
+真实关闭测试启动前台 `sleep 300`，确认进程树后关闭 Terminal 并选择 Terminate；shell 与子进程均退出。参考 GoLand 的已安装 JAR 仅用于确认其公开 Terminal customizer 扩展边界，记录绑定到 artifact SHA-256 `198efc87…55f0`，没有复制商业实现。机器可读记录：[terminal-native-20261112.json](../../reference/terminal-native-20261112.json)。
 
 ## 本轮完成的代码修复
 

@@ -147,6 +147,13 @@ module/workspace and engineering actions. File > New > Go Module opens the same
 Go creation flow. Go Build, Go Test, and Go
 Debug configurations use the platform's native execution and debugger UI.
 
+New local Terminal sessions use the project-selected Go SDK. The selected Go
+bin directory and project `GOROOT`, build tags, target OS/architecture, CGO and
+configured environment are applied after the user's zsh, bash, fish or
+PowerShell startup files run, while the shell's own PATH and variables remain
+available. The terminal starts in the project directory. Terminating a running
+terminal closes the shell and its foreground child process.
+
 [Native type search](docs/verification/type-search.md) supplies the standard
 Go To Type / Search Everywhere Types catalog, including selected SDK and
 dependency declarations. [Extract and Inline](docs/verification/native-refactor.md)

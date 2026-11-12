@@ -516,7 +516,11 @@
       "reference": "intellij.go.terminal module and platform terminal plugin",
       "probe": "Interactive shell, Ctrl-C, Unicode output, full-screen command, resize and project close",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "native_terminal_environment": "../reference/terminal-native-20261112.json",
+        "native_terminal_observation": "Recorded 2026-11-12: a packaged macOS app opened an interactive terminal at the project root; `go version` and `go env GOROOT` resolved to the project bundled Go1.26.10 rather than the global mise1.24.3; closing a foreground `sleep 300` session terminated the shell and child. Remote/WSL, detached daemon and Windows interactive terminal behavior remain open."
+      }
     },
     {
       "id": "TOOLS-02",
