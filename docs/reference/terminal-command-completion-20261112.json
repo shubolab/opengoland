@@ -87,6 +87,12 @@
       {
         "shell": "previous macOS candidate cohorts",
         "observed": "go tes and unique go test options complete directly; go te and go test -r expose all matching choices"
+      },
+      {
+        "shell": "macOS user zsh with Powerlevel10k",
+        "input": "go test -r",
+        "observed": "visible native chooser: go test -run, go test -race",
+        "selection": "down-arrow selected go test -race and the choice was written to the real terminal edit line"
       }
     ],
     "visibleLookup": "Ambiguous prefixes show a native list popup anchored in the terminal. The fallback yields to any active bundled platform lookup.",
