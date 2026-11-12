@@ -27,6 +27,8 @@ def snapshot(root: Path = ROOT) -> dict:
     sources.update(path for path in (root / ".github/workflows").rglob("*") if path.is_file() and path.suffix in {".yml", ".yaml"})
     sources.update(path for path in (root / "product").rglob("*windows*.json") if path.is_file())
     sources.update(path for path in (root / "product/patches").rglob("*") if path.is_file())
+    if (root / "product/file-associations.json").is_file():
+        sources.add(root / "product/file-associations.json")
     for name in ["build.gradle.kts", "settings.gradle.kts", "gradle.properties", "product/platform.lock.json"]:
         sources.add(root / name)
     if (root / "product/go-tools.lock.json").is_file():

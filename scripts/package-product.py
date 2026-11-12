@@ -26,6 +26,74 @@ ROOT = Path(__file__).resolve().parent.parent
 SDK_ROOT = ROOT / ".tools/platform/idea-2026.1.4"
 REQUIRED_PLUGINS = {"dev.openidea.go", "com.redhat.devtools.lsp4ij"}
 LSP4IJ_VERSION = "0.21.0"
+FILE_ASSOCIATIONS_PATH = ROOT / "product/file-associations.json"
+
+
+def load_file_associations(path: Path = FILE_ASSOCIATIONS_PATH) -> list[dict]:
+    """Read the cross-platform Go file-association inventory."""
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if data.get("schema") != 1 or not isinstance(data.get("files"), list) or not data["files"]:
+        raise ValueError("Invalid Go file-association inventory")
+    result = []
+    extensions = set()
+    classes = set()
+    for item in data["files"]:
+        if not isinstance(item, dict):
+            raise ValueError("Invalid Go file-association entry")
+        extension = item.get("extension")
+        class_name = item.get("className")
+        description = item.get("description")
+        if (not isinstance(extension, str) or not re.fullmatch(r"[a-z0-9]+", extension)
+                or not isinstance(class_name, str) or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_.-]*", class_name)
+                or not isinstance(description, str) or not description.strip()):
+            raise ValueError("Invalid Go file-association identity")
+        if extension in extensions or class_name in classes:
+            raise ValueError("Duplicate Go file association")
+        extensions.add(extension)
+        classes.add(class_name)
+        result.append({"extension": extension, "className": class_name, "description": description})
+    if {"go", "gotmpl", "mod", "work"} - extensions:
+        raise ValueError("The Go file-association inventory is incomplete")
+    return result
+
+
+def specialize_info_plist(info: dict, version: str) -> dict:
+    """Apply Go product identity and Finder associations to a copied app plist."""
+    info = dict(info)
+    info["CFBundleName"] = "open Goland"
+    info["CFBundleDisplayName"] = "open Goland"
+    info["CFBundleIdentifier"] = "dev.opengoland.ide"
+    info["CFBundleGetInfoString"] = (
+        f"open Goland {version}, based on the open-source IntelliJ Platform; upstream notices retained"
+    )
+    info["CFBundleShortVersionString"] = version.split("-", 1)[0]
+    info["CFBundleURLTypes"] = [{
+        "CFBundleTypeRole": "Editor",
+        "CFBundleURLName": "open Goland",
+        "CFBundleURLSchemes": ["opengoland"],
+    }]
+    existing = info.get("CFBundleDocumentTypes", [])
+    if not isinstance(existing, list):
+        raise ValueError("CFBundleDocumentTypes must be an array")
+    wildcard = next((item for item in existing if "*" in item.get("CFBundleTypeExtensions", [])), None)
+    project = next((item for item in existing if "ipr" in item.get("CFBundleTypeExtensions", [])), None)
+    icon = info.get("CFBundleIconFile") or "idea.icns"
+    associations = []
+    for item in load_file_associations():
+        associations.append({
+            "CFBundleTypeName": item["description"],
+            "CFBundleTypeExtensions": [item["extension"]],
+            "CFBundleTypeRole": "Editor",
+            "CFBundleTypeIconFile": icon,
+        })
+    if project is not None:
+        project = dict(project)
+        project["CFBundleTypeName"] = project.get("CFBundleTypeName", "open Goland Project")
+        associations.append(project)
+    if wildcard is not None:
+        associations.append(dict(wildcard))
+    info["CFBundleDocumentTypes"] = associations
+    return info
 # DisassemblyTextMateBundleProvider in this pinned OSS release copies these
 # resources into its plugin directory on first use. Materialize their exact
 # shipped bytes before sealing the app, rather than letting startup mutate it.
@@ -530,13 +598,7 @@ def assemble(sdk: Path, plugins: Path, output: Path, version: str | None = None)
         info_path = contents / "Info.plist"
         info = plistlib.loads(info_path.read_bytes())
         native_launcher = info["CFBundleExecutable"]
-        info["CFBundleName"] = "open Goland"
-        info["CFBundleDisplayName"] = "open Goland"
-        info["CFBundleIdentifier"] = "dev.opengoland.ide"
-        info["CFBundleGetInfoString"] = f"open Goland {version}, based on the open-source IntelliJ Platform; upstream notices retained"
-        info["CFBundleShortVersionString"] = version.split("-", 1)[0]
-        info["CFBundleURLTypes"] = [{"CFBundleTypeRole": "Editor", "CFBundleURLName": "open Goland", "CFBundleURLSchemes": ["opengoland"]}]
-        info_path.write_bytes(plistlib.dumps(info, sort_keys=False))
+        info_path.write_bytes(plistlib.dumps(specialize_info_plist(info, version), sort_keys=False))
 
         metadata_path = contents / "Resources/product-info.json"
         metadata = json.loads(metadata_path.read_text())

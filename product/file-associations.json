@@ -1,0 +1,25 @@
+{
+  "schema": 1,
+  "files": [
+    {
+      "extension": "go",
+      "className": "OpenGoland.GoSource",
+      "description": "Go source file"
+    },
+    {
+      "extension": "gotmpl",
+      "className": "OpenGoland.GoTemplate",
+      "description": "Go template"
+    },
+    {
+      "extension": "mod",
+      "className": "OpenGoland.GoModule",
+      "description": "Go module file"
+    },
+    {
+      "extension": "work",
+      "className": "OpenGoland.GoWorkspace",
+      "description": "Go workspace file"
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema": 1,
+  "observedAtUtc": "2026-11-12T10:53:45+08:00",
+  "subject": {
+    "name": "GoLand",
+    "application": "/Users/wangshubo/Applications/GoLand.app",
+    "bundleId": "com.jetbrains.goland",
+    "bundleVersion": "GO-261.26222.72",
+    "shortVersion": "2026.1.4",
+    "executableSha256": "7a7b1da02131b070998bd58c03d6459674895bab7b1fd01401de5ff204ee40a5",
+    "infoPlist": "/Users/wangshubo/Applications/GoLand.app/Contents/Info.plist"
+  },
+  "reaEvidence": {
+    "operation": "inspect_plist",
+    "evidenceId": "ev_7a43d9f6ea9db9b1f9fb7f00fb0b643b97d6aae96b2d5ed2b70f485775dfa9e2",
+    "authority": "shipped-artifact",
+    "confidence": "observed"
+  },
+  "observation": {
+    "goLandDocumentExtensions": {
+      "status": "present",
+      "values": ["go", "gotmpl"],
+      "method": "Observed CFBundleDocumentTypes in the shipped GoLand 2026.1.4 Info.plist."
+    },
+    "openGolandPublishedPreview6DocumentExtensions": {
+      "status": "missing-go",
+      "values": ["*", "groovy", "ipr", "java", "kt", "kts"],
+      "artifact": "open-Goland-0.1.0-preview.20261110.6-macos-arm64.dmg",
+      "observation": "The published macOS app advertised Java/Kotlin project extensions but neither go nor gotmpl."
+    }
+  },
+  "inference": [
+    "macOS Launch Services cannot use the published app itself as a declared Go source/template handler entry.",
+    "The Java/Kotlin associations refer to editing modes that are intentionally not the product's focus and should not remain the only language associations."
+  ],
+  "unknown": [
+    "This observation does not prove every macOS Open With workflow, because the plist also contains the wildcard document type.",
+    "The Windows GoLand installer association set was not modified or observed in this record."
+  ],
+  "reconstructionDirection": {
+    "implementation": "Add Go file associations to the macOS product plist and equivalent per-user Windows installer registry entries.",
+    "requiredExtensions": ["go", "gotmpl", "mod", "work"],
+    "boundary": "The implementation may add Go module/workspace associations for product usability even though the observed GoLand plist has no mod/work extension entries."
+  }
+}

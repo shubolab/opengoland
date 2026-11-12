@@ -1,7 +1,9 @@
 """Exercise real owned app-info JAR rewrites and target-specific restart names."""
 
 import importlib.util
+import json
 from pathlib import Path
+import re
 import sys
 import tempfile
 import unittest
@@ -84,3 +86,40 @@ class ProductRestartBrandingTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class ProductFileAssociationTest(unittest.TestCase):
+    def test_macos_plist_exposes_go_files_and_drops_unsupported_java_associations(self):
+        product = product_module()
+        original = {
+            "CFBundleExecutable": "idea",
+            "CFBundleIconFile": "idea.icns",
+            "CFBundleDocumentTypes": [
+                {"CFBundleTypeExtensions": ["ipr"], "CFBundleTypeRole": "Editor", "CFBundleTypeIconFile": "idea.icns"},
+                {"CFBundleTypeExtensions": ["java"], "CFBundleTypeRole": "Editor", "CFBundleTypeIconFile": "idea.icns"},
+                {"CFBundleTypeExtensions": ["kt"], "CFBundleTypeRole": "Editor", "CFBundleTypeIconFile": "idea.icns"},
+                {"CFBundleTypeName": "All documents", "CFBundleTypeExtensions": ["*"], "CFBundleTypeRole": "Editor"},
+            ],
+        }
+        result = product.specialize_info_plist(original, "0.1.0-preview.20990101.1")
+        extensions = [item["CFBundleTypeExtensions"] for item in result["CFBundleDocumentTypes"]]
+        self.assertEqual([["go"], ["gotmpl"], ["mod"], ["work"], ["ipr"], ["*"]], extensions)
+        self.assertNotIn("java", [extension for values in extensions for extension in values])
+        self.assertNotIn("kt", [extension for values in extensions for extension in values])
+        self.assertEqual("open Goland", result["CFBundleDisplayName"])
+        self.assertEqual("dev.opengoland.ide", result["CFBundleIdentifier"])
+        self.assertEqual(["opengoland"], result["CFBundleURLTypes"][0]["CFBundleURLSchemes"])
+        self.assertEqual(["java", "kt"], [item["CFBundleTypeExtensions"][0] for item in original["CFBundleDocumentTypes"][1:3]])
+
+    def test_windows_installer_registers_every_shared_go_file_association(self):
+        data = json.loads((SCRIPTS.parent / "product/file-associations.json").read_text(encoding="utf-8"))
+        installer = (SCRIPTS / "windows/open-goland.iss").read_text(encoding="utf-8")
+        self.assertIn("ChangesAssociations=yes", installer)
+        self.assertIn("[Registry]", installer)
+        for item in data["files"]:
+            extension = re.escape(item["extension"])
+            class_name = re.escape(item["className"])
+            self.assertRegex(installer, rf'Subkey: "Software\\Classes\\\.{extension}"; ValueType: string; ValueData: "{class_name}";')
+            self.assertIn(f'Software\\Classes\\{item["className"]}\\shell\\open\\command', installer)
+        self.assertNotIn("Software\\Classes\\.java", installer)
+        self.assertNotIn("Software\\Classes\\.kt", installer)
