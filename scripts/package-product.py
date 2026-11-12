@@ -88,7 +88,7 @@ def specialize_info_plist(info: dict, version: str) -> dict:
         })
     if project is not None:
         project = dict(project)
-        project["CFBundleTypeName"] = project.get("CFBundleTypeName", "open Goland Project")
+        project["CFBundleTypeName"] = "open Goland Project"
         associations.append(project)
     if wildcard is not None:
         associations.append(dict(wildcard))

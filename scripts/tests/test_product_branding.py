@@ -95,7 +95,7 @@ class ProductFileAssociationTest(unittest.TestCase):
             "CFBundleExecutable": "idea",
             "CFBundleIconFile": "idea.icns",
             "CFBundleDocumentTypes": [
-                {"CFBundleTypeExtensions": ["ipr"], "CFBundleTypeRole": "Editor", "CFBundleTypeIconFile": "idea.icns"},
+                {"CFBundleTypeName": "IntelliJ IDEA Project File", "CFBundleTypeExtensions": ["ipr"], "CFBundleTypeRole": "Editor", "CFBundleTypeIconFile": "idea.icns"},
                 {"CFBundleTypeExtensions": ["java"], "CFBundleTypeRole": "Editor", "CFBundleTypeIconFile": "idea.icns"},
                 {"CFBundleTypeExtensions": ["kt"], "CFBundleTypeRole": "Editor", "CFBundleTypeIconFile": "idea.icns"},
                 {"CFBundleTypeName": "All documents", "CFBundleTypeExtensions": ["*"], "CFBundleTypeRole": "Editor"},
@@ -104,6 +104,7 @@ class ProductFileAssociationTest(unittest.TestCase):
         result = product.specialize_info_plist(original, "0.1.0-preview.20990101.1")
         extensions = [item["CFBundleTypeExtensions"] for item in result["CFBundleDocumentTypes"]]
         self.assertEqual([["go"], ["gotmpl"], ["mod"], ["work"], ["ipr"], ["*"]], extensions)
+        self.assertEqual("open Goland Project", result["CFBundleDocumentTypes"][4]["CFBundleTypeName"])
         self.assertNotIn("java", [extension for values in extensions for extension in values])
         self.assertNotIn("kt", [extension for values in extensions for extension in values])
         self.assertEqual("open Goland", result["CFBundleDisplayName"])
