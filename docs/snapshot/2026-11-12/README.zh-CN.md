@@ -10,6 +10,15 @@
 - 公开版本：[open Goland 0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)
 - 构建运行：[GitHub Actions 43175443788](https://github.com/shubolab/opengoland/actions/runs/43175443788)
 
+## 本次收尾边界（2026-11-12）
+
+- 已提交并推送终端补全修复：`ce0e579 Fix native Go terminal completion`。
+- 已创建并推送 tag：`v0.1.0-preview.20261112.8`，精确指向 `ce0e579`。
+- 双平台安装包 workflow 已启动：[GitHub Actions 43213216834](https://github.com/shubolab/opengoland/actions/runs/43213216834)。收尾时它仍在运行；下次先检查最终结论。成功时 Release 地址为 `https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.8`。
+- 若 workflow 失败，不要移动已推送 tag 或覆盖已公开资产。先读取 `gh run view 43213216834 --log-failed`；若只是远端瞬时失败可 rerun，若需要源码修复则发布 `.9`。
+- 本轮已经删除三份关闭的临时 macOS 候选 App，释放约 8.1 GB；固定 SDK、构建缓存和公开 Release 资产未删除。
+- 下一次续接的第一优先级仍不是重做补全，而是检查 `.8` 的五个发布资产、SHA-256、公开状态和 provenance，然后继续 `docs/snapshot` 中尚未闭环的 Windows/macOS 工作流与 36×2 验收矩阵。
+
 ## 本轮调试缺口进展
 
 此前 Go Test Debug 停在 `Launching program` 的直接原因已经确认：当前 Mac 的 `DevToolsSecurity -status` 返回 `Developer mode is currently disabled`。Delve 会完成测试编译并启动 LLDB `debugserver`，但 macOS 拒绝附加，随后界面一直等待 Delve 的启动握手。不是测试代码或 Go SDK 本身卡住。
