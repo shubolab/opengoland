@@ -5,8 +5,8 @@
 ## 当前权威状态
 
 - 已发布源码提交：`585964bb7e53ab2066c6ea079c3f78ba5469e602`
-- 当前已推送源码：`e253587`，包含调试权限/进程清理、SDK 设置布局和项目终端 SDK 环境修复
-- 当前候选源码：518 个输入文件；最终摘要会在文档证据提交后重新生成
+- 当前已推送源码：`e684148`，包含调试权限/进程清理、SDK 设置布局、项目终端 SDK 环境以及 Go 终端命令规范
+- 当前候选源码：520 个输入文件；最终摘要会在文档证据提交后重新生成
 - 公开版本：[open Goland 0.1.0-preview.20261110.6](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261110.6)
 - 构建运行：[GitHub Actions 43129280667](https://github.com/shubolab/opengoland/actions/runs/43129280667)
 
