@@ -1,0 +1,60 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T02:40:52.004493+00:00",
+  "computerUse": {
+    "status": "verified",
+    "operation": "cua.getState",
+    "observation": "Returned the live macOS app inventory and browser inventory; Computer Use can read native windows.",
+    "additionalObservation": "Read the installed Hopper Disassembler first-run window and exposed Demo/license controls without activating them."
+  },
+  "rea": {
+    "status": "verified",
+    "server": {
+      "package": "rea-agents",
+      "version": "6.5.0",
+      "toolCount": 207,
+      "skillVersion": 42
+    },
+    "builtIn": {
+      "target": "/bin/echo",
+      "sha256": "d7879b0d088c1dd7a71c2909ed4df6a4d7002b01a0d3ccf67c071a4a11c8c01d",
+      "operation": "inspect_macho",
+      "evidenceId": "ev_8eefb98f85ef626ab18a1003f4ad375c3b3bf9088a2fe7068568f68d984e67b0",
+      "coverage": "38/38 observed rows in the selected summary view"
+    },
+    "nativeGhidra": {
+      "provider": "Ghidra 12.1.4",
+      "target": "arm64e slice of /bin/echo thinned into a temporary Mach-O",
+      "targetSha256": "f024cb2b8c15d67bf75681a269a438bb7c4fbde7e78759d66a25134aab2b97ed",
+      "open": "success",
+      "overview": {
+        "evidenceId": "ev_b52ee5713c1cb192d3579544a20efab3986be0497faab0957c41fca8df469d1d",
+        "procedureCount": 19,
+        "segmentCount": 12,
+        "stringCount": 34
+      },
+      "procedures": {
+        "evidenceId": "ev_000226b0a733246c27591127148e7dd6eb02db9acb77d278fee8d0c6bfbdbffb",
+        "returned": 19
+      },
+      "functionAnalysis": {
+        "evidenceId": "ev_b7db11572f2866e821cd47183fa3287dbeee73882b59fc4b3cd1286db493d385",
+        "procedure": "entry",
+        "bodyBytes": 724,
+        "pseudocode": true,
+        "assembly": true,
+        "cfg": true
+      },
+      "close": "success",
+      "temporaryFilesRemoved": true
+    },
+    "hopper": {
+      "installedAt": "/Users/wangshubo/Applications/Hopper Disassembler.app",
+      "configuredPath": "/Users/wangshubo/Applications/Hopper Disassembler.app/Contents/MacOS/hopper",
+      "status": "installed-first-run-choice-pending",
+      "observedPrompt": "The official first-run window offers Validate License, Offline Activation, Try the Demo, or Purchase a License.",
+      "boundary": "Hopper is an optional second native provider. REA native analysis is already usable through Ghidra. Activating Demo or a license requires an explicit user decision at the GUI; a later client reconnect is then needed to load the new Hopper path."
+    }
+  },
+  "boundary": "These observations establish current tool operability. They do not establish every optional provider or future target-format capability."
+}
