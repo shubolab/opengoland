@@ -1,0 +1,40 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T06:00:00Z",
+  "status": "pass-native-current-source-official-simplified-pack-install-enable-restart",
+  "sourceCodeCommit": "e253587",
+  "documentationBaseCommit": "d45b7a8",
+  "application": "build/open Goland terminal force env.app",
+  "platform": "macOS 27.2 arm64",
+  "languagePack": {
+    "pluginId": "com.intellij.zh",
+    "name": "Chinese (Simplified) Language Pack / 中文语言包",
+    "version": "261.26222.65",
+    "vendor": "JetBrains",
+    "source": "JetBrains official IDEA 2026.1.4 distribution entry",
+    "downloadedArchiveBytes": 3572072,
+    "installedStatus": "Enabled"
+  },
+  "operations": [
+    "Invoked the product's native Install Chinese Language Pack action through Search Everywhere.",
+    "Confirmed platform version 261.26222.65 and fetched the matched official pack.",
+    "Selected localization-zh.zip in the native plugin file chooser and completed the native install flow.",
+    "Installed Plugins showed Chinese (Simplified) Language Pack / 中文语言包 261.26222.65 from JetBrains as installed and enabled.",
+    "Changed Language and Region to zh_CN, applied, and used the native Restart IDE action.",
+    "After restart, menus, project tree, Search Everywhere, settings, notifications, and status-bar descriptions rendered in Simplified Chinese."
+  ],
+  "marketplaceObservation": {
+    "search": "Chinese",
+    "reportedResults": 208,
+    "ordinaryPluginCandidates": "Compatible free and third-party Paid plugins appeared with native Install actions.",
+    "simplifiedPackDiscovery": "The official Simplified pack was handled by the dedicated official-distribution action rather than the general Marketplace result card.",
+    "boundary": "This observation does not prove every JetBrains plugin or every Marketplace candidate is compatible."
+  },
+  "customUiBoundary": [
+    "The Terminal tool-window name remains English.",
+    "Several custom Go tool-window labels and the project run-configuration name remain English.",
+    "The Go Workbench and LSP4IJ plugin names remain English."
+  ],
+  "processesAfterVerification": "The exact candidate app was closed after the restart and localization observation; no remaining process or test child from this check was retained.",
+  "evidenceBoundary": "This is native macOS GUI evidence for the current source candidate. Windows interactive language-pack installation, exhaustive third-party plugins, and complete Go UI localization remain separate checks."
+}

@@ -37,6 +37,12 @@
 
 真实关闭测试启动前台 `sleep 300`，确认进程树后关闭 Terminal 并选择 Terminate；shell 与子进程均退出。参考 GoLand 的已安装 JAR 仅用于确认其公开 Terminal customizer 扩展边界，记录绑定到 artifact SHA-256 `198efc87…55f0`，没有复制商业实现。机器可读记录：[terminal-native-20261112.json](../../reference/terminal-native-20261112.json)。
 
+## 当前源码插件与中文包复核
+
+当前终端候选再次通过原生流程安装 JetBrains 官方 `com.intellij.zh` 261.26222.65：Installed 显示已启用，语言选择 `zh_CN` 后使用原生 Restart，菜单、项目树、设置、搜索与通知均显示简体中文；Terminal、自定义 Go 工具窗口和插件名仍有英文，属于后续本地化范围。
+
+普通 Marketplace 搜索仍返回当前宿主兼容候选，免费与第三方 Paid 插件都保留原生安装入口。官方简体中文包是 IDEA 发行包的一部分，使用本产品的专用官方分发入口，而不是普通 Marketplace 卡片。机器可读记录：[plugin-compatibility-current-source-native-20261112.json](../../verification/plugin-compatibility-current-source-native-20261112.json)。
+
 本轮同时清理了 7 个已被最新候选取代、无进程或文件占用且不属于公开 Release 的开发 App 副本，逻辑大小约 19.9 GB；APFS 实际新增可用空间约 7.73 GB。保留了公开 `.6` 安装副本、固定平台和最新 `open Goland terminal force env.app`。完整路径、manifest、插件 JAR 与 engine 哈希记录在 [artifact-cleanup-terminal-20261112.json](evidence/artifact-cleanup-terminal-20261112.json)。
 
 ## 本轮完成的代码修复

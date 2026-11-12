@@ -75,6 +75,8 @@ IDE 本身无需账号或付费；第三方插件保留自己的许可、收费�
 2. 等待校验完成，在打开的原生文件窗口中选中 **localization-zh.zip**，确认安装。
 3. 按提示重新打开 IDE。看到 **Enable Chinese and Restart** 时可以直接启用；也可以到 **Settings > Appearance & Behavior > System Settings > Language and Region** 选择简体中文，再按提示重启。
 
+当前终端候选包已再次通过同一原生流程：从 JetBrains 官方取得并安装 `com.intellij.zh` 261.26222.65，Installed 显示已启用；选择 `zh_CN` 后通过原生 Restart 重启，菜单、项目树、设置和搜索界面均显示简体中文。普通兼容插件仍通过原生 Marketplace 搜索和安装；中文包使用专用官方分发入口，因为它是 IDEA 发行包的一部分。验证记录见[当前源码原生记录](docs/verification/plugin-compatibility-current-source-native-20261112.json)。
+
 当前 IDE 平台版本是 **261.26222.65**。旧语言包 **232.322** 支持的是 **232.***，两者不兼容；这些是 IDE 平台版本号，不是 Go 语言版本。上面的入口会取得匹配的包，并保留原生版本、依赖和签名检查。
 
 中文资源由用户主动从 JetBrains 官方获取，不附带在本仓库或安装器中；入口保留官方来源和条款链接。它主要翻译平台界面，部分本项目新增的 Go 界面仍为英文。验证范围见[插件与中文说明](docs/verification/plugin-compatibility.md)。

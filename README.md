@@ -80,6 +80,14 @@ in the native installer and confirm installation. Reopen the IDE, then use
 **Enable Chinese and Restart** or select Simplified Chinese under **Settings >
 Appearance & Behavior > System Settings > Language and Region** and restart.
 
+The current terminal-enabled candidate repeated this native flow with the
+official `com.intellij.zh` 261.26222.65 pack: Installed showed it enabled,
+`zh_CN` plus the native Restart action produced a Chinese workbench, and the
+ordinary Marketplace still returned current-host-compatible free and Paid
+plugin candidates. The official Simplified pack uses its dedicated
+official-distribution path because it is shipped with the IDEA distribution.
+See the [current native record](docs/verification/plugin-compatibility-current-source-native-20261112.json).
+
 Platform build **261.26222.65** cannot load the old Chinese pack **232.322**, which
 supports **232.***. These are IDE platform versions, not Go SDK versions. The
 helper preserves native compatibility, dependency and signature checks. It obtains
