@@ -1,14 +1,35 @@
 # 2026-11-12 续接快照：open Goland
 
-**完整目标仍是 active，尚未完成。** 本快照记录已经落地的 Windows 进程所有权修复、`.7` 双平台安装包发布、macOS 原生终端补全修复、当前工具状态和下一步工作。
+**完整目标仍是 active，尚未完成。** 本文件是下一轮 goal 的唯一续接入口：先读完“当前权威状态”和“下一次会话起手式”，再以实时 Git、GitHub Actions、Release、安装包与桌面验收结果为准。
 
 ## 当前权威状态
 
-- 已发布源码提交：`585964bb7e53ab2066c6ea079c3f78ba5469e602`
-- 当前已推送基线：`fecfa04`，包含调试权限/进程清理、SDK 设置布局、项目终端 SDK 环境、Git 冲突流程、Unicode 与构建上下文证据
-- 最新工作树：新增原生 Go 终端自动补全回退、webview 无关的 PTY 输入替换、812 项回归测试和对应证据
-- 公开版本：[open Goland 0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)
-- 构建运行：[GitHub Actions 43175443788](https://github.com/shubolab/opengoland/actions/runs/43175443788)
+- 本次快照生成时，`main` 基线为 `928d80e Record preview 8 release handoff`；快照自身的后续提交以远端 `main` HEAD 为准。
+- 功能修复提交：`ce0e579 Fix native Go terminal completion`，包含真实 PTY 的原生 Go 命令补全回退。
+- `.8` tag：`v0.1.0-preview.20261112.8`，精确指向 `ce0e579`；已推送的 tag 不得移动。
+- 最近一个已完整发布的版本仍是 [open Goland 0.1.0-preview.20261112.7](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.7)。
+- `.8` 的 macOS/Windows 安装包构建：[GitHub Actions 43213216834](https://github.com/shubolab/opengoland/actions/runs/43213216834)。
+- 快照收尾时 `.8` workflow 为 `in_progress`：`version` 已成功，`macos`、`windows` 正在运行，`publish` 尚未开始。**没有失败证据，也不能声称 `.8` 的 EXE/DMG 已发布。**
+- 当前工作树在本快照写入前为干净状态；Computer Use、REA 6.5.0、Ghidra 12.1.4 均已实际验证可用。
+
+## 下一次会话起手式
+
+先执行只读核对：
+
+```sh
+cd /Users/wangshubo/develop/openidea-go
+git status --short --branch
+git log -5 --oneline
+gh run view 43213216834 --json status,conclusion,url,headSha,jobs \
+  --jq '{status,conclusion,url,headSha,jobs:[.jobs[]|{name,status,conclusion}]}'
+gh release view v0.1.0-preview.20261112.8 \
+  --json tagName,isPrerelease,isDraft,assets \
+  --jq '{tagName,isPrerelease,isDraft,assets:[.assets[]|{name,size,state}]}'
+```
+
+- 若 workflow 成功：检查 Release 是否恰有 Windows EXE、macOS DMG、`windows-provenance.tar.gz`、`macos-provenance.tar.gz`、`SHA256SUMS` 五个资产；下载后核对大小与 SHA-256，确认公开/预发布状态，并补一份 `.8` 发布验证记录。
+- 若 workflow 失败：先运行 `gh run view 43213216834 --log-failed`。远端瞬时失败可原 tag rerun；需要源码变化时发布 `.9`，不要移动 `.8` tag 或覆盖已公开资产。
+- `.8` 发布闭环完成后，再从 36×2 验收矩阵继续真实 Windows/macOS 工程工作流，不要把 CI 变绿当作 GoLand 行为对齐完成。
 
 ## 本次收尾边界（2026-11-12）
 
