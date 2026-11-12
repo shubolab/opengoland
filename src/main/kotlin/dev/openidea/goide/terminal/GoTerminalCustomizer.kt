@@ -1,6 +1,7 @@
 package dev.openidea.goide.terminal
 
 import com.intellij.openapi.project.Project
+import com.intellij.openapi.util.registry.Registry
 import dev.openidea.goide.settings.GoToolchain
 import org.jetbrains.plugins.terminal.LocalTerminalCustomizer
 import java.io.File
@@ -8,12 +9,17 @@ import java.io.File
 /** Make the project-selected Go toolchain authoritative in new local terminals. */
 @Suppress("DEPRECATION")
 class GoTerminalCustomizer : LocalTerminalCustomizer() {
+    companion object {
+        internal const val TERMINAL_COMPLETION_POPUP_REGISTRY_KEY = "terminal.new.ui.completion.popup"
+    }
+
     override fun customizeCommandAndEnvironment(
         project: Project,
         shellCommand: String?,
         command: Array<String>,
         envs: MutableMap<String, String>,
     ): Array<String> {
+        Registry.get(TERMINAL_COMPLETION_POPUP_REGISTRY_KEY).setValue(true, project)
         GoTerminalEnvironment.apply(project, envs)
         return command
     }

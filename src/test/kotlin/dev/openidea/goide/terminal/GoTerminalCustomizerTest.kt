@@ -1,6 +1,7 @@
 package dev.openidea.goide.terminal
 
 import com.intellij.openapi.application.ApplicationManager
+import com.intellij.openapi.util.registry.Registry
 import com.intellij.testFramework.EdtTestUtil
 import com.intellij.testFramework.LightPlatformTestCase
 import com.intellij.util.xmlb.XmlSerializerUtil
@@ -59,6 +60,7 @@ class GoTerminalCustomizerTest : LightPlatformTestCase() {
             assertEquals("darwin", environment["GOOS"])
             assertEquals("arm64", environment["GOARCH"])
             assertEquals("0", environment["CGO_ENABLED"])
+            assertTrue(Registry.get(GoTerminalCustomizer.TERMINAL_COMPLETION_POPUP_REGISTRY_KEY).asBoolean())
         } finally {
             EdtTestUtil.runInEdtAndWait<RuntimeException> { XmlSerializerUtil.copyBean(previous, settings) }
         }

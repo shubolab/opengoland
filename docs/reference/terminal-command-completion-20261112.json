@@ -1,0 +1,100 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T07:20:53Z",
+  "status": "automated-command-spec-verified-native-popup-pending",
+  "sourceBaseCommit": "62a30b502231af1bb61cf7b80c9f9fc791b841f3",
+  "platform": "IntelliJ Platform 2026.1.4 (build 261.26222.65), macOS 27.2 arm64",
+  "implementation": {
+    "provider": "src/main/kotlin/dev/openidea/goide/terminal/GoShellCommandSpecsProvider.kt",
+    "extensionPoint": "org.jetbrains.plugins.terminal.commandSpecsProvider",
+    "conflictStrategy": "REPLACE",
+    "commands": [
+      "bug",
+      "build",
+      "clean",
+      "doc",
+      "env",
+      "fix",
+      "fmt",
+      "generate",
+      "get",
+      "help",
+      "install",
+      "list",
+      "mod",
+      "run",
+      "telemetry",
+      "test",
+      "tool",
+      "version",
+      "vet",
+      "work"
+    ],
+    "nestedGroups": {
+      "go mod": [
+        "download",
+        "edit",
+        "graph",
+        "init",
+        "tidy",
+        "vendor",
+        "verify",
+        "why"
+      ],
+      "go work": [
+        "edit",
+        "init",
+        "sync",
+        "use",
+        "vendor"
+      ]
+    },
+    "commonOptions": [
+      "-C",
+      "-mod",
+      "-modfile",
+      "-tags",
+      "-race",
+      "-ldflags",
+      "-gcflags",
+      "-run",
+      "-bench",
+      "-count",
+      "-coverprofile",
+      "-timeout"
+    ],
+    "registryActivation": "GoTerminalCustomizer enables terminal.new.ui.completion.popup with the project as the disposable owner."
+  },
+  "automatedVerification": {
+    "reports": 147,
+    "tests": 806,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "focusedTests": [
+      "GoShellCommandSpecsProviderTest.testGoSpecIsVisibleToTheInstalledTerminalManager",
+      "GoShellCommandSpecsProviderTest.testGoSpecExposesSubcommandsAndCommonBuildNavigation",
+      "GoTerminalCustomizerTest.testProjectGoSdkPrecedesShellPathAndAppliesProjectEnvironment"
+    ],
+    "fullGate": "test, buildPlugin, prepareSandbox and verifyPluginStructure passed"
+  },
+  "platformInspection": {
+    "terminalJar": ".tools/platform/idea-2026.1.4/IntelliJ IDEA.app/Contents/plugins/terminal/lib/terminal.jar",
+    "terminalJarSha256": "edc3e91cb3efa09534171889491926ab76d01c3549c6c9880da27a9a282e1d79",
+    "observedPlatformContract": "ShellCommandSpecsManagerImpl reads commandSpecsProvider extensions, keys specs by ShellCommandSpec.name and resolves REPLACE before DEFAULT.",
+    "registryObservation": "IDE Registry showed terminal.new.ui.autocompletion=1 and terminal.new.ui.completion.popup=1.",
+    "boundary": "Only public platform extension contracts and compiled API signatures were inspected; no proprietary source was copied."
+  },
+  "nativeAttempt": {
+    "application": "build/product/open Goland terminal completion action.app",
+    "project": "fixtures/native-workflow",
+    "input": "go te",
+    "automaticPopup": "No Go subcommand popup appeared after opening new terminals with automatic completion enabled.",
+    "tabAttempt": "Tab fell back to zsh path completion and produced go _test.go.",
+    "shortcutAttempts": "Control+Space is intercepted by macOS input-source handling. Temporary test-only mappings for Terminal.CommandCompletion.Invoke on Control+Option+K and F2 did not visibly open the popup.",
+    "menuAttempt": "A temporary Go Terminal Completion menu action invoked Terminal.CommandCompletion.Invoke in terminal context but still produced no popup. The temporary action was removed before the final full gate.",
+    "classification": "Native Go command completion is not accepted. The automated provider and manager registration are verified, but visible terminal candidates remain open."
+  },
+  "evidenceBoundary": "This record does not claim native terminal completion or full GoLand terminal parity. It proves the installed terminal manager resolves the Go command spec in the platform test environment and the full regression gate remains green.",
+  "nextProbe": "Determine whether AppMode/EEL or reworked-terminal shell integration disables the Gen2 completion action in the packaged monolith, then verify visible go test and go test option candidates with screenshot evidence before release."
+}
