@@ -66,7 +66,14 @@
       "reference": "Platform editor; requires runtime observation",
       "probe": "Use actual IME composition, cancel/commit candidates, completion and rename around UTF-16 surrogate pairs",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "document_sync": "../../src/test/kotlin/dev/openidea/goide/lsp/GoDocumentSyncTest.kt",
+        "platform_unicode": "../../src/test/kotlin/dev/openidea/goide/platform/PlatformUnicodePersistenceTest.kt",
+        "package_positions": "../../src/test/kotlin/com/redhat/devtools/lsp4ij/GoPackageStructureTest.kt",
+        "completion_ordering": "../../src/test/kotlin/com/redhat/devtools/lsp4ij/GoNativeCompletionOrderingTest.kt",
+        "observation": "Automated coverage verifies sequential UTF-16 document notifications, Chinese/emoji text, supplementary-plane identifiers, half-surrogate and out-of-line position rejection, escaped URI identity, incremental completion ordering and malformed multi-file position rejection. Native IME composition/candidate cancel/commit and rename/selection behavior with a live Chinese input source remain open."
+      }
     },
     {
       "id": "UI-04",
@@ -357,7 +364,14 @@
       "reference": "GoProjectSettingsConfigurable and Go parser/completion declarations",
       "probe": "Switch target environment and tags; check active/inactive files and references without editing wrong platform files",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "feature_eligibility": "../../src/test/kotlin/com/redhat/devtools/lsp4ij/GoBuildContextFeatureEligibilityTest.kt",
+        "feature_cache_refresh": "../../src/test/kotlin/com/redhat/devtools/lsp4ij/GoBuildContextFeatureCacheRefreshTest.kt",
+        "run_build_context": "../../src/test/kotlin/dev/openidea/goide/run/GoRunBuildContextServiceTest.kt",
+        "run_build_context_native": "../verification/go-build-context-completion-native-20261111.json",
+        "observation": "Automated real-provider filters cover active and ignored files, build-tag changes with Unsaved Undo, rapid settings epochs, stale initialize environments, cgo auxiliary files and unrelated Delve-only changes. Earlier native build-tag/completion evidence exists. Complete GOOS/GOARCH/CGO/multi-module native matrix and Windows behavior remain open."
+      }
     },
     {
       "id": "RUN-01",
