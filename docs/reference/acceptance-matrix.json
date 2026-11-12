@@ -233,7 +233,9 @@
       "reconstruction": "unverified",
       "partial_evidence": {
         "source": "../verification/desktop-smoke-2026-11-08.md",
-        "observation": "Unsaved fmt.Pr completion request returned three candidates and keyboard selection inserted Println in b496a85. Lookup visual layout and broader contextual/auto-import cases remain unverified."
+        "observation": "Unsaved fmt.Pr completion request returned three candidates and keyboard selection inserted Println in b496a85. Lookup visual layout and broader contextual/auto-import cases remain unverified.",
+        "context_completion_native": "../verification/lsp-context-completion-native-20261112.json",
+        "context_completion_observation": "Real gopls 0.24.0 returned package member Cart, interface method Total, generic function Map and incomplete unsaved-document Cart completion in the two-module fixture. This verifies protocol/context coverage, not native popup layout, keyboard selection, all auto-import ranges or complete GoLand equivalence."
       }
     },
     {

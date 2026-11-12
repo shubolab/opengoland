@@ -380,6 +380,34 @@ def verify_gopls(root, executable):
             labels = [item["label"] for item in items]
             require(any(label == "Cart" or label.startswith("Cart ") for label in labels), f"Cart completion missing: {labels}")
             detail["matchingLabels"] = [label for label in labels if "Cart" in label]
+        with checks.check("completion_interface_and_generic_contexts") as detail:
+            interface_completion = peer.request("textDocument/completion", at(app, "price.Total()", len("price.")))
+            interface_items = interface_completion.get("items", []) if isinstance(interface_completion, dict) else interface_completion or []
+            interface_labels = [item["label"] for item in interface_items]
+            require(any(label == "Total" or label.startswith("Total ") for label in interface_labels),
+                    f"interface method completion missing: {interface_labels}")
+            generic_completion = peer.request("textDocument/completion", at(app, "catalog.Greeting", len("catalog.")))
+            generic_items = generic_completion.get("items", []) if isinstance(generic_completion, dict) else generic_completion or []
+            generic_labels = [item["label"] for item in generic_items]
+            require(any(label == "Map" or label.startswith("Map[") for label in generic_labels),
+                    f"generic function completion missing: {generic_labels}")
+            detail.update({"interfaceMatches": [label for label in interface_labels if label.startswith("Total")],
+                           "genericMatches": [label for label in generic_labels if label.startswith("Map")]})
+        with checks.check("completion_incomplete_unsaved_document") as detail:
+            original = documents.get(app)
+            probe = original + "\nfunc IncompleteCompletionProbe() { catalog. }\n"
+            version = documents.change(app, probe)
+            pos = position(probe, "catalog. }", len("catalog."))
+            completion = peer.request("textDocument/completion", {"textDocument": {"uri": app}, "position": pos})
+            items = completion.get("items", []) if isinstance(completion, dict) else completion or []
+            labels = [item["label"] for item in items]
+            require(any(label == "Cart" or label.startswith("Cart ") for label in labels),
+                    f"incomplete document completion missing Cart: {labels}")
+            require("IncompleteCompletionProbe" not in documents.path(app).read_text(),
+                    "incomplete completion fixture was accidentally saved")
+            documents.change(app, original)
+            detail.update({"documentVersion": version, "matchingLabels": [label for label in labels if "Cart" in label],
+                           "diskWasUnchanged": True})
         with checks.check("hover_cart_type") as detail:
             hover = peer.request("textDocument/hover", at(app, "catalog.Cart", len("catalog.") + 1))
             require("Cart" in json.dumps(hover), "Cart hover content missing")

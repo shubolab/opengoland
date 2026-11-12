@@ -1,0 +1,50 @@
+{
+  "schema": 1,
+  "recordedAtUtc": "2026-11-12T14:35:00Z",
+  "status": "real-gopls-context-completion-passed",
+  "fixture": "fixtures/go-workspace",
+  "tools": {
+    "gopls": {
+      "path": "gopls",
+      "version": "golang.org/x/tools/gopls v0.24.0"
+    }
+  },
+  "checks": [
+    {
+      "name": "completion_catalog_members",
+      "status": "passed",
+      "seconds": 0.318,
+      "matchingLabels": [
+        "Cart"
+      ]
+    },
+    {
+      "name": "completion_interface_and_generic_contexts",
+      "status": "passed",
+      "seconds": 0.001,
+      "interfaceMatches": [
+        "Total"
+      ],
+      "genericMatches": [
+        "Map"
+      ]
+    },
+    {
+      "name": "completion_incomplete_unsaved_document",
+      "status": "passed",
+      "seconds": 0.001,
+      "documentVersion": 2,
+      "matchingLabels": [
+        "Cart"
+      ],
+      "diskWasUnchanged": true
+    }
+  ],
+  "observations": {
+    "packageMemberCompletion": "catalog.Cart resolved to Cart",
+    "interfaceMethodCompletion": "price.Total resolved to Total",
+    "genericFunctionCompletion": "catalog.Map resolved to Map",
+    "incompleteUnsavedDocument": "catalog. in an unsaved incomplete function returned Cart; disk stayed unchanged"
+  },
+  "boundary": "Direct real-gopls protocol evidence only. Native IDE popup layout, keyboard selection, auto-import edit ranges, all interfaces/generics and commercial GoLand runtime equivalence remain separate checks."
+}
