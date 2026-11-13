@@ -40,9 +40,11 @@ IDE 无账号、计费、订阅和试用门槛，开发工具认证继续保留�
 
 | 版本 / run | 当前核对结果 |
 | --- | --- |
-| `.10` / `43227109296` attempt 2 | 完整成功并公开；当前下载版本 |
-| `.11` / `43235043231` attempt 2 | 本轮重跑被取消的 macOS 作业后，双平台流程已成功；公开资产仍需独立核验 |
+| `.10` / `43227109296` attempt 2 | 完整成功并公开；已独立核验 |
+| `.11` / `43235043231` attempt 2 | 本轮重跑被取消的 macOS 作业后，双平台流程成功并公开；五资产、校验值、两份 provenance 与原始 XML 已核验，当前下载版本 |
 | `.12` / `43244003072` attempt 2 | 重跑原先失联的 Windows runner 后，825 Kotlin 测试 / 150 报告全部通过，但 Go race 的一项 readiness 读取失败；未组装/公开 Windows 安装器，publish skipped |
+| 旧日期 `.20261112.13` / `43248990104` | Mac 成功；Windows runner 失联，日志不可取，check annotation 说明连接丢失；具体失联原因未知，未重复运行旧源码 |
+| 新日期 `.20261113.1` / `43363144976` | 已在 `2dcbf6509f19fbd2480b0aaea155a95f2caf5873` 切 tag 并推送；双平台正在构建，包含 HTTP、支持文件和 readiness 修复，尚未公开 |
 
 `.12` 的失败是 `TestKillingOwnerStopsAlreadyStartedChildrenAndPipes` 在读取 `sentinel.json` 时收到 Windows 文件共享锁错误。此处尚未调用 `startOwner`，没有执行到 owner 终止/管道/存活断言；锁的持有者未知，不能猜成某个杀毒程序。
 
@@ -50,13 +52,15 @@ IDE 无账号、计费、订阅和试用门槛，开发工具认证继续保留�
 
 已用固定 Go 1.27.3 交叉编译 Windows 测试二进制。**这不是 Windows 执行通过。** 当前 GitHub OAuth 凭据缺少新增工作流需要的 `workflow` scope；新增辅助工作流的推送被服务端拒绝，未修改远端。该辅助文件已从尚未发布的本地提交中移除，继续使用仓库已有安装器工作流验证新源码上的 8 个 Windows owner 测试及完整回归。[失败证据和修复边界](../../verification/windows-readiness-sharing-20261113.json)绑定原始约 1 MB artifact 和 SHA-256。
 
-计划的新版本为 `0.1.0-preview.20261113.1`；此时尚未切 tag / 公开安装器。不要把源码候选写成已经可下载的新 Release，也不要移动 `.12` 的旧 tag。
+新版本 `0.1.0-preview.20261113.1` 已切 tag，但尚未公开安装器。不要把源码候选写成已经可下载的新 Release，也不要移动 `.12` 的旧 tag。
+
+`.11` 的 Windows / macOS 各 819 个测试、148 报告全部通过；两端安装检查成功。本轮另下载约 10.7 MB `.11` 校验与 provenance，未重复下载完整安装器；Release 正文已补上中英文安装方法和边界，[发布验证记录](../../verification/releases/0.1.0-preview.20261112.11.json)保留精确哈希。README 当前指向 `.11`，并明确其不包含后来才加入的 HTTP/模板等能力。
 
 ## 续接顺序
 
-1. 提交并推送新源码，在确切提交上创建新的 `.13.1` tag，使用已有双平台 EXE / DMG 流程做真实 Windows 验证。不能通过重跑旧 `.12` 修复源码问题。
+1. 继续跟进 [`.20261113.1` 安装器流程](https://github.com/shubolab/opengoland/actions/runs/43363144976)，使用其真实 Windows job 验证新源码；不要重复 dispatch、移动 tag 或重跑旧 `.12` 试图修复源码问题。
 2. 读取新源码上全部 8 个 Windows owner 控制、完整回归、安装/启动检查及五资产哈希的实际结果；全部通过并公开后才更新下载版本。
-3. 继续核对 `.11` macOS 作业的结果；成功产物若满足现有发布条件可按原流程发布，不能覆盖公开版本的资产。
+3. `.11` 已完成公开与独立核验；保留其安装器字节不可变。后续 `.20261113.1` 成功时单独建立对应发布证据，再更新 README 与 Release 正文。
 4. 从 36 × 2 矩阵继续做真实 GoLand 参考端 / 新产品对照，特别是 Windows 交互式终端、插件/中文包、Git、运行测试调试和大工程。HTTP、模板、SQL/Docker 等只是部分证据。
 5. macOS 测试调试仍需要本机管理员开放 Developer Mode；本轮没有改系统权限，也没有完成该调试闭环。签名、公证与完整 Windows 原生验收仍开放。
 

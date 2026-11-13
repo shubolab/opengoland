@@ -46,25 +46,26 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261112.10](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.10).
+[Download preview 0.1.0-preview.20261112.11](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.11).
 Both installers include checksums and platform verification records.
 
-This release adds the native terminal completion candidate chooser and Windows
+This release repairs native plugin-management service activation and includes the
+native terminal completion candidate chooser and Windows
 line-clearing repair alongside the macOS completion fallback and the
 existing project-selected Go SDK terminal environment, official Chinese
 language-pack and Marketplace-compatible plugin flow, Windows process ownership,
 and macOS SDK/toolchain fixes. Both published platform builds ran 819 Kotlin
 tests in 148 reports with zero failures, errors or skips. See the
-[.10 verification record](docs/verification/releases/0.1.0-preview.20261112.10.json)
+[.11 verification record](docs/verification/releases/0.1.0-preview.20261112.11.json)
 for exact evidence, asset hashes and remaining boundaries. Interactive Windows
 terminal/plugin workflows and macOS Developer Mode debugging still need separate
-native acceptance. The later plugin-service activation repair, Go Template support
-and SQL/Dockerfile/HTTP file types are present in source, outside this installer.
+native acceptance. Go Template support, SQL/Dockerfile/HTTP file types and built-in
+HTTP execution are present in later source, outside this installer.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.10/open-Goland-0.1.0-preview.20261112.10-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.10/open-Goland-0.1.0-preview.20261112.10-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.11/open-Goland-0.1.0-preview.20261112.11-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.11/open-Goland-0.1.0-preview.20261112.11-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -144,7 +145,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261112.10.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261112.11.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,
@@ -178,7 +179,7 @@ Current source adds native Go Template, SQL, Dockerfile and HTTP request
 highlighting. In `.http` files, use the request gutter or **Run HTTP Request**
 context action to send a request, inspect its response in Run, and cancel with
 Stop. File variables and UTF-8 bodies are supported; try the
-[local HTTP example](fixtures/http-client). These additions are outside the `.10`
+[local HTTP example](fixtures/http-client). These additions are outside the `.11`
 installers above. HTTP environment files, scripts and credential management,
 database connections, Docker execution and template semantics remain open.
 See [HTTP syntax and limits](docs/verification/http-client.md).

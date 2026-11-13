@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "tag": "v0.1.0-preview.20261112.11",
+    "name": "open Goland 0.1.0-preview.20261112.11",
+    "status": "public-prerelease",
+    "publishedAt": "2026-11-13T03:58:17Z",
+    "sourceCommit": "09ef68c1f34ecd1dac7fb18ea4b3ba53d7b0fb6a",
+    "workflowRun": 43235043231,
+    "workflowAttempt": 2,
+    "workflowConclusion": "success",
+    "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.11"
+  },
+  "summaryZh": ".11 的 macOS 取消作业在同一 tag/source 上重跑后成功，Windows 与 macOS 安装器、校验文件和两份 provenance 均已公开。包含插件管理服务的激活修复；两平台各 819 个 Kotlin 测试通过。后续 HTTP 执行和支持文件功能尚不在这一版中。",
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "bytes": 4215813,
+      "sha256": "35fed55ff2cad4e241dca8507f2461fc0e675f1baf83d319f04c6aa362983a3f",
+      "state": "uploaded"
+    },
+    "open-Goland-0.1.0-preview.20261112.11-macos-arm64.dmg": {
+      "bytes": 1024597905,
+      "sha256": "a4ebb8bb34f8b7dfbc8bcee290a4e4ea312493662c0b8a86ada9333df36ca090",
+      "state": "uploaded"
+    },
+    "open-Goland-0.1.0-preview.20261112.11-windows-x64-setup.exe": {
+      "bytes": 870918841,
+      "sha256": "4b8132656cec59e96f7b9d98393081a7211b4bac9caed7456a32bbb565238260",
+      "state": "uploaded"
+    },
+    "SHA256SUMS": {
+      "bytes": 436,
+      "sha256": "c3413fda3e6a1f33b417c27c02f79170d4665bf9e1544fbf16efc87477c62e1a",
+      "state": "uploaded"
+    },
+    "windows-provenance.tar.gz": {
+      "bytes": 6502092,
+      "sha256": "e2aff1e6781fe0ae1b1777d30c358958f0561cb639fb47173700af9df6333968",
+      "state": "uploaded"
+    }
+  },
+  "verification": {
+    "independentPublishedAssetAudit": {
+      "checksumAndProvenanceDownloaded": true,
+      "checksumFileMatchedGithubApiDigests": true,
+      "windowsProvenanceSha256Matched": true,
+      "macosProvenanceSha256Matched": true,
+      "installerFullRedownloadRepeatedLocally": false,
+      "installerAuthority": "GitHub API sha256 digest, published SHA256SUMS, provenance installer size/digest, and successful producer publish-job pre-publication size/digest verification"
+    },
+    "tests": {
+      "windows": {
+        "reports": 148,
+        "tests": 819,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "macos": {
+        "reports": 148,
+        "tests": 819,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "windows": {
+      "sourceCommit": "09ef68c1f34ecd1dac7fb18ea4b3ba53d7b0fb6a",
+      "installExitCode": 0,
+      "uninstallExitCode": 0,
+      "installedSmoke": "pass",
+      "scope": "Real installer bytes, native version and visible project-frame startup, explicit installed bundled tools and one uncached Go test via engine RPC; not interactive editor parity or Kotlin default-resolver acceptance."
+    },
+    "macos": {
+      "sourceCommit": "09ef68c1f34ecd1dac7fb18ea4b3ba53d7b0fb6a",
+      "sourceDirty": false,
+      "sourceDigest": "d3cef22228c54b1215ebd43b521e6c0cd822394324750a073cab6cf155d67941",
+      "imageVerified": true,
+      "mountedAndCopied": true,
+      "signatureVerified": true,
+      "signing": "ad-hoc; not notarized",
+      "scope": "Actual DMG mount/install copy, signatures, native launcher version, bundled SDK/tools and one uncached pure-Go test. Interactive GUI and clean-OS debugging require separate evidence.",
+      "installedEngineSmokeExitCode": 0
+    }
+  },
+  "contentBoundary": [
+    "Includes the PluginManagementPolicy activation repair as well as the terminal chooser/Windows line-clear changes from .10.",
+    "Does not include later Go Template/SQL/Dockerfile/HTTP file types or built-in HTTP execution.",
+    "Native Windows interactive plugin/Chinese UI/terminal acceptance and macOS Developer Mode debugging remain open.",
+    "A later .12 Windows build hit a readiness-file sharing violation before owner startup; this .11 run succeeded. The test-handshake repair is in new source, outside this release.",
+    "Windows installer is not publisher-signed; macOS app is ad-hoc signed and not notarized.",
+    "Complete GoLand feature parity remains open."
+  ],
+  "references": [
+    "https://github.com/shubolab/opengoland/actions/runs/43235043231",
+    "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.11"
+  ]
+}
