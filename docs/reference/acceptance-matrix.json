@@ -175,7 +175,7 @@
         "module_native": "../verification/module-task-native.json",
         "observation": "Explicit selected-module versus all-workspace tasks passed in a two-module local-replace fixture; workspace graph download/vendor/sync and per-module generation passed. Full workspace creation/member editing and semantic synchronization acceptance remain open.",
         "cold_external_refresh_native": "cold-external-refresh-20261113.zh-CN.md",
-        "cold_external_observation": "Historical .20261113.3 native go.work member changes selected workspace/fallback navigation, Run and Test as documented. Later macOS candidate3 automatically invalidated/restored an unopened local replacement after an external rename; its package Run and uncached Test passed. Candidate3 remained unreleased because completion separately exposed a signature-help NPE. Full workspace semantics, missing/deleted roots and Windows remain open."
+        "cold_external_observation": "Historical .20261113.3 native go.work member changes selected workspace/fallback navigation, Run and Test as documented. Final-source macOS candidate4 (cac8501, 586 sealed inputs, 966 tests/173 XML) automatically invalidated/restored a never-opened active local replacement after external-only rename; Basic, definition navigation, Run and uncached Test passed. This supersedes the candidate3 signature-hint blocker for these bounded operations. Full workspace semantics, missing/deleted roots and Windows interaction remain open."
       }
     },
     {
@@ -239,7 +239,7 @@
         "context_completion_native": "../verification/lsp-context-completion-native-20261112.json",
         "context_completion_observation": "Real gopls 0.24.0 returned package member Cart, interface method Total, generic function Map and incomplete unsaved-document Cart completion in the two-module fixture. This verifies protocol/context coverage, not native popup layout, keyboard selection, all auto-import ranges or complete GoLand equivalence.",
         "cold_external_refresh_native": "cold-external-refresh-20261113.zh-CN.md",
-        "cold_external_observation": "MacOS candidate3 Basic action completed the newly discovered external.Gree prefix to Greeting after a cold external rename; the unique candidate inserted directly and no popup was retained. Cmd+B reached the new external declaration and Run passed. The same completion triggered an upstream null-parameter hint NPE; this is partial evidence, not a completed or released completion workflow."
+        "cold_external_observation": "Final-source macOS candidate4 (cac8501) native Basic completed external.Gree to Greeting after a cold external rename; unique candidate inserted directly, no popup retained. Cmd+P visibly showed <no parameters> without the candidate3 NPE, Cmd+B reached the external declaration, and Run/uncached Test passed. Source-matched local App evidence is separate from CI installer bytes; complete contextual completion, popup layout and Windows acceptance remain open."
       }
     },
     {
@@ -289,7 +289,7 @@
         "native_record": "../verification/multicaret-gopls-native.json",
         "observation": "Actual native two-caret edits produced versioned real gopls compiler diagnostics: versions 5/6/7/8 returned 2/0/2/0 errors across paste/Undo/Redo/Undo, with matching native highlight counts. Actual hover returned Unicode tags and unsaved Undo overlays. SA5008 tag-name warnings were recorded separately. Full inspection/quick-fix behavior, all races and commercial runtime remain open.",
         "cold_external_refresh_native": "cold-external-refresh-20261113.zh-CN.md",
-        "cold_external_observation": "MacOS candidate3 with fresh isolated configuration automatically showed undefined external.Message and then cleared it after external-only disk rename/restore; caller bytes were unchanged, no manual refresh/restart occurred, recorded gopls identities persisted. Exact phase artifacts and source-bound 962-test gate are documented; candidate3 had a separate signature-help NPE and was not released. Full diagnostics/inspections/quick fixes and Windows remain open."
+        "cold_external_observation": "Final-source macOS candidate4 (cac8501, 966 tests/173 XML) with fresh isolated configuration automatically showed undefined external.Message and cleared it after external-only disk rename/restore. Caller bytes stayed unchanged; no manual refresh/restart; recorded gopls identities persisted. Second cold rename, completion and explicit parameter hint passed without the candidate3 NPE. Full diagnostics/inspections/quick fixes, missing/deleted roots and Windows remain open."
       }
     },
     {

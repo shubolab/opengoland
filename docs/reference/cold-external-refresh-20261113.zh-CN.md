@@ -1,6 +1,6 @@
 # 项目外 Go 依赖刷新：2026-11-13 原生观察与修复草稿
 
-**状态：candidate3 已观察到冷外部依赖自动报错、恢复、跳转和无缓存测试成功，但补全另触发参数提示空值异常，仍未发布。** 下文各阶段分别绑定源码与产物，不能作为“最终版本已发布”或“完整 GoLand 对齐”的结论。
+**状态：固定源码 `cac8501` 的 candidate4 已通过本机限定场景复验，包括冷外部依赖、零参数提示、Run/Test 和最终图标。** 完整本机门禁为 966 项 / 173 报告，另 86 项 Python 通过；新 EXE/DMG 的最终发布核验与完整 GoLand 对齐仍是独立事项。下文各历史阶段不混用源码或产物。
 
 本轮发现的问题很具体：项目通过 `replace` 使用项目目录外的本地模块。在 IDE 从未打开该依赖文件的情况下，外部工具改了函数名，编辑器的分析没有跟上磁盘。结果既出现“编辑器没有报错，但运行编译失败”，也出现“编辑器报错，但运行成功”。
 
@@ -144,12 +144,35 @@ candidate3 的完整门禁为 **962 项 / 172 报告，零失败/错误/跳过**
 
 这条操作链同时发现新的阻断：零参数函数补全触发 signatureHelp 后，`LSPParameterInfoHandler.updateUI:143` 对可缺省的 `parameters` 调用 `size()`，抛出 NPE。[必要错误栈](cold-external-refresh-20261113-evidence/candidate3-signature-help-error.json)摘自日志第 336 行起；没有复制完整日志。后续已写入这个上游可选值处理的修正，**candidate3 没有发布**，其原生结果不能证明修改后的 handler 已通过。
 
-后续空值修正使用补丁 `6e5f7e12…584fef`：缺失参数列表沿用原有空列表的本地化展示，不据此推断函数的真实参数个数，也不关闭参数提示。相同回归源码在旧实现上 4 项中仅空值一项失败；修正后实际 handler 4 项及既有初始化/封存 5 项合计 **9/9 通过**。[阶段摘要](cold-external-refresh-20261113-evidence/signature-help-null-stage-summary.json)与三份 `signature-help-null-*.xml` 保留源码绑定和红绿结果。公开源码构建器现为 21 源 / 42 类，原有 20 个源及 41 个类逐字节未变；新增 handler 的源码修正仍待 candidate4 打包和原生复验。
+后续空值修正使用补丁 `6e5f7e12…584fef`：缺失参数列表沿用原有空列表的本地化展示，不据此推断函数的真实参数个数，也不关闭参数提示。相同回归源码在旧实现上 4 项中仅空值一项失败；修正后实际 handler 4 项及既有初始化/封存 5 项合计 **9/9 通过**。[阶段摘要](cold-external-refresh-20261113-evidence/signature-help-null-stage-summary.json)与三份 `signature-help-null-*.xml` 保留源码绑定和红绿结果。公开源码构建器现为 21 源 / 42 类，原有 20 个源及 41 个类逐字节未变；该源码阶段没有启动 popup，后续原生结果见 candidate4。
 
-图标随后也有一项细化：测试文件角标由试管改为独立绘制的红绿方向三角。candidate2/3 截图只证明当时的蓝色 Gopher、功能侧栏及旧测试角标，**不代表最终测试角标已原生验收**；最终视觉仍待复验。
+图标随后也有一项细化：测试文件角标由试管改为独立绘制的红绿方向三角。candidate2/3 截图只证明当时的蓝色 Gopher、功能侧栏及旧测试角标；最终图标的原生深浅主题结果见 candidate4。
 
 App 正常退出后，[收尾摘要](cold-external-refresh-20261113-evidence/candidate3-post-quit.json)记录 4 个已知 PID 消失、15 个自有源文件恢复，`codesign --verify --deep --strict` exit 0；这不代表公证或未采样子进程均已核验。新源码仍需重新打包和复验补全/参数提示及依赖链路，再完成新 tag、Windows EXE/macOS DMG 发布。Windows 原生交互、整个根删除重建、深层新增目录、GUI build tags 与未保存 overlay 继续开放；当前局部成功不能替代完整矩阵。
 
-截至本稿，实际保留 **7 组旧 product、2 组 reference、2 组中间 candidate1、2 组 candidate2 图标、5 组 candidate3** 的 PNG 与 REA 元数据摘要，另保留必要失败摘录，详见[文件及 SHA 清单](cold-external-refresh-20261113-evidence/manifest.json)。candidate3 五帧均关闭 AX 捕获；没有用截图代替未保留的补全 popup。提交目录没有完整 AX、profile、config、许可文件或完整 `idea.log`。
+## candidate4：固定源码的最终本机复验
+
+本机 App 来自固定提交 **`cac85013896b0508d88dab9f8c42d5bbc388fec0`**，版本为 `0.1.0-preview.20261114.1`。586 个封存输入摘要 `59dd547a…3f4c02` 已逐个与该 Git 提交的原始 blob 独立核对；内置 engine 的 VCS 元数据同为此提交、`modified=false`。插件 JAR 为 `302a326b…6c8520`，启动器为 `0685a656…a9dcbc`。[输入与关键产物提取](cold-external-refresh-20261113-evidence/candidate4/source-inputs.json)、[原始构建时摘要](cold-external-refresh-20261113-evidence/candidate4/build-summary.json)和[最终原生摘要](cold-external-refresh-20261113-evidence/candidate4/native-summary.json)分别保留绑定；构建时的 pending 状态按历史原样保留。
+
+原始 [173 份 XML 压缩包](cold-external-refresh-20261113-evidence/candidate4/test-results.tar.gz)独立统计为 **966 项、零失败/错误/跳过**；[Python 日志](cold-external-refresh-20261113-evidence/candidate4/python-tests.log)为 86 项通过。原生实例 PID `57781` / window `6525` 使用同一 Go runtime，gopls PID `57942`、`57943` 未变：
+
+| 实际操作 | 结果与证据 |
+| --- | --- |
+| 外部源文件从未打开，只在磁盘把 Message 改为 Greeting | 调用方字节不变，自动出现 [undefined Message](cold-external-refresh-20261113-evidence/candidate4/cold-error.png)；没有手动刷新或重启 |
+| 只恢复外部 Message，再次冷改名 | 第一次恢复后自动[清除诊断](cold-external-refresh-20261113-evidence/candidate4/cold-restored.png)，第二次变化仍被感知；之后才编辑调用方 |
+| Basic completion：Gree → Greeting，再 Cmd+P | 唯一 Greeting 自动插入；没有保留 completion popup。实际参数提示显示 [`<no parameters>`](cold-external-refresh-20261113-evidence/candidate4/no-parameters.png)，本次未再触发旧 NPE |
+| 保存调用方、Run、Cmd+B | 输出 `外部-v1\|workspace-two\|default\|中文😀`，exit 0；跳到项目外 [Greeting 定义](cold-external-refresh-20261113-evidence/candidate4/greeting-navigation.png) |
+| 原生 TestCompose，Go tool arguments 为 `-count=1` | 实际 `go test -json -count=1 -run ^TestCompose$ .`：[1 passed / PASS / package 0.689s / exit 0](cold-external-refresh-20261113-evidence/candidate4/uncached-test.png) |
+| 最终图标 | [深色](cold-external-refresh-20261113-evidence/candidate4/baseline.png)与 [Islands Light](cold-external-refresh-20261113-evidence/candidate4/light-icons.png)均观察到透明 Gopher、红绿测试角标、mod/work 区分和功能侧栏 |
+
+正常退出后，[收尾完整性记录](cold-external-refresh-20261113-evidence/candidate4/post-quit.json)确认 4 个已知 PID 消失、15 个自有源文件恢复，586 输入、manifest、插件及启动器摘要不变；`codesign --verify --deep --strict` exit 0，整个本次日志没有 SEVERE/ERROR 命中。已知 PID 范围不扩展为未采样子进程证明，签名结构检查也不等于公证。
+
+![固定源码 candidate4：实际编辑、Run 与项目外跳转、无缓存测试三个阶段](../demo/native-go-workflow-20261114.gif)
+
+这份 [GIF 录制记录](../demo/native-go-workflow-20261114-recording.json)绑定三张最终 REA 原生截图，每张停留 4 秒，共 12 秒；只作统一缩放与 GIF 调色，没有补画 UI、光标或注释。它是实际操作阶段画面，未伪装成连续录像。七张原图均关闭 REA AX 捕获；参数提示的 CUA AX 观察与截图分别记录。
+
+以上只证明这份固定源码在本机、自有工程和所述操作链的结果，不宣称与随后 CI 的 EXE/DMG 字节相同。**36 × 2 验收矩阵继续开放**：Windows 交互、macOS 调试权限、整个外部根删除重建、深层新增目录、资源上限之外的工程及其他未覆盖工作流仍需独立验收。
+
+截至本稿，实际保留 **7 组旧 product、2 组 reference、2 组中间 candidate1、2 组 candidate2 图标、5 组 candidate3、7 组最终源码 candidate4** 的 PNG 与 REA 元数据摘要，另保留必要失败摘录，详见[文件及 SHA 清单](cold-external-refresh-20261113-evidence/manifest.json)。没有用截图代替未保留的补全 popup；提交目录没有完整 AX、profile、config、许可文件或完整 `idea.log`。
 
 原始 product、gopls 与参考实例的已知 PID 均已消失。桌面工具随后额外打开的无工程实例不计入验收，并已按确切生成应用进程清理。两份自有工程的 15 个初始源文件均已恢复。检查无运行依赖和打开文件后，清理了三套已结束的隔离配置/索引，实测可用空间增加 1,762,250,752 字节；保留共享 SDK、参考应用、当前产品 App 和紧凑证据。

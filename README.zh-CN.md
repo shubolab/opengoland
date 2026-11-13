@@ -10,11 +10,11 @@
 
 ## 运行起来是什么样
 
-![open Goland 真实运行示例：编辑器、中文输出、测试、断点和单步调试](docs/demo/native-go-workflow.gif)
+![open Goland 实际运行：Go 文件图标、程序输出、定义跳转和测试](docs/demo/native-go-workflow-20261114.gif)
 
-用仓库自带的 [Go 示例项目](fixtures/go-workspace)实际演示：打开代码 → 运行中文输出 → 查看测试结果 → 断点调试、单步执行和表达式求值。
+这是实际运行的 **0.1.0-preview.20261114.1 macOS arm64 候选版**：运行含中文和 emoji 的 Go 程序 → 跳到项目外本地依赖的新函数定义 → 在原生测试面板查看一次不使用结果缓存的测试。文件树中可以区分 Go 源码、测试、模块和工作区文件，侧栏也按功能显示不同图标。
 
-画面来自 macOS Apple silicon 上的 **0.1.0-preview.20261110.4 开发构建**，按真实操作步骤播放，压缩了中间的空闲等待。[录制版本与复现方法](docs/demo/README.md)有更详细的说明；可下载安装的版本以下面的下载说明为准。
+动图由三个真实操作阶段的窗口截图组成，共 12 秒，不是连续录屏。[示例源码](docs/reference/cold-external-refresh-20261113-evidence/fixture)与[录制记录](docs/demo/native-go-workflow-20261114-recording.json)保留了复现方法和验证范围；公开安装包以下方下载区为准。另保留[早期版本的断点与单步调试演示](docs/demo/native-go-workflow.gif)，其版本和环境见[演示说明](docs/demo/README.md)。
 
 ![原生构建标签、测试调试、补全自动导入和一次撤销](docs/demo/native-build-context-completion.gif)
 

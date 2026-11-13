@@ -1,6 +1,6 @@
 # 真实运行演示 / Native workflow demo
 
-README 中的 `native-go-workflow.gif` 来自 open Goland 实际运行的窗口。
+历史演示 `native-go-workflow.gif` 来自 open Goland 实际运行的窗口。
 它依次展示编辑器、程序输出、测试结果、断点和单步求值。每一步都实际执行，
 将各阶段的窗口截图按顺序播放，并压缩空闲等待；它不是连续录屏。
 
@@ -69,3 +69,26 @@ README 中的 `native-go-workflow.gif` 来自 open Goland 实际运行的窗口�
 它依次展示默认标签下测试通过、切换 `native_extra` 后另一项测试调试通过、接受补全并自动导入，以及一次撤销。没有可靠捕获候选列表，因此不展示或虚构 Lookup 帧。录制时候选版尚未发布，且打开被排除文件的语言服务通知问题仍未修复；不能据此认为全部功能或后续修复已经验收。
 
 四个示例文件已放入 [fixtures/native-workflow](../../fixtures/native-workflow)，与录制临时副本中的对应文件逐字节一致。操作方法、临时测试快捷键和代码还原步骤见该目录的说明；系统、原始画面摘要、REA 证据与生成物信息见 [build-context-completion-recording.json](build-context-completion-recording.json)。原 `.4` 动图及其版本记录保持原样。
+
+## 2026-11-14：Go 图标、外部依赖与无缓存测试
+
+首页当前主图 `native-go-workflow-20261114.gif` 来自独立 App 的实际窗口，
+录制版本为 `0.1.0-preview.20261114.1`，macOS arm64，固定源码 `cac8501`。
+三个阶段各 4 秒：默认程序运行并输出中文和 emoji、Cmd+B 跳到项目外本地依赖的
+新 `Greeting` 定义、原生测试面板显示 1 passed 和退出码 0。
+这是按操作顺序播放的截图，不是连续录屏，也没有新增调试验收结论。
+
+[示例](../reference/cold-external-refresh-20261113-evidence/fixture)包含两个工作区
+模块、一个回退模块和项目外的本地依赖。复制整个 fixture 目录，在 IDE 中打开
+`project`，打开 `one/main.go` 后运行。外部文件里的 `Message` 改为 `Greeting`
+时，调用方在不修改的情况下自动出现错误；只恢复外部文件后错误消失。
+再次改名，输入 `Gree` 并执行 Basic 补全，可接受唯一的 `Greeting` 候选，
+保存后运行、在调用处 Cmd+B 跳转。打开 `main_default_test.go`，在原生 Go Test
+配置中填写 Go tool arguments `-count=1`，执行 `TestCompose`，确认实际命令和 PASS。
+仅在自有副本中执行这些修改。
+
+最终候选还实际检查了 Cmd+P 的 `<no parameters>` 提示、深浅主题中的最终图标，
+以及正常退出后的进程回收与签名完整性。这些不是 GIF 中额外添加的画面。
+[录制记录](native-go-workflow-20261114-recording.json)和
+[原生验证](../reference/cold-external-refresh-20261113.zh-CN.md)
+区分了本机 App 与云端安装包证据；完整 GoLand 对齐和 Windows 交互仍需继续验收。

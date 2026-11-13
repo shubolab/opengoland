@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidateVersion": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "evidenceId": "ev_abe41a609e1cc06a4d82681512a7eae31467ccf6f377cfbbc452302d734b31d4",
+  "launcherSha256": "0685a65639a0bca081fd526ebf3dc57d7fe295526afb430d4d00818642a9dcbc",
+  "window": {
+    "pid": 57781,
+    "window_id": 6525,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794608601.121365,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 57781,
+    "window_id": 6525,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "397f5e7f9a3eb285cda20137666ab13eb7cb656f5454457dc01fecc3e2b49f1f",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "External-only restore to Message; unchanged caller automatically clears diagnostic.",
+  "proofLimit": "Exact selected native macOS PID/window still capture with separate CUA operations; no continuous recording, REA AX or retained Basic completion popup; no Windows/full-parity/release assertion.",
+  "sourceMetadataSha256": "0363bad691e45a07f8bd0940609e09b36a655d171db07a2d0d26aded7c1effca"
+}

@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidateVersion": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "evidenceId": "ev_f71ae54a50d91f68325f24964865bc9f250be44e3872255e6be4d7ddbfc21c82",
+  "launcherSha256": "0685a65639a0bca081fd526ebf3dc57d7fe295526afb430d4d00818642a9dcbc",
+  "window": {
+    "pid": 57781,
+    "window_id": 6525,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794608601.121365,
+    "title": "project – <repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go"
+  },
+  "captureParameters": {
+    "pid": 57781,
+    "window_id": 6525,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "281d24fcee3e0d15ca4f8b9cb9359c0e5df96ba036ee8454984b7217e5397bcc",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Cmd+B enters outside-project Greeting; Run shows Chinese/emoji output and exit0.",
+  "proofLimit": "Exact selected native macOS PID/window still capture with separate CUA operations; no continuous recording, REA AX or retained Basic completion popup; no Windows/full-parity/release assertion.",
+  "sourceMetadataSha256": "031b8577232f5c5133636779f56b4a0dc35df0c73ed65ac2f3ed2be8ea921960"
+}

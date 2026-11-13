@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidateVersion": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "evidenceId": "ev_a1292bab1812741acfa5ec21a530cfe9784effb80cd7a590d85b9060e70eb0cb",
+  "launcherSha256": "0685a65639a0bca081fd526ebf3dc57d7fe295526afb430d4d00818642a9dcbc",
+  "window": {
+    "pid": 57781,
+    "window_id": 6525,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794608601.121365,
+    "title": "project – main_default_test.go"
+  },
+  "captureParameters": {
+    "pid": 57781,
+    "window_id": 6525,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "4eec7794432cbf81ecb292217ec99fbeccd55628f22b52f0d3015b0b6f253ac7",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Final Islands Light visual check: source/test red-green badges/mod/work and functional sidebar.",
+  "proofLimit": "Exact selected native macOS PID/window still capture with separate CUA operations; no continuous recording, REA AX or retained Basic completion popup; no Windows/full-parity/release assertion.",
+  "sourceMetadataSha256": "3990eebe14c08ed8d59f055bb1995ced726f09d9faff644e29288ca6ef5503e7"
+}

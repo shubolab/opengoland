@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "status": "bounded final-source native macOS checks passed; full GoLand matrix and dual-platform release verification remain open",
+  "candidate": "candidate4",
+  "version": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "buildInputs": {
+    "count": 586,
+    "digest": "59dd547a00eecb7f06cfd53255561b80b08baa3fb69fa4d060d04a86f73f4c02",
+    "matchedToFixedGitInputs": true
+  },
+  "sourceEngine": {
+    "revision": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+    "modified": false
+  },
+  "appPid": 57781,
+  "windowId": 6525,
+  "goplsPidsUnchanged": [
+    57942,
+    57943
+  ],
+  "buildTimeSummary": "build-summary.json; its pending status is historical before the native checks",
+  "fullGateFromOriginalXml": {
+    "reports": 173,
+    "tests": 966,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pythonTests": {
+    "tests": 86,
+    "passed": true,
+    "log": "python-tests.log"
+  },
+  "externalOperations": {
+    "candidate4-external-mutation-1.json": {
+      "at": "2026-11-13T22:29:21.076179+00:00",
+      "operation": "external-only cold rename Message to Greeting",
+      "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "externalEditorOpened": false,
+      "manualRefreshOrRestart": false,
+      "appPid": 57781,
+      "goplsPids": [
+        57942,
+        57943
+      ],
+      "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0"
+    },
+    "candidate4-external-restore-1.json": {
+      "at": "2026-11-13T22:32:13.727995+00:00",
+      "operation": "external-only restore; caller unchanged",
+      "externalSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "manualRefreshOrRestart": false,
+      "appPid": 57781,
+      "goplsPids": [
+        57942,
+        57943
+      ]
+    },
+    "candidate4-external-mutation-2.json": {
+      "at": "2026-11-13T22:35:28.494985+00:00",
+      "operation": "second cold rename before native completion and parameter info",
+      "mainUnchanged": true,
+      "externalEditorOpened": false,
+      "manualRefreshOrRestart": false,
+      "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "appPid": 57781,
+      "goplsPids": [
+        57942,
+        57943
+      ]
+    }
+  },
+  "completionAndParameterInfo": {
+    "at": "2026-11-13T22:41:03.616537+00:00",
+    "appPid": 57781,
+    "basicCompletion": "pasted Gree -> native Basic inserted unique Greeting",
+    "explicitParameterInfo": "Cmd+P inside Greeting() displayed <no parameters> in actual AX and screenshot",
+    "mainSha256": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6",
+    "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+    "ideSevereOrErrorMatchesAfterAction": 0,
+    "hintScreenshot": "evidence/candidate4-no-parameters.png",
+    "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0"
+  },
+  "runAndNavigation": {
+    "nativeAction": "Save caller, Run; Cmd+B on Greeting",
+    "output": "外部-v1|workspace-two|default|中文😀",
+    "runExitCode": 0,
+    "navigationTarget": "outside project external/external.go: Greeting",
+    "evidence": "greeting-navigation.png",
+    "observationSource": "Parent CUA native operation record and exact REA window capture"
+  },
+  "uncachedNativeTest": {
+    "command": "go test -json -count=1 -run ^TestCompose$ .",
+    "result": {
+      "passed": 1,
+      "packageSeconds": 0.689,
+      "exitCode": 0
+    },
+    "evidence": "uncached-test.png"
+  },
+  "finalIcons": {
+    "dark": "baseline.png",
+    "light": "light-icons.png",
+    "testBadge": "independently drawn red/green direction triangles",
+    "nativeTheme": "Islands Light; source/test/mod/work and functional sidebar visually checked"
+  },
+  "postQuit": {
+    "at": "2026-11-13T22:52:41.860290+00:00",
+    "version": "0.1.0-preview.20261114.1",
+    "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+    "buildInputCount": 586,
+    "buildInputDigest": "59dd547a00eecb7f06cfd53255561b80b08baa3fb69fa4d060d04a86f73f4c02",
+    "nativeAcceptance": "bounded candidate4 scenarios passed; full GoLand parity matrix remains open",
+    "knownPidsNoLongerExist": [
+      57781,
+      57882,
+      57942,
+      57943
+    ],
+    "codesignDeepStrictExit": 0,
+    "all15FixtureSourcesRestored": true,
+    "severeOrErrorLogMatches": 0,
+    "manifestAndProductHashesUnchanged": true,
+    "testCommand": "go test -json -count=1 -run ^TestCompose$ .",
+    "testResult": {
+      "passed": 1,
+      "packageSeconds": 0.689,
+      "exitCode": 0
+    },
+    "lightTheme": "Islands Light; source/test/mod/work and functional sidebar visually checked",
+    "scope": "Known recorded process identities only; not a claim about unsampled descendants"
+  },
+  "knownLimits": [
+    "Actual Basic completion inserted unique Greeting; its popup was not retained.",
+    "All seven REA captures are screenshot-only; parameter hint AX observation belongs to separate CUA record.",
+    "This own fixture and currently open package dependencies only; no full external-root recreation, deep-new-directory or arbitrary resource-limit acceptance.",
+    "No new Windows interactive acceptance or macOS debug-permission change.",
+    "All 36x2 acceptance-matrix rows remain open; this local App is not claimed byte-identical to later CI EXE/DMG."
+  ],
+  "inputRecordSha256": {
+    "candidate4-external-mutation-1.json": "be98f6bbe2c627e9c438da07830c67ee2a47e40fa6e76882709700cbc99897d5",
+    "candidate4-external-restore-1.json": "1c0ea8693b68cc59e66aecaa3b5698006dfebbd052d0fb9eaa45f7f03bac0c01",
+    "candidate4-external-mutation-2.json": "7b375b8411786d67317cca2436daa207439d1b904306e017b96868d376e5b26c"
+  }
+}

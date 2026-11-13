@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-13T22:41:03.616537+00:00",
+  "appPid": 57781,
+  "basicCompletion": "pasted Gree -> native Basic inserted unique Greeting",
+  "explicitParameterInfo": "Cmd+P inside Greeting() displayed <no parameters> in actual AX and screenshot",
+  "mainSha256": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6",
+  "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+  "ideSevereOrErrorMatchesAfterAction": 0,
+  "hintScreenshot": "evidence/candidate4-no-parameters.png",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0"
+}

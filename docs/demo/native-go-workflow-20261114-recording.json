@@ -1,0 +1,103 @@
+{
+  "schemaVersion": 1,
+  "recordedOnLocalDate": "2026-11-14",
+  "timeZone": "Asia/Shanghai",
+  "scope": "Three real native operation-stage screenshots held for four seconds each; not continuous video or Windows acceptance.",
+  "candidate": {
+    "version": "0.1.0-preview.20261114.1",
+    "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+    "stateAtCapture": "final-source local candidate; not a claim that CI installers are already public",
+    "sourceInputsMatchedToGit": 586,
+    "buildInputDigest": "59dd547a00eecb7f06cfd53255561b80b08baa3fb69fa4d060d04a86f73f4c02",
+    "pluginJarSha256": "302a326b7340cda4b622db682de3b85362ff86a550ea23bed3bc346d676c8520",
+    "launcherSha256": "0685a65639a0bca081fd526ebf3dc57d7fe295526afb430d4d00818642a9dcbc",
+    "engineVcsMetadata": {
+      "revision": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+      "modified": false
+    }
+  },
+  "capture": {
+    "method": "CUA native actions, REA exact PID57781/window6525 still screenshots",
+    "platform": "macOS arm64",
+    "appPid": 57781,
+    "goplsPidsUnchanged": [
+      57942,
+      57943
+    ],
+    "fixture": "docs/reference/cold-external-refresh-20261113-evidence/fixture",
+    "sourceFrames": [
+      {
+        "stage": "baseline",
+        "evidenceId": "ev_64323b915e759e09e7a037b5261f7e92b32e9d69de3b8051595e514090b5ea65",
+        "pid": 57781,
+        "windowId": 6525,
+        "windowTitle": "project – main.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate4/baseline.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "72fcfa965eec56a06667736528ae0b210a13df75cb4a9a8fc5310dcccda1c978",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      },
+      {
+        "stage": "greeting-navigation",
+        "evidenceId": "ev_f71ae54a50d91f68325f24964865bc9f250be44e3872255e6be4d7ddbfc21c82",
+        "pid": 57781,
+        "windowId": 6525,
+        "windowTitle": "project – <repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate4/greeting-navigation.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "281d24fcee3e0d15ca4f8b9cb9359c0e5df96ba036ee8454984b7217e5397bcc",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      },
+      {
+        "stage": "uncached-test",
+        "evidenceId": "ev_9cb4653a9d882ed9834657f35294591253d579809baae71df0cc30282b697167",
+        "pid": 57781,
+        "windowId": 6525,
+        "windowTitle": "project – main_default_test.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate4/uncached-test.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "22e1b09dc1da3611cc08aa2665626fb2f9fcdbb071b235e4663277801358fab8",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      }
+    ],
+    "nativeVerification": "docs/reference/cold-external-refresh-20261113-evidence/candidate4/native-summary.json"
+  },
+  "encoding": {
+    "tool": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "transform": "Uniform Lanczos scaling and global palette conversion only; no cropping, annotations, synthetic cursor, transitions or simulated UI.",
+    "width": 1200,
+    "height": 857,
+    "frames": 3,
+    "durationMs": 12000,
+    "framePtsSeconds": [
+      0,
+      4,
+      8
+    ],
+    "path": "docs/demo/native-go-workflow-20261114.gif",
+    "bytes": 270682,
+    "sha256": "ce3cf8977635a2861ed7b21f716923173c66efd08b2b7b7e865a933a325f3f62",
+    "palette": "256 colors; no dithering"
+  },
+  "limitations": [
+    "Three native stages with idle time compressed; no continuous completion-popup recording.",
+    "Run0 Chinese/emoji output, external Greeting navigation and -count=1 native test pass are visible in the corresponding original frames.",
+    "All original REA frames have AX capture disabled; CUA parameter-info observations are separate.",
+    "Source-input match is independent of later CI installer bytes; dual-platform release checks and the full 36x2 matrix remain separate."
+  ]
+}

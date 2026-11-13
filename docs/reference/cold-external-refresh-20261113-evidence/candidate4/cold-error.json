@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidateVersion": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "evidenceId": "ev_491434ec8544a5834d9b45f74eee8c12efaf1127bbafe53f562b9d745d23cf0a",
+  "launcherSha256": "0685a65639a0bca081fd526ebf3dc57d7fe295526afb430d4d00818642a9dcbc",
+  "window": {
+    "pid": 57781,
+    "window_id": 6525,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794608601.121365,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 57781,
+    "window_id": 6525,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "f77d0e2a1de0f4bb6225c094d6abb3b325d9be45964995e36802fb1b70227bf6",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Cold external-only Message -> Greeting; unchanged caller automatically shows undefined external.Message.",
+  "proofLimit": "Exact selected native macOS PID/window still capture with separate CUA operations; no continuous recording, REA AX or retained Basic completion popup; no Windows/full-parity/release assertion.",
+  "sourceMetadataSha256": "f85baa84b01c2ac3eb2e069a67129074e97fea597824b0488e585b71f8e4ac83"
+}

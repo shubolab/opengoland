@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidateVersion": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "evidenceId": "ev_64323b915e759e09e7a037b5261f7e92b32e9d69de3b8051595e514090b5ea65",
+  "launcherSha256": "0685a65639a0bca081fd526ebf3dc57d7fe295526afb430d4d00818642a9dcbc",
+  "window": {
+    "pid": 57781,
+    "window_id": 6525,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794608601.121365,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 57781,
+    "window_id": 6525,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "72fcfa965eec56a06667736528ae0b210a13df75cb4a9a8fc5310dcccda1c978",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Baseline native Go editor and final file/sidebar icons.",
+  "proofLimit": "Exact selected native macOS PID/window still capture with separate CUA operations; no continuous recording, REA AX or retained Basic completion popup; no Windows/full-parity/release assertion.",
+  "sourceMetadataSha256": "fbf05c4901b5d1c94ed274e9329304f57cfb37a95c05fe24f00f93c6f2e3b251"
+}

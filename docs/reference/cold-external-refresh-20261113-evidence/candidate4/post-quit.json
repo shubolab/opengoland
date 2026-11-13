@@ -1,0 +1,26 @@
+{
+  "at": "2026-11-13T22:52:41.860290+00:00",
+  "version": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "buildInputCount": 586,
+  "buildInputDigest": "59dd547a00eecb7f06cfd53255561b80b08baa3fb69fa4d060d04a86f73f4c02",
+  "nativeAcceptance": "bounded candidate4 scenarios passed; full GoLand parity matrix remains open",
+  "knownPidsNoLongerExist": [
+    57781,
+    57882,
+    57942,
+    57943
+  ],
+  "codesignDeepStrictExit": 0,
+  "all15FixtureSourcesRestored": true,
+  "severeOrErrorLogMatches": 0,
+  "manifestAndProductHashesUnchanged": true,
+  "testCommand": "go test -json -count=1 -run ^TestCompose$ .",
+  "testResult": {
+    "passed": 1,
+    "packageSeconds": 0.689,
+    "exitCode": 0
+  },
+  "lightTheme": "Islands Light; source/test/mod/work and functional sidebar visually checked",
+  "scope": "Known recorded process identities only; not a claim about unsampled descendants"
+}

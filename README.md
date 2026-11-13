@@ -11,14 +11,20 @@ components of the generated product.
 
 ## See it running
 
-![Actual open Goland workflow: editor, Go output, tests, breakpoint and single step](docs/demo/native-go-workflow.gif)
+![Actual open Goland: Go icons, program output, definition navigation and tests](docs/demo/native-go-workflow-20261114.gif)
 
-The repository's [Go example](fixtures/go-workspace) in the real native IDE:
-open code, run the Chinese greeting, inspect passing tests, then debug and
-evaluate an expression. These are actual operation stages with idle time
-compressed, captured on macOS Apple silicon from development build
-**0.1.0-preview.20261110.4**. See [capture details and reproduction steps](docs/demo/README.md).
-The published installers are listed below.
+The **0.1.0-preview.20261114.1 macOS arm64 candidate** running in its native
+window: run a Go program with Chinese and emoji output, navigate to a newly
+named function in a local dependency outside the project, then inspect one
+uncached test. Source, test, module and workspace files have distinct icons;
+sidebar icons identify their functions.
+
+Three real operation-stage screenshots play for 12 seconds; this is not
+continuous video. See the [example source](docs/reference/cold-external-refresh-20261113-evidence/fixture)
+and [capture record](docs/demo/native-go-workflow-20261114-recording.json).
+Published installer versions are listed below. The [earlier breakpoint and
+single-step clip](docs/demo/native-go-workflow.gif) remains available with its
+original version and environment in the [demo notes](docs/demo/README.md).
 
 ![Native build tags, test debugging, completion with automatic import and one Undo](docs/demo/native-build-context-completion.gif)
 
