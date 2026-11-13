@@ -1,0 +1,84 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13T05:27:42Z",
+  "status": "pass-limited-macos-native-partial-commit-comparison",
+  "summaryZh": "同一文件两处独立修改，仅勾选第一处原生差异块并通过提交面板提交。GoLand 与 open Goland 的提交文件、剩余工作区差异及空暂存区逐字节相同；第二处中文修改完整保留。",
+  "environment": "macOS 27.2 arm64",
+  "reconstruction": {
+    "version": "0.1.0-preview.20261113.2",
+    "sourceCommit": "30288b0c50d36244378a2552c7131ed1e8484dac",
+    "sourceInputs": 552,
+    "sourceDigest": "81ecf5d158ac4e48e4f3a188d33dfcf35c65a0373c3c7fe9631eb60146bcb37e",
+    "packagedInputsMatchReleaseCommit": true,
+    "launcherSha256": "666e52f558e7db0e8cf8510d42c08aa18388c1d4ba18de58e3314581c338f68d",
+    "pluginJarSha256": "c792abca7b46def3f7985290702166c2762e5dc06817a5a3b0182a3949ffd07a",
+    "pid": 37748,
+    "windowId": 979,
+    "commit": "d89fc767f6ed45f31c7e5a290a52953fc0613ec3",
+    "screenshot": "assets/git-partial-native-20261113.png",
+    "screenshotSha256": "444e5b805d7f4ffdb0d6a84550199e81d0f0c7cfdbcdb8ee402c2d94d8febb40",
+    "reaEvidenceId": "ev_999e54e63b4ef826cc792931199cab6a221dfbcbf109dd31897a1ef7a55a473f"
+  },
+  "reference": {
+    "version": "GoLand 2026.1.4",
+    "build": "GO-261.26222.72",
+    "launcherSha256": "7a7b1da02131b070998bd58c03d6459674895bab7b1fd01401de5ff204ee40a5",
+    "pid": 38944,
+    "windowId": 1062,
+    "commit": "8a908e48a7cbe308ee3510468a67e715ed400fe5",
+    "screenshot": "assets/git-partial-reference-20261113.png",
+    "screenshotSha256": "7407477375bbec7242af5bb2ba2143a10f26f485de0d0f94affa22d1492dec91",
+    "reaEvidenceId": "ev_5a83182b7972af7d08053949d14f1ae80f44506225d35a95e03e16472bf53705",
+    "acquisitionLimit": "REA AX capture refused overlapping same-geometry windows. No UI action was attempted by REA. A separate screenshot-only observation captured exact PID/window; native interaction and text observations came from CUA."
+  },
+  "fixture": {
+    "initialCommit": "08c482d37dd1c9602084cb422d1edb511a612c1f",
+    "isolatedLocalRepositories": true,
+    "noRemoteConfigured": true,
+    "globalGitConfigurationChanged": false,
+    "baselineBody": "package gitpartial\n\nfunc First() string {\n\treturn \"first original\"\n}\n\n// spacer 01\n// spacer 02\n// spacer 03\n// spacer 04\n// spacer 05\n// spacer 06\n// spacer 07\n// spacer 08\n// spacer 09\n// spacer 10\n// spacer 11\n// spacer 12\n// spacer 13\n// spacer 14\n// spacer 15\n// spacer 16\n// spacer 17\n// spacer 18\n\nfunc Last() string {\n\treturn \"last original\"\n}\n",
+    "initialDiff": "diff --git a/changes.go b/changes.go\nindex 75b632e..3220e47 100644\n--- a/changes.go\n+++ b/changes.go\n@@ -1,7 +1,7 @@\n package gitpartial\n \n func First() string {\n-\treturn \"first original\"\n+\treturn \"first changed 中文😀\"\n }\n \n // spacer 01\n@@ -24,5 +24,5 @@ func First() string {\n // spacer 18\n \n func Last() string {\n-\treturn \"last original\"\n+\treturn \"last changed 留在工作区\"\n }"
+  },
+  "nativeSteps": [
+    "Open the owned fixture; Commit tool window shows changes.go.",
+    "Native Show Diff shows two differences and zero included changes.",
+    "Click only the first hunk checkbox; the view reports two differences and one included.",
+    "Enter Commit first hunk only 中文😀 and use Commit, without Push.",
+    "The UI reports one file committed. The remaining native diff shows last original versus last changed 留在工作区."
+  ],
+  "independentGitVerification": {
+    "committedBody": "package gitpartial\n\nfunc First() string {\n\treturn \"first changed 中文😀\"\n}\n\n// spacer 01\n// spacer 02\n// spacer 03\n// spacer 04\n// spacer 05\n// spacer 06\n// spacer 07\n// spacer 08\n// spacer 09\n// spacer 10\n// spacer 11\n// spacer 12\n// spacer 13\n// spacer 14\n// spacer 15\n// spacer 16\n// spacer 17\n// spacer 18\n\nfunc Last() string {\n\treturn \"last original\"\n}\n",
+    "committedBodySha256": "93a9ded259f7a6ba01d26dbe913d9b3f40d69408c8eef007ae222d3ce86447c9",
+    "workingBodySha256": "c5c13de0d3d47f135a1d6d6882e12a041910fe85cfb43598d7441fb6f3461514",
+    "remainingDiff": "diff --git a/changes.go b/changes.go\nindex e129afa..3220e47 100644\n--- a/changes.go\n+++ b/changes.go\n@@ -24,5 +24,5 @@ func First() string {\n // spacer 18\n \n func Last() string {\n-\treturn \"last original\"\n+\treturn \"last changed 留在工作区\"\n }\n",
+    "status": " M changes.go\n",
+    "indexDiffEmpty": true,
+    "committedBytesEqual": true,
+    "workingBytesEqual": true,
+    "remainingDiffEqual": true
+  },
+  "cleanup": {
+    "bothAppsQuitNormally": true,
+    "recordedKnownPidsGone": [
+      37748,
+      37788,
+      37824,
+      37833,
+      37835,
+      37838,
+      38055,
+      38057,
+      38944
+    ],
+    "bothLauncherHashesUnchanged": true,
+    "fixtureRetainedForReproduction": ".tools/continuation-20261113/git-partial/",
+    "businessRepositoriesModified": false
+  },
+  "boundary": [
+    "This is a local native macOS hunk-level partial commit, not an explicit Git staging-area toggle or line-level split of one hunk.",
+    "Reference and reconstruction used separate repositories seeded with the same initial commit and working source. The resulting commit IDs differ because commit metadata/time differs; tree content is identical.",
+    "Nonblocking inspection warnings were shown by both IDEs; warning equivalence was not evaluated.",
+    "Remote authentication/fetch/pull/push, rename/delete conflict variants and Windows interactive Git remain open.",
+    "The whole TOOLS-02 row and complete 36-by-2 matrix remain unverified."
+  ]
+}
