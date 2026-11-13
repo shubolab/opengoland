@@ -597,7 +597,10 @@
         "dockerfile": "../verification/dockerfile-native-20261112.json",
         "observation": "Native macOS file highlighting and bounded basic HTTP send/response/Stop/terminate-on-project-close are observed. SQL database features, Docker execution, template semantics, HTTP environment/scripts and Windows interaction remain open. This does not close TOOLS-04.",
         "http_reference": "../verification/http-client-reference-20261113.json",
-        "http_body_observation": "Six native GoLand body-boundary probes are retained as external vectors; reconstruction network regressions and the corrected native macOS 39-byte UTF-8 POST match those bounded observations. Full HTTP UI, environments/scripts, other formats and Windows interaction remain open."
+        "http_body_observation": "Six native GoLand body-boundary probes are retained as external vectors; reconstruction network regressions and the corrected native macOS 39-byte UTF-8 POST match those bounded observations. Full HTTP UI, environments/scripts, other formats and Windows interaction remain open.",
+        "http_batch_reference": "../verification/http-batch-reference-20261113.json",
+        "http_batch_native": "../verification/http-batch-native-20261113.json",
+        "http_batch_observation": "Bounded native macOS batch requests, named Services results, JSON/headers, per-item errors, deferred source navigation, single-item Run Again, Stop All, active removal, project-close Terminate and original-byte binary saving were observed in the fixed .13.3 development candidate. Full HTTP Client, other formats and Windows interaction remain open."
       }
     },
     {

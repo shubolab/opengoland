@@ -20,11 +20,12 @@
 
 这个补充片段展示切换构建标签后的测试、补全时自动导入，以及一次撤销。录于 **0.1.0-preview.20261110.6 构建前的开发候选版，macOS 27.2 arm64**，由真实操作截图制作；末帧有意撤回到尚未写完的代码。对应的 .6 安装包现已通过双平台构建并发布，[示例与复现步骤](fixtures/native-workflow)和[录制记录](docs/demo/build-context-completion-recording.json)保留了具体范围。
 
-![原生 HTTP 请求：中文 POST 响应、Stop 取消和 302 响应](docs/demo/native-http-client.gif)
+![原生 HTTP 批量请求：Services、单项错误和 Stop All](docs/demo/native-http-batch.gif)
 
-这个补充片段来自 macOS 上的 **0.1.0-preview.20261113.2 开发候选**，使用仓库中的
-[本地 HTTP 示例](fixtures/http-client)，展示真实 POST 响应、取消慢请求和查看 302。
-它由三张实际操作阶段截图组成，共 12 秒；[录制记录](docs/demo/http-client-recording.json)
+这个补充片段来自 macOS 上的 **0.1.0-preview.20261113.3 开发候选**，使用仓库中的
+[本地 HTTP 示例](fixtures/http-client)，展示批量请求的中文响应、单项变量错误后继续，
+以及 Stop All 取消当前和排队请求。它由三张实际操作阶段截图组成，共 12 秒；
+[录制记录](docs/demo/http-batch-recording.json)
 保留了具体构建与验证边界。公开安装包版本见下方下载区。
 
 ## 下载与安装
@@ -108,9 +109,11 @@ IDE 本身无需账号或付费；第三方插件保留自己的许可、收费�
 | 管工程 | `go.mod` / `go.work` 相关的 tidy、download、vendor、workspace sync、generate 等任务；原生终端和 Git 工具 |
 
 当前源码还提供 Go Template、SQL、Dockerfile 和 HTTP 请求文件的原生高亮。
-`.http` 可以从请求行左侧或右键 **Run HTTP Request** 发起请求，在原生 Run 面板查看响应、
-点击 Stop 取消；支持文件变量和 UTF-8 请求体。可直接试用[本地 HTTP 示例](fixtures/http-client)。
-这些新增能力已包含在上方 `.13.2` 安装包中。HTTP 环境文件、脚本、凭据管理，
+`.http` 可以运行当前请求，或用 **Run All Requests** 按顺序执行整个文件，在原生
+Services 面板按名称查看响应、格式化 JSON 和响应头；**Stop All** 取消整批，
+**Save Response…** 保存原始响应字节。可直接试用[本地 HTTP 示例](fixtures/http-client)。
+批量、Services 和保存功能正在 `.13.3` 候选中验收；上方公开 `.13.2` 安装包仍为
+单请求 Run 控制台。HTTP 环境文件、脚本、凭据管理，
 以及数据库连接、Docker 执行和模板语义分析仍未实现，见[支持范围](docs/verification/http-client.md)。
 
 ### 导航与重构

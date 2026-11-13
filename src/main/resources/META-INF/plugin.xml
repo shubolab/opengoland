@@ -52,6 +52,8 @@
         <lang.commenter language="OpenIDEAGoDockerfile" implementationClass="dev.openidea.goide.lang.DockerfileCommenter"/>
         <lang.commenter language="OpenIDEAGoHttpRequest" implementationClass="dev.openidea.goide.lang.HttpRequestCommenter"/>
         <runLineMarkerContributor language="OpenIDEAGoHttpRequest" implementationClass="dev.openidea.goide.http.HttpRequestRunLineMarkerContributor"/>
+        <serviceViewContributor implementation="dev.openidea.goide.http.HttpServicesContributor"/>
+        <notificationGroup id="open Goland HTTP" displayType="BALLOON"/>
         <lang.commenter language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoCommenter"/>
         <lang.braceMatcher language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoBraceMatcher"/>
         <lang.braceMatcher language="OpenIDEAGoSql" implementationClass="dev.openidea.goide.lang.SqlBraceMatcher"/>
@@ -145,10 +147,17 @@
     <extensions defaultExtensionNs="org.jetbrains.plugins.terminal">
         <localTerminalCustomizer implementation="dev.openidea.goide.terminal.GoTerminalCustomizer"/>
     </extensions>
+    <projectListeners>
+        <listener class="dev.openidea.goide.http.HttpRequestEditorToolbar" topic="com.intellij.openapi.fileEditor.FileEditorManagerListener"/>
+    </projectListeners>
     <actions>
         <action id="OpenIDEA.Http.RunRequest" class="dev.openidea.goide.http.RunHttpRequestAction" text="Run HTTP Request" description="Send the HTTP request at the caret">
             <add-to-group group-id="EditorPopupMenu" anchor="first"/>
         </action>
+        <action id="OpenIDEA.Http.RunAllRequests" class="dev.openidea.goide.http.RunAllHttpRequestsAction" text="Run All Requests" description="Run every request in this HTTP file in order">
+            <add-to-group group-id="EditorPopupMenu" anchor="first"/>
+        </action>
+        <action id="OpenGoland.Http.SaveResponse" class="dev.openidea.goide.http.SaveHttpResponseAction" text="Save Response…" description="Save the original HTTP response bytes"/>
         <action id="OpenIDEA.InstallChineseLanguagePack" class="dev.openidea.goide.plugins.InstallChineseLanguagePackAction" text="安装简体中文语言包… / Install Chinese Language Pack…" description="从 JetBrains 官方获取与当前平台匹配的简体中文语言包">
             <add-to-group group-id="HelpMenu" anchor="last"/>
             <add-to-group group-id="ToolsMenu" anchor="last"/>

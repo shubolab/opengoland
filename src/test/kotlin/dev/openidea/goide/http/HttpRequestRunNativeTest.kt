@@ -19,7 +19,7 @@ class HttpRequestRunNativeTest : LightPlatformTestCase() {
         assertNull(provider.getLineMarkerInfo(file.findElementAt(source.indexOf("GET"))!!))
         val next = provider.getLineMarkerInfo(file.findElementAt(source.lastIndexOf("GET"))!!)
         assertNotNull(next)
-        assertEquals(1, next!!.createGutterRenderer()!!.popupMenuActions!!.getChildren(null).size)
+        assertEquals(2, next!!.createGutterRenderer()!!.popupMenuActions!!.getChildren(null).size)
     }
 
     fun testRealHandlerUsesUnsavedSnapshotAndPrintsResponse() = LocalHttpFixture().use { fixture ->
@@ -29,7 +29,7 @@ class HttpRequestRunNativeTest : LightPlatformTestCase() {
             exchange.sendResponseHeaders(200, bytes.size.toLong()); exchange.responseBody.write(bytes)
         }
         val output = StringBuffer()
-        val handler = HttpRequestProcessHandler("GET ${fixture.base}/native", 0) {}
+        val handler = handler("GET ${fixture.base}/native")
         handler.addProcessListener(object : ProcessAdapter() {
             override fun onTextAvailable(event: ProcessEvent, outputType: Key<*>) { output.append(event.text) }
         })
@@ -43,7 +43,7 @@ class HttpRequestRunNativeTest : LightPlatformTestCase() {
     fun testNativeStopTerminatesOwnedRequestWithoutWaitingForServer() = LocalHttpFixture().use { fixture ->
         val entered = CountDownLatch(1); val release = CountDownLatch(1)
         fixture.route("/wait") { exchange -> entered.countDown(); release.await(); exchange.sendResponseHeaders(200, -1) }
-        val handler = HttpRequestProcessHandler("GET ${fixture.base}/wait", 0) {}
+        val handler = handler("GET ${fixture.base}/wait")
         try {
             handler.startNotify()
             PlatformTestUtil.waitWithEventsDispatching("Server must receive the request", { entered.count == 0L }, 10)
@@ -51,5 +51,10 @@ class HttpRequestRunNativeTest : LightPlatformTestCase() {
             PlatformTestUtil.waitWithEventsDispatching("Native Stop must finish promptly", { handler.isProcessTerminated }, 3)
             assertEquals(130, handler.exitCode)
         } finally { release.countDown(); handler.destroyProcess() }
+    }
+
+    private fun handler(text: String): HttpBatchProcessHandler {
+        val plan = HttpRequestDocument.plan(text)
+        return HttpBatchProcessHandler(plan, listOf(plan.entryAt(0)!!))
     }
 }

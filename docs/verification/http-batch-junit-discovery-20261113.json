@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "status": "failed local gate; no product assembly or publication",
+  "version": "0.1.0-preview.20261113.3",
+  "buildInputDigest": "ed84e4b66910101675138cb17fbfb8131277847aae627f684843a8b8e43146ad",
+  "buildInputCount": 566,
+  "summary": {
+    "reports": 167,
+    "tests": 912,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "failures": [
+    {
+      "class": "junit.framework.TestSuite$1",
+      "name": "warning",
+      "message": "junit.framework.AssertionFailedError: Test method isn't public: testServicesSnapshotsDoNotTakeLocksAndReuseEntryBoundToolbarActions$lambda$0$0$3$0$0$0(dev.openidea.goide.http.HttpRequestSessionNativeTest)"
+    }
+  ],
+  "navigationAndSnapshotActualTests": "All eight HttpRequestSessionNativeTest cases passed, including both new real SDK regressions; a generated private no-argument void lambda was additionally discovered as a JUnit3 test and rejected",
+  "correction": "Move no-capture Runnable positive control into a private helper whose name does not start with test; keep the real lock guard and eager descriptor positive controls",
+  "localRawReports": {
+    "path": ".tools/continuation-20261113/http-batch-junit-discovery/reports.tar.gz",
+    "sha256": "c434925770ba0a5d5c99ded2e15d76b7d2fc9b3257f6c677ae415dcadf9a4497"
+  },
+  "subsequentTargetedVerification": {
+    "status": "passed after helper extraction; complete package rerun started separately",
+    "tests": 8,
+    "reports": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "timestampUtc": "2026-11-13T07:59:35.405Z",
+    "rawXmlPath": ".tools/continuation-20261113/http-batch-junit-discovery/corrected-targeted-session.xml",
+    "sha256": "4adaae6ae17e788fcc1e8f5515283a4ebcbedbf4406c77b3477173f1d74bc893",
+    "testSourceSha256": "5bcdfd44f3e76fc5a77ddb085055c183a2063ab9894ec3df822409e98aa11f4d"
+  }
+}

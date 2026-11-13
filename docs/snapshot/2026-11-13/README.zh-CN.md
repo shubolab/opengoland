@@ -6,6 +6,24 @@ IDE 无账号、计费、订阅和试用门槛，开发工具认证继续保留�
 
 最近已公开并独立核验的安装版为 **[0.1.0-preview.20261113.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.2)**，包含本轮 HTTP 修复。两端各 861 个测试通过，Windows 8 项 owner 测试通过，下载入口现已更新。下文保留此前各阶段的有范围记录。
 
+## 本轮续接：HTTP 批量与 Services
+
+再次 fetch 后，远端 `main` 与本机 `4c8c96f` 一致。本轮正在准备 `.20261113.3`：编辑器顶部 Run All、按名称排列的原生 Services 结果、格式化/高亮响应、响应头、单项错误后继续、Stop All、原始响应保存和有界内存保留。公开 `.2` 仍使用单请求 Run 控制台，不能把开发源码当作已交付安装包。
+
+官方 GoLand 的七份隔离样例、16 个请求条目已保留为回归向量。实测确认文件变量可向前引用、同名重复定义导致引用失败、首个 `# @name` 优先。两个 GoLand Stop 探针虽然在 UI 中显示终止，后续请求仍发出，慢连接也未取消；本产品明确实现 Stop All，不复制这个行为。[参考记录](../../verification/http-batch-reference-20261113.json)说明原始服务端事件、确切窗口截图和取证范围。
+
+首个本机候选通过 **909 项测试 / 166 份报告**，但随后的原生验收发现 Services 数据快照中创建 `OpenFileDescriptor` 会触发 UI 线程锁限制，另有工具栏动作实例反复创建的警告。该候选未提交发布，修复后须重新打包并复验。已观察到的 503/变量错误继续、Stop All 断开且排队未发送、八字节二进制保存、退出 Terminate 断开，仅绑定该候选；[首轮记录](../../verification/http-batch-first-native-20261113.json)保留失败原因，不能作为修正版已通过的证明。
+
+生产修复已改成延迟导航并缓存各节点的工具栏动作。随后完整回归中，实际 911 项均通过（含 Session 的 8 项）；但 Kotlin 生成的无参匿名方法因名称以 `test` 开头，被 JUnit 3 额外当成非公开测试，产生第 912 项失败。没有组装或发布该包；[发现机制记录](../../verification/http-batch-junit-discovery-20261113.json)保留原始错误。测试正控移入普通 helper 后仍需重新确认完整门禁。
+
+最终修正版已通过 **911 项 / 166 报告，零失败、错误、跳过**，HTTP 共 72 项；插件构建、结构检查和独立 App 组装成功。输入为 **566 个 / `86585480…bc5d095`**，插件 JAR `17b78990…70056a`，启动器 `e133559a…d28a51`。本机复用了 engine，VCS 元数据仍为 `c7164f8 + modified=true`，其 Go 源码树未变；不能把这写成 clean head 重新编译的 engine。
+
+PID84677/window2269 的最终桌面复验通过：三条命名结果 200 → 503 → 200、中文 JSON 与 Headers、单项变量错误后继续、双击 Services 返回 `batch.http:9`、只重跑所选请求、Stop All（8 秒断开且排队未发）、活动 Remove Batch（5 秒断开，Services 条目及 Run 内容一起清理）、八字节二进制保存、Close Project → Terminate（9 秒断开并回到欢迎页）。随后 App 正常退出，已知 PID 消失，示例服务正常退出 0 且端口释放。
+
+[修正版记录](../../verification/http-batch-native-20261113.json)绑定实际日志和构建。运行后 `codesign --verify --deep --strict` 成功，15,139 个封存文件及全部输入摘要仍匹配；本次进程日志没有 SEVERE、导航禁锁或工具栏实例不稳定消息。三张 REA 确切窗口截图已生成 12 秒真实 [批量 GIF](../../demo/native-http-batch.gif)，中英文 README 已更新。首帧 AX 读取有 22 个缺口，截图和 CUA 交互观察分别记录；不宣称完整 AX 捕获。
+
+当前 HTTP 交付剩余：提交并推送固定源码，创建新的 `.20261113.3` tag，等待既有双平台安装器工作流真正通过并公开，再独立核验五资产、原始 XML、源码输入、安装记录，更新下载入口。不要移动旧 tag。显示配额提示仍把 UTF-16 单元称为 MiB/KiB，记录为后续小文案修正；原始正文按字节限额正确。完整 36 × 2 矩阵仍未完成，Windows 交互和 macOS Developer Mode 调试继续开放。
+
 ## 已核对的基线
 
 - 已 fetch 和 fast-forward 核对远端 `main`，起点为 `9023bb7`，工作树当时干净。

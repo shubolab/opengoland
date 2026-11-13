@@ -1,0 +1,237 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13",
+  "status": "bounded native macOS HTTP batch workflows passed; installer publication and full parity recorded separately",
+  "candidate": {
+    "version": "0.1.0-preview.20261113.3",
+    "stateAtCapture": "development candidate; no .13.3 installers published at capture",
+    "parentCommit": "4c8c96fa8cfca7457ed73b8b28b75039500218b4",
+    "sourceDirty": true,
+    "buildInputCount": 566,
+    "buildInputDigest": "86585480144da1f3d78c5d418b7280c40f96696ef7c843d4dcd95bdb9bc5d095",
+    "pluginJarSha256": "17b78990f7932ffb351e9094d9ca55262b5fe4bb9011c78ae5d7077c0270056a",
+    "launcherSha256": "e133559a06dd9b5a54fc2f9f77b3bb0a7423c4389643cfeae4e201f495d28a51",
+    "engineVcsMetadata": {
+      "revision": "c7164f8fc17d98c53b4d03179f18685c2bef2dce",
+      "modified": true,
+      "sourceTreeUnchangedSinceThatRevision": true,
+      "explanation": "Local package reused the engine whose source tree is unchanged; this is not fresh clean-commit engine build metadata"
+    }
+  },
+  "localFullGate": {
+    "reports": 166,
+    "uniqueTestIdentities": 911,
+    "httpTests": 72,
+    "tests": 911,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "native": {
+    "pid": 84677,
+    "windowId": 2269,
+    "batch": {
+      "names": [
+        "firstResponse",
+        "serviceUnavailable",
+        "chinesePost"
+      ],
+      "httpStatuses": [
+        200,
+        503,
+        200
+      ],
+      "sentPostBodyBytes": 40,
+      "lastResponseBytes": 105,
+      "formattedChineseJsonObserved": true,
+      "headersTabObserved": true
+    },
+    "variableError": {
+      "onlyMiddleFailed": true,
+      "followingRequestSent": true,
+      "uiCounts": {
+        "completed": 2,
+        "failed": 1
+      }
+    },
+    "sourceNavigation": {
+      "nativeServicesDoubleClick": true,
+      "file": "batch.http",
+      "caret": "9:1"
+    },
+    "runAgain": {
+      "selectedItem": "serviceUnavailable",
+      "singleRequestBatchObserved": true,
+      "onlyAdditional503ReachedServer": true,
+      "modifiedEditorSnapshotReplayNotNativeTested": true
+    },
+    "stopAll": {
+      "receivedAtLocal": "2026/11/13 16:15:12",
+      "disconnectedAtLocal": "2026/11/13 16:15:20",
+      "naturalWaitSeconds": 25,
+      "queuedRequestSent": false,
+      "uiCancelledCount": 2
+    },
+    "activeRemove": {
+      "receivedAtLocal": "2026/11/13 16:18:08",
+      "disconnectedAtLocal": "2026/11/13 16:18:13",
+      "queuedRequestSent": false,
+      "servicesEntryRemoved": true,
+      "nativeRunToolWindowEmptyAfterTermination": true,
+      "baselineRunWindowAlsoEmptyAfterRemovingPriorCompletedBatch": true
+    },
+    "binarySave": {
+      "nativeFileSaverDialog": true,
+      "bytes": 8,
+      "hex": "00ffc3280d0a476f",
+      "sha256": "4faf649432d651991e0b03a4f304d6bbecfd53866cc250d16c91c53ecbf48f63",
+      "originalBytesMatchFixture": true
+    },
+    "closeProjectTerminate": {
+      "nativeRunningProcessPromptObserved": true,
+      "action": "Terminate",
+      "receivedAtLocal": "2026/11/13 16:19:07",
+      "disconnectedAtLocal": "2026/11/13 16:19:16",
+      "queuedRequestSent": false,
+      "welcomeScreenObserved": true,
+      "transientObservation": "First observation during project-to-welcome transition returned noWindowsAvailable; the next observation showed the welcome screen"
+    },
+    "normalApplicationQuit": true,
+    "knownPidGone": true,
+    "serverExitCode": 0,
+    "serverPortReleased": true
+  },
+  "postRuntimeIntegrity": {
+    "codesignDeepStrictExitCode": 0,
+    "sealedFiles": 15139,
+    "mismatches": 0,
+    "buildInputsStillMatchWorkingTree": true,
+    "launcherSha256Unchanged": true
+  },
+  "runtimeLogCheck": {
+    "localTimestampRange": [
+      "2026-11-13 16:09:00",
+      "2026-11-13 16:19:28.824"
+    ],
+    "timestampedLines": 273,
+    "severeErrors": 0,
+    "lockAccessOrUnstableServicesToolbarMessages": 0,
+    "scope": "Only this fixed candidate session; the earlier rejected candidate errors remain in the original log"
+  },
+  "fixtureSha256": {
+    "fixtures/http-client/batch-errors.http": "8f0e4b7d718cbe9b087293dd60c702a65736d98c6664e25f5b6108636f82c1df",
+    "fixtures/http-client/batch-stop.http": "0409b811e297472001e3f1b9eebd047d3973c27a4eb768070de08edaa6b64d4c",
+    "fixtures/http-client/batch.http": "b903974e953b117df7ff6645fccdd9220325da538b386cbf19880dbf5f145dab",
+    "fixtures/http-client/binary.http": "856627109867b337438b2a2957a6590e0ad12556b69b026ff680ce46e1227697",
+    "fixtures/http-client/go.mod": "408a979c9734a99d18feb7092801292cd024dc3a9980291cc93136a001aeddca",
+    "fixtures/http-client/main.go": "8a4d3dd80b4582b5dc007a983ae9b33b0eba7306d2168d7da114d23e73fd4698"
+  },
+  "sourceFrames": [
+    {
+      "stage": "post",
+      "evidenceId": "ev_ad4be54457cfc3f3eea38198a06a467fed1095e9d62fdf880d1d2401891c3845",
+      "pid": 84677,
+      "windowId": 2269,
+      "windowTitle": "http-client – batch.http",
+      "originalScreenshot": {
+        "mime_type": "image/png",
+        "sha256": "4f041565e4218a708e3d64dbfc3f3889383abf4164631a94537d4fa23d3b43b1",
+        "width": 1400,
+        "height": 1000
+      },
+      "accessibilityRequested": true,
+      "accessibilityNodes": 200,
+      "accessibilityGaps": [
+        "AX child count unavailable at path [0, 1, 0]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 1]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 2]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 3]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 4]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 5]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 6]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 7]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 8]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 9]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 10]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 11]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 12]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 13]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 14]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 15]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 16]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 17]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 18]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 19]: AXError -25202",
+        "AX child count unavailable at path [0, 3, 8, 0]: AXError -25202",
+        "AX child count unavailable at path [0, 3, 8, 1]: AXError -25202"
+      ],
+      "durationMs": 4000
+    },
+    {
+      "stage": "error",
+      "evidenceId": "ev_b980cab237de8cb3cd3c9d73c42b7963214bcddee50b2826bd164d7e52700ec8",
+      "pid": 84677,
+      "windowId": 2269,
+      "windowTitle": "http-client – batch-errors.http",
+      "originalScreenshot": {
+        "mime_type": "image/png",
+        "sha256": "d3cd3d88effc3519dad0f5a5042289f9e82b8da9806d07b64a24adf6b539b312",
+        "width": 1400,
+        "height": 1000
+      },
+      "accessibilityRequested": false,
+      "accessibilityNodes": 0,
+      "accessibilityGaps": [
+        "Accessibility capture was disabled"
+      ],
+      "durationMs": 4000
+    },
+    {
+      "stage": "stop",
+      "evidenceId": "ev_44f317030d08c2265c745b86b5b52bb8a5f03c6f49598620c6df517830950253",
+      "pid": 84677,
+      "windowId": 2269,
+      "windowTitle": "http-client – batch-stop.http",
+      "originalScreenshot": {
+        "mime_type": "image/png",
+        "sha256": "faf78bc45734602288248cb0ab176286ab3cd76bfd99f861dab751e9a78400a9",
+        "width": 1400,
+        "height": 1000
+      },
+      "accessibilityRequested": false,
+      "accessibilityNodes": 0,
+      "accessibilityGaps": [
+        "Accessibility capture was disabled"
+      ],
+      "durationMs": 4000
+    }
+  ],
+  "serverLog": [
+    "2026/11/13 16:08:37 HTTP example listening on http://127.0.0.1:18081",
+    "2026/11/13 16:10:32 echo: method=GET bytes=0",
+    "2026/11/13 16:10:32 unavailable: returning HTTP 503",
+    "2026/11/13 16:10:32 echo: method=POST bytes=40",
+    "2026/11/13 16:13:03 echo: method=GET bytes=0",
+    "2026/11/13 16:13:03 echo: method=GET bytes=0",
+    "2026/11/13 16:14:58 unavailable: returning HTTP 503",
+    "2026/11/13 16:15:12 slow: request received",
+    "2026/11/13 16:15:20 slow: client disconnected",
+    "2026/11/13 16:18:08 slow: request received",
+    "2026/11/13 16:18:13 slow: client disconnected",
+    "2026/11/13 16:19:07 slow: request received",
+    "2026/11/13 16:19:16 slow: client disconnected"
+  ],
+  "localRawEvidence": {
+    "recordDirectory": ".tools/continuation-20261113/http-batch-final-recording",
+    "reaRecordSha256": "4c988fff7c9028d7e7d510994b046fcb7d85b9fbde9311865f14131f9af4572c",
+    "fullTestArchiveSha256": "331fd29c2949da980d665d4f7712151f1d546f367e264bf90a3f759b0a03bdc4",
+    "serverLogSha256": "5a9765f2bd0a53a9b7bb380dd8818a5390ac1057801389f1f51dededb4a769b1"
+  },
+  "knownLimitations": [
+    "Native macOS candidate only; Windows interaction and full HTTP Client/TOOLS-04 parity remain open",
+    "REA first capture returned 200 nodes with 22 child-count gaps; screenshot is retained, not claimed to be a complete accessibility tree",
+    "Some display-budget error messages say MiB/KiB although their guards count UTF-16 code units; documentation names the units correctly. Raw body limits count bytes. This wording remains a follow-up",
+    "Local cached engine metadata and local candidate bytes must not be described as byte-identical to the later CI installer; immutable source-input binding is verified separately",
+    "macOS Developer Mode remains disabled; no debugger permission or system security change was made"
+  ]
+}

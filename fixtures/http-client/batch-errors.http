@@ -1,0 +1,13 @@
+@base = http://127.0.0.1:18081
+
+### This request succeeds
+# @name beforeVariableError
+GET {{base}}/echo
+
+### This request fails before sending anything
+# @name missingVariable
+GET {{undefinedBase}}/echo
+
+### This request still succeeds
+# @name afterVariableError
+GET {{base}}/echo

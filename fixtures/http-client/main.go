@@ -43,6 +43,16 @@ func main() {
 	mux.HandleFunc("/redirect", func(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/echo", http.StatusFound)
 	})
+	mux.HandleFunc("/unavailable", func(w http.ResponseWriter, r *http.Request) {
+		log.Print("unavailable: returning HTTP 503")
+		w.Header().Set("Content-Type", "application/json; charset=utf-8")
+		w.WriteHeader(http.StatusServiceUnavailable)
+		json.NewEncoder(w).Encode(map[string]string{"message": "这是示例的 503 响应，后续请求仍应继续"})
+	})
+	mux.HandleFunc("/binary", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/octet-stream")
+		w.Write([]byte{0, 0xff, 0xc3, 0x28, '\r', '\n', 'G', 'o'})
+	})
 	server := &http.Server{Addr: *address, Handler: mux, ReadHeaderTimeout: 5 * time.Second}
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer stop()

@@ -24,7 +24,7 @@ internal data class HttpRequestResponse(
         val contentType = headers.entries.firstOrNull { it.key.equals("content-type", true) }?.value?.firstOrNull().orEmpty()
         val mime = contentType.substringBefore(';').trim().lowercase()
         if (mime.isNotEmpty() && !mime.startsWith("text/") && !mime.contains("json") && !mime.contains("xml") && mime != "application/x-www-form-urlencoded")
-            return "[Binary response: ${body.size} bytes; saving binary responses is not yet supported.]"
+            return "[Binary response: ${body.size} bytes.]"
         val name = Regex("charset\\s*=\\s*\"?([^;\\s\"]+)", RegexOption.IGNORE_CASE).find(contentType)?.groupValues?.get(1)
         val charset = name?.let { runCatching { Charset.forName(it) }.getOrNull() } ?: UTF_8
         return String(body, charset)

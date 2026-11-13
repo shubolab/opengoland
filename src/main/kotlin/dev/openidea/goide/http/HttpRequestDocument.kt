@@ -11,39 +11,58 @@ internal data class HttpRequestSpec(
     val line: Int,
 )
 
-/** Parses a snapshot of the editor. Unsupported executable syntax fails before any network I/O. */
-internal object HttpRequestDocument {
-    private val separator = Regex("(?m)^[\\t ]*###[^\\r\\n]*(?:\\r?\\n|$)")
-    private val assignment = Regex("@([A-Za-z_][A-Za-z0-9_.-]*)\\s*=\\s*(.*)")
-    private val variable = Regex("\\{\\{\\s*([^{}]+?)\\s*}}")
-    private val requestLine = Regex("([A-Za-z]+)\\s+(\\S+)(?:\\s+HTTP/(1\\.1))?")
-    private val headerName = Regex("[!#$%&'*+.^_`|~0-9A-Za-z-]+")
-    private val methods = setOf("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS")
-    private val managedHeaders = setOf("content-length", "host", "connection", "expect", "upgrade")
+internal data class HttpRequestEntry(
+    val blockOrdinal: Int,
+    val startOffset: Int,
+    val endOffset: Int,
+    val requestOffset: Int,
+    val line: Int,
+    val displayName: String,
+)
 
-    fun requestAt(text: String, offset: Int): HttpRequestSpec {
+/** An editor snapshot; entries are cheap identities and are parsed only when they execute. */
+internal class HttpRequestPlan internal constructor(private val text: String) {
+    private data class Block(
+        val selectionStart: Int,
+        val entry: HttpRequestEntry?,
+        val requestLineIndex: Int,
+        val preambleError: String?,
+    )
+    private val definitions = linkedMapOf<String, MutableList<String>>()
+    private val blocks: List<Block>
+    val entries: List<HttpRequestEntry>
+
+    init {
         require(text.length <= 2 * 1024 * 1024) { "HTTP request documents are limited to 2 MiB of text." }
+        blocks = scan()
+        entries = blocks.mapNotNull { it.entry }
+    }
+
+    /** A separator, including its newline, selects the following block as in the single runner. */
+    fun entryAt(offset: Int): HttpRequestEntry? {
         require(offset in 0..text.length) { "The request location is outside the document." }
-        val separators = separator.findAll(text).toList()
-        val selected = separators.indexOfLast { it.range.first <= offset }
-        val start = if (selected < 0) 0 else separators[selected].range.last + 1
-        val end = separators.getOrNull(selected + 1)?.range?.first ?: text.length
-        val variables = linkedMapOf<String, String>()
-        var previous = 0
-        separators.take(selected + 1).forEach { match ->
-            readPreamble(text.substring(previous, match.range.first), variables)
-            previous = match.range.last + 1
+        var low = 0
+        var high = blocks.size
+        while (low < high) {
+            val middle = (low + high) ushr 1
+            if (blocks[middle].selectionStart <= offset) low = middle + 1 else high = middle
         }
-        val block = text.substring(start, end)
+        return blocks.getOrNull(low - 1)?.entry
+    }
+
+    /** A malformed entry fails on its own, without invalidating other requests in this snapshot. */
+    fun parse(entry: HttpRequestEntry): HttpRequestSpec {
+        val selected = blocks.getOrNull(entry.blockOrdinal)
+        require(selected != null && selected.entry === entry) { "The HTTP request does not belong to this document snapshot." }
+        selected.preambleError?.let { throw IllegalArgumentException(it) }
+        val block = text.substring(entry.startOffset, entry.endOffset)
         val lines = block.split('\n').map { it.removeSuffix("\r") }
-        var index = readPreamble(block, variables)
-        require(index < lines.size && lines[index].isNotBlank()) { "Place the caret inside an HTTP request, below its ### separator." }
+        var index = selected.requestLineIndex
         val match = requestLine.matchEntire(lines[index].trim())
             ?: throw IllegalArgumentException("Expected METHOD http(s)://host/path, optionally followed by HTTP/1.1.")
         val method = match.groupValues[1].uppercase()
         require(method in methods) { "Supported request methods: ${methods.joinToString()}." }
-        val requestLineIndex = index
-        val target = expand(match.groupValues[2], variables)
+        val target = expand(match.groupValues[2])
         require(target.length <= 16 * 1024) { "HTTP request URLs are limited to 16 KiB." }
         val uri = try { URI(target) } catch (_: Exception) {
             throw IllegalArgumentException("The request URL is invalid. Encode spaces and other URL characters.")
@@ -64,7 +83,7 @@ internal object HttpRequestDocument {
             require(colon > 0 && headerName.matches(line.substring(0, colon))) { "Expected Header-Name: value. Separate the body with a blank line." }
             val name = line.substring(0, colon)
             require(name.lowercase() !in managedHeaders) { "$name is managed by the HTTP transport and cannot be set manually." }
-            val value = expand(line.substring(colon + 1).trim(), variables)
+            val value = expand(line.substring(colon + 1).trim())
             require(value.none { it == '\r' || it == '\n' || it == '\u007f' || it.code > 255 || (it < ' ' && it != '\t') }) {
                 "HTTP header values must use ASCII/Latin-1 without control characters."
             }
@@ -88,10 +107,10 @@ internal object HttpRequestDocument {
         require(!Regex("(?m)^[\\t ]*(?:<[\\t ]+|>|\\{%|%})").containsMatchIn(rawBody)) {
             "File bodies and request/response scripts are not supported by the built-in HTTP runner."
         }
-        val body = expand(withoutBoundaryBlankLines(rawBody), variables).toByteArray(UTF_8)
+        val body = expand(withoutBoundaryBlankLines(rawBody)).toByteArray(UTF_8)
         require(body.size <= 1024 * 1024) { "HTTP request bodies are limited to 1 MiB." }
         require(method != "HEAD" || body.isEmpty()) { "HEAD requests cannot have a body in this runner." }
-        return HttpRequestSpec(method, uri, headers, body, text.take(start).count { it == '\n' } + requestLineIndex + 1)
+        return HttpRequestSpec(method, uri, headers, body, entry.line)
     }
 
     /** Matches the captured GoLand body-edge cases without trimming meaningful spaces or tabs. */
@@ -115,27 +134,88 @@ internal object HttpRequestDocument {
         return if (firstContent < 0) "" else value.substring(firstContent, lastContentEnd)
     }
 
-    private fun readPreamble(block: String, variables: MutableMap<String, String>): Int {
-        val lines = block.split('\n')
-        var index = 0
-        while (index < lines.size) {
-            val line = lines[index].trim()
-            when {
-                line.isEmpty() -> Unit
-                Regex("(?:#|//)\\s+@.*").matches(line) && !Regex("(?:#|//)\\s+@name\\s+\\S.*").matches(line) ->
-                    throw IllegalArgumentException("HTTP request directives are not supported. Only # @name is accepted as a label.")
-                line.startsWith('#') || line.startsWith("//") -> Unit
-                assignment.matches(line) -> assignment.matchEntire(line)!!.let { variables[it.groupValues[1]] = it.groupValues[2] }
-                else -> return index
+    private fun scan(): List<Block> {
+        val result = mutableListOf<Block>()
+        var contentStart = 0
+        var selectionStart = 0
+        var firstLine = 1
+        var title: String? = null
+        var requestCount = 0
+
+        fun add(end: Int) {
+            var cursor = contentStart
+            var lineIndex = 0
+            var explicitName: String? = null
+            var error: String? = null
+            var errorOffset = contentStart
+            var errorLine = firstLine
+            var requestOffset: Int? = null
+            var sourceLine: String? = null
+            while (cursor < end) {
+                val newline = text.indexOf('\n', cursor).let { if (it < 0 || it >= end) end else it }
+                val raw = text.substring(cursor, newline).removeSuffix("\r")
+                val line = raw.trim()
+                val named = namedDirective.matchEntire(line)
+                val declaration = assignment.matchEntire(line)
+                when {
+                    line.isEmpty() -> Unit
+                    named != null -> if (explicitName == null) explicitName = named.groupValues[1]
+                    directive.matches(line) -> if (error == null) {
+                        error = "HTTP request directives are not supported. Only # @name is accepted as a label."
+                        errorOffset = cursor + raw.indexOfFirst { !it.isWhitespace() }
+                        errorLine = firstLine + lineIndex
+                    }
+                    line.startsWith('#') || line.startsWith("//") -> Unit
+                    declaration != null -> definitions.getOrPut(declaration.groupValues[1]) { mutableListOf() }
+                        .add(declaration.groupValues[2])
+                    else -> {
+                        requestOffset = cursor + raw.indexOfFirst { !it.isWhitespace() }
+                        sourceLine = line
+                        break
+                    }
+                }
+                if (newline == end) break
+                cursor = newline + 1
+                lineIndex++
             }
-            index++
+            val entry = if (requestOffset != null || error != null) {
+                requestCount++
+                val fallback = sourceLine?.let { requestLine.matchEntire(it) }?.let {
+                    "${it.groupValues[1].uppercase()} ${it.groupValues[2]}"
+                } ?: "Request $requestCount"
+                HttpRequestEntry(result.size, contentStart, end, requestOffset ?: errorOffset,
+                    if (requestOffset != null) firstLine + lineIndex else errorLine,
+                    explicitName ?: title ?: fallback)
+            } else null
+            result += Block(selectionStart, entry, lineIndex, error)
         }
-        return index
+
+        separator.findAll(text).forEach { match ->
+            add(match.range.first)
+            val next = match.range.last + 1
+            for (offset in contentStart until next) if (text[offset] == '\n') firstLine++
+            contentStart = next
+            selectionStart = match.range.first
+            title = match.value.trimStart(' ', '\t').removePrefix("###").trim().takeIf { it.isNotEmpty() }
+        }
+        add(text.length)
+        return result
+    }
+
+    // Real GoLand observations show file-wide forward references, with duplicate
+    // declarations making only references to that name invalid. Keep this apart
+    // from each block's own syntax errors and do not copy a variable map per entry.
+    private fun resolve(name: String): String? {
+        val history = definitions[name] ?: return null
+        require(history.size == 1) {
+            "Duplicate HTTP variable: $name. File variables must have a single declaration in the document."
+        }
+        return history.single()
     }
 
     private class ExpansionBudget(var remaining: Int = 10_000)
 
-    private fun expand(value: String, variables: Map<String, String>, chain: Set<String> = emptySet(), budget: ExpansionBudget = ExpansionBudget()): String {
+    private fun expand(value: String, chain: Set<String> = emptySet(), budget: ExpansionBudget = ExpansionBudget()): String {
         val output = StringBuilder()
         fun append(part: String) {
             require(part.length <= 2 * 1024 * 1024 - output.length) { "Expanded HTTP content is too large." }
@@ -147,11 +227,35 @@ internal object HttpRequestDocument {
             append(value.substring(offset, match.range.first))
             val name = match.groupValues[1].trim()
             require(name !in chain && chain.size < 16) { "HTTP variable expansion contains a cycle or is too deeply nested." }
-            val content = variables[name] ?: throw IllegalArgumentException("Undefined HTTP variable: $name. Only @name = value file variables are supported.")
-            append(expand(content, variables, chain + name, budget))
+            val content = resolve(name) ?: throw IllegalArgumentException("Undefined HTTP variable: $name. Only @name = value file variables are supported.")
+            append(expand(content, chain + name, budget))
             offset = match.range.last + 1
         }
         append(value.substring(offset))
         return output.toString()
+    }
+
+    private companion object {
+        val separator = Regex("(?m)^[\\t ]*###[^\\r\\n]*(?:\\r?\\n|$)")
+        val assignment = Regex("@([A-Za-z_][A-Za-z0-9_.-]*)\\s*=\\s*(.*)")
+        val variable = Regex("\\{\\{\\s*([^{}]+?)\\s*}}")
+        val requestLine = Regex("([A-Za-z]+)\\s+(\\S+)(?:\\s+HTTP/(1\\.1))?")
+        val namedDirective = Regex("(?:#|//)\\s+@name\\s+(\\S.*)")
+        val directive = Regex("(?:#|//)\\s+@.*")
+        val headerName = Regex("[!#$%&'*+.^_`|~0-9A-Za-z-]+")
+        val methods = setOf("GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS")
+        val managedHeaders = setOf("content-length", "host", "connection", "expect", "upgrade")
+    }
+}
+
+/** Parses a snapshot of the editor. Unsupported executable syntax fails before any network I/O. */
+internal object HttpRequestDocument {
+    fun plan(text: String) = HttpRequestPlan(text)
+
+    fun requestAt(text: String, offset: Int): HttpRequestSpec {
+        val plan = plan(text)
+        val entry = plan.entryAt(offset)
+            ?: throw IllegalArgumentException("Place the caret inside an HTTP request, below its ### separator.")
+        return plan.parse(entry)
     }
 }

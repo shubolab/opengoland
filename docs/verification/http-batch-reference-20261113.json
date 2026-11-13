@@ -1,0 +1,189 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13T06:40:57.554839+00:00",
+  "status": "bounded-reference-native-http-batch-observations; reconstruction acceptance not established",
+  "reference": {
+    "application": "GoLand",
+    "version": "2026.1.4",
+    "build": "GO-261.26222.72",
+    "launcherSha256": "7a7b1da02131b070998bd58c03d6459674895bab7b1fd01401de5ff204ee40a5",
+    "method": "Native Run All and request-gutter execution in an owned project, with independent Go loopback server events",
+    "nativePid": 46428,
+    "nativeWindowId": 1225,
+    "normalQuitObserved": true,
+    "knownPidCleanupVerified": true,
+    "cleanupVerificationOwner": "Parent controller verified PID46428 absent after native Quit and launcher SHA-256 unchanged.",
+    "installationModificationPerformedByAgent": false,
+    "launcherSha256UnchangedAfterQuit": true,
+    "licenseActionsPerformed": false
+  },
+  "oracle": {
+    "path": "src/test/resources/http-plan-reference-20261113.json",
+    "sha256": "1fac04c636fca7e508e4ca3ff50e1896082deac7380be009b9bce4bbe997c0b0",
+    "documents": 7,
+    "requests": 16,
+    "parsableRequests": 13,
+    "parseFailures": 3,
+    "manualExpectedValues": true
+  },
+  "nativeUi": {
+    "evidenceId": "ev_732e6b4a5ad5ca4f8148fab80a6b9ccb4127da9a6983625c18d4291fd3d778db",
+    "pid": 46428,
+    "windowId": 1225,
+    "title": "http-batch-reference – names.http",
+    "screenshot": {
+      "path": "docs/verification/assets/http-batch-reference-20261113.png",
+      "sha256": "92119f7032a46a5a428ec3649eafbecb94f02e543feda368517d7e5e048dab5d",
+      "width": 1400,
+      "height": 1000
+    },
+    "reaRecordPath": ".tools/continuation-20261113/http-batch-reference/rea.json",
+    "reaRecordSha256": "1cda65293afffa3d71f70570538da334cee1ccd8098fabeb4457b9d878f2d3b9",
+    "scope": "The exact-window screenshot records names.http. Native interactions and text results were observed through CUA; REA accessibility capture was disabled. The single screenshot is not a capture of every request/run."
+  },
+  "serverCapture": {
+    "snapshotPath": ".tools/continuation-20261113/http-batch-reference/reference-server-events.jsonl",
+    "snapshotBytes": 3912,
+    "snapshotSha256": "03aba0e57f2ed32465c5ec9ffdb9ec0fad227b5f7695bb74b0718ebfecc337ae",
+    "sourcePath": ".tools/continuation-20261113/http-batch-reference/server.jsonl",
+    "sourceMayReceiveLaterReconstructionEvents": true,
+    "eventCount": 35,
+    "beginCount": 17,
+    "endCount": 17,
+    "cancellationEventCount": 0,
+    "rawJsonl": "{\"address\":\"127.0.0.1:18082\",\"event\":\"listening\",\"time\":\"2026-11-13T06:04:03.709728Z\"}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":1,\"step\":\"status-first\",\"time\":\"2026-11-13T06:05:12.051651Z\"}\n{\"event\":\"end\",\"sequence\":1,\"status\":200,\"step\":\"status-first\",\"time\":\"2026-11-13T06:05:12.052045Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/unavailable\",\"sequence\":2,\"step\":\"status-error\",\"time\":\"2026-11-13T06:05:12.157573Z\"}\n{\"event\":\"end\",\"sequence\":2,\"status\":503,\"step\":\"status-error\",\"time\":\"2026-11-13T06:05:12.157749Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":3,\"step\":\"status-last\",\"time\":\"2026-11-13T06:05:12.196345Z\"}\n{\"event\":\"end\",\"sequence\":3,\"status\":200,\"step\":\"status-last\",\"time\":\"2026-11-13T06:05:12.1966Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":4,\"step\":\"transport-first\",\"time\":\"2026-11-13T06:05:49.917006Z\"}\n{\"event\":\"end\",\"sequence\":4,\"status\":200,\"step\":\"transport-first\",\"time\":\"2026-11-13T06:05:49.917117Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":5,\"step\":\"transport-last\",\"time\":\"2026-11-13T06:05:50.013762Z\"}\n{\"event\":\"end\",\"sequence\":5,\"status\":200,\"step\":\"transport-last\",\"time\":\"2026-11-13T06:05:50.013858Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":6,\"step\":\"parse-first\",\"time\":\"2026-11-13T06:06:23.277456Z\"}\n{\"event\":\"end\",\"sequence\":6,\"status\":200,\"step\":\"parse-first\",\"time\":\"2026-11-13T06:06:23.277617Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":7,\"step\":\"parse-last\",\"time\":\"2026-11-13T06:06:23.342086Z\"}\n{\"event\":\"end\",\"sequence\":7,\"status\":200,\"step\":\"parse-last\",\"time\":\"2026-11-13T06:06:23.342201Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/wait\",\"sequence\":8,\"step\":\"cancel-first\",\"time\":\"2026-11-13T06:08:54.299749Z\"}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":9,\"step\":\"cancel-last\",\"time\":\"2026-11-13T06:09:08.988833Z\"}\n{\"event\":\"end\",\"sequence\":9,\"status\":200,\"step\":\"cancel-last\",\"time\":\"2026-11-13T06:09:08.988954Z\",\"writeOK\":true}\n{\"event\":\"end\",\"sequence\":8,\"status\":200,\"step\":\"cancel-first\",\"time\":\"2026-11-13T06:09:19.302952Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":10,\"step\":\"unique-value\",\"time\":\"2026-11-13T06:12:49.851745Z\"}\n{\"event\":\"end\",\"sequence\":10,\"status\":200,\"step\":\"unique-value\",\"time\":\"2026-11-13T06:12:49.854277Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":11,\"step\":\"unique-last\",\"time\":\"2026-11-13T06:12:49.931235Z\"}\n{\"event\":\"end\",\"sequence\":11,\"status\":200,\"step\":\"unique-last\",\"time\":\"2026-11-13T06:12:49.931299Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":12,\"step\":\"forward-value\",\"time\":\"2026-11-13T06:13:17.730737Z\"}\n{\"event\":\"end\",\"sequence\":12,\"status\":200,\"step\":\"forward-value\",\"time\":\"2026-11-13T06:13:17.73101Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":13,\"step\":\"forward-value\",\"time\":\"2026-11-13T06:13:17.776633Z\"}\n{\"event\":\"end\",\"sequence\":13,\"status\":200,\"step\":\"forward-value\",\"time\":\"2026-11-13T06:13:17.776719Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/wait\",\"sequence\":14,\"step\":\"cancel-button-first\",\"time\":\"2026-11-13T06:20:43.041218Z\"}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":15,\"step\":\"cancel-button-last\",\"time\":\"2026-11-13T06:20:52.620927Z\"}\n{\"event\":\"end\",\"sequence\":15,\"status\":200,\"step\":\"cancel-button-last\",\"time\":\"2026-11-13T06:20:52.621096Z\",\"writeOK\":true}\n{\"event\":\"end\",\"sequence\":14,\"status\":200,\"step\":\"cancel-button-first\",\"time\":\"2026-11-13T06:21:08.042653Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":16,\"step\":\"multiple-names\",\"time\":\"2026-11-13T06:22:10.20374Z\"}\n{\"event\":\"end\",\"sequence\":16,\"status\":200,\"step\":\"multiple-names\",\"time\":\"2026-11-13T06:22:10.203839Z\",\"writeOK\":true}\n{\"event\":\"begin\",\"path\":\"/probe\",\"sequence\":17,\"step\":\"multiple-names\",\"time\":\"2026-11-13T06:22:58.03156Z\"}\n{\"event\":\"end\",\"sequence\":17,\"status\":200,\"step\":\"multiple-names\",\"time\":\"2026-11-13T06:22:58.031658Z\",\"writeOK\":true}\n"
+  },
+  "observations": [
+    {
+      "file": "status.http",
+      "beginSequences": [
+        1,
+        2,
+        3
+      ],
+      "httpStatuses": [
+        200,
+        503,
+        200
+      ],
+      "conclusion": "The three requests reached the server in file order, and the final request ran after a real 503 response."
+    },
+    {
+      "file": "transport.http",
+      "beginSequences": [
+        4,
+        5
+      ],
+      "steps": [
+        "transport-first",
+        "transport-last"
+      ],
+      "conclusion": "GoLand reported a connection failure for the middle request at loopback port 18083. The final request still reached the independently logged server."
+    },
+    {
+      "file": "parse.http",
+      "beginSequences": [
+        6,
+        7
+      ],
+      "steps": [
+        "parse-first",
+        "parse-last"
+      ],
+      "conclusion": "The middle request failed unresolved-variable substitution for notDefined. Both surrounding requests reached the server."
+    },
+    {
+      "file": "variables.http",
+      "beginSequences": [],
+      "conclusion": "Both references to step failed when step was declared twice. No requests from this fixture reached the server."
+    },
+    {
+      "file": "unique.http",
+      "beginSequences": [
+        10,
+        11
+      ],
+      "steps": [
+        "unique-value",
+        "unique-last"
+      ],
+      "conclusion": "A uniquely declared step was substituted and both requests ran."
+    },
+    {
+      "file": "forward.http",
+      "beginSequences": [
+        12,
+        13
+      ],
+      "steps": [
+        "forward-value",
+        "forward-value"
+      ],
+      "conclusion": "A unique declaration in the later block was also visible to the earlier request; both requests sent forward-value."
+    },
+    {
+      "file": "names.http",
+      "beginSequences": [
+        16,
+        17
+      ],
+      "steps": [
+        "multiple-names",
+        "multiple-names"
+      ],
+      "conclusion": "The fixture was executed twice. The first explicit @name won over the second explicit @name and the separator caption. Gutter execution produced the native Services item names | firstExplicit, status 200."
+    }
+  ],
+  "stopProbes": [
+    {
+      "file": "cancel.http",
+      "document": "@base = http://127.0.0.1:18082\n\n### Cancellable first request\n# @name waiting\nGET {{base}}/wait?step=cancel-first\n\n### Must remain unsent after Stop\n# @name afterStop\nGET {{base}}/probe?step=cancel-last\n",
+      "documentSha256": "ea285d9e11fa539c88d3f2b3f8ee7cec17b5977b1a115c831051463d8480c207",
+      "action": "Cmd+F2",
+      "uiObservation": "GoLand marked the run terminated.",
+      "firstBeginSequence": 8,
+      "nextBeginSequence": 9,
+      "firstElapsedSeconds": 25.003203,
+      "firstWriteSucceeded": true,
+      "serverCancellationObserved": false,
+      "nextRequestReachedServer": true,
+      "firstBeginAtUtc": "2026-11-13T06:08:54.299749Z",
+      "nextBeginAtUtc": "2026-11-13T06:09:08.988833Z",
+      "firstEndedAtUtc": "2026-11-13T06:09:19.302952Z",
+      "conclusion": "This observed reference Stop path produced no server-observed cancellation before the natural 25-second completion and did not prevent the next request from reaching the server. It is not successful cancellation evidence."
+    },
+    {
+      "file": "cancel-button.http",
+      "document": "@base = http://127.0.0.1:18082\n\n### Slow button probe\n# @name waitingWithButton\nGET {{base}}/wait?step=cancel-button-first\n\n### Queued button probe\n# @name afterButtonStop\nGET {{base}}/probe?step=cancel-button-last\n",
+      "documentSha256": "b01acb02443c9cbbf2105570cdb91b8def7be4bffb239503c5641adcff095960",
+      "action": "Explicit top-toolbar Stop button",
+      "uiObservation": "GoLand marked the run terminated.",
+      "firstBeginSequence": 14,
+      "nextBeginSequence": 15,
+      "firstElapsedSeconds": 25.001435,
+      "firstWriteSucceeded": true,
+      "serverCancellationObserved": false,
+      "nextRequestReachedServer": true,
+      "firstBeginAtUtc": "2026-11-13T06:20:43.041218Z",
+      "nextBeginAtUtc": "2026-11-13T06:20:52.620927Z",
+      "firstEndedAtUtc": "2026-11-13T06:21:08.042653Z",
+      "conclusion": "This observed reference Stop path produced no server-observed cancellation before the natural 25-second completion and did not prevent the next request from reaching the server. It is not successful cancellation evidence."
+    }
+  ],
+  "responseUiObservation": {
+    "oneRequest": "A one-request run directly displayed a formatted response without the right-hand SM request tree.",
+    "multipleRequests": "A multiple-request run showed named request results in the request tree.",
+    "scope": "Observed native GoLand UI layout, not a claim of reconstruction implementation or all response formats."
+  },
+  "reconstructionBoundary": {
+    "status": "not accepted by this reference record",
+    "intendedStopAll": "An explicit Stop All must independently prove in-flight server disconnect and that queued requests never arrive. Reference UI termination alone is insufficient."
+  },
+  "boundaries": [
+    "Only owned request fixtures and a loopback server were used. No commercial implementation was copied or modified.",
+    "Expected parser vectors are independent of the reconstruction. This record does not claim the new parser tests have run.",
+    "The reference Stop observations are recorded as a discrepancy, not rewritten as successful cancellation.",
+    "Native Windows behavior, environments, scripts, credentials, history and full HTTP Client/TOOLS-04 parity remain open."
+  ],
+  "referenceLastServerEventAtUtc": "2026-11-13T06:22:58.031658Z"
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "scope": "First native macOS HTTP batch candidate; rejected before publication after UI thread violation",
+  "version": "0.1.0-preview.20261113.3",
+  "state": "not published; requires repair, rebuild and repeat acceptance",
+  "parentCommit": "4c8c96fa8cfca7457ed73b8b28b75039500218b4",
+  "sourceDirty": true,
+  "candidate": {
+    "buildInputCount": 566,
+    "buildInputDigest": "2e0ea5630eab6895e4e8dba83bbb526ce09b2e003d44019ff70414533fb61dc2",
+    "pluginJarSha256": "11bb98336bc09465b5748ba35976309bc7f7d32c184a205ae95a96d41a7f55c2",
+    "launcherSha256": "1fa50f021e6dadd6a58432ebbf2f6b0e151eee5dd61c500faa2dda61400c8358",
+    "engineSourceUnchangedSinceCachedRevision": true
+  },
+  "fullLocalGate": {
+    "tests": 909,
+    "reports": 166,
+    "uniqueTestIdentities": 909,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "httpTests": 70,
+    "buildSucceeded": true
+  },
+  "native": {
+    "pid": 69484,
+    "windowId": 2082,
+    "batchHttpStatuses": [
+      200,
+      503,
+      200
+    ],
+    "bodySentBytes": 40,
+    "lastResponseBytes": 105,
+    "variableErrorMiddleOnly": true,
+    "followingRequestSent": true,
+    "stopAll": {
+      "receivedAtLocal": "2026/11/13 15:39:28",
+      "disconnectedAtLocal": "2026/11/13 15:39:44",
+      "naturalWaitSeconds": 25,
+      "queuedRequestSent": false,
+      "uiCancelledCount": 2
+    },
+    "binarySave": {
+      "nativeFileSaverDialog": true,
+      "bytes": 8,
+      "hex": "00ffc3280d0a476f",
+      "sha256": "4faf649432d651991e0b03a4f304d6bbecfd53866cc250d16c91c53ecbf48f63"
+    },
+    "quitTerminate": {
+      "receivedAtLocal": "2026/11/13 15:40:50",
+      "disconnectedAtLocal": "2026/11/13 15:41:00",
+      "queuedRequestSent": false,
+      "shutdownLogObserved": true,
+      "knownPidGone": true
+    },
+    "normalServerExitCode": 0,
+    "serverPortReleased": true
+  },
+  "blockingIssues": [
+    {
+      "observedAtLocal": "2026-11-13 15:38:40.587",
+      "type": "SEVERE LockAccessDisallowed",
+      "path": "Services selection data rule -> HttpRequestSession.getNavigatable -> OpenFileDescriptor construction -> LazyRangeMarkerFactory read lock",
+      "fixRequired": "Defer model-reading descriptor construction to explicit navigation action, outside UI data snapshot"
+    },
+    {
+      "observedAtLocal": "2026-11-13 15:39:54.081",
+      "type": "WARN unstable ServicesToolbar action identity",
+      "fixRequired": "Retain stable action instances across toolbar updates"
+    }
+  ],
+  "serverLog": [
+    "2026/11/13 15:36:58 HTTP example listening on http://127.0.0.1:18081",
+    "2026/11/13 15:38:40 echo: method=GET bytes=0",
+    "2026/11/13 15:38:40 unavailable: returning HTTP 503",
+    "2026/11/13 15:38:40 echo: method=POST bytes=40",
+    "2026/11/13 15:39:16 echo: method=GET bytes=0",
+    "2026/11/13 15:39:16 echo: method=GET bytes=0",
+    "2026/11/13 15:39:28 slow: request received",
+    "2026/11/13 15:39:44 slow: client disconnected",
+    "2026/11/13 15:40:50 slow: request received",
+    "2026/11/13 15:41:00 slow: client disconnected"
+  ],
+  "limitations": [
+    "Not a released installer or Windows interaction result",
+    "No screenshot captured by REA for this rejected candidate",
+    "The reused engine build-info VCS metadata is c7164f8 plus modified=true; do not describe as fresh clean-commit engine build",
+    "Earlier project switch also logged a platform ChangeListsViewModel AlreadyDisposedException; no complete product or lifecycle parity claimed"
+  ],
+  "localRawReports": {
+    "path": ".tools/continuation-20261113/http-batch-first-native/kotlin-test-results.tar.gz",
+    "bytes": 81639,
+    "sha256": "6d5e1d3c22b6352d7c5f17fe7db67af8d212fe78c71c8969287a2c3a67ebbda6"
+  }
+}

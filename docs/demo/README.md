@@ -33,7 +33,22 @@ README 中的 `native-go-workflow.gif` 来自 open Goland 实际运行的窗口�
 桌面交互已经验收。当前功能边界见[中文 README](../../README.zh-CN.md)与
 [调试控制记录](../verification/debug-session-controls.md)。
 
-## HTTP 请求片段
+## HTTP 批量请求片段
+
+`native-http-batch.gif` 录自 macOS arm64 上 `.20261113.3` 修正版开发候选，
+使用 [fixtures/http-client](../../fixtures/http-client) 的真实 loopback Go 服务。
+三个阶段依次展示 Services 中的中文 JSON 批量响应、单项变量错误后继续，
+以及 Stop All 取消当前和排队请求。每帧 4 秒，共 12 秒，这是操作阶段截图，
+并非连续录屏；没有添加模拟界面、标注或过渡动画。
+
+原图由 REA 对 PID84677/window2269 捕获，交互由 CUA 完成。第一帧的 REA
+可访问性读取存在 22 个子节点读取缺口，不能据此声称取得完整 AX 树；确切窗口截图
+及 CUA 的请求/响应观察分别保留。[录制记录](http-batch-recording.json)绑定
+566 个输入、插件 JAR、原始图片与 GIF 摘要；[桌面验收](../verification/http-batch-native-20261113.json)
+另记录真实连接取消、活动移除、关闭项目、二进制保存及运行后签名检查。
+公开安装器的状态以首页下载区为准。此前 `.13.2` 单请求 GIF 和记录保留不变。
+
+## 历史 HTTP 单请求片段
 
 `native-http-client.gif` 来自 macOS arm64 上 `0.1.0-preview.20261113.2` 开发候选的
 真实窗口，使用 [fixtures/http-client](../../fixtures/http-client) 的 loopback Go 服务。

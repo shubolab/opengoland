@@ -1,0 +1,16 @@
+@base = http://127.0.0.1:18081
+
+### Read the first response
+# @name firstResponse
+GET {{base}}/echo
+
+### A real 503 response does not stop the batch
+# @name serviceUnavailable
+GET {{base}}/unavailable
+
+### The last request still runs
+# @name chinesePost
+POST {{base}}/echo
+Content-Type: application/json; charset=utf-8
+
+{"message":"你好，批量请求 😀"}

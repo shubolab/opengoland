@@ -1,0 +1,9 @@
+@base = http://127.0.0.1:18081
+
+### Click Stop All while this request is waiting
+# @name waitingRequest
+GET {{base}}/slow
+
+### This request must remain unsent after Stop All
+# @name queuedRequest
+GET {{base}}/unavailable

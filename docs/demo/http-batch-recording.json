@@ -1,0 +1,137 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13",
+  "scope": "Three real native macOS operation-stage screenshots, not continuous video or Windows acceptance",
+  "candidate": {
+    "version": "0.1.0-preview.20261113.3",
+    "stateAtCapture": "development candidate; no .13.3 installers published at capture",
+    "parentCommit": "4c8c96fa8cfca7457ed73b8b28b75039500218b4",
+    "sourceDirty": true,
+    "buildInputCount": 566,
+    "buildInputDigest": "86585480144da1f3d78c5d418b7280c40f96696ef7c843d4dcd95bdb9bc5d095",
+    "pluginJarSha256": "17b78990f7932ffb351e9094d9ca55262b5fe4bb9011c78ae5d7077c0270056a",
+    "launcherSha256": "e133559a06dd9b5a54fc2f9f77b3bb0a7423c4389643cfeae4e201f495d28a51",
+    "engineVcsMetadata": {
+      "revision": "c7164f8fc17d98c53b4d03179f18685c2bef2dce",
+      "modified": true,
+      "sourceTreeUnchangedSinceThatRevision": true,
+      "explanation": "Local package reused the engine whose source tree is unchanged; this is not fresh clean-commit engine build metadata"
+    }
+  },
+  "capture": {
+    "method": "REA observe_native_ui on exact PID84677/window2269; native actions through CUA",
+    "platform": "macOS arm64",
+    "fixture": "fixtures/http-client",
+    "sourceFrames": [
+      {
+        "stage": "post",
+        "evidenceId": "ev_ad4be54457cfc3f3eea38198a06a467fed1095e9d62fdf880d1d2401891c3845",
+        "pid": 84677,
+        "windowId": 2269,
+        "windowTitle": "http-client – batch.http",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "4f041565e4218a708e3d64dbfc3f3889383abf4164631a94537d4fa23d3b43b1",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": true,
+        "accessibilityNodes": 200,
+        "accessibilityGaps": [
+          "AX child count unavailable at path [0, 1, 0]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 1]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 2]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 3]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 4]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 5]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 6]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 7]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 8]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 9]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 10]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 11]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 12]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 13]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 14]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 15]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 16]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 17]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 18]: AXError -25202",
+          "AX child count unavailable at path [0, 1, 19]: AXError -25202",
+          "AX child count unavailable at path [0, 3, 8, 0]: AXError -25202",
+          "AX child count unavailable at path [0, 3, 8, 1]: AXError -25202"
+        ],
+        "durationMs": 4000
+      },
+      {
+        "stage": "error",
+        "evidenceId": "ev_b980cab237de8cb3cd3c9d73c42b7963214bcddee50b2826bd164d7e52700ec8",
+        "pid": 84677,
+        "windowId": 2269,
+        "windowTitle": "http-client – batch-errors.http",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "d3cd3d88effc3519dad0f5a5042289f9e82b8da9806d07b64a24adf6b539b312",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "accessibilityNodes": 0,
+        "accessibilityGaps": [
+          "Accessibility capture was disabled"
+        ],
+        "durationMs": 4000
+      },
+      {
+        "stage": "stop",
+        "evidenceId": "ev_44f317030d08c2265c745b86b5b52bb8a5f03c6f49598620c6df517830950253",
+        "pid": 84677,
+        "windowId": 2269,
+        "windowTitle": "http-client – batch-stop.http",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "faf78bc45734602288248cb0ab176286ab3cd76bfd99f861dab751e9a78400a9",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "accessibilityNodes": 0,
+        "accessibilityGaps": [
+          "Accessibility capture was disabled"
+        ],
+        "durationMs": 4000
+      }
+    ],
+    "nativeVerification": "docs/verification/http-batch-native-20261113.json"
+  },
+  "encoding": {
+    "tool": "existing ffmpeg 9.0.2",
+    "transform": "Uniform Lanczos scaling and global GIF palette conversion only; no cropping, annotations, simulated UI or transitions",
+    "width": 1200,
+    "height": 857,
+    "frames": 3,
+    "durationMs": 12000,
+    "framePtsSeconds": [
+      0,
+      4,
+      8
+    ],
+    "path": "docs/demo/native-http-batch.gif",
+    "bytes": 324316,
+    "sha256": "794b8518c15e160fe162148325fa6c77c6de3a3e88d72f578fe6147316c12c2d",
+    "palette": "256 colors, no dithering"
+  },
+  "previousHttpClip": {
+    "path": "docs/demo/native-http-client.gif",
+    "captureRecord": "docs/demo/http-client-recording.json",
+    "version": "0.1.0-preview.20261113.2",
+    "retainedUnchanged": true
+  },
+  "limitations": [
+    "Native macOS candidate only; Windows interaction and full HTTP Client/TOOLS-04 parity remain open",
+    "REA first capture returned 200 nodes with 22 child-count gaps; screenshot is retained, not claimed to be a complete accessibility tree",
+    "Some display-budget error messages say MiB/KiB although their guards count UTF-16 code units; documentation names the units correctly. Raw body limits count bytes. This wording remains a follow-up",
+    "Local cached engine metadata and local candidate bytes must not be described as byte-identical to the later CI installer; immutable source-input binding is verified separately",
+    "macOS Developer Mode remains disabled; no debugger permission or system security change was made"
+  ]
+}
