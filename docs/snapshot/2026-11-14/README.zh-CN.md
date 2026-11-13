@@ -32,7 +32,11 @@
 
 ## 安装包发布继续点
 
-构建来源为 [manual producer 43517336656](https://github.com/shubolab/opengoland/actions/runs/43517336656)，固定上述源码、版本，`publish=false`。等待 Windows 与 macOS 实际构建/安装检查都成功，再提取真实 EXE、DMG 和原始 provenance；逐项核对源码、XML、race、安装结果和五个资产的摘要，先私有草稿审计，最后公开。公开前首页下载区继续指向 `.13.3`。
+构建来源为 [manual producer 43517336656](https://github.com/shubolab/opengoland/actions/runs/43517336656)，固定上述源码、版本，`publish=false`。macOS 实际构建、安装、签名和无缓存检查已通过：原始 173 份 XML / 966 项均通过，586 输入逐项匹配 C1；实际 DMG 为 1,023,853,737 字节，SHA `a0710f86a4ff1439f39332498a61ee7ee53ca9b9e0d5e59711857c8f88061acd`。
+
+attempt1 的 Windows hosted runner 于 23:18:32Z 失去与 GitHub 服务器的通信，GitHub 将 job 判为失败；主步骤仍显示 in_progress、后续保留产物步骤未执行，原日志下载返回 BlobNotFound，没有具体测试失败证据。失联原因仍未知，不能断言产品测试失败，也不能断言只是平台瞬断。root 据此仅重跑一次 failed jobs，同一 run 的 attempt2、新 Windows job `132233144372` 正在运行。Mac 成功结果复用为 alias job `132233146893`，其原始时间和每个 step 与 attempt1 完全相同，实际 Mac artifact 仍为 `14083677862`；没有第二次 Mac 构建。失败记录和原始 annotation 已保留在 ignored `runtime/release14-1-build/attempt-1/`。
+
+待 Windows 最终通过、整体 run completed/success 后，再提取真实 EXE、DMG 和原始 provenance，核对源码、原始 XML、race、安装结果和五个资产摘要，先私有草稿审计，最后公开。已取回一份经过 API SHA 校验的 Mac ZIP，约 0.9 GiB；Windows 仅在实际成功后下载。若再次失联，先排查资源/构建原因，不盲目第三次重试。公开前首页下载区继续指向 `.13.3`。
 
 推送新 tag 自动触发的冗余 [run 43523430835](https://github.com/shubolab/opengoland/actions/runs/43523430835)已精确识别并取消，未影响 manual producer。旧 `publish-tested-installers.yml` 只接受较早的平铺 Mac 证据，本次 CI 使用嵌套 cohort，因此改为直接复用两个真实 CI artifact，保留证据布局，不伪造 `native-observations.json`，也不把本机 App4 冒充 CI 安装副本。组装和独立审计辅助脚本位于 ignored `.tools/continuation-20261113/`。
 
@@ -46,7 +50,7 @@
 
 ## 本机资源
 
-当前 canonical `build/product/open Goland.app` 是已通过上述本机检查的 candidate4。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引约 0.54 GiB 可清理，日志和配置保留。
+当前 canonical `build/product/open Goland.app` 是已通过上述本机检查的 candidate4。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
 
 此前已清理两份旧生成 App 和 candidate1/2 的已结束配置，实测净回收 **3.83 GiB**；[退役记录](../../verification/generated-artifacts-retired-20261114.json)保存身份、占用检查与历史路径说明。更早三套 profile 清理回收约 1.64 GiB，两轮不能重复计算。当前约 **62 GiB 可用**，大下载或构建前仍需重测并保留至少 20 GiB。
 

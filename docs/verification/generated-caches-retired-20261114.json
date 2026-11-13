@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13T23:12:45.050762+00:00",
+  "authorization": "Existing user request to clean historical generated test versions and AGENTS cache-retention rule",
+  "status": "Removed exactly the two ended profile system directories",
+  "targets": [
+    {
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate3-profile/system",
+      "device": 16777233,
+      "inode": 88693923,
+      "duKiB": 281668
+    },
+    {
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate4-profile/system",
+      "device": 16777233,
+      "inode": 88985681,
+      "duKiB": 285484
+    }
+  ],
+  "checks": [
+    {
+      "at": "2026-11-13T23:12:44.560215+00:00",
+      "lsofExitCode": 0,
+      "targetOpenFileReferences": 0,
+      "targetProcessReferences": 0
+    },
+    {
+      "at": "2026-11-13T23:12:44.746076+00:00",
+      "lsofExitCode": 0,
+      "targetOpenFileReferences": 0,
+      "targetProcessReferences": 0
+    }
+  ],
+  "disk": {
+    "beforeFreeBytes": 67333758976,
+    "afterFreeBytes": 67916247040,
+    "observedNetFreeDeltaBytes": 582488064,
+    "reserveBytes": 21474836480,
+    "scope": "Observed filesystem free-space delta; concurrent unrelated writes are not attributed to this deletion"
+  },
+  "preserved": "All candidate3/4 configuration and 81 inventoried raw log files; latest verified App4, prior verified App3, source, SDK/tool caches and other projects preserved"
+}
