@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "tag": "v0.1.0-preview.20261112.10",
+    "name": "open Goland 0.1.0-preview.20261112.10",
+    "status": "public-prerelease",
+    "publishedAt": "2026-11-12T15:13:11Z",
+    "sourceCommit": "e7da5d64ec9faafd614515ff3dbe38d24cad380d",
+    "workflowRun": 43227109296,
+    "workflowAttempt": 2,
+    "workflowConclusion": "success",
+    "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.10"
+  },
+  "summaryZh": ".10 已公开提供 Windows x64 EXE 与 macOS arm64 DMG，加入原生终端歧义候选弹窗与 Windows 清行修复。两平台各完成 819 个 Kotlin 测试，安装与启动检查通过；这不代表双平台交互式终端或完整 GoLand 工作流已验收。",
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "bytes": 3972204,
+      "sha256": "7b42cd151a29aa10456dbdbe704f7fc9ecb900acaba18bc561c8bea2375940e7",
+      "state": "uploaded"
+    },
+    "open-Goland-0.1.0-preview.20261112.10-macos-arm64.dmg": {
+      "bytes": 1025370575,
+      "sha256": "47c4f0ef4474b3ef51790a1b5a736c4ffade00b449452b859299b4102f594759",
+      "state": "uploaded"
+    },
+    "open-Goland-0.1.0-preview.20261112.10-windows-x64-setup.exe": {
+      "bytes": 870918811,
+      "sha256": "e55311856e7e7e09d099a6b2786fd9d36243af0457a22aa44a0e9badd72632b1",
+      "state": "uploaded"
+    },
+    "SHA256SUMS": {
+      "bytes": 436,
+      "sha256": "9003c890f80e4baee22dca11b5804030cc2520f97703e8359e04f740c2da6c29",
+      "state": "uploaded"
+    },
+    "windows-provenance.tar.gz": {
+      "bytes": 6931082,
+      "sha256": "821fbc2deff9f79d3d441d522da517d18fcbd962f9c330de61fd6d1b5d746aaa",
+      "state": "uploaded"
+    }
+  },
+  "verification": {
+    "independentPublishedAssetAudit": {
+      "checksumAndProvenanceDownloaded": true,
+      "checksumFileMatchedGithubApiDigests": true,
+      "windowsProvenanceSha256Matched": true,
+      "macosProvenanceSha256Matched": true,
+      "installerFullRedownloadRepeatedLocally": false,
+      "installerAuthority": "GitHub API sha256 digest, published SHA256SUMS, provenance installer size/digest, and successful producer publish-job pre-publication size/digest verification"
+    },
+    "tests": {
+      "windows": {
+        "reports": 148,
+        "tests": 819,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "macos": {
+        "reports": 148,
+        "tests": 819,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    },
+    "windows": {
+      "installExitCode": 0,
+      "uninstallExitCode": 0,
+      "installedSmoke": "pass",
+      "sourceCommit": "e7da5d64ec9faafd614515ff3dbe38d24cad380d",
+      "scope": "Real installer bytes, native version and visible project-frame startup, explicit installed bundled tools and one uncached Go test via engine RPC; not interactive editor parity or Kotlin default-resolver acceptance."
+    },
+    "macos": {
+      "imageVerified": true,
+      "mountedAndCopied": true,
+      "signatureVerified": true,
+      "signing": "ad-hoc; not notarized",
+      "installedEngineSmokeExitCode": 0,
+      "sourceCommit": "e7da5d64ec9faafd614515ff3dbe38d24cad380d",
+      "sourceDirty": false,
+      "sourceDigest": "a1276c59ebd54904ac5227cd8f3e0d15e2cade0ced3171553befcf5536aaacd2",
+      "scope": "Actual DMG mount/install copy, signatures, native launcher version, bundled SDK/tools and one uncached pure-Go test. Interactive GUI and clean-OS debugging require separate evidence."
+    }
+  },
+  "contentBoundary": [
+    "Includes the terminal ambiguous-candidate chooser, Windows line-clear repair, and argument-boundary protection.",
+    "Does not include the later PluginManagementPolicy activation repair, Go Template support, or SQL/Dockerfile/HTTP file types.",
+    "Native Windows interactive terminal/plugin/Chinese UI acceptance and macOS Developer Mode debugging remain open.",
+    "Windows installer is not publisher-signed; macOS app is ad-hoc signed and not notarized.",
+    "Complete GoLand feature parity remains open."
+  ],
+  "references": [
+    "https://github.com/shubolab/opengoland/actions/runs/43227109296",
+    "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.10"
+  ]
+}

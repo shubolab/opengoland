@@ -29,7 +29,8 @@ macOS 调试当前使用 Apple 的 `debugserver`，需要安装 Command Line Too
 纯 Go 构建、测试和语言服务使用内置 Go SDK。包含 cgo 或外部依赖的项目，仍需其自身的
 C 工具链、依赖源及访问凭据。
 测试调试会先用所选 SDK 准备并检查 `test2json`；外部 SDK 的首次准备可能较慢。
-添加本地 SDK 的原生目录选择，以及准备任务的原生取消按钮，尚未完成完整桌面验收。
+当前 macOS 候选包已验证添加本地 SDK 的原生目录选择、版本校验、保存、重启恢复、实际测试和切回内置 SDK；
+不同 SDK 版本与 Windows 仍需验收。准备任务的原生取消按钮尚未完成桌面验收。
 标准暂停与首次源码定位已有修复和原生记录，本版也修正了一个 Apple silicon
 系统调用栈变量问题。具体平台、构建版本与验证范围见
 [公开安装副本验证](verification/debug-session-public-v5-native.json)和
