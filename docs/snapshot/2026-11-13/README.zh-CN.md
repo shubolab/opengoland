@@ -113,3 +113,5 @@ IDE 无账号、计费、订阅和试用门槛，开发工具认证继续保留�
 [对照记录](../../verification/git-partial-commit-native-20261113.json)包含原始样例、提交/工作区摘要和两张确切窗口截图。参考端 REA AX 因两个窗口位置相同而明确拒绝，另用确切 PID/window 的只读截图记录，交互与文本观察来自 CUA；没有把该失败当作 AX 成功。
 
 该证据仅补充 macOS 的变更块级局部提交；同一块内按行拆分、显式 Git staging-area 模式、远端认证/同步、其他冲突和 Windows Git 交互仍待完成。TOOLS-02 与完整矩阵状态不变。
+
+HTTP 和 Git 原生运行后的独立 App 另通过 `codesign --verify --deep --strict`，**15,139 个插件/内置工具文件摘要全部匹配**；552 个源码输入仍与 `.13.2` 固定提交一致。[运行后完整性记录](../../verification/product-20261113-2-post-native.json)不代替 CI 生成的 DMG 安装验收。本机只读查询仍显示 Developer Mode 禁用，没有修改系统权限，测试调试闭环继续开放。

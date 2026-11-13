@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "verifiedAtUtc": "2026-11-13T05:37:31.442677+00:00",
+  "version": "0.1.0-preview.20261113.2",
+  "sourceCommit": "30288b0c50d36244378a2552c7131ed1e8484dac",
+  "sourceDigest": "81ecf5d158ac4e48e4f3a188d33dfcf35c65a0373c3c7fe9631eb60146bcb37e",
+  "sourceInputs": 552,
+  "sourceInputsMatchImmutableCommit": true,
+  "sealedPluginAndToolFilesChecked": 15139,
+  "allSealedFileDigestsMatch": true,
+  "postNativeCodeSignCommand": [
+    "codesign",
+    "--verify",
+    "--deep",
+    "--strict",
+    "build/product/open Goland.app"
+  ],
+  "postNativeCodeSignExitCode": 0,
+  "codeSignLogSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "precedingNativeWorkflows": [
+    "http-client-native-20261113.json",
+    "git-partial-commit-native-20261113.json"
+  ],
+  "developerModeStatus": "Developer mode is currently disabled.",
+  "developerModeChanged": false,
+  "boundary": "Local .13.2 packaged candidate after native HTTP and Git use, not the as-yet unpublished hosted-runner DMG, a notarization claim, or completed debugger acceptance."
+}
