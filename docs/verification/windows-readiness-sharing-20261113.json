@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "version": "0.1.0-preview.20261112.12",
+  "sourceCommit": "1d61302d727a361b70baf8496c4a37bbc65863e0",
+  "run": 43244003072,
+  "attempt": 2,
+  "windowsJob": 131659415171,
+  "status": "failed before installer assembly; not published",
+  "kotlin": {
+    "reports": 150,
+    "tests": 825,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "artifact": {
+    "id": 14008591989,
+    "bytes": 998825,
+    "sha256": "c5a7d37e43cee7e5ff2bd0497e26dda9e08a091b546c9125f80f17e413141343",
+    "downloadedAndDigestVerified": true
+  },
+  "goRaceFailure": {
+    "package": "github.com/shubolab/opengoland/engine/internal/processowner",
+    "test": "TestKillingOwnerStopsAlreadyStartedChildrenAndPipes",
+    "elapsedSeconds": 0.03,
+    "message": "open sentinel.json: The process cannot access the file because it is being used by another process.",
+    "phase": "startTree waits for unrelated sentinel identity before calling startOwner",
+    "observation": "Windows readiness read failed with a file sharing violation. This event did not reach the owner-kill/pipe/liveness assertions. The identity of the lock holder is unknown."
+  },
+  "repair": {
+    "scope": "Windows test-fixture readiness only; production owner unchanged",
+    "retryableErrors": [
+      "file not yet present",
+      "ERROR_SHARING_VIOLATION"
+    ],
+    "readinessDeadlineSeconds": 5,
+    "cleanupAndLivenessDeadlinesChanged": false,
+    "regression": "TestReadinessWaitsForARealWindowsSharingLock creates a genuine no-share Windows file handle, proves ReadFile denial, releases it, then requires the same identity.",
+    "crossCompilation": "passed on darwin-arm64 using pinned go1.27.3 with GOOS=windows GOARCH=amd64 CGO_ENABLED=0",
+    "windowsExecution": "pending on new source; cannot repair the immutable .12 tag by rerunning it"
+  },
+  "references": [
+    "https://github.com/shubolab/opengoland/actions/runs/43244003072/attempts/2"
+  ]
+}

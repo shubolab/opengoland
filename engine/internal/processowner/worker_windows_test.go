@@ -185,6 +185,7 @@ func helperAlive(t *testing.T, identity processIdentity) bool {
 func waitIdentity(t *testing.T, path string) processIdentity {
 	t.Helper()
 	deadline := time.Now().Add(5 * time.Second)
+	var lastError error
 	for time.Now().Before(deadline) {
 		data, err := os.ReadFile(path)
 		if err == nil {
@@ -194,13 +195,58 @@ func waitIdentity(t *testing.T, path string) processIdentity {
 			}
 			return identity
 		}
-		if !errors.Is(err, os.ErrNotExist) {
+		// Publication is atomic, but Windows can briefly deny an open with a
+		// sharing violation even after the final filename becomes visible. The
+		// readiness deadline remains five seconds; cleanup/liveness gates below
+		// are unchanged. Other read errors and malformed identities still fail.
+		if !errors.Is(err, os.ErrNotExist) && !errors.Is(err, windows.ERROR_SHARING_VIOLATION) {
 			t.Fatal(err)
 		}
+		lastError = err
 		time.Sleep(5 * time.Millisecond)
 	}
-	t.Fatalf("helper readiness missing: %s", path)
+	t.Fatalf("helper readiness missing: %s: %v", path, lastError)
 	return processIdentity{}
+}
+
+func TestReadinessWaitsForARealWindowsSharingLock(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "identity.json")
+	want := currentIdentity()
+	if err := writeIdentity(path, want); err != nil {
+		t.Fatal(err)
+	}
+	widePath, err := windows.UTF16PtrFromString(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	handle, err := windows.CreateFile(widePath, windows.GENERIC_READ, 0, nil, windows.OPEN_EXISTING, windows.FILE_ATTRIBUTE_NORMAL, 0)
+	if err != nil {
+		t.Fatal(err)
+	}
+	release := make(chan struct{})
+	closed := make(chan error, 1)
+	go func() {
+		<-release
+		time.Sleep(100 * time.Millisecond)
+		closed <- windows.CloseHandle(handle)
+	}()
+	released := false
+	defer func() {
+		if !released {
+			close(release)
+		}
+		if err := <-closed; err != nil {
+			t.Error(err)
+		}
+	}()
+	if _, err := os.ReadFile(path); !errors.Is(err, windows.ERROR_SHARING_VIOLATION) {
+		t.Fatalf("fixture must first establish an actual sharing violation, got %v", err)
+	}
+	released = true
+	close(release)
+	if got := waitIdentity(t, path); got != want {
+		t.Fatalf("identity changed while waiting for file sharing: got %+v, want %+v", got, want)
+	}
 }
 
 func startOwner(t *testing.T, directory string, commandArgs ...string) *ownerControl {
