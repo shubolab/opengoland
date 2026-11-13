@@ -1,0 +1,16 @@
+{
+  "sourceCommit": "32fd60a43e68a9b879fae0d04ea96bd5ba41547c",
+  "buildInputCount": 566,
+  "buildInputDigest": "86585480144da1f3d78c5d418b7280c40f96696ef7c843d4dcd95bdb9bc5d095",
+  "everyCapturedInputMatchesCommit": true,
+  "nativeFixtureFilesMatchCommit": true,
+  "localCandidateIsNotClaimedByteIdenticalToFutureCiInstaller": true,
+  "schemaVersion": 1,
+  "tag": "v0.1.0-preview.20261113.3",
+  "annotatedTagObject": "18e701d7430373d69fd25724d01b7b1d331ce668",
+  "installerRunId": 43393231491,
+  "installerRunUrl": "https://github.com/shubolab/opengoland/actions/runs/43393231491",
+  "stateAtRecord": "tag pushed; installer workflow queued; not installer success or publication evidence",
+  "nativeRecord": "docs/verification/http-batch-native-20261113.json",
+  "gifRecord": "docs/demo/http-batch-recording.json"
+}
