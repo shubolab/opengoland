@@ -69,8 +69,9 @@
       8
     ],
     "path": "docs/demo/native-http-client.gif",
-    "bytes": 414392,
-    "sha256": "5c793a4b681af5c0833568629e3185d9b5c403dcd5b25e4871527c24807f8ae2"
+    "bytes": 266946,
+    "sha256": "661c5a194d41d24a596f8aa698399187e53fe0227ae5e342c5d4d5ea6fe39959",
+    "palette": "global 256-color palette, no dithering"
   },
   "previousRecording": {
     "candidate": {
