@@ -1,5 +1,6 @@
 package dev.openidea.goide.http
 
+import com.google.gson.JsonParser
 import com.sun.net.httpserver.HttpExchange
 import com.sun.net.httpserver.HttpServer
 import java.io.IOException
@@ -15,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger
 import java.util.concurrent.atomic.AtomicReference
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertContentEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
 
@@ -31,6 +33,41 @@ internal class LocalHttpFixture : AutoCloseable {
 }
 
 class HttpRequestCallTest {
+    @Test fun nativeGoLandBodyBoundaryVectorsMatchActualOutgoingBytes() = LocalHttpFixture().use { fixture ->
+        val resource = javaClass.classLoader.getResourceAsStream("http-body-reference-20261113.json")!!
+        val oracle = resource.bufferedReader(Charsets.UTF_8).use { JsonParser.parseString(it.readText()).asJsonObject }
+        fixture.route("/echo") { exchange ->
+            val bytes = exchange.requestBody.readAllBytes()
+            exchange.responseHeaders.add("Content-Type", "text/plain; charset=utf-8")
+            exchange.sendResponseHeaders(200, bytes.size.toLong()); exchange.responseBody.write(bytes)
+        }
+        val document = oracle.get("document").asString.replace("http://127.0.0.1:18081", fixture.base)
+        for (item in oracle.getAsJsonArray("observations")) {
+            val observed = item.asJsonObject
+            val name = observed.get("probe").asString
+            val marker = document.indexOf("X-Probe: $name\n")
+            assertTrue(marker >= 0)
+            val request = HttpRequestDocument.requestAt(document, marker)
+            val response = HttpRequestCall(request).use { it.await() }
+            assertContentEquals(observed.get("body").asString.toByteArray(Charsets.UTF_8), response.body, name)
+            assertEquals(observed.get("utf8Bytes").asInt, response.body.size, name)
+        }
+    }
+
+    @Test fun originalUnicodeExampleMatchesTheReference39WireBytes() = LocalHttpFixture().use { fixture ->
+        val resource = javaClass.classLoader.getResourceAsStream("http-body-reference-20261113.json")!!
+        val oracle = resource.bufferedReader(Charsets.UTF_8).use { JsonParser.parseString(it.readText()).asJsonObject.getAsJsonObject("unicode") }
+        fixture.route("/echo") { exchange ->
+            val bytes = exchange.requestBody.readAllBytes()
+            exchange.responseHeaders.add("Content-Type", "text/plain; charset=utf-8")
+            exchange.sendResponseHeaders(200, bytes.size.toLong()); exchange.responseBody.write(bytes)
+        }
+        val document = oracle.get("document").asString.replace("http://127.0.0.1:18081", fixture.base)
+        val response = HttpRequestCall(HttpRequestDocument.requestAt(document, document.indexOf("POST"))).use { it.await() }
+        assertContentEquals(oracle.get("expectedBody").asString.toByteArray(Charsets.UTF_8), response.body)
+        assertEquals(39, response.body.size)
+    }
+
     @Test fun sendsUtf8PostWithHeadersAndReturnsRealErrorStatus() = LocalHttpFixture().use { fixture ->
         val captured = AtomicReference<String>()
         fixture.route("/echo") { exchange ->

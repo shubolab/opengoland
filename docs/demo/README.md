@@ -35,14 +35,14 @@ README 中的 `native-go-workflow.gif` 来自 open Goland 实际运行的窗口�
 
 ## HTTP 请求片段
 
-`native-http-client.gif` 来自 macOS arm64 上 `0.1.0-preview.20261113.1` 开发候选的
+`native-http-client.gif` 来自 macOS arm64 上 `0.1.0-preview.20261113.2` 开发候选的
 真实窗口，使用 [fixtures/http-client](../../fixtures/http-client) 的 loopback Go 服务。
 三个阶段分别是 POST 中文/emoji 请求体及响应、Stop 取消慢请求，以及原始 302 响应。
 每张截图显示 4 秒，共 12 秒；这是操作阶段截图的顺序播放，不是连续录屏。
 
 原图由 REA 对确切的已运行 IDE PID/window 捕获，UI 操作通过 Computer Use 完成。
-仅缩放至 1200 × 857 并编码为 GIF，没有添加模拟界面。录制候选早于随后补充的
-请求头和 URL 限额；对应源摘要、截图哈希、原生/自动化验证边界见
+仅缩放至 1200 × 857 并编码为 GIF，没有添加模拟界面。该候选包含参考端对照后的
+请求体边界修复，原始中文请求发出 39 字节、服务器返回 104 字节。对应源摘要、截图哈希、原生/自动化验证边界见
 [http-client-recording.json](http-client-recording.json) 和
 [HTTP 执行记录](../verification/http-client-native-20261113.json)。
 公开安装包是否包含该功能，以 README 下载区和绑定版本的发布记录为准。

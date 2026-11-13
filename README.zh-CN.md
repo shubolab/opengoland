@@ -22,7 +22,7 @@
 
 ![原生 HTTP 请求：中文 POST 响应、Stop 取消和 302 响应](docs/demo/native-http-client.gif)
 
-这个补充片段来自 macOS 上的 **0.1.0-preview.20261113.1 开发候选**，使用仓库中的
+这个补充片段来自 macOS 上的 **0.1.0-preview.20261113.2 开发候选**，使用仓库中的
 [本地 HTTP 示例](fixtures/http-client)，展示真实 POST 响应、取消慢请求和查看 302。
 它由三张实际操作阶段截图组成，共 12 秒；[录制记录](docs/demo/http-client-recording.json)
 保留了具体构建与验证边界。公开安装包版本见下方下载区。

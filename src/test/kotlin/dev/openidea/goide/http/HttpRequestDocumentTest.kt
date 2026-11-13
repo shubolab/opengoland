@@ -7,13 +7,13 @@ import kotlin.test.assertTrue
 
 class HttpRequestDocumentTest {
     @Test fun selectsRequestAtCaretAndPreservesCrlfBody() {
-        val text = "@host = http://127.0.0.1:8080\r\n### first\r\nGET {{host}}/first\r\n\r\n### echo\r\nPOST {{host}}/echo HTTP/1.1\r\nContent-Type: application/json\r\nX-Name: example\r\n\r\n{\"value\":\"你好😀\"}\r\n"
+        val text = "@host = http://127.0.0.1:8080\r\n### first\r\nGET {{host}}/first\r\n\r\n### echo\r\nPOST {{host}}/echo HTTP/1.1\r\nContent-Type: application/json\r\nX-Name: example\r\n\r\n{\r\n  \"value\":\"你好😀\"\r\n}\r\n"
         val first = HttpRequestDocument.requestAt(text, text.indexOf("GET"))
         val second = HttpRequestDocument.requestAt(text, text.indexOf("POST"))
         assertEquals("/first", first.uri.path)
         assertEquals(0, first.body.size)
         assertEquals("POST", second.method)
-        assertEquals("{\"value\":\"你好😀\"}\r\n", String(second.body, Charsets.UTF_8))
+        assertEquals("{\r\n  \"value\":\"你好😀\"\r\n}", String(second.body, Charsets.UTF_8))
         assertEquals(listOf("Content-Type" to "application/json", "X-Name" to "example"), second.headers)
         assertEquals(6, second.line)
     }

@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "status": "six reference vectors, reconstruction network tests and corrected native macOS POST passed",
+  "reference": {
+    "application": "GoLand",
+    "version": "2026.1.4",
+    "build": "261.26222.72",
+    "launcherSha256": "7a7b1da02131b070998bd58c03d6459674895bab7b1fd01401de5ff204ee40a5",
+    "method": "Native Run All in owned project, real Go loopback echo; each response identifies X-Probe",
+    "documentSha256": "2898f0f7f5632acfa76d13b557f418e3c4b7fba7a67fe9f897cd67bba9e6cf1c",
+    "launcherUnchangedAfterExit": true,
+    "applicationExitedNormally": true,
+    "fixtureServerExitedNormally": true
+  },
+  "originalFixture": {
+    "path": "fixtures/http-client/requests.http",
+    "sha256": "364ef27f9b41004029d6a1523809514f220a302ee0af47dc3193320808c2244b",
+    "nativePostBodyUtf8Bytes": 39,
+    "preRepairReconstructionBodyUtf8Bytes": 41,
+    "difference": "The pre-repair runner retained the two separating LF bytes after the JSON payload."
+  },
+  "boundaryOracle": {
+    "path": "src/test/resources/http-body-reference-20261113.json",
+    "documentSha256": "2898f0f7f5632acfa76d13b557f418e3c4b7fba7a67fe9f897cd67bba9e6cf1c",
+    "observations": [
+      {
+        "probe": "trailing",
+        "body": "alpha",
+        "utf8Bytes": 5,
+        "responseFile": "2026-11-13T122828.200.json",
+        "responseSha256": "70e6d12f2eb6244ff59150185ac3bcff78a3712c1fee94f7ca9a2c1cf1e2f6c4"
+      },
+      {
+        "probe": "spaces",
+        "body": "alpha \t",
+        "utf8Bytes": 7,
+        "responseFile": "2026-11-13T122828-1.200.json",
+        "responseSha256": "733e34aff912d1e11b03f825fd4418aad4ee8b79aa41f69210ba2c3f7c328b0a"
+      },
+      {
+        "probe": "leading",
+        "body": "alpha",
+        "utf8Bytes": 5,
+        "responseFile": "2026-11-13T122828-2.200.json",
+        "responseSha256": "ed2a94f12a8ac1af02e04e4fb8084c242aaa8426283165394c2f3ac663e4eb95"
+      },
+      {
+        "probe": "leading-spaces",
+        "body": " \talpha",
+        "utf8Bytes": 7,
+        "responseFile": "2026-11-13T122828-3.200.json",
+        "responseSha256": "47c9bd44a7ab8f7626317a8c395a8075105987014f86b8ff66b74e5246ce8fc9"
+      },
+      {
+        "probe": "edge-space-lines",
+        "body": "alpha",
+        "utf8Bytes": 5,
+        "responseFile": "2026-11-13T122828-4.200.json",
+        "responseSha256": "f9344fcb822f11d7f1bb9fd512bb333e3675ac7a04f8eef8aa629c2cfbd1e1a1"
+      },
+      {
+        "probe": "eof",
+        "body": "alpha",
+        "utf8Bytes": 5,
+        "responseFile": "2026-11-13T122828-5.200.json",
+        "responseSha256": "062f43f5b6415da529e3f274df06fafae86d1e298cb566a57d0084c7e5d9a44c"
+      }
+    ],
+    "ruleObserved": "Blank edge lines are excluded. Leading/trailing horizontal whitespace on nonblank lines is retained. This statement is bounded to the six captured cases."
+  },
+  "nativeUi": {
+    "pid": 22177,
+    "windowId": 710,
+    "evidenceId": "ev_0dfd84a9494d5e67cbdd711c2f630340597bc7bad0bc0a9f71e8bcc830352e8c",
+    "screenshot": {
+      "path": "docs/verification/assets/http-client-reference-20261113.png",
+      "mime_type": "image/png",
+      "sha256": "02aef24ce4758ba25d49bb8dcbf393bf502d212ced90e5fcc5977e23c86d7634",
+      "width": 1400,
+      "height": 1000
+    },
+    "observedUi": [
+      "HTTP request editor toolbar and environment selector",
+      "Native Services HTTP group and named request entries",
+      "Syntax-highlighted formatted JSON response and saved-response links",
+      "Run All on six request cases"
+    ]
+  },
+  "releaseDecision": {
+    "cancelledTag": "v0.1.0-preview.20261113.1",
+    "run": 43363144976,
+    "reason": "Reference runtime found a concrete outgoing-body byte mismatch before publication.",
+    "nextCandidate": "v0.1.0-preview.20261113.2"
+  },
+  "boundaries": [
+    "No commercial implementation was copied or modified; only the owned request fixture and independent loopback echo were used.",
+    "Reference application installation files remain read-only; its existing licensing state was unchanged.",
+    "Six body-edge cases do not establish complete HTTP Client parity. Redirects, environment files/scripts, history, response UI and Windows interaction still require separate work."
+  ],
+  "reconstructionRepair": {
+    "method": "Discard whole blank edge lines while preserving horizontal whitespace on content lines and internal line endings.",
+    "targetedHttpTests": 26,
+    "targetedFailures": 0,
+    "nativeCorrectedCandidate": {
+      "version": "0.1.0-preview.20261113.2",
+      "requestBodyUtf8Bytes": 39,
+      "responseBodyBytes": 104,
+      "pid": 30284,
+      "nativeRecord": "http-client-native-20261113.json"
+    },
+    "fullGate": {
+      "status": "passed",
+      "reports": 159,
+      "tests": 861,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "buildInputDigest": "81ecf5d158ac4e48e4f3a188d33dfcf35c65a0373c3c7fe9631eb60146bcb37e",
+      "checks": [
+        "test",
+        "buildPlugin",
+        "prepareSandbox",
+        "verifyPluginStructure"
+      ]
+    }
+  }
+}

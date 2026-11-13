@@ -1,65 +1,64 @@
 {
   "schemaVersion": 1,
   "recordedAtUtc": "2026-11-13",
-  "scope": "Actual native macOS operation stages, not continuous video or Windows acceptance. Captured before final URL/header resource guards.",
+  "scope": "Three actual native macOS operation stages, not continuous video or Windows acceptance. Includes the reference-observed body-boundary repair.",
   "candidate": {
-    "version": "0.1.0-preview.20261113.1",
-    "stateAtCapture": "development candidate; no public .13.1 installers at capture",
-    "parentCommit": "2baa81e8998d5f2929e2db34291535f1ea04aba8",
+    "version": "0.1.0-preview.20261113.2",
+    "stateAtCapture": "development candidate; installers not published at capture",
+    "parentCommit": "c7164f8fc17d98c53b4d03179f18685c2bef2dce",
     "sourceDirty": true,
-    "buildInputCount": 551,
-    "buildInputDigest": "b0933abfae699857b235659b245ef9e45b1c0a7f2c35efae7065da3bde069286",
-    "pluginJarSha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230",
-    "launcherSha256": "8e1306fb59e4ac05ea30b5e1c20358889f5457d669d2c2645a53967580345a78"
+    "buildInputCount": 552,
+    "buildInputDigest": "81ecf5d158ac4e48e4f3a188d33dfcf35c65a0373c3c7fe9631eb60146bcb37e",
+    "pluginJarSha256": "c792abca7b46def3f7985290702166c2762e5dc06817a5a3b0182a3949ffd07a",
+    "launcherSha256": "666e52f558e7db0e8cf8510d42c08aa18388c1d4ba18de58e3314581c338f68d"
   },
   "capture": {
-    "method": "REA observe_native_ui for exact PID12811/window434; actions through Computer Use",
+    "method": "REA observe_native_ui on exact PID30284/window859; native actions through CUA",
     "windowTitle": "http-client – requests.http",
     "platform": "macOS arm64",
     "fixture": "fixtures/http-client",
     "sourceFrames": [
       {
         "stage": "post",
-        "evidenceId": "ev_169c898538c2d2ee92a37fd48aeec4c75f5cbddb70cacf2c11dc0a2770c7347e",
+        "evidenceId": "ev_d47a9f5280746657cfa4f3115169b03fa6f85b5fe775bbe718db8983b3bcbb4b",
         "originalScreenshot": {
           "mime_type": "image/png",
-          "sha256": "d52c7d014a3310247f8d91132aa8279ad2cd693d43d93373ff7f610a636783a4",
+          "sha256": "520fd4c22c8ae33ea8b56cf07bde962a09fe1bc646fc1910cc29900be24d16b4",
           "width": 1400,
           "height": 1000
         },
         "durationMs": 4000,
-        "accessibilityTruncated": true
+        "accessibilityRequested": false
       },
       {
         "stage": "stop",
-        "evidenceId": "ev_54c9e975b869d39e419878e4829c2bd3b3cf10bcad906963a4c9c3235276e430",
+        "evidenceId": "ev_657748dd49c7161d5a84d89148dc9cb164fef3b280c65bb301d26feb37ebfcc1",
         "originalScreenshot": {
           "mime_type": "image/png",
-          "sha256": "c96c5e25afa4ec40f3ecd093970c33a76dd1995eb70cb8a426e3855c148be8fd",
+          "sha256": "cc15e40ad33bba3a2d062928f653e34b07b4c31f5c9d1364e92c689f8f15e2d6",
           "width": 1400,
           "height": 1000
         },
         "durationMs": 4000,
-        "accessibilityTruncated": false
+        "accessibilityRequested": false
       },
       {
         "stage": "redirect",
-        "evidenceId": "ev_c6051a8fc251242c46976a512b2092c1422aa48263acd4644dcfe1fdc21fad84",
+        "evidenceId": "ev_26f8f26f6e11aa40882801ae3d1e5a37bfa7751fe7fc5818e3b71a165a973e13",
         "originalScreenshot": {
           "mime_type": "image/png",
-          "sha256": "2e6bb40b77fec5c34da39583f6db5334763e4a6211658ed4c31461848ef48086",
+          "sha256": "31dc5d0d680f844d98822e88b4922796d31d9cc509b26b2affc1a16c436008b7",
           "width": 1400,
           "height": 1000
         },
         "durationMs": 4000,
-        "accessibilityTruncated": false
+        "accessibilityRequested": false
       }
-    ],
-    "accessibilityBoundary": "The first REA capture had partial AX coverage with AXError -25202 for tab children. Screenshots were returned, hashed and inspected; CUA independently observed the request editor and console. Later REA calls requested screenshots without AX."
+    ]
   },
   "encoding": {
     "tool": "existing ffmpeg",
-    "transform": "uniform Lanczos scale and GIF palette conversion only; no cropping, annotations, simulated UI or transitions",
+    "transform": "Uniform Lanczos scaling and GIF palette conversion only; no cropping, annotations, simulated UI or transitions.",
     "width": 1200,
     "height": 857,
     "frames": 3,
@@ -70,12 +69,25 @@
       8
     ],
     "path": "docs/demo/native-http-client.gif",
-    "bytes": 414590,
-    "sha256": "a7146aeda9a3173e7b64df369eb53f9912a66018093d3ed8a0091ebd4a178cf0"
+    "bytes": 414392,
+    "sha256": "5c793a4b681af5c0833568629e3185d9b5c403dcd5b25e4871527c24807f8ae2"
+  },
+  "previousRecording": {
+    "candidate": {
+      "version": "0.1.0-preview.20261113.1",
+      "stateAtCapture": "development candidate; no public .13.1 installers at capture",
+      "parentCommit": "2baa81e8998d5f2929e2db34291535f1ea04aba8",
+      "sourceDirty": true,
+      "buildInputCount": 551,
+      "buildInputDigest": "b0933abfae699857b235659b245ef9e45b1c0a7f2c35efae7065da3bde069286",
+      "pluginJarSha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230",
+      "launcherSha256": "8e1306fb59e4ac05ea30b5e1c20358889f5457d669d2c2645a53967580345a78"
+    },
+    "gifSha256": "a7146aeda9a3173e7b64df369eb53f9912a66018093d3ed8a0091ebd4a178cf0",
+    "reasonReplaced": "The original candidate retained two .http separator LF bytes in the outgoing body. The latest clip shows the repaired 39-byte request / 104-byte response."
   },
   "limitations": [
-    "Native macOS candidate only; not complete GoLand/HTTP Client parity.",
-    "The GIF does not show the final later header-count/size and encoded-URL guards.",
-    "The public installer state is recorded separately in version-specific release records."
+    "Native macOS candidate only. Windows interaction and complete GoLand/HTTP Client parity remain open.",
+    "The preview installer state is recorded separately in version-specific release records."
   ]
 }

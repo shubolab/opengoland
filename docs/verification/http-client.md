@@ -12,6 +12,8 @@
 - 绝对 `http://` / `https://` URL；GET、POST、PUT、PATCH、DELETE、HEAD、OPTIONS。
 - `###` 分隔多个请求，按光标或所点击的 gutter 选择其中一个。
 - `Header-Name: value`，空行后的 UTF-8 文本请求体。
+- 请求体两端的空白行只用于分隔请求，不会发到服务器；正文行的前导空格、
+  尾部空格和 Tab 保留。六组参考端真实请求的原始字节已用于回归。
 - `@name = value` 文件变量，以及 URL、请求头值和请求体中的 `{{name}}`；
   变量按请求之前的声明生效，支持有限深度的引用。
 - 显示包括 4xx/5xx 在内的真实 HTTP 响应；文本按响应声明的字符集解码，默认 UTF-8。
@@ -44,6 +46,21 @@ ProcessHandler 的结果与 Stop。另有平台 gutter 分发、未解析/循环
 
 具体源码摘要、完整测试数和桌面观察结果见本次的
 [运行记录](http-client-native-20261113.json)。自动化和桌面证据分别列出，不能互相替代。
+
+## 与 GoLand 参考端的实测差距
+
+同一份 UTF-8 POST 最初在本仓库发出 41 字节，GoLand 发出 39 字节；差异来自
+正文后的两个分隔换行。现已按六组参考请求修正边界解析，并用真实网络回归验证。
+原始样例、参考端返回的正文与截图见 [参考记录](http-client-reference-20261113.json)。
+
+| 项目 | GoLand 2026.1.4 本机观察 | 本仓库当前范围 |
+| --- | --- | --- |
+| 请求体边界 | 去除空白边界行，保留正文行的空格/Tab | 六组原始字节已通过自动化对照；修正版桌面记录单独绑定 |
+| 结果展示 | Services 中有命名请求条目，响应 JSON 有高亮和格式化，提供响应文件链接 | Run 控制台显示原始文本，没有对应 Services 分组或响应文件保存 |
+| 批量执行 | 原生 Run All 实际执行了六组请求 | 当前只运行所选单个请求 |
+| 环境/历史/cURL | 编辑器有对应入口；本轮未验收其完整流程 | 未实现环境文件、历史和 cURL 转换 |
+
+该对照只覆盖本机 HTTP 工作流，没有关闭整个 TOOLS-04 或双平台对齐矩阵。
 
 The built-in runner sends the selected `.http` request from the current editor
 snapshot and displays the response in the native Run console. It supports basic

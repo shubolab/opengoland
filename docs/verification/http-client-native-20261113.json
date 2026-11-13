@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "status": "native-macos-http-request-core-workflows-passed; full parity open",
+  "status": "native macOS corrected HTTP body, Stop and redirect workflows passed; complete parity open",
   "nativeCandidate": {
     "version": "0.1.0-preview.20261113.1",
     "stateAtCapture": "development candidate; no public .13.1 installers at capture",
@@ -113,5 +113,54 @@
     "Native Windows UI and GoLand reference-runtime comparison remain unverified.",
     "Environment files, scripts, dynamic variables, credential/history management, binary saving, multipart, gRPC/WebSocket and full HTTP Client parity are not implemented.",
     "TOOLS-04 and ROBUST-01 remain unverified; these are partial observations."
-  ]
+  ],
+  "correctedBodyCandidate": {
+    "candidate": {
+      "version": "0.1.0-preview.20261113.2",
+      "stateAtCapture": "development candidate; installers not published at capture",
+      "parentCommit": "c7164f8fc17d98c53b4d03179f18685c2bef2dce",
+      "sourceDirty": true,
+      "buildInputCount": 552,
+      "buildInputDigest": "81ecf5d158ac4e48e4f3a188d33dfcf35c65a0373c3c7fe9631eb60146bcb37e",
+      "pluginJarSha256": "c792abca7b46def3f7985290702166c2762e5dc06817a5a3b0182a3949ffd07a",
+      "launcherSha256": "666e52f558e7db0e8cf8510d42c08aa18388c1d4ba18de58e3314581c338f68d"
+    },
+    "fullGate": {
+      "reports": 159,
+      "tests": 861,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "nativePost": {
+      "requestBodyUtf8Bytes": 39,
+      "responseBodyBytes": 104,
+      "status": 200,
+      "matchesReferenceSampleWireBody": true
+    },
+    "nativeStop": {
+      "serverReceivedAtLocal": "2026/11/13 12:50:49",
+      "serverDisconnectedAtLocal": "2026/11/13 12:50:54",
+      "naturalServerDeadlineSeconds": 25
+    },
+    "nativeRedirect": {
+      "status": 302,
+      "location": "/echo",
+      "automaticallyFollowed": false
+    },
+    "applicationExitedNormally": true,
+    "fixtureServerExitedNormally": true,
+    "serverLog": [
+      "2026/11/13 12:46:23 HTTP example listening on http://127.0.0.1:18081",
+      "2026/11/13 12:47:46 echo: method=POST bytes=39",
+      "2026/11/13 12:50:49 slow: request received",
+      "2026/11/13 12:50:54 slow: client disconnected"
+    ],
+    "frameEvidenceIds": [
+      "ev_d47a9f5280746657cfa4f3115169b03fa6f85b5fe775bbe718db8983b3bcbb4b",
+      "ev_657748dd49c7161d5a84d89148dc9cb164fef3b280c65bb301d26feb37ebfcc1",
+      "ev_26f8f26f6e11aa40882801ae3d1e5a37bfa7751fe7fc5818e3b71a165a973e13"
+    ],
+    "reference": "http-client-reference-20261113.json"
+  }
 }

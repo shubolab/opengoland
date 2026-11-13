@@ -32,7 +32,7 @@ The .6 installers have since passed both-platform build checks and are published
 ![Native HTTP request: UTF-8 POST response, Stop cancellation and original 302](docs/demo/native-http-client.gif)
 
 This additional clip uses the [local HTTP example](fixtures/http-client) in the
-**0.1.0-preview.20261113.1 development candidate on macOS**. Three real operation
+**0.1.0-preview.20261113.2 development candidate on macOS**. Three real operation
 screenshots show a POST response, cancelling a slow request and inspecting a 302;
 the clip is 12 seconds, with idle time compressed. See the
 [capture record](docs/demo/http-client-recording.json) for the exact build.

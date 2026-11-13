@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "reference": {
+    "application": "GoLand",
+    "version": "2026.1.4",
+    "build": "261.26222.72",
+    "launcherSha256": "7a7b1da02131b070998bd58c03d6459674895bab7b1fd01401de5ff204ee40a5",
+    "method": "Native Run All in owned project, real Go loopback echo; each response identifies X-Probe",
+    "documentSha256": "2898f0f7f5632acfa76d13b557f418e3c4b7fba7a67fe9f897cd67bba9e6cf1c"
+  },
+  "document": "@base = http://127.0.0.1:18081\n\n### trailing\nPOST {{base}}/echo\nContent-Type: text/plain\nX-Probe: trailing\n\nalpha\n\n### spaces\nPOST {{base}}/echo\nContent-Type: text/plain\nX-Probe: spaces\n\nalpha \t\n\n### leading\nPOST {{base}}/echo\nContent-Type: text/plain\nX-Probe: leading\n\n\nalpha\n\n### leading-spaces\nPOST {{base}}/echo\nContent-Type: text/plain\nX-Probe: leading-spaces\n\n \talpha\n\n### edge-space-lines\nPOST {{base}}/echo\nContent-Type: text/plain\nX-Probe: edge-space-lines\n\n\n \t\nalpha\n \t\n\n### eof\nPOST {{base}}/echo\nContent-Type: text/plain\nX-Probe: eof\n\nalpha\n",
+  "observations": [
+    {
+      "probe": "trailing",
+      "body": "alpha",
+      "utf8Bytes": 5,
+      "responseFile": "2026-11-13T122828.200.json",
+      "responseSha256": "70e6d12f2eb6244ff59150185ac3bcff78a3712c1fee94f7ca9a2c1cf1e2f6c4"
+    },
+    {
+      "probe": "spaces",
+      "body": "alpha \t",
+      "utf8Bytes": 7,
+      "responseFile": "2026-11-13T122828-1.200.json",
+      "responseSha256": "733e34aff912d1e11b03f825fd4418aad4ee8b79aa41f69210ba2c3f7c328b0a"
+    },
+    {
+      "probe": "leading",
+      "body": "alpha",
+      "utf8Bytes": 5,
+      "responseFile": "2026-11-13T122828-2.200.json",
+      "responseSha256": "ed2a94f12a8ac1af02e04e4fb8084c242aaa8426283165394c2f3ac663e4eb95"
+    },
+    {
+      "probe": "leading-spaces",
+      "body": " \talpha",
+      "utf8Bytes": 7,
+      "responseFile": "2026-11-13T122828-3.200.json",
+      "responseSha256": "47c9bd44a7ab8f7626317a8c395a8075105987014f86b8ff66b74e5246ce8fc9"
+    },
+    {
+      "probe": "edge-space-lines",
+      "body": "alpha",
+      "utf8Bytes": 5,
+      "responseFile": "2026-11-13T122828-4.200.json",
+      "responseSha256": "f9344fcb822f11d7f1bb9fd512bb333e3675ac7a04f8eef8aa629c2cfbd1e1a1"
+    },
+    {
+      "probe": "eof",
+      "body": "alpha",
+      "utf8Bytes": 5,
+      "responseFile": "2026-11-13T122828-5.200.json",
+      "responseSha256": "062f43f5b6415da529e3f274df06fafae86d1e298cb566a57d0084c7e5d9a44c"
+    }
+  ],
+  "unicode": {
+    "document": "@base = http://127.0.0.1:18081\n\n### Read a JSON response\nGET {{base}}/echo\nAccept: application/json\n\n### Send a UTF-8 body\nPOST {{base}}/echo\nContent-Type: application/json; charset=utf-8\nX-Demo: open-goland\n\n{\"message\":\"你好，open Goland 😀\"}\n\n### Run this request, then click Stop\nGET {{base}}/slow\n\n### Inspect 302 without automatically following it\nGET {{base}}/redirect\n",
+    "expectedBody": "{\"message\":\"你好，open Goland 😀\"}",
+    "expectedUtf8Bytes": 39
+  }
+}

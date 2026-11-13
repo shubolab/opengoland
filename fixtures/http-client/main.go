@@ -24,7 +24,11 @@ func main() {
 		}
 		log.Printf("echo: method=%s bytes=%d", r.Method, len(body))
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
-		json.NewEncoder(w).Encode(map[string]string{"method": r.Method, "message": "你好，open Goland", "body": string(body)})
+		result := map[string]string{"method": r.Method, "message": "你好，open Goland", "body": string(body)}
+		if probe := r.Header.Get("X-Probe"); probe != "" {
+			result["probe"] = probe
+		}
+		json.NewEncoder(w).Encode(result)
 	})
 	mux.HandleFunc("/slow", func(w http.ResponseWriter, r *http.Request) {
 		log.Print("slow: request received")

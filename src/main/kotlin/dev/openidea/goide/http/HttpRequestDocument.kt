@@ -78,7 +78,8 @@ internal object HttpRequestDocument {
                 "Request bodies are encoded as UTF-8. Other request charsets are not supported."
             }
         }
-        // Preserve the body's original CRLF and trailing newline, rather than rejoining parsed lines.
+        // Preserve internal CRLF and horizontal whitespace on content lines.
+        // Boundary blank lines belong to the .http document, not the wire body.
         var bodyStart = 0
         repeat((index + 1).coerceAtMost(lines.size)) {
             bodyStart = block.indexOf('\n', bodyStart).let { if (it < 0) block.length else it + 1 }
@@ -87,10 +88,31 @@ internal object HttpRequestDocument {
         require(!Regex("(?m)^[\\t ]*(?:<[\\t ]+|>|\\{%|%})").containsMatchIn(rawBody)) {
             "File bodies and request/response scripts are not supported by the built-in HTTP runner."
         }
-        val body = expand(rawBody, variables).toByteArray(UTF_8)
+        val body = expand(withoutBoundaryBlankLines(rawBody), variables).toByteArray(UTF_8)
         require(body.size <= 1024 * 1024) { "HTTP request bodies are limited to 1 MiB." }
         require(method != "HEAD" || body.isEmpty()) { "HEAD requests cannot have a body in this runner." }
         return HttpRequestSpec(method, uri, headers, body, text.take(start).count { it == '\n' } + requestLineIndex + 1)
+    }
+
+    /** Matches the captured GoLand body-edge cases without trimming meaningful spaces or tabs. */
+    private fun withoutBoundaryBlankLines(value: String): String {
+        var firstContent = -1
+        var lastContentEnd = 0
+        var lineStart = 0
+        while (lineStart < value.length) {
+            val newline = value.indexOf('\n', lineStart)
+            val rawEnd = if (newline < 0) value.length else newline
+            val lineEnd = if (newline >= 0 && rawEnd > lineStart && value[rawEnd - 1] == '\r') rawEnd - 1 else rawEnd
+            var cursor = lineStart
+            while (cursor < lineEnd && (value[cursor] == ' ' || value[cursor] == '\t')) cursor++
+            if (cursor < lineEnd) {
+                if (firstContent < 0) firstContent = lineStart
+                lastContentEnd = lineEnd
+            }
+            if (newline < 0) break
+            lineStart = newline + 1
+        }
+        return if (firstContent < 0) "" else value.substring(firstContent, lastContentEnd)
     }
 
     private fun readPreamble(block: String, variables: MutableMap<String, String>): Int {
