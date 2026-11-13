@@ -37,9 +37,70 @@
     "cleanupAndLivenessDeadlinesChanged": false,
     "regression": "TestReadinessWaitsForARealWindowsSharingLock creates a genuine no-share Windows file handle, proves ReadFile denial, releases it, then requires the same identity.",
     "crossCompilation": "passed on darwin-arm64 using pinned go1.27.3 with GOOS=windows GOARCH=amd64 CGO_ENABLED=0",
-    "windowsExecution": "pending on new source; cannot repair the immutable .12 tag by rerunning it"
+    "windowsExecution": "passed on actual windows-2025 runner in .20261113.2; original .12 source/tag unchanged",
+    "verification": {
+      "version": "0.1.0-preview.20261113.2",
+      "sourceCommit": "30288b0c50d36244378a2552c7131ed1e8484dac",
+      "run": 43369092135,
+      "attempt": 1,
+      "processownerTestsPassed": 8,
+      "goRacePackagePassEvents": [
+        {
+          "Time": "2026-11-13T05:29:54.4897097Z",
+          "Action": "pass",
+          "Test": "TestExistingEngineModesRemainUnclaimed",
+          "Elapsed": 0
+        },
+        {
+          "Time": "2026-11-13T05:29:54.4902719Z",
+          "Action": "pass",
+          "Test": "TestMalformedOwnerRequestsCannotReachAPlatformLauncher",
+          "Elapsed": 0
+        },
+        {
+          "Time": "2026-11-13T05:29:54.4902719Z",
+          "Action": "pass",
+          "Test": "TestOwnedCommandFixture",
+          "Elapsed": 0
+        },
+        {
+          "Time": "2026-11-13T05:29:54.5960228Z",
+          "Action": "pass",
+          "Test": "TestReadinessWaitsForARealWindowsSharingLock",
+          "Elapsed": 0.11
+        },
+        {
+          "Time": "2026-11-13T05:29:56.7089416Z",
+          "Action": "pass",
+          "Test": "TestCompletedLauncherCannotLeaveItsChildOrPipes",
+          "Elapsed": 2.11
+        },
+        {
+          "Time": "2026-11-13T05:29:56.7965167Z",
+          "Action": "pass",
+          "Test": "TestKillingOwnerStopsAlreadyStartedChildrenAndPipes",
+          "Elapsed": 0.09
+        },
+        {
+          "Time": "2026-11-13T05:29:57.8895445Z",
+          "Action": "pass",
+          "Test": "TestParentLifetimePipeEOFStopsOwnedChildrenAndPipes",
+          "Elapsed": 1.09
+        },
+        {
+          "Time": "2026-11-13T05:29:57.9344911Z",
+          "Action": "pass",
+          "Test": "TestOwnedCommandPreservesArgumentsEnvironmentDirectoryStreamsAndStatus",
+          "Elapsed": 0.05
+        }
+      ],
+      "provenanceSha256": "8eae4654633cfa760426aea16a44657c732f96dcee66d478e928132b6eafeef6",
+      "rawRaceLogSha256": "14dc367bbed09b8c5eb984897b4601773f96db3563bd0038ecd4c986f14e7fba",
+      "record": "releases/0.1.0-preview.20261113.2.json"
+    }
   },
   "references": [
-    "https://github.com/shubolab/opengoland/actions/runs/43244003072/attempts/2"
+    "https://github.com/shubolab/opengoland/actions/runs/43244003072/attempts/2",
+    "https://github.com/shubolab/opengoland/actions/runs/43369092135"
   ]
 }

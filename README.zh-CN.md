@@ -29,18 +29,22 @@
 
 ## 下载与安装
 
-当前公开版本是 [0.1.0-preview.20261112.11](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.11)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
+当前公开版本是 [0.1.0-preview.20261113.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.2)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
 
 | 系统 | 直接下载 | 安装方法 |
 | --- | --- | --- |
-| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.11/open-Goland-0.1.0-preview.20261112.11-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
-| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.11/open-Goland-0.1.0-preview.20261112.11-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
+| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.2/open-Goland-0.1.0-preview.20261113.2-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
+| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.2/open-Goland-0.1.0-preview.20261113.2-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
 
 安装包自带 JVM（运行 IDE 所需的 Java 环境）、**Go 1.26.10、gopls 0.24.0，以及基于 Delve 1.27.2 的补丁构建**。基本的 Go 编辑、构建与测试无需另装 Java、Go 或语言服务工具；也可以选择自己安装的 Go SDK。
 
-每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.11/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
+每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.2/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
 
-这一版修复原生产品中插件管理服务的激活问题，并包含终端多候选选择、Windows 清行修复和参数边界保护；此前的项目 SDK 环境恢复、官方中文语言包安装入口、通用插件候选流程和进程/调试修复继续保留。两平台各完成 819 个 Kotlin 测试（148 个报告），无失败、错误或跳过；安装与启动检查均通过。Windows 交互式终端、插件与中文界面，以及 macOS Developer Mode 调试闭环仍需原生验收。Go Template、SQL/Dockerfile/HTTP 文件类型和内置 HTTP 执行器属于后续源码，尚不包含在这一版安装包中。具体边界、资产哈希和流程结果见[.11 发布验证记录](docs/verification/releases/0.1.0-preview.20261112.11.json)，完整 GoLand 对齐仍在进行。
+这一版加入可以真正发请求、查看响应和 Stop 取消的 HTTP 执行器；按照官方 GoLand 的实测结果修正了请求正文边界，并包含 Go Template、SQL 和 Dockerfile 的文件识别与高亮。此前的中文语言包、插件管理、终端与 SDK、进程清理修复继续保留。
+
+两平台各 **861 个 Kotlin 测试、159 份报告全部通过**，没有失败、错误或跳过；Windows 进程所有权包的 8 项测试也全部通过，包括真实文件共享锁回归。EXE、DMG 的安装检查成功，五个公开资产的哈希、源码清单和测试条目已独立核对。具体结果见[.13.2 发布验证记录](docs/verification/releases/0.1.0-preview.20261113.2.json)。
+
+Windows 交互式终端、插件与中文界面，以及 macOS Developer Mode 调试闭环仍需原生验收；完整 GoLand 对齐仍在进行。
 
 IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitHub、私有仓库和项目依赖所需的认证仍然保留，使用这些服务时需要它们各自的凭据。
 
@@ -106,7 +110,7 @@ IDE 本身无需账号或付费；第三方插件保留自己的许可、收费�
 当前源码还提供 Go Template、SQL、Dockerfile 和 HTTP 请求文件的原生高亮。
 `.http` 可以从请求行左侧或右键 **Run HTTP Request** 发起请求，在原生 Run 面板查看响应、
 点击 Stop 取消；支持文件变量和 UTF-8 请求体。可直接试用[本地 HTTP 示例](fixtures/http-client)。
-这些新增能力尚未包含在上方 `.11` 安装包中；HTTP 环境文件、脚本、凭据管理，
+这些新增能力已包含在上方 `.13.2` 安装包中。HTTP 环境文件、脚本、凭据管理，
 以及数据库连接、Docker 执行和模板语义分析仍未实现，见[支持范围](docs/verification/http-client.md)。
 
 ### 导航与重构
@@ -150,7 +154,7 @@ Go Test 配置支持普通测试、benchmark 和 fuzz。测试树可展示进度
 - **macOS 调试需要 Command Line Tools 或 Xcode。** Delve 当前使用 Apple 的 `debugserver`；纯 Go 编辑、构建与测试使用内置 SDK。cgo 项目还需要其 C 工具链。
 - **外部 Go SDK 的验收有范围。** 当前 macOS 候选包已完成原生目录选择、校验、保存、重启恢复、实际 Go 测试和切回内置 SDK；不同 SDK 版本与 Windows 仍需验收。测试调试首次准备 `test2json` 可能较慢，准备过程的原生取消按钮尚未验收。
 - **插件兼容性有范围。** 插件市场和磁盘安装保留平台原有检查；需要其他 IDE 专有模块或不支持当前版本的插件仍不能使用。第三方插件的许可和账号规则不变。
-- **终端 Go 补全正在分阶段完善。** 公开 `.11` 已包含 macOS zsh/Bash 的单命令回退、多候选弹窗、Windows 清行修复和参数边界保护；安装启动检查通过并不等于 Windows 交互式补全已验收。Windows、远程与 WSL 终端仍需原生验收。修复原理和证据见[终端补全记录](docs/reference/terminal-command-completion-20261112.json)。
+- **终端 Go 补全正在分阶段完善。** 公开 `.13.2` 已包含 macOS zsh/Bash 的单命令回退、多候选弹窗、Windows 清行修复和参数边界保护；安装启动检查通过并不等于 Windows 交互式补全已验收。Windows、远程与 WSL 终端仍需原生验收。修复原理和证据见[终端补全记录](docs/reference/terminal-command-completion-20261112.json)。
 - **中文界面尚未覆盖所有 Go 功能。** 平台界面可以使用匹配的官方语言包，部分新增 Go 对话框仍为英文；安装和更改语言后需要按提示重新打开 IDE。
 - **Windows 超长项目根目录仍有限制。** 子进程工作目录超过系统支持范围可能出现 `CreateProcess 267`，建议使用较短的项目路径；中文、空格和 emoji 路径与任意长度支持是不同问题。
 - **性能、语言细节与全部工程环境还需继续验证。** 冷类型目录加载、完整 Go PSI/解析能力、输入法，以及不同 build tags、SDK、依赖与大型项目场景，均不能只凭局部测试认定全部支持。
@@ -222,7 +226,7 @@ Windows 构建在 Windows 上执行，入口与完整安装/卸载检查见[发�
 
 - [插件与中文安装验证](docs/verification/plugin-compatibility.md)：匹配语言包、原生插件流程、重启与具体证据范围。
 - [公开 .3 中文与插件原生检查](docs/verification/plugin-compatibility-public-native.json)：完整下载 DMG 后的安装、中文启用、插件动作及 Go Run/Test。
-- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261112.11.json)：两个系统的安装包、校验值、构建与安装检查。
+- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261113.2.json)：两个系统的安装包、校验值、构建与安装检查。
 - [此前 .2 macOS 公开版本的新建项目检查](docs/verification/sdk-project-management-public-native.json)：默认 SDK 新建项目、Run/Test、状态恢复，以及未完成的本地 SDK 文件选择器验证。
 - [完整产品验收矩阵](docs/reference/acceptance-matrix.json)：完整目标和仍未完成的验收项。
 - [参考调查](docs/reference/README.md)、[REA 证据台账](docs/reference/rea-ledger.md)：实际参考版本、可见资源和证据局限。

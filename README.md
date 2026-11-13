@@ -46,26 +46,28 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261112.11](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261112.11).
+[Download preview 0.1.0-preview.20261113.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.2).
 Both installers include checksums and platform verification records.
 
-This release repairs native plugin-management service activation and includes the
-native terminal completion candidate chooser and Windows
-line-clearing repair alongside the macOS completion fallback and the
-existing project-selected Go SDK terminal environment, official Chinese
-language-pack and Marketplace-compatible plugin flow, Windows process ownership,
-and macOS SDK/toolchain fixes. Both published platform builds ran 819 Kotlin
-tests in 148 reports with zero failures, errors or skips. See the
-[.11 verification record](docs/verification/releases/0.1.0-preview.20261112.11.json)
-for exact evidence, asset hashes and remaining boundaries. Interactive Windows
-terminal/plugin workflows and macOS Developer Mode debugging still need separate
-native acceptance. Go Template support, SQL/Dockerfile/HTTP file types and built-in
-HTTP execution are present in later source, outside this installer.
+This release adds the built-in HTTP request runner with native response output
+and Stop, corrects request-body separator bytes using real GoLand observations,
+and includes Go Template, SQL and Dockerfile highlighting. Earlier native
+plugin-management, Chinese language-pack, terminal/SDK and process-ownership
+repairs remain included.
+
+Both published platform builds passed **861 Kotlin tests in 159 reports**, with
+zero failures, errors or skips. All eight tests in the Windows process-ownership
+package passed, including the actual file-sharing-lock regression. The EXE and
+DMG passed their installed-product checks; source inputs, test identities and all
+five public asset digests have been independently checked. See the
+[.13.2 verification record](docs/verification/releases/0.1.0-preview.20261113.2.json).
+Interactive Windows workflows, macOS Developer Mode debugging and full GoLand
+parity still require separate acceptance.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.11/open-Goland-0.1.0-preview.20261112.11-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261112.11/open-Goland-0.1.0-preview.20261112.11-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.2/open-Goland-0.1.0-preview.20261113.2-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.2/open-Goland-0.1.0-preview.20261113.2-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -145,7 +147,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261112.11.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261113.2.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,
@@ -179,7 +181,7 @@ Current source adds native Go Template, SQL, Dockerfile and HTTP request
 highlighting. In `.http` files, use the request gutter or **Run HTTP Request**
 context action to send a request, inspect its response in Run, and cancel with
 Stop. File variables and UTF-8 bodies are supported; try the
-[local HTTP example](fixtures/http-client). These additions are outside the `.11`
+[local HTTP example](fixtures/http-client). These additions are included in the `.13.2`
 installers above. HTTP environment files, scripts and credential management,
 database connections, Docker execution and template semantics remain open.
 See [HTTP syntax and limits](docs/verification/http-client.md).
