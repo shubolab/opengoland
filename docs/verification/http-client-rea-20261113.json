@@ -1,0 +1,336 @@
+{
+  "schemaVersion": 1,
+  "scope": "Static identity of the candidate plugin JAR; does not prove execution or native UI behavior.",
+  "open": {
+    "result": {
+      "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.1.jar",
+      "format": "zip",
+      "kind": "archive",
+      "sha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230",
+      "architecture": null
+    }
+  },
+  "summary": {
+    "evidence_id": "ev_c4998e5c3df027c59470556cf37c516b2a1f57c5e5b7551e8c4e97d77a5ac38c",
+    "subject": {
+      "name": "opengoland-0.1.0-preview.20261113.1.jar",
+      "digest": {
+        "sha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230"
+      },
+      "local_path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.1.jar",
+      "format": "zip",
+      "architecture": null
+    },
+    "provider": {
+      "id": "rea-analysis-view",
+      "name": "REA analysis view projection",
+      "version": "1"
+    },
+    "analysis_profile": null,
+    "predicate_type": "rea.analysis-view",
+    "operation": "inspect_analysis_view",
+    "parameters": {
+      "parent_evidence_id": "ev_98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66",
+      "view": {
+        "kind": "summary"
+      }
+    },
+    "raw_result": null,
+    "normalized_result": {
+      "kind": "summary",
+      "view": {
+        "kind": "summary"
+      },
+      "parent_evidence_id": "ev_98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66",
+      "parent_operation": "inspect_artifact",
+      "parent_digest": "98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66",
+      "view_digest": "6d704b8b4b37b0b50960f1fd0e8b8b064b004afabb739cfb0ad7b59b754054e6",
+      "artifact": {
+        "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.1.jar",
+        "sha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230"
+      },
+      "coverage": {
+        "status": "complete-within-view",
+        "examined": 2549,
+        "total": 2549,
+        "next_offset": null,
+        "exhausted": true
+      },
+      "limitations": [
+        "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "unknowns": [
+        "Inventory does not establish application runtime behavior or complete format-specific analysis."
+      ],
+      "summary": {
+        "manifest": {
+          "manifest_id": "agm_b0f28550b7544befc3250560e29e6b0cdd5eceffde72b410bf7c48d63ed30889",
+          "root_artifact_id": "art_ccfe0ca61db8890b6811832264d2039cabef6d4e91e0b0eb34389ddd1c5b4b68",
+          "root_sha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230",
+          "root_format": "zip",
+          "graph_sha256": "e55ff0d09f72eb97e511f1ede548ebda502dbbdcecbff179bf0f3a6852616633",
+          "node_count": 850,
+          "occurrence_count": 850,
+          "edge_count": 849
+        },
+        "available_counts": {
+          "nodes": 850,
+          "occurrences": 850,
+          "edges": 849,
+          "integrity_contradictions": 0
+        },
+        "observed_entry_kind_counts": {
+          "file": 804,
+          "directory": 46,
+          "symlink": 0,
+          "slice": 0
+        },
+        "source_complete": true,
+        "inventory_evidence_ids": [
+          "ev_f310694d05cf670ae6d789f1aa7ea3bbaf2fa17adf546932a802253d8d358b6c"
+        ],
+        "inspection": {
+          "coverage": {
+            "status": "complete-within-substeps",
+            "substeps_completed": 1,
+            "observations_retained": 1,
+            "observations_omitted": 0,
+            "hypotheses_retained": 0,
+            "hypotheses_omitted": 0,
+            "unexplored_branches_retained": 0,
+            "unexplored_branches_omitted": 0,
+            "next_probes_retained": 0,
+            "next_probes_omitted": 0
+          },
+          "unexplored_branches": []
+        },
+        "limitation_count": 2
+      }
+    },
+    "confidence": "derived",
+    "authority": "shipped-artifact",
+    "environment": null,
+    "limitations": [
+      "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+      "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+    ],
+    "relationship_coverage": null,
+    "locations": [
+      {
+        "kind": "artifact-path",
+        "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.1.jar"
+      }
+    ],
+    "evidence_links": [
+      "ev_98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66"
+    ]
+  },
+  "selectedClasses": {
+    "evidence_id": "ev_f379ac578c0e2aa8e5f1798e157dcc549eb96647d276abb11f4e5d352599a0d3",
+    "subject": {
+      "name": "opengoland-0.1.0-preview.20261113.1.jar",
+      "digest": {
+        "sha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230"
+      },
+      "local_path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.1.jar",
+      "format": "zip",
+      "architecture": null
+    },
+    "provider": {
+      "id": "rea-analysis-view",
+      "name": "REA analysis view projection",
+      "version": "1"
+    },
+    "analysis_profile": null,
+    "predicate_type": "rea.analysis-view",
+    "operation": "inspect_analysis_view",
+    "parameters": {
+      "parent_evidence_id": "ev_98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66",
+      "view": {
+        "kind": "inventory",
+        "collection": "occurrences",
+        "logical_paths": [
+          "dev/openidea/goide/http/HttpRequestCall.class",
+          "dev/openidea/goide/http/HttpRequestDocument.class",
+          "dev/openidea/goide/http/HttpRequestProcessHandler.class",
+          "dev/openidea/goide/http/HttpRequestRunLineMarkerContributor.class",
+          "META-INF/plugin.xml",
+          "META-INF/openidea-build-inputs.json"
+        ],
+        "offset": 0,
+        "limit": 64
+      }
+    },
+    "raw_result": null,
+    "normalized_result": {
+      "kind": "inventory",
+      "view": {
+        "kind": "inventory",
+        "collection": "occurrences",
+        "logical_paths": [
+          "dev/openidea/goide/http/HttpRequestCall.class",
+          "dev/openidea/goide/http/HttpRequestDocument.class",
+          "dev/openidea/goide/http/HttpRequestProcessHandler.class",
+          "dev/openidea/goide/http/HttpRequestRunLineMarkerContributor.class",
+          "META-INF/plugin.xml",
+          "META-INF/openidea-build-inputs.json"
+        ],
+        "offset": 0,
+        "limit": 64
+      },
+      "manifest": {
+        "manifest_id": "agm_b0f28550b7544befc3250560e29e6b0cdd5eceffde72b410bf7c48d63ed30889",
+        "root_artifact_id": "art_ccfe0ca61db8890b6811832264d2039cabef6d4e91e0b0eb34389ddd1c5b4b68",
+        "root_sha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230",
+        "root_format": "zip",
+        "graph_sha256": "e55ff0d09f72eb97e511f1ede548ebda502dbbdcecbff179bf0f3a6852616633",
+        "node_count": 850,
+        "occurrence_count": 850,
+        "edge_count": 849
+      },
+      "inventory_evidence_ids": [
+        "ev_f310694d05cf670ae6d789f1aa7ea3bbaf2fa17adf546932a802253d8d358b6c"
+      ],
+      "source_complete": true,
+      "items": [
+        {
+          "occurrence_id": "occ_82e33aa4fd692be33762598c65c4ac81edb70ad9dafddec7137bd617e0c0bc5b",
+          "artifact_id": "art_69f0901311432efe2f144414e8a6fba7f2b3af8a8d53cf17ad05d24db63a109b",
+          "parent_occurrence_id": "occ_62c968d6fc2f0d5aaf38a7f8231da41d0946937b171c0caf0797f6ef80daf5df",
+          "logical_path": "META-INF/openidea-build-inputs.json",
+          "entry_kind": "file",
+          "artifact_kind": "resource",
+          "artifact_format": "file",
+          "declared_size": 94812,
+          "compressed_size": 28374,
+          "executable": false,
+          "encrypted": false,
+          "hash_status": "verified",
+          "source_location": null,
+          "limitations": []
+        },
+        {
+          "occurrence_id": "occ_68d757f4d2e3382dd76c9f18254cd34d302e3c88c00ffb66136e6ba96390d3a3",
+          "artifact_id": "art_85583d5b1bbdf72ada262a901a3eb84bfc4f8c97e0c5ae18c90736234fc3bed0",
+          "parent_occurrence_id": "occ_62c968d6fc2f0d5aaf38a7f8231da41d0946937b171c0caf0797f6ef80daf5df",
+          "logical_path": "META-INF/plugin.xml",
+          "entry_kind": "file",
+          "artifact_kind": "resource",
+          "artifact_format": "file",
+          "declared_size": 20938,
+          "compressed_size": 3504,
+          "executable": false,
+          "encrypted": false,
+          "hash_status": "verified",
+          "source_location": null,
+          "limitations": []
+        },
+        {
+          "occurrence_id": "occ_fa82a0470b3cd7d41cab3a71d6742e2d9b590115da09c45984fb805046530dd4",
+          "artifact_id": "art_0cd3301dece9d905aca1f49adfb5c654a2c9780a83e67ffa330a11ef840b614a",
+          "parent_occurrence_id": "occ_d61e1fda6fb7a1a83d20e5010434c0dfc1db03a4a47f41fd1fd41e9d2c7c3174",
+          "logical_path": "dev/openidea/goide/http/HttpRequestCall.class",
+          "entry_kind": "file",
+          "artifact_kind": "unknown",
+          "artifact_format": "unknown",
+          "declared_size": 8077,
+          "compressed_size": 3515,
+          "executable": false,
+          "encrypted": false,
+          "hash_status": "verified",
+          "source_location": null,
+          "limitations": []
+        },
+        {
+          "occurrence_id": "occ_0cad95cf96de029aa2c9e6651cd4913555b8c9c99d59efdedd58606392811312",
+          "artifact_id": "art_8e31c9c529d11b34b93279995a5f540669b5833aebb89dff969feff65ce09c84",
+          "parent_occurrence_id": "occ_d61e1fda6fb7a1a83d20e5010434c0dfc1db03a4a47f41fd1fd41e9d2c7c3174",
+          "logical_path": "dev/openidea/goide/http/HttpRequestDocument.class",
+          "entry_kind": "file",
+          "artifact_kind": "unknown",
+          "artifact_format": "unknown",
+          "declared_size": 20624,
+          "compressed_size": 9135,
+          "executable": false,
+          "encrypted": false,
+          "hash_status": "verified",
+          "source_location": null,
+          "limitations": []
+        },
+        {
+          "occurrence_id": "occ_915cf8b9181e8559cc8b6c3bfe86b6944eba7e2007c78cbf5dae4a03db70c171",
+          "artifact_id": "art_2e8aeeec43918442f0478913241103feda39e2f243e31ad7d1f940ca9e6f899a",
+          "parent_occurrence_id": "occ_d61e1fda6fb7a1a83d20e5010434c0dfc1db03a4a47f41fd1fd41e9d2c7c3174",
+          "logical_path": "dev/openidea/goide/http/HttpRequestProcessHandler.class",
+          "entry_kind": "file",
+          "artifact_kind": "unknown",
+          "artifact_format": "unknown",
+          "declared_size": 9826,
+          "compressed_size": 4242,
+          "executable": false,
+          "encrypted": false,
+          "hash_status": "verified",
+          "source_location": null,
+          "limitations": []
+        },
+        {
+          "occurrence_id": "occ_3dc38c2c4a5ab1ab9939efe610bd45158508a55c1cf5e4a32453a2832acba773",
+          "artifact_id": "art_12b61fc9e6ec4b61d66378502015aa62dae808d6e61ff73eaf29d46e916c8f04",
+          "parent_occurrence_id": "occ_d61e1fda6fb7a1a83d20e5010434c0dfc1db03a4a47f41fd1fd41e9d2c7c3174",
+          "logical_path": "dev/openidea/goide/http/HttpRequestRunLineMarkerContributor.class",
+          "entry_kind": "file",
+          "artifact_kind": "unknown",
+          "artifact_format": "unknown",
+          "declared_size": 3786,
+          "compressed_size": 1611,
+          "executable": false,
+          "encrypted": false,
+          "hash_status": "verified",
+          "source_location": null,
+          "limitations": []
+        }
+      ],
+      "parent_evidence_id": "ev_98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66",
+      "parent_operation": "inspect_artifact",
+      "parent_digest": "98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66",
+      "view_digest": "7f9b23c27810b5bba3a260dfea193f01f76f92212f0179b515dab622c7e142f2",
+      "artifact": {
+        "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.1.jar",
+        "sha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230"
+      },
+      "coverage": {
+        "status": "page",
+        "examined": 6,
+        "total": 6,
+        "next_offset": null,
+        "exhausted": true
+      },
+      "limitations": [
+        "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+        "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+      ],
+      "unknowns": [
+        "Inventory does not establish application runtime behavior or complete format-specific analysis."
+      ]
+    },
+    "confidence": "derived",
+    "authority": "shipped-artifact",
+    "environment": null,
+    "limitations": [
+      "Inspection derives bounded static hypotheses and next probes; it does not execute the artifact or claim format-specific semantics.",
+      "ZIP inventory lists central-directory entries only. Non-entry bytes, including an APK Signing Block before the central directory or a ZIP comment after it, are not occurrences."
+    ],
+    "relationship_coverage": null,
+    "locations": [
+      {
+        "kind": "artifact-path",
+        "path": "/Users/wangshubo/develop/openidea-go/build/idea-sandbox/opengoland/IC-2026.1.4/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.1.jar"
+      }
+    ],
+    "evidence_links": [
+      "ev_98d8a6bf2a7550d57ae24f4dffc9b8be0fc7708ed91a109fa4f9545dc1662b66"
+    ]
+  },
+  "closed": true
+}

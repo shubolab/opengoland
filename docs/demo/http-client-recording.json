@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13",
+  "scope": "Actual native macOS operation stages, not continuous video or Windows acceptance. Captured before final URL/header resource guards.",
+  "candidate": {
+    "version": "0.1.0-preview.20261113.1",
+    "stateAtCapture": "development candidate; no public .13.1 installers at capture",
+    "parentCommit": "2baa81e8998d5f2929e2db34291535f1ea04aba8",
+    "sourceDirty": true,
+    "buildInputCount": 551,
+    "buildInputDigest": "b0933abfae699857b235659b245ef9e45b1c0a7f2c35efae7065da3bde069286",
+    "pluginJarSha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230",
+    "launcherSha256": "8e1306fb59e4ac05ea30b5e1c20358889f5457d669d2c2645a53967580345a78"
+  },
+  "capture": {
+    "method": "REA observe_native_ui for exact PID12811/window434; actions through Computer Use",
+    "windowTitle": "http-client – requests.http",
+    "platform": "macOS arm64",
+    "fixture": "fixtures/http-client",
+    "sourceFrames": [
+      {
+        "stage": "post",
+        "evidenceId": "ev_169c898538c2d2ee92a37fd48aeec4c75f5cbddb70cacf2c11dc0a2770c7347e",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "d52c7d014a3310247f8d91132aa8279ad2cd693d43d93373ff7f610a636783a4",
+          "width": 1400,
+          "height": 1000
+        },
+        "durationMs": 4000,
+        "accessibilityTruncated": true
+      },
+      {
+        "stage": "stop",
+        "evidenceId": "ev_54c9e975b869d39e419878e4829c2bd3b3cf10bcad906963a4c9c3235276e430",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "c96c5e25afa4ec40f3ecd093970c33a76dd1995eb70cb8a426e3855c148be8fd",
+          "width": 1400,
+          "height": 1000
+        },
+        "durationMs": 4000,
+        "accessibilityTruncated": false
+      },
+      {
+        "stage": "redirect",
+        "evidenceId": "ev_c6051a8fc251242c46976a512b2092c1422aa48263acd4644dcfe1fdc21fad84",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "2e6bb40b77fec5c34da39583f6db5334763e4a6211658ed4c31461848ef48086",
+          "width": 1400,
+          "height": 1000
+        },
+        "durationMs": 4000,
+        "accessibilityTruncated": false
+      }
+    ],
+    "accessibilityBoundary": "The first REA capture had partial AX coverage with AXError -25202 for tab children. Screenshots were returned, hashed and inspected; CUA independently observed the request editor and console. Later REA calls requested screenshots without AX."
+  },
+  "encoding": {
+    "tool": "existing ffmpeg",
+    "transform": "uniform Lanczos scale and GIF palette conversion only; no cropping, annotations, simulated UI or transitions",
+    "width": 1200,
+    "height": 857,
+    "frames": 3,
+    "durationMs": 12000,
+    "framePtsSeconds": [
+      0,
+      4,
+      8
+    ],
+    "path": "docs/demo/native-http-client.gif",
+    "bytes": 414590,
+    "sha256": "a7146aeda9a3173e7b64df369eb53f9912a66018093d3ed8a0091ebd4a178cf0"
+  },
+  "limitations": [
+    "Native macOS candidate only; not complete GoLand/HTTP Client parity.",
+    "The GIF does not show the final later header-count/size and encoded-URL guards.",
+    "The public installer state is recorded separately in version-specific release records."
+  ]
+}

@@ -1,0 +1,18 @@
+@base = http://127.0.0.1:18081
+
+### Read a JSON response
+GET {{base}}/echo
+Accept: application/json
+
+### Send a UTF-8 body
+POST {{base}}/echo
+Content-Type: application/json; charset=utf-8
+X-Demo: open-goland
+
+{"message":"你好，open Goland 😀"}
+
+### Run this request, then click Stop
+GET {{base}}/slow
+
+### Inspect 302 without automatically following it
+GET {{base}}/redirect

@@ -586,7 +586,15 @@
       "reference": "Bundled plugin directories and Go template/docker/database module declarations",
       "probe": "Reference/new product comparison per supporting format and integration; report omitted commercial capabilities explicitly",
       "reference_runtime": "unverified",
-      "reconstruction": "unverified"
+      "reconstruction": "unverified",
+      "partial_evidence": {
+        "http_client": "../verification/http-client-native-20261113.json",
+        "http_scope": "../verification/http-client.md",
+        "go_template": "../verification/go-template-native-20261112.json",
+        "sql": "../verification/sql-supporting-file-native-20261112.json",
+        "dockerfile": "../verification/dockerfile-native-20261112.json",
+        "observation": "Native macOS file highlighting and bounded basic HTTP send/response/Stop/terminate-on-project-close are observed. SQL database features, Docker execution, template semantics, HTTP environment/scripts and Windows interaction remain open. This does not close TOOLS-04."
+      }
     },
     {
       "id": "ROBUST-01",

@@ -33,6 +33,20 @@ README 中的 `native-go-workflow.gif` 来自 open Goland 实际运行的窗口�
 桌面交互已经验收。当前功能边界见[中文 README](../../README.zh-CN.md)与
 [调试控制记录](../verification/debug-session-controls.md)。
 
+## HTTP 请求片段
+
+`native-http-client.gif` 来自 macOS arm64 上 `0.1.0-preview.20261113.1` 开发候选的
+真实窗口，使用 [fixtures/http-client](../../fixtures/http-client) 的 loopback Go 服务。
+三个阶段分别是 POST 中文/emoji 请求体及响应、Stop 取消慢请求，以及原始 302 响应。
+每张截图显示 4 秒，共 12 秒；这是操作阶段截图的顺序播放，不是连续录屏。
+
+原图由 REA 对确切的已运行 IDE PID/window 捕获，UI 操作通过 Computer Use 完成。
+仅缩放至 1200 × 857 并编码为 GIF，没有添加模拟界面。录制候选早于随后补充的
+请求头和 URL 限额；对应源摘要、截图哈希、原生/自动化验证边界见
+[http-client-recording.json](http-client-recording.json) 和
+[HTTP 执行记录](../verification/http-client-native-20261113.json)。
+公开安装包是否包含该功能，以 README 下载区和绑定版本的发布记录为准。
+
 ## 构建标签、补全与撤销的补充片段
 
 `native-build-context-completion.gif` 来自 `0.1.0-preview.20261110.6` 开发候选版在 macOS 27.2 arm64 上实际运行的窗口，录制源码是 `8c6ddaa6d66d727aa24730120f279a6885a64ba2`。它是四张操作阶段截图、16 秒、1200 × 779，并非连续录屏；保留了平台快捷键冲突提示和撤销后尚未完成代码的诊断。

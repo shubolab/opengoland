@@ -1,0 +1,117 @@
+{
+  "schemaVersion": 1,
+  "status": "native-macos-http-request-core-workflows-passed; full parity open",
+  "nativeCandidate": {
+    "version": "0.1.0-preview.20261113.1",
+    "stateAtCapture": "development candidate; no public .13.1 installers at capture",
+    "parentCommit": "2baa81e8998d5f2929e2db34291535f1ea04aba8",
+    "sourceDirty": true,
+    "buildInputCount": 551,
+    "buildInputDigest": "b0933abfae699857b235659b245ef9e45b1c0a7f2c35efae7065da3bde069286",
+    "pluginJarSha256": "565a11ccfe003381e212a82d6cdfce983059d591d42d98ac9501afa386d89230",
+    "launcherSha256": "8e1306fb59e4ac05ea30b5e1c20358889f5457d669d2c2645a53967580345a78"
+  },
+  "observations": {
+    "nativeGet": {
+      "status": 200,
+      "response": "Chinese JSON from the actual local Go server"
+    },
+    "nativeGutterPost": {
+      "status": 200,
+      "sentBodyBytes": 41,
+      "responseBytes": 108,
+      "bodyContains": "你好，open Goland 😀"
+    },
+    "nativeStop": {
+      "console": "HTTP request cancelled.",
+      "serverReceivedAtLocal": "2026/11/13 11:36:22",
+      "serverDisconnectedAtLocal": "2026/11/13 11:36:26",
+      "deadlineSeconds": 25
+    },
+    "nativeCloseProject": {
+      "activeRequestPromptObserved": true,
+      "chosenAction": "Terminate",
+      "returnedToWelcome": true,
+      "serverReceivedAtLocal": "2026/11/13 11:41:11",
+      "serverDisconnectedAtLocal": "2026/11/13 11:41:31",
+      "deadlineSeconds": 25,
+      "earlierProbeExcluded": "The 11:39:59 request had already finished before closing the project; it is not counted as cancellation proof."
+    },
+    "redirect": {
+      "status": 302,
+      "location": "/echo",
+      "automaticallyFollowed": false
+    },
+    "normalApplicationQuit": true
+  },
+  "serverLog": [
+    "2026/11/13 11:29:09 HTTP example listening on http://127.0.0.1:18081",
+    "2026/11/13 11:32:14 echo: method=GET bytes=0",
+    "2026/11/13 11:32:45 echo: method=POST bytes=41",
+    "2026/11/13 11:32:56 slow: request received",
+    "2026/11/13 11:33:00 slow: client disconnected",
+    "2026/11/13 11:34:22 echo: method=POST bytes=41",
+    "2026/11/13 11:36:22 slow: request received",
+    "2026/11/13 11:36:26 slow: client disconnected",
+    "2026/11/13 11:39:59 slow: request received",
+    "2026/11/13 11:41:11 slow: request received",
+    "2026/11/13 11:41:31 slow: client disconnected"
+  ],
+  "automatedBeforeFinalResourceGuards": {
+    "reports": 159,
+    "tests": 857,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "targetedHttpTests": 22,
+    "pythonTests": 86
+  },
+  "finalResourceGuardGate": {
+    "status": "passed",
+    "buildInputDigest": "fbfdeddb004839a9d97877e9866f215b9be94f6f3933cbc0684172c4d210922a",
+    "buildInputCount": 551,
+    "reports": 159,
+    "tests": 859,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "checks": [
+      "test",
+      "buildPlugin",
+      "prepareSandbox",
+      "verifyPluginStructure"
+    ],
+    "nativeReplay": {
+      "status": "passed",
+      "pid": 20230,
+      "pluginJarSha256": "433a6989affbe507580858169d5fe5f4eb461c278ce82ef17712900d443bd746",
+      "nativeGutterPostStatus": 200,
+      "responseBytes": 108,
+      "activeRequestExitPromptObserved": true,
+      "chosenAction": "Terminate",
+      "applicationQuitObserved": true,
+      "serverLog": [
+        "2026/11/13 11:55:05 HTTP example listening on http://127.0.0.1:18081",
+        "2026/11/13 11:56:36 echo: method=POST bytes=41",
+        "2026/11/13 11:56:52 slow: request received",
+        "2026/11/13 11:57:09 slow: client disconnected"
+      ],
+      "boundary": "Final HTTP resource-guard candidate. The subsequent Windows-only test-handshake change does not alter runtime application code."
+    }
+  },
+  "evidence": {
+    "recording": "../demo/http-client-recording.json",
+    "staticArchive": "http-client-rea-20261113.json",
+    "sourceFramesEvidenceIds": [
+      "ev_169c898538c2d2ee92a37fd48aeec4c75f5cbddb70cacf2c11dc0a2770c7347e",
+      "ev_54c9e975b869d39e419878e4829c2bd3b3cf10bcad906963a4c9c3235276e430",
+      "ev_c6051a8fc251242c46976a512b2092c1422aa48263acd4644dcfe1fdc21fad84"
+    ]
+  },
+  "boundaries": [
+    "Native screenshots bind the pre-final-guard input digest above. Final guard automation and source binding are recorded separately.",
+    "Native Windows UI and GoLand reference-runtime comparison remain unverified.",
+    "Environment files, scripts, dynamic variables, credential/history management, binary saving, multipart, gRPC/WebSocket and full HTTP Client parity are not implemented.",
+    "TOOLS-04 and ROBUST-01 remain unverified; these are partial observations."
+  ]
+}
