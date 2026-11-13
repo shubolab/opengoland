@@ -155,15 +155,22 @@ class TestedInstallerPublicationTest(unittest.TestCase):
     def test_git_capture_covers_the_exact_release_commit_source_set(self):
         import subprocess
         repo = self.root / 'repo'; repo.mkdir(); (repo / 'engine').mkdir(); (repo / 'scripts').mkdir()
+        (repo / 'product').mkdir()
         (repo / 'engine/go.mod').write_text('module owned\n')
         (repo / 'scripts/helper.py').write_text('owned = True\n')
+        (repo / 'product/file-associations.json').write_text('{"extensions": ["go"]}\n')
         (repo / 'README.md').write_text('not a build input\n')
         hooks = self.root / 'empty-hooks'; hooks.mkdir()
         def git(*args):
             return subprocess.check_output(['git', '-c', 'core.hooksPath=' + str(hooks), '-c', 'commit.gpgsign=false', '-c', 'user.name=Fixture', '-c', 'user.email=fixture@example.invalid', *args], cwd=repo, stderr=subprocess.DEVNULL).decode().strip()
         git('init'); git('add', '.'); git('commit', '-m', 'owned fixture'); source = git('rev-parse', 'HEAD')
-        entries = [{'path': name, 'sha256': p.sha(repo / name)} for name in ['engine/go.mod', 'scripts/helper.py']]
+        entries = [{'path': name, 'sha256': p.sha(repo / name)} for name in ['engine/go.mod', 'product/file-associations.json', 'scripts/helper.py']]
         p.git_capture(repo, source, {'files': entries})
+        with self.assertRaises(ValueError):
+            p.git_capture(repo, source, {'files': [entry for entry in entries if entry['path'] != 'product/file-associations.json']})
+        altered = copy.deepcopy(entries)
+        altered[1]['sha256'] = 'f' * 64
+        with self.assertRaises(ValueError): p.git_capture(repo, source, {'files': altered})
         with self.assertRaises(ValueError): p.git_capture(repo, source, {'files': entries[:1]})
         entries[0]['sha256'] = 'f' * 64
         with self.assertRaises(ValueError): p.git_capture(repo, source, {'files': entries})

@@ -147,7 +147,8 @@ def git_capture(repo_root, source, capture):
                 (name.startswith('product/') and 'windows' in path.name and path.suffix == '.json') or
                 name.startswith('product/patches/') or name in {
                     'build.gradle.kts', 'settings.gradle.kts', 'gradle.properties', '.gitattributes',
-                    'product/platform.lock.json', 'product/go-tools.lock.json'})
+                    'product/platform.lock.json', 'product/go-tools.lock.json',
+                    'product/file-associations.json'})
     require({x['path'] for x in capture['files']} == {name for name in paths if included(name)}, 'Source capture omits/adds release build inputs')
     requests = ''.join(source + ':' + x['path'] + '\n' for x in capture['files'])
     require('\x00' not in requests and all('\n' not in x['path'] and '\r' not in x['path'] for x in capture['files']), 'Invalid source path')
