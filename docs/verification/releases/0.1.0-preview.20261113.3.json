@@ -1,0 +1,258 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "tag": "v0.1.0-preview.20261113.3",
+    "name": "open Goland 0.1.0-preview.20261113.3",
+    "id": 444033141,
+    "status": "public-prerelease",
+    "publishedAt": "2026-11-13T09:21:03Z",
+    "sourceCommit": "32fd60a43e68a9b879fae0d04ea96bd5ba41547c",
+    "annotatedTagObject": "18e701d7430373d69fd25724d01b7b1d331ce668",
+    "workflowRun": 43393231491,
+    "workflowAttempt": 1,
+    "workflowConclusion": "success",
+    "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3"
+  },
+  "summaryZh": "新增按序 HTTP 批量运行、原生 Services 命名结果、JSON/响应头查看、单项错误后继续、Stop All、活动移除及原始响应保存。两平台测试、真实安装器和五资产/源码/原始测试明细均已独立核验，完整 GoLand 与双平台桌面交互仍开放。",
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "id": 743037533,
+      "bytes": 4234960,
+      "sha256": "addbe312aa335443edfa7e3336272298d2426e06f103cc6e75c04ab8cc0bdc0c",
+      "state": "uploaded"
+    },
+    "open-Goland-0.1.0-preview.20261113.3-macos-arm64.dmg": {
+      "id": 743037539,
+      "bytes": 1024331606,
+      "sha256": "20f594c153209b96a8d8de4f8ede47ff92d2d3ba7d51e24f5d7da232afed2b81",
+      "state": "uploaded"
+    },
+    "open-Goland-0.1.0-preview.20261113.3-windows-x64-setup.exe": {
+      "id": 743037537,
+      "bytes": 871129306,
+      "sha256": "7ec14af0e115783016f77cb77b392ccdbaf5848fc7efed08048258a7a85ae969",
+      "state": "uploaded"
+    },
+    "SHA256SUMS": {
+      "id": 743037542,
+      "bytes": 434,
+      "sha256": "6810bff62d29f49483c1365fe123251f76d4e609d57c67a778b88b0b867b7e1b",
+      "state": "uploaded"
+    },
+    "windows-provenance.tar.gz": {
+      "id": 743037535,
+      "bytes": 6839729,
+      "sha256": "b0afeaf40974a9d18b0b14739b098afda58ffd1eafda7fd00609a68ec3b7a03e",
+      "state": "uploaded"
+    }
+  },
+  "verification": {
+    "independentPublishedAssetAudit": {
+      "checksumAndProvenanceDownloaded": true,
+      "downloadedVerificationBytes": 11075123,
+      "checksumFileMatchedGithubApiDigests": true,
+      "bothProvenanceDigestsMatched": true,
+      "installerFullRedownloadRepeatedLocally": false,
+      "installerAuthority": "GitHub API SHA-256, public SHA256SUMS, installer size/digest in producer provenance, successful producer upload verification and installed-product checks; no repeated local full-installer download"
+    },
+    "source": {
+      "commit": "32fd60a43e68a9b879fae0d04ea96bd5ba41547c",
+      "inputs": 566,
+      "digest": "86585480144da1f3d78c5d418b7280c40f96696ef7c843d4dcd95bdb9bc5d095",
+      "bothPlatformCapturesIdentical": true,
+      "allCapturedBytesMatchGitTagCommit": true,
+      "remoteAnnotatedTagPeeledCommitMatchesRun": true
+    },
+    "tests": {
+      "windows": {
+        "reports": 166,
+        "tests": 911,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "macos": {
+        "reports": 166,
+        "tests": 911,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "bothPlatformUniqueTestcaseIdentitiesEqual": true,
+      "http": {
+        "windows": {
+          "httpTests": 72,
+          "session": {
+            "tests": 8,
+            "newRegressions": [
+              "testDeferredSourceNavigationStillOpensTheOriginalRequestLine",
+              "testServicesSnapshotsDoNotTakeLocksAndReuseEntryBoundToolbarActions"
+            ],
+            "allCaseNames": [
+              "testDeferredSourceNavigationStillOpensTheOriginalRequestLine",
+              "testDisposeBeforeStartSendsNoRequestAndRejectsLateUiWork",
+              "testEvictionReleasesCreatedEditorButKeepsTheHttpStatus",
+              "testLongExpandedUriIsOnlyTruncatedInTheRetainedUiPreview",
+              "testRealBatchKeepsNamedResultsAndHttpErrorsDistinctFromTransportFailures",
+              "testServicesSnapshotsDoNotTakeLocksAndReuseEntryBoundToolbarActions",
+              "testSingleRequestDoesNotKeepHiddenEditorCopies",
+              "testSwitchingTheRealBatchListReleasesThePreviousResponseEditors"
+            ],
+            "rawXmlSha256": "843953efe61fa582754e5b68491979dec09c88b89d0fa9cb09261076c91a41e5"
+          }
+        },
+        "macos": {
+          "httpTests": 72,
+          "session": {
+            "tests": 8,
+            "newRegressions": [
+              "testDeferredSourceNavigationStillOpensTheOriginalRequestLine",
+              "testServicesSnapshotsDoNotTakeLocksAndReuseEntryBoundToolbarActions"
+            ],
+            "allCaseNames": [
+              "testDeferredSourceNavigationStillOpensTheOriginalRequestLine",
+              "testDisposeBeforeStartSendsNoRequestAndRejectsLateUiWork",
+              "testEvictionReleasesCreatedEditorButKeepsTheHttpStatus",
+              "testLongExpandedUriIsOnlyTruncatedInTheRetainedUiPreview",
+              "testRealBatchKeepsNamedResultsAndHttpErrorsDistinctFromTransportFailures",
+              "testServicesSnapshotsDoNotTakeLocksAndReuseEntryBoundToolbarActions",
+              "testSingleRequestDoesNotKeepHiddenEditorCopies",
+              "testSwitchingTheRealBatchListReleasesThePreviousResponseEditors"
+            ],
+            "rawXmlSha256": "85786ffc551ed310d1010dfeb99ec552d45382d1b1eed921f83e85f6dfc2e6bc"
+          }
+        }
+      }
+    },
+    "go": {
+      "windows": {
+        "packages": {
+          "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+          "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+          "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+          "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+          "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+          "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+        },
+        "passEvents": 347,
+        "processownerTests": [
+          "TestCompletedLauncherCannotLeaveItsChildOrPipes",
+          "TestExistingEngineModesRemainUnclaimed",
+          "TestKillingOwnerStopsAlreadyStartedChildrenAndPipes",
+          "TestMalformedOwnerRequestsCannotReachAPlatformLauncher",
+          "TestOwnedCommandFixture",
+          "TestOwnedCommandPreservesArgumentsEnvironmentDirectoryStreamsAndStatus",
+          "TestParentLifetimePipeEOFStopsOwnedChildrenAndPipes",
+          "TestReadinessWaitsForARealWindowsSharingLock"
+        ],
+        "moduleDownloadDiagnostics": 0,
+        "vet": "zero-exit producer driver guard; test race events were fresh and not cached"
+      },
+      "macos": {
+        "packages": {
+          "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+          "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+          "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+          "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+          "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+          "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+          "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+          "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+        },
+        "passEvents": 349,
+        "processownerTests": [
+          "TestExistingEngineModesRemainUnclaimed",
+          "TestMalformedOwnerRequestsCannotReachAPlatformLauncher"
+        ],
+        "moduleDownloadDiagnostics": 4,
+        "vet": "zero-exit producer driver guard; test race events were fresh and not cached"
+      }
+    },
+    "installedProduct": {
+      "windows": {
+        "installExitCode": 0,
+        "uninstallExitCode": 0,
+        "installedSmoke": "pass",
+        "scope": "Real installer bytes, native version and visible project-frame startup, explicit installed bundled tools and one uncached Go test via engine RPC; not interactive editor parity or Kotlin default-resolver acceptance."
+      },
+      "macos": {
+        "sourceDirty": false,
+        "sourceDigest": "86585480144da1f3d78c5d418b7280c40f96696ef7c843d4dcd95bdb9bc5d095",
+        "imageVerified": true,
+        "mountedAndCopied": true,
+        "signatureVerified": true,
+        "signing": "ad-hoc; not notarized",
+        "scope": "Actual DMG verify, mount/install copy, signatures, native version, bundled tools and one uncached pure-Go test; not full interactive parity."
+      }
+    },
+    "jobConclusions": [
+      {
+        "id": 131777906514,
+        "name": "version",
+        "conclusion": "success",
+        "startedAt": "2026-11-13T08:26:28Z",
+        "completedAt": "2026-11-13T08:26:30Z"
+      },
+      {
+        "id": 131777936310,
+        "name": "windows",
+        "conclusion": "success",
+        "startedAt": "2026-11-13T08:26:32Z",
+        "completedAt": "2026-11-13T09:19:53Z"
+      },
+      {
+        "id": 131777936436,
+        "name": "macos",
+        "conclusion": "success",
+        "startedAt": "2026-11-13T08:26:32Z",
+        "completedAt": "2026-11-13T09:12:58Z"
+      },
+      {
+        "id": 131801544540,
+        "name": "publish",
+        "conclusion": "success",
+        "startedAt": "2026-11-13T09:19:56Z",
+        "completedAt": "2026-11-13T09:21:05Z"
+      }
+    ],
+    "releaseNotes": {
+      "englishAndChinesePublished": true,
+      "bodySha256": "8cfdcfdb0540c5e157f4a8607ec1a9bc1d15f8203119c90df0a8df8f6a7a4b2f",
+      "exactNotesFileMatchedApi": true,
+      "allAssetIdsSizesAndDigestsUnchanged": true
+    }
+  },
+  "nativeCandidate": {
+    "record": "docs/verification/http-batch-native-20261113.json",
+    "sourceBinding": "docs/verification/http-batch-source-binding-20261113.json",
+    "gifRecord": "docs/demo/http-batch-recording.json",
+    "buildInputDigest": "86585480144da1f3d78c5d418b7280c40f96696ef7c843d4dcd95bdb9bc5d095",
+    "capturedInputBytesMatchThisReleaseSource": true,
+    "byteIdenticalToCiInstallerClaimed": false
+  },
+  "remaining": [
+    "Full 36 reference_runtime and 36 reconstruction matrix fields remain unverified; HTTP contributes bounded partial evidence",
+    "Windows interactive plugin/Chinese pack, SDK, terminal, Git, run/test/debug and larger-project workflows remain open",
+    "macOS Developer Mode remains disabled locally; test-debug and preparation-cancel native closure remains open",
+    "Full HTTP environments/scripts/response references/credentials/history/WebSocket/gRPC are not implemented",
+    "Some display-limit UI messages use MiB/KiB for UTF-16 code-unit limits; raw request/response body limits use bytes",
+    "Windows installer is unsigned; macOS is ad-hoc signed and not notarized"
+  ],
+  "localAudit": {
+    "directory": ".tools/continuation-20261113/release13-3-audit",
+    "independentAuditSha256": "ed235491b2c6ae34e4086101dc62292623651053e2a47894dbcd53fad9ec18a4",
+    "newHttpRegressionAuditSha256": "561da7336c7f5922b3ced748422c5de4a2f96d465e34ae6d2ebea2d98cc68f89"
+  }
+}

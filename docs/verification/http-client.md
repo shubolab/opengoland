@@ -1,17 +1,16 @@
 # 内置 HTTP 请求执行器 / Built-in HTTP runner
 
-**版本范围：**当前公开安装版 `.20261113.2` 支持单请求执行，结果显示在原生 Run
-控制台。[这一版的安装与测试记录](releases/0.1.0-preview.20261113.2.json)保持不变。
-下文介绍当前开发源码新增的批量执行、Services 响应界面和保存功能；
-`.20261113.3` 仍在本机原生验收与回归阶段，尚未完成双平台安装器发布。
+**版本范围：**当前公开安装版 `.20261113.3` 已提供下文的批量执行、Services
+响应界面和保存功能；[双平台发布记录](releases/0.1.0-preview.20261113.3.json)绑定
+安装器、原始测试和源码。此前 `.20261113.2` 使用单请求 Run 控制台，其历史记录保留不变。
 
 可直接运行的本地示例见 [fixtures/http-client](../../fixtures/http-client)。
 
-## 如何使用当前开发源码
+## 如何使用
 
 1. 打开 `.http` 文件，使用请求行旁或右键菜单里的 **Run HTTP Request** 运行当前请求。
    编辑器顶部和右键菜单中的 **Run All Requests** 按文件次序执行所有请求。
-2. 在原生 **Services > HTTP Requests** 中查看结果。单请求直接显示响应；
+2. 在原生 **Services** 面板中查看 HTTP 批次结果。单请求直接显示响应；
    多请求可以选择各自的命名结果，查看状态码、耗时、响应字节数、正文和响应头。
    Run 仍保留执行日志与平台的进程停止入口。
 3. 连接失败、未定义变量等错误只影响相应请求，后续请求继续执行。
@@ -80,7 +79,7 @@ Windows 原生交互和完整 `TOOLS-04` 矩阵仍保持开放。
 [批量参考记录](http-batch-reference-20261113.json)保留了冻结的服务端事件和截图，
 只证明其中列出的参考端行为，不代替新产品原生验收。
 
-| 项目 | GoLand 2026.1.4 本机观察 | 本仓库当前开发源码 |
+| 项目 | GoLand 2026.1.4 本机观察 | 本仓库 `.13.3` 范围 |
 | --- | --- | --- |
 | 正文边界 | 去除空白边界行，保留正文行的空格/Tab | 六组真实字节向量已用于回归；修复已进入公开 `.13.2` |
 | 命名 | 首条显式 `@name` 优先于分隔标题 | 使用相同优先级，同名请求保持独立身份 |
@@ -93,11 +92,10 @@ Windows 原生交互和完整 `TOOLS-04` 矩阵仍保持开放。
 参考端 Stop 的两次有限观察按差异保留，没有写成成功取消，也不推广为其所有版本或场景的结论。
 完整 GoLand 对齐和双平台原生矩阵继续开放。
 
-The published `.20261113.2` installers run one selected request in the native Run
-console. Current development source adds **Run All Requests**, named results in
+The published `.20261113.3` installers include **Run All Requests**, named results in
 native Services, per-request failures, formatted read-only response viewers,
-**Stop All** and original-byte **Save Response…**. The `.20261113.3` candidate is
-still undergoing native verification and has not completed installer publication.
+**Stop All** and original-byte **Save Response…**. The two-platform release,
+source inputs and original test records have been independently verified.
 Unique file-variable declarations are visible throughout the document, including
 forward references; duplicate names fail only requests that reference them.
 Environment files, scripting, response references, persistent history and full

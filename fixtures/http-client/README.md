@@ -4,8 +4,8 @@
 `127.0.0.1:18081`，没有外部依赖。打开 `requests.http`，点击请求行左侧的运行图标，
 或将光标放入请求并选择右键菜单 **Run HTTP Request**。
 
-新增的批量与 Services 响应界面目前在后续开发源码中，公开 `.20261113.2`
-安装器仍使用单请求 Run 控制台；以仓库首页下载区与版本记录为准。
+公开 `.20261113.3` 安装器已包含批量运行、Services 响应界面和原始响应保存；
+下载安装入口及验证范围见仓库首页和对应版本记录。
 
 - `batch.http`：点击编辑器顶部 **Run All Requests**，依次查看三条命名结果、
   格式化 JSON 和响应头；中间的真实 503 不会阻止最后一条中文 POST。
@@ -24,9 +24,8 @@
 并修改对应 HTTP 文件顶部的 `@base`（`binary.http` 使用完整 URL）。
 
 Run `go run .` here, then open `requests.http` and use its gutter or
-**Run HTTP Request** context action. Responses appear in the native Run console.
-Later development source adds **Run All Requests**, named results in native
+**Run HTTP Request** context action. The published `.20261113.3` installers
+include **Run All Requests**, named results in native
 Services, per-request errors, **Stop All** and original-byte **Save Response…**.
-The published `.20261113.2` installers still use the single-request Run console;
 check the repository download section for the current delivery version.
 Stop the example server when finished. See [supported syntax and limits](../../docs/verification/http-client.md).

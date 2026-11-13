@@ -47,28 +47,29 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261113.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.2).
+[Download preview 0.1.0-preview.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3).
 Both installers include checksums and platform verification records.
 
-This release adds the built-in HTTP request runner with native response output
-and Stop, corrects request-body separator bytes using real GoLand observations,
-and includes Go Template, SQL and Dockerfile highlighting. Earlier native
-plugin-management, Chinese language-pack, terminal/SDK and process-ownership
-repairs remain included.
+This release adds sequential HTTP batches, named Services results, formatted
+JSON and headers, per-item failures with later requests continuing, Stop All,
+and original-byte response saving. Earlier repairs for HTTP body boundaries,
+supporting-file highlighting, plugin management, Chinese language packs,
+terminal/SDK settings and process ownership remain included.
 
-Both published platform builds passed **861 Kotlin tests in 159 reports**, with
-zero failures, errors or skips. All eight tests in the Windows process-ownership
+Both published platform builds passed **911 Kotlin tests in 166 reports**, with
+zero failures, errors or skips. Each includes 72 HTTP tests, with the response
+view and source-navigation regressions passing on both platforms. All eight tests in the Windows process-ownership
 package passed, including the actual file-sharing-lock regression. The EXE and
 DMG passed their installed-product checks; source inputs, test identities and all
 five public asset digests have been independently checked. See the
-[.13.2 verification record](docs/verification/releases/0.1.0-preview.20261113.2.json).
+[.13.3 verification record](docs/verification/releases/0.1.0-preview.20261113.3.json).
 Interactive Windows workflows, macOS Developer Mode debugging and full GoLand
 parity still require separate acceptance.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.2/open-Goland-0.1.0-preview.20261113.2-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.2/open-Goland-0.1.0-preview.20261113.2-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.3/open-Goland-0.1.0-preview.20261113.3-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.3/open-Goland-0.1.0-preview.20261113.3-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -148,7 +149,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261113.2.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261113.3.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,
@@ -183,8 +184,8 @@ highlighting. In `.http` files, run one request or use **Run All Requests** for
 sequential execution. Native Services shows named results, formatted JSON and
 headers; **Stop All** cancels the batch and **Save Response…** saves original
 response bytes. Try the [local HTTP example](fixtures/http-client).
-Batch, Services and saving are undergoing verification in candidate `.13.3`;
-the published `.13.2` installers above still use the single-request Run console.
+Batch, Services and response saving are included in the published `.13.3`
+installers above.
 HTTP environment files, scripts and credential management,
 database connections, Docker execution and template semantics remain open.
 See [HTTP syntax and limits](docs/verification/http-client.md).

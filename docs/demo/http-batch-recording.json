@@ -133,5 +133,12 @@
     "Some display-budget error messages say MiB/KiB although their guards count UTF-16 code units; documentation names the units correctly. Raw body limits count bytes. This wording remains a follow-up",
     "Local cached engine metadata and local candidate bytes must not be described as byte-identical to the later CI installer; immutable source-input binding is verified separately",
     "macOS Developer Mode remains disabled; no debugger permission or system security change was made"
-  ]
+  ],
+  "subsequentPublication": {
+    "version": "0.1.0-preview.20261113.3",
+    "sourceCommit": "32fd60a43e68a9b879fae0d04ea96bd5ba41547c",
+    "record": "docs/verification/releases/0.1.0-preview.20261113.3.json",
+    "capturedSourceInputsMatchRelease": true,
+    "byteIdenticalToCiInstallerClaimed": false
+  }
 }

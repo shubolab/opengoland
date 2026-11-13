@@ -4,11 +4,11 @@
 当前仍是 Kotlin / 开源 IntelliJ Platform 工作台，加 Go engine、gopls 和 Delve；没有改成 Go 重写整套界面。
 IDE 无账号、计费、订阅和试用门槛，开发工具认证继续保留。
 
-最近已公开并独立核验的安装版为 **[0.1.0-preview.20261113.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.2)**，包含本轮 HTTP 修复。两端各 861 个测试通过，Windows 8 项 owner 测试通过，下载入口现已更新。下文保留此前各阶段的有范围记录。
+最近已公开并独立核验的安装版为 **[0.1.0-preview.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)**，包含 HTTP 批量、Services、Stop All 与原始响应保存。两端各 **911 项 / 166 报告**通过，HTTP 各 72 项、Windows 8 项 owner 测试通过。下载入口、中文/英文说明与真实 GIF 已更新；[发布记录](../../verification/releases/0.1.0-preview.20261113.3.json)绑定五资产和固定源码。此前阶段记录保留供追溯。
 
 ## 本轮续接：HTTP 批量与 Services
 
-再次 fetch 后，远端 `main` 与本机 `4c8c96f` 一致。本轮正在准备 `.20261113.3`：编辑器顶部 Run All、按名称排列的原生 Services 结果、格式化/高亮响应、响应头、单项错误后继续、Stop All、原始响应保存和有界内存保留。公开 `.2` 仍使用单请求 Run 控制台，不能把开发源码当作已交付安装包。
+再次 fetch 后，以远端 `main` 与本机一致的 `4c8c96f` 为起点，已完成 `.20261113.3`：编辑器顶部 Run All、按名称排列的原生 Services 结果、格式化/高亮响应、响应头、单项错误后继续、Stop All、原始响应保存和有界内存保留。旧 `.2` 的单请求控制台作为历史范围保留，新功能已进入公开 `.3` 安装包。
 
 官方 GoLand 的七份隔离样例、16 个请求条目已保留为回归向量。实测确认文件变量可向前引用、同名重复定义导致引用失败、首个 `# @name` 优先。两个 GoLand Stop 探针虽然在 UI 中显示终止，后续请求仍发出，慢连接也未取消；本产品明确实现 Stop All，不复制这个行为。[参考记录](../../verification/http-batch-reference-20261113.json)说明原始服务端事件、确切窗口截图和取证范围。
 
@@ -22,11 +22,17 @@ PID84677/window2269 的最终桌面复验通过：三条命名结果 200 → 503
 
 [修正版记录](../../verification/http-batch-native-20261113.json)绑定实际日志和构建。运行后 `codesign --verify --deep --strict` 成功，15,139 个封存文件及全部输入摘要仍匹配；本次进程日志没有 SEVERE、导航禁锁或工具栏实例不稳定消息。三张 REA 确切窗口截图已生成 12 秒真实 [批量 GIF](../../demo/native-http-batch.gif)，中英文 README 已更新。首帧 AX 读取有 22 个缺口，截图和 CUA 交互观察分别记录；不宣称完整 AX 捕获。
 
-当前 HTTP 交付剩余：提交并推送固定源码，创建新的 `.20261113.3` tag，等待既有双平台安装器工作流真正通过并公开，再独立核验五资产、原始 XML、源码输入、安装记录，更新下载入口。不要移动旧 tag。显示配额提示仍把 UTF-16 单元称为 MiB/KiB，记录为后续小文案修正；原始正文按字节限额正确。完整 36 × 2 矩阵仍未完成，Windows 交互和 macOS Developer Mode 调试继续开放。
+当前 HTTP 交付已完成双平台安装器、公开发布及独立核验；固定 tag 与资产字节保持不变。显示配额提示仍把 UTF-16 单元称为 MiB/KiB，记录为后续小文案修正；原始正文按字节限额正确。完整 36 × 2 矩阵仍未完成，Windows 交互和 macOS Developer Mode 调试继续开放。
 
-源码现已提交并推送为 **`32fd60a43e68a9b879fae0d04ea96bd5ba41547c`**，新增固定 tag **`v0.1.0-preview.20261113.3`**；[run 43393231491](https://github.com/shubolab/opengoland/actions/runs/43393231491) 于 **08:26:25Z** 创建，记录时仍在排队，尚非安装器成功或发布。[源码绑定](../../verification/http-batch-source-binding-20261113.json)逐个验证本机候选的 566 个输入、六个示例运行文件与此提交一致。下一步继续跟踪此 run，不移动 tag 或重新打包已公开版本；通过后再切换下载入口。
+源码固定为 **`32fd60a43e68a9b879fae0d04ea96bd5ba41547c`**，tag 为 **`v0.1.0-preview.20261113.3`**；[run 43393231491](https://github.com/shubolab/opengoland/actions/runs/43393231491) attempt 1 的 version、Windows、macOS、publish 四作业均成功，安装器于 **09:21:03Z** 公开。[源码绑定](../../verification/http-batch-source-binding-20261113.json)逐个验证本机候选的 566 个输入和六个示例文件与固定提交一致；两端 provenance 也逐项匹配同一源码集合。只下载 **11,075,123 字节**校验与 provenance，另读取小体积作业日志，没有重复下载完整 EXE / DMG。
+
+公开原始 XML 确认两端均为 911 项、166 报告，测试身份集合完全相同、零失败/错误/跳过；HTTP 各 72 项，Session 各 8 项，新增禁锁快照和源码导航用例均实际 pass。Windows 的 8 项 owner 测试具有真实 pass 事件，Go race 未使用缓存测试结果，vet 和安装检查成功。五资产的 API digest、SHA256SUMS、生产者大小/摘要已相互核对。中英文 Release 正文发布后，再次确认五资产 ID、大小和摘要未变。
+
+等待安装器期间，已把后续推进收敛为[五个具体工作包](next-goal-probes.zh-CN.md)：工程设置与分析一致性、真实工程与 gopls 恢复、实际中文输入法、HTTP 环境文件、Windows 首日使用。逐项区分缺实现、缺证据和机器/权限条件，并列出实际完成标准。
 
 ## 已核对的基线
+
+以下保留此前阶段按当时版本记录的结果与限制；当前下载版本和 HTTP 范围以上面的 `.13.3` 最终交付为准。
 
 - 已 fetch 和 fast-forward 核对远端 `main`，起点为 `9023bb7`，工作树当时干净。
 - 读取了 [11 月 12 日快照](../2026-11-12/README.zh-CN.md)。旧的 11 月 11 日 Windows owner 未应用草案已经过期；生产 Job Object 实现早已进入 `.6`。
@@ -67,7 +73,8 @@ PID84677/window2269 的最终桌面复验通过：三条命名结果 200 → 503
 | `.12` / `43244003072` attempt 2 | 重跑原先失联的 Windows runner 后，825 Kotlin 测试 / 150 报告全部通过，但 Go race 的一项 readiness 读取失败；未组装/公开 Windows 安装器，publish skipped |
 | 旧日期 `.20261112.13` / `43248990104` | Mac 成功；Windows runner 失联，日志不可取，check annotation 说明连接丢失；具体失联原因未知，未重复运行旧源码 |
 | 新日期 `.20261113.1` / `43363144976` | tag 绑定 `2dcbf6509f19fbd2480b0aaea155a95f2caf5873`；参考端对照发现请求体多发两个分隔换行，已在公开前取消 Windows/macOS/publish 作业；不移动 tag |
-| 修正版 `.20261113.2` / `43369092135` | tag 绑定 `30288b0c50d36244378a2552c7131ed1e8484dac`；双平台安装器、发布四作业均成功；五资产、552 输入与原始测试明细已核验；两端各 861/159 全通过，现为下载版本 |
+| 修正版 `.20261113.2` / `43369092135` | tag 绑定 `30288b0c50d36244378a2552c7131ed1e8484dac`；双平台安装器、发布四作业均成功；五资产、552 输入与原始测试明细已核验；两端各 861/159 全通过，此前下载版本，现由 `.13.3` 接替 |
+| 批量版 `.20261113.3` / `43393231491` | tag 绑定 `32fd60a43e68a9b879fae0d04ea96bd5ba41547c`；四作业成功并公开；五资产、566 输入和两端各 911 项 / 166 报告已独立核验；当前下载版本 |
 
 `.12` 的失败是 `TestKillingOwnerStopsAlreadyStartedChildrenAndPipes` 在读取 `sentinel.json` 时收到 Windows 文件共享锁错误。此处尚未调用 `startOwner`，没有执行到 owner 终止/管道/存活断言；锁的持有者未知，不能猜成某个杀毒程序。
 
@@ -81,9 +88,9 @@ PID84677/window2269 的最终桌面复验通过：三条命名结果 200 → 503
 
 ## 续接顺序
 
-1. `.20261113.2` 已完成 [run 43369092135](https://github.com/shubolab/opengoland/actions/runs/43369092135) 和独立五资产/源码/测试核验。保留固定 tag 与公开字节；只有后续产品变更才开新版本。已取消的 `.1` 不再重跑发布。
+1. `.20261113.3` 已完成 [run 43393231491](https://github.com/shubolab/opengoland/actions/runs/43393231491) 和独立五资产/源码/原始测试核验。保留固定 tag 与公开字节；只有后续产品变更才开新版本。已取消的 `.1` 不再重跑发布。
 2. Windows readiness 原失败已在新源码上通过真实共享锁回归和全部 8 个 owner 测试；不再把这项列为待验证。后续重点仍是 Windows 交互式终端、插件/中文包、Git、运行测试调试及大工程，而不是把 CI 启动烟测等同于这些交互。
-3. 中英文 README 下载入口已切到 `.13.2`，[对应发布记录](../../verification/releases/0.1.0-preview.20261113.2.json)绑定五资产、552 输入、两平台各 861 测试 / 159 报告。旧 `.11` 字节保持不可变；不重复下载完整安装器。
+3. 中英文 README 下载入口已切到 `.13.3`，[对应发布记录](../../verification/releases/0.1.0-preview.20261113.3.json)绑定五资产、566 输入、两平台各 911 测试 / 166 报告。旧 `.2`、`.11` 字节保持不可变；不重复下载完整安装器。
 4. 从 36 × 2 矩阵继续做真实 GoLand 参考端 / 新产品对照，特别是 Windows 交互式终端、插件/中文包、Git、运行测试调试和大工程。HTTP、模板、SQL/Docker 等只是部分证据。
 5. macOS 测试调试仍需要本机管理员开放 Developer Mode；本轮没有改系统权限，也没有完成该调试闭环。签名、公证与完整 Windows 原生验收仍开放。
 
@@ -93,7 +100,7 @@ PID84677/window2269 的最终桌面复验通过：三条命名结果 200 → 503
 
 本轮原始工作记录位于 `.tools/continuation-20261113/`，其中包含两个 job retry 的 intent/accepted 记录、`.10` 下载验证、`.12` Windows 原始事件、完整本机测试输出及三张原图。没有运行重复安装器下载或另复制开发 App。
 
-最近实测磁盘仍约 **108 GiB 可用**。保留既有固定 SDK/工具、公开 `.6` 安装副本与当前独立候选；下一轮继续维持至少 20 GiB 余量，并先核对进程占用和证据绑定再清理。
+最近实测磁盘约 **104 GiB 可用**。保留既有固定 SDK/工具、公开 `.6` 安装副本与当前独立候选；下一轮继续维持至少 20 GiB 余量，并先核对进程占用和证据绑定再清理。
 
 ## 参考端对照后追加：请求体字节对齐
 
