@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidate": "candidate3 0.1.0-preview.20261114.1; bounded native dependency result; separate signature-help NPE; unreleased",
+  "evidenceId": "ev_c5393be58fc3e0bcf1a0a88757533fa3b40f02692c421e069f81a14094cd5098",
+  "launcherSha256": "20195af009080cf403826a84258bddcde7c7a6e6eb01a98c2f4958eede634c9d",
+  "window": {
+    "pid": 33473,
+    "window_id": 6275,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794605349.345531,
+    "title": "project – main_default_test.go"
+  },
+  "captureParameters": {
+    "pid": 33473,
+    "window_id": 6275,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "433629176ff3062b863c6d5a032a801a5fa053510981fb90abd638a339724237",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Native Go tool arguments set to -count=1; TestCompose actual run passed/PASS/exit0. Earlier cached result is excluded as fresh execution proof.",
+  "proofLimit": "Still screenshot of exact selected PID/window, paired with CUA/native operation records; no AX capture or retained completion popup, no full parity or release claim.",
+  "sourceMetadataSha256": "eb72e807cd360cc3427be24f87d54b975dfd37af47d7a6dd125bbdf33fe3ea69"
+}

@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13T21:28:18.203375+00:00",
+  "status": "completed; exact four obsolete project-generated paths removed",
+  "authorization": "Existing user request to clean historical test versions; parent explicitly selected these four paths after read-only identity/dependency review",
+  "scope": "Old generated App copies and completed isolated profiles only; no profile/config/log contents are copied into this record",
+  "artifacts": [
+    {
+      "version": "0.1.0-SNAPSHOT",
+      "regularFiles": 16750,
+      "symlinkFiles": 221,
+      "logicalRegularBytesDeduplicatedByInode": 2835444065,
+      "stBlocksBytesDeduplicatedByInode": 2882072576,
+      "duAllocatedKiB": 2814524,
+      "manifestResourceEntryCount": 15139,
+      "path": "build/open Goland terminal force env.app",
+      "status": "retired-and-removed",
+      "identityFiles": {
+        "build/open Goland terminal force env.app/Contents/Resources/openidea-product.json": {
+          "bytes": 4928034,
+          "sha256": "a086d437b417d6e51d71aec53011906c2fdc3c5613aa25ad4cd457148ea38c34"
+        },
+        "build/open Goland terminal force env.app/Contents/MacOS/idea": {
+          "bytes": 721520,
+          "sha256": "fd5d50278ab2509472837e90ea2753dc99ba5299bd22567ecfe6a8a3fef04316"
+        },
+        "build/open Goland terminal force env.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": {
+          "bytes": 2128538,
+          "sha256": "7a2883000089b0566c86f9c6d7f42f0fb7115b776ed25cef0a21ce05f71b8c75"
+        },
+        "build/open Goland terminal force env.app/Contents/plugins/opengoland/bin/opengoland-engine": {
+          "bytes": 10629650,
+          "sha256": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e"
+        }
+      },
+      "selectedManifestHashes": {
+        "plugins/opengoland/bin/opengoland-engine": "e2feb5e5b1d1d93d80ad0e852787463cbd0eb1538eeb0142cabfb138fd935c2e",
+        "plugins/opengoland/lib/opengoland-0.1.0-SNAPSHOT.jar": "1496aa7e8a5afe5bda5f2862598b711edfb7a2a1dc56e9b9cc186c81d0ad9358"
+      }
+    },
+    {
+      "version": "0.1.0-preview.20261110.6",
+      "regularFiles": 16750,
+      "symlinkFiles": 221,
+      "logicalRegularBytesDeduplicatedByInode": 2835425896,
+      "stBlocksBytesDeduplicatedByInode": 2882048000,
+      "duAllocatedKiB": 2814500,
+      "manifestResourceEntryCount": 15139,
+      "path": ".tools/release-06-native-20261112/installed/open Goland.app",
+      "status": "retired-and-removed",
+      "identityFiles": {
+        ".tools/release-06-native-20261112/installed/open Goland.app/Contents/Resources/openidea-product.json": {
+          "bytes": 4926953,
+          "sha256": "0e555b0420036fe92ac88b88c1369b9f219d5ec4fde5952aeb14c193e1dd8a82"
+        },
+        ".tools/release-06-native-20261112/installed/open Goland.app/Contents/MacOS/idea": {
+          "bytes": 743728,
+          "sha256": "5b674fd1e3dbfc3f3503877be5afdd153c8b6f56d85c589747eaccdf25b183b0"
+        },
+        ".tools/release-06-native-20261112/installed/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.6.jar": {
+          "bytes": 2090625,
+          "sha256": "6ecd4315ce36d3c33e33788ad8e8e28476a9031b3d04e227ecaa567c1249c0e9"
+        },
+        ".tools/release-06-native-20261112/installed/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine": {
+          "bytes": 10629650,
+          "sha256": "d94a82334644466a129f53e24859d6dd46889a3d997c8d9e774f588eed7be2a6"
+        }
+      },
+      "selectedManifestHashes": {
+        "plugins/opengoland/bin/opengoland-engine": "d94a82334644466a129f53e24859d6dd46889a3d997c8d9e774f588eed7be2a6",
+        "plugins/opengoland/lib/opengoland-0.1.0-preview.20261110.6.jar": "6ecd4315ce36d3c33e33788ad8e8e28476a9031b3d04e227ecaa567c1249c0e9"
+      }
+    },
+    {
+      "kind": "completed isolated test profile",
+      "allocatedKiB": 299316,
+      "markers": {
+        "idea.properties": {
+          "bytes": 613,
+          "sha256": "1f03f34b503ebfb6ba33ca1f387c082bc347edf9043bf837e917cb6649f4ba83"
+        },
+        "log/idea.log": {
+          "bytes": 100894,
+          "sha256": "64eeeca3381f10aa0d4928804d5bca8c0353008dd4ef7fd686935e43e956d307"
+        }
+      },
+      "subdirectoryPresence": {
+        "config": true,
+        "system": true,
+        "plugins": false,
+        "log": true
+      },
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate1-profile",
+      "status": "retired-and-removed"
+    },
+    {
+      "kind": "completed isolated test profile",
+      "allocatedKiB": 319820,
+      "markers": {
+        "idea.properties": {
+          "bytes": 613,
+          "sha256": "f1cde1f7f444a4c75c56eb4a8f398966bdbc6adaf20e777de80e8e996b177636"
+        },
+        "log/idea.log": {
+          "bytes": 115644,
+          "sha256": "ebf01adf94f35257fef0d1c89875a6c4f34a0e0a513ecf0a85188a859d3e4987"
+        }
+      },
+      "subdirectoryPresence": {
+        "config": true,
+        "system": true,
+        "plugins": false,
+        "log": true
+      },
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate2-profile",
+      "status": "retired-and-removed"
+    }
+  ],
+  "preflight": {
+    "sameUserFullLsofExitCode": 0,
+    "lsofWarningLines": 0,
+    "matchingOpenFiles": 0,
+    "matchingCandidateExecutables": 0,
+    "matchingCandidateArguments": 0,
+    "currentBuildDependencyPathsOverlap": false
+  },
+  "protected": {
+    "paths": [
+      "build/product-verified-20261113.3",
+      "build/product",
+      ".tools/continuation-20261113/workspace-consistency/runtime/candidate3-profile",
+      "build/idea-sandbox",
+      ".tools/platform",
+      ".tools/go-tools-cache",
+      ".tools/release-tools",
+      ".tools/worktrees"
+    ],
+    "existenceUnchanged": true,
+    "verifiedRetainedAppManifestSha256": "326422fe28ce9e9561971fc7c303bbca721b900ff98d7a90afde016d32e60c37",
+    "verifiedRetainedAppManifestUnchanged": true,
+    "referenceApplicationsUserDataLicensesSdkToolsWorktreesSharedCachesAndOtherProjectsUntouched": true
+  },
+  "measurement": {
+    "before": {
+      "atUtc": "2026-11-13T21:28:13.936120+00:00",
+      "filesystem": "/dev/disk3s5",
+      "usedKiB": 373175664,
+      "availableKiB": 64273584
+    },
+    "after": {
+      "atUtc": "2026-11-13T21:28:18.199464+00:00",
+      "filesystem": "/dev/disk3s5",
+      "usedKiB": 369156400,
+      "availableKiB": 68292848
+    },
+    "netAvailableIncreaseBytes": 4115726336,
+    "removedDuAllocatedBytes": 6398115840,
+    "limitations": "df is the measured net free-space change during the operation. APFS shared extents, snapshots and concurrent system/other-project activity mean it need not equal summed du blocks; no exact exclusive-reclaim claim is made. The earlier reported 85-to-64 GiB change remains unattributed without a historical per-directory baseline."
+  },
+  "historicalReferences": {
+    "pathsNoLongerExist": [
+      "build/open Goland terminal force env.app",
+      ".tools/release-06-native-20261112/installed/open Goland.app",
+      ".tools/continuation-20261113/workspace-consistency/runtime/candidate1-profile",
+      ".tools/continuation-20261113/workspace-consistency/runtime/candidate2-profile"
+    ],
+    "recordsKeptForHistoricalEvidence": [
+      "docs/reference/terminal-command-completion-20261112.json",
+      "docs/reference/terminal-native-20261112.json",
+      "docs/verification/go-formatting-native-20261112.json",
+      "docs/verification/plugin-compatibility-current-source-native-20261112.json",
+      "docs/snapshot/2026-11-12/README.zh-CN.md",
+      "docs/snapshot/2026-11-12/evidence/artifact-cleanup-terminal-20261112.json"
+    ],
+    "interpretation": "These records describe past runs. Their old generated binary/profile paths are now absent; they do not imply those retired copies remain available. Current and latest verified Apps remain at the protected paths."
+  }
+}

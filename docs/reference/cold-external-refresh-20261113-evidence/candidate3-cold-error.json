@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidate": "candidate3 0.1.0-preview.20261114.1; bounded native dependency result; separate signature-help NPE; unreleased",
+  "evidenceId": "ev_50bdaf1faa3e8971ff3f921ff2270fb6638d4179ceb342aeeda20a508ecc5bdf",
+  "launcherSha256": "20195af009080cf403826a84258bddcde7c7a6e6eb01a98c2f4958eede634c9d",
+  "window": {
+    "pid": 33473,
+    "window_id": 6275,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794605349.345531,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 33473,
+    "window_id": 6275,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "c41f3027459d6478b6c89835065d8993fc965b2ea8284e3f3a6b1afa077c0c2d",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Only cold external Message declaration changed to Greeting; unchanged main automatically shows undefined external.Message.",
+  "proofLimit": "Still screenshot of exact selected PID/window, paired with CUA/native operation records; no AX capture or retained completion popup, no full parity or release claim.",
+  "sourceMetadataSha256": "5d80d05b83ca396b9278b9d05787ae65cf4326b43ae1600b7f8ffb7e222ac86d"
+}

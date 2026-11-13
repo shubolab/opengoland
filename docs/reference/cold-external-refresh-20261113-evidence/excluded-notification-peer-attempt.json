@@ -1,0 +1,9 @@
+{
+  "schemaVersion": 1,
+  "status": "not-used-as-product-defect-or-native-acceptance-evidence",
+  "reason": "The notification assertion used a controlled wrapper without a real started gopls connection. Its failure did not establish a product notification defect. Final tests claim VFS/lifecycle contracts only.",
+  "originalXmlSha256": "e26e0f566a19857173573a4437afcf8985505d331ffe4bf0f6762dcdc74f6b7d",
+  "originalSourceSha256": "1f513c87987fe3354066da4049591bf5b63c6da00faeb0884eff028e2f8eea8c",
+  "tests": 1,
+  "failures": 1
+}

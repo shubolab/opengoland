@@ -1,0 +1,66 @@
+{
+  "status": "controlled-sdk-pass-native-final-recheck-pending",
+  "patchSha256": "6e5f7e127dffaf1cc18fda1eb82c52a3afa9dadfd62fde95c80bec1fe3584fef",
+  "sourceFiles": {
+    "product/patches/lsp4ij-0.21.0-document-sync.patch": "6e5f7e127dffaf1cc18fda1eb82c52a3afa9dadfd62fde95c80bec1fe3584fef",
+    "product/patches/lsp4ij-0.21.0-document-sync.json": "0c01dbc62a13063eb12dcb3dc2851cc5b1afa6081eb4d9a642c19869d9c7a167",
+    "scripts/patch-lsp4ij.py": "0eb5a856eded580d6f1fe75d729867db05b950d7f4be98163349a7dac016d233",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspInitializationSyncTest.kt": "bb4c174227b57bbec9a5bb1d73b2ecf3e819233b47f2dc75b38b18ff08be8ca7",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoSignatureHelpParameterInfoTest.kt": "8866c837e8a108aa90c949150679cce891d02a0cdcbe4faccc5dc9a337631f4c"
+  },
+  "rows": [
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.713"
+    },
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.393"
+    }
+  ],
+  "builder": {
+    "artifactSha256": "9a1d3cc07af149262475f2a676ddb8f362ea5380b38a850d2706580419ecc53c",
+    "patchSha256": "6e5f7e127dffaf1cc18fda1eb82c52a3afa9dadfd62fde95c80bec1fe3584fef",
+    "compiler": "javac 25.0.3",
+    "compilerOptions": [
+      "--release",
+      "17",
+      "-encoding",
+      "UTF-8",
+      "-implicit:none",
+      "-sourcepath",
+      ""
+    ],
+    "sourceCount": 21,
+    "classCount": 42,
+    "previousSourceCount": 20,
+    "previousClassCount": 41,
+    "unchangedPreviousSources": 20,
+    "unchangedPreviousClasses": 41,
+    "changedPreviousClasses": [],
+    "addedClasses": [
+      "com/redhat/devtools/lsp4ij/features/signatureHelp/LSPParameterInfoHandler.class"
+    ],
+    "baselineVerifiedClassManifest": ".tools/lsp4ij-document-sync/c0ba6a63d909c3f81944cff0c82157c84577beb82c5df3649cb8795f931880e1/classes.json",
+    "baselinePatchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126"
+  },
+  "sameFinalRegressionSourceRed": true,
+  "validationMetadataUpdatedAfterRun": true,
+  "schemaVersion": 1,
+  "red": {
+    "tests": 4,
+    "failures": 1,
+    "sameFinalRegressionSource": true,
+    "scope": "Only missing optional parameters case fails; three non-null controls pass."
+  },
+  "fix": "Null parameter metadata follows the existing empty-list localized presentation; it does not infer the true function parameter count or disable signature UI.",
+  "proofLimit": "Four actual-handler/platform ParameterInfoUIContext cases plus five initialization/seal controls; no native App/popup, Windows or release acceptance."
+}

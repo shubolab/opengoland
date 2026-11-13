@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "status": "two-post-reload-REA-captures-retained; earlier steps are the main-task operator record",
+  "sequence": [
+    {
+      "step": "clean-launch",
+      "observation": "Auto-import was skipped for the clean isolated profile; the earlier auto-import profile is discarded."
+    },
+    {
+      "step": "baseline",
+      "observation": "Package run with Go1.26.10 produced the expected default output and exit0; no separate retained REA capture in this set."
+    },
+    {
+      "step": "external-rename-before-reload",
+      "observation": "With external.go unopened, Message was renamed to Greeting externally; foreground main remained green while package Run failed with undefined external.Message/exit1. This step is an operator record, not independently pictured in the two retained reference images."
+    },
+    {
+      "step": "manual-reload",
+      "observation": "The operator executed File > Reload All from Disk before changing the caller to Greeting."
+    },
+    {
+      "step": "new-caller-after-reload",
+      "observation": "Problems was observed empty; package Run printed the expected output/exit0; Cmd+B navigated to external.Greeting. The retained REA images directly show Run0 and the navigation target."
+    }
+  ],
+  "comparisonLimit": "The successful reference sequence includes manual Reload All from Disk. It does not establish equivalent automatic refresh behavior or relative superiority.",
+  "cleanupReportedByMainTask": {
+    "cleanReferencePid18853": "normal Quit, PID absent",
+    "discardedReferencePids": [
+      14792,
+      15084
+    ],
+    "discardedPid15084": "SIGTERM of owned discarded attempt",
+    "oldProductPid10884": "exit confirmation still pending when this draft was requested; no completed cleanup claim"
+  }
+}

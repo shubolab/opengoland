@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; no AX tree copied",
+  "candidate": "intermediate candidate1; not release eligible; current source is newer",
+  "evidenceId": "ev_f4e7f55a642b4ab3a6ff6bf753d17d34a3910e74e50abe0d2019945843213e23",
+  "launcherSha256": "fd334dad9eb26962a10da5dd8aa325feda20d89a1ed2a078d70c82e2332d1b6c",
+  "window": {
+    "pid": 37869,
+    "window_id": 3414,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794573195.999589,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 37869,
+    "window_id": 3414,
+    "screenshot": true,
+    "accessibility": true,
+    "max_nodes": 240
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "fadc6a41d2dacbe973cb60e9325262f561726ffe50b74abba84dbdbc6a64afd2",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 218,
+    "truncated": true,
+    "gaps": [
+      "AX child count unavailable at path [0, 1, 0]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 1]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 2]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 3]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 4]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 5]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 6]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 7]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 8]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 9]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 10]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 11]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 12]: AXError -25202",
+      "AX child count unavailable at path [0, 1, 13]: AXError -25202",
+      "AX child count unavailable at path [0, 3, 4, 0]: AXError -25202",
+      "AX child count unavailable at path [0, 3, 4, 1]: AXError -25202",
+      "AX child count unavailable at path [0, 3, 5, 0]: AXError -25202",
+      "AX child count unavailable at path [0, 3, 5, 1]: AXError -25202",
+      "AX child count unavailable at path [0, 3, 5, 2]: AXError -25202",
+      "AX child count unavailable at path [0, 3, 5, 3]: AXError -25202"
+    ]
+  },
+  "observations": [
+    "Verbose trace captured after a manual gopls restart; not automatic-refresh success.",
+    "Registration packet includes mod/work and workspace module/vendor globs; external .go root is absent.",
+    "Only selected necessary protocol packets are retained separately; the complete AX text is excluded."
+  ],
+  "sourceMetadataSha256": "39a4ce4f8a624fd36bab0b363efbb28a6cc13f2fd0917eb82d5b9845b36ba80c"
+}

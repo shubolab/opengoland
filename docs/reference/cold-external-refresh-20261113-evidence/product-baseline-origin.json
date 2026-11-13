@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "scope": "Selected REA metadata excerpt, not the complete REA record; accessibility nodes omitted",
+  "evidenceId": "ev_c70e0176946469d03d42b70eceaa6fc4d5e335ffa5b7cb1037f596b6fcae81b1",
+  "operation": "observe_native_ui",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "provider": {
+    "id": "native-macos",
+    "name": "macOS native inspection utilities",
+    "version": null
+  },
+  "target": {
+    "name": "idea",
+    "digest": {
+      "sha256": "e133559a06dd9b5a54fc2f9f77b3bb0a7423c4389643cfeae4e201f495d28a51"
+    },
+    "format": "mach-o",
+    "architecture": "arm64"
+  },
+  "pid": 10884,
+  "windowId": 2803,
+  "windowTitle": "project – shared.go",
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "cefa98c0bfcdb21dfbafc7025849392ac8de3b0e43e836433c9425da696ac172",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibilityRequested": true,
+  "gaps": [
+    "AX child count unavailable at path [0, 1, 0]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 1]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 2]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 3]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 4]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 5]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 6]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 7]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 8]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 9]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 10]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 11]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 12]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 13]: AXError -25202",
+    "AX child count unavailable at path [0, 1, 14]: AXError -25202"
+  ],
+  "limitations": [
+    "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+    "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+    "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+    "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+    "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+  ]
+}

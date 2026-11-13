@@ -1,0 +1,17 @@
+<testsuite name="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" tests="15" skipped="0" failures="0" errors="0" timestamp="2026-11-13T14:31:51.112Z" time="6.022">
+  <testcase name="testCancellingCallerViewDoesNotLetUnregisterPassTheInternalRegistration" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="4.079" />
+  <testcase name="testStoppedGenerationCannotRegisterIntoItsReplacement" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.074" />
+  <testcase name="testOldClientUnregisterBeforeFirstCaptureCannotRemoveTheCurrentWatcher" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.089" />
+  <testcase name="testOldClientRegisterWithReusedIdCannotReplaceTheCurrentWatcher" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.054" />
+  <testcase name="testHeldInitializationPreservesRegisterThenUnregisterOrder" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.668" />
+  <testcase name="testStoppingDuringInitializedCannotPublishTheOldConnection" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.045" />
+  <testcase name="testLateInitializedCancellationCannotStopOrPoisonTheReplacementServer" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.042" />
+  <testcase name="testOldClientRegisterBeforeFirstCaptureCannotInstallIntoTheReplacement" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.061" />
+  <testcase name="testCancellingOneOwnedRegistrationDoesNotCancelSharedStartupOrAnotherRegistration" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.042" />
+  <testcase name="testInitializationFailureFailsTheRegistrationAndReleasesTheFollowingUnregister" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.04" />
+  <testcase name="testStopCancelsWaitingRegistrationsAndLateUncancellableStartupCannotReviveThem" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.353" />
+  <testcase name="testDisposedWrapperRejectsLateStartupAndNewRegistration" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.349" />
+  <testcase name="testRegistrationCanFinishInsideInitializedBeforeTheStartupFutureFinishes" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.04" />
+  <testcase name="testLateInitializeResponseCannotOverwriteTheReplacementCapabilities" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.045" />
+  <testcase name="testRealStartupAllowsTheInitializedPeerToAwaitItsRegistrationAck" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.041" />
+</testsuite>

@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "necessary-native-error-excerpt; full log excluded",
+  "candidatePid": 33473,
+  "sourceLogLineStart": 336,
+  "exceptionLine": 337,
+  "sourceLogSha256": "f8ef02644e5f7e27b1200915706849afb1a3b36ed6d88588009a703ce859881e",
+  "errorLines": [
+    "2026-11-14 05:37:40,698 [ 501458] SEVERE - #c.i.o.a.i.NonBlockingFlushQueue - Cannot invoke \"java.util.List.size()\" because \"parameters\" is null",
+    "java.lang.NullPointerException: Cannot invoke \"java.util.List.size()\" because \"parameters\" is null",
+    "\tat com.redhat.devtools.lsp4ij.features.signatureHelp.LSPParameterInfoHandler.updateUI(LSPParameterInfoHandler.java:143)",
+    "\tat com.redhat.devtools.lsp4ij.features.signatureHelp.LSPParameterInfoHandler.updateUI(LSPParameterInfoHandler.java:42)",
+    "\tat com.intellij.codeInsight.hint.ParameterInfoComponent.lambda$update$3(ParameterInfoComponent.java:529)",
+    "\tat com.intellij.util.indexing.FileBasedIndex.lambda$ignoreDumbMode$0(FileBasedIndex.java:260)",
+    "\tat com.intellij.openapi.util.RecursionManager$1.computePreventingRecursion(RecursionManager.java:124)",
+    "\tat com.intellij.util.indexing.FileBasedIndexEx.ignoreDumbMode(FileBasedIndexEx.java:732)"
+  ],
+  "trigger": "CUA Basic completion for zero-argument Greeting separately triggered signatureHelp UI; parameters was null.",
+  "affectedHandler": "com.redhat.devtools.lsp4ij.features.signatureHelp.LSPParameterInfoHandler.updateUI:143",
+  "claimLimit": "Observed native candidate3 failure. Source correction/full gate/new App acceptance are separate and pending; 962 old-handler tests cannot prove the correction."
+}

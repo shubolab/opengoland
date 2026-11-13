@@ -1,0 +1,13 @@
+{
+  "operation": "observe_native_ui",
+  "provider": "native-macos",
+  "source": "exact structured error retained in root functions store workspaceCandidate1CounterCapture",
+  "candidatePid": 37869,
+  "status": "failed; no screenshot or accessibility observation from this request",
+  "error": {
+    "code": "execution_failure",
+    "retryable": false,
+    "reason": "Command timed out after 60000 ms: /usr/bin/xcrun"
+  },
+  "followup": "rea doctor ran and xcrun --find swift succeeded, but no permission or configuration changes were made and the unchanged failed request was not repeated"
+}

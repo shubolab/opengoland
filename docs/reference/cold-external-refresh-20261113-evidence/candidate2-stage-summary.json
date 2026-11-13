@@ -1,0 +1,36 @@
+{
+  "at": "2026-11-13T16:22:50.011588+00:00",
+  "version": "0.1.0-preview.20261114.1",
+  "status": "historical candidate2: full959/172 passed; native owned registration ClassCastException; not released",
+  "manifestSha256": "76c3d5dfe9be825e40a076a9d154be3c9385e2667881ebdd1cad3d6a9d8d6978",
+  "fullGate": {
+    "reports": 172,
+    "tests": 959,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "pluginJars": {
+    "Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.1.jar": "816212d09c64c173c3f1f7f3dd72c4bd14829bd3ec79918d569cbda2f16cccfc"
+  },
+  "launchers": {
+    "Contents/MacOS/idea": "27a814d580a50ec7b0b9a0bf0caa5a905b65247aa18f3bf040872867a435edbc"
+  },
+  "buildInputs": {
+    "schemaVersion": 1,
+    "algorithm": "sha256",
+    "scope": "Kotlin main/test sources and resources, Go engine sources/tests/licenses, Gradle configuration, packaging scripts and pinned public-source patches",
+    "digest": "5685f609cbe87470abd1ec951ab785600f2f00b69dec1fd3be7dbe63089a8dbd",
+    "fileCount": 585
+  },
+  "patchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+  "scope": "The version string alone does not identify later rebuilt candidates. These hashes bind only candidate2, before the owned-registration Gson/closed-state correction.",
+  "nativeOperations": {
+    "pid": 79764,
+    "windowId": 4657,
+    "scope": "only dark/light icon visual checks; no external rename mutation",
+    "startupFailure": "candidate2-owned-registration-error.json",
+    "normalQuitAndPidAbsent": "Parent native operation record; no process remains from this candidate.",
+    "releaseEligible": false
+  }
+}

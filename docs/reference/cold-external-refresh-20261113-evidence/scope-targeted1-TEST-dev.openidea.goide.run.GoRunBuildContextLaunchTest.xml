@@ -1,0 +1,10 @@
+<testsuite name="dev.openidea.goide.run.GoRunBuildContextLaunchTest" tests="8" skipped="0" failures="0" errors="0" timestamp="2026-11-13T15:46:44.134Z" time="13.989">
+  <testcase name="testDebugRejectsAnExcludedPreciseSourceBeforeStartingItsConverterOrAdapter" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="0.792" />
+  <testcase name="testActivePreciseRunActuallyExecutesWhileHandwrittenAndPackagePatternsKeepTheirMeaning" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="2.837" />
+  <testcase name="testAnExplicitRuntimeSelectorOverrideBecomesAManualSelectionInsteadOfRetainingAnUnrelatedSourceConstraint" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="2.911" />
+  <testcase name="testNativeSourceProvenanceSurvivesCloneAndXmlButDoesNotConstrainAnEditedPattern" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="0.329" />
+  <testcase name="testAnExactSourceEntryPreservesTheOrdinaryRunsLegalOutputFlag" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="2.222" />
+  <testcase name="testPreciseRunPreservesLegitimateModuleUpdatesInsteadOfRejectingItsOwnMetadataWrite" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="3.141" />
+  <testcase name="testContextConfigurationReuseDistinguishesTheSameFunctionNameInDifferentPlatformFiles" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="1.121" />
+  <testcase name="testAConfigurationProducedInAnActiveContextIsRecheckedBeforeActualRunAfterSettingsChange" classname="dev.openidea.goide.run.GoRunBuildContextLaunchTest" time="0.634" />
+</testsuite>

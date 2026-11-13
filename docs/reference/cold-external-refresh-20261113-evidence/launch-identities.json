@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "platform": "macOS arm64",
+  "selectedGoVersion": "go version go1.26.10 darwin/arm64",
+  "identities": {
+    "product": {
+      "version": "2026.1.4",
+      "buildNumber": "261.26222.65",
+      "prefix": "IDEA",
+      "launcherSha256": "e133559a06dd9b5a54fc2f9f77b3bb0a7423c4389643cfeae4e201f495d28a51",
+      "launchReturnCode": 0,
+      "originalMetadataSha256": "f6fe56d60ec9dfde440bc72826ee8b652f2f6714b6ad649406960287e92e76a9",
+      "sourceTag": "v0.1.0-preview.20261113.3",
+      "sourceCommit": "32fd60a43e68a9b879fae0d04ea96bd5ba41547c",
+      "sourceBinding": "The main native run fixed this existing app to the .13.3 source/tag; local git resolves the tag to this commit. Launcher SHA is not a whole-app or plugin-source digest."
+    },
+    "reference": {
+      "version": "2026.1.4",
+      "buildNumber": "261.26222.72",
+      "prefix": "GOLAND",
+      "launcherSha256": "7a7b1da02131b070998bd58c03d6459674895bab7b1fd01401de5ff204ee40a5",
+      "launchReturnCode": 0,
+      "originalMetadataSha256": "9ded9598dc11b43d32036cb6bbdf3c161beced7c95725fbdde3dfd5de9d7a8b3",
+      "scope": "Clean isolated reference launch supersedes discarded auto-import attempt. No reference installation or license files copied."
+    }
+  }
+}

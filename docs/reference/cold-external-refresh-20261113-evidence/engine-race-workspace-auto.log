@@ -1,0 +1,13 @@
+?   	github.com/shubolab/opengoland/engine/cmd/opengoland-engine	[no test files]
+ok  	github.com/shubolab/opengoland/engine/internal/engine	50.055s
+ok  	github.com/shubolab/opengoland/engine/internal/generate/jsonstruct	247.377s
+ok  	github.com/shubolab/opengoland/engine/internal/generate/methods	435.547s
+ok  	github.com/shubolab/opengoland/engine/internal/generate/structs	230.925s
+ok  	github.com/shubolab/opengoland/engine/internal/generate/tags	11.978s
+ok  	github.com/shubolab/opengoland/engine/internal/generate/tests	224.160s
+ok  	github.com/shubolab/opengoland/engine/internal/processowner	2.251s
+ok  	github.com/shubolab/opengoland/engine/internal/protocol	1.393s
+ok  	github.com/shubolab/opengoland/engine/internal/refactor/native	299.771s
+ok  	github.com/shubolab/opengoland/engine/internal/refactor/signature	520.689s
+ok  	github.com/shubolab/opengoland/engine/internal/rpc	185.613s
+ok  	github.com/shubolab/opengoland/engine/internal/search/types	86.607s

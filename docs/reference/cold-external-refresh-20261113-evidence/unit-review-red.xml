@@ -1,0 +1,13 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.openidea.goide.lsp.GoExternalFileWatchesTest" tests="2" skipped="0" failures="2" errors="0" timestamp="2026-11-13T11:29:23.663Z" time="3.235">
+  <properties>
+    <property name="evidence-format" value="Safe test-case extract; original output and stack traces omitted" />
+    <property name="original-sha256" value="5aac2bfe337c6de1b4ad462031830cb40ca1299735e73235ed4591f81ccf8191" />
+  </properties>
+  <testcase name="testRelativePatternBaseUriKeepsBracketDirectoryNamesLiteral" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="3.161">
+    <failure message="junit.framework.AssertionFailedError: URI path characters are literal; only RelativePattern.pattern contains glob syntax expected:&lt;[/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher literal URI 8487052964916131016/deps[old]/external, /private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher literal URI 8487052964916131016/deps[old]/external/nested]&gt; but was:&lt;[]&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: URI path characters are literal; only RelativePattern.pattern contains glob syntax expected:&lt;[/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher literal URI 8487052964916131016/deps[old]/external, /private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher literal URI 8487052964916131016/deps[old]/external/nested]&gt; but was:&lt;[]&gt;</failure>
+  </testcase>
+  <testcase name="testARefusedBroadRootDoesNotHideAnInstallableNarrowRoot" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.074">
+    <failure message="junit.framework.AssertionFailedError: expected:&lt;[/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher lifecycle 17606181703628324829/wide, /private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher lifecycle 17606181703628324829/wide/narrow]&gt; but was:&lt;[/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher lifecycle 17606181703628324829/wide]&gt;" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: expected:&lt;[/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher lifecycle 17606181703628324829/wide, /private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher lifecycle 17606181703628324829/wide/narrow]&gt; but was:&lt;[/private/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go watcher lifecycle 17606181703628324829/wide]&gt;</failure>
+  </testcase>
+</testsuite>

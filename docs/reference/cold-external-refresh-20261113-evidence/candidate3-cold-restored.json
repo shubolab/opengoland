@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidate": "candidate3 0.1.0-preview.20261114.1; bounded native dependency result; separate signature-help NPE; unreleased",
+  "evidenceId": "ev_0f35d82166da5af9149950511858349719fdcc28d158ff4369e7f5be7c052e9d",
+  "launcherSha256": "20195af009080cf403826a84258bddcde7c7a6e6eb01a98c2f4958eede634c9d",
+  "window": {
+    "pid": 33473,
+    "window_id": 6275,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794605349.345531,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 33473,
+    "window_id": 6275,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "db96ac20df979a67a27c140fa0e7af6d45d3df95b21e596d57fab7857772a1b9",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Only external declaration restored to Message; unchanged main automatically clears error.",
+  "proofLimit": "Still screenshot of exact selected PID/window, paired with CUA/native operation records; no AX capture or retained completion popup, no full parity or release claim.",
+  "sourceMetadataSha256": "0234761a2fc90d96733c049d95a77a64615fbac903928eee5b92c924e6fa9458"
+}

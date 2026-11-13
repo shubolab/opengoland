@@ -11,7 +11,7 @@
     "license": "EPL-2.0; original public source headers are preserved"
   },
   "patchFile": "lsp4ij-0.21.0-document-sync.patch",
-  "patchSha256": "337191c739f2c7cc61ce2d905375b9ab0e1ef5d5fcddf3f6383444e8e05c56f3",
+  "patchSha256": "6e5f7e127dffaf1cc18fda1eb82c52a3afa9dadfd62fde95c80bec1fe3584fef",
   "scope": {
     "zh": "修复初始化期间提前缓存的旧文档覆盖与后续编辑事件漏发窗口；在读操作内原子取得当前文档快照、安装监听器并创建首次didOpen future；didOpen与didChange共用既有FIFO dispatcher，移除500ms经验性等待。；拒绝已删除或项目已关闭的延迟连接，并在真实VFS删除前取消被删除缓存PSI的原生特性请求。；Find Usages的新鲜及缓存查询共同遵守Global/Local搜索范围，严格包含去重仅比较相同VirtualFile的结果，保留部分重叠与相同ranges。；增加Find Usages专用可覆盖查询策略，Go仅聚合声明/定义/引用，不自动查询类型定义/实现；独立导航能力与真实引用错误通知不变。；四类位置导航缓存使用文档/PSI及已匹配watcher/服务器配置生命周期依赖epoch；稳定依赖保留缓存，跨文件或语义依赖变更重新查询；初始化后实际RPC之前建立server基线，拒绝过期inflight结果。；四类导航入口将previousOffset检查、旧代取消、参数更新及future访问置于同一实例monitor，防止同文件不同offset并发复用对方future。；高亮请求等待已打开文档的didOpen/didChange，通过同一FIFO发送，并以原生文档序列及已连接服务器/文档身份保护排队、交付与缓存；取消只影响请求自己的future。；标准Pause使用真实线程ID异步请求，并等待ACK与真实暂停事件共同完成；支持allThreadsStopped但无threadId的暂停事件。标准Step/Continue绑定原生选中栈、当前暂停context与CAS认领的代次；冷/热栈加载不改变选择，过期回包不发布。；延迟本地调试源码的导航对象在父描述符中保留真实行号，使原生编辑器首次冷打开通过canNavigateTo并定位到执行行。；补全请求在捕获的原生文档代次上等待didOpen/didChange，并通过同一FIFO发送；单请求取消不传播到共享文档通知。",
     "preserves": [
@@ -57,7 +57,7 @@
       "path": "src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/LanguageServerWrapper.java",
       "upstreamSha256": "df1ab61afecedf04c5c4b75df0dd4d3e5eb5535362b26e069e04530318bfad69",
-      "patchedSha256": "c2e62f661ed81a43c23e674778ae28826cd9853faa001cc31beea8d03b6cf34f"
+      "patchedSha256": "47869f4a030ccf7a6d79a7fc08df3da81a62c3e4dc5d03a7ca22ef02ede22ca3"
     },
     {
       "path": "src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java",
@@ -166,6 +166,18 @@
       "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/completion/LSPCompletionSupport.java",
       "upstreamSha256": "25ab0e8f6d3a2a1366de55c0111bc96c96c553e00b2078a5858bd9827403fbc6",
       "patchedSha256": "287707bed9a4dd3196706336b947f386098302b3a7a61d5486ce2b97d2467f32"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/client/LanguageClientImpl.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/client/LanguageClientImpl.java",
+      "upstreamSha256": "e8889cb10be77649f7381f30e98c761afb2801199a9e4371770cca24e4ccead5",
+      "patchedSha256": "1fe5ab28ab7c6246abeee3cab099feba06eb9f6d7095cfd4c3385ecba77e6fa3"
+    },
+    {
+      "path": "src/main/java/com/redhat/devtools/lsp4ij/features/signatureHelp/LSPParameterInfoHandler.java",
+      "sourceUrl": "https://raw.githubusercontent.com/redhat-developer/lsp4ij/0.21.0/src/main/java/com/redhat/devtools/lsp4ij/features/signatureHelp/LSPParameterInfoHandler.java",
+      "upstreamSha256": "47f143a3a6bf89c27055949de06d5a28c84fc75b7c3818ef5338deab288e49cd",
+      "patchedSha256": "bee5a31ae3d9903fd860080771b37ab1abc50b9f9a278b29cf28c961bd793320"
     }
   ],
   "initialVerification": {
@@ -751,6 +763,212 @@
       "greenSeconds": 21.462,
       "unchangedProductionNativeTests": 1,
       "unchangedProductionFailures": 1
+    }
+  },
+  "capabilityRegistrationRevision": {
+    "scope": "Client registerCapability ACK waits for actual metadata registration after the current generation publishes server capabilities, before initialized; stop, initialization errors and replacement reject owned pending requests.",
+    "sourceCount": 20,
+    "expectedClassCount": 41,
+    "verificationStatus": "Actual macOS SDK 26-case cohort GREEN, zero skips/errors/failures; held startup red controls reproduced early ACK, stale initialized publication/cancellation and stale initialize capability overwrite. Native fsnotifier/gopls, standalone and Windows acceptance remain separate.",
+    "sourceOwnership": "The upstream change compiles only pinned public LSP4IJ sources into owned outputs; project GoLanguageClient retains a cancellation-isolated internal ordering future.",
+    "preserves": [
+      "The original public void registerCapability ABI and subclass hook are retained.",
+      "No request cancellation propagates to shared initialization.",
+      "Capabilities may register and ACK during initialized without waiting for the final startup future.",
+      "Only the current stopped generation cancels pending registrations; captured initialization/context identities reject late completion.",
+      "Previous eighteen sources other than LanguageServerWrapper are byte-identical; LanguageClientImpl is the twentieth pinned source.",
+      "The initialized callback runs outside start() monitor; capability publication, final server publication and terminal failure handling check the current context under the same monitor before touching server state."
+    ],
+    "boundaries": [
+      "Not a native fsnotifier-to-gopls or product-completion claim.",
+      "Other LSP request features and existing stop/connect behavior are outside this revision."
+    ],
+    "officialBuilder": {
+      "artifactSha256": "50853a9b9d697b7ae57d5273df1f19ae2e7c35a0cbb5c44809bd435fa481cad1",
+      "patchSha256": "7f42465c1069bd4d85673981b2543a33d4f286974f6a56fd44fb33befb744312",
+      "sourceCount": 20,
+      "classCount": 41,
+      "compiler": "javac 25.0.3",
+      "compilerOptions": [
+        "--release",
+        "17",
+        "-encoding",
+        "UTF-8",
+        "-implicit:none",
+        "-sourcepath",
+        ""
+      ],
+      "previousClassCount": 40,
+      "unchangedPreviousSources": 18,
+      "unchangedPreviousClasses": 36,
+      "changedPreviousClasses": [
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class"
+      ],
+      "addedClasses": [
+        "com/redhat/devtools/lsp4ij/client/LanguageClientImpl.class"
+      ]
+    },
+    "controlledTests": {
+      "capabilityLifecycle": 12,
+      "existingInitializationAndRuntimeSeal": 5,
+      "externalWatchLifecycleAndScope": 6,
+      "coldLocalVfsContract": 3,
+      "greenTotal": 26,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 5.513,
+      "regressionTest": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoCapabilityRegistrationLifecycleTest.kt",
+      "regressionTestSha256": "53da455d77294d3edc849f7795168e02c78d237f3b7937d9fc121c39df13872c",
+      "proof": ".tools/continuation-20261113/capability-registration/final-results.json",
+      "redControls": [
+        {
+          "proof": "red.xml",
+          "tests": 1,
+          "failures": 1,
+          "trigger": "register then unregister while initialization is held; original production ACKs before actual registration"
+        },
+        {
+          "proof": "publication-red.xml",
+          "tests": 2,
+          "failures": 2,
+          "trigger": "initialized is held across stop/replacement; stale callback republishes or poisons the replacement"
+        },
+        {
+          "proof": "capabilities-red.xml",
+          "tests": 1,
+          "failures": 1,
+          "trigger": "initialize response is held across replacement; stale response overwrites current capabilities"
+        }
+      ]
+    }
+  },
+  "capabilityOwnerRevision": {
+    "scope": "Both protocol-client capability entries synchronously bind the sending client to its current startup context before scheduling background registration/unregistration. A late old-client call cannot adopt the replacement context or delete its same-ID watcher.",
+    "previousCandidatePatchSha256": "7f42465c1069bd4d85673981b2543a33d4f286974f6a56fd44fb33befb744312",
+    "sourceCount": 20,
+    "expectedClassCount": 41,
+    "verificationStatus": "Actual macOS SDK 29-case cohort GREEN, zero failures/errors/skips; exact same final regression source has 3/3 owner red controls against candidate1. Native/Windows/standalone/release acceptance remains separate.",
+    "preserves": [
+      "Actual operations remain asynchronous and run only after owner/init/context checks under the same wrapper monitor.",
+      "The original void APIs and direct-wrapper registerCapabilityAsync compatibility entry remain available.",
+      "The earlier startup readiness/publication/error guards and caller cancellation-isolated Go queue are unchanged.",
+      "No owner-aware client request is accepted with a missing context or context client."
+    ],
+    "boundaries": [
+      "Controlled SDK/client/watch-manager contracts only; native gopls, standalone, Windows and release acceptance remain separate.",
+      "No new general startup, provider/process-start, connect or broader client lifecycle behavior is introduced."
+    ],
+    "officialBuilder": {
+      "artifactSha256": "0bc2df5ea8f2b3e4de1a4a06360fc80afdbd9baee9aa4d6da97704f738d911ec",
+      "patchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+      "compiler": "javac 25.0.3",
+      "compilerOptions": [
+        "--release",
+        "17",
+        "-encoding",
+        "UTF-8",
+        "-implicit:none",
+        "-sourcepath",
+        ""
+      ],
+      "sourceCount": 20,
+      "classCount": 41,
+      "previousCandidateClassCount": 41,
+      "unchangedPreviousSources": 18,
+      "unchangedPreviousClasses": 36,
+      "changedClasses": [
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class",
+        "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class",
+        "com/redhat/devtools/lsp4ij/client/LanguageClientImpl.class"
+      ],
+      "addedClasses": []
+    },
+    "scopeChecks": {
+      "startupPipelineUnchanged": true,
+      "goClientUnchangedFromCandidate1": true,
+      "coldFixtureAssertionsUnchanged": true,
+      "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.ktUnchanged": true,
+      "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.ktUnchanged": true
+    },
+    "controlledTests": {
+      "capabilityLifecycle": 15,
+      "existingInitializationAndRuntimeSeal": 5,
+      "externalWatchLifecycleAndScope": 6,
+      "coldLocalVfsContract": 3,
+      "greenTotal": 29,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 6.685,
+      "regressionTest": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoCapabilityRegistrationLifecycleTest.kt",
+      "regressionTestSha256": "72c4481e69421cd8d71b053b29974cee728e567d590917e16dae9d5d4d1895f1",
+      "redCandidatePatchSha256": "7f42465c1069bd4d85673981b2543a33d4f286974f6a56fd44fb33befb744312",
+      "unchangedFinalTestSourceRedControls": 3,
+      "redFailures": 3,
+      "proof": ".tools/continuation-20261113/capability-owner/final-results.json"
+    }
+  },
+  "signatureHelpNullParametersRevision": {
+    "scope": "An omitted SignatureInformation.parameters list follows the renderer's existing empty-list presentation rather than throwing on size(). Non-null label extraction, presentation flags and UTF-16 ranges are unchanged.",
+    "previousCandidatePatchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+    "sourceCount": 21,
+    "expectedClassCount": 42,
+    "verificationStatus": "Actual macOS SDK GREEN: 4 real-handler controls + 5 existing initialization/runtime-seal controls, zero failures/errors/skips. Same final regression source against prior candidate: null-list case reproduces native NPE; all 3 non-null/UTF-16/disabled controls pass. Final standalone native and Windows validation remain separate.",
+    "preserves": [
+      "Only numParams count changes from parameters.size() to parameters == null ? 0 : parameters.size().",
+      "Existing localized empty-list presentation and normal/raw presentation paths remain enabled.",
+      "Existing UTF-16 tuple label extraction, whitespace, active highlight, disabled flags and variadic label text are unchanged.",
+      "All prior twenty public source bytes and existing forty-one patched classes must be verified unchanged."
+    ],
+    "boundaries": [
+      "Not a change to varargs selection rules or other signature-help rendering behavior.",
+      "Controlled actual-handler tests are separate from final standalone native, Windows, installer and release acceptance."
+    ],
+    "officialBuilder": {
+      "artifactSha256": "9a1d3cc07af149262475f2a676ddb8f362ea5380b38a850d2706580419ecc53c",
+      "patchSha256": "6e5f7e127dffaf1cc18fda1eb82c52a3afa9dadfd62fde95c80bec1fe3584fef",
+      "compiler": "javac 25.0.3",
+      "compilerOptions": [
+        "--release",
+        "17",
+        "-encoding",
+        "UTF-8",
+        "-implicit:none",
+        "-sourcepath",
+        ""
+      ],
+      "sourceCount": 21,
+      "classCount": 42,
+      "previousSourceCount": 20,
+      "previousClassCount": 41,
+      "unchangedPreviousSources": 20,
+      "unchangedPreviousClasses": 41,
+      "changedPreviousClasses": [],
+      "addedClasses": [
+        "com/redhat/devtools/lsp4ij/features/signatureHelp/LSPParameterInfoHandler.class"
+      ],
+      "baselinePatchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126"
+    },
+    "controlledTests": {
+      "actualHandler": 4,
+      "existingInitializationAndRuntimeSeal": 5,
+      "greenTotal": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.106,
+      "unchangedFinalTestSourceRedTotal": 4,
+      "redFailures": 1,
+      "redNonNullControlsPass": 3,
+      "regressionTest": "src/test/kotlin/com/redhat/devtools/lsp4ij/GoSignatureHelpParameterInfoTest.kt",
+      "regressionTestSha256": "8866c837e8a108aa90c949150679cce891d02a0cdcbe4faccc5dc9a337631f4c",
+      "proof": ".tools/continuation-20261113/signature-help-null-20261114/green-results.json"
     }
   }
 }

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; no raw_result or AX tree copied",
+  "candidate": "candidate2 0.1.0-preview.20261114.1; native startup scope registration failed; not release eligible",
+  "evidenceId": "ev_13053ef3ebde3d384d20eccd8837f9600d9d1a1e2632ed5a3840c14dc4cb20a4",
+  "launcherSha256": "27a814d580a50ec7b0b9a0bf0caa5a905b65247aa18f3bf040872867a435edbc",
+  "window": {
+    "pid": 79764,
+    "window_id": 4657,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794587004.47666,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 79764,
+    "window_id": 4657,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "990ea1843c814b5e2c6843791dcad5c7fe8ba0ed3a9de61e9963d7919edf2b2a",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "proofLimit": "Visual observation of own Go source/test/module/workspace and functional tool-window icons in the selected light/dark native window only. No external rename operation or automatic-refresh acceptance was performed in this candidate.",
+  "sourceMetadataSha256": "19827b91e90d6747fe7e2b0ec73ff6a7b229ef8063aa43c73d221c6dd0d5445a"
+}

@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-11-13T10:56:30.728Z" time="3.444">
+  <properties>
+    <property name="evidence-format" value="Safe test-case extract; original output and stack traces omitted" />
+    <property name="original-sha256" value="de6c4197185467ff702a5fcbf4335cfe5f6fb43121ba801079ecdaedd82c8a03" />
+  </properties>
+  <testcase name="testAbsoluteExternalWatcherDiscoversUnopenedSourceAndSendsItsDiskChange" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="3.444">
+    <failure message="junit.framework.AssertionFailedError: A registered external root must load its unopened Go sources into the VFS snapshot" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: A registered external root must load its unopened Go sources into the VFS snapshot</failure>
+  </testcase>
+</testsuite>

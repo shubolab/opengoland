@@ -1,0 +1,137 @@
+{
+  "capturedAtUtc": "2026-11-13T15:55:41.613182+00:00",
+  "head": "3b32dc53df49388528203fa9b600b93ea69b8368",
+  "sourceSha256": {
+    "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt": "8577c6f5aa814c5cccf7ce64043a1935075ed09126d960b13b7a14998b3f42e9",
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt": "d897c96550d753547c16f0cce4ac69fa1307cd0b564e2f499aa89043d8fd3e02",
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalDependencyScopes.kt": "8d3fdb0e500693e2f11844174aadc212526347430a6250b683045c1ea5f55efe",
+    "src/main/kotlin/dev/openidea/goide/lsp/GoDependencyScopeCoordinator.kt": "c558ae6450711dba8565d3ea5c0312b97f7aa5bea474cb14a273a20d00afed9b",
+    "src/main/kotlin/dev/openidea/goide/run/GoRunBuildContextLoader.kt": "25d85817c74e948cf7c8d1db3689a0058254726fd3422796168f3ad5a38d4fd6",
+    "src/test/kotlin/dev/openidea/goide/lsp/GoDependencyScopeCoordinatorTest.kt": "dc944d25f93e6b7ca086b7351997fc9a4132c00b941c2ed4ab0bb053f1ee2650",
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.kt": "69ae1599574627eecc645c410650a602d23ed15e95498cc7e88489a106fe473c",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoColdExternalWatchTest.kt": "af771cf14e890badc0c170bbfb10057fec30d369808da98729a90ff3290c9c79",
+    "src/test/kotlin/dev/openidea/goide/run/GoLocalDependencyScopeLoaderTest.kt": "f473617d82c9880f102be6d8cc27719adcfbba91afecd2cf450bd496f22ac8c1"
+  },
+  "frozenPublicPatchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+  "testSuites": [
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest",
+      "tests": "15",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "7.286"
+    },
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoColdExternalWatchTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.317"
+    },
+    {
+      "name": "dev.openidea.goide.icons.GoFileIconsTest",
+      "tests": "2",
+      "failures": "1",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.328"
+    },
+    {
+      "name": "dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.009"
+    },
+    {
+      "name": "dev.openidea.goide.lsp.GoExternalFileWatchesTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.276"
+    },
+    {
+      "name": "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "4.08"
+    },
+    {
+      "name": "dev.openidea.goide.run.GoRunBuildContextLaunchTest",
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "13.989"
+    },
+    {
+      "name": "dev.openidea.goide.run.GoRunBuildContextLoaderTest",
+      "tests": "12",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "33.216"
+    },
+    {
+      "name": "dev.openidea.goide.run.GoRunBuildContextServiceTest",
+      "tests": "13",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "1.985"
+    }
+  ],
+  "scopeTests": {
+    "tests": 79,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "jointTests": {
+    "tests": 81,
+    "failures": 1,
+    "errors": 0,
+    "passed": 80,
+    "skipped": 0
+  },
+  "jointFailure": "GoFileIconsTest.testNativeSvgRenderingDistinguishesFileKindsInLightAndDarkAndExportsTheAtlas:47: Go template must have a visible native SVG",
+  "claimBoundary": "Selected-Go metadata, controlled coordinator/lifecycle and real cold-VFS contracts; not native candidate2 acceptance.",
+  "schemaVersion": 1,
+  "status": "scope-related tests pass; joint targeted gate failed in icons; new native App acceptance pending",
+  "coverage": [
+    "Selected-Go metadata and dirty staged views; ordinary/test imports, tags, workspace override and vendor",
+    "Controlled coordinator generation, immediate cancellation, partial-root/metadata preservation and ownership/install/cleanup ordering",
+    "Actual cold VFS materialization/change and controlled capability/idle lifecycle; no native OS watch delivery inferred"
+  ],
+  "limits": [
+    "Only loaded unversioned local replacement packages contribute roots; workspace membership is not changed.",
+    "128 open packages/roots; prime 20000 entries and depth 64 per root, no recursive symlink/VCS traversal.",
+    "Query deadline 60s, command timeout 30s, output 2MiB, 20000 package records, at most 8 closure rounds; partial/failure retains verified previous scope.",
+    "Whole-root deletion/recreation, initially missing root, deep newly created subtrees and Windows native delivery still require explicit acceptance."
+  ],
+  "sourceHashVerification": "source-manifest sourceSha256 exactly matches tested-source-sha256.json; these are historical frozen working-tree bytes at HEAD 3b32dc5 plus local changes, not a clean committed/tagged source claim.",
+  "rawArtifacts": {
+    "REPORT.md": {
+      "bytes": 5749,
+      "sha256": "499a02a4b3174e003ce61d39aac410c420992fdc5139330a8d1d100a096baa6d"
+    },
+    "source-manifest.json": {
+      "bytes": 3718,
+      "sha256": "25b1991f3e13b4d31926c506fe7958dd465467fb580826f65dfef6bd87a38430"
+    },
+    "tested-source-sha256.json": {
+      "bytes": 1277,
+      "sha256": "3e0963794993ab6acb27d6055c511ec87fe4d2165ce4ce7e5add194a79631f34"
+    },
+    "targeted-1-summary.json": {
+      "bytes": 14470,
+      "sha256": "310fc53dfb5a928f52b84d2f46d9360b62f35dc40604b17e1d798f4778f22f15"
+    }
+  }
+}

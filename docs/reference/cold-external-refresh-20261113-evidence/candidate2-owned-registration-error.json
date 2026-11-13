@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "kind": "necessary-native-error-excerpt; complete log excluded",
+  "candidatePid": 79764,
+  "sourceLogLineStart": 382,
+  "exceptionLine": 383,
+  "sourceLogSha256": "ebf01adf94f35257fef0d1c89875a6c4f34a0e0a513ecf0a85188a859d3e4987",
+  "errorLines": [
+    "2026-11-14 00:25:19,001 [ 104181] SEVERE - com.redhat.devtools.lsp4ij.LanguageServerWrapper - Error while getting 'workspace/didChangeWatchedFiles' capability",
+    "java.lang.ClassCastException: class org.eclipse.lsp4j.DidChangeWatchedFilesRegistrationOptions cannot be cast to class com.google.gson.JsonObject (org.eclipse.lsp4j.DidChangeWatchedFilesRegistrationOptions is in unnamed module of loader com.intellij.ide.plugins.cl.PluginClassLoader @4cd2e354; com.google.gson.JsonObject is in unnamed module of loader com.intellij.util.lang.PathClassLoader @27c170f0)",
+    "\tat com.redhat.devtools.lsp4ij.LanguageServerWrapper.lambda$registerCapabilitiesNow$0(LanguageServerWrapper.java:1223)",
+    "\tat java.base/java.util.Collections$SingletonList.forEach(Collections.java:5297)",
+    "\tat com.redhat.devtools.lsp4ij.LanguageServerWrapper.registerCapabilitiesNow(LanguageServerWrapper.java:1204)",
+    "\tat com.redhat.devtools.lsp4ij.LanguageServerWrapper.registerCapability(LanguageServerWrapper.java:1123)",
+    "\tat com.redhat.devtools.lsp4ij.LanguageServerWrapper.lambda$registerCapabilityAsync$1(LanguageServerWrapper.java:1134)",
+    "\tat com.redhat.devtools.lsp4ij.LanguageServerWrapper.lambda$changeCapabilityAsync$1(LanguageServerWrapper.java:1177)",
+    "\tat java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(CompletableFuture.java:884)"
+  ],
+  "observation": "Typed owned registration options reached a wrapper branch that expects a Gson JsonObject; native registration threw. A completed future or VFS priming alone is not proof of a watcher matcher.",
+  "proofLimit": "No external-change scenario was run after this startup failure; candidate2 cannot be accepted as an automatic external-refresh fix."
+}

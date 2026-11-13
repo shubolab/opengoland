@@ -1,0 +1,13 @@
+{
+  "at": "2026-11-13T21:49:06.280869+00:00",
+  "phase": "candidate3 finished",
+  "all15FixtureSourcesRestored": true,
+  "knownPidsNoLongerExist": [
+    33473,
+    33516,
+    34895,
+    34897
+  ],
+  "codesignDeepStrictExit": 0,
+  "scope": "Known recorded process identities only; not a claim about unsampled descendants"
+}

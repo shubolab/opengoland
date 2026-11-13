@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.openidea.goide.lsp.GoExternalFileWatchesTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-13T11:21:59.103Z" time="0.173">
+  <properties>
+    <property name="evidence-format" value="Safe test-case extract; original output and stack traces omitted" />
+    <property name="original-sha256" value="52c144ae5e0991811302dcd90a3094f050b6d86fec0346e83afc8d4c442a9efd" />
+  </properties>
+  <testcase name="testDirtyRefreshIsBackgroundAndCoalescesWhileThePreviousRefreshIsPending" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.045" />
+  <testcase name="testRegistrationReplacementAndUnregistrationRetainAnotherOwnersSharedRoot" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.047" />
+  <testcase name="testRelativePatternsAndAbsoluteFilesHaveBoundedExternalRootsButBroadAndEscapingPatternsDoNot" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.038" />
+  <testcase name="testDisposeDuringBackgroundInstallReleasesTheLateLeaseAndCannotReopenIt" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.043" />
+</testsuite>

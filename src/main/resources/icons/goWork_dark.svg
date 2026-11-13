@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+<title>Go workspace</title>
+<desc>Small-size adaptation of the Go gopher design by Renée French, CC BY 4.0. Geometry independently drawn for open Goland. See META-INF/GO-ICONS-NOTICE.txt.</desc>
+<g transform="translate(-.2 0) scale(.84)"><g stroke="#4169A8" stroke-width=".7" stroke-linejoin="round">
+  <ellipse cx="3" cy="3.4" rx="1.8" ry="1.9" fill="#6F9FF2"/>
+  <ellipse cx="13" cy="3.4" rx="1.8" ry="1.9" fill="#6F9FF2"/>
+  <ellipse cx="3" cy="3.4" rx=".8" ry=".9" fill="#D7B38A" stroke="none"/>
+  <ellipse cx="13" cy="3.4" rx=".8" ry=".9" fill="#D7B38A" stroke="none"/>
+  <ellipse cx="4.5" cy="14.4" rx="1.4" ry=".75" fill="#D7B38A"/>
+  <ellipse cx="11.5" cy="14.4" rx="1.4" ry=".75" fill="#D7B38A"/>
+  <path d="M3.1 9.5C.6 9.4.4 11.8 2.4 11.9L3.4 11.1M12.9 9.5c2.5-.1 2.7 2.3.7 2.4l-1-.8" fill="#D7B38A"/>
+  <path d="M3.1 6c0-3.8 9.8-3.8 9.8 0l-.2 6.1c-.1 3.2-9.3 3.2-9.4 0Z" fill="#6F9FF2"/>
+  <ellipse cx="5.4" cy="5.4" rx="2.2" ry="2.8" fill="#F6F7F9"/>
+  <ellipse cx="10.6" cy="5.4" rx="2.2" ry="2.8" fill="#F6F7F9"/>
+  <ellipse cx="6" cy="5.7" rx=".8" ry="1" fill="#28343A" stroke="none"/>
+  <ellipse cx="10" cy="5.7" rx=".8" ry="1" fill="#28343A" stroke="none"/>
+  <ellipse cx="8" cy="8.7" rx="1.8" ry="1.15" fill="#D7B38A"/>
+  <path d="M6.8 9h2.4v1.6c0 .9-2.4.9-2.4 0Z" fill="#F6F7F9"/>
+  <path d="M8 9v2" fill="none"/>
+  <ellipse cx="8" cy="7.8" rx="1.05" ry=".65" fill="#28343A" stroke="none"/>
+</g></g>
+<g transform="translate(.8 .6) scale(.9)"><g fill="#2B2D30" stroke="#2B2D30" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M10.9 11.4h3.2m-3.2 0 1.6 3m1.6-3-1.6 3"/><path d="M9.6 10.1h2.2v2.2H9.6Zm3.7 0h2.2v2.2h-2.2Zm-1.9 3.4h2.2v2.2h-2.2Z"/></g>
+<g fill="#2B2D30" stroke="#B19CFF" stroke-width="1" stroke-linejoin="round" stroke-linecap="round"><path d="M10.9 11.4h3.2m-3.2 0 1.6 3m1.6-3-1.6 3"/><path d="M9.6 10.1h2.2v2.2H9.6Zm3.7 0h2.2v2.2h-2.2Zm-1.9 3.4h2.2v2.2h-2.2Z"/></g>
+</g>
+</svg>

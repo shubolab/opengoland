@@ -1,0 +1,93 @@
+{
+  "status": "controlled-sdk-owner-pass-native-not-claimed",
+  "patchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+  "files": {
+    "product/patches/lsp4ij-0.21.0-document-sync.patch": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+    "product/patches/lsp4ij-0.21.0-document-sync.json": "f97873407f746a8d9259cc94844f0c9b433e661065c0ff9a2c70d148040e00be",
+    "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt": "06e2b3f3da5a644aab43f657d37f3b0b815e1928f9c985cdef9ea676c9f1666c",
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt": "0c6d2100f7aa18b6fc24a552a8fecf8b3bd90e0d357816d82df634657515e604",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoCapabilityRegistrationLifecycleTest.kt": "72c4481e69421cd8d71b053b29974cee728e567d590917e16dae9d5d4d1895f1",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoColdExternalWatchTest.kt": "7e5c62aeef1ec55a97ac34557dff345aa5833e75b4298d00597fdc63cc63c73a",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoLspInitializationSyncTest.kt": "951f174a1c032b95c8a6c785d03ba105844584fb14fd65fb46b6fb791d3a8be3",
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.kt": "79e4abdf12efdeec07a9d8f8f4bf0f7a04880dd831ccbe13bf9e9d6cf4ee947e"
+  },
+  "rows": [
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest",
+      "tests": "15",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "6.022"
+    },
+    {
+      "name": "dev.openidea.goide.lsp.GoExternalFileWatchesTest",
+      "tests": "6",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.177"
+    },
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest",
+      "tests": "5",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.262"
+    },
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoColdExternalWatchTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.224"
+    }
+  ],
+  "builder": {
+    "artifactSha256": "0bc2df5ea8f2b3e4de1a4a06360fc80afdbd9baee9aa4d6da97704f738d911ec",
+    "patchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+    "compiler": "javac 25.0.3",
+    "compilerOptions": [
+      "--release",
+      "17",
+      "-encoding",
+      "UTF-8",
+      "-implicit:none",
+      "-sourcepath",
+      ""
+    ],
+    "sourceCount": 20,
+    "classCount": 41,
+    "previousCandidateClassCount": 41,
+    "previousVerifiedClassManifest": ".tools/lsp4ij-document-sync/289cdb623e7bbbc0190022b920faa5375e59fd09d8800c803257a93b4fb80201/classes.json",
+    "unchangedPreviousSources": 18,
+    "unchangedPreviousClasses": 36,
+    "changedClasses": [
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$InitializingContext.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPFileConnectionInfo.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper$LSPTrace.class",
+      "com/redhat/devtools/lsp4ij/LanguageServerWrapper.class",
+      "com/redhat/devtools/lsp4ij/client/LanguageClientImpl.class"
+    ],
+    "addedClasses": []
+  },
+  "scopeChecks": {
+    "startupPipelineUnchanged": true,
+    "goClientUnchangedFromCandidate1": true,
+    "coldFixtureAssertionsUnchanged": true,
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.ktUnchanged": true,
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.ktUnchanged": true
+  },
+  "sameFinalRegressionSourceRed": true,
+  "validationMetadataUpdatedAfterRun": true,
+  "scope": "Historical d680 owner revision only. Later dependency-scope and icon changes are not covered by these 29 tests.",
+  "red": {
+    "sameFinalRegressionSource": true,
+    "tests": 3,
+    "failures": 3,
+    "description": "Candidate1 late old-client registration new ID, overwrite replacement same ID, and unregistration removing replacement same ID."
+  },
+  "proofLimit": "Controlled SDK/actual-wrapper/watch-manager contracts; not native fsnotifier/gopls, Windows, installer, or release verification."
+}

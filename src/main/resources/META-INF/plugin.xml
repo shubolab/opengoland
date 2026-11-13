@@ -31,6 +31,7 @@
         <fileType name="open Goland Workspace" language="OpenIDEAGoWork" implementationClass="dev.openidea.goide.lang.GoWorkFileType" fieldName="INSTANCE" patterns="go.work"/>
         <fileType name="open Goland Fuzz Corpus" language="OpenIDEAGoFuzzCorpus" implementationClass="dev.openidea.goide.run.corpus.GoFuzzCorpusFileType" fieldName="INSTANCE"/>
         <fileTypeDetector implementation="dev.openidea.goide.run.corpus.GoFuzzCorpusFileTypeDetector"/>
+        <fileIconProvider implementation="dev.openidea.goide.icons.GoFileIconProvider"/>
         <lang.parserDefinition language="OpenIDEAGo" implementationClass="dev.openidea.goide.lang.GoParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoTemplate" implementationClass="dev.openidea.goide.lang.GoTemplateParserDefinition"/>
         <lang.parserDefinition language="OpenIDEAGoSql" implementationClass="dev.openidea.goide.lang.SqlParserDefinition"/>
@@ -116,10 +117,10 @@
         <projectConfigurable id="dev.openidea.go.settings" displayName="Go" instance="dev.openidea.goide.settings.GoSettingsConfigurable"/>
         <projectConfigurable id="dev.openidea.go.lint.settings" parentId="dev.openidea.go.settings" displayName="Go Inspections" instance="dev.openidea.goide.settings.GoLintConfigurable"/>
         <search.optionContributor implementation="dev.openidea.goide.settings.GoSettingsSearchContributor"/>
-        <toolWindow id="Go" anchor="left" factoryClass="dev.openidea.goide.engine.GoToolWindowFactory" icon="/icons/go.svg"/>
-        <toolWindow id="Go Coverage" anchor="bottom" factoryClass="dev.openidea.goide.coverage.GoCoverageToolWindowFactory" icon="/icons/go.svg"/>
-        <toolWindow id="Go Profiles" anchor="bottom" factoryClass="dev.openidea.goide.profile.GoProfileToolWindowFactory" icon="/icons/go.svg"/>
-        <toolWindow id="Go Inspections" anchor="bottom" factoryClass="dev.openidea.goide.lint.GoLintToolWindowFactory" icon="/icons/go.svg"/>
+        <toolWindow id="Go" anchor="left" factoryClass="dev.openidea.goide.engine.GoToolWindowFactory" icon="AllIcons.Toolwindows.Dependencies"/>
+        <toolWindow id="Go Coverage" anchor="bottom" factoryClass="dev.openidea.goide.coverage.GoCoverageToolWindowFactory" icon="AllIcons.Toolwindows.ToolWindowCoverage"/>
+        <toolWindow id="Go Profiles" anchor="bottom" factoryClass="dev.openidea.goide.profile.GoProfileToolWindowFactory" icon="AllIcons.Toolwindows.ToolWindowProfiler"/>
+        <toolWindow id="Go Inspections" anchor="bottom" factoryClass="dev.openidea.goide.lint.GoLintToolWindowFactory" icon="AllIcons.Toolwindows.ToolWindowInspection"/>
         <configurationType implementation="dev.openidea.goide.debug.GoDebugConfigurationType"/>
         <configurationType implementation="dev.openidea.goide.debug.GoLocalAttachConfigurationType"/>
         <configurationType implementation="dev.openidea.goide.debug.GoRemoteDebugConfigurationType"/>

@@ -14,7 +14,7 @@
  import com.intellij.openapi.project.Project;
  import com.intellij.openapi.util.Disposer;
  import com.intellij.openapi.util.ModificationTracker;
-@@ -119,13 +120,13 @@
+@@ -119,13 +120,15 @@
      private final AtomicInteger keepAliveCounter = new AtomicInteger();
      protected StreamConnectionProvider lspStreamProvider;
      private volatile MessageBusConnection messageBusConnection;
@@ -22,6 +22,8 @@
      private int numberOfRestartAttempts;
      private @Nullable CompletableFuture<Void> initializeFuture;
 -    private LanguageServer languageServer;
++    // Guarded by this: requests own their result, never the shared startup future.
++    private final Set<CompletableFuture<Void>> pendingCapabilityChanges = new HashSet<>();
 +    private volatile LanguageServer languageServer;
      private LanguageClientImpl languageClient;
      private ServerCapabilities serverCapabilities;
@@ -29,7 +31,141 @@
      private ServerStatus serverStatus;
      private boolean disposed;
      private LanguageServerException serverError;
-@@ -719,12 +720,16 @@
+@@ -504,65 +507,94 @@
+                         languageClient.connect(languageServer);
+                         initializingContext.launcherFuture = launcher.startListening();
+                         return initializingContext;
+                     })
+                     .thenCompose(initializingContext -> initServer(rootURI, initializingContext))
+                     .thenApply(initializingContext -> {
+-                        serverError = null;
+-                        if (errorNotification != null) {
+-                            // Close the current error notification
+-                            // displayed when server start fails.
+-                            errorNotification.expire();
+-                            errorNotification = null;
++                        synchronized (this) {
++                            if (initializingContext != currentInitializingContext || isDisposed() || getProject().isDisposed()) {
++                                throw new CancellationException("Language server startup was replaced or stopped");
++                            }
++                            serverError = null;
++                            if (errorNotification != null) {
++                                // Close the current error notification
++                                // displayed when server start fails.
++                                errorNotification.expire();
++                                errorNotification = null;
++                            }
++                            serverCapabilities = initializingContext.initializeResult.getCapabilities();
++                            syncOptions = createSyncOptions();
++                            getClientFeatures().setServerCapabilities(serverCapabilities);
++                            this.initiallySupportsWorkspaceFolders = supportsWorkspaceFolders(serverCapabilities);
++                            // Servers may request a capability and await its ACK from initialized.
++                            // Registration must be ready before that callback, not after startup finishes.
++                            initializingContext.capabilityRegistrationReady.complete(null);
++                            return initializingContext;
+                         }
+-                        serverCapabilities = initializingContext.initializeResult.getCapabilities();
+-                        syncOptions = createSyncOptions();
+-                        getClientFeatures().setServerCapabilities(serverCapabilities);
+-                        this.initiallySupportsWorkspaceFolders = supportsWorkspaceFolders(serverCapabilities);
+-                        return initializingContext;
+                     })
+-                    .thenApply(initializingContext -> {
++                    // A synchronous protocol peer can await a registration ACK here.
++                    // Do not invoke it while start() may still hold the wrapper monitor.
++                    .thenApplyAsync(initializingContext -> {
++                        synchronized (this) {
++                            if (initializingContext != currentInitializingContext || isDisposed() || getProject().isDisposed()) {
++                                throw new CancellationException("Language server startup was replaced or stopped");
++                            }
++                        }
+                         initializingContext.languageServer.initialized(new InitializedParams());
+                         return initializingContext;
+                     })
+                     .thenApply(initializingContext -> {
+-                        messageBusConnection = ApplicationManager.getApplication().getMessageBus().connect(this);
+-                        messageBusConnection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, fileListener);
+-
+-                        fileOperationsManager = new FileOperationsManager(this);
+-                        fileOperationsManager.setServerCapabilities(serverCapabilities);
+-
+-                        workspaceFolderNotificationManager = new WorkspaceFolderNotificationManager(this);
+-
+-                        this.lspStreamProvider = initializingContext.provider;
+-                        this.languageClient = initializingContext.languageClient;
+-                        this.languageServer = initializingContext.languageServer;
+-                        this.launcherFuture = initializingContext.launcherFuture;
+-
+-                        updateStatus(ServerStatus.started);
+-                        return initializingContext;
++                        synchronized (this) {
++                            if (initializingContext != currentInitializingContext || isDisposed() || getProject().isDisposed()) {
++                                throw new CancellationException("Language server startup was replaced or stopped");
++                            }
++                            messageBusConnection = ApplicationManager.getApplication().getMessageBus().connect(this);
++                            messageBusConnection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, fileListener);
++
++                            fileOperationsManager = new FileOperationsManager(this);
++                            fileOperationsManager.setServerCapabilities(serverCapabilities);
++
++                            workspaceFolderNotificationManager = new WorkspaceFolderNotificationManager(this);
++
++                            this.lspStreamProvider = initializingContext.provider;
++                            this.languageClient = initializingContext.languageClient;
++                            this.languageServer = initializingContext.languageServer;
++                            this.launcherFuture = initializingContext.launcherFuture;
++
++                            updateStatus(ServerStatus.started);
++                            return initializingContext;
++                        }
+                     })
+                     .thenRun(() -> {
+                         for (VirtualFile fileToReconnect : filesToReconnect) {
+                             connect(fileToReconnect, new LSPFileConnectionInfo(null, null, null, true));
+                         }
+                     })
+                     .exceptionally(e -> {
+-                        if (e instanceof CompletionException) {
+-                            e = e.getCause();
++                        synchronized (this) {
++                            // Cancelling a terminal future does not cancel its upstream stages.
++                            // A stale completion must never poison or stop the replacement server.
++                            if (context != currentInitializingContext || isDisposed() || getProject().isDisposed()) {
++                                context.capabilityRegistrationReady.cancel(false);
++                                return null;
++                            }
++                            if (e instanceof CompletionException) {
++                                e = e.getCause();
++                            }
++                            context.capabilityRegistrationReady.completeExceptionally(e);
++                            if (e instanceof CannotStartProcessException) {
++                                serverError = (CannotStartProcessException) e;
++                            } else {
++                                serverError = new CannotStartServerException("Error while starting language server '" + serverDefinition.getId() + "' (pid=" + getCurrentProcessId() + ")", e);
++                            }
++                            showNotificationStartServerError();
++                            initializeFuture.completeExceptionally(serverError);
++                            getLanguageServerLifecycleManager().onError(this, e);
++                            stop(context);
++                            return null;
+                         }
+-                        if (e instanceof CannotStartProcessException) {
+-                            serverError = (CannotStartProcessException) e;
+-                        } else {
+-                            serverError = new CannotStartServerException("Error while starting language server '" + serverDefinition.getId() + "' (pid=" + getCurrentProcessId() + ")", e);
+-                        }
+-                        showNotificationStartServerError();
+-                        initializeFuture.completeExceptionally(serverError);
+-                        getLanguageServerLifecycleManager().onError(this, e);
+-                        stop(context);
+-                        return null;
+                     });
+         }
+     }
+ 
+     /**
+      * Show a notification error when server cannot be started.
+@@ -719,12 +751,16 @@
       * @return the completable future with the language server instance or null.
       */
      CompletableFuture<@Nullable LanguageServer> connect(@NotNull VirtualFile file,
@@ -46,7 +182,7 @@
              return CompletableFuture.completedFuture(null);
          }
  
-@@ -740,12 +745,15 @@
+@@ -740,12 +776,15 @@
          if (this.initializeFuture == null) {
              // The "initialize" future is not initialized, return null as language server.
              return CompletableFuture.completedFuture(null);
@@ -62,7 +198,7 @@
              var ls2 = getLanguageServerWhenDidOpen(fileUri, waitForDidOpen);
              if (ls2 != null) {
                  return ls2;
-@@ -762,49 +770,49 @@
+@@ -762,49 +801,49 @@
              // Compute workspace folder BEFORE synchronized block to avoid slow I/O operations in critical section
              WorkspaceFolder folderToNotify = null;
              if (workspaceFolderNotificationManager != null) {
@@ -79,6 +215,28 @@
 -                ls2 = getLanguageServerWhenDidOpen(fileUri, waitForDidOpen);
 -                if (ls2 != null) {
 -                    return ls2;
+-                }
+-
+-                // Mark workspace folder as notified BEFORE didOpen (fast operation in synchronized block)
+-                if (folderToNotify != null) {
+-                    shouldNotify = workspaceFolderNotificationManager.markFolderAsNotified(folderToNotify);
+-                }
+-
+-                DocumentContentSynchronizer synchronizer = createDocumentContentSynchronizer(toUriString(fileUri), file, document, fileConnectionInfo.documentText(), fileConnectionInfo.languageId());
+-                // Synchronizer usually is disposed when document editor is closed.
+-                // But in case of closing the project, it does not close all editors,
+-                // so to ensure synchronizer is disposed we also register it here
+-                Disposer.register(this, synchronizer);
+-                document.addDocumentListener(synchronizer, synchronizer);
+-                OpenedDocument data = new OpenedDocument(new LanguageServerItem(languageServer, this), file, synchronizer);
+-                LanguageServerWrapper.this.openedDocuments.put(fileUri, data);
+-
+-                if (waitForDidOpen) {
+-                    result = getLanguageServerWhenDidOpen(synchronizer.getDidOpenFuture());
+-                } else {
+-                    result = CompletableFuture.completedFuture(languageServer);
+-                }
+-            }
 +            final WorkspaceFolder workspaceFolderToNotify = folderToNotify;
 +            final boolean[] shouldNotify = {false};
 +            // Snapshot and listener registration must be atomic with respect to editor writes.
@@ -86,11 +244,7 @@
 +            CompletableFuture<LanguageServer> result = ReadAction.compute(() -> {
 +                if (isDisposed() || getProject().isDisposed() || !file.isValid()) {
 +                    return CompletableFuture.completedFuture(null);
-                 }
--
--                // Mark workspace folder as notified BEFORE didOpen (fast operation in synchronized block)
--                if (folderToNotify != null) {
--                    shouldNotify = workspaceFolderNotificationManager.markFolderAsNotified(folderToNotify);
++                }
 +                synchronized (documentsLock) {
 +                    closedDocuments.remove(fileUri);
 +
@@ -113,23 +267,7 @@
 +                    var didOpenFuture = synchronizer.getDidOpenFuture();
 +                    return waitForDidOpen ? getLanguageServerWhenDidOpen(didOpenFuture)
 +                            : CompletableFuture.completedFuture(languageServer);
-                 }
--
--                DocumentContentSynchronizer synchronizer = createDocumentContentSynchronizer(toUriString(fileUri), file, document, fileConnectionInfo.documentText(), fileConnectionInfo.languageId());
--                // Synchronizer usually is disposed when document editor is closed.
--                // But in case of closing the project, it does not close all editors,
--                // so to ensure synchronizer is disposed we also register it here
--                Disposer.register(this, synchronizer);
--                document.addDocumentListener(synchronizer, synchronizer);
--                OpenedDocument data = new OpenedDocument(new LanguageServerItem(languageServer, this), file, synchronizer);
--                LanguageServerWrapper.this.openedDocuments.put(fileUri, data);
--
--                if (waitForDidOpen) {
--                    result = getLanguageServerWhenDidOpen(synchronizer.getDidOpenFuture());
--                } else {
--                    result = CompletableFuture.completedFuture(languageServer);
--                }
--            }
++                }
 +            });
  
              // Send notification AFTER synchronized block to avoid blocking other file opens
@@ -144,29 +282,264 @@
          });
      }
  
-@@ -1043,12 +1051,21 @@
-     public CompletableFuture<LanguageServer> sendNotification(@NotNull Function<LanguageServer, LanguageServer> fn) {
-         // Enqueues a notification on the dispatch thread associated with the wrapped language server. This
-         // ensures the interleaving of document updates and other requests in the UI is mirrored in the
+@@ -1046,93 +1085,191 @@
          // order in which they get dispatched to the server
          return getInitializedServer()
                  .thenApplyAsync(fn, this.dispatcher);
-+    }
-+
-+    /**
+     }
+ 
+     /**
 +     * Dispatch a request for an already initialized connection on the same FIFO
 +     * as document notifications. This does not start or restart a server. The
 +     * caller must validate its captured connection inside the supplied function.
 +     */
 +    public <T> CompletableFuture<T> sendRequest(@NotNull Function<LanguageServer, CompletableFuture<T>> fn) {
 +        return CompletableFuture.completedFuture(languageServer).thenComposeAsync(fn, this.dispatcher);
-     }
- 
-     /**
++    }
++
++    /**
       * Returns the server capabilities if it is ready and null otherwise.
       *
       * @return the server capabilities if it is ready and null otherwise.
-@@ -1504,13 +1521,13 @@
+      */
+     @Nullable
+     public ServerCapabilities getServerCapabilitiesSync() {
+         return serverCapabilities;
+     }
+ 
+-    public void registerCapability(RegistrationParams params) {
+-        if (initializeFuture == null) {
++    /** Retains the original public ABI and subclass registration hook. */
++    public synchronized void registerCapability(RegistrationParams params) {
++        var initialization = initializeFuture;
++        if (initialization == null || isDisposed() || getProject().isDisposed()) {
+             return;
+         }
+-        initializeFuture.thenRun(() -> {
+-            params.getRegistrations().forEach(reg -> {
+-                if (LSPNotificationConstants.WORKSPACE_DID_CHANGE_WORKSPACE_FOLDERS.equals(reg.getMethod())) {
+-                    // register 'workspace/didChangeWorkspaceFolders' capability
+-                    assert serverCapabilities != null :
+-                            "Dynamic capability registration failed! Server not yet initialized?"; //$NON-NLS-1$
+-                    if (initiallySupportsWorkspaceFolders) {
+-                        // Can treat this as a NOP since nothing can disable it dynamically if it was
+-                        // enabled on initialization.
+-                    } else if (supportsWorkspaceFolders(serverCapabilities)) {
+-                        LOGGER.warn(
+-                                "Dynamic registration of 'workspace/didChangeWorkspaceFolders' ignored. It was already enabled before"); //$NON-NLS-1$);
++        var context = currentInitializingContext;
++        var ready = context == null ? initialization : context.capabilityRegistrationReady;
++        if (!ready.isDone()) {
++            registerCapabilityAsync(params);
++            return;
++        }
++        // A completed stage must not hide registration errors in a discarded thenRun.
++        ready.join();
++        registerCapabilitiesNow(params);
++    }
++
++    /** Compatibility entry for direct wrapper callers without a protocol client owner. */
++    public synchronized CompletableFuture<Void> registerCapabilityAsync(RegistrationParams params) {
++        return changeCapabilityAsync(null, true, () -> registerCapability(params));
++    }
++
++    /** Binds the sending client before scheduling work; an old client cannot adopt a new startup. */
++    public synchronized CompletableFuture<Void> registerCapabilityAsync(@NotNull LanguageClientImpl source, RegistrationParams params) {
++        Objects.requireNonNull(source, "source");
++        return changeCapabilityAsync(source, true, () -> registerCapability(params));
++    }
++
++    public synchronized CompletableFuture<Void> unregisterCapabilityAsync(@NotNull LanguageClientImpl source, UnregistrationParams params) {
++        Objects.requireNonNull(source, "source");
++        return changeCapabilityAsync(source, false, () -> unregisterCapability(params));
++    }
++
++    // Called with the wrapper monitor held; only the compatibility API accepts no owner.
++    private boolean isCapabilityOwner(@Nullable LanguageClientImpl source, @Nullable InitializingContext context) {
++        return source == null || context != null && context.languageClient == source;
++    }
++
++    private CompletableFuture<Void> changeCapabilityAsync(@Nullable LanguageClientImpl source, boolean waitForReady, Runnable action) {
++        var initialization = initializeFuture;
++        var context = currentInitializingContext;
++        if (initialization == null || isDisposed() || getProject().isDisposed()
++                || !isCapabilityOwner(source, context)) {
++            return CompletableFuture.failedFuture(new CancellationException("Language server client or startup was replaced or stopped"));
++        }
++        var ready = waitForReady ? (context == null ? initialization : context.capabilityRegistrationReady)
++                : CompletableFuture.<Void>completedFuture(null);
++        var result = new CompletableFuture<Void>();
++        pendingCapabilityChanges.add(result);
++        result.whenComplete((unused, failure) -> {
++            synchronized (this) {
++                pendingCapabilityChanges.remove(result);
++            }
++        });
++        ready.whenCompleteAsync((unused, initializationFailure) -> {
++            Throwable failure = initializationFailure;
++            synchronized (this) {
++                if (result.isDone()) {
++                    return;
++                }
++                if (failure == null) {
++                    if (initialization != initializeFuture || context != currentInitializingContext
++                            || isDisposed() || getProject().isDisposed() || !isCapabilityOwner(source, context)) {
++                        failure = new CancellationException("Language server startup was replaced or stopped");
+                     } else {
+-                        addRegistration(reg, () -> setWorkspaceFoldersEnablement(false));
+-                        setWorkspaceFoldersEnablement(true);
++                        try {
++                            // The monitor is reentrant, and ready is complete: the original
++                            // hook executes its synchronous body without waiting on startup.
++                            action.run();
++                        } catch (Throwable registrationFailure) {
++                            failure = registrationFailure;
++                        }
+                     }
+-                } else if (LSPNotificationConstants.WORKSPACE_DID_CHANGE_WATCHED_FILES.equals(reg.getMethod())) {
+-                    // register 'workspace/didChangeWatchedFiles' capability
+-                    try {
+-                        DidChangeWatchedFilesRegistrationOptions options = JSONUtils.getLsp4jGson()
+-                                .fromJson((JsonObject) reg.getRegisterOptions(),
+-                                        DidChangeWatchedFilesRegistrationOptions.class);
+-                        fileListener.registerFileSystemWatchers(reg.getId(), options.getWatchers());
+-                        addRegistration(reg, () -> fileListener.unregisterFileSystemWatchers(reg.getId()));
+-                    } catch (Exception e) {
+-                        LOGGER.error("Error while getting 'workspace/didChangeWatchedFiles' capability", e);
++                }
++            }
++            if (failure == null) {
++                result.complete(null);
++            } else {
++                result.completeExceptionally(failure);
++            }
++        });
++        return result;
++    }
++
++    private void cancelPendingCapabilityChanges() {
++        // Cancellation synchronously invokes completion handlers; snapshot before clearing.
++        var pending = List.copyOf(pendingCapabilityChanges);
++        pendingCapabilityChanges.clear();
++        // stop() holds the monitor; do not run arbitrary request continuations there.
++        if (!pending.isEmpty()) {
++            CompletableFuture.runAsync(() -> pending.forEach(result -> result.cancel(false)));
++        }
++    }
++
++    private void registerCapabilitiesNow(RegistrationParams params) {
++        params.getRegistrations().forEach(reg -> {
++            if (LSPNotificationConstants.WORKSPACE_DID_CHANGE_WORKSPACE_FOLDERS.equals(reg.getMethod())) {
++                // register 'workspace/didChangeWorkspaceFolders' capability
++                assert serverCapabilities != null :
++                        "Dynamic capability registration failed! Server not yet initialized?"; //$NON-NLS-1$
++                if (initiallySupportsWorkspaceFolders) {
++                    // Can treat this as a NOP since nothing can disable it dynamically if it was
++                    // enabled on initialization.
++                } else if (supportsWorkspaceFolders(serverCapabilities)) {
++                    LOGGER.warn(
++                            "Dynamic registration of 'workspace/didChangeWorkspaceFolders' ignored. It was already enabled before"); //$NON-NLS-1$);
++                } else {
++                    addRegistration(reg, () -> setWorkspaceFoldersEnablement(false));
++                    setWorkspaceFoldersEnablement(true);
++                }
++            } else if (LSPNotificationConstants.WORKSPACE_DID_CHANGE_WATCHED_FILES.equals(reg.getMethod())) {
++                // register 'workspace/didChangeWatchedFiles' capability
++                try {
++                    DidChangeWatchedFilesRegistrationOptions options = JSONUtils.getLsp4jGson()
++                            .fromJson((JsonObject) reg.getRegisterOptions(),
++                                    DidChangeWatchedFilesRegistrationOptions.class);
++                    fileListener.registerFileSystemWatchers(reg.getId(), options.getWatchers());
++                    addRegistration(reg, () -> fileListener.unregisterFileSystemWatchers(reg.getId()));
++                } catch (Exception e) {
++                    LOGGER.error("Error while getting 'workspace/didChangeWatchedFiles' capability", e);
++                }
++            } else if (LSPRequestConstants.WORKSPACE_EXECUTE_COMMAND.equals(reg.getMethod())) {
++                // register 'workspace/executeCommand' capability
++                try {
++                    ExecuteCommandOptions executeCommandOptions = JSONUtils.getLsp4jGson()
++                            .fromJson((JsonObject) reg.getRegisterOptions(),
++                                    ExecuteCommandOptions.class);
++                    List<String> newCommands = executeCommandOptions.getCommands();
++                    if (newCommands != null && !newCommands.isEmpty()) {
++                        addRegistration(reg, () -> unregisterCommands(newCommands));
++                        registerCommands(newCommands);
+                     }
+-                } else if (LSPRequestConstants.WORKSPACE_EXECUTE_COMMAND.equals(reg.getMethod())) {
+-                    // register 'workspace/executeCommand' capability
+-                    try {
+-                        ExecuteCommandOptions executeCommandOptions = JSONUtils.getLsp4jGson()
+-                                .fromJson((JsonObject) reg.getRegisterOptions(),
+-                                        ExecuteCommandOptions.class);
+-                        List<String> newCommands = executeCommandOptions.getCommands();
+-                        if (newCommands != null && !newCommands.isEmpty()) {
+-                            addRegistration(reg, () -> unregisterCommands(newCommands));
+-                            registerCommands(newCommands);
++                } catch (Exception e) {
++                    LOGGER.error("Error while getting 'workspace/executeCommand' capability", e);
++                }
++            } else {
++                String method = reg.getMethod();
++                try {
++                    final TextDocumentServerCapabilityRegistry<? extends TextDocumentRegistrationOptions> registry = getClientFeatures().getCapabilityRegistry(method);
++                    if (registry != null) {
++                        // register 'textDocument/*' capability
++                        JsonObject registerOptions = (JsonObject) reg.getRegisterOptions();
++                        if (registerOptions == null) {
++                            // ex:
++                            // {
++                            //  "registrations": [
++                            //    {
++                            //      "id": "5d54639d-a478-422f-bfb8-112c4b8a93ee",
++                            //      "method": "textDocument/hover"
++                            //    }
++                            //  ]
++                            //}
++                            registerOptions = new JsonObject();
+                         }
+-                    } catch (Exception e) {
+-                        LOGGER.error("Error while getting 'workspace/executeCommand' capability", e);
++                        final TextDocumentRegistrationOptions options = registry.registerCapability(registerOptions);
++                        addRegistration(reg, () -> registry.unregisterCapability(options));
+                     }
+-                } else {
+-                    String method = reg.getMethod();
+-                    try {
+-                        final TextDocumentServerCapabilityRegistry<? extends TextDocumentRegistrationOptions> registry = getClientFeatures().getCapabilityRegistry(method);
+-                        if (registry != null) {
+-                            // register 'textDocument/*' capability
+-                            JsonObject registerOptions = (JsonObject) reg.getRegisterOptions();
+-                            if (registerOptions == null) {
+-                                // ex:
+-                                // {
+-                                //  "registrations": [
+-                                //    {
+-                                //      "id": "5d54639d-a478-422f-bfb8-112c4b8a93ee",
+-                                //      "method": "textDocument/hover"
+-                                //    }
+-                                //  ]
+-                                //}
+-                                registerOptions = new JsonObject();
+-                            }
+-                            final TextDocumentRegistrationOptions options = registry.registerCapability(registerOptions);
+-                            addRegistration(reg, () -> registry.unregisterCapability(options));
+-                        }
+-                    } catch (Exception e) {
+-                        LOGGER.error("Error while getting '{}' capability", method, e);
+-                    }
+-                }
+-            });
++                } catch (Exception e) {
++                    LOGGER.error("Error while getting '{}' capability", method, e);
++                }
++            }
+         });
+     }
+ 
+     private void addRegistration(@NotNull Registration reg, @NotNull Runnable unregistrationHandler) {
+         String regId = reg.getId();
+         synchronized (dynamicRegistrations) {
+@@ -1504,13 +1641,13 @@
      /**
       * Returns the language server wrapper's modification tracker.
       *
@@ -181,6 +554,39 @@
      /**
       * Increments the language server wrapper's modification tracker.
       */
+@@ -1668,12 +1805,18 @@
+         @Nullable var languageClient = initializingContext != null ? initializingContext.languageClient : null;
+         @Nullable var languageServer = initializingContext != null ? initializingContext.languageServer : null;
+         @Nullable var lspStreamProvider = initializingContext != null ? initializingContext.provider : null;
+         @Nullable var launcherFuture = initializingContext != null ? initializingContext.launcherFuture : null;
+         boolean current = initializingContext != null && initializingContext.equals(currentInitializingContext);
+         try {
++            if (current || initializingContext == null || isDisposed()) {
++                cancelPendingCapabilityChanges();
++            }
++            if (initializingContext != null) {
++                initializingContext.capabilityRegistrationReady.cancel(false);
++            }
+             updateStatus(ServerStatus.stopping);
+             removeStopTimer(true);
+             if (languageClient != null) {
+                 languageClient.dispose();
+             }
+             if (current) {
+@@ -1831,12 +1974,13 @@
+         public String toMessage() {
+             return tracing.log(message, messageConsumer, serverTrace);
+         }
+     }
+ 
+     private class InitializingContext {
++        private final CompletableFuture<Void> capabilityRegistrationReady = new CompletableFuture<>();
+ 
+         public StreamConnectionProvider provider;
+         public LanguageClientImpl languageClient;
+         public LanguageServer languageServer;
+         public Future<?> launcherFuture;
+         public InitializeResult initializeResult;
 --- a/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java
 +++ b/src/main/java/com/redhat/devtools/lsp4ij/DocumentContentSynchronizer.java
 @@ -28,26 +28,23 @@
@@ -2334,3 +2740,37 @@
 +        }
 +    }
  }
+--- a/src/main/java/com/redhat/devtools/lsp4ij/client/LanguageClientImpl.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/client/LanguageClientImpl.java
+@@ -136,18 +136,18 @@
+         });
+         return future;
+     }
+ 
+     @Override
+     public CompletableFuture<Void> registerCapability(RegistrationParams params) {
+-        return CompletableFuture.runAsync(() -> wrapper.registerCapability(params));
++        return wrapper.registerCapabilityAsync(this, params);
+     }
+ 
+     @Override
+     public CompletableFuture<Void> unregisterCapability(UnregistrationParams params) {
+-        return CompletableFuture.runAsync(() -> wrapper.unregisterCapability(params));
++        return wrapper.unregisterCapabilityAsync(this, params);
+     }
+ 
+     @Override
+     public CompletableFuture<List<WorkspaceFolder>> workspaceFolders() {
+         return CompletableFuture.supplyAsync(() ->
+             wrapper.getClientFeatures()
+--- a/src/main/java/com/redhat/devtools/lsp4ij/features/signatureHelp/LSPParameterInfoHandler.java
++++ b/src/main/java/com/redhat/devtools/lsp4ij/features/signatureHelp/LSPParameterInfoHandler.java
+@@ -140,7 +140,7 @@
+     public void updateUI(SignatureInformation signatureInformation, @NotNull ParameterInfoUIContext context) {
+         int currentParameter = context.getCurrentParameterIndex();
+         List<ParameterInformation> parameters = signatureInformation.getParameters();
+-        int numParams = parameters.size();
++        int numParams = parameters == null ? 0 : parameters.size();
+ 
+         StringBuilder html = new StringBuilder(numParams * 8);
+         int highlightStartOffset = -1;

@@ -1,0 +1,12 @@
+<testsuite name="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-13T16:31:53.876Z" time="3.958">
+  <testcase name="testSelectedTagsChangeTheActiveDependencyGraph" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.759" />
+  <testcase name="testActiveNormalAndTestImportsExcludeUnusedReplacementDirectives" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.521" />
+  <testcase name="testUnrelatedOversizedDirtyDocumentDoesNotAffectDependencyDiscovery" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.445" />
+  <testcase name="testDirtyReplacementManifestRecomputesTheTransitiveSelectedVersion" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.382" />
+  <testcase name="testPreStartDisposalPreventsDependencyProcessCreation" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.042" />
+  <testcase name="testDirtyImporterAndModfileUsePrivateViewWithOriginalRelativeReplacementMeaning" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.29" />
+  <testcase name="testDirtyWorkspaceUseAndWorkspaceReplaceChooseActualLoadedRoots" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.697" />
+  <testcase name="testIncompleteGraphCannotBecomeASuccessfulEmptyScope" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.289" />
+  <testcase name="testVendorLocationsDoNotWatchTheUnusedOriginalReplacementTree" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.341" />
+  <testcase name="testOversizedEffectiveSourceAndGoEnvironmentFailExplicitly" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.191" />
+</testsuite>

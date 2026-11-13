@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "scope": "Selected REA metadata excerpt, not the complete REA record; accessibility nodes omitted",
+  "evidenceId": "ev_20211746320787acc0ac302b00faf890d6fc7b228107002cf1d75a2beeab935d",
+  "operation": "observe_native_ui",
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "provider": {
+    "id": "native-macos",
+    "name": "macOS native inspection utilities",
+    "version": null
+  },
+  "target": {
+    "name": "goland",
+    "digest": {
+      "sha256": "7a7b1da02131b070998bd58c03d6459674895bab7b1fd01401de5ff204ee40a5"
+    },
+    "format": "mach-o",
+    "architecture": "arm64"
+  },
+  "pid": 18853,
+  "windowId": 2934,
+  "windowTitle": "project – ~/develop/openidea-go/.tools/continuation-20261113/workspace-consistency/reference/external/external.go",
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "fd21c845ac0188e0c61d18f3a6ca5f30e8e771ce03cb5c511a80c79210c6032b",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibilityRequested": false,
+  "gaps": [
+    "Accessibility capture was disabled"
+  ],
+  "limitations": [
+    "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+    "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+    "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+    "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+    "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+  ]
+}

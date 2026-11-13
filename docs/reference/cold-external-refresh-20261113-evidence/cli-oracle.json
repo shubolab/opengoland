@@ -1,0 +1,1174 @@
+{
+  "schemaVersion": 1,
+  "scope": "Saved-file CLI oracle only, not native IDE or unsaved-overlay evidence",
+  "startedAtUtc": "2026-11-13T10:15:05.994309+00:00",
+  "goExecutable": "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+  "environmentOverrides": {
+    "GOROOT": "$REPO/.tools/release-tools/darwin-arm64/go",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOFLAGS": "",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOPRIVATE": "",
+    "GONOPROXY": "",
+    "GONOSUMDB": "",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "GOCACHE": "$REPO/.tools/go-tools-cache/build-cache",
+    "GOMODCACHE": "$REPO/.tools/go-tools-cache/modules"
+  },
+  "unsetAmbient": [
+    "GOWORK",
+    "GOOS",
+    "GOARCH",
+    "CGO_ENABLED"
+  ],
+  "commands": [
+    {
+      "id": 1,
+      "phase": "sdk",
+      "cwd": "$FIXTURE_CASE",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "version"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.028,
+      "stdout": "go version go1.26.10 darwin/arm64\n",
+      "stderr": ""
+    },
+    {
+      "id": 2,
+      "phase": "reference/module-graph",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-m",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.014,
+      "stdout": "{\n\t\"Path\": \"example.invalid/open-goland/consistency/one\",\n\t\"Main\": true,\n\t\"Dir\": \"$FIXTURE_CASE/reference/project/one\",\n\t\"GoMod\": \"$FIXTURE_CASE/reference/project/one/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/two\",\n\t\"Main\": true,\n\t\"Dir\": \"$FIXTURE_CASE/reference/project/two\",\n\t\"GoMod\": \"$FIXTURE_CASE/reference/project/two/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/external\",\n\t\"Version\": \"v0.0.0\",\n\t\"Replace\": {\n\t\t\"Path\": \"../external\",\n\t\t\"Dir\": \"$FIXTURE_CASE/reference/external\",\n\t\t\"GoMod\": \"$FIXTURE_CASE/reference/external/go.mod\",\n\t\t\"GoVersion\": \"1.26.0\"\n\t},\n\t\"Dir\": \"$FIXTURE_CASE/reference/external\",\n\t\"GoMod\": \"$FIXTURE_CASE/reference/external/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": 3,
+      "phase": "reference/env",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "env",
+        "-json",
+        "GOVERSION",
+        "GOROOT",
+        "GOWORK",
+        "GOOS",
+        "GOARCH",
+        "CGO_ENABLED",
+        "GOPROXY",
+        "GOSUMDB",
+        "GOTOOLCHAIN",
+        "GOENV",
+        "GOCACHE",
+        "GOMODCACHE"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.008,
+      "stdout": "{\n\t\"CGO_ENABLED\": \"1\",\n\t\"GOARCH\": \"arm64\",\n\t\"GOCACHE\": \"$REPO/.tools/go-tools-cache/build-cache\",\n\t\"GOENV\": \"\",\n\t\"GOMODCACHE\": \"$REPO/.tools/go-tools-cache/modules\",\n\t\"GOOS\": \"darwin\",\n\t\"GOPROXY\": \"off\",\n\t\"GOROOT\": \"$REPO/.tools/release-tools/darwin-arm64/go\",\n\t\"GOSUMDB\": \"off\",\n\t\"GOTOOLCHAIN\": \"local\",\n\t\"GOVERSION\": \"go1.26.10\",\n\t\"GOWORK\": \"$FIXTURE_CASE/reference/project/go.work\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": 4,
+      "phase": "reference/default/list",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.058,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_default.go,main.go|Ignored=flavor_alternate.go,main_alternate_test.go|Tests=main_default_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 5,
+      "phase": "reference/default/test",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.143,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:06.585389+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:06.585632+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:07.23016+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:07.230259+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.230342+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.230357+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:07.230364+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.230485+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:07.230503+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.230554+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.230564+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:07.230568+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.231287+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.645s\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.23131+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.646}\n{\"Time\":\"2026-11-13T18:15:07.231464+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.646s\\n\"}\n{\"Time\":\"2026-11-13T18:15:07.231493+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.646}\n",
+      "stderr": ""
+    },
+    {
+      "id": 6,
+      "phase": "reference/default/run",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.793,
+      "stdout": "外部-v1|workspace-two|default|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 7,
+      "phase": "reference/alternate/list",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-tags=alternate",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.053,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_alternate.go,main.go|Ignored=flavor_default.go,main_default_test.go|Tests=main_alternate_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 8,
+      "phase": "reference/alternate/test",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-tags=alternate",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.85,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:08.270022+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:08.270104+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:08.925606+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:08.92567+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.925735+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.925758+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:08.925767+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.926239+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:08.926266+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.92636+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.926382+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:08.926389+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.926868+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.657s\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.926898+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.657}\n{\"Time\":\"2026-11-13T18:15:08.927365+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.657s\\n\"}\n{\"Time\":\"2026-11-13T18:15:08.927378+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.657}\n",
+      "stderr": ""
+    },
+    {
+      "id": 9,
+      "phase": "reference/alternate/run",
+      "cwd": "$FIXTURE_CASE/reference/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "-tags=alternate",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.779,
+      "stdout": "外部-v1|workspace-two|alternate|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 10,
+      "phase": "reconstruction/module-graph",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-m",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.018,
+      "stdout": "{\n\t\"Path\": \"example.invalid/open-goland/consistency/one\",\n\t\"Main\": true,\n\t\"Dir\": \"$FIXTURE_CASE/reconstruction/project/one\",\n\t\"GoMod\": \"$FIXTURE_CASE/reconstruction/project/one/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/two\",\n\t\"Main\": true,\n\t\"Dir\": \"$FIXTURE_CASE/reconstruction/project/two\",\n\t\"GoMod\": \"$FIXTURE_CASE/reconstruction/project/two/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/external\",\n\t\"Version\": \"v0.0.0\",\n\t\"Replace\": {\n\t\t\"Path\": \"../external\",\n\t\t\"Dir\": \"$FIXTURE_CASE/reconstruction/external\",\n\t\t\"GoMod\": \"$FIXTURE_CASE/reconstruction/external/go.mod\",\n\t\t\"GoVersion\": \"1.26.0\"\n\t},\n\t\"Dir\": \"$FIXTURE_CASE/reconstruction/external\",\n\t\"GoMod\": \"$FIXTURE_CASE/reconstruction/external/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": 11,
+      "phase": "reconstruction/env",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "env",
+        "-json",
+        "GOVERSION",
+        "GOROOT",
+        "GOWORK",
+        "GOOS",
+        "GOARCH",
+        "CGO_ENABLED",
+        "GOPROXY",
+        "GOSUMDB",
+        "GOTOOLCHAIN",
+        "GOENV",
+        "GOCACHE",
+        "GOMODCACHE"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.013,
+      "stdout": "{\n\t\"CGO_ENABLED\": \"1\",\n\t\"GOARCH\": \"arm64\",\n\t\"GOCACHE\": \"$REPO/.tools/go-tools-cache/build-cache\",\n\t\"GOENV\": \"\",\n\t\"GOMODCACHE\": \"$REPO/.tools/go-tools-cache/modules\",\n\t\"GOOS\": \"darwin\",\n\t\"GOPROXY\": \"off\",\n\t\"GOROOT\": \"$REPO/.tools/release-tools/darwin-arm64/go\",\n\t\"GOSUMDB\": \"off\",\n\t\"GOTOOLCHAIN\": \"local\",\n\t\"GOVERSION\": \"go1.26.10\",\n\t\"GOWORK\": \"$FIXTURE_CASE/reconstruction/project/go.work\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": 12,
+      "phase": "reconstruction/default/list",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.05,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_default.go,main.go|Ignored=flavor_alternate.go,main_alternate_test.go|Tests=main_default_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 13,
+      "phase": "reconstruction/default/test",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.145,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:09.989003+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:09.989201+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:10.929745+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:10.929813+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.929849+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.929863+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:10.929875+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.930055+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:10.930094+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.930108+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.930113+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:10.930117+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.930921+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.942s\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.930947+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.942}\n{\"Time\":\"2026-11-13T18:15:10.931185+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.942s\\n\"}\n{\"Time\":\"2026-11-13T18:15:10.931198+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.942}\n",
+      "stderr": ""
+    },
+    {
+      "id": 14,
+      "phase": "reconstruction/default/run",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.752,
+      "stdout": "外部-v1|workspace-two|default|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 15,
+      "phase": "reconstruction/alternate/list",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-tags=alternate",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.05,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_alternate.go,main.go|Ignored=flavor_default.go,main_default_test.go|Tests=main_alternate_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 16,
+      "phase": "reconstruction/alternate/test",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-tags=alternate",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.847,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:11.924995+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:11.925102+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:12.582423+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:12.582472+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.582499+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.582507+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:12.582513+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.582532+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:12.582551+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.582564+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.582571+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:12.582576+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.583434+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.658s\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.583452+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.658}\n{\"Time\":\"2026-11-13T18:15:12.583661+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.658s\\n\"}\n{\"Time\":\"2026-11-13T18:15:12.583715+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.659}\n",
+      "stderr": ""
+    },
+    {
+      "id": 17,
+      "phase": "reconstruction/alternate/run",
+      "cwd": "$FIXTURE_CASE/reconstruction/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "-tags=alternate",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.751,
+      "stdout": "外部-v1|workspace-two|alternate|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 18,
+      "phase": "root-pattern-control",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-count=1",
+        "./..."
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.015,
+      "stdout": "FAIL\t./... [setup failed]\nFAIL\n",
+      "stderr": "# ./...\npattern ./...: directory prefix . does not contain modules listed in go.work or their selected dependencies\n"
+    },
+    {
+      "id": 19,
+      "phase": "external-declaration-renamed-only",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-count=1",
+        "./one/..."
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.098,
+      "stdout": "FAIL\texample.invalid/open-goland/consistency/one [build failed]\nFAIL\n",
+      "stderr": "# example.invalid/open-goland/consistency/one [example.invalid/open-goland/consistency/one.test]\none/main.go:11:53: undefined: external.Message\n"
+    },
+    {
+      "id": 20,
+      "phase": "external-declaration-renamed-only",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "./one"
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.064,
+      "stdout": "",
+      "stderr": "# example.invalid/open-goland/consistency/one\none/main.go:11:53: undefined: external.Message\n"
+    },
+    {
+      "id": 21,
+      "phase": "caller-updated/default/list",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.046,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_default.go,main.go|Ignored=flavor_alternate.go,main_alternate_test.go|Tests=main_default_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 22,
+      "phase": "caller-updated/default/test",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.851,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:13.775814+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:13.775932+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:14.419355+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:14.419415+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.419458+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.419472+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:14.419479+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.420322+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.644s\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.420369+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.645}\n{\"Time\":\"2026-11-13T18:15:14.421375+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:14.421421+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.421452+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.421464+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:14.421472+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.422391+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.646s\\n\"}\n{\"Time\":\"2026-11-13T18:15:14.422401+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.646}\n",
+      "stderr": ""
+    },
+    {
+      "id": 23,
+      "phase": "caller-updated/default/run",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.967,
+      "stdout": "外部-v1|workspace-two|default|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 24,
+      "phase": "caller-updated/alternate/list",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-tags=alternate",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.06,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_alternate.go,main.go|Ignored=flavor_default.go,main_default_test.go|Tests=main_alternate_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 25,
+      "phase": "caller-updated/alternate/test",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-tags=alternate",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.829,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:15.638261+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:15.63838+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:16.273465+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:16.273529+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.273558+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.273573+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:16.273579+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.27466+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.636s\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.274691+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.636}\n{\"Time\":\"2026-11-13T18:15:16.276656+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:16.276676+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.276689+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.276715+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:16.276732+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.277535+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.639s\\n\"}\n{\"Time\":\"2026-11-13T18:15:16.277545+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.639}\n",
+      "stderr": ""
+    },
+    {
+      "id": 26,
+      "phase": "caller-updated/alternate/run",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "-tags=alternate",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.773,
+      "stdout": "外部-v1|workspace-two|alternate|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 27,
+      "phase": "two-member-removed/module-graph",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-m",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.014,
+      "stdout": "{\n\t\"Path\": \"example.invalid/open-goland/consistency/one\",\n\t\"Main\": true,\n\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/project/one\",\n\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/project/one/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/external\",\n\t\"Version\": \"v0.0.0\",\n\t\"Replace\": {\n\t\t\"Path\": \"../external\",\n\t\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/external\",\n\t\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/external/go.mod\",\n\t\t\"GoVersion\": \"1.26.0\"\n\t},\n\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/external\",\n\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/external/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/two\",\n\t\"Version\": \"v0.0.0\",\n\t\"Replace\": {\n\t\t\"Path\": \"../two-fallback\",\n\t\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/two-fallback\",\n\t\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/two-fallback/go.mod\",\n\t\t\"GoVersion\": \"1.26.0\"\n\t},\n\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/two-fallback\",\n\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/two-fallback/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": 28,
+      "phase": "two-member-removed/default/one-test",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "./one/..."
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.958,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:17.271024+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:18.024113+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:18.024349+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:18.024391+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"    main_default_test.go:10: Compose() = \\\"外部-v1|fallback-two|default|中文😀\\\", want \\\"外部-v1|workspace-two|default|中文😀\\\"\\n\"}\n{\"Time\":\"2026-11-13T18:15:18.024452+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- FAIL: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:18.024464+08:00\",\"Action\":\"fail\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:18.024473+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"FAIL\\n\"}\n{\"Time\":\"2026-11-13T18:15:18.02545+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"FAIL\\texample.invalid/open-goland/consistency/one\\t0.754s\\n\"}\n{\"Time\":\"2026-11-13T18:15:18.025476+08:00\",\"Action\":\"fail\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.754}\n",
+      "stderr": ""
+    },
+    {
+      "id": 29,
+      "phase": "two-member-removed/default/one-run",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.781,
+      "stdout": "外部-v1|fallback-two|default|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 30,
+      "phase": "two-member-removed/alternate/one-test",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-tags=alternate",
+        "./one/..."
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.866,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:19.011185+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:19.674498+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:19.674587+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:19.674626+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"    main_alternate_test.go:10: Compose() = \\\"外部-v1|fallback-two|alternate|中文😀\\\", want \\\"外部-v1|workspace-two|alternate|中文😀\\\"\\n\"}\n{\"Time\":\"2026-11-13T18:15:19.674667+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- FAIL: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:19.67469+08:00\",\"Action\":\"fail\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:19.674701+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"FAIL\\n\"}\n{\"Time\":\"2026-11-13T18:15:19.675535+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"FAIL\\texample.invalid/open-goland/consistency/one\\t0.664s\\n\"}\n{\"Time\":\"2026-11-13T18:15:19.675559+08:00\",\"Action\":\"fail\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.664}\n",
+      "stderr": ""
+    },
+    {
+      "id": 31,
+      "phase": "two-member-removed/alternate/one-run",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "-tags=alternate",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.782,
+      "stdout": "外部-v1|fallback-two|alternate|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 32,
+      "phase": "two-member-removed/root-pattern-two",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-count=1",
+        "./two/..."
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.02,
+      "stdout": "FAIL\t./two/... [setup failed]\nFAIL\n",
+      "stderr": "# ./two/...\npattern ./two/...: directory prefix two does not contain modules listed in go.work or their selected dependencies\n"
+    },
+    {
+      "id": 33,
+      "phase": "two-member-removed/current-two",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project/two",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-count=1",
+        "."
+      ],
+      "exitCode": 1,
+      "elapsedSeconds": 0.014,
+      "stdout": "FAIL\t. [setup failed]\nFAIL\n",
+      "stderr": "# .\ncurrent directory is contained in a module that is not one of the workspace modules listed in go.work. You can add the module to the workspace using:\n\tgo work use .\n"
+    },
+    {
+      "id": 34,
+      "phase": "two-member-removed/workspace-two-standalone-control",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project/two",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-count=1",
+        "."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.675,
+      "stdout": "ok  \texample.invalid/open-goland/consistency/two\t0.515s\n",
+      "stderr": "",
+      "extraEnvironment": {
+        "GOWORK": "off"
+      }
+    },
+    {
+      "id": 35,
+      "phase": "two-member-removed/fallback-standalone-control",
+      "cwd": "$FIXTURE_CASE/oracle-probe/two-fallback",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-count=1",
+        "."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.849,
+      "stdout": "ok  \texample.invalid/open-goland/consistency/two\t0.653s\n",
+      "stderr": ""
+    },
+    {
+      "id": 36,
+      "phase": "members-restored/module-graph",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-m",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.009,
+      "stdout": "{\n\t\"Path\": \"example.invalid/open-goland/consistency/one\",\n\t\"Main\": true,\n\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/project/one\",\n\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/project/one/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/two\",\n\t\"Main\": true,\n\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/project/two\",\n\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/project/two/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n{\n\t\"Path\": \"example.invalid/open-goland/consistency/external\",\n\t\"Version\": \"v0.0.0\",\n\t\"Replace\": {\n\t\t\"Path\": \"../external\",\n\t\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/external\",\n\t\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/external/go.mod\",\n\t\t\"GoVersion\": \"1.26.0\"\n\t},\n\t\"Dir\": \"$FIXTURE_CASE/oracle-probe/external\",\n\t\"GoMod\": \"$FIXTURE_CASE/oracle-probe/external/go.mod\",\n\t\"GoVersion\": \"1.26.0\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "id": 37,
+      "phase": "members-restored/default/list",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.046,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_default.go,main.go|Ignored=flavor_alternate.go,main_alternate_test.go|Tests=main_default_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 38,
+      "phase": "members-restored/default/test",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 1.139,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:22.261392+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:22.261523+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:23.20882+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:23.208887+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.208911+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.208917+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:23.208927+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.208945+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:23.208959+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.208964+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.208967+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:23.20897+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.210038+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.948s\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.210064+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.949}\n{\"Time\":\"2026-11-13T18:15:23.210102+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.948s\\n\"}\n{\"Time\":\"2026-11-13T18:15:23.210122+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.949}\n",
+      "stderr": ""
+    },
+    {
+      "id": 39,
+      "phase": "members-restored/default/run",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.779,
+      "stdout": "外部-v1|workspace-two|default|中文😀\n",
+      "stderr": ""
+    },
+    {
+      "id": 40,
+      "phase": "members-restored/alternate/list",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "list",
+        "-tags=alternate",
+        "-f",
+        "{{.ImportPath}}|GoFiles={{join .GoFiles \",\"}}|Ignored={{join .IgnoredGoFiles \",\"}}|Tests={{join .TestGoFiles \",\"}}",
+        "./one",
+        "./two"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.063,
+      "stdout": "example.invalid/open-goland/consistency/one|GoFiles=flavor_alternate.go,main.go|Ignored=flavor_default.go,main_default_test.go|Tests=main_alternate_test.go\nexample.invalid/open-goland/consistency/two|GoFiles=shared.go|Ignored=|Tests=shared_test.go\n",
+      "stderr": ""
+    },
+    {
+      "id": 41,
+      "phase": "members-restored/alternate/test",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-json",
+        "-count=1",
+        "-tags=alternate",
+        "./one/...",
+        "./two/..."
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.815,
+      "stdout": "{\"Time\":\"2026-11-13T18:15:24.240416+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/one\"}\n{\"Time\":\"2026-11-13T18:15:24.240545+08:00\",\"Action\":\"start\",\"Package\":\"example.invalid/open-goland/consistency/two\"}\n{\"Time\":\"2026-11-13T18:15:24.692196+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\"}\n{\"Time\":\"2026-11-13T18:15:24.692291+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"=== RUN   TestOrigin\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.692382+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Output\":\"--- PASS: TestOrigin (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.692409+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Test\":\"TestOrigin\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:24.692419+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.693565+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/two\\t0.453s\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.693584+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/two\",\"Elapsed\":0.453}\n{\"Time\":\"2026-11-13T18:15:24.871869+08:00\",\"Action\":\"run\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\"}\n{\"Time\":\"2026-11-13T18:15:24.871914+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"=== RUN   TestCompose\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.871926+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Output\":\"--- PASS: TestCompose (0.00s)\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.871929+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Test\":\"TestCompose\",\"Elapsed\":0}\n{\"Time\":\"2026-11-13T18:15:24.871933+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"PASS\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.872401+08:00\",\"Action\":\"output\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Output\":\"ok  \\texample.invalid/open-goland/consistency/one\\t0.632s\\n\"}\n{\"Time\":\"2026-11-13T18:15:24.87242+08:00\",\"Action\":\"pass\",\"Package\":\"example.invalid/open-goland/consistency/one\",\"Elapsed\":0.632}\n",
+      "stderr": ""
+    },
+    {
+      "id": 42,
+      "phase": "members-restored/alternate/run",
+      "cwd": "$FIXTURE_CASE/oracle-probe/project",
+      "argv": [
+        "$REPO/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "-tags=alternate",
+        "./one"
+      ],
+      "exitCode": 0,
+      "elapsedSeconds": 0.747,
+      "stdout": "外部-v1|workspace-two|alternate|中文😀\n",
+      "stderr": ""
+    }
+  ],
+  "mutations": [
+    {
+      "phase": "external-declaration-renamed-only",
+      "file": "external/external.go",
+      "before": "func Message() string",
+      "after": "func Greeting() string",
+      "expected": "One still calls Message; saved-file compilation must fail until its caller is updated",
+      "state": {
+        "files": [
+          {
+            "path": "external/external.go",
+            "bytes": 65,
+            "sha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f"
+          },
+          {
+            "path": "external/go.mod",
+            "bytes": 67,
+            "sha256": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5"
+          },
+          {
+            "path": "project/go.work",
+            "bytes": 33,
+            "sha256": "1ee8ca1c3023e80ae4e33b7028983f6cedc5c36302d23ed53f18a15dafda0379"
+          },
+          {
+            "path": "project/one/flavor_alternate.go",
+            "bytes": 139,
+            "sha256": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc"
+          },
+          {
+            "path": "project/one/flavor_default.go",
+            "bytes": 134,
+            "sha256": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be"
+          },
+          {
+            "path": "project/one/go.mod",
+            "bytes": 335,
+            "sha256": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c"
+          },
+          {
+            "path": "project/one/main.go",
+            "bytes": 287,
+            "sha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112"
+          },
+          {
+            "path": "project/one/main_alternate_test.go",
+            "bytes": 238,
+            "sha256": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad"
+          },
+          {
+            "path": "project/one/main_default_test.go",
+            "bytes": 237,
+            "sha256": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee"
+          },
+          {
+            "path": "project/two/go.mod",
+            "bytes": 62,
+            "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+          },
+          {
+            "path": "project/two/shared.go",
+            "bytes": 120,
+            "sha256": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+          },
+          {
+            "path": "project/two/shared_test.go",
+            "bytes": 147,
+            "sha256": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c"
+          },
+          {
+            "path": "two-fallback/go.mod",
+            "bytes": 62,
+            "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+          },
+          {
+            "path": "two-fallback/shared.go",
+            "bytes": 117,
+            "sha256": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893"
+          },
+          {
+            "path": "two-fallback/shared_test.go",
+            "bytes": 146,
+            "sha256": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b"
+          }
+        ],
+        "digest": "7f6cf6ed0d5baa52c1a8520b61d8d61aac011dcd29ba8c30aa42beffcf0a9c71"
+      }
+    },
+    {
+      "phase": "caller-updated",
+      "file": "project/one/main.go",
+      "before": "external.Message()",
+      "after": "external.Greeting()",
+      "state": {
+        "files": [
+          {
+            "path": "external/external.go",
+            "bytes": 65,
+            "sha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f"
+          },
+          {
+            "path": "external/go.mod",
+            "bytes": 67,
+            "sha256": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5"
+          },
+          {
+            "path": "project/go.work",
+            "bytes": 33,
+            "sha256": "1ee8ca1c3023e80ae4e33b7028983f6cedc5c36302d23ed53f18a15dafda0379"
+          },
+          {
+            "path": "project/one/flavor_alternate.go",
+            "bytes": 139,
+            "sha256": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc"
+          },
+          {
+            "path": "project/one/flavor_default.go",
+            "bytes": 134,
+            "sha256": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be"
+          },
+          {
+            "path": "project/one/go.mod",
+            "bytes": 335,
+            "sha256": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c"
+          },
+          {
+            "path": "project/one/main.go",
+            "bytes": 288,
+            "sha256": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6"
+          },
+          {
+            "path": "project/one/main_alternate_test.go",
+            "bytes": 238,
+            "sha256": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad"
+          },
+          {
+            "path": "project/one/main_default_test.go",
+            "bytes": 237,
+            "sha256": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee"
+          },
+          {
+            "path": "project/two/go.mod",
+            "bytes": 62,
+            "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+          },
+          {
+            "path": "project/two/shared.go",
+            "bytes": 120,
+            "sha256": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+          },
+          {
+            "path": "project/two/shared_test.go",
+            "bytes": 147,
+            "sha256": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c"
+          },
+          {
+            "path": "two-fallback/go.mod",
+            "bytes": 62,
+            "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+          },
+          {
+            "path": "two-fallback/shared.go",
+            "bytes": 117,
+            "sha256": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893"
+          },
+          {
+            "path": "two-fallback/shared_test.go",
+            "bytes": 146,
+            "sha256": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b"
+          }
+        ],
+        "digest": "2f96953bf36e63ea1c918e1076e73199556e6f987d3312042d891d8fe05dcd33"
+      }
+    },
+    {
+      "phase": "two-member-removed",
+      "file": "project/go.work",
+      "content": "go 1.26.0\n\nuse ./one\n",
+      "expected": "Workspace two stops overriding one/go.mod replace. one now selects sibling two-fallback for the same module path. Its unchanged TestCompose intentionally fails because it expects workspace-two, while run prints fallback-two. Restore use to return to workspace-two",
+      "state": {
+        "files": [
+          {
+            "path": "external/external.go",
+            "bytes": 64,
+            "sha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488"
+          },
+          {
+            "path": "external/go.mod",
+            "bytes": 67,
+            "sha256": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5"
+          },
+          {
+            "path": "project/go.work",
+            "bytes": 21,
+            "sha256": "6bfb3698dbf06db2f70c4d203ff5793177acc8baad4091f62b787d28d57e0d2e"
+          },
+          {
+            "path": "project/one/flavor_alternate.go",
+            "bytes": 139,
+            "sha256": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc"
+          },
+          {
+            "path": "project/one/flavor_default.go",
+            "bytes": 134,
+            "sha256": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be"
+          },
+          {
+            "path": "project/one/go.mod",
+            "bytes": 335,
+            "sha256": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c"
+          },
+          {
+            "path": "project/one/main.go",
+            "bytes": 287,
+            "sha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112"
+          },
+          {
+            "path": "project/one/main_alternate_test.go",
+            "bytes": 238,
+            "sha256": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad"
+          },
+          {
+            "path": "project/one/main_default_test.go",
+            "bytes": 237,
+            "sha256": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee"
+          },
+          {
+            "path": "project/two/go.mod",
+            "bytes": 62,
+            "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+          },
+          {
+            "path": "project/two/shared.go",
+            "bytes": 120,
+            "sha256": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+          },
+          {
+            "path": "project/two/shared_test.go",
+            "bytes": 147,
+            "sha256": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c"
+          },
+          {
+            "path": "two-fallback/go.mod",
+            "bytes": 62,
+            "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+          },
+          {
+            "path": "two-fallback/shared.go",
+            "bytes": 117,
+            "sha256": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893"
+          },
+          {
+            "path": "two-fallback/shared_test.go",
+            "bytes": 146,
+            "sha256": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b"
+          }
+        ],
+        "digest": "7047abc25c3beb54002b970bcd76afe0590cab45a149a16f26289d91d966968e"
+      }
+    }
+  ],
+  "goVersion": "go version go1.26.10 darwin/arm64",
+  "moduleGraphs": [
+    {
+      "phase": "reference",
+      "modules": [
+        {
+          "path": "example.invalid/open-goland/consistency/one",
+          "main": true,
+          "directory": "$FIXTURE_CASE/reference/project/one",
+          "replaceDirectory": null
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/two",
+          "main": true,
+          "directory": "$FIXTURE_CASE/reference/project/two",
+          "replaceDirectory": null
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/external",
+          "main": false,
+          "directory": "$FIXTURE_CASE/reference/external",
+          "replaceDirectory": "$FIXTURE_CASE/reference/external"
+        }
+      ]
+    },
+    {
+      "phase": "reconstruction",
+      "modules": [
+        {
+          "path": "example.invalid/open-goland/consistency/one",
+          "main": true,
+          "directory": "$FIXTURE_CASE/reconstruction/project/one",
+          "replaceDirectory": null
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/two",
+          "main": true,
+          "directory": "$FIXTURE_CASE/reconstruction/project/two",
+          "replaceDirectory": null
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/external",
+          "main": false,
+          "directory": "$FIXTURE_CASE/reconstruction/external",
+          "replaceDirectory": "$FIXTURE_CASE/reconstruction/external"
+        }
+      ]
+    },
+    {
+      "phase": "two-member-removed",
+      "modules": [
+        {
+          "path": "example.invalid/open-goland/consistency/one",
+          "main": true,
+          "directory": "$FIXTURE_CASE/oracle-probe/project/one",
+          "replaceDirectory": null
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/external",
+          "main": false,
+          "directory": "$FIXTURE_CASE/oracle-probe/external",
+          "replaceDirectory": "$FIXTURE_CASE/oracle-probe/external"
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/two",
+          "main": false,
+          "directory": "$FIXTURE_CASE/oracle-probe/two-fallback",
+          "replaceDirectory": "$FIXTURE_CASE/oracle-probe/two-fallback"
+        }
+      ]
+    },
+    {
+      "phase": "members-restored",
+      "modules": [
+        {
+          "path": "example.invalid/open-goland/consistency/one",
+          "main": true,
+          "directory": "$FIXTURE_CASE/oracle-probe/project/one",
+          "replaceDirectory": null
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/two",
+          "main": true,
+          "directory": "$FIXTURE_CASE/oracle-probe/project/two",
+          "replaceDirectory": null
+        },
+        {
+          "path": "example.invalid/open-goland/consistency/external",
+          "main": false,
+          "directory": "$FIXTURE_CASE/oracle-probe/external",
+          "replaceDirectory": "$FIXTURE_CASE/oracle-probe/external"
+        }
+      ]
+    }
+  ],
+  "memberRemovedExpectedOutputs": {
+    "default": "外部-v1|fallback-two|default|中文😀\n",
+    "alternate": "外部-v1|fallback-two|alternate|中文😀\n"
+  },
+  "copies": {
+    "reference": "$FIXTURE_CASE/reference/project",
+    "reconstruction": "$FIXTURE_CASE/reconstruction/project",
+    "relativeSourcesIdentical": true,
+    "sourceManifest": {
+      "files": [
+        {
+          "path": "external/external.go",
+          "bytes": 64,
+          "sha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488"
+        },
+        {
+          "path": "external/go.mod",
+          "bytes": 67,
+          "sha256": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5"
+        },
+        {
+          "path": "project/go.work",
+          "bytes": 33,
+          "sha256": "1ee8ca1c3023e80ae4e33b7028983f6cedc5c36302d23ed53f18a15dafda0379"
+        },
+        {
+          "path": "project/one/flavor_alternate.go",
+          "bytes": 139,
+          "sha256": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc"
+        },
+        {
+          "path": "project/one/flavor_default.go",
+          "bytes": 134,
+          "sha256": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be"
+        },
+        {
+          "path": "project/one/go.mod",
+          "bytes": 335,
+          "sha256": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c"
+        },
+        {
+          "path": "project/one/main.go",
+          "bytes": 287,
+          "sha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112"
+        },
+        {
+          "path": "project/one/main_alternate_test.go",
+          "bytes": 238,
+          "sha256": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad"
+        },
+        {
+          "path": "project/one/main_default_test.go",
+          "bytes": 237,
+          "sha256": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee"
+        },
+        {
+          "path": "project/two/go.mod",
+          "bytes": 62,
+          "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+        },
+        {
+          "path": "project/two/shared.go",
+          "bytes": 120,
+          "sha256": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+        },
+        {
+          "path": "project/two/shared_test.go",
+          "bytes": 147,
+          "sha256": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c"
+        },
+        {
+          "path": "two-fallback/go.mod",
+          "bytes": 62,
+          "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+        },
+        {
+          "path": "two-fallback/shared.go",
+          "bytes": 117,
+          "sha256": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893"
+        },
+        {
+          "path": "two-fallback/shared_test.go",
+          "bytes": 146,
+          "sha256": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b"
+        }
+      ],
+      "digest": "071a4d0da84df543fb1777eea40f5be9a8632c98e15991c1d699d24c6878fe24"
+    }
+  },
+  "expectedOutputs": {
+    "default": "外部-v1|workspace-two|default|中文😀\n",
+    "alternate": "外部-v1|workspace-two|alternate|中文😀\n"
+  },
+  "status": "pass",
+  "finishedAtUtc": "2026-11-13T10:15:25.636176+00:00"
+}

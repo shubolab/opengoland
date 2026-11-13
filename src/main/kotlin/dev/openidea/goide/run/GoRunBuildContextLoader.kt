@@ -23,6 +23,7 @@ import java.io.ByteArrayOutputStream
 import java.io.InputStream
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
+import com.google.gson.JsonStreamParser
 import com.intellij.util.execution.ParametersListUtil
 import dev.openidea.goide.navigation.search.GoTypeCatalogCodec
 import dev.openidea.goide.lsp.GoDocumentSync
@@ -37,6 +38,7 @@ internal data class GoRunBuildOverlay(
     val text: String,
     val documentStamp: Long,
     val documentSequence: Int?,
+    val oversized: Boolean = false,
 )
 
 /** Each request owns defensive copies of values/environment/overlays. No live configuration reads. */
@@ -85,14 +87,40 @@ internal interface GoRunBuildContextOperation : Disposable {
     override fun dispose()
 }
 
-/** One bounded, selected-SDK metadata command per load; no shared engine or language server. */
+/** Active local replacement modules for one open package, never workspace-folder additions. */
+internal data class GoLocalDependencyScopeSnapshot(
+    val roots: Set<Path>,
+    val watchedFileUris: Set<String>,
+    val watchedDirectoryUris: Set<String>,
+    val validateDisk: () -> Unit,
+    val complete: Boolean,
+    val diagnostics: List<String>,
+    val watchedAllDirectoryUris: Set<String> = emptySet(),
+)
+
+internal interface GoLocalDependencyScopeOperation : Disposable {
+    val future: CompletableFuture<GoLocalDependencyScopeSnapshot>
+    fun start()
+    override fun dispose()
+}
+
+/** Bounded selected-SDK metadata loads; no shared engine or language server. */
 internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuildContextSource {
     private val closed = AtomicBoolean()
-    private val operations = ConcurrentHashMap.newKeySet<Operation>()
+    private val operations = ConcurrentHashMap.newKeySet<Operation<*>>()
 
     override fun create(request: GoRunBuildContextRequest): GoRunBuildContextOperation {
         val copy = request.copy(values = request.values.independentCopy(), overlays = request.overlays.map { it.copy() })
-        val operation = Operation(copy)
+        val operation = BuildOperation(copy)
+        operations += operation
+        if (closed.get()) operation.dispose()
+        return operation
+    }
+
+    /** Independent from gutter/run membership: only an open-package scope owner schedules this. */
+    fun createDependencyScope(request: GoRunBuildContextRequest): GoLocalDependencyScopeOperation {
+        val copy = request.copy(values = request.values.independentCopy(), overlays = request.overlays.map { it.copy() })
+        val operation = DependencyOperation(copy)
         operations += operation
         if (closed.get()) operation.dispose()
         return operation
@@ -103,8 +131,21 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         operations.toList().forEach { it.dispose() }
     }
 
-    private inner class Operation(private val request: GoRunBuildContextRequest) : GoRunBuildContextOperation {
-        override val future = CompletableFuture<GoRunBuildContextSnapshot>()
+    private inner class BuildOperation(request: GoRunBuildContextRequest) : Operation<GoRunBuildContextSnapshot>(request), GoRunBuildContextOperation {
+        override fun loadSnapshot() = (load(request, ::checkCurrent, false) as Loaded.Build).value
+    }
+
+    private inner class DependencyOperation(request: GoRunBuildContextRequest) : Operation<GoLocalDependencyScopeSnapshot>(request), GoLocalDependencyScopeOperation {
+        override fun loadSnapshot() = (load(request, ::checkCurrent, true) as Loaded.Dependencies).value
+    }
+
+    private sealed interface Loaded {
+        data class Build(val value: GoRunBuildContextSnapshot) : Loaded
+        data class Dependencies(val value: GoLocalDependencyScopeSnapshot) : Loaded
+    }
+
+    private abstract inner class Operation<T>(protected val request: GoRunBuildContextRequest) : Disposable {
+        val future = CompletableFuture<T>()
         private val cancelled = AtomicBoolean()
         private val started = AtomicBoolean()
         private var deadline = Long.MAX_VALUE
@@ -113,19 +154,20 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             operations.remove(this)
         } }
         override fun dispose() { cancelled.set(true); future.cancel(false); operations.remove(this) }
-        private fun checkCurrent() {
+        protected fun checkCurrent() {
             if (cancelled.get() || closed.get() || project.isDisposed || Thread.currentThread().isInterrupted)
                 throw CancellationException("Go build context loading was cancelled")
             require(System.nanoTime() < deadline) { "Go build-context loading exceeded 60 seconds" }
             ProgressManager.checkCanceled()
         }
-        override fun start() {
+        protected abstract fun loadSnapshot(): T
+        fun start() {
             check(!ApplicationManager.getApplication().isDispatchThread) { "Go build context loading must run in background" }
             if (!started.compareAndSet(false, true)) return
             deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(60)
             try {
                 checkCurrent()
-                val snapshot = load(request, ::checkCurrent)
+                val snapshot = loadSnapshot()
                 checkCurrent()
                 future.complete(snapshot)
             } catch (failure: Throwable) {
@@ -135,7 +177,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         }
     }
 
-    private fun load(input: GoRunBuildContextRequest, checkCurrent: () -> Unit): GoRunBuildContextSnapshot {
+    private fun load(input: GoRunBuildContextRequest, checkCurrent: () -> Unit, dependencyScope: Boolean): Loaded {
         checkCurrent()
         val guards = Guards()
         val originalDirectory = Path.of(input.workingDirectory)
@@ -161,6 +203,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             fun dirtyText(path: Path): String? {
                 val matches = candidates[GoTypeCatalogCodec.physicalPath(path).toString()].orEmpty()
                 if (matches.isEmpty()) return null
+                require(matches.none { it.oversized }) { "A Go input overlay exceeds its size limit" }
                 require(matches.all { it.text == matches.first().text }) { "Two editor buffers refer to different text for the same Go input" }
                 matches.forEach { guards.file(GoTypeCatalogCodec.path(it.uri)) }
                 return matches.first().text.also { text ->
@@ -240,6 +283,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                     path.fileName.toString() in metadata && (path.parent in ancestors || uri(path) in guards.fileUris) ||
                     uri(path) in setOfNotNull(modFile?.let(::uri), externalOverlay?.let { uri(GoTypeCatalogCodec.physicalPath(resolve(directory, it))) }, environmentPath?.let { uri(GoTypeCatalogCodec.physicalPath(it)) })
                 if (!relevant) continue
+                require(!overlay.oversized) { "A Go input overlay exceeds its size limit" }
                 guards.file(original)
                 val previous = overlays.putIfAbsent(path.toString(), overlay)
                 require(previous == null || previous.text == overlay.text) { "Two editor buffers refer to different text for the same Go source" }
@@ -323,9 +367,13 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                     moduleFlags = listOf("-modfile=$ownedMod")
                 }
             }
-            fun listCommand() = metadataCommand(listOf("list", "-e", "-find", "-json=$FIELDS") + flags + overlayFlags() + moduleFlags + ".")
-            val output = try { execute(listCommand(), checkCurrent) }
-            catch (failure: MetadataCommandFailure) {
+            val listArguments = if (dependencyScope) listOf("list", "-deps", "-e", "-test", "-json=$DEPENDENCY_FIELDS")
+                else listOf("list", "-e", "-find", "-json=$FIELDS")
+            fun listCommand() = metadataCommand(listArguments + flags + overlayFlags() + moduleFlags + ".")
+            var privateWorkspace = false
+            fun query(): String = try {
+                execute(listCommand().apply { if (privateWorkspace) withEnvironment("GOWORK", ownedWork.toString()) }, checkCurrent)
+            } catch (failure: MetadataCommandFailure) {
                 // Go refuses to write an overlaid sum. That precise failure is
                 // the only retry: move the workspace/sum to our private copy,
                 // preserving module roots via Go's own workspace editor. Native
@@ -334,7 +382,39 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                     !failure.stderr.contains("part of the overlay specified with -overlay")) throw failure
                 checkCurrent()
                 if (workspaceEdits.isNotEmpty()) execute(metadataCommand(listOf("work", "edit") + workspaceEdits + ownedWork.toString()), checkCurrent)
+                privateWorkspace = true
                 execute(listCommand().withEnvironment("GOWORK", ownedWork.toString()), checkCurrent)
+            }
+            var output = query()
+            if (dependencyScope) {
+                // Discovery is followed by a guarded query. A newly discovered
+                // module's dirty manifest may reveal another replacement; iterate
+                // only that bounded metadata closure, never the dependency tree.
+                val guardedModules = mutableSetOf<Path>()
+                repeat(MAX_DEPENDENCY_PASSES) {
+                    val parsed = dependencyMetadata(output, directory, guards)
+                    var discovered = false
+                    for (root in parsed.moduleRoots) {
+                        if (!guardedModules.add(root)) continue
+                        discovered = true
+                        guards.directory(root, metadataOnly = true)
+                        for (name in listOf("go.mod", "go.sum")) {
+                            val path = root.resolve(name)
+                            guards.file(path)
+                            val text = dirtyText(path) ?: continue
+                            val backing = staging.resolve("dependency-manifest-${replacements.size}")
+                            Files.writeString(backing, text, Charsets.UTF_8)
+                            replacements[guards.physical(path).toString()] = backing.toString()
+                        }
+                    }
+                    if (!discovered) {
+                        checkCurrent(); guards.validate()
+                        return Loaded.Dependencies(GoLocalDependencyScopeSnapshot(parsed.roots, guards.fileUris.toSet(),
+                            guards.directoryUris.toSet(), { guards.validate() }, parsed.complete, parsed.diagnostics, guards.allDirectoryUris))
+                    }
+                    output = query()
+                }
+                error("The Go local dependency manifest closure exceeds its limit")
             }
             val result = objectJson(output)
             val reported = guards.physical(Path.of(string(result, "Dir")))
@@ -373,12 +453,96 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                 GoTypeCatalogCodec.text(readBounded(Path.of(it)))
             } ?: GoTypeCatalogCodec.text(readBounded(source))
             checkCurrent(); guards.validate()
-            return GoRunBuildContextSnapshot(input.sourceUri, sourceText, packagePath, uri(directory), selectedAliases(active),
+            return Loaded.Build(GoRunBuildContextSnapshot(input.sourceUri, sourceText, packagePath, uri(directory), selectedAliases(active),
                 selectedAliases(ignored), guards.fileUris.toSet(), guards.directoryUris.toSet(), { guards.validate() }, selectedAliases(invalid), diagnostics, guards.allDirectoryUris,
-                packageMetadata)
+                packageMetadata))
         } finally {
             Files.walk(staging).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach { Files.deleteIfExists(it) } }
         }
+    }
+
+    private data class DependencyMetadata(
+        val roots: Set<Path>,
+        val moduleRoots: Set<Path>,
+        val complete: Boolean,
+        val diagnostics: List<String>,
+    )
+
+    /** Use Go's selected package locations, rather than treating raw replace directives as active imports. */
+    private fun dependencyMetadata(output: String, directory: Path, guards: Guards): DependencyMetadata {
+        val roots = linkedSetOf<Path>()
+        val moduleRoots = linkedSetOf<Path>()
+        val diagnostics = linkedSetOf<String>()
+        var incomplete = false
+        var anchor = false
+        var count = 0
+        fun diagnostic(value: com.google.gson.JsonElement?) {
+            if (value == null || value.isJsonNull) return
+            require(value.isJsonObject) { "Go returned malformed dependency diagnostics" }
+            incomplete = true
+            if (diagnostics.size < 100) diagnostics += string(value.asJsonObject, "Err").take(4096)
+        }
+        val parser = JsonStreamParser(output)
+        while (parser.hasNext()) {
+            require(++count <= 20_000) { "The Go dependency graph exceeds its package limit" }
+            val value = parser.next()
+            require(value.isJsonObject) { "Go returned malformed dependency metadata" }
+            val entry = value.asJsonObject
+            string(entry, "ImportPath")
+            diagnostic(entry.get("Error"))
+            entry.get("DepsErrors")?.takeUnless { it.isJsonNull }?.let { errors ->
+                require(errors.isJsonArray) { "Go returned malformed dependency errors" }
+                errors.asJsonArray.forEach(::diagnostic)
+            }
+            entry.get("Incomplete")?.takeUnless { it.isJsonNull }?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) { "Go returned malformed dependency completeness" }
+                if (it.asBoolean) incomplete = true
+            }
+            val reported = entry.get("Dir")?.takeUnless { it.isJsonNull }?.let {
+                val path = Path.of(string(entry, "Dir"))
+                require(path.isAbsolute) { "Go returned a relative dependency directory" }
+                guards.physical(path)
+            }
+            if (reported == directory) anchor = true
+            val module = entry.get("Module")?.takeUnless { it.isJsonNull } ?: continue
+            require(module.isJsonObject) { "Go returned malformed dependency module metadata" }
+            val moduleObject = module.asJsonObject
+            diagnostic(moduleObject.get("Error"))
+            val main = moduleObject.get("Main")?.takeUnless { it.isJsonNull }?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) { "Go returned malformed main-module metadata" }
+                it.asBoolean
+            } ?: false
+            if (main) {
+                moduleObject.get("Dir")?.takeUnless { it.isJsonNull }?.let {
+                    val root = Path.of(string(moduleObject, "Dir"))
+                    require(root.isAbsolute) { "Go returned a relative main-module directory" }
+                    moduleRoots.add(guards.physical(root))
+                }
+                continue
+            }
+            val replacement = moduleObject.get("Replace")?.takeUnless { it.isJsonNull } ?: continue
+            require(replacement.isJsonObject) { "Go returned malformed replacement metadata" }
+            val replacementObject = replacement.asJsonObject
+            diagnostic(replacementObject.get("Error"))
+            val version = replacementObject.get("Version")?.takeUnless { it.isJsonNull }?.let {
+                string(replacementObject, "Version", allowEmpty = true)
+            }.orEmpty()
+            if (version.isNotEmpty()) continue // A downloaded version is not a local replacement root.
+            val rootValue = replacementObject.get("Dir")?.takeUnless { it.isJsonNull } ?: continue
+            require(rootValue.isJsonPrimitive && rootValue.asJsonPrimitive.isString) { "Go returned malformed local replacement directory" }
+            val lexicalRoot = Path.of(rootValue.asString)
+            require(lexicalRoot.isAbsolute) { "Go returned a relative local replacement directory" }
+            val root = guards.physical(lexicalRoot)
+            // Vendoring reports replacement metadata too, but those packages are
+            // loaded from vendor rather than the replacement's source directory.
+            if (reported == null || !reported.startsWith(root) || root.relativize(reported).any { it.toString() == "vendor" }) continue
+            require(Files.isDirectory(root)) { "An active local replacement directory disappeared" }
+            roots.add(root)
+            moduleRoots.add(root)
+        }
+        require(count > 0 && anchor) { "Go returned no metadata for the selected dependency package" }
+        if (incomplete && diagnostics.isEmpty()) diagnostics += "Go reported an incomplete dependency graph"
+        return DependencyMetadata(roots.toSet(), moduleRoots.toSet(), !incomplete, diagnostics.toList())
     }
 
     private fun workspacePlan(originalParent: Path, owned: Path, guards: Guards, checkCurrent: () -> Unit,
@@ -615,6 +779,8 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
     private fun resolve(directory: Path, text: String): Path = Path.of(text).let { if (it.isAbsolute) it.normalize() else directory.resolve(it).normalize() }
     private companion object {
         const val FIELDS = "Dir,ImportPath,Module,GoFiles,CgoFiles,TestGoFiles,XTestGoFiles,IgnoredGoFiles,InvalidGoFiles,Error"
+        const val DEPENDENCY_FIELDS = "ImportPath,Dir,Module,Error,DepsErrors,Incomplete"
+        const val MAX_DEPENDENCY_PASSES = 8
         const val MAX_FILE = 8 * 1024 * 1024
         const val MAX_OUTPUT = 2 * 1024 * 1024
         fun readBounded(path: Path, limit: Int = MAX_FILE): ByteArray = Files.newInputStream(path).use { stream ->

@@ -1,0 +1,65 @@
+{
+  "at": "2026-11-13T12:30:51.534743+00:00",
+  "status": "intermediate candidate; not for release; owner-before-capture review fix pending",
+  "version": "0.1.0-preview.20261113.4",
+  "manifestSha256": "7e16ebfb18cfccd8a9af9357d8733829e31e0881f012794edf8da58baac591a7",
+  "pluginJars": {
+    "Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261113.4.jar": "bcc88b57096ebc9d55b95393a32da6a9c583c3c544bb024bf1ae4d027128eda6"
+  },
+  "patchSha256": "7f42465c1069bd4d85673981b2543a33d4f286974f6a56fd44fb33befb744312",
+  "fullGate": {
+    "reports": 169,
+    "tests": 932,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "scope": "Historical candidate1 only. This 932/169 full gate does not verify later owner d680 patch, metadata dependency scopes, or icon changes.",
+  "sealedBuildInputs": {
+    "schemaVersion": 1,
+    "algorithm": "sha256",
+    "scope": "Kotlin main/test sources and resources, Go engine sources/tests/licenses, Gradle configuration, packaging scripts and pinned public-source patches",
+    "digest": "9ac10138c96cf0ca5724f1c4a3af9a037885f510995ad17c25b48b6abb95deef",
+    "fileCount": 570
+  },
+  "launcherSha256": "fd334dad9eb26962a10da5dd8aa325feda20d89a1ed2a078d70c82e2332d1b6c",
+  "nativeOperations": {
+    "appPid": 37869,
+    "initialGoplsPid": 44353,
+    "restartedGoplsPid": 52201,
+    "sequence": [
+      "Fresh isolated profile, Skip Import, baseline package Run exit 0.",
+      "Never-opened external Message declaration renamed to Greeting; unchanged main retained baseline SHA; no automatic diagnostic observed.",
+      "Enabled verbose trace, then manually restarted gopls; diagnostic undefined external.Message appeared.",
+      "Restored external Message without changing main or manually refreshing; package Run succeeded while cached error remained, according to CUA operation record.",
+      "Candidate quit normally; the final counterexample has no successful independent REA screenshot."
+    ],
+    "mutation": {
+      "at": "2026-11-13T14:30:19.562440+00:00",
+      "candidate": "intermediate candidate1; patch7f424; not release eligible",
+      "pid": 37869,
+      "goplsPid": 44353,
+      "change": "cold external declaration only Message -> Greeting; IDE kept foreground; no caller edit/manual refresh/server restart",
+      "beforeSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+      "afterSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112"
+    },
+    "restore": {
+      "at": "2026-11-13T15:03:24.748016+00:00",
+      "appPid": 37869,
+      "goplsPid": 52201,
+      "operation": "restore external Message after verbose-restart control; no caller edit or refresh",
+      "beforeSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "afterSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112"
+    }
+  },
+  "finalCounterexampleCaptureGap": {
+    "status": "failed-not-a-capture",
+    "source": "candidate1-counter-capture-failure.json",
+    "provider": "native-macos",
+    "failure": "execution_failure: /usr/bin/xcrun timed out after 60000 ms",
+    "independentScreenshotAvailable": false,
+    "claimLimit": "Do not treat this gap as a successful REA observation of the restored-counterexample state."
+  }
+}

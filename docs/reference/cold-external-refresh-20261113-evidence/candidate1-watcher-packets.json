@@ -1,0 +1,80 @@
+{
+  "scope": "Intermediate candidate1, patch7f424, verbose trace after manual gopls restart; not automatic refresh proof",
+  "appPid": 37869,
+  "goplsPid": 52201,
+  "sourceManifest": "candidate1-stage-summary.json (full historical manifest retained only in ignored local evidence)",
+  "evidenceId": "ev_f4e7f55a642b4ab3a6ff6bf753d17d34a3910e74e50abe0d2019945843213e23",
+  "packets": [
+    {
+      "heading": "[Trace - 22:42:36] Received request 'client/registerCapability - (3)'",
+      "params": {
+        "registrations": [
+          {
+            "id": "workspace/didChangeWatchedFiles-0",
+            "method": "workspace/didChangeWatchedFiles",
+            "registerOptions": {
+              "watchers": [
+                {
+                  "globPattern": "**/*.{mod,work}",
+                  "kind": 7
+                },
+                {
+                  "globPattern": "<fixture>/project/two/**/*.{go,mod,sum,work}",
+                  "kind": 7
+                },
+                {
+                  "globPattern": "<fixture>/project/vendor/**/*.{go,mod,sum,work}",
+                  "kind": 7
+                },
+                {
+                  "globPattern": "<fixture>/project/one/**/*.{go,mod,sum,work}",
+                  "kind": 7
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "heading": "[Trace - 22:42:36] Received request 'client/registerCapability - (4)'",
+      "params": {
+        "registrations": [
+          {
+            "id": "workspace/didChangeConfiguration",
+            "method": "workspace/didChangeConfiguration"
+          }
+        ]
+      }
+    },
+    {
+      "heading": "[Trace - 22:42:37] Received notification 'textDocument/publishDiagnostics'",
+      "params": {
+        "uri": "file://<fixture>/project/one/main.go",
+        "diagnostics": [
+          {
+            "range": {
+              "start": {
+                "line": 10,
+                "character": 46
+              },
+              "end": {
+                "line": 10,
+                "character": 53
+              }
+            },
+            "severity": 1,
+            "code": "UndeclaredImportedName",
+            "codeDescription": {
+              "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredImportedName"
+            },
+            "source": "compiler",
+            "message": "undefined: external.Message"
+          }
+        ],
+        "version": 1
+      }
+    }
+  ],
+  "normalization": "Own fixture absolute prefix replaced by <fixture>; protocol values otherwise retained."
+}

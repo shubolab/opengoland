@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "scope": "Frozen initial own fixture, before either IDE edit",
+  "sourceDigest": "071a4d0da84df543fb1777eea40f5be9a8632c98e15991c1d699d24c6878fe24",
+  "files": [
+    {
+      "path": "external/external.go",
+      "bytes": 64,
+      "sha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488"
+    },
+    {
+      "path": "external/go.mod",
+      "bytes": 67,
+      "sha256": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5"
+    },
+    {
+      "path": "project/go.work",
+      "bytes": 33,
+      "sha256": "1ee8ca1c3023e80ae4e33b7028983f6cedc5c36302d23ed53f18a15dafda0379"
+    },
+    {
+      "path": "project/one/flavor_alternate.go",
+      "bytes": 139,
+      "sha256": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc"
+    },
+    {
+      "path": "project/one/flavor_default.go",
+      "bytes": 134,
+      "sha256": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be"
+    },
+    {
+      "path": "project/one/go.mod",
+      "bytes": 335,
+      "sha256": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c"
+    },
+    {
+      "path": "project/one/main.go",
+      "bytes": 287,
+      "sha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112"
+    },
+    {
+      "path": "project/one/main_alternate_test.go",
+      "bytes": 238,
+      "sha256": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad"
+    },
+    {
+      "path": "project/one/main_default_test.go",
+      "bytes": 237,
+      "sha256": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee"
+    },
+    {
+      "path": "project/two/go.mod",
+      "bytes": 62,
+      "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+    },
+    {
+      "path": "project/two/shared.go",
+      "bytes": 120,
+      "sha256": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+    },
+    {
+      "path": "project/two/shared_test.go",
+      "bytes": 147,
+      "sha256": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c"
+    },
+    {
+      "path": "two-fallback/go.mod",
+      "bytes": 62,
+      "sha256": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b"
+    },
+    {
+      "path": "two-fallback/shared.go",
+      "bytes": 117,
+      "sha256": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893"
+    },
+    {
+      "path": "two-fallback/shared_test.go",
+      "bytes": 146,
+      "sha256": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b"
+    }
+  ]
+}

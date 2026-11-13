@@ -1,0 +1,10 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-13T11:21:55.325Z" time="3.775">
+  <properties>
+    <property name="evidence-format" value="Safe test-case extract; original output and stack traces omitted" />
+    <property name="original-sha256" value="ba091c0302ad6f4403b678cf218fa023548c0e4e68b936ec3adace98a699e898" />
+  </properties>
+  <testcase name="testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="3.654" />
+  <testcase name="testRelativeExternalWatcherAlsoDiscoversAnUnopenedNestedSource" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.076" />
+  <testcase name="testUpstreamRegistrationFailureDoesNotInstallAnIndependentExternalWatch" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.043" />
+</testsuite>

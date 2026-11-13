@@ -1,0 +1,7 @@
+<testsuite name="com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2026-11-13T22:00:37.930Z" time="0.393">
+  <testcase name="testRuntimeLoadsTheCompletePinnedPrivatePatch" classname="com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest" time="0.076" />
+  <testcase name="testDidOpenAndIncrementalChangesUseTheSameFifoDispatcher" classname="com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest" time="0.127" />
+  <testcase name="testNoWaitConnectionStillMaterializesAnAtomicDidOpenWithoutWaitingForDispatch" classname="com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest" time="0.05" />
+  <testcase name="testFailedDidOpenDispatchCompletesItsNotificationFuture" classname="com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest" time="0.057" />
+  <testcase name="testEditDuringInitializationIsIncludedInTheFirstNativeDocumentSnapshot" classname="com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest" time="0.082" />
+</testsuite>

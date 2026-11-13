@@ -1,0 +1,6 @@
+<testsuite name="dev.openidea.goide.icons.GoFileIconsTest" tests="2" skipped="0" failures="1" errors="0" timestamp="2026-11-13T15:46:39.236Z" time="0.328">
+  <testcase name="testRegisteredTestIconProviderPreservesGoLanguageAndIgnoresOtherFileKinds" classname="dev.openidea.goide.icons.GoFileIconsTest" time="0.057" />
+  <testcase name="testNativeSvgRenderingDistinguishesFileKindsInLightAndDarkAndExportsTheAtlas" classname="dev.openidea.goide.icons.GoFileIconsTest" time="0.271">
+    <failure message="junit.framework.AssertionFailedError: Go template must have a visible native SVG" type="junit.framework.AssertionFailedError" />
+  </testcase>
+</testsuite>

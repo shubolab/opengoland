@@ -1,0 +1,6 @@
+<testsuite name="com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-13T22:00:34.212Z" time="3.713">
+  <testcase name="testMissingParameterListUsesTheExistingEmptyListPresentationInBothModes" classname="com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest" time="3.563" />
+  <testcase name="testTupleLabelsRetainUtf16OffsetsAfterChineseAndEmoji" classname="com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest" time="0.06" />
+  <testcase name="testDisabledPresentationKeepsTheLabelsWithoutAnActiveHighlight" classname="com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest" time="0.047" />
+  <testcase name="testStringLabelsAndVariadicLabelTextKeepTheirPresentationAndActiveRange" classname="com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest" time="0.043" />
+</testsuite>

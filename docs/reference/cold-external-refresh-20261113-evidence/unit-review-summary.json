@@ -1,0 +1,30 @@
+{
+  "scope": "Only literal RelativePattern base URI and successful-ancestor fallback review fixes; VFS/lifecycle evidence, not native gopls acceptance",
+  "sources": {
+    "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt": "2c7513bc7ea6faa4c0ce3ef5f64eead77f9bb38d75b5ff385e24e325def32eee",
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt": "0c6d2100f7aa18b6fc24a552a8fecf8b3bd90e0d357816d82df634657515e604",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoColdExternalWatchTest.kt": "324b0e36a4819d9f928b34a17d0a7ae8c932f016d43b26d3647e45a10541ccba",
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.kt": "79e4abdf12efdeec07a9d8f8f4bf0f7a04880dd831ccbe13bf9e9d6cf4ee947e"
+  },
+  "combinedSourceSha256": "4bdb47a3c30fa53b5844b353354d6ddbddf2170e9a937e3809ed4292d9f2a2e9",
+  "tests": [
+    {
+      "class": "com.redhat.devtools.lsp4ij.GoColdExternalWatchTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.openidea.goide.lsp.GoExternalFileWatchesTest",
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "redLog": "review-red.log",
+  "redXml": "review-red.xml",
+  "greenLog": "review-green.log",
+  "outstanding": "Initialization-pending register/unregister race handed to root/fixture reviewer; not changed in this follow-up"
+}

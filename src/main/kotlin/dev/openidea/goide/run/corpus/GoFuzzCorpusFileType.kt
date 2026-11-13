@@ -12,7 +12,7 @@ import com.intellij.openapi.util.io.ByteSequence
 import com.intellij.openapi.vfs.VirtualFile
 import com.intellij.psi.tree.IElementType
 import com.intellij.psi.tree.TokenSet
-import dev.openidea.goide.lang.GoFileType
+import dev.openidea.goide.icons.GoIcons
 import dev.openidea.goide.lang.GoLexer
 import dev.openidea.goide.lang.GoParserDefinition
 import dev.openidea.goide.lang.GoTokens
@@ -30,7 +30,7 @@ class GoFuzzCorpusFileType private constructor() : LanguageFileType(GoFuzzCorpus
     override fun getName() = "open Goland Fuzz Corpus"
     override fun getDescription() = "Go fuzz seed or failing corpus input"
     override fun getDefaultExtension() = ""
-    override fun getIcon() = GoFileType.INSTANCE.icon
+    override fun getIcon() = GoIcons.Corpus
 
     companion object { @JvmField val INSTANCE = GoFuzzCorpusFileType() }
 }

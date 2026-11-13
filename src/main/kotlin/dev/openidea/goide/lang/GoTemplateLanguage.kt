@@ -3,6 +3,7 @@ package dev.openidea.goide.lang
 import com.intellij.lang.Commenter
 import com.intellij.lang.Language
 import com.intellij.openapi.fileTypes.LanguageFileType
+import dev.openidea.goide.icons.GoIcons
 
 object GoTemplateLanguage : Language("OpenIDEAGoTemplate") {
     override fun getDisplayName() = "Go Template"
@@ -12,7 +13,7 @@ class GoTemplateFileType private constructor() : LanguageFileType(GoTemplateLang
     override fun getName() = "open Goland Go Template"
     override fun getDescription() = "Go text/template file"
     override fun getDefaultExtension() = "gotmpl"
-    override fun getIcon() = GoFileType.INSTANCE.icon
+    override fun getIcon() = GoIcons.Template
 
     companion object {
         @JvmField val INSTANCE = GoTemplateFileType()

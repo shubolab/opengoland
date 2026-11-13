@@ -1,0 +1,22 @@
+open Goland Go file icons
+
+The Go gopher was designed by Renée French. The design is licensed under
+Creative Commons Attribution 4.0 International (CC BY 4.0).
+Original design and licence statements:
+  https://go.dev/blog/gopher
+  https://go.dev/wiki/Gopher
+  https://go.dev/doc/faq#mascot
+Licence: https://creativecommons.org/licenses/by/4.0/
+
+go.svg, goMod.svg, goWork.svg, goTest.svg and their _dark variants are
+small-size adaptations of that design, independently redrawn as SVG geometry
+by open Goland contributors. Changes include the pixel-grid simplification,
+light/dark palettes, reduced-size mascot and module/workspace/test badges.
+These adaptations are supplied under CC BY 4.0 with credit to Renée French.
+No JetBrains GoLand image resource or proprietary artwork was copied.
+
+Complete licence text: https://creativecommons.org/licenses/by/4.0/legalcode
+
+Tool-window icons, the template icon and the fuzz-corpus text icon use the already bundled
+open-source IntelliJ Platform AllIcons. Their existing Apache-2.0 notices
+remain in the platform distribution; those resources are not copied here.

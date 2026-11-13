@@ -1,0 +1,9 @@
+<testsuite name="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" tests="3" skipped="0" failures="2" errors="0" timestamp="2026-11-13T16:30:22.477Z" time="4.115">
+  <testcase name="testStoppedRealClientCannotAcknowledgeAnOwnedScopeAsInstalled" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="3.961">
+    <failure message="junit.framework.AssertionFailedError: Stopped/failed initialization must complete the request exceptionally" type="junit.framework.AssertionFailedError" />
+  </testcase>
+  <testcase name="testRealStartedClientOwnedScopeRejectsIncompleteRootCoverage" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.087" />
+  <testcase name="testRealStartedClientOwnedScopeInstallsTheActualMatcherAndColdRoot" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.067">
+    <failure message="junit.framework.AssertionFailedError: The real wrapper must retain an unregistration handler for the owned matcher" type="junit.framework.AssertionFailedError" />
+  </testcase>
+</testsuite>

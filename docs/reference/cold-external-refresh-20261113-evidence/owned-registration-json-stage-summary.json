@@ -1,0 +1,67 @@
+{
+  "atUtc": "2026-11-13T16:32:42.724106+00:00",
+  "head": "3b32dc53df49388528203fa9b600b93ea69b8368",
+  "red": {
+    "tests": 3,
+    "failures": 2,
+    "purpose": "Actual started wrapper missing owned matcher despite completed registration, and stopped client incorrectly acknowledged install"
+  },
+  "green": [
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest",
+      "tests": "18",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "7.29"
+    },
+    {
+      "name": "com.redhat.devtools.lsp4ij.GoColdExternalWatchTest",
+      "tests": "4",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.264"
+    },
+    {
+      "name": "dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.007"
+    },
+    {
+      "name": "dev.openidea.goide.lsp.GoExternalFileWatchesTest",
+      "tests": "7",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.243"
+    },
+    {
+      "name": "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+      "tests": "10",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "3.958"
+    }
+  ],
+  "total": {
+    "tests": 49,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "sourceSha256": {
+    "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt": "bfd02ed831fc8bdee4124f24b1742bbf78611a093860e06bedf2be91d773d946",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoCapabilityRegistrationLifecycleTest.kt": "80ce33df15c5969eb9fa177aced1aa72dd3a176e08148b7011d62daa328b7b97",
+    "product/patches/lsp4ij-0.21.0-document-sync.patch": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126"
+  },
+  "schemaVersion": 1,
+  "scope": "Historical source correction after candidate2. Real wrapper/stream-controlled peer integration; not native candidate3 acceptance or release.",
+  "fix": "Serialize owned options using JSONUtils.getLsp4jGson().toJsonTree(...).asJsonObject; reject owned install after client closure. Public source patch stays d680.",
+  "assertionBoundary": "Positive regression inspects actual wrapper handler and watcher matcher, real cold VFS, then unregister/release; negative cases reject missing coverage and stopped client. Does not prove OS watcher-to-native UI delivery.",
+  "nextCandidate": "Candidate3 full package/native verification pending parent; old candidate2 full gate cannot be applied to this revision."
+}

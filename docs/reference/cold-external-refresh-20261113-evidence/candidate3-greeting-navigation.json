@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-capture-identity; raw_result/AX tree excluded",
+  "candidate": "candidate3 0.1.0-preview.20261114.1; bounded native dependency result; separate signature-help NPE; unreleased",
+  "evidenceId": "ev_151424806516c7bf85e0c3db87a5c5649a4bff19bfd853dda21ae74ae513c9ea",
+  "launcherSha256": "20195af009080cf403826a84258bddcde7c7a6e6eb01a98c2f4958eede634c9d",
+  "window": {
+    "pid": 33473,
+    "window_id": 6275,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794605349.345531,
+    "title": "project – ~/develop/openidea-go/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go"
+  },
+  "captureParameters": {
+    "pid": 33473,
+    "window_id": 6275,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "0d7bf49bd6ff3ee0875a55d10d43e0df8bb0b52202a2b217f0a35fa9da91ae76",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Second cold external change, Basic unique insertion and save/Run0 were observed by CUA; this frame shows Cmd+B navigation to external Greeting. Completion popup was not retained.",
+  "proofLimit": "Still screenshot of exact selected PID/window, paired with CUA/native operation records; no AX capture or retained completion popup, no full parity or release claim.",
+  "sourceMetadataSha256": "ff2edf49e64601def435e23e247b07bf6403529710382290f2f9c569c52e9d4a"
+}

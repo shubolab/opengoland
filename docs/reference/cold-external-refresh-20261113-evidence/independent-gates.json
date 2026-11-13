@@ -1,0 +1,43 @@
+{
+  "at": "2026-11-13T15:28:55.103477+00:00",
+  "goRace": {
+    "status": "pass",
+    "testCacheDisabled": true,
+    "raceEnabled": true,
+    "builder": "go1.27.3",
+    "runtimeWorkspaceEnvironment": "GOWORK unset; GOENV off",
+    "packagesPassed": 12
+  },
+  "initialRace": {
+    "status": "failed due explicit parent GOWORK=off conflicting with workspace test",
+    "triage": "race-workspace-triage/REPORT.md",
+    "productionChangedToPass": false
+  },
+  "pythonTests": {
+    "tests": 86,
+    "status": "pass"
+  },
+  "goVet": {
+    "exitCode": 0,
+    "logBytes": 0
+  },
+  "logs": {
+    "engine-race-workspace-auto.log": {
+      "bytes": 970,
+      "sha256": "0ed11c2e17eeaaaaa3fbca5bd9308c7a0385eaad04b9cb4dfa87b468cd3cd3c6"
+    },
+    "engine-race.log": {
+      "bytes": 1650,
+      "sha256": "2ebe6c8c0fb75a30d99a02c1152e6efd7c036809cb81067e16bd8c83e37625e0"
+    },
+    "python-tests.log": {
+      "bytes": 98,
+      "sha256": "c93fc6f28a513d7a324a3e208b27394b0d3e70e06b7d93723fdf6a4196c4c84f"
+    },
+    "engine-vet.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "scope": "engine source unchanged; these gates do not prove current Kotlin metadata scope/icon WIP or native gopls fixed"
+}

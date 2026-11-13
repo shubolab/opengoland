@@ -1,0 +1,35 @@
+{
+  "scope": "Cold external VFS discovery and owned watch lifecycle only; not native fsnotifier/gopls/desktop acceptance",
+  "sources": {
+    "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt": "2c7513bc7ea6faa4c0ce3ef5f64eead77f9bb38d75b5ff385e24e325def32eee",
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt": "1f4331a872e7da7e301addc31f47cceda6491fe24268478bdee0bdb34e7e6751",
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoColdExternalWatchTest.kt": "a557134d8811aadf1ebbeeab45e7976365d6a07cfe27c0e7a511e6f63690ca2d",
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.kt": "2cd34dd7e5cdc3a7e787b88283247fa6df1ee61a26a9414f440d35de15c40f1d"
+  },
+  "combinedSourceSha256": "e44c177d257d8d2905febb3b6e334e08ec3acf3f0b38e1040096cb932392c7a0",
+  "tests": [
+    {
+      "class": "com.redhat.devtools.lsp4ij.GoColdExternalWatchTest",
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "class": "dev.openidea.goide.lsp.GoExternalFileWatchesTest",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "red": "red.xml: original client registration left unopened external source outside VFS snapshot",
+  "greenLog": "green-vfs-final.log",
+  "notificationAttempt": "notification-peer-attempt.kt / .xml retain unsuccessful unstarted-peer notification assertion; not native defect proof",
+  "nativePending": [
+    "Existing cold external file change while IDE stays foreground",
+    "Actual fsnotifier dirty -> VFS -> gopls diagnostics/completion/navigation",
+    "Root directory deletion/recreation and new nested package trees",
+    "Windows native equivalent"
+  ]
+}

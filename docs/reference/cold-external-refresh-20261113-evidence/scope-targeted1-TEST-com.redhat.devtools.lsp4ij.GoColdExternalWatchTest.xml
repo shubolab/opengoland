@@ -1,0 +1,6 @@
+<testsuite name="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2026-11-13T15:46:38.422Z" time="0.317">
+  <testcase name="testCancellableIdleStoppingDoesNotPermanentlyCloseTheSameClientsRegistrations" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.123" />
+  <testcase name="testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.083" />
+  <testcase name="testRelativeExternalWatcherAlsoDiscoversAnUnopenedNestedSource" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.066" />
+  <testcase name="testUpstreamRegistrationFailureDoesNotInstallAnIndependentExternalWatch" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.044" />
+</testsuite>

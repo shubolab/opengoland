@@ -1,0 +1,12 @@
+<testsuite name="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-13T15:46:39.617Z" time="0.009">
+  <testcase name="testOnlyKnownBuildInputsAndPackageMetadataTriggerAnotherQuery" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.006" />
+  <testcase name="testResumedScopeOwnerCannotReuseThePreviousOwnersRegistrationId" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.0" />
+  <testcase name="testIncompleteAndFailedQueriesRetainTheLastVerifiedRoots" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.001" />
+  <testcase name="testLateQueryAndChangedDocumentCannotInstallObsoleteRoots" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.0" />
+  <testcase name="testDebounceInvalidationCancelsImmediatelyAndIgnoresLateQueryWithoutDroppingRoots" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.0" />
+  <testcase name="testFailedRootInstallationCleansPartialNewRegistrationAndPreservesOldScope" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.001" />
+  <testcase name="testOpenPackagesUnionSharedRootsAndCloseReleasesTheirContributions" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.0" />
+  <testcase name="testNewRegistrationCompletesThenReconcilesBeforeOldScopeIsReleased" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.001" />
+  <testcase name="testDisposalWhileRegistrationIsHeldReleasesLateScopeWithoutReconciling" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.0" />
+  <testcase name="testPartialGraphRetainsOldMetadataAndDependencyImportsCanDiscoverAnotherColdRoot" classname="dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest" time="0.0" />
+</testsuite>

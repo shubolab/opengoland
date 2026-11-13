@@ -1,0 +1,5 @@
+<testsuite name="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-13T14:31:57.139Z" time="0.224">
+  <testcase name="testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.128" />
+  <testcase name="testRelativeExternalWatcherAlsoDiscoversAnUnopenedNestedSource" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.054" />
+  <testcase name="testUpstreamRegistrationFailureDoesNotInstallAnIndependentExternalWatch" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.042" />
+</testsuite>

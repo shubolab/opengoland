@@ -1,0 +1,179 @@
+{
+  "at": "2026-11-13T21:28:53.968404+00:00",
+  "version": "0.1.0-preview.20261114.1",
+  "status": "historical candidate3: full962/172 passed; cold external dependency workflow observed; separate signature-help NPE blocks release",
+  "manifestSha256": "5aeae1d83997717ed628c1531b1e3074bedcfb0de81178aa0c5bf0d1373ee76a",
+  "fullGate": {
+    "reports": 172,
+    "tests": 962,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "buildInputCount": 585,
+  "buildInputDigest": "54b1e48ca36e0c1385515d5e3516726268e1640204a24efd2e85cb9963740066",
+  "pluginJars": {
+    "Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.1.jar": "b0052f1765d31faf11cd171e746563491587a29dd9fb048cfd3679bafcd13450"
+  },
+  "launchers": {
+    "Contents/MacOS/idea": "20195af009080cf403826a84258bddcde7c7a6e6eb01a98c2f4958eede634c9d"
+  },
+  "patchSha256": "d6801a1050a6861391a53d3e22f39c4402b8430192f34f8806e900ddf8da6126",
+  "scope": "585 sealed inputs/digest54b1 and d680 old signature-help handler only; not the later optional-parameter correction or rebuilt App.",
+  "engineBuildIdentity": {
+    "goVersion": "go1.27.3",
+    "vcsRevision": "3b32dc53df49388528203fa9b600b93ea69b8368",
+    "vcsModified": true,
+    "scope": "Taken from embedded engineBuildInfo; not a clean-HEAD rebuilt engine claim."
+  },
+  "nativeIdentity": {
+    "appPid": 33473,
+    "windowId": 6275,
+    "goplsPidsUnchanged": [
+      34895,
+      34897
+    ],
+    "isolatedFreshProfile": true,
+    "configImportSkipped": "Parent CUA native startup observation; no user/reference profile imported."
+  },
+  "preflight": {
+    "at": "2026-11-13T21:24:36.468203+00:00",
+    "baselineFilesVerified": 15,
+    "reference": "docs/reference/cold-external-refresh-20261113-evidence/fixture",
+    "freshProfile": "<repo>/.tools/continuation-20261113/workspace-consistency/runtime/candidate3-profile",
+    "oldOwnMetadataRetired": "<repo>/.tools/continuation-20261113/workspace-consistency/runtime/candidate3-retired-project-idea"
+  },
+  "launch": {
+    "at": "2026-11-13T21:29:09.408161+00:00",
+    "returncode": 0,
+    "releaseEligible": false,
+    "selectedEnvironment": {
+      "GOROOT": "<repo>/.tools/release-tools/darwin-arm64/go",
+      "GOTOOLCHAIN": "local",
+      "GOENV": "off",
+      "GOWORK": "",
+      "GOFLAGS": "",
+      "GOPROXY": "off",
+      "GOSUMDB": "off",
+      "CGO_ENABLED": "0"
+    }
+  },
+  "nativeOperations": {
+    "external-mutation-1": {
+      "at": "2026-11-13T21:32:21.738267+00:00",
+      "operation": "only external disk source Message -> Greeting; caller and IDE settings unchanged",
+      "externalBeforeSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+      "externalAfterSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "externalEditorOpenedBeforeChange": false,
+      "manualRefreshOrServerRestart": false,
+      "appPid": 33473,
+      "goplsPids": [
+        34895,
+        34897
+      ]
+    },
+    "external-restore-1": {
+      "at": "2026-11-13T21:34:49.239018+00:00",
+      "operation": "restore only external Message; caller unchanged",
+      "externalSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "manualRefreshOrRestart": false,
+      "appPid": 33473
+    },
+    "external-mutation-2": {
+      "at": "2026-11-13T21:37:14.741511+00:00",
+      "operation": "second cold external Message -> Greeting, before caller completion",
+      "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "manualRefreshOrRestart": false,
+      "externalEditorOpenedBeforeChange": false,
+      "appPid": 33473
+    },
+    "greeting-operations": {
+      "at": "2026-11-13T21:42:28.844269+00:00",
+      "observations": [
+        "second external change automatically produced undefined external.Message",
+        "native Basic completion replaced pasted Gree prefix with Greeting; unique completion inserted without retained popup",
+        "saved caller Run exited 0 with original expected output",
+        "Cmd+B on Greeting opened external/external.go at Greeting"
+      ],
+      "mainSha256": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6",
+      "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "appPid": 33473,
+      "goplsPids": [
+        34895,
+        34897
+      ],
+      "manualRefreshOrRestart": false,
+      "limitation": "Basic completion separately triggered upstream null parameter signature-help NPE; candidate not releasable"
+    },
+    "test-operations": {
+      "at": "2026-11-13T21:47:26.443139+00:00",
+      "appPid": 33473,
+      "nativeTest": "TestCompose in one",
+      "configurationChangeViaNativeUI": "Go tool arguments = -count=1",
+      "actualCommand": "go test -json -count=1 -run ^TestCompose$ .",
+      "observedResult": "1 test passed, PASS, ok one 0.581s, Process finished with exit code 0",
+      "earlierCachedResultNotUsedAsUncachedProof": true,
+      "testSourceSha256": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee",
+      "scope": "Native macOS selected Go runtime workflow only; candidate has separate signature help NPE and remains unreleased"
+    }
+  },
+  "postQuit": {
+    "at": "2026-11-13T21:49:06.280869+00:00",
+    "phase": "candidate3 finished",
+    "all15FixtureSourcesRestored": true,
+    "knownPidsNoLongerExist": [
+      33473,
+      33516,
+      34895,
+      34897
+    ],
+    "codesignDeepStrictExit": 0,
+    "scope": "Known recorded process identities only; not a claim about unsampled descendants"
+  },
+  "signatureHelpError": "candidate3-signature-help-error.json",
+  "limitations": [
+    "No manual refresh or gopls restart in cold change/restore/completion/navigation sequence; gopls PIDs unchanged.",
+    "Basic completion inserted unique Greeting; no popup frame retained, so list contents/order are not independently captured.",
+    "Earlier cached TestCompose is not fresh execution evidence; later UI -count=1 run is separately recorded.",
+    "Screenshot AX capture disabled; CUA operation records and REA still captures have distinct bounds.",
+    "Separate optional signature-parameter null NPE blocks release. The 962 full gate is before its source correction.",
+    "No Windows native interaction or whole-root recreation/deep-new-directory/full parity proof."
+  ],
+  "originalInputs": {
+    "candidate3-launch.json": {
+      "bytes": 1466,
+      "sha256": "bf347e160a6132fd56b50d4bcf291c1bfc0e8ecce87ecc69901acc19d88f9bcf"
+    },
+    "candidate3-preflight.json": {
+      "bytes": 453,
+      "sha256": "086c652741606ee4a2c895ff0c5e43b26c066ca04aaa57541226a7831f422d9c"
+    },
+    "candidate3-external-mutation-1.json": {
+      "bytes": 565,
+      "sha256": "bec1b1ba4b3659716f0375eeea46b64e3010510b2cbe8fe0bafc416c6ae2ef9c"
+    },
+    "candidate3-external-restore-1.json": {
+      "bytes": 339,
+      "sha256": "5338c8c21646274b7dbc48ecfd4fcab09df815e9bd3fb02c6c5fd288fcc2560f"
+    },
+    "candidate3-external-mutation-2.json": {
+      "bytes": 403,
+      "sha256": "735abd43e5e77add6258a43ee3db43249014eb91c65b20499b82647d1ae0d901"
+    },
+    "candidate3-greeting-operations.json": {
+      "bytes": 798,
+      "sha256": "5b853acfbdb3c5f9def5bf7acb3251dcca38e2e7d125490bc4fa0a67bf3b79d1"
+    },
+    "candidate3-test-operations.json": {
+      "bytes": 601,
+      "sha256": "5d9498228fdd004b8542c04dd7b553aeb5145df45472d76131feaaf69cd37572"
+    },
+    "candidate3-post-quit.json": {
+      "bytes": 323,
+      "sha256": "6045297455ecef1e2cdbe34553f27b03b1ec2752144326a313866c233b4ed54d"
+    }
+  }
+}

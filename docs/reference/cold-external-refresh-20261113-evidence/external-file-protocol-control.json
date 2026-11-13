@@ -1,0 +1,414 @@
+{
+  "scope": "Controlled stdio protocol with real gopls v0.24.0, Go 1.26.10; not native IDE/VFS/OS watcher/installer/Windows acceptance.",
+  "startedAtUtc": "2026-11-13T14:58:13.613006+00:00",
+  "goVersion": "go version go1.26.10 darwin/arm64",
+  "goplsSha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f",
+  "goSha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+  "explicitEnvironment": {
+    "GOROOT": "<repo>/.tools/release-tools/darwin-arm64/go",
+    "PATH": "<repo>/.tools/release-tools/darwin-arm64/go/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "GOENV": "off",
+    "GOTOOLCHAIN": "local",
+    "GOFLAGS": "",
+    "GOWORK": "",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOPRIVATE": "",
+    "GONOPROXY": "",
+    "GONOSUMDB": "",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "2",
+    "GOCACHE": "<repo>/.tools/go-tools-cache/build-cache",
+    "GOMODCACHE": "<repo>/.tools/go-tools-cache/modules"
+  },
+  "mainOpened": "file://<fixture>/project/one/main.go",
+  "externalNeverOpened": true,
+  "initialSourceSha256": {
+    "two-fallback/go.mod": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b",
+    "two-fallback/shared_test.go": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b",
+    "two-fallback/shared.go": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893",
+    "project/go.work": "1ee8ca1c3023e80ae4e33b7028983f6cedc5c36302d23ed53f18a15dafda0379",
+    "external/go.mod": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5",
+    "external/external.go": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+    "project/one/go.mod": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c",
+    "project/one/flavor_default.go": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be",
+    "project/one/flavor_alternate.go": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc",
+    "project/one/main_alternate_test.go": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad",
+    "project/one/main_default_test.go": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee",
+    "project/one/main.go": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+    "project/two/go.mod": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b",
+    "project/two/shared_test.go": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c",
+    "project/two/shared.go": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+  },
+  "phases": {
+    "baseline": {
+      "diagnostics": {
+        "uri": "file://<fixture>/project/one/main.go",
+        "version": 1,
+        "diagnostics": []
+      },
+      "definition": [
+        {
+          "uri": "file://<fixture>/external/external.go",
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 5
+            },
+            "end": {
+              "line": 2,
+              "character": 12
+            }
+          }
+        }
+      ],
+      "hover": {
+        "contents": {
+          "kind": "markdown",
+          "value": "```go\nfunc external.Message() string\n```\n\n---\n\n[`external.Message` on pkg.go.dev](https://pkg.go.dev/../external@#Message)"
+        },
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 46
+          },
+          "end": {
+            "line": 10,
+            "character": 53
+          }
+        }
+      }
+    },
+    "renamed-without-notification": {
+      "mainDiskUnchanged": true,
+      "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "newMainDiagnostics": [],
+      "hover": {
+        "contents": {
+          "kind": "markdown",
+          "value": "```go\nfunc external.Message() string\n```\n\n---\n\n[`external.Message` on pkg.go.dev](https://pkg.go.dev/../external@#Message)"
+        },
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 46
+          },
+          "end": {
+            "line": 10,
+            "character": 53
+          }
+        }
+      }
+    },
+    "renamed-with-change-notification": {
+      "diagnostics": {
+        "uri": "file://<fixture>/project/one/main.go",
+        "version": 1,
+        "diagnostics": [
+          {
+            "range": {
+              "start": {
+                "line": 10,
+                "character": 46
+              },
+              "end": {
+                "line": 10,
+                "character": 53
+              }
+            },
+            "severity": 1,
+            "code": "UndeclaredImportedName",
+            "codeDescription": {
+              "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredImportedName"
+            },
+            "source": "compiler",
+            "message": "undefined: external.Message"
+          }
+        ]
+      },
+      "mainDiskUnchanged": true
+    },
+    "restored-with-change-notification": {
+      "diagnostics": {
+        "uri": "file://<fixture>/project/one/main.go",
+        "version": 1,
+        "diagnostics": []
+      },
+      "hover": {
+        "contents": {
+          "kind": "markdown",
+          "value": "```go\nfunc external.Message() string\n```\n\n---\n\n[`external.Message` on pkg.go.dev](https://pkg.go.dev/../external@#Message)"
+        },
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 46
+          },
+          "end": {
+            "line": 10,
+            "character": 53
+          }
+        }
+      }
+    }
+  },
+  "ownedGoplsPid": 54746,
+  "initialize": {
+    "capabilities": {
+      "textDocumentSync": {
+        "openClose": true,
+        "change": 2,
+        "save": {}
+      },
+      "completionProvider": {
+        "triggerCharacters": [
+          "."
+        ]
+      },
+      "hoverProvider": true,
+      "signatureHelpProvider": {
+        "triggerCharacters": [
+          "(",
+          ","
+        ],
+        "retriggerCharacters": [
+          ")"
+        ]
+      },
+      "definitionProvider": true,
+      "typeDefinitionProvider": true,
+      "implementationProvider": true,
+      "referencesProvider": true,
+      "documentHighlightProvider": true,
+      "documentSymbolProvider": true,
+      "codeActionProvider": true,
+      "codeLensProvider": {},
+      "documentLinkProvider": {},
+      "workspaceSymbolProvider": true,
+      "documentFormattingProvider": true,
+      "renameProvider": true,
+      "foldingRangeProvider": true,
+      "selectionRangeProvider": true,
+      "executeCommandProvider": {
+        "commands": [
+          "gopls.add_dependency",
+          "gopls.add_import",
+          "gopls.add_telemetry_counters",
+          "gopls.add_test",
+          "gopls.apply_fix",
+          "gopls.assembly",
+          "gopls.change_signature",
+          "gopls.check_upgrades",
+          "gopls.client_open_url",
+          "gopls.diagnose_files",
+          "gopls.doc",
+          "gopls.dragon_slayer",
+          "gopls.edit_go_directive",
+          "gopls.extract_to_new_file",
+          "gopls.fetch_vulncheck_result",
+          "gopls.free_symbols",
+          "gopls.gc_details",
+          "gopls.generate",
+          "gopls.go_get_package",
+          "gopls.implement_interface",
+          "gopls.list_imports",
+          "gopls.list_known_packages",
+          "gopls.lsp",
+          "gopls.maybe_prompt_for_telemetry",
+          "gopls.mem_stats",
+          "gopls.modify_tags",
+          "gopls.modules",
+          "gopls.move_declaration",
+          "gopls.move_type",
+          "gopls.package_symbols",
+          "gopls.packages",
+          "gopls.regenerate_cgo",
+          "gopls.remove_dependency",
+          "gopls.reset_go_mod_diagnostics",
+          "gopls.resolve_target",
+          "gopls.run_go_work_command",
+          "gopls.run_govulncheck",
+          "gopls.run_tests",
+          "gopls.scan_imports",
+          "gopls.split_package",
+          "gopls.start_debugging",
+          "gopls.start_profile",
+          "gopls.stop_profile",
+          "gopls.tidy",
+          "gopls.update_go_sum",
+          "gopls.upgrade_dependency",
+          "gopls.vendor",
+          "gopls.views",
+          "gopls.vulncheck",
+          "gopls.workspace_stats"
+        ]
+      },
+      "callHierarchyProvider": true,
+      "semanticTokensProvider": {
+        "legend": {
+          "tokenTypes": [
+            "namespace",
+            "type",
+            "typeParameter",
+            "parameter",
+            "property",
+            "variable",
+            "function",
+            "method",
+            "macro",
+            "keyword",
+            "comment",
+            "string",
+            "number",
+            "operator",
+            "label"
+          ],
+          "tokenModifiers": [
+            "definition",
+            "readonly",
+            "defaultLibrary",
+            "static",
+            "array",
+            "bool",
+            "chan",
+            "format",
+            "interface",
+            "map",
+            "number",
+            "pointer",
+            "signature",
+            "slice",
+            "string",
+            "struct",
+            "shadowing"
+          ]
+        },
+        "range": true,
+        "full": true
+      },
+      "typeHierarchyProvider": true,
+      "inlayHintProvider": {},
+      "workspace": {
+        "workspaceFolders": {
+          "supported": true,
+          "changeNotifications": "workspace/didChangeWorkspaceFolders"
+        },
+        "fileOperations": {
+          "didCreate": {
+            "filters": [
+              {
+                "scheme": "file",
+                "pattern": {
+                  "glob": "**/*.go"
+                }
+              }
+            ]
+          }
+        }
+      },
+      "experimental": {
+        "interactiveResolveProvider": {
+          "kinds": [
+            "command"
+          ]
+        }
+      }
+    },
+    "serverInfo": {
+      "name": "gopls",
+      "version": "{\"GoVersion\":\"go1.27.3\",\"Path\":\"golang.org/x/tools/gopls\",\"Main\":{\"Path\":\"golang.org/x/tools/gopls\",\"Version\":\"v0.24.0\",\"Sum\":\"h1:nPO/LffYa4sP62Ueuema5PPnZPGaZjGl+vZGvbTek4g=\"},\"Deps\":[{\"Path\":\"github.com/BurntSushi/toml\",\"Version\":\"v1.6.0\",\"Sum\":\"h1:dRaEfpa2VI55EwlIW72hMRHdWouJeRF7TPYhI+AUQjk=\"},{\"Path\":\"github.com/fatih/camelcase\",\"Version\":\"v1.0.0\",\"Sum\":\"h1:hxNvNX/xYBp0ovncs8WyWZrOrpBNub/JfaMvbURyft8=\"},{\"Path\":\"github.com/fatih/gomodifytags\",\"Version\":\"v1.17.1-0.20250423142747-f3939df9aa3c\",\"Sum\":\"h1:dDSgAjoOMp8da3egfz0t2S+t8RGOpEmEXZubcGuc0Bg=\"},{\"Path\":\"github.com/fatih/structtag\",\"Version\":\"v1.2.0\",\"Sum\":\"h1:/OdNE99OxoI/PqaW/SuSK9uxxT3f/tcSZgon/ssNSx4=\"},{\"Path\":\"github.com/fsnotify/fsnotify\",\"Version\":\"v1.9.0\",\"Sum\":\"h1:2Ml+OJNzbYCTzsxtv8vKSFD9PbJjmhYF14k/jKC7S9k=\"},{\"Path\":\"github.com/google/jsonschema-go\",\"Version\":\"v0.4.3\",\"Sum\":\"h1:/DBOLZTfDow7pe2GmaJNhltueGTtDKICi8V8p+DQPd0=\"},{\"Path\":\"github.com/modelcontextprotocol/go-sdk\",\"Version\":\"v1.8.0\",\"Sum\":\"h1:KIvahhYqwtbeniWVPs3TcXEA7b8jEtwfBpOTAI+Urx4=\"},{\"Path\":\"github.com/segmentio/asm\",\"Version\":\"v1.2.1\",\"Sum\":\"h1:DTNbBqs57ioxAD4PrArqftgypG4/qNpXoJx8TVXxPR0=\"},{\"Path\":\"github.com/segmentio/encoding\",\"Version\":\"v0.5.4\",\"Sum\":\"h1:OW1VRern8Nw6ITAtwSZ7Idrl3MXCFwXHPgqESYfvNt0=\"},{\"Path\":\"github.com/yosida95/uritemplate/v3\",\"Version\":\"v3.0.2\",\"Sum\":\"h1:Ed3Oyj9yrmi9087+NczuL5BwkIc4wvTb5zIM+UJPGz4=\"},{\"Path\":\"golang.org/x/exp/typeparams\",\"Version\":\"v0.0.0-20260908205506-85c1c2202aba\",\"Sum\":\"h1:ZoZmFkcuQ289xJilBm9Ck3W+/okrhXc4LUpbtKFQE4k=\"},{\"Path\":\"golang.org/x/mod\",\"Version\":\"v0.41.0\",\"Sum\":\"h1:qJmnOUb4YB+FsEuM3HcWucdZASCPGhsX6uljO6pog0c=\"},{\"Path\":\"golang.org/x/oauth2\",\"Version\":\"v0.37.0\",\"Sum\":\"h1:JUlcxA8oAtauLfiH8FX2/FkAWHAdi0QtGCGc+hofE98=\"},{\"Path\":\"golang.org/x/sync\",\"Version\":\"v0.23.0\",\"Sum\":\"h1:KameEIfc1IkluZyXWLn39Wd4tURc6GbCiISGiZm2bQk=\"},{\"Path\":\"golang.org/x/sys\",\"Version\":\"v0.48.0\",\"Sum\":\"h1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo=\"},{\"Path\":\"golang.org/x/telemetry\",\"Version\":\"v0.0.0-20260924152758-ed294f943157\",\"Sum\":\"h1:DftxASHKl6JolFPqoN+2WrFO53JvkHwRXvFqf8gsivA=\"},{\"Path\":\"golang.org/x/text\",\"Version\":\"v0.42.0\",\"Sum\":\"h1:JbOZXgfeCPU9gacVtYliJqOhD+zhrEqK4LfdpmlUZqI=\"},{\"Path\":\"golang.org/x/time\",\"Version\":\"v0.16.0\",\"Sum\":\"h1:vMb6ptszcQMkcwiRTAuNNU50gom6++Q/6gY2hDM6VDE=\"},{\"Path\":\"golang.org/x/tools\",\"Version\":\"v0.51.1-0.20261014163302-24a65270771e\",\"Sum\":\"h1:OKD783ebWgqIZn7EAQNP944SpADpjJ8k4XI3nJAeB4o=\"},{\"Path\":\"golang.org/x/vuln\",\"Version\":\"v1.8.0\",\"Sum\":\"h1:clG4qBU6zH5VKjti8n5j8BBuYzoSha392xXMkXS351U=\"},{\"Path\":\"honnef.co/go/tools\",\"Version\":\"v0.8.1\",\"Sum\":\"h1:+JKf3xJ1ni4CwrhVg4/pqsfPGP6vNAXcKbMXJodYx3w=\"},{\"Path\":\"mvdan.cc/gofumpt\",\"Version\":\"v0.12.0\",\"Sum\":\"h1:1Lbudkz2kpM9Cjz2pL4M19u7q+GaEhCTNf7N9mfpcho=\"},{\"Path\":\"mvdan.cc/xurls/v2\",\"Version\":\"v2.6.0\",\"Sum\":\"h1:3NTZpeTxYVWNSokW3MKeyVkz/j7uYXYiMtXRUfmjbgI=\"}],\"Settings\":[{\"Key\":\"-buildmode\",\"Value\":\"exe\"},{\"Key\":\"-compiler\",\"Value\":\"gc\"},{\"Key\":\"-trimpath\",\"Value\":\"true\"},{\"Key\":\"CGO_ENABLED\",\"Value\":\"0\"},{\"Key\":\"GOARCH\",\"Value\":\"arm64\"},{\"Key\":\"GOOS\",\"Value\":\"darwin\"},{\"Key\":\"GOARM64\",\"Value\":\"v8.0\"}],\"Version\":\"v0.24.0\"}"
+    }
+  },
+  "status": "pass-real-gopls-explicit-external-file-event-invalidates-and-restores",
+  "goplsExitCode": 0,
+  "ownedGoplsExited": true,
+  "finalSourceSha256": {
+    "two-fallback/go.mod": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b",
+    "two-fallback/shared_test.go": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b",
+    "two-fallback/shared.go": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893",
+    "project/go.work": "1ee8ca1c3023e80ae4e33b7028983f6cedc5c36302d23ed53f18a15dafda0379",
+    "external/go.mod": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5",
+    "external/external.go": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+    "project/one/go.mod": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c",
+    "project/one/flavor_default.go": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be",
+    "project/one/flavor_alternate.go": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc",
+    "project/one/main_alternate_test.go": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad",
+    "project/one/main_default_test.go": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee",
+    "project/one/main.go": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+    "project/two/go.mod": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b",
+    "project/two/shared_test.go": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c",
+    "project/two/shared.go": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+  },
+  "mainDiskUnchanged": true,
+  "serverRegistrations": [
+    {
+      "registrations": [
+        {
+          "id": "workspace/didChangeWatchedFiles-0",
+          "method": "workspace/didChangeWatchedFiles",
+          "registerOptions": {
+            "watchers": [
+              {
+                "globPattern": "**/*.{mod,work}",
+                "kind": 7
+              },
+              {
+                "globPattern": "<fixture>/project/vendor/**/*.{go,mod,sum,work}",
+                "kind": 7
+              },
+              {
+                "globPattern": "<fixture>/project/one/**/*.{go,mod,sum,work}",
+                "kind": 7
+              },
+              {
+                "globPattern": "<fixture>/project/two/**/*.{go,mod,sum,work}",
+                "kind": 7
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "registrations": [
+        {
+          "id": "workspace/didChangeConfiguration",
+          "method": "workspace/didChangeConfiguration"
+        }
+      ]
+    }
+  ],
+  "finishedAtUtc": "2026-11-13T14:58:19.482592+00:00",
+  "recordFiles": {
+    "protocol.jsonl": {
+      "bytes": 27236,
+      "sha256": "795c105ec8f12473e1d403347c3ba6240f8857283208e852d7b2f9c1468ddfba"
+    },
+    "gopls.stderr": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "probe.log": {
+      "bytes": 4990,
+      "sha256": "5a4b8d5b9883882e5b5a37b00353384d58de0cab88bc47db4c9d7c97155f3c5d"
+    },
+    "server.frames": {
+      "bytes": 15310,
+      "sha256": "a59e9aeeb5d34f7198eff34930a9fad35aadaf9aa0c5a5de6911d07b032a2a2e"
+    },
+    "probe.py": {
+      "bytes": 12576,
+      "sha256": "a129cdc4109f49d5d4be4a407f5c03e8348bd2fa18cd3d82b2e520cbe897ecb5"
+    },
+    "client.frames": {
+      "bytes": 5631,
+      "sha256": "f5c220269fa26e07adeb09096c1ef2ae07dc6cd7a53aff524a5dcdcab6fae953"
+    }
+  },
+  "artifactMetadataFinalizedAfterExit": true,
+  "recordFilesScope": "Original frame/protocol/probe artifact hashes retained for local audit; those original files are not included here.",
+  "proofLimit": "An explicit event invalidates already-observed dependency files. Does not prove new-file discovery, deleted-root recreation, IDE discovery/notification, or automatic desktop diagnostics.",
+  "normalization": "Own fixture root becomes <fixture>; repository root becomes <repo>; no original profile/config/AX content copied."
+}
