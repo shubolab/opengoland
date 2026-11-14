@@ -201,3 +201,12 @@ C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已
 C5 完整原始 manifest 仍在目标外的 `candidate7-product-manifest.json`，旧安装器的证明 tar、校验值、原配置/日志和本机失败记录继续保留；阶段 A 的原字节文本/XML 归档亦未删除。这些是可追溯的紧凑证据，不是旧 App 的完整二进制备份。最新实际 EXE/DMG、证明及校验文件保留在 `.tools/continuation-20261114/root-recreation/release14-3-audit/`。退役后另取的旧 14.2 公开 API 也确认五个远端资产的 ID、大小、SHA、状态与发布时间均和原记录一致；本轮没有修改远端 Release。
 
 源码、worktrees、用户数据、共享 SDK、需要的工具缓存和参考应用均未触及。首次缺根已知失败及完整 36×2 矩阵继续开放，完整 goal 保持 active；清理完成不代表产品验收完成。
+
+
+## 最后两次原生缓存已收口，续接材料已入仓
+
+C9 已存在根成功流程与首次缺根失败流程均已正常退出。最后仅移除这两份 profile 的 `system`：各自 config/log、原始 postquit、三阶段源文件和当前 App 都保留；没有删除 profile 父目录。先保留177项原文本/配置/XML共1,186,192字节（其中3份XML），逐项回读核验，再以新计划/完整身份与目录清单/两次新鲜 FD 检查执行。实际空闲增加597,069,824字节，操作后剩余44,221,411,328字节（约41.18GiB）；与 du 估算和其他并行卷活动区分，见[最终缓存退役记录](../../verification/generated-systems-retired-after-14.3-20261114.json)。最新 App 与真实14.3五资产仍保留。
+
+可在新机器从仓库直接继续的[首次缺根元数据控制与待实现方案](../../reference/initial-absent-dependency-metadata-20261114.zh-CN.md)已经提交源材料：17条真实 CLI 的规范化选取、原始输出摘要、复现夹具与六组应先封存的 RED 合同。它们不是已经实现的修复，也没有新增原生或 Windows 通过。原始 gzip 与缓存原字节仅在原机器 ignored 目录，换机不要求绝对路径相关的原始 SHA 相同。接下来从这些合同开始实施，保持现有根恢复和原生工作流，完整 goal 继续 active。
+
+中英文README/新真实GIF/正式交付记录已推送；14.3的双语Release说明也已由API回读，正文SHA `ed0181e4…4481` 与上传文件完全一致，五资产 ID/大小/SHA 未变。产品源码仍固定 `643480a`，后续这些提交仅补文档与退役记录。

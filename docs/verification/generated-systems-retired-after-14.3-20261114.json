@@ -1,0 +1,246 @@
+{
+  "schemaVersion": 1,
+  "recordKind": "normalized-selection-of-original-execution-and-preservation-receipts",
+  "selectionNote": "Paths below repository normalized to relative paths. Raw original receipts and selected original cache bytes remain in ignored archives; no full binary cache backup.",
+  "execution": {
+    "stage": "C",
+    "startedAtUtc": "2026-11-14T07:20:36.363134+00:00",
+    "mode": "APPLY",
+    "planSha256": "5a432c794adbe2de4f60a4bcd0f25e6f3f9742f974140656a09984759aac2356",
+    "executorSha256": "15074acda279b9713bb34d86202efab17de5cc5658a022e9df814bdbed799005",
+    "preservationReceiptSha256": "af0954275c8d3839bf8a622fa09009988826d1854cc24580bb3ab218030d45d3",
+    "archiveSha256": "4bfa1bec2317db7e10ee8ec31dd9624e948dade9f9fce8a09202017ba15502a0",
+    "removed": [
+      {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-native/profile/system",
+        "atUtc": "2026-11-14T07:20:37.697505+00:00"
+      },
+      {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/profile/system",
+        "atUtc": "2026-11-14T07:20:37.820527+00:00"
+      }
+    ],
+    "unlinkedEntries": 2414,
+    "deletionBegan": true,
+    "protectedBefore": {
+      "criticalAppAndWholeLogsShaVerified": true,
+      "latestFiveAssetIdentitiesSizesMtimesUnchanged": true,
+      "newLargePayloadHashClaimed": false
+    },
+    "initialQuiescence": {
+      "atUtc": "2026-11-14T07:20:36.666657+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "quiescence1": {
+      "atUtc": "2026-11-14T07:20:36.942313+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "quiescence2": {
+      "atUtc": "2026-11-14T07:20:37.546562+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "diskBefore": {
+      "total": 494353338368,
+      "used": 450728996864,
+      "free": 43624341504,
+      "dfExitCode": 0,
+      "dfRaw": "Filesystem   1024-blocks      Used Available Capacity iused     ifree %iused  Mounted on\n/dev/disk3s5   482766932 395895892  42601896    91% 5640249 426018960    1%   /System/Volumes/Data\n",
+      "atUtc": "2026-11-14T07:20:37.552499+00:00"
+    },
+    "currentlyRemoving": null,
+    "protectedAfter": {
+      "criticalAppAndWholeLogsShaVerified": true,
+      "latestFiveAssetIdentitiesSizesMtimesUnchanged": true,
+      "newLargePayloadHashClaimed": false
+    },
+    "result": "EXACT_TWO_SYSTEMS_RETIRED",
+    "diskAfter": {
+      "total": 494353338368,
+      "used": 450131927040,
+      "free": 44221411328,
+      "dfExitCode": 0,
+      "dfRaw": "Filesystem   1024-blocks      Used Available Capacity iused     ifree %iused  Mounted on\n/dev/disk3s5   482766932 395312816  43184972    91% 5637835 431849720    1%   /System/Volumes/Data\n",
+      "atUtc": "2026-11-14T07:20:37.836234+00:00"
+    },
+    "observedFreeDeltaBytes": 597069824,
+    "spaceClaim": "Observed filesystem free-space difference; not du or per-target attribution.",
+    "finishedAtUtc": "2026-11-14T07:20:37.836264+00:00"
+  },
+  "rawExecutionReport": {
+    "path": ".tools/continuation-20261114/root-recreation/retirement14-3-final-systems/execution-apply.json",
+    "bytes": 2655,
+    "sha256": "fff4bca0dd7026062f3e44fe5e113eacb2754008ecfdcd5023ab798eca55885b"
+  },
+  "plan": {
+    "path": ".tools/continuation-20261114/root-recreation/retirement14-3-final-systems/plan.json",
+    "bytes": 11639,
+    "sha256": "5a432c794adbe2de4f60a4bcd0f25e6f3f9742f974140656a09984759aac2356"
+  },
+  "executor": {
+    "path": ".tools/continuation-20261114/root-recreation/retire_final_systems.py",
+    "bytes": 6745,
+    "sha256": "15074acda279b9713bb34d86202efab17de5cc5658a022e9df814bdbed799005"
+  },
+  "frozenFdRelativeCore": {
+    "path": ".tools/continuation-20261113/workspace-consistency/runtime/post_publication_retirement.py",
+    "bytes": 32055,
+    "sha256": "d6b6c9ffd5fb1036d38f0997a70e65462f141abb54cbf7efa3fbb5db4e9eca7e"
+  },
+  "preservationReceipt": {
+    "path": ".tools/continuation-20261114/root-recreation/retirement14-3-final-systems/receipt.json",
+    "bytes": 2854,
+    "sha256": "af0954275c8d3839bf8a622fa09009988826d1854cc24580bb3ab218030d45d3"
+  },
+  "preservation": {
+    "archive": {
+      "path": ".tools/continuation-20261114/root-recreation/retirement14-3-final-systems/preserved-original-bytes.tar.gz",
+      "bytes": 462365,
+      "sha256": "4bfa1bec2317db7e10ee8ec31dd9624e948dade9f9fce8a09202017ba15502a0",
+      "originalBytes": 1186192,
+      "entries": 177,
+      "xmlEntries": 3
+    },
+    "entryManifest": {
+      "path": ".tools/continuation-20261114/root-recreation/retirement14-3-final-systems/preserved-entry-manifest.json",
+      "bytes": 108367,
+      "sha256": "34a2169cfe45e6b46854ed50b513f6384ccd21cdf38225cb7d5cd944960295c3"
+    },
+    "catalogues": {
+      "path": ".tools/continuation-20261114/root-recreation/retirement14-3-final-systems/source-catalogues.json.gz",
+      "bytes": 41469,
+      "sha256": "53c8820320de842479078c71278b05284ec9883053ddc40f254cf23275cf7416"
+    },
+    "allRegularFileInventory": {
+      "path": ".tools/continuation-20261114/root-recreation/retirement14-3-final-systems/all-regular-file-inventory.jsonl.gz",
+      "bytes": 66823,
+      "sha256": "4abb43bc884998ef3ec347cad3750903f64913caa9021a0dec00d4cdf239d79c"
+    },
+    "regularFiles": 1897,
+    "binaryCacheFilesNotCopied": 1720,
+    "binaryCacheBytesNotCopied": 589329591,
+    "unknownObjectCount": 0,
+    "allArchiveMembersReadbackVerified": true
+  },
+  "wholeLogsRetained": [
+    {
+      "path": ".tools/continuation-20261114/root-recreation/candidate9-native/profile/log/idea.log",
+      "bytes": 92762,
+      "sha256": "8a49a701f2bb8cf35be2812703f773f7df0cd48e45983122ac86561dbade2055"
+    },
+    {
+      "path": ".tools/continuation-20261114/root-initial-absent-c9/profile/log/idea.log",
+      "bytes": 83356,
+      "sha256": "fad9fb47e959571cc3895b5b8d12912425206cd112cecb41ceddb109482c552c"
+    }
+  ],
+  "nativePostquitRetained": [
+    {
+      "path": ".tools/continuation-20261114/root-recreation/candidate9-native/postquit.json",
+      "bytes": 2440,
+      "sha256": "43f60e564fab06ad90817363fc370f42abb5ef0adabee2cd253555cdeb1b4d3f"
+    },
+    {
+      "path": ".tools/continuation-20261114/root-initial-absent-c9/postquit.json",
+      "bytes": 2696,
+      "sha256": "183bb7e65e9ac28f261194c7f614919cbabe0aa9009192d2928fc52950461ab8"
+    }
+  ],
+  "criticalAppRetained": [
+    {
+      "path": "build/product/open Goland.app/Contents/Resources/openidea-product.json",
+      "bytes": 4943868,
+      "sha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7"
+    },
+    {
+      "path": "build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine",
+      "bytes": 10629650,
+      "sha256": "3a8d00c2471fc8ff6c210a67ea8ea402be90e2905cd17ab7b9c8103c3ff50799"
+    },
+    {
+      "path": "build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.3.jar",
+      "bytes": 2469734,
+      "sha256": "fc7e24aa9965eedecc560f1e947e1e0925674eb6f16344e5b7b1316a2d22422b"
+    },
+    {
+      "path": "build/product/open Goland.app/Contents/MacOS/idea",
+      "bytes": 721520,
+      "sha256": "91f2b4b00392ef1135a6554df03153aed360eb32fab690d893dbc0569f47975c"
+    }
+  ],
+  "latestActualFiveAssetMetadataRetained": [
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/SHA256SUMS",
+      "identity": {
+        "dev": 16777233,
+        "ino": 90724794,
+        "mode": 33152,
+        "size": 434,
+        "mtimeNs": 1794639587371342448,
+        "nlink": 1
+      },
+      "previouslyAuditedSha256": "f3899749b18832e930d42517b30f060145bedde2de412310a9ec8e950dd3ea02",
+      "newPayloadHashClaimed": false
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/macos-provenance.tar.gz",
+      "identity": {
+        "dev": 16777233,
+        "ino": 90724791,
+        "mode": 33152,
+        "size": 4248613,
+        "mtimeNs": 1794639585875403177,
+        "nlink": 1
+      },
+      "previouslyAuditedSha256": "f1a919cc3da98b2a7c2fa665ab62f0a9a0bb9c47cb4e480900760c6e3381449b",
+      "newPayloadHashClaimed": false
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/open-Goland-0.1.0-preview.20261114.3-macos-arm64.dmg",
+      "identity": {
+        "dev": 16777233,
+        "ino": 90724799,
+        "mode": 33152,
+        "size": 1026440322,
+        "mtimeNs": 1794639790971284326,
+        "nlink": 1
+      },
+      "previouslyAuditedSha256": "9c15f60641ddd5e735889bb3486ef616cd30b37386e0a29d82154e7a707ecbda",
+      "newPayloadHashClaimed": false
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe",
+      "identity": {
+        "dev": 16777233,
+        "ino": 90724807,
+        "mode": 33152,
+        "size": 871244378,
+        "mtimeNs": 1794639777204660339,
+        "nlink": 1
+      },
+      "previouslyAuditedSha256": "d505fcc8236789e8646fb33a62fc983a6d9324effba0ae7a8786c1d056c4d57f",
+      "newPayloadHashClaimed": false
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/windows-provenance.tar.gz",
+      "identity": {
+        "dev": 16777233,
+        "ino": 90724796,
+        "mode": 33152,
+        "size": 7715932,
+        "mtimeNs": 1794639590632445360,
+        "nlink": 1
+      },
+      "previouslyAuditedSha256": "e213edf146d65eb80f2a89c1a8dd36221b460715ae576924f970399e8d7591a7",
+      "newPayloadHashClaimed": false
+    }
+  ],
+  "scope": "Only two ended owned system directories retired; profile parents/config/log, source/worktrees, user data, shared SDK/tools and all remote release assets retained. Native C9 existing-root success and initial-absence failure remain distinct; no new product verification inferred.",
+  "currentPublicReleaseRecord": "releases/0.1.0-preview.20261114.3.json",
+  "priorRetirements": [
+    "generated-artifacts-retired-during-14.3-20261114.json",
+    "generated-artifacts-retired-after-14.3-20261114.json"
+  ]
+}

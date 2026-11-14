@@ -1,0 +1,732 @@
+{
+  "kind": "derived selected JSON; normalized path aliases; not original raw output or native IDE acceptance",
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "runtimeGoVersion": "go version go1.26.10 darwin/arm64",
+  "normalization": {
+    "method": "Select project/package/module objects from original JSON streams; replace known absolute path prefixes with lexical aliases. Error strings are retained except the same path replacements. Omitted fields remain omitted. Standard-library objects are excluded.",
+    "aliases": {
+      "$APP_GO_ROOT": "bundled Go root in the fixed C9 App; Go binary is $APP_GO_ROOT/bin/go",
+      "$CONTROL": "isolated ignored CLI metadata control directory",
+      "$BASE_APP": "control fixture/app; caller inputs are copies of the public native fixture",
+      "$BASE_DEP": "control fixture/dep, initially absent, later materialized with Greeting",
+      "$NEGATIVE_APP": "separate candidate-controls fixture/app",
+      "$NEGATIVE_DEP": "required, imported, absent replacement in candidate-controls",
+      "$NEGATIVE_UNUSED": "required but unimported absent replacement in candidate-controls",
+      "$NEGATIVE_NOT_REQUIRED": "declared replacement without a require in candidate-controls",
+      "$PARTIAL_APP": "separate partial-root-controls fixture/app",
+      "$PARTIAL_DEP": "present replacement root, first without go.mod, later with go.mod but no Go source",
+      "$REPO": "repository root; fallback alias only"
+    }
+  },
+  "commands": [
+    {
+      "stage": "setup",
+      "label": "version",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "version"
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": null,
+      "selectedJsonObjects": [],
+      "versionStdout": "go version go1.26.10 darwin/arm64"
+    },
+    {
+      "stage": "missing",
+      "label": "package",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 1,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/app",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ],
+          "Incomplete": true,
+          "Imports": [
+            "example.invalid/accept/dep",
+            "fmt"
+          ]
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "missing",
+      "label": "dependencies",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-deps",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 61,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/dep",
+          "Error": {
+            "ImportStack": [
+              "example.invalid/accept/app"
+            ],
+            "Pos": "main.go:5:2",
+            "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+          },
+          "Incomplete": true
+        },
+        {
+          "ImportPath": "example.invalid/accept/app",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ],
+          "Incomplete": true,
+          "Imports": [
+            "example.invalid/accept/dep",
+            "fmt"
+          ]
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "missing",
+      "label": "module-all",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 2,
+      "selectedJsonObjects": [
+        {
+          "Dir": "$BASE_APP",
+          "Path": "example.invalid/accept/app",
+          "Main": true,
+          "GoMod": "$BASE_APP/go.mod"
+        },
+        {
+          "Dir": "$BASE_DEP",
+          "Path": "example.invalid/accept/dep",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../dep",
+            "Dir": "$BASE_DEP",
+            "GoMod": "$BASE_DEP/go.mod"
+          },
+          "GoMod": "$BASE_DEP/go.mod"
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "missing",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 1,
+      "selectedJsonObjects": [
+        {
+          "Dir": "$BASE_DEP",
+          "Path": "example.invalid/accept/dep",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../dep",
+            "Dir": "$BASE_DEP",
+            "GoMod": "$BASE_DEP/go.mod"
+          },
+          "GoMod": "$BASE_DEP/go.mod"
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "missing",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 125,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/dep",
+          "Error": {
+            "ImportStack": [
+              "example.invalid/accept/app"
+            ],
+            "Pos": "main.go:5:2",
+            "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+          },
+          "Incomplete": true
+        },
+        {
+          "ImportPath": "example.invalid/accept/app",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ],
+          "Incomplete": true
+        },
+        {
+          "ImportPath": "example.invalid/accept/app [example.invalid/accept/app.test]",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ],
+          "Incomplete": true
+        },
+        {
+          "ImportPath": "example.invalid/accept/app.test",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ]
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "present-greeting",
+      "label": "package",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 1,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/app",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "Imports": [
+            "example.invalid/accept/dep",
+            "fmt"
+          ]
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "present-greeting",
+      "label": "dependencies",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-deps",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 61,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/dep",
+          "Dir": "$BASE_DEP",
+          "Module": {
+            "Path": "example.invalid/accept/dep",
+            "Version": "v0.0.0",
+            "Replace": {
+              "Path": "../dep",
+              "Dir": "$BASE_DEP",
+              "GoMod": "$BASE_DEP/go.mod",
+              "GoVersion": "1.26"
+            },
+            "Dir": "$BASE_DEP",
+            "GoMod": "$BASE_DEP/go.mod",
+            "GoVersion": "1.26"
+          }
+        },
+        {
+          "ImportPath": "example.invalid/accept/app",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "Imports": [
+            "example.invalid/accept/dep",
+            "fmt"
+          ]
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "present-greeting",
+      "label": "module-all",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 2,
+      "selectedJsonObjects": [
+        {
+          "Dir": "$BASE_APP",
+          "Path": "example.invalid/accept/app",
+          "Main": true,
+          "GoMod": "$BASE_APP/go.mod"
+        },
+        {
+          "Dir": "$BASE_DEP",
+          "Path": "example.invalid/accept/dep",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../dep",
+            "Dir": "$BASE_DEP",
+            "GoMod": "$BASE_DEP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "GoMod": "$BASE_DEP/go.mod"
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "present-greeting",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 1,
+      "selectedJsonObjects": [
+        {
+          "Dir": "$BASE_DEP",
+          "Path": "example.invalid/accept/dep",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../dep",
+            "Dir": "$BASE_DEP",
+            "GoMod": "$BASE_DEP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "GoMod": "$BASE_DEP/go.mod"
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "present-greeting",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "originalJsonObjectCount": 125,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/dep",
+          "Dir": "$BASE_DEP",
+          "Module": {
+            "Path": "example.invalid/accept/dep",
+            "Version": "v0.0.0",
+            "Replace": {
+              "Path": "../dep",
+              "Dir": "$BASE_DEP",
+              "GoMod": "$BASE_DEP/go.mod",
+              "GoVersion": "1.26"
+            },
+            "Dir": "$BASE_DEP",
+            "GoMod": "$BASE_DEP/go.mod",
+            "GoVersion": "1.26"
+          }
+        },
+        {
+          "ImportPath": "example.invalid/accept/app",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          }
+        },
+        {
+          "ImportPath": "example.invalid/accept/app [example.invalid/accept/app.test]",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          }
+        },
+        {
+          "ImportPath": "example.invalid/accept/app.test",
+          "Dir": "$BASE_APP",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$BASE_APP",
+            "GoMod": "$BASE_APP/go.mod",
+            "GoVersion": "1.26"
+          }
+        }
+      ],
+      "versionStdout": null
+    },
+    {
+      "stage": "candidate-controls",
+      "label": "packages",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/dep",
+          "Incomplete": true,
+          "Error": {
+            "ImportStack": [
+              "example.invalid/accept/app"
+            ],
+            "Pos": "main.go:5:2",
+            "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+          }
+        },
+        {
+          "Dir": "$NEGATIVE_APP",
+          "ImportPath": "example.invalid/accept/app",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$NEGATIVE_APP",
+            "GoMod": "$NEGATIVE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "Incomplete": true,
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ]
+        },
+        {
+          "Dir": "$NEGATIVE_APP",
+          "ImportPath": "example.invalid/accept/app [example.invalid/accept/app.test]",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$NEGATIVE_APP",
+            "GoMod": "$NEGATIVE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "Incomplete": true,
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ]
+        },
+        {
+          "Dir": "$NEGATIVE_APP",
+          "ImportPath": "example.invalid/accept/app.test",
+          "Module": {
+            "Path": "example.invalid/accept/app",
+            "Main": true,
+            "Dir": "$NEGATIVE_APP",
+            "GoMod": "$NEGATIVE_APP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "DepsErrors": [
+            {
+              "ImportStack": [
+                "example.invalid/accept/app"
+              ],
+              "Pos": "main.go:5:2",
+              "Err": "example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "stage": "candidate-controls",
+      "label": "exact-prefixes-and-negative-controls",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid",
+        "example.invalid/accept",
+        "example.invalid/accept/dep",
+        "example.invalid/accept/unused",
+        "example.invalid/accept/notrequired"
+      ],
+      "exitCode": 0,
+      "selectedJsonObjects": [
+        {
+          "Path": "example.invalid/accept/dep",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../dep",
+            "Dir": "$NEGATIVE_DEP",
+            "GoMod": "$NEGATIVE_DEP/go.mod"
+          },
+          "Dir": "$NEGATIVE_DEP",
+          "GoMod": "$NEGATIVE_DEP/go.mod"
+        },
+        {
+          "Path": "example.invalid/accept/unused",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../unused",
+            "Dir": "$NEGATIVE_UNUSED",
+            "GoMod": "$NEGATIVE_UNUSED/go.mod"
+          },
+          "Dir": "$NEGATIVE_UNUSED",
+          "GoMod": "$NEGATIVE_UNUSED/go.mod"
+        }
+      ]
+    },
+    {
+      "stage": "root-without-go-mod",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "selectedJsonObjects": [
+        {
+          "Path": "example.invalid/accept/dep",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../dep",
+            "Dir": "$PARTIAL_DEP",
+            "GoMod": "$PARTIAL_DEP/go.mod"
+          },
+          "Dir": "$PARTIAL_DEP",
+          "GoMod": "$PARTIAL_DEP/go.mod"
+        }
+      ]
+    },
+    {
+      "stage": "root-without-go-mod",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/dep",
+          "Incomplete": true,
+          "Error": {
+            "ImportStack": [
+              "example.invalid/accept/app"
+            ],
+            "Pos": "main.go:5:2",
+            "Err": "example.invalid/accept/dep@v0.0.0 (replaced by ../dep): reading ../dep/go.mod: open $PARTIAL_DEP/go.mod: no such file or directory"
+          }
+        }
+      ]
+    },
+    {
+      "stage": "go-mod-without-go-source",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "selectedJsonObjects": [
+        {
+          "Path": "example.invalid/accept/dep",
+          "Version": "v0.0.0",
+          "Replace": {
+            "Path": "../dep",
+            "Dir": "$PARTIAL_DEP",
+            "GoMod": "$PARTIAL_DEP/go.mod",
+            "GoVersion": "1.26"
+          },
+          "Dir": "$PARTIAL_DEP",
+          "GoMod": "$PARTIAL_DEP/go.mod",
+          "GoVersion": "1.26"
+        }
+      ]
+    },
+    {
+      "stage": "go-mod-without-go-source",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "selectedJsonObjects": [
+        {
+          "ImportPath": "example.invalid/accept/dep",
+          "Incomplete": true,
+          "Error": {
+            "ImportStack": [
+              "example.invalid/accept/app"
+            ],
+            "Pos": "main.go:5:2",
+            "Err": "no required module provides package example.invalid/accept/dep; to add it:\n\tgo get example.invalid/accept/dep"
+          }
+        }
+      ]
+    }
+  ]
+}

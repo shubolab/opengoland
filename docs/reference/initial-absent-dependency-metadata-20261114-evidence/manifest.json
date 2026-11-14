@@ -1,0 +1,146 @@
+{
+  "kind": "derived documentation and selected CLI metadata evidence; no product implementation or new native acceptance",
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "version": "0.1.0-preview.20261114.3",
+  "runtimeGoVersion": "go version go1.26.10 darwin/arm64",
+  "observedCommandCount": 17,
+  "aggregateOriginalStdoutStderrBytes": 356424,
+  "evidenceBoundaries": {
+    "nativeFailure": "../initial-absent-dependency-20261114.zh-CN.md",
+    "thisControl": "separate new tiny CLI-only fixtures; original native caller bytes unchanged; original native dependency left absent",
+    "productsEdited": false,
+    "kotlinRegressionTestsImplemented": false,
+    "newNativePassed": false,
+    "windowsNativePassed": false,
+    "originalRawGzipCommitted": false,
+    "privateEnvironmentOrProfileCommitted": false,
+    "normalization": "Selected JSON objects only; known machine absolute paths replaced with documented lexical aliases; original absent fields stay absent. Raw hashes refer to ignored captures on original host, not derived JSON or portable replay outputs."
+  },
+  "observedFacts": {
+    "missingPackageModuleFieldPresent": false,
+    "exactUnversionedModuleQueryReturnsSelectedVersionAndLocalReplaceDirForMissingRoot": true,
+    "sameModuleQueryReturnsForPresentRootWithoutGoModOrWithoutGoSource": true,
+    "requiredButUnusedModuleAlsoReturnsLocalReplace": true,
+    "negativeBatchArgumentCount": 5,
+    "negativeBatchActualModuleObjectCount": 2,
+    "allCommandsExitCode": 0,
+    "allStderrEmpty": true,
+    "exitZeroMeansCompleteOrCompiles": false
+  },
+  "sourceAnchors": [
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/run/GoRunBuildContextLoader.kt",
+      "gitCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "bytes": 50770,
+      "sha256": "93bdc4c75b5d70c809c46d2fa9de6e0af0e1433957d642003cf0c1d55be3430d"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/lsp/GoDependencyScopeCoordinator.kt",
+      "gitCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "bytes": 9474,
+      "sha256": "c558ae6450711dba8565d3ea5c0312b97f7aa5bea474cb14a273a20d00afed9b"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt",
+      "gitCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "bytes": 23963,
+      "sha256": "bfd987ab3a04d667493642286dc762bb6d28ab857f7a1c11a32331c32fc3b532"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/lsp/GoExternalDependencyScopes.kt",
+      "gitCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "bytes": 10194,
+      "sha256": "8d3fdb0e500693e2f11844174aadc212526347430a6250b683045c1ea5f55efe"
+    },
+    {
+      "path": "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt",
+      "gitCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "bytes": 8669,
+      "sha256": "f73db33a0b83bfda4a163c9572a2c69b7c13dd5d6b66111a2c7571da0a0dbe02"
+    }
+  ],
+  "publicInputFiles": [
+    {
+      "path": "docs/reference/initial-absent-dependency-20261114-evidence/fixture/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "kind": "pre-existing public native fixture; CLI uses own copies"
+    },
+    {
+      "path": "docs/reference/initial-absent-dependency-20261114-evidence/fixture/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+      "kind": "pre-existing public native fixture; CLI uses own copies"
+    },
+    {
+      "path": "docs/reference/initial-absent-dependency-20261114-evidence/fixture/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "kind": "pre-existing public native fixture; CLI uses own copies"
+    },
+    {
+      "path": "docs/reference/initial-absent-dependency-20261114-evidence/fixture/retained-created-dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "kind": "pre-existing public native fixture; CLI uses own copies"
+    },
+    {
+      "path": "docs/reference/initial-absent-dependency-20261114-evidence/fixture/retained-created-dep/dep.go",
+      "bytes": 58,
+      "sha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a",
+      "kind": "pre-existing public native fixture; CLI uses own copies"
+    }
+  ],
+  "ignoredOriginalReferenceFiles": [
+    {
+      "relativeToIgnoredControl": "receipt.json",
+      "bytes": 14849,
+      "sha256": "a99a3db7f25a4912ede8a9fa3c33b86502d9778734eda517124c52df237770ca",
+      "notCommitted": true
+    },
+    {
+      "relativeToIgnoredControl": "selected-fields.json",
+      "bytes": 14782,
+      "sha256": "71cb65bdceda6be91f8be2cc0697c1e007f2da252ecaf6fc52adc8e75e330db7",
+      "notCommitted": true
+    },
+    {
+      "relativeToIgnoredControl": "candidate-controls/selected-and-receipt.json",
+      "bytes": 7413,
+      "sha256": "7bf98af92a163668438c9d0a8b0cadf8e1a09ff5124c91b045f9b196e412812c",
+      "notCommitted": true
+    },
+    {
+      "relativeToIgnoredControl": "partial-root-controls/selected-and-receipt.json",
+      "bytes": 6413,
+      "sha256": "93a8f1a4e0bc0f5eb6f4e29d7e763035bec67c478d9c64f9ae5faf9b8bc31623",
+      "notCommitted": true
+    },
+    {
+      "relativeToIgnoredControl": "control-manifest.json",
+      "bytes": 13795,
+      "sha256": "726273c0dc2f3d99836937af1185a4b2d23a8359a52f21ff7634d0c697347f35",
+      "notCommitted": true
+    }
+  ],
+  "files": [
+    {
+      "path": "docs/reference/initial-absent-dependency-metadata-20261114.zh-CN.md",
+      "bytes": 14588,
+      "sha256": "dd65c2f3282dc34cf5b9bebc30f3c75317fea291fc84cbde25476fa5a38a856f",
+      "kind": "derived readable analysis"
+    },
+    {
+      "path": "docs/reference/initial-absent-dependency-metadata-20261114-evidence/selected.normalized.json",
+      "bytes": 20453,
+      "sha256": "d70787b255962cbf91a2cd0dc729a58744549c1f9b7c313da3a163901d47bbe8",
+      "kind": "derived compact metadata; see normalization boundary"
+    },
+    {
+      "path": "docs/reference/initial-absent-dependency-metadata-20261114-evidence/raw-capture-hashes.json",
+      "bytes": 18182,
+      "sha256": "fe5e5cfdddde161c8cbda8ad3f9c5d93a56fab6e89dcdd8fb35918b003b72eaf",
+      "kind": "derived compact metadata; see normalization boundary"
+    }
+  ]
+}

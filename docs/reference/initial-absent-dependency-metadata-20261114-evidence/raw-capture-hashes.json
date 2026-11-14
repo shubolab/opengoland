@@ -1,0 +1,507 @@
+{
+  "kind": "compact CLI capture hash references; raw gzip stays ignored on original host",
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "commandCount": 17,
+  "aggregateOriginalOutputBytes": 356424,
+  "allStderrEmpty": true,
+  "controlRelativeToRepository": ".tools/continuation-20261114/root-initial-absent-c9/cli-metadata-control-001",
+  "reproductionHashBoundary": "Raw output hashes include original absolute paths. Reproduction elsewhere should compare semantic fields/normalized aliases, not expect these raw hashes to match. No raw gzip is committed here.",
+  "commands": [
+    {
+      "stage": "setup",
+      "label": "version",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "version"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "setup/version.stdout.gz",
+          "originalBytes": 34,
+          "originalSha256": "077dec62e8d33611342a1349cacb348362593f6028f03f3d345b05b156bd9662",
+          "gzipBytes": 54,
+          "gzipSha256": "a847150630d212347d8b8bcfbd0a97a5d2e80056f414e8fbd175e802194733b4"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "setup/version.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "missing",
+      "label": "package",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "missing/package.stdout.gz",
+          "originalBytes": 2500,
+          "originalSha256": "e3f9b44a242b39b70d3db12a512755cbd91b673944df00ca5cd8fcb9c6c5c3f7",
+          "gzipBytes": 788,
+          "gzipSha256": "d26c07f2ed733b774cf53dea1732b5c98444a5bb1562828a46c289089a362255"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "missing/package.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "missing",
+      "label": "dependencies",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-deps",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "missing/dependencies.stdout.gz",
+          "originalBytes": 112508,
+          "originalSha256": "92a008cb1cc03667d78df5fc5e4593e9b0b1b5eb8f37fd3d9b74a932b9d21bdb",
+          "gzipBytes": 14458,
+          "gzipSha256": "ac1d3036eb0aa2a450d863eee69d66ba56f32fa61968ebdf43672a71bfc10cd3"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "missing/dependencies.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "missing",
+      "label": "module-all",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "missing/module-all.stdout.gz",
+          "originalBytes": 1031,
+          "originalSha256": "74cee7f4a718a2b233b0756bab5f8fd4da78fd8cb732fa6b5966f4db6ee02c0f",
+          "gzipBytes": 260,
+          "gzipSha256": "51e3fe133a541fb127024bcbc9722e9df584a659fde1191d50594c47ba953d91"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "missing/module-all.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "missing",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "missing/module-exact.stdout.gz",
+          "originalBytes": 669,
+          "originalSha256": "6059724bd598eb87b9f60acb93a1237792a820fb841ef62a9ce3192fee8a6337",
+          "gzipBytes": 222,
+          "gzipSha256": "0c3ef7be42d5fca988885ced8210c136da2dbfe7798539dedc5d6b66c5e63dba"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "missing/module-exact.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "missing",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "missing/loader-fields.stdout.gz",
+          "originalBytes": 23591,
+          "originalSha256": "fc7353a6ed441fb08f59809b552bbbe9b93df648bc40d292b801a4d01dfb8227",
+          "gzipBytes": 1674,
+          "gzipSha256": "adfe3c85ba2272893ae144321f1c090f280a26b8890fe45660eb6a57864bae25"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "missing/loader-fields.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "present-greeting",
+      "label": "package",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/package.stdout.gz",
+          "originalBytes": 2275,
+          "originalSha256": "b537f3aa45273db2d16e8c711ee34ad367345af6d353c39119231f0924166261",
+          "gzipBytes": 689,
+          "gzipSha256": "ec9c2ee08d423c23d193b6b707f49fc8d2e791b8051f7192349fb73b92b739dd"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/package.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "present-greeting",
+      "label": "dependencies",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-e",
+        "-deps",
+        "-json",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/dependencies.stdout.gz",
+          "originalBytes": 113134,
+          "originalSha256": "dbe077339b53b9df91d517b8c46941133738fabeeedb59b7d36c2ee46afc0ca2",
+          "gzipBytes": 14423,
+          "gzipSha256": "636cfa2798e58ebcf0d845ff9fdc8b893d28201ff9c528724d289ffda2196743"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/dependencies.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "present-greeting",
+      "label": "module-all",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "all"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/module-all.stdout.gz",
+          "originalBytes": 1076,
+          "originalSha256": "fdb8647f2c1d6c1f25816bdf2501c862f54edfb891a7be5bb78cc96eef5a3738",
+          "gzipBytes": 264,
+          "gzipSha256": "41d8613d47c7e13333ac47c0a544d1c968af7d93f8c28c38868775a67230d7f8"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/module-all.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "present-greeting",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/module-exact.stdout.gz",
+          "originalBytes": 714,
+          "originalSha256": "daadbc3e7e8163c19f7b8c3b8184a79eae8299d494504bce96953a83e55ef029",
+          "gzipBytes": 234,
+          "gzipSha256": "d11936e17536dd3ac24477b6c7632022de6b0833930871f16e6f8ecf45f4399f"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/module-exact.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "present-greeting",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/loader-fields.stdout.gz",
+          "originalBytes": 23605,
+          "originalSha256": "5eb046a2fc10bf1660091d1ccbca2d1e0202ff00925db1002df5e9dd0db1bfe8",
+          "gzipBytes": 1584,
+          "gzipSha256": "3fccad4766a128ffc2c75cc2ce9bcab5c68441b1a1f1c289e9121d6fff647f1f"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "present-greeting/loader-fields.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "candidate-controls",
+      "label": "packages",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "candidate-controls/packages.stdout.gz",
+          "originalBytes": 23762,
+          "originalSha256": "cb238a726e81a29ebbe6291b3385941441970f0b6932f9fe2a884daaad0a85a6",
+          "gzipBytes": 1683,
+          "gzipSha256": "18a0eaaae10e94c87b8ae08ed89bcbe0827e5c8ef01ccba734eedf23c6afde03"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "candidate-controls/packages.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "candidate-controls",
+      "label": "exact-prefixes-and-negative-controls",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid",
+        "example.invalid/accept",
+        "example.invalid/accept/dep",
+        "example.invalid/accept/unused",
+        "example.invalid/accept/notrequired"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "candidate-controls/exact-prefixes-and-negative-controls.stdout.gz",
+          "originalBytes": 1508,
+          "originalSha256": "853890aab4934de59d002e0a0bfb322503a91199a454da55f8a9fd19fcb2aeea",
+          "gzipBytes": 264,
+          "gzipSha256": "9e279852090c7cbce948f24f7c82d344f993490312ef6169d3973a912fc167e3"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "candidate-controls/exact-prefixes-and-negative-controls.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "root-without-go-mod",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/root-without-go-mod/module-exact.stdout.gz",
+          "originalBytes": 757,
+          "originalSha256": "8d8f75ad8df9c8e6efe31d4769aa0588c1bdd7ef6068e1b4303766d389dda215",
+          "gzipBytes": 231,
+          "gzipSha256": "4e68476697e1ffa0aecbed588a7df1ee7eeffbf3ed94bb265eae1dfb452d9be3"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/root-without-go-mod/module-exact.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "root-without-go-mod",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/root-without-go-mod/loader-fields.stdout.gz",
+          "originalBytes": 24537,
+          "originalSha256": "89487811e43ca0d9dcb6c5fb62ff899a14eaac9069898e6c11bc9a66de239e12",
+          "gzipBytes": 1718,
+          "gzipSha256": "ae6d351a7e16723eda7a07a9e65ecc230ccacac3371a0b371efc2e0bbd053ba0"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/root-without-go-mod/loader-fields.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "go-mod-without-go-source",
+      "label": "module-exact",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-m",
+        "-e",
+        "-json",
+        "example.invalid/accept/dep"
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/go-mod-without-go-source/module-exact.stdout.gz",
+          "originalBytes": 802,
+          "originalSha256": "cf783f1f849352bec9cb628699dd52daa95fc5b601f97f51619ea58a63493ec5",
+          "gzipBytes": 244,
+          "gzipSha256": "31844660294533a20934a56e0f2631961f2060f7a493ceb6732028b76f570300"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/go-mod-without-go-source/module-exact.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    },
+    {
+      "stage": "go-mod-without-go-source",
+      "label": "loader-fields",
+      "argv": [
+        "$APP_GO_ROOT/bin/go",
+        "list",
+        "-deps",
+        "-e",
+        "-test",
+        "-json=ImportPath,Dir,Module,Error,DepsErrors,Incomplete",
+        "."
+      ],
+      "exitCode": 0,
+      "streams": {
+        "stdout": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/go-mod-without-go-source/loader-fields.stdout.gz",
+          "originalBytes": 23921,
+          "originalSha256": "5dbd7803c20eddbc11909946e56cb722edaf6816bddce598f721778ae3d162df",
+          "gzipBytes": 1691,
+          "gzipSha256": "aec5060163c1f55bc93009bc3385b4368f361b9615620f5ff593fd29e679f731"
+        },
+        "stderr": {
+          "ignoredOriginalGzipRelativeToControl": "partial-root-controls/go-mod-without-go-source/loader-fields.stderr.gz",
+          "originalBytes": 0,
+          "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "gzipBytes": 20,
+          "gzipSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+        }
+      }
+    }
+  ]
+}
