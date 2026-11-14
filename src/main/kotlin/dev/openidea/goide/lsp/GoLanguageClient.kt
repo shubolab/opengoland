@@ -21,18 +21,20 @@ import org.eclipse.lsp4j.DidChangeWatchedFilesRegistrationOptions
 import org.eclipse.lsp4j.DidChangeWatchedFilesParams
 import org.eclipse.lsp4j.FileEvent
 import org.eclipse.lsp4j.FileChangeType
+import org.eclipse.lsp4j.services.LanguageServer
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicBoolean
 
 /** Server requests use the same atomic edit path as native Go refactor actions. */
 class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
-    private val externalFiles = GoExternalFileWatches(project)
     private val capabilitiesClosed = AtomicBoolean()
     private val capabilityLock = Any()
     private var capabilityQueue = CompletableFuture.completedFuture<Void>(null)
     @Volatile private var ownerWrapper: LanguageServerWrapper? = null
+    @Volatile private var activeServer: LanguageServer? = null
     private var dependencyScopes: GoExternalDependencyScopes? = null
+    private val externalFiles = GoExternalFileWatches(project, rootsChanged = ::reconcileDependencyScope)
 
     override fun setServerWrapper(wrapper: LanguageServerWrapper) {
         super.setServerWrapper(wrapper)
@@ -42,6 +44,7 @@ class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
     override fun handleServerStatusChanged(status: ServerStatus) {
         super.handleServerStatusChanged(status)
         if (status == ServerStatus.started) {
+            activeServer = languageServer
             val scopes = synchronized(capabilityLock) {
                 if (capabilitiesClosed.get() || project.isDisposed) null else dependencyScopes ?: GoExternalDependencyScopes(
                     project, ::registerDependencyScope, ::reconcileDependencyScope, ::unregisterDependencyScope,
@@ -49,6 +52,7 @@ class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
             }
             scopes?.refresh()
         } else if (status == ServerStatus.stopping || status == ServerStatus.stopped) {
+            activeServer = null
             // LSP4IJ also uses stopping for a cancellable idle timer. That same
             // client may return to started; only dispose permanently closes it.
             val previous = synchronized(capabilityLock) { dependencyScopes.also { dependencyScopes = null } }
@@ -78,19 +82,24 @@ class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
     private fun unregisterDependencyScope(id: String): CompletableFuture<Void> = unregisterCapability(
         UnregistrationParams(listOf(Unregistration(id, "workspace/didChangeWatchedFiles"))))
 
-    private fun reconcileDependencyScope(roots: Set<Path>): CompletableFuture<Void> = capabilityChange {
-        val server = languageServer ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language server stopped"))
-        val wrapper = ownerWrapper ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language client is detached"))
-        check(wrapper.serverStatus == ServerStatus.started && wrapper.languageServer === server)
-        // Cold VFS materialization may establish a new baseline after gopls read
-        // the dependency. One directory event reconciles its already observed
-        // files; steady-state updates still come from real VFS events.
-        project.getService(AbstractLSPDocumentFeatureSupport.NavigationModificationTracker::class.java).incrementWatchedDependency()
-        wrapper.incrementModificationCount()
-        server.workspaceService.didChangeWatchedFiles(DidChangeWatchedFilesParams(roots.map {
-            FileEvent(it.toUri().toASCIIString(), FileChangeType.Changed)
-        }))
-        CompletableFuture.completedFuture(null)
+    private fun reconcileDependencyScope(roots: Set<Path>): CompletableFuture<Void> {
+        // A delayed refresh belongs to the connection that requested it. The
+        // wrapper can already own a replacement server when this queue resumes.
+        val expectedServer = activeServer
+        return capabilityChange(rejectClosed = true) {
+            val server = expectedServer ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language server stopped"))
+            val wrapper = ownerWrapper ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language client is detached"))
+            check(activeServer === server && languageServer === server && wrapper.serverStatus == ServerStatus.started && wrapper.languageServer === server)
+            // Cold VFS materialization may establish a new baseline after gopls
+            // read the dependency. Reconcile both initial priming and a replaced
+            // directory; ordinary content updates still use real VFS events.
+            project.getService(AbstractLSPDocumentFeatureSupport.NavigationModificationTracker::class.java).incrementWatchedDependency()
+            wrapper.incrementModificationCount()
+            server.workspaceService.didChangeWatchedFiles(DidChangeWatchedFilesParams(roots.map {
+                FileEvent(it.toUri().toASCIIString(), FileChangeType.Changed)
+            }))
+            CompletableFuture.completedFuture(null)
+        }
     }
 
     override fun registerCapability(params: RegistrationParams): CompletableFuture<Void> =
@@ -114,6 +123,7 @@ class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
     }
 
     override fun dispose() {
+        activeServer = null
         val previous = synchronized(capabilityLock) {
             capabilitiesClosed.set(true)
             dependencyScopes.also { dependencyScopes = null }

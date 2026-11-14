@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "representation": "selected-normalized-derived-result",
+  "originalResult": {
+    "path": ".tools/continuation-20261114/root-recreation/protocol-control/result.json",
+    "bytes": 18458,
+    "sha256": "2a1c391339474da09a1d99ebad178f7150e501b2457a694a8be3f04da7ffe173"
+  },
+  "status": "pass-real-gopls-explicit-root-recreation-event-invalidates-and-restores",
+  "scope": "Controlled real gopls directory event stdio, not native IDE/VFS acceptance",
+  "startedAtUtc": "2026-11-14T04:19:26.705108+00:00",
+  "finishedAtUtc": "2026-11-14T04:19:30.740829+00:00",
+  "tools": {
+    "goVersion": "go version go1.26.10 darwin/arm64",
+    "goSha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+    "goplsVersion": "v0.24.0",
+    "goplsCompiledWithGo": "go1.27.3",
+    "goplsSha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f"
+  },
+  "explicitEnvironment": {
+    "GOROOT": "<repo>/.tools/release-tools/darwin-arm64/go",
+    "PATH": "<repo>/.tools/release-tools/darwin-arm64/go/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "GOENV": "off",
+    "GOTOOLCHAIN": "local",
+    "GOFLAGS": "",
+    "GOWORK": "",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOPRIVATE": "",
+    "GONOPROXY": "",
+    "GONOSUMDB": "",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "CGO_ENABLED": "0",
+    "GOMAXPROCS": "2",
+    "GOCACHE": "<repo>/.tools/go-tools-cache/build-cache",
+    "GOMODCACHE": "<repo>/.tools/go-tools-cache/modules"
+  },
+  "frameChecks": {
+    "clientMessages": 21,
+    "serverMessages": 44,
+    "didOpenCount": 1,
+    "openedDocument": {
+      "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/project/one/main.go",
+      "version": 1
+    },
+    "externalNeverOpened": true,
+    "didChangeCount": 0,
+    "explicitWatchedDirectoryNotifications": [
+      {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/external",
+            "type": 2
+          }
+        ]
+      },
+      {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/external",
+            "type": 2
+          }
+        ]
+      },
+      {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/external",
+            "type": 2
+          }
+        ]
+      }
+    ],
+    "allPhaseDiagnosticsMatchedActualServerFrames": true
+  },
+  "phases": {
+    "baseline": {
+      "diagnostics": {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/project/one/main.go",
+        "version": 1,
+        "diagnostics": []
+      },
+      "definition": [
+        {
+          "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/external/external.go",
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 5
+            },
+            "end": {
+              "line": 2,
+              "character": 12
+            }
+          }
+        }
+      ],
+      "hover": {
+        "contents": {
+          "kind": "markdown",
+          "value": "```go\nfunc external.Message() string\n```\n\n---\n\n[`external.Message` on pkg.go.dev](https://pkg.go.dev/../external@#Message)"
+        },
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 46
+          },
+          "end": {
+            "line": 10,
+            "character": 53
+          }
+        }
+      }
+    },
+    "root-absent-directory-change": {
+      "diagnostics": {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/project/one/main.go",
+        "version": 1,
+        "diagnostics": [
+          {
+            "range": {
+              "start": {
+                "line": 5,
+                "character": 1
+              },
+              "end": {
+                "line": 5,
+                "character": 51
+              }
+            },
+            "severity": 1,
+            "code": "BrokenImport",
+            "codeDescription": {
+              "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#BrokenImport"
+            },
+            "source": "compiler",
+            "message": "could not import example.invalid/open-goland/consistency/external (no required module provides package \"example.invalid/open-goland/consistency/external\")"
+          }
+        ]
+      }
+    },
+    "root-recreated-directory-change": {
+      "diagnostics": {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/project/one/main.go",
+        "version": 1,
+        "diagnostics": [
+          {
+            "range": {
+              "start": {
+                "line": 10,
+                "character": 46
+              },
+              "end": {
+                "line": 10,
+                "character": 53
+              }
+            },
+            "severity": 1,
+            "code": "UndeclaredImportedName",
+            "codeDescription": {
+              "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredImportedName"
+            },
+            "source": "compiler",
+            "message": "undefined: external.Message"
+          }
+        ]
+      },
+      "mainDiskUnchanged": true,
+      "newInode": 90095624,
+      "oldInode": 90095535
+    },
+    "recreated-root-source-restored": {
+      "diagnostics": {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-control/fixture/project/one/main.go",
+        "version": 1,
+        "diagnostics": []
+      },
+      "hover": {
+        "contents": {
+          "kind": "markdown",
+          "value": "```go\nfunc external.Message() string\n```\n\n---\n\n[`external.Message` on pkg.go.dev](https://pkg.go.dev/../external@#Message)"
+        },
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 46
+          },
+          "end": {
+            "line": 10,
+            "character": 53
+          }
+        }
+      }
+    }
+  },
+  "fixture": {
+    "initialFileCount": 15,
+    "initialHashesMatchNativeFixture": true,
+    "mainDiskUnchanged": true,
+    "initialPathBytesRestored": true,
+    "scope": "Original root was retained under external-retained-original; new root source bytes restored. No original-root inode restoration claim for this separate protocol fixture."
+  },
+  "shutdown": {
+    "ownedGoplsPid": 62078,
+    "goplsExitCode": 0,
+    "ownedGoplsExited": true
+  },
+  "rawFileReceipts": [
+    {
+      "name": "client.frames",
+      "recordedByProbe": {
+        "bytes": 5388,
+        "sha256": "028b7e9d01e5ac3e59808a0f55613cdfa4821e4a88669360a9cf4740e5d8b67a"
+      },
+      "observedAfterExit": {
+        "bytes": 5388,
+        "sha256": "028b7e9d01e5ac3e59808a0f55613cdfa4821e4a88669360a9cf4740e5d8b67a"
+      },
+      "matchesRecorded": true
+    },
+    {
+      "name": "control.stdout",
+      "recordedByProbe": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "observedAfterExit": {
+        "bytes": 5187,
+        "sha256": "43fcf9217de562c0fba0640d0e669ca9a1749558e894667ae1233877c5fd8718"
+      },
+      "matchesRecorded": false
+    },
+    {
+      "name": "gopls.stderr",
+      "recordedByProbe": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "observedAfterExit": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "matchesRecorded": true
+    },
+    {
+      "name": "probe.py",
+      "recordedByProbe": {
+        "bytes": 13072,
+        "sha256": "e2710cd007e291df423080823533ce4a1a29d11088d0a07bbfb385ebf890a57c"
+      },
+      "observedAfterExit": {
+        "bytes": 13072,
+        "sha256": "e2710cd007e291df423080823533ce4a1a29d11088d0a07bbfb385ebf890a57c"
+      },
+      "matchesRecorded": true
+    },
+    {
+      "name": "protocol.jsonl",
+      "recordedByProbe": {
+        "bytes": 31270,
+        "sha256": "d95c6eafe1965fb552eff12204eefa32af7eb91f060423a48ee49119a3362626"
+      },
+      "observedAfterExit": {
+        "bytes": 31270,
+        "sha256": "d95c6eafe1965fb552eff12204eefa32af7eb91f060423a48ee49119a3362626"
+      },
+      "matchesRecorded": true
+    },
+    {
+      "name": "server.frames",
+      "recordedByProbe": {
+        "bytes": 18415,
+        "sha256": "f362731f6fdb5aa881d844c78c7a505a329e59dcec0f57a254f6c92f27bff3f0"
+      },
+      "observedAfterExit": {
+        "bytes": 18415,
+        "sha256": "f362731f6fdb5aa881d844c78c7a505a329e59dcec0f57a254f6c92f27bff3f0"
+      },
+      "matchesRecorded": true
+    }
+  ],
+  "rawFilesCopied": false,
+  "limits": [
+    "Only main.go was didOpen version1; no textDocument/didChange was sent. All three external-root Changed/type2 notifications were explicit probe inputs.",
+    "This proves the actual gopls can invalidate/recover these diagnostics when notified; it does not establish IDE OS/fsnotifier/VFS discovery or forwarding. Native IDE/VFS evidence remains RED.",
+    "Full initialization capabilities, complete protocol frames, cache contents and logs are not copied into public docs. Machine path prefixes in this selected result are normalized.",
+    "The probe samples recordFiles before its final print. control.stdout was recorded empty then became 5187 bytes; both recorded and final hashes are retained, not treated as identical."
+  ]
+}

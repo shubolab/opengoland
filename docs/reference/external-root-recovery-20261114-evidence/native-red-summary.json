@@ -1,0 +1,66 @@
+{
+  "schemaVersion": 1,
+  "status": "native-red-not-fixed",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "manifestSha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce",
+  "launcherSha256": "b928f4e80e21cc71fd9ce9fce8772d2155e5bf761b0ab6ed7658f6ca6dd9fd07",
+  "platform": "macos-arm64",
+  "appPid": 57904,
+  "windowId": 9256,
+  "profileScope": "Reused the isolated candidate7 profile; not a new clean-profile claim.",
+  "callerSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+  "baseline": {
+    "screenshot": "baseline.png",
+    "visibleFileProblems": "No problems in main.go"
+  },
+  "rootAbsent": {
+    "operation": "Original root moved aside, old dependency path absent; original bytes retained.",
+    "originalRootInode": 86979628,
+    "goRunExit": 1,
+    "errorKind": "missing external/go.mod",
+    "callerModified": false,
+    "manualReload": false,
+    "goplsRestart": false,
+    "screenshot": "root-absent.png",
+    "visibleFileProblems": "No problems in main.go",
+    "operationReceiptRecovery": "Fields recovered from the original successful tool output after screenshot metadata accidentally overwrote the same-stem JSON; original JSON bytes are not claimed retained."
+  },
+  "rootRecreated": {
+    "originalRootInode": 86979628,
+    "newRootInode": 90088901,
+    "newExternalSourceSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+    "goRunExit": 1,
+    "errorKind": "undefined: external.Message; the new external source defines Greeting",
+    "callerModified": false,
+    "manualReload": false,
+    "goplsRestart": false,
+    "screenshot": "root-recreated.png",
+    "visibleFileProblems": "No problems in main.go",
+    "recorderBoundary": "new same-path external root with Greeting replacing Message; creation preceded an assertion lookup failure in the recorder, then this read-only CLI check completed"
+  },
+  "cleanup": {
+    "all15SourceHashesRestored": true,
+    "originalRootInodeRestored": 86979628,
+    "normalQuitObservedViaCua": true,
+    "cuaFinalInventoryAllOwnAppsClosed": true,
+    "sampledOwnedPidsAbsent": [
+      57904,
+      57908,
+      58107,
+      58108
+    ],
+    "productManifestUnchanged": true,
+    "newLogErrorSevereMatches": [],
+    "codesignDeepStrictExit": 0
+  },
+  "limits": [
+    "This is the existing local C5 App, not an independently launched copy of the public CI DMG.",
+    "The original root was moved aside, not destroyed; the same-path replacement is a distinct inode.",
+    "Only saved disk input and visible current-file diagnostics are compared; no complete RPC or AX trace is claimed.",
+    "The absent-root AX capture had 120 nodes, truncation and 15 child-count gaps; full AX is not copied.",
+    "The absent-root operation receipt was reconstructed from the successful tool output after overwrite; original JSON bytes are not retained.",
+    "No official GoLand same-scenario reference, successful recovery, initially-missing root, deep newly-created subtree, Windows interaction or full PROJECT-02 acceptance is claimed.",
+    "The separately reviewed explicit gopls directory-notification control passed; it does not change this native RED outcome."
+  ]
+}

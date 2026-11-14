@@ -1,0 +1,30 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/postquit.json",
+    "bytes": 520,
+    "sha256": "9482a0f1f69f1d00f5d566bec327fc9c89400a687714acb8be1be241970f1ab5"
+  },
+  "transform": [
+    "Repository path prefix replaced with <repo>; temporary VFS fixture root replaced with <vfs-fixture> where present.",
+    "Hostname removed where present; no claim of original JSON bytes."
+  ],
+  "data": {
+    "at": "2026-11-14T04:18:27.700939+00:00",
+    "normalQuitObservedViaCua": true,
+    "cuaFinalInventoryAllOwnAppsClosed": true,
+    "sampledOwnedPidsAbsent": [
+      57904,
+      57908,
+      58107,
+      58108
+    ],
+    "wholeLogSha256": "15d4880c15997acceb18f0b55b7196c6a8535a82c1c4691474756d1eb93b83ff",
+    "logBytesBeforeLaunch": 110864,
+    "newLogErrorSevereMatches": [],
+    "productManifestUnchanged": true,
+    "codesignDeepStrictExit": 0,
+    "scope": "Known four sampled owned processes only; no whole-tree leak absence inferred"
+  }
+}

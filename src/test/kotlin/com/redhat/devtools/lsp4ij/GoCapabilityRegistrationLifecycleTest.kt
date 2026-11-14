@@ -178,6 +178,41 @@ class GoCapabilityRegistrationLifecycleTest : LightPlatformTestCase() {
         f.assertNoOwnedRoots(f.client())
     }
 
+    fun testRecreatedDirectoryReconciliationNotifiesTheBoundStartedConnection() = StartupFixture().use { f ->
+        val peer = StartupPeer(blocked = false)
+        f.start(peer)
+        f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
+        f.reconcileOwned(setOf("a")).await()
+        val changes = peer.watchedChanges.single().changes
+        assertEquals(1, changes.size)
+        assertEquals(f.path("a").toUri().toASCIIString(), changes.single().uri)
+        assertEquals(FileChangeType.Changed, changes.single().type)
+    }
+
+    fun testQueuedAndLateOldDirectoryReconciliationCannotNotifyAReplacementServer() = StartupFixture().use { f ->
+        val old = StartupPeer(blocked = false)
+        f.start(old)
+        f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
+        val client = f.client()
+        val barrier = CompletableFuture<Void>()
+        GoLanguageClient::class.java.getDeclaredField("capabilityQueue").apply { isAccessible = true }.set(client, barrier)
+        val pending = f.reconcileOwned(setOf("a"), client)
+        assertFalse(pending.isDone)
+        try {
+            f.wrapper.stop().await()
+            val current = StartupPeer(blocked = false)
+            f.start(current)
+            f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
+            barrier.complete(null)
+            rejected(pending)
+            // Capture after B has started, too: a disposed old client must not
+            // adopt B through the wrapper's now-current languageServer getter.
+            rejected(f.reconcileOwned(setOf("a"), client))
+            assertTrue("The obsolete refresh must not enter the new server", current.watchedChanges.isEmpty())
+            assertTrue("The blocked old connection did not receive a late event", old.watchedChanges.isEmpty())
+        } finally { barrier.complete(null) }
+    }
+
     fun testStoppedRealClientCannotAcknowledgeAnOwnedScopeAsInstalled() = StartupFixture().use { f ->
         f.start(StartupPeer(blocked = false))
         f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
@@ -359,6 +394,12 @@ class GoCapabilityRegistrationLifecycleTest : LightPlatformTestCase() {
                 .apply { isAccessible = true }
             return entry.invoke(client, id, directories.mapTo(linkedSetOf()) { root.resolve(it) }) as CompletableFuture<Void>
         }
+        @Suppress("UNCHECKED_CAST")
+        fun reconcileOwned(directories: Set<String>, client: GoLanguageClient = client()): CompletableFuture<Void> {
+            val entry = GoLanguageClient::class.java.getDeclaredMethod("reconcileDependencyScope", Set::class.java)
+                .apply { isAccessible = true }
+            return entry.invoke(client, directories.mapTo(linkedSetOf()) { root.resolve(it) }) as CompletableFuture<Void>
+        }
         fun assertNoOwnedRoots(client: GoLanguageClient) {
             val owner = GoLanguageClient::class.java.getDeclaredField("externalFiles").apply { isAccessible = true }.get(client)
             val roots = owner.javaClass.getDeclaredField("roots").apply { isAccessible = true }.get(owner) as Map<*, *>
@@ -400,6 +441,7 @@ class GoCapabilityRegistrationLifecycleTest : LightPlatformTestCase() {
         val release = CountDownLatch(if (blocked) 1 else 0)
         val shutdowns = AtomicInteger()
         val registrationFailed = AtomicBoolean()
+        val watchedChanges = ConcurrentLinkedQueue<DidChangeWatchedFilesParams>()
         lateinit var client: LanguageClient
         private val stopped = CountDownLatch(1)
         val provider = object : StreamConnectionProvider {
@@ -417,6 +459,7 @@ class GoCapabilityRegistrationLifecycleTest : LightPlatformTestCase() {
                 "equals" -> proxy === args?.get(0)
                 "hashCode" -> System.identityHashCode(proxy)
                 "toString" -> "Owned ${type.simpleName}"
+                "didChangeWatchedFiles" -> { watchedChanges.add(args!![0] as DidChangeWatchedFilesParams); null }
                 else -> if (CompletableFuture::class.java.isAssignableFrom(method.returnType)) CompletableFuture.completedFuture<Any>(null) else null
             }
         }

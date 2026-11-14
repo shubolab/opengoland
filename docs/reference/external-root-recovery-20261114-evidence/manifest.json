@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "version": "0.1.0-preview.20261114.2",
+  "stage": "native-C5-red-explicit-protocol-pass-and-repaired-worktree-controls",
+  "files": [
+    {
+      "path": "baseline.capture.normalized.json",
+      "bytes": 1356,
+      "sha256": "d1090e4fec7553c8e7362ac23a4ee5f103151995d70af1679272e4e85f6c022f",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "baseline.png",
+      "bytes": 219186,
+      "sha256": "794957ae23193776889388eb7ea786c24b6f005eade259683f74ef420bc290db",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "green-TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.normalized.xml",
+      "bytes": 3808,
+      "sha256": "daa1556dc8ce136fd6f003300205215a5887860e44d2c59c2b5d563882bd96aa",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "green-TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.normalized.xml",
+      "bytes": 877,
+      "sha256": "0dbc6738cf9eef0e94afd621e46909c95c920ea1f79b97ace2940848158332f2",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "green-TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.normalized.xml",
+      "bytes": 1873,
+      "sha256": "7c40d682d7363bd34be60da191c3aa0955ebc230a881842b9b1f1abf0b7bae75",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "green-TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.normalized.xml",
+      "bytes": 706,
+      "sha256": "b94f67adbb2b49692069542f1c6d19d115862dbacf9a0367d8b1f79804f7102e",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "launch.normalized.json",
+      "bytes": 2674,
+      "sha256": "5e9dc074f53210b05d8399d41dcd3f20ecca3ede82de99a2b4477f1efc696479",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "native-red-summary.json",
+      "bytes": 3254,
+      "sha256": "b74b8f9c602077ad0d4f28a801ffaeb7e4c0372e54c69106e982b100059e0a50",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "postquit.normalized.json",
+      "bytes": 1050,
+      "sha256": "25db6a5b37a8412e60a8a4ff4e85cbb9de0c7694b0db8a910ae0dd740207d3bd",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "postquit.original.json",
+      "bytes": 520,
+      "sha256": "9482a0f1f69f1d00f5d566bec327fc9c89400a687714acb8be1be241970f1ab5",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "prequit.normalized.json",
+      "bytes": 1377,
+      "sha256": "719730c898b0c479b3d89b86ea6ba5343c6dbfb0811ea29bc5421bead57321c1",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "protocol-control.normalized.json",
+      "bytes": 9604,
+      "sha256": "4f14a8459b41109d9d662bbeb2a1131f57eedcaa73a95bb74ae977d5ed213e17",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "red-source-binding.json",
+      "bytes": 947,
+      "sha256": "b11048042c5ff0af311fb056d22c931609908087ce8cf33c8acd5e087b7de212",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "red-test-source.original.kt",
+      "bytes": 5941,
+      "sha256": "1031fb2f694c35bf967303610bbbf7a72b6a115176cfd998ccfe0b510eed58f3",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "red-vfs-summary.normalized.json",
+      "bytes": 2331,
+      "sha256": "1fe28af4fee22a8cb9807b1537877c285bef70c92347dfe60d6527986ad2330e",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "red-vfs-test.normalized.xml",
+      "bytes": 1432,
+      "sha256": "965f004dbdcb494bd2399e68c77dbc309304f31915d4b23ed9cd0078dc357e8a",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "root-absent-operation.normalized.json",
+      "bytes": 1400,
+      "sha256": "aa34686988eaa30317eb3c65f5a579512ff8b9df025add048e708fc0bc113ab1",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "root-absent.capture.normalized.json",
+      "bytes": 2379,
+      "sha256": "5677348b9987b19d80cdc5fa33bd03584d952bba3f065d2027eb06bc8a644a5b",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "root-absent.png",
+      "bytes": 219179,
+      "sha256": "4003d1c9978c7e9acf9be7054d3173b1ae3841dd54a932c2f5db4ab8a689cfab",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "root-recreated-greeting-operation.normalized.json",
+      "bytes": 1291,
+      "sha256": "6c404c5252ad0161b22e4aac7401684007205e8106f4be90989c87474df03398",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "root-recreated.capture.normalized.json",
+      "bytes": 1370,
+      "sha256": "5dccb4d15b663a8b3c1a4e28ad025d8f7d9b97420d183bfef539a4f3d8f79355",
+      "representation": "derived-selected-or-normalized"
+    },
+    {
+      "path": "root-recreated.png",
+      "bytes": 219171,
+      "sha256": "9b4de5557249baeeaade86e9b9d44b69d71f92fa1dacc4b7e559d537c78f5ba9",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "working-tree-green.normalized.json",
+      "bytes": 3531,
+      "sha256": "6efe7bbf1881a7ed36bfe8e9262233489a7ec98abb6c306cbf03a1bb3883e82e",
+      "representation": "derived-selected-or-normalized"
+    }
+  ],
+  "limits": "No original full AX, profile, config, license or complete idea.log/XML system log copied. Normalized files are named as such and retain original input byte counts/SHA.",
+  "sourceCommitScope": "sourceCommit and version identify the failing C5 native app only; repaired working-tree controls are bound separately by finalSourceFiles SHA256 in working-tree-green.normalized.json."
+}

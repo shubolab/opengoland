@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2026-11-14T04:17:27.877Z" time="16.928">
+  <testcase name="testOwnedColdRootRecoversAfterTheWholeDirectoryIsRemovedAndRecreated" classname="dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest" time="16.928">
+    <failure message="junit.framework.AssertionFailedError: The production refresh must discover the same-path replacement root and its unopened new Go source: [VfsEvent[update: &lt;vfs-fixture&gt;/external/nested/original.go, oldTimestamp:1794629852582, newTimestamp:1794629854582, oldModificationStamp:0, newModificationStamp:25, oldLength:38, newLength:46], VfsEvent[deleted: file://&lt;vfs-fixture&gt;/external]]" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: The production refresh must discover the same-path replacement root and its unopened new Go source: [VfsEvent[update: &lt;vfs-fixture&gt;/external/nested/original.go, oldTimestamp:1794629852582, newTimestamp:1794629854582, oldModificationStamp:0, newModificationStamp:25, oldLength:38, newLength:46], VfsEvent[deleted: file://&lt;vfs-fixture&gt;/external]]
+	at dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.testOwnedColdRootRecoversAfterTheWholeDirectoryIsRemovedAndRecreated(GoExternalRootRecoveryVfsTest.kt:78)</failure>
+  </testcase>
+</testsuite>

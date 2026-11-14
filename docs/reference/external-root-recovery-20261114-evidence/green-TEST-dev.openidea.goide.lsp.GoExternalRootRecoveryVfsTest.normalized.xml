@@ -1,0 +1,6 @@
+<testsuite name="dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2026-11-14T04:45:29.596Z" time="3.358">
+  <properties />
+  <testcase name="testFastReplacementPrimesNewChildrenEvenWhileTheOldVirtualRootIsValid" classname="dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest" time="0.349" />
+  <testcase name="testMovedVirtualRootDoesNotRefreshTheParkedTreeOutsideItsFixedPath" classname="dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest" time="0.538" />
+  <testcase name="testOwnedColdRootRecoversAfterTheWholeDirectoryIsRemovedAndRecreated" classname="dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest" time="2.466" />
+  </testsuite>

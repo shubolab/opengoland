@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/root-recreated-greeting-operation.json",
+    "bytes": 740,
+    "sha256": "ce417ad3090e5e8710687684984c9467ecb06874beeaf3d49e3886236abf6be7"
+  },
+  "transform": [
+    "Repository path prefix replaced with <repo>; temporary VFS fixture root replaced with <vfs-fixture> where present.",
+    "Hostname removed where present; no claim of original JSON bytes."
+  ],
+  "data": {
+    "recordedAt": "2026-11-14T04:15:59.677973+00:00",
+    "operation": "new same-path external root with Greeting replacing Message; creation preceded an assertion lookup failure in the recorder, then this read-only CLI check completed",
+    "newRootInode": 90088901,
+    "originalRootInode": 86979628,
+    "rootBirthUnix": 1794629736.9573488,
+    "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+    "newExternalSourceSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+    "goRunExit": 1,
+    "stdout": "",
+    "stderr": "# example.invalid/open-goland/consistency/one\none/main.go:11:53: undefined: external.Message\n",
+    "callerModified": false,
+    "manualReload": false,
+    "goplsRestart": false
+  }
+}

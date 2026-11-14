@@ -1,0 +1,104 @@
+{
+  "scope": "Final frozen working-tree controlled VFS and wrapper tests; no new native app/installer acceptance",
+  "phases": [
+    {
+      "stage": "targeted-1",
+      "tests": 35,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0,
+      "summaryOriginalSha256": "f9a52a09ef504e1d82c0e475885854e5bd2059a0908a8377babb515b71bbdcef"
+    },
+    {
+      "stage": "targeted-2",
+      "tests": 36,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0,
+      "summaryOriginalSha256": "88a97dea73faae8d219965af9e92d7f012dd7f01ec36b7214bfc1c16ccc53932"
+    },
+    {
+      "stage": "targeted-3",
+      "tests": 36,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "summaryOriginalSha256": "312b164deffd36a0431d6978fc4879d1fe08204c30cc48269f34ec48bc927de5"
+    },
+    {
+      "stage": "targeted-4",
+      "tests": 37,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "summaryOriginalSha256": "b7f50db1d9a9204c744a2cb45c68185938188abb43f73ce1e842eb040064ddff"
+    }
+  ],
+  "finalSourceFiles": {
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt": {
+      "bytes": 23963,
+      "sha256": "bfd987ab3a04d667493642286dc762bb6d28ab857f7a1c11a32331c32fc3b532"
+    },
+    "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt": {
+      "bytes": 8092,
+      "sha256": "a1b392b92e93c393664e117466f26f3a2170882d7b4132ca138811baaa4eea99"
+    },
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalRootRecoveryVfsTest.kt": {
+      "bytes": 14590,
+      "sha256": "526679743946dd8b6563ce5b194cc9725e2d75b757f671fcf68e9f525c9a5fe8"
+    },
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.kt": {
+      "bytes": 14173,
+      "sha256": "be34725fecd8767a2e39e49d31773656b598d131b6ae89ab24ddcb22a7cbb886"
+    },
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoCapabilityRegistrationLifecycleTest.kt": {
+      "bytes": 33516,
+      "sha256": "a9f3410356c5a1bdbc88ea9a0969e2ec0efb7fcb0cc16bfcf2cef50797656ff0"
+    }
+  },
+  "finalReports": [
+    {
+      "file": "green-TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.normalized.xml",
+      "originalSha256": "51fc17bec6eb117cf272f581fd13ee6cb360f882bec9a63f4e5ab1d52e346192",
+      "originalBytes": 24619,
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "green-TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.normalized.xml",
+      "originalSha256": "3b41b68b08f7fd9815c10d80bc99ccecc88499811685c48526ef14b529aa0998",
+      "originalBytes": 1029,
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "green-TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.normalized.xml",
+      "originalSha256": "6e6056693e60bebd6d5cf052edade3852f0f8680bd20f0c895b328c1f405e8c6",
+      "originalBytes": 6870,
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "file": "green-TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.normalized.xml",
+      "originalSha256": "99ce16bc416eb3a0a5e5a1bb30e663938a207cde63086c81c988430c57f47957",
+      "originalBytes": 859,
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "totals": {
+    "tests": 37,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "derivation": "XML removes hostname and system streams, replaces local path prefixes. Original XMLs remain in the owned ignored stage directory; original bytes are not claimed copied here."
+}

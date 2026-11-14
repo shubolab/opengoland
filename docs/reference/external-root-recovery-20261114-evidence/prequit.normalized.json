@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/prequit.json",
+    "bytes": 1005,
+    "sha256": "3abfaa77ea0167ca6a3a7575f7e0671834926c7323681c07400fa68fcaa3f40c"
+  },
+  "transform": [
+    "Repository path prefix replaced with <repo>; temporary VFS fixture root replaced with <vfs-fixture> where present.",
+    "Hostname removed where present; no claim of original JSON bytes."
+  ],
+  "data": {
+    "at": "2026-11-14T04:17:54.017007+00:00",
+    "all15SourceHashesRestored": true,
+    "originalRootInodeRestored": 86979628,
+    "retainedRecreatedRoot": "<repo>/.tools/continuation-20261114/root-recreation/external-recreated-retained",
+    "sampledOwnedProcesses": [
+      "57904     1 Sat Nov 14 12:11:26 2026     <repo>/build/product/open Goland.app/Contents/MacOS/idea",
+      "57908 57904 Sat Nov 14 12:11:28 2026     <repo>/build/product/open Goland.app/Contents/bin/fsnotifier",
+      "58107 57904 Sat Nov 14 12:11:45 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+      "58108 58107 Sat Nov 14 12:11:45 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    ],
+    "scope": "Fresh ancestry below launched own app, prior to normal native Quit; no signals"
+  }
+}

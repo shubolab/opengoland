@@ -1,0 +1,23 @@
+<testsuite name="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" tests="20" skipped="0" failures="0" errors="0" timestamp="2026-11-14T04:45:01.886Z" time="24.436">
+  <properties />
+  <testcase name="testQueuedAndLateOldDirectoryReconciliationCannotNotifyAReplacementServer" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="18.822" />
+  <testcase name="testCancellingCallerViewDoesNotLetUnregisterPassTheInternalRegistration" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.735" />
+  <testcase name="testStoppedRealClientCannotAcknowledgeAnOwnedScopeAsInstalled" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.23" />
+  <testcase name="testStoppedGenerationCannotRegisterIntoItsReplacement" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.222" />
+  <testcase name="testRecreatedDirectoryReconciliationNotifiesTheBoundStartedConnection" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.18" />
+  <testcase name="testOldClientUnregisterBeforeFirstCaptureCannotRemoveTheCurrentWatcher" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.176" />
+  <testcase name="testRealStartedClientOwnedScopeRejectsIncompleteRootCoverage" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.111" />
+  <testcase name="testOldClientRegisterWithReusedIdCannotReplaceTheCurrentWatcher" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.684" />
+  <testcase name="testHeldInitializationPreservesRegisterThenUnregisterOrder" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="1.146" />
+  <testcase name="testStoppingDuringInitializedCannotPublishTheOldConnection" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.174" />
+  <testcase name="testLateInitializedCancellationCannotStopOrPoisonTheReplacementServer" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.197" />
+  <testcase name="testOldClientRegisterBeforeFirstCaptureCannotInstallIntoTheReplacement" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.17" />
+  <testcase name="testRealStartedClientOwnedScopeInstallsTheActualMatcherAndColdRoot" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.081" />
+  <testcase name="testCancellingOneOwnedRegistrationDoesNotCancelSharedStartupOrAnotherRegistration" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.142" />
+  <testcase name="testInitializationFailureFailsTheRegistrationAndReleasesTheFollowingUnregister" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.201" />
+  <testcase name="testStopCancelsWaitingRegistrationsAndLateUncancellableStartupCannotReviveThem" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.447" />
+  <testcase name="testDisposedWrapperRejectsLateStartupAndNewRegistration" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.453" />
+  <testcase name="testRegistrationCanFinishInsideInitializedBeforeTheStartupFutureFinishes" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.073" />
+  <testcase name="testLateInitializeResponseCannotOverwriteTheReplacementCapabilities" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.087" />
+  <testcase name="testRealStartupAllowsTheInitializedPeerToAwaitItsRegistrationAck" classname="com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest" time="0.087" />
+  </testsuite>

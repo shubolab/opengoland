@@ -8,11 +8,13 @@ import org.eclipse.lsp4j.*
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.LinkedBlockingQueue
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.atomic.AtomicInteger
+import java.util.concurrent.atomic.AtomicLong
 
 /** Controlled platform leases prove lifecycle/concurrency separately from the real cold-VFS integration test. */
 class GoExternalFileWatchesTest : LightPlatformTestCase() {
@@ -64,6 +66,8 @@ class GoExternalFileWatchesTest : LightPlatformTestCase() {
         repeat(30) { watches.requestRefresh().await() }
         assertEquals(1, platform.refreshes.get())
         platform.completions.poll(5, TimeUnit.SECONDS)!!.invoke()
+        // Completion now includes the asynchronously acknowledged client notice.
+        repeat(2) { watches.register(registration("root", glob(root.resolve("watched")))).await() }
         watches.requestRefresh().await()
         assertEquals(2, platform.refreshes.get())
         Disposer.dispose(watches)
@@ -84,6 +88,62 @@ class GoExternalFileWatchesTest : LightPlatformTestCase() {
         watches.unregister(unregistration("tree")).await()
         assertEquals("Only the successfully installed narrow lease is owned", child, platform.closed.poll(5, TimeUnit.SECONDS))
         assertTrue(platform.closed.isEmpty())
+    }
+
+    fun testRetainedButUnusableBroadRootDoesNotHideANewOwnersNarrowRoot() = fixture { root, platform, watches ->
+        val broad = root.resolve("broad")
+        val narrow = broad.resolve("narrow")
+        watches.registerOwned("broad-owner", setOf(broad)).await()
+        platform.unusable.add(broad)
+        watches.registerOwned("narrow-owner", setOf(narrow)).await()
+        assertEquals("A retained logical recovery target cannot stand in for actual VFS coverage", listOf(broad, narrow), platform.installed.toList())
+        watches.requireCoverage("narrow-owner", setOf(narrow)).await()
+        assertNotNull(runCatching { watches.requireCoverage("broad-owner", setOf(broad)).await() }.exceptionOrNull())
+        assertTrue("The broad logical root is retained for bounded recovery", platform.closed.isEmpty())
+    }
+
+    fun testFailedAsynchronousReconciliationRetainsTheTransitionAndCoalescesUntilCompletion() {
+        val first = CompletableFuture<Void>()
+        val calls = AtomicInteger()
+        fixture(rootsChanged = {
+            check(!ApplicationManager.getApplication().isDispatchThread)
+            if (calls.incrementAndGet() == 1) first else CompletableFuture.completedFuture(null)
+        }) { root, platform, watches ->
+            val watched = root.resolve("watched")
+            watches.registerOwned("scope", setOf(watched)).await()
+            platform.changes.getValue(watched).incrementAndGet()
+            watches.requestRefresh().await()
+            platform.completions.poll(5, TimeUnit.SECONDS)!!.invoke()
+            repeat(2) { watches.registerOwned("barrier", setOf(watched)).await() }
+            assertEquals(1, calls.get())
+            repeat(5) { watches.requestRefresh().await() }
+            assertEquals("A pending client future remains the coalescing boundary", 1, platform.refreshes.get())
+            first.completeExceptionally(IllegalStateException("owned reconciliation failure"))
+            repeat(2) { watches.registerOwned("barrier", setOf(watched)).await() }
+            watches.requestRefresh().await()
+            platform.completions.poll(5, TimeUnit.SECONDS)!!.invoke()
+            repeat(2) { watches.registerOwned("barrier", setOf(watched)).await() }
+            assertEquals("Failure must not acknowledge and lose the directory transition", 2, calls.get())
+            watches.requestRefresh().await()
+            platform.completions.poll(5, TimeUnit.SECONDS)!!.invoke()
+            repeat(2) { watches.registerOwned("barrier", setOf(watched)).await() }
+            assertEquals("Successful delivery acknowledges this transition exactly once", 2, calls.get())
+        }
+    }
+
+    fun testUnregisteredRootsCannotDeliverALateRefreshTransitionToAnotherOwner() = fixture(rootsChanged = {
+        fail("An unregistered root cannot publish a late directory change")
+        CompletableFuture.completedFuture(null)
+    }) { root, platform, watches ->
+        val watched = root.resolve("watched")
+        watches.registerOwned("old", setOf(watched)).await()
+        platform.changes.getValue(watched).incrementAndGet()
+        watches.requestRefresh().await()
+        watches.unregister(unregistration("old")).await()
+        watches.registerOwned("new", setOf(watched)).await()
+        platform.completions.poll(5, TimeUnit.SECONDS)!!.invoke()
+        watches.registerOwned("barrier", setOf(watched)).await()
+        assertEquals(listOf(watched, watched), platform.installed.toList())
     }
 
     fun testRelativePatternBaseUriKeepsBracketDirectoryNamesLiteral() {
@@ -125,11 +185,13 @@ class GoExternalFileWatchesTest : LightPlatformTestCase() {
     private class RecordingPlatform : GoExternalFileWatches.Platform {
         val installed = CopyOnWriteArrayList<Path>()
         val refused = java.util.concurrent.CopyOnWriteArraySet<Path>()
+        val unusable = java.util.concurrent.CopyOnWriteArraySet<Path>()
         val closed = LinkedBlockingQueue<Path>()
         val installStarted = CountDownLatch(1)
         var releaseInstall: CountDownLatch? = null
         val refreshes = AtomicInteger()
         val completions = LinkedBlockingQueue<() -> Unit>()
+        val changes = ConcurrentHashMap<Path, AtomicLong>()
         override fun install(path: Path, cancelled: () -> Boolean): GoExternalFileWatches.Root? {
             check(!ApplicationManager.getApplication().isDispatchThread)
             installed.add(path)
@@ -137,7 +199,14 @@ class GoExternalFileWatchesTest : LightPlatformTestCase() {
             installStarted.countDown()
             check(releaseInstall?.await(5, TimeUnit.SECONDS) != false)
             // Deliberately return a lease even after close to test late cleanup.
-            return object : GoExternalFileWatches.Root { override fun close() { closed.offer(path) } }
+            val current = changes.computeIfAbsent(path) { AtomicLong() }
+            val acknowledged = AtomicLong(current.get())
+            return object : GoExternalFileWatches.Root {
+                override fun usable() = path !in unusable
+                override fun pendingChange(): Long? = current.get().takeIf { it != acknowledged.get() }
+                override fun acknowledgeChange(revision: Long) { acknowledged.updateAndGet { maxOf(it, revision) } }
+                override fun close() { closed.offer(path) }
+            }
         }
         override fun refresh(roots: List<GoExternalFileWatches.Root>, finished: () -> Unit) {
             check(!ApplicationManager.getApplication().isDispatchThread)
@@ -146,10 +215,11 @@ class GoExternalFileWatchesTest : LightPlatformTestCase() {
         }
     }
 
-    private fun fixture(block: (Path, RecordingPlatform, GoExternalFileWatches) -> Unit) {
+    private fun fixture(rootsChanged: (Set<Path>) -> CompletableFuture<Void> = { CompletableFuture.completedFuture(null) },
+                        block: (Path, RecordingPlatform, GoExternalFileWatches) -> Unit) {
         val root = Files.createTempDirectory("go watcher lifecycle ").toRealPath()
         val platform = RecordingPlatform()
-        val watches = GoExternalFileWatches(project, platform)
+        val watches = GoExternalFileWatches(project, platform, rootsChanged)
         try { block(root, platform, watches) }
         finally { platform.releaseInstall?.countDown(); Disposer.dispose(watches); root.toFile().deleteRecursively() }
     }

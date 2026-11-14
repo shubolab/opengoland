@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-summary",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/red-summary.json",
+    "bytes": 1834,
+    "sha256": "b94c3d35d405b215bea76835a04e9b332368ad69316c58b7044c55c3fb60bfdc"
+  },
+  "rawXml": {
+    "path": ".tools/continuation-20261114/root-recreation/red-original-test-result.xml",
+    "bytes": 45594,
+    "sha256": "e3e7f3867386642f3f5f9b5919b610ce06fc857d0522599299fae4fdafff265e"
+  },
+  "data": {
+    "sourceBase": "9a8ba2e9f571c0283b5bc136cb50b40a0c6610bb",
+    "testOnlyChange": true,
+    "productionChanged": false,
+    "tests": {
+      "name": "dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest",
+      "tests": 1,
+      "skipped": 0,
+      "failures": 1,
+      "errors": 0,
+      "timestamp": "2026-11-14T04:17:27.877Z",
+      "time": "16.928"
+    },
+    "failureMessage": "junit.framework.AssertionFailedError: The production refresh must discover the same-path replacement root and its unopened new Go source: [VfsEvent[update: <vfs-fixture>/external/nested/original.go, oldTimestamp:1794629852582, newTimestamp:1794629854582, oldModificationStamp:0, newModificationStamp:25, oldLength:38, newLength:46], VfsEvent[deleted: file://<vfs-fixture>/external]]",
+    "claim": "Actual NativePlatform/VFS owned-root recreation regression. Existing content change and root delete controls passed; recreated unopened source remains outside VFS after production requestRefresh. No gopls/native-fsnotifier protocol claim.",
+    "files": {
+      ".tools/continuation-20261114/root-recreation/red-original-test-result.xml": {
+        "bytes": 45594,
+        "sha256": "e3e7f3867386642f3f5f9b5919b610ce06fc857d0522599299fae4fdafff265e"
+      },
+      ".tools/continuation-20261114/root-recreation/red-gradle.log": {
+        "bytes": 9810,
+        "sha256": "abdc1302a8b85cdfd6b8cbc0bee6cc81cf7f1956eac54c8dfb6e65a0790367ff"
+      },
+      "src/test/kotlin/dev/openidea/goide/lsp/GoExternalRootRecoveryVfsTest.kt": {
+        "bytes": 5941,
+        "sha256": "1031fb2f694c35bf967303610bbbf7a72b6a115176cfd998ccfe0b510eed58f3"
+      }
+    }
+  },
+  "xmlTransform": "Removed hostname/system-out/system-err; normalized machine paths; retained suite/testcase/result and one source failure frame. This is not the original XML byte stream."
+}

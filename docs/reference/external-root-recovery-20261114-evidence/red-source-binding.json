@@ -1,0 +1,20 @@
+{
+  "nativeAppSourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "testBaseCommit": "9a8ba2e9f571c0283b5bc136cb50b40a0c6610bb",
+  "testOnlyChange": true,
+  "productionChanged": false,
+  "productionFile": "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt",
+  "productionGitBlobSha256": {
+    "07ae69f3b2bbc36f3221ff08e8fe9046f199b624": "d897c96550d753547c16f0cce4ac69fa1307cd0b564e2f499aa89043d8fd3e02",
+    "9a8ba2e9f571c0283b5bc136cb50b40a0c6610bb": "d897c96550d753547c16f0cce4ac69fa1307cd0b564e2f499aa89043d8fd3e02"
+  },
+  "testSource": {
+    "path": "red-test-source.original.kt",
+    "bytes": 5941,
+    "sha256": "1031fb2f694c35bf967303610bbbf7a72b6a115176cfd998ccfe0b510eed58f3"
+  },
+  "limits": [
+    "The RED test uses actual NativePlatform/VFS with controlled dirty markers because the test app has no native fsnotifier.",
+    "The test failure alone does not establish a running gopls or desktop UI result."
+  ]
+}

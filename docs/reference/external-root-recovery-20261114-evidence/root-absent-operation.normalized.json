@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/root-absent-operation.json",
+    "bytes": 923,
+    "sha256": "2e409039c076146dc3abc6f34eb60dae42e9983ad72f088e5f88544d684ae041"
+  },
+  "transform": [
+    "Repository path prefix replaced with <repo>; temporary VFS fixture root replaced with <vfs-fixture> where present.",
+    "Hostname removed where present; no claim of original JSON bytes."
+  ],
+  "data": {
+    "at": "2026-11-14T04:14:10.333318+00:00",
+    "operation": "rename owned external root to retained original outside old path",
+    "originalRootInode": 86979628,
+    "oldPathExists": false,
+    "retainedPath": "<repo>/.tools/continuation-20261114/root-recreation/external-retained-original",
+    "goRunExit": 1,
+    "stdout": "",
+    "stderr": "one/main.go:6:2: example.invalid/open-goland/consistency/external@v0.0.0 (replaced by ../external): reading ../external/go.mod: open <repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/go.mod: no such file or directory\n",
+    "callerModified": false,
+    "manualReload": false,
+    "goplsRestart": false,
+    "receiptRecovery": "Fields recovered from the original successful tool output after screenshot metadata accidentally overwrote the same-stem JSON; original JSON bytes are not claimed retained."
+  }
+}
