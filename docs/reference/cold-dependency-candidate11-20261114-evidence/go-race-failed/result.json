@@ -1,0 +1,175 @@
+{
+  "startedAtUtc": "2026-11-14T14:45:48.347042+00:00",
+  "endedAtUtc": "2026-11-14T14:52:56.063350+00:00",
+  "command": [
+    "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+    "test",
+    "-race",
+    "-count=1",
+    "-json",
+    "./..."
+  ],
+  "GOWORKAbsent": true,
+  "exitCode": -15,
+  "testPasses": 265,
+  "testSkips": 0,
+  "failures": [
+    {
+      "Time": "2026-11-14T22:46:51.578343+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+      "Test": "TestUnimportedIOReaderAndBuiltinErrorProduceRealImplementationsWithoutWriting",
+      "Elapsed": 60.63
+    },
+    {
+      "Time": "2026-11-14T22:47:53.033755+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+      "Test": "TestAnExistingMissingMethodAssertionIsFixedRatherThanRejectedBeforeGeneration",
+      "Elapsed": 61.46
+    },
+    {
+      "Time": "2026-11-14T22:47:58.648663+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/rpc",
+      "Test": "TestTypedInterfaceGenerationRPCUsesOwnedWorkerAndReturnsOnlyEdits",
+      "Elapsed": 73.94
+    },
+    {
+      "Time": "2026-11-14T22:48:09.114035+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+      "Test": "TestExistingTestsImportsAndUnsavedOverlayRemainIntact",
+      "Elapsed": 45.07
+    },
+    {
+      "Time": "2026-11-14T22:48:54.358482+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+      "Test": "TestInterfaceCaretCanCreateANewStructOrChooseAnExistingTypeInAnotherFile",
+      "Elapsed": 61.33
+    },
+    {
+      "Time": "2026-11-14T22:49:08.55144+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/refactor/signature",
+      "Test": "TestTypedPlanReordersArgumentsPreservingEffectsAndDisk",
+      "Elapsed": 87.69
+    },
+    {
+      "Time": "2026-11-14T22:49:15.621045+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+      "Test": "TestEmptyScopeNameConflictsAndStaleInspection",
+      "Elapsed": 66.48
+    },
+    {
+      "Time": "2026-11-14T22:49:28.919156+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+      "Test": "TestAliasesAndInternalExternalTestStructsKeepCanonicalIdentity/fixture",
+      "Elapsed": 62.9
+    },
+    {
+      "Time": "2026-11-14T22:49:42.225315+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/rpc",
+      "Test": "TestNativeRefactoringRPCNamesRawMethodBeforeTypecheckAndPlansWorkspaceInline",
+      "Elapsed": 75.27
+    },
+    {
+      "Time": "2026-11-14T22:49:53.617124+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/rpc",
+      "Elapsed": 229.168
+    },
+    {
+      "Time": "2026-11-14T22:49:54.635057+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+      "Test": "TestEmbeddedImportedTypesVariadicsAndExistingImportAliases",
+      "Elapsed": 60.28
+    },
+    {
+      "Time": "2026-11-14T22:50:26.162776+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/refactor/native",
+      "Test": "TestCapturedGoplsCandidatesAreNamedAndValidatedBeforeAnyWrite/constant-extract.constant",
+      "Elapsed": 90.44
+    },
+    {
+      "Time": "2026-11-14T22:51:04.04093+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+      "Test": "TestAliasesAndInternalExternalTestStructsKeepCanonicalIdentity",
+      "Elapsed": 160.14
+    },
+    {
+      "Time": "2026-11-14T22:51:06.858314+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+      "Elapsed": 316.443
+    },
+    {
+      "Time": "2026-11-14T22:51:11.6095+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+      "Elapsed": 320.905
+    },
+    {
+      "Time": "2026-11-14T22:51:50.36083+08:00",
+      "Action": "fail",
+      "Package": "github.com/shubolab/opengoland/engine/internal/refactor/native",
+      "Test": "TestCapturedGoplsCandidatesAreNamedAndValidatedBeforeAnyWrite",
+      "Elapsed": 298.28
+    }
+  ],
+  "packages": [
+    {
+      "Package": "github.com/shubolab/opengoland/engine/cmd/opengoland-engine",
+      "Action": "skip"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/processowner",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/protocol",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/tags",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/engine",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/search/types",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/rpc",
+      "Action": "fail"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+      "Action": "fail"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+      "Action": "fail"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+      "Action": "pass"
+    }
+  ],
+  "vetExitCode": 0,
+  "fileSha256": {
+    "go-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "go-race.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "go-race.jsonl": "50d28d07748278d0d65dd6fed593a1e2d2f55d99442015303333a34c9a757842"
+  }
+}

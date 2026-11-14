@@ -1,0 +1,22 @@
+/Users/wangshubo/develop/openidea-go/engine/bin/opengoland-engine: go1.27.3
+	path	github.com/shubolab/opengoland/engine/cmd/opengoland-engine
+	mod	github.com/shubolab/opengoland/engine	(devel)	
+	dep	github.com/google/pprof	v0.0.0-20241101162523-b92577c0c142	h1:sAGdeJj0bnMgUNVeUpp6AYlVdCt3/GdI3pGRqsNSQLs=
+	dep	golang.org/x/mod	v0.30.0	h1:fDEXFVZ/fmCKProc/yAXXUijritrDzahmwwefnjoPFk=
+	dep	golang.org/x/sync	v0.18.0	h1:kr88TuHDroi+UVf+0hZnirlk8o8T+4MrK6mr60WkH/I=
+	dep	golang.org/x/tools	v0.39.1-0.20260109155911-b69ac100ecb7	h1:UaaZx92hw3fDa9xRcX2//NBRE3sR4VHQLlt0TkN2geY=
+	build	-buildmode=exe
+	build	-compiler=gc
+	build	DefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0,x509sslcertoverrideplatform=0
+	build	CGO_ENABLED=1
+	build	CGO_CFLAGS=
+	build	CGO_CPPFLAGS=
+	build	CGO_CXXFLAGS=
+	build	CGO_LDFLAGS=
+	build	GOARCH=arm64
+	build	GOOS=darwin
+	build	GOARM64=v8.0
+	build	vcs=git
+	build	vcs.revision=7b98f1672fc8097d4493ea1481db21ca8a12cdde
+	build	vcs.time=2026-11-14T14:58:56Z
+	build	vcs.modified=false

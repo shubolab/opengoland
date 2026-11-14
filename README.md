@@ -95,10 +95,12 @@ not fixed, and no workaround has been verified. See the
 New deep subtrees under a stable root, interactive Windows workflows, macOS
 Developer Mode debugging and full GoLand parity still require separate acceptance.
 
-The main branch now includes recovery for initially absent replacements and
-incrementally created cold subtrees, with 1,028 regression tests passing.
-Standalone desktop acceptance and new installers are still pending; see the
-[repair evidence](docs/reference/initial-absent-dependency-repair-20261114.zh-CN.md).
+The local C11 candidate from `7b98f16` passed 1,029 regression tests and desktop
+observations showed diagnostics updating and clearing after the missing dependency
+was created atomically. Incremental creation and new deep packages still showed
+stale import error markers until a later source edit. A Windows test identity-sampling fix is now in cross-platform CI.
+Complete native acceptance and new installers are still pending; see the
+[current progress snapshot](docs/snapshot/2026-11-14-two-hour-resume/README.zh-CN.md).
 The public 14.3 download retains the known issue above.
 
 The subsequent [C10 desktop check](docs/reference/initial-absent-dependency-20261114-candidate10.zh-CN.md)

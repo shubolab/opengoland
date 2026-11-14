@@ -1,0 +1,48 @@
+{
+  "atUtc": "2026-11-14T14:52:09.929230+00:00",
+  "ownedCommand": "4119  4092 /Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go test -race -count=1 -json ./...",
+  "signal": "SIGINT",
+  "reason": "Multiple test timeouts during concurrent heavy suites; preserve failed attempt and rerun serially, no tests/deadlines changed",
+  "terminationSnapshot": {
+    "4119": {
+      "ppid": 4092,
+      "start": "Sat Nov 14 22:45:48 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go test -race -count=1 -json ./..."
+    },
+    "4177": {
+      "ppid": 4119,
+      "start": "Sat Nov 14 22:45:50 2026",
+      "command": "/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go-build654408312/b205/methods.test -test.paniconexit0 -test.v=test2json -test.timeout=10m0s -test.count=1"
+    },
+    "4323": {
+      "ppid": 4119,
+      "start": "Sat Nov 14 22:45:52 2026",
+      "command": "/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go-build654408312/b217/native.test -test.paniconexit0 -test.v=test2json -test.timeout=10m0s -test.count=1"
+    },
+    "4328": {
+      "ppid": 4119,
+      "start": "Sat Nov 14 22:45:52 2026",
+      "command": "/var/folders/lf/_1w9dmps1msbky6_87cx9x180000gn/T/go-build654408312/b233/signature.test -test.paniconexit0 -test.v=test2json -test.timeout=10m0s -test.count=1"
+    }
+  },
+  "signals": [
+    {
+      "pid": 4328,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 4323,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 4177,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 4119,
+      "signal": "SIGTERM"
+    }
+  ],
+  "remainingSameIdentities": [],
+  "endedAtUtc": "2026-11-14T14:53:00.075625+00:00"
+}

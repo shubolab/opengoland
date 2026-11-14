@@ -1,0 +1,177 @@
+{
+  "evidence_id": "ev_dbc786cd7c4b0fb6342e290cc596e74b978692140b9f0cba68c57b79ffd07a9c",
+  "subject": {
+    "name": "opengoland-engine",
+    "digest": {
+      "sha256": "f4e68744ec0d0b1423d7da935a56c12c9826b3c5ce2dadadbddafa6a558176d4"
+    },
+    "local_path": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine",
+    "format": "mach-o",
+    "architecture": "arm64"
+  },
+  "provider": {
+    "id": "go-build-info",
+    "name": "REA Go build-information reader",
+    "version": "1"
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.analysis",
+  "operation": "inspect_go_binary",
+  "parameters": {
+    "path": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "artifact": {
+      "path": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine",
+      "sha256": "f4e68744ec0d0b1423d7da935a56c12c9826b3c5ce2dadadbddafa6a558176d4",
+      "bytes": 10629650
+    },
+    "format": "macho",
+    "architecture": "arm64",
+    "bits": 64,
+    "byte_order": "little",
+    "build_info": {
+      "header_offset": 6864896,
+      "encoding": "inline",
+      "go_version": "go1.27.3",
+      "go_version_bytes_base64": "Z28xLjI3LjM=",
+      "module_text": "path\tgithub.com/shubolab/opengoland/engine/cmd/opengoland-engine\nmod\tgithub.com/shubolab/opengoland/engine\t(devel)\t\ndep\tgithub.com/google/pprof\tv0.0.0-20241101162523-b92577c0c142\th1:sAGdeJj0bnMgUNVeUpp6AYlVdCt3/GdI3pGRqsNSQLs=\ndep\tgolang.org/x/mod\tv0.30.0\th1:fDEXFVZ/fmCKProc/yAXXUijritrDzahmwwefnjoPFk=\ndep\tgolang.org/x/sync\tv0.18.0\th1:kr88TuHDroi+UVf+0hZnirlk8o8T+4MrK6mr60WkH/I=\ndep\tgolang.org/x/tools\tv0.39.1-0.20260109155911-b69ac100ecb7\th1:UaaZx92hw3fDa9xRcX2//NBRE3sR4VHQLlt0TkN2geY=\nbuild\t-buildmode=exe\nbuild\t-compiler=gc\nbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0,x509sslcertoverrideplatform=0\nbuild\tCGO_ENABLED=1\nbuild\tCGO_CFLAGS=\nbuild\tCGO_CPPFLAGS=\nbuild\tCGO_CXXFLAGS=\nbuild\tCGO_LDFLAGS=\nbuild\tGOARCH=arm64\nbuild\tGOOS=darwin\nbuild\tGOARM64=v8.0\nbuild\tvcs=git\nbuild\tvcs.revision=7b98f1672fc8097d4493ea1481db21ca8a12cdde\nbuild\tvcs.time=2026-11-14T14:58:56Z\nbuild\tvcs.modified=false\n",
+      "module_bytes_base64": "MHevDJJ0CAJB4cEH5tYY5nBhdGgJZ2l0aHViLmNvbS9zaHVib2xhYi9vcGVuZ29sYW5kL2VuZ2luZS9jbWQvb3BlbmdvbGFuZC1lbmdpbmUKbW9kCWdpdGh1Yi5jb20vc2h1Ym9sYWIvb3BlbmdvbGFuZC9lbmdpbmUJKGRldmVsKQkKZGVwCWdpdGh1Yi5jb20vZ29vZ2xlL3Bwcm9mCXYwLjAuMC0yMDI0MTEwMTE2MjUyMy1iOTI1NzdjMGMxNDIJaDE6c0FHZGVKajBibk1nVU5WZVVwcDZBWWxWZEN0My9HZEkzcEdScXNOU1FMcz0KZGVwCWdvbGFuZy5vcmcveC9tb2QJdjAuMzAuMAloMTpmREVYRlZaL2ZtQ0tQcm9jL3lBWFhVaWpyaXRyRHphaG13d2VmbmpvUEZrPQpkZXAJZ29sYW5nLm9yZy94L3N5bmMJdjAuMTguMAloMTprcjg4VHVIRHJvaStVVmYrMGhabmlybGs4bzhUKzRNcks2bXI2MFdrSC9JPQpkZXAJZ29sYW5nLm9yZy94L3Rvb2xzCXYwLjM5LjEtMC4yMDI2MDEwOTE1NTkxMS1iNjlhYzEwMGVjYjcJaDE6VWFhWng5Mmh3M2ZEYTl4UmNYMi8vTkJSRTNzUjRWSFFMbHQwVGtOMmdlWT0KYnVpbGQJLWJ1aWxkbW9kZT1leGUKYnVpbGQJLWNvbXBpbGVyPWdjCmJ1aWxkCURlZmF1bHRHT0RFQlVHPWNvbnRhaW5lcm1heHByb2NzPTAsY3J5cHRvY3VzdG9tcmFuZD0xLGRlY29yYXRlbWFwcGluZ3M9MCxodHRwc2VydmVjb250ZW50bWF4cmFuZ2VzPTEsdGxzc2VjcG1sa2VtPTAsdGxzc2hhMT0xLHRyYWNlYmFja2xhYmVscz0wLHVwZGF0ZW1heHByb2NzPTAsdXJsc3RyaWN0Y29sb25zPTAseDUwOXNoYTI1NnNraWQ9MCx4NTA5c3NsY2VydG92ZXJyaWRlcGxhdGZvcm09MApidWlsZAlDR09fRU5BQkxFRD0xCmJ1aWxkCUNHT19DRkxBR1M9CmJ1aWxkCUNHT19DUFBGTEFHUz0KYnVpbGQJQ0dPX0NYWEZMQUdTPQpidWlsZAlDR09fTERGTEFHUz0KYnVpbGQJR09BUkNIPWFybTY0CmJ1aWxkCUdPT1M9ZGFyd2luCmJ1aWxkCUdPQVJNNjQ9djguMApidWlsZAl2Y3M9Z2l0CmJ1aWxkCXZjcy5yZXZpc2lvbj03Yjk4ZjE2NzJmYzgwOTdkNDQ5M2VhMTQ4MWRiMjFjYThhMTJjZGRlCmJ1aWxkCXZjcy50aW1lPTIwMjYtMTEtMTRUMTQ6NTg6NTZaCmJ1aWxkCXZjcy5tb2RpZmllZD1mYWxzZQr5MkMxhhggcgCCQhBBFtjy",
+      "version_location": {
+        "offset": 6864929,
+        "bytes": 8
+      },
+      "module_location": {
+        "offset": 6864939,
+        "bytes": 1083
+      },
+      "module": {
+        "path": "github.com/shubolab/opengoland/engine/cmd/opengoland-engine",
+        "main": {
+          "path": "github.com/shubolab/opengoland/engine",
+          "version": "(devel)",
+          "sum": "",
+          "replacement": null
+        },
+        "dependencies": [
+          {
+            "path": "github.com/google/pprof",
+            "version": "v0.0.0-20241101162523-b92577c0c142",
+            "sum": "h1:sAGdeJj0bnMgUNVeUpp6AYlVdCt3/GdI3pGRqsNSQLs=",
+            "replacement": null
+          },
+          {
+            "path": "golang.org/x/mod",
+            "version": "v0.30.0",
+            "sum": "h1:fDEXFVZ/fmCKProc/yAXXUijritrDzahmwwefnjoPFk=",
+            "replacement": null
+          },
+          {
+            "path": "golang.org/x/sync",
+            "version": "v0.18.0",
+            "sum": "h1:kr88TuHDroi+UVf+0hZnirlk8o8T+4MrK6mr60WkH/I=",
+            "replacement": null
+          },
+          {
+            "path": "golang.org/x/tools",
+            "version": "v0.39.1-0.20260109155911-b69ac100ecb7",
+            "sum": "h1:UaaZx92hw3fDa9xRcX2//NBRE3sR4VHQLlt0TkN2geY=",
+            "replacement": null
+          }
+        ],
+        "settings": [
+          {
+            "key": "-buildmode",
+            "value": "exe"
+          },
+          {
+            "key": "-compiler",
+            "value": "gc"
+          },
+          {
+            "key": "DefaultGODEBUG",
+            "value": "containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0,x509sslcertoverrideplatform=0"
+          },
+          {
+            "key": "CGO_ENABLED",
+            "value": "1"
+          },
+          {
+            "key": "CGO_CFLAGS",
+            "value": ""
+          },
+          {
+            "key": "CGO_CPPFLAGS",
+            "value": ""
+          },
+          {
+            "key": "CGO_CXXFLAGS",
+            "value": ""
+          },
+          {
+            "key": "CGO_LDFLAGS",
+            "value": ""
+          },
+          {
+            "key": "GOARCH",
+            "value": "arm64"
+          },
+          {
+            "key": "GOOS",
+            "value": "darwin"
+          },
+          {
+            "key": "GOARM64",
+            "value": "v8.0"
+          },
+          {
+            "key": "vcs",
+            "value": "git"
+          },
+          {
+            "key": "vcs.revision",
+            "value": "7b98f1672fc8097d4493ea1481db21ca8a12cdde"
+          },
+          {
+            "key": "vcs.time",
+            "value": "2026-11-14T14:58:56Z"
+          },
+          {
+            "key": "vcs.modified",
+            "value": "false"
+          }
+        ],
+        "unparsed_lines": [],
+        "unparsed_line_bytes_base64": [],
+        "complete": true
+      }
+    },
+    "limitations": [
+      "Embedded build metadata is observed file content, not proof of compiler identity, dependency authenticity or runtime behavior.",
+      "Only Go build information is inspected; function names, source mappings, type metadata and decompiled code are not recovered.",
+      "Resource guards bound stable artifact reads and cumulative header searches to 256 MiB each, aggregate embedded strings to 1 MiB, structural table decoding to 16 MiB and complete metadata payloads to 8 MiB; these are not operating-system memory or CPU limits."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "Embedded build metadata is observed file content, not proof of compiler identity, dependency authenticity or runtime behavior.",
+    "Only Go build information is inspected; function names, source mappings, type metadata and decompiled code are not recovered.",
+    "Resource guards bound stable artifact reads and cumulative header searches to 256 MiB each, aggregate embedded strings to 1 MiB, structural table decoding to 16 MiB and complete metadata payloads to 8 MiB; these are not operating-system memory or CPU limits."
+  ],
+  "relationship_coverage": null,
+  "locations": [
+    {
+      "kind": "artifact-path",
+      "path": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine"
+    },
+    {
+      "kind": "file-offset-range",
+      "start": 6864896,
+      "end": 6864928
+    }
+  ],
+  "evidence_links": []
+}

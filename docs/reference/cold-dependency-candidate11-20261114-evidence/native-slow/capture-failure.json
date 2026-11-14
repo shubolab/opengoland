@@ -1,0 +1,13 @@
+{
+  "atUtc": "2026-11-14T15:43:32.139171+00:00",
+  "expectedPid": 49178,
+  "expectedWindow": 16202,
+  "toolResult": "REA native Swift helper xcrun exceeded60000ms; no slow Evidence record generated",
+  "subsequentExport": "contained only prior atomic final-clear record; copied file detected as wrong PID and quarantined; not slow evidence",
+  "capturedPid": 39850,
+  "nativeSlowVerified": false,
+  "threadSample": {
+    "path": "thread-print.txt",
+    "finding": "AWT-EventQueue-0 sampled waiting for next EventQueue event; does not establish a UI deadlock or prove full responsiveness"
+  }
+}

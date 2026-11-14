@@ -1,0 +1,2 @@
+# example.invalid/accept/app
+main.go:5:2: example.invalid/accept/dep@v0.0.0 (replaced by ../dep): reading ../dep/go.mod: open /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/dep/go.mod: no such file or directory

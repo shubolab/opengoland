@@ -1,0 +1,80 @@
+{
+  "createdAtUtc": "2026-11-14T14:47:05.017902+00:00",
+  "flows": {
+    "atomic": {
+      "phase": "message",
+      "callerSha256": {
+        "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+        "main.go": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+        "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+      },
+      "processBaseline": {
+        "39850": {
+          "ppid": 1,
+          "started": "Sat Nov 14 23:18:28 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/atomic/app"
+        },
+        "40036": {
+          "ppid": 39850,
+          "started": "Sat Nov 14 23:19:15 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+        },
+        "40038": {
+          "ppid": 40036,
+          "started": "Sat Nov 14 23:19:15 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+        }
+      }
+    },
+    "slow": {
+      "phase": "message",
+      "callerSha256": {
+        "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+        "main.go": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06",
+        "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+      },
+      "processBaseline": {
+        "49178": {
+          "ppid": 1,
+          "started": "Sat Nov 14 23:38:54 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/slow/app /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/slow/app/main.go"
+        },
+        "49480": {
+          "ppid": 49178,
+          "started": "Sat Nov 14 23:39:24 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+        },
+        "49483": {
+          "ppid": 49480,
+          "started": "Sat Nov 14 23:39:24 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+        }
+      }
+    },
+    "steady": {
+      "phase": "message",
+      "callerSha256": {
+        "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+        "main.go": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782",
+        "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+      },
+      "processBaseline": {
+        "61186": {
+          "ppid": 1,
+          "started": "Sun Nov 15 00:11:34 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/app /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/app/main.go"
+        },
+        "61272": {
+          "ppid": 61186,
+          "started": "Sun Nov 15 00:11:50 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+        },
+        "61274": {
+          "ppid": 61272,
+          "started": "Sun Nov 15 00:11:50 2026",
+          "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+        }
+      }
+    }
+  }
+}

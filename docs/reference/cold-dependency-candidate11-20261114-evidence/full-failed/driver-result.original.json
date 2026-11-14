@@ -1,0 +1,15 @@
+{
+  "endedAtUtc": "2026-11-14T14:58:33.955721+00:00",
+  "exitCode": 1,
+  "sourceStableDuringRun": true,
+  "testTaskExecuted": true,
+  "xml": {
+    "*": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logSha256": "03d3e67abec4c1076d6eb2623563a1d49a18e5fd669c193b9bb86f6ec9ca8d66"
+}

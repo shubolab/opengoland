@@ -1,0 +1,56 @@
+{
+  "atUtc": "2026-11-14T16:00:45.791445+00:00",
+  "flow": "slow",
+  "phase": "manifest",
+  "cliOnly": true,
+  "nativeRunOrTest": false,
+  "environment": {
+    "HOME": "/Users/wangshubo",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "LOGNAME": "wangshubo",
+    "USER": "wangshubo",
+    "PATH": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/go/bin:/usr/bin:/bin",
+    "GOROOT": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/go",
+    "GOENV": "off",
+    "GOTOOLCHAIN": "local",
+    "GOFLAGS": "",
+    "GOWORK": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/build-cache",
+    "GOMODCACHE": "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/modules",
+    "GOPATH": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-only-gopath",
+    "TMPDIR": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-only-tmp"
+  },
+  "results": [
+    {
+      "command": [
+        "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+        "run",
+        "-mod=readonly",
+        "."
+      ],
+      "cwd": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/app",
+      "exitCode": 1,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "d4c05f9554facd0d690fb7e0bc25549afd915a3f9a54f0206acf35cdd7e99fd6"
+    },
+    {
+      "command": [
+        "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go",
+        "test",
+        "-mod=readonly",
+        "-count=1",
+        "."
+      ],
+      "cwd": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/app",
+      "exitCode": 1,
+      "stdoutSha256": "82615e08da34050e51aba6c18cb6b3ab0493b2661029977847baa96bf21e40ec",
+      "stderrSha256": "ff920a6b6200309d72577dfab7277173ab933e5772530556cbc3009b29695a3e"
+    }
+  ]
+}

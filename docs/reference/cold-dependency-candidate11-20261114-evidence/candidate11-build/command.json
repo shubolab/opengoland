@@ -1,0 +1,22 @@
+{
+  "startedAtUtc": "2026-11-14T15:01:37.914831+00:00",
+  "rebuild": [
+    "./gradlew",
+    "--no-daemon",
+    "--offline",
+    "-PplatformPath=/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app",
+    "-PgoBuilder=/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+    "buildEngine",
+    "--rerun-tasks"
+  ],
+  "package": [
+    "./scripts/package-product.sh",
+    "--version",
+    "0.1.0-preview.20261114.4",
+    "--output",
+    "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app"
+  ],
+  "sourceCommit": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+  "version": "0.1.0-preview.20261114.4",
+  "GOWORKAbsent": true
+}

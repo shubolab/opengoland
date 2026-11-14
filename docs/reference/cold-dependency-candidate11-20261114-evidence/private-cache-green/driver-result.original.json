@@ -1,0 +1,15 @@
+{
+  "endedAtUtc": "2026-11-14T15:00:39.694619+00:00",
+  "exitCode": 0,
+  "sourceStableDuringRun": true,
+  "testTaskExecuted": true,
+  "xml": {
+    "com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logSha256": "4e68056d8f1141dafa337a2e9ed8d6d09a67e4e2f60d832d5b2d214c83d7ff8c"
+}

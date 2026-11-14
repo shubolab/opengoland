@@ -1,0 +1,3682 @@
+{
+  "createdAtUtc": "2026-11-14T15:02:34.613406+00:00",
+  "authority": "Original bytes from failed/incomplete attempts, later targeted and full local regression checks, C11 key-payload/source audits, and explicitly scoped native observation. See summary.json for each result and limitation; this bundle does not establish a new installer release or full product acceptance.",
+  "sources": [
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/command.json",
+      "bytes": 487,
+      "sha256": "80185853926c21f02b08cb8c1893a69ffd8001b1070372ad581254315914875f",
+      "storedAt": "full-failed/command.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/result.json",
+      "bytes": 27152,
+      "sha256": "a92fa271ba68f851dee5de17102b5796444e6d0e33e46ffd57714fbc691a2241",
+      "storedAt": "full-failed/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/driver-result.original.json",
+      "bytes": 327,
+      "sha256": "df01f5b983a271e25632f91933351f55eedd12889ff1f5a597ca11b1967b5ee1",
+      "storedAt": "full-failed/driver-result.original.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/gradle.log",
+      "bytes": 9721,
+      "sha256": "03d3e67abec4c1076d6eb2623563a1d49a18e5fd669c193b9bb86f6ec9ca8d66",
+      "storedAt": "full-failed/gradle.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/source-before.json",
+      "bytes": 102860,
+      "sha256": "2235c3ffd9f789909fb13a1b78211771c254f630b4776dc0262e05d379b6eb57",
+      "storedAt": "full-failed/source-before.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/source-after.json",
+      "bytes": 102860,
+      "sha256": "2235c3ffd9f789909fb13a1b78211771c254f630b4776dc0262e05d379b6eb57",
+      "storedAt": "full-failed/source-after.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+      "bytes": 2728,
+      "sha256": "45b2dbeac07fe61405505bd701030fc4794840bc2df928f71a95ecb2296c53c6",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml",
+      "bytes": 2245,
+      "sha256": "a2920e2d1f598f2da6b984fb2047198fe56a5a77374c203522b6fd4731810eff",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.xml",
+      "bytes": 29091,
+      "sha256": "b76498b0b8da0b1eadc43c755ab580c2c21315e9d37e4c685881d7bf996b2d08",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
+      "bytes": 1027,
+      "sha256": "8e316ee9943d63873e71bd9151bb907f21c618d4298bba64d9500643ff69d76d",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoCompletionBarrierLifecycleTest.xml",
+      "bytes": 903,
+      "sha256": "9ff33c7fa4a8f4712853ca3b5a70a60e7c6956275c3bb359b12b32d6f04ae066",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoCompletionBarrierLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+      "bytes": 151985,
+      "sha256": "be996336d0f7ac8beab811d51923b68dcb63815b7aeab0c69e390a9cdf37d167",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoHierarchyWorkflowTest.xml",
+      "bytes": 2506,
+      "sha256": "90bd76c896e366d973df2885d67f89dae969e3ca67b2a44fbd4313a1b20e9c02",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoHierarchyWorkflowTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml",
+      "bytes": 527,
+      "sha256": "88edbc84ec69fcd122cc7aaffe7e3e489ecf9ed554ab124c84ebb3c68019d825",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoLspDeletionLifecycleTest.xml",
+      "bytes": 688,
+      "sha256": "0538c337cfffdba466b91c05153233eb1868fa1d1dda43287a0da536701c4b1a",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoLspDeletionLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest.xml",
+      "bytes": 534,
+      "sha256": "1b60cbd31467bf99ecfd6524b2263cd9b21644083c189ad96e95431c4d084eae",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest.xml",
+      "bytes": 1022,
+      "sha256": "5012575171be0f80370d0d69d2414f0649e04701552162a32208943e4741961b",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoLspHighlightOrderingTest.xml",
+      "bytes": 2633,
+      "sha256": "3263d4078b6e05310f9987c7865544bce5df13e047af9cf51d1587b09f1106c3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoLspHighlightOrderingTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest.xml",
+      "bytes": 1171,
+      "sha256": "da1313216f564b2411fdd48b28154584ac181c3228b8f497ded7b7a30fec67f9",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoLspIntentionDescriptionsTest.xml",
+      "bytes": 699,
+      "sha256": "1af33cc583be1ee0f52bdd74a5ff0416d5cbccf20456ee93b0064d1d091f96cf",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoLspIntentionDescriptionsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest.xml",
+      "bytes": 1276,
+      "sha256": "c934319e7b7612f1f89b321e0333c4daef10e2ad7ea70a4c91e46d7ef219ba43",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoMulticaretGoplsSyncTest.xml",
+      "bytes": 532,
+      "sha256": "8f0e001aab5141dd7f1a4c652c807f00a675260d69fc5ae66ee55613f83fc55a",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoMulticaretGoplsSyncTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoNativeCompletionOrderingTest.xml",
+      "bytes": 527,
+      "sha256": "daf1187303fedb926db44c9f7003918de1e9d7f0ddfa05e791dd3e99b023b2eb",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoNativeCompletionOrderingTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoNavigationCacheTest.xml",
+      "bytes": 2122,
+      "sha256": "02355f533f517b9b2b92b65fce0ec0d19e559d7e260cd0d1520e8dd4806ba56f",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoNavigationCacheTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoNavigationParameterGateTest.xml",
+      "bytes": 1004,
+      "sha256": "76030eea6337468b8e143795315e961efe0ad39bcd46869e8e3ba7e904877750",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoNavigationParameterGateTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoPackageStructureTest.xml",
+      "bytes": 13674,
+      "sha256": "54a407c8551ba277a8a5c402e43395dda7652315cfc1d4f1b65ab54933807f18",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoPackageStructureTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest.xml",
+      "bytes": 1047,
+      "sha256": "137bf89914fe52422e0c8f028fe88703e3243e236481a4af6282830e96f78cff",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest.xml",
+      "bytes": 2683,
+      "sha256": "19425cf42f9767fc92664832fb3742d342756523932c78a63d475d832a682bd8",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationTest.xml",
+      "bytes": 2202,
+      "sha256": "fe40c49821ec8af8463e2999fe1967a2542afab953efc9dc437e1035a91470a2",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoStructureControlsTest.xml",
+      "bytes": 1408,
+      "sha256": "a49879e54681230f0dd2e4449bd56376682eb5f0a126706cd21d995025bff37b",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoStructureControlsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoStructureGroupingTest.xml",
+      "bytes": 1659,
+      "sha256": "65d3090f82f69ba840c6bc77e3d1674ac1ca823f9915dcf230a9ab94571b8266",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoStructureGroupingTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest.xml",
+      "bytes": 1504,
+      "sha256": "0a17c48398f1aab239fdeb2a41293ec55d006c33950cf536df3cf8fce8e0d2ec",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoStructurePresentationTest.xml",
+      "bytes": 1203,
+      "sha256": "ab89410e015c730b41f10a2146a33026b97602698bc641871a8e9b820c95fba0",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoStructurePresentationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest.xml",
+      "bytes": 4590,
+      "sha256": "751410e8068c9e2f7c7caf71f28b5940cbd30388e9a51759770d859af3c5e242",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest.xml",
+      "bytes": 12575,
+      "sha256": "971c2f729d408a02b929af68fcc524cf6e35797d4cace1f2bb1818fc047a56d2",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.coverage.GoCoverageIntegrationTest.xml",
+      "bytes": 526,
+      "sha256": "c2197599e98379e9dc66deffb54df3c4c330a452af9678fba761added8524887",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.coverage.GoCoverageIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.coverage.GoCoverageProfileTest.xml",
+      "bytes": 1100,
+      "sha256": "82cf0c9d2509b38632ad007ad2bd59ad3aea403648ac44aeb7259c97d861ae13",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.coverage.GoCoverageProfileTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoAttachedAdapterLifecycleTest.xml",
+      "bytes": 1200,
+      "sha256": "b0a071fd7361a4ab0073ba5afb5e922ea4114911dd3381b1af6c6e81059dad35",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoAttachedAdapterLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDapBreakpointHandlerTest.xml",
+      "bytes": 1169,
+      "sha256": "3ee7d965621995f27a7d5cc4fe24bba1126049ecb42c9686182af82af29cd01c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDapBreakpointHandlerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDapClientRoutingTest.xml",
+      "bytes": 952,
+      "sha256": "7ed2209c4a1b0a7b503edc3b2440927b0174f731d27a595e4e8d5c449e4b3732",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDapClientRoutingTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDapColdSourceNavigationTest.xml",
+      "bytes": 828,
+      "sha256": "5ed6a8791dfa9842a493c97a509f2261fb1b2b8d4c4d5268c533c651db816430",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDapColdSourceNavigationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDapProtocolForwardingTest.xml",
+      "bytes": 499,
+      "sha256": "9f56048d5455951da811405fc147f43f992af64afa54c57334c6233542dc0864",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDapProtocolForwardingTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDapProtocolTest.xml",
+      "bytes": 2302,
+      "sha256": "e6fe11c0bab8c066d4ef0a48f211c85f751775576e085954dfa79982c0de3ec6",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDapProtocolTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDapSessionControlTest.xml",
+      "bytes": 14096,
+      "sha256": "8805ccedb251da7459a0c24016b43bdbae985c9f0ff32cda8742f70b420d6ab6",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDapSessionControlTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugConnectionTest.xml",
+      "bytes": 1260,
+      "sha256": "c343549b01e303bd9f2fd14b333e46c319821071dff30ef91968aa4bebd98b40",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugConnectionTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugLaunchTest.xml",
+      "bytes": 1031,
+      "sha256": "ae758421c0fe2f6ea09c27f22075e3dc247ed73a8720cb5c7d1bb3c1479a1107",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugLaunchTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugPrerequisitesTest.xml",
+      "bytes": 813,
+      "sha256": "cfca35fe6d01d9f807f4937f58c4608d97da944d6cd7f703caa682396cc45340",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugPrerequisitesTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugRunnerEligibilityTest.xml",
+      "bytes": 514,
+      "sha256": "9c7bbe44168eec8fd1c49f8eeefefc0ab189a5ae18ec40a6084071668a36d3bb",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugRunnerEligibilityTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugTestConsoleTest.xml",
+      "bytes": 794,
+      "sha256": "5c529a0bc2620698687882d0b5318eea71d46c67fe55e3a7194186bb95ea4fd3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugTestConsoleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugTestEventsTest.xml",
+      "bytes": 8256,
+      "sha256": "94e102514f0fd293a55bc94a32aa436ecac0cb8b9137ad22ded398ba5bee8190",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugTestEventsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugTestManagedArgumentsTest.xml",
+      "bytes": 842,
+      "sha256": "aa303f70072124c69c13a9cfd21effb3c023b21df3db990bd5882011767b921f",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugTestManagedArgumentsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebugTestProfilesTest.xml",
+      "bytes": 669,
+      "sha256": "cbd758f02e72fa388c769ca75891a483304c037b4463d559dc6c849b486e0e23",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebugTestProfilesTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoDebuggerEditorsProviderTest.xml",
+      "bytes": 856,
+      "sha256": "1ace39e551c5c15a994ea302efa1e9f471a309baf1f95f1d364f4bb79b9d9077",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoDebuggerEditorsProviderTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoGlobalFailedTestsActionTest.xml",
+      "bytes": 1579,
+      "sha256": "84c403640e1ed6bb44542341df973fe0e4ebc5666054b15f7325654dff3e421c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoGlobalFailedTestsActionTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.xml",
+      "bytes": 6710,
+      "sha256": "53a07ee671e81aadea73058a458825f7b331a25e638bf7a1f120801e4a298944",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoOwnedLaunchedAdapterLifecycleTest.xml",
+      "bytes": 536,
+      "sha256": "30b2fad99f9c078acaf89c7353a9846fb5be4ae8eb31620ce2f6b48e7af12f8b",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoOwnedLaunchedAdapterLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoTestConverterReadinessTest.xml",
+      "bytes": 42260,
+      "sha256": "302cde5bd112af535f1419c0f031c7665a7bfd05c176f9e315f73905549897be",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoTestConverterReadinessTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest.xml",
+      "bytes": 2290,
+      "sha256": "819fb7d53d7188707653d87f053bb6b250b45f1bf73e0327f6ddaae32f846eea",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.debug.GoTestDebugArgumentsTest.xml",
+      "bytes": 1460,
+      "sha256": "aaa1d1acc7a4374d07937377d1bb61eed0ea20580fc97105dc3147f056eca413",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoTestDebugArgumentsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.engine.EngineClientEdtDisposalTest.xml",
+      "bytes": 509,
+      "sha256": "6afac8cfa1e3707a283d4a48866a319f099c057f65b04351093b39939bc63e98",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.engine.EngineClientEdtDisposalTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.engine.EngineClientEnvironmentTest.xml",
+      "bytes": 685,
+      "sha256": "575def22c44cec5b1bfff33820fd1c625391b9df4bf5a93ed71ffc13ac98355e",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.engine.EngineClientEnvironmentTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml",
+      "bytes": 955,
+      "sha256": "27ae510f80e0c5011ff0d4641ec33735906c52ed57e3714095573ecd3bf62424",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.engine.EngineClientOutboundTest.xml",
+      "bytes": 739,
+      "sha256": "6b389a79ddd1cb825b4e8066c1cdef25c3aa122b5e13355015dc3e941cad9069",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.engine.EngineClientOutboundTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.engine.EngineFramingTest.xml",
+      "bytes": 600,
+      "sha256": "0f075d341672a4bc7a44a9b3a09fce9219181683d3081d697472e441c0ac62e6",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.engine.EngineFramingTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.engine.GoTaskTargetsIntegrationTest.xml",
+      "bytes": 1719,
+      "sha256": "0553a6470c855e8fa9caef84a7253863e64e2276b8dfa38ed3dcd53b215c68e7",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.engine.GoTaskTargetsIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.engine.GoTaskTargetsTest.xml",
+      "bytes": 678,
+      "sha256": "98615b0bca6f0d514cf3d5e1c74550e89a31564c4933c0ea17083df82482b232",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.engine.GoTaskTargetsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.GoNamedTypeHeadersTest.xml",
+      "bytes": 852,
+      "sha256": "675f21ca7eed0df563ab59f2321bbd724000d508e72159a8f65d97fa1b80ada1",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.GoNamedTypeHeadersTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructDialogTest.xml",
+      "bytes": 1449,
+      "sha256": "94a03b03c456ca483ebc6c4323e51f5fd57103d864ecd7f90d036bb86472150f",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructDialogTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructIntegrationTest.xml",
+      "bytes": 724,
+      "sha256": "d8133df2408f76bfa2a59a87ca5ba6604a1bffd2ff0141aeac70d69b60e4afcd",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsNativeTest.xml",
+      "bytes": 1091,
+      "sha256": "d241de88c498aecc32dda3b277e0f69441665f1cfb149a54917f5133efafe9dc",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsScanTest.xml",
+      "bytes": 903,
+      "sha256": "bc37505a9c43630c74f456f884ebdeb1170b3a56798db7caf861c6bfc0dafc98",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsScanTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.methods.GoImplementMethodsDialogTest.xml",
+      "bytes": 1842,
+      "sha256": "4f54b68489cb47cf68d8e19b73f091f37bf32e562d549f1323e4ad26b83a7a2c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.methods.GoImplementMethodsDialogTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.methods.GoMethodGenerationIntegrationTest.xml",
+      "bytes": 736,
+      "sha256": "d0700b4bfb0171a5ba425387b6e7cb613022563e14fb19e904a7415175111f27",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.methods.GoMethodGenerationIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.structs.GoStructHelpersDialogTest.xml",
+      "bytes": 1449,
+      "sha256": "311763cd8868ce5b01c717ab79a78660106e1eaa55cd87f388269852f5ae4411",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.structs.GoStructHelpersDialogTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.structs.GoStructHelpersIntegrationTest.xml",
+      "bytes": 1795,
+      "sha256": "7535e3241e6556533299d587bfaad19d45a087c38d0396b04f323afdf3298a92",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.structs.GoStructHelpersIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest.xml",
+      "bytes": 1780,
+      "sha256": "d157fcdf19a45eb9c474e9ae846087c6f6f51a251bae652c494a20f27c969680",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tags.GoStructTagContextTest.xml",
+      "bytes": 673,
+      "sha256": "a1296788d43dbbf1d4f35ec904916a16cdb0340c848c1bfd7f9e2c3550738466",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tags.GoStructTagContextTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tags.GoStructTagsDialogTest.xml",
+      "bytes": 1177,
+      "sha256": "ca697cf98a909c9016bd1ae40926fb853258fff6d889a41894663b0be42f4c14",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tags.GoStructTagsDialogTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tags.GoStructTagsIntegrationTest.xml",
+      "bytes": 1256,
+      "sha256": "3dcb00a5bd0cfe0b260765f18ec260421a94cc21430d692b1bee94bb573c3478",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tags.GoStructTagsIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest.xml",
+      "bytes": 574,
+      "sha256": "48b3347e9ec097ec212e68a73542223e5f281a00bfe1a1edcd0b9e3325ba017b",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsDialogTest.xml",
+      "bytes": 1240,
+      "sha256": "75a2a1928bc4db8969feab3f1891af57af009d025c1f709442eb42a2cc0eb4b3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tests.GoGenerateTestsDialogTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsModelTest.xml",
+      "bytes": 845,
+      "sha256": "9f94dc23dc796885f633cdd8ffbcac56351d7853c96b77559449946d743ae8c4",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tests.GoGenerateTestsModelTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tests.GoTestChooserNativeTest.xml",
+      "bytes": 713,
+      "sha256": "58e460ec2a1fcb21cb07d8131d7a6695b2859e8569f6d305477ec20be44cf832",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tests.GoTestChooserNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tests.GoTestFinderNativeTest.xml",
+      "bytes": 725,
+      "sha256": "04abcb94b13eb878fd7b807aa4ea8b67a8586ba63ee1f54cbec691e37291d8d5",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tests.GoTestFinderNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.generate.tests.GoTestGenerationIntegrationTest.xml",
+      "bytes": 1309,
+      "sha256": "f98b971627ae9059a5e65310b5d60f832d3f758dfa5977011ae6d982b8dfa332",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.generate.tests.GoTestGenerationIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpBatchProcessHandlerTest.xml",
+      "bytes": 7010,
+      "sha256": "df04b4ea7789c2b1eeb2ce9e02cbaeced30af432c6eead7d43c01b2d57952871",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpBatchProcessHandlerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpRequestCallTest.xml",
+      "bytes": 1443,
+      "sha256": "72ea06eb34118a48535da1397c339a1e010a890345d9d6345dfbe43bfb0fce17",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpRequestCallTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpRequestDocumentTest.xml",
+      "bytes": 3160,
+      "sha256": "13104b1149bdbf8b1b88542bb519f701b9961918593a587c2a1e0acda89ed710",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpRequestDocumentTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpRequestRunNativeTest.xml",
+      "bytes": 808,
+      "sha256": "46dd644a9e2f9bc383a43f502c803bd996268dfb994960cb2b05d735d1e62059",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpRequestRunNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpRequestSessionNativeTest.xml",
+      "bytes": 1629,
+      "sha256": "2d46dee3466c167c4c6a05ae718d23649be587cecd302a3dd14ea61e888b60f2",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpRequestSessionNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpResponseCacheTest.xml",
+      "bytes": 1091,
+      "sha256": "46dddfc00526b7394fc0128c5d91999c2ddc125f142ccbc4af8c3c906751d893",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpResponseCacheTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpResponseFilesTest.xml",
+      "bytes": 679,
+      "sha256": "d68b375268f445dd7a5cd6a31c3be02f726f887bf0858317c0d4290043604fa9",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpResponseFilesTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpResponsePresentationTest.xml",
+      "bytes": 2057,
+      "sha256": "ea249928f1d667fb8c6b9c65e371265e76d7607ab728916b26e60e61646b2271",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpResponsePresentationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpResponseViewNativeTest.xml",
+      "bytes": 865,
+      "sha256": "9615ba3d4a841f7de84b66b0b0a2001567df3dec37187a914acdf7aa6c448b4f",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpResponseViewNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.http.HttpServicesToolbarNativeTest.xml",
+      "bytes": 533,
+      "sha256": "f69c9d91e45f31d7553cb9c791ac1939b62fd83d0c2a33eb19b189b9571809a1",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.http.HttpServicesToolbarNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.icons.GoFileIconsTest.xml",
+      "bytes": 669,
+      "sha256": "ff153ee6328d9e69615c631ef5941159bf8f8863ef88c38869a19b21df52681c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.icons.GoFileIconsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.DockerfileLexerTest.xml",
+      "bytes": 745,
+      "sha256": "6b363e8400288d5913b7e3c30ceb4cb9dcc5c1e02dad71afb33c85435e4d5e5b",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.DockerfileLexerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.DockerfileNativeTest.xml",
+      "bytes": 599,
+      "sha256": "178ed15f69e89fc4b0d56af91ee14ccfe9377cc4d8206abd211202b0af87c374",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.DockerfileNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.GoEnterNativeTest.xml",
+      "bytes": 3197,
+      "sha256": "1bf9c90bdbddfb302b3cf669207bad9c4e2f936cfb8253e991f35cc38b56141d",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.GoEnterNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.GoLexerTest.xml",
+      "bytes": 1579,
+      "sha256": "a520435f62e4f7dfb6f8f860bfd8876bb067586e4cb51c490acabe026111edc9",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.GoLexerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.GoQuoteCommentNativeTest.xml",
+      "bytes": 1898,
+      "sha256": "59b5056aeb39d79e0b349549b8b04753cb00bf8c207d99553b5ad57207bf1cfe",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.GoQuoteCommentNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.GoTemplateLexerTest.xml",
+      "bytes": 895,
+      "sha256": "6af4287a2243d551f1ccadcc7ac497d1feb905c2c51cc5c05dc5f62dd64bb0f1",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.GoTemplateLexerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.GoTemplateNativeTest.xml",
+      "bytes": 623,
+      "sha256": "75b8c165da2a67a3f245599cc7cc6f908e2508e0ee4e4489e221ed2a24929b28",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.GoTemplateNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.HttpRequestLexerTest.xml",
+      "bytes": 616,
+      "sha256": "dc32eebcb8927f3ec7defdb34e60da00ce9058c0fdc3d44d3dcd8d67b71c3399",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.HttpRequestLexerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.HttpRequestNativeTest.xml",
+      "bytes": 605,
+      "sha256": "7790aecfcafa0a00be2461da55c1c8e39110f1267531de615be8a62a2922c5af",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.HttpRequestNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.SqlLexerTest.xml",
+      "bytes": 703,
+      "sha256": "d99fa4808a8ef3363a5f14cb10478cbd02f01bdbf0c327271cb7746a1c0e505c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.SqlLexerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lang.SqlNativeTest.xml",
+      "bytes": 569,
+      "sha256": "e6be9206d4ecde2f30ca2bb1a271d3706d1fc32ccd265607b585d1932f94d208",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lang.SqlNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lifecycle.StandaloneProxyWarmupTest.xml",
+      "bytes": 1159,
+      "sha256": "99957a82d594652a639d66fb130fc1cdd17e50985f9351f0e213a0e910a0ab0a",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lifecycle.StandaloneProxyWarmupTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lint.GoInspectionProcessTest.xml",
+      "bytes": 502,
+      "sha256": "7b644eb8c0acc47ae6de97efef7a9e761bfdf9c9e7f46690549ed48de3e82411",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lint.GoInspectionProcessTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lint.GoLintCommandsTest.xml",
+      "bytes": 642,
+      "sha256": "c6128bbb59ba02b6b67902dcfb05f85ded8a3bb4ad058ce04f885bfdda3ffd4d",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lint.GoLintCommandsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lint.GoLintParserTest.xml",
+      "bytes": 1080,
+      "sha256": "3f6570c7f87548b6ea528d1476d32063bbda8f33568d6b14d552ea7b5fec818e",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lint.GoLintParserTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lint.GoVetIntegrationTest.xml",
+      "bytes": 641,
+      "sha256": "e06a6fa18fe9cd8567ba6903846e99808e3d8d3aa7c227e725ee2b51e4a7a8dc",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lint.GoVetIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+      "bytes": 2771,
+      "sha256": "0e3f88bca76ee9253c9c5854844bc14dcc0b5ccc8df834368df08886d9dfd1b2",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+      "bytes": 2050,
+      "sha256": "a3eabc27561a4518e7380c4236672db1d18c1ceceb0d7a3b378a29de182725ae",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoDocumentSyncTest.xml",
+      "bytes": 1354,
+      "sha256": "f71bfb7c33eacc3fb9222fadd6e91f5e0fa46697b8daf27598d815276de929e1",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoDocumentSyncTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.xml",
+      "bytes": 6870,
+      "sha256": "9167aebb19174223a2222153f5972cc9111a27817844cc11681e9fb88a0a9f65",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.xml",
+      "bytes": 1014,
+      "sha256": "71ac94f77c115e24ddba3662c240173d2bac4b27e60a71f13dbe06246c47d2f5",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml",
+      "bytes": 704,
+      "sha256": "3dda39fba8d370a80461e81cf783f25fd0b6a60cf4f46c848d3444b6f2e387f5",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+      "bytes": 11944,
+      "sha256": "2f81956794a61d7411e8e1f6a00cef223fcec67a27ba83315dce8d4059eadc49",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoSemanticTokensGoplsTest.xml",
+      "bytes": 524,
+      "sha256": "91277c9a58805b9968fd6d0faad2735c9e15215c8374060d9738deeac255c91d",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoSemanticTokensGoplsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.lsp.GoSemanticTokensServerTest.xml",
+      "bytes": 2247,
+      "sha256": "421f426d77981f84aee517c5588ef114ade266677f1aed1d34557e5a86312787",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.lsp.GoSemanticTokensServerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.platform.PlatformPsiListenerInitializationTest.xml",
+      "bytes": 924,
+      "sha256": "0c8ff3e247012e7c57e1ee78dbd08095938c43460e94335f851a0a9c8a735d77",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.platform.PlatformPsiListenerInitializationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.platform.PlatformUnicodePersistenceTest.xml",
+      "bytes": 1065,
+      "sha256": "a739bb95f1b3a5fbe4e4389b6f65bff5301aaf74d6e098a0d5141826ffdc717c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.platform.PlatformUnicodePersistenceTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.plugins.ChineseLanguagePackDialogTest.xml",
+      "bytes": 2208,
+      "sha256": "de3bc2a8ffad0d52fbdaf9594a73245be7ff470b55732c3575c609245d4898a7",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.plugins.ChineseLanguagePackDialogTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.plugins.ChineseLanguagePackTest.xml",
+      "bytes": 2673,
+      "sha256": "7a8c59f8320b7c2ccb843fcf7a9de7124ade9da40cb46e0a5b66ec272cfcc312",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.plugins.ChineseLanguagePackTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.product.GoCompatibleMarketplaceSearchTest.xml",
+      "bytes": 892,
+      "sha256": "ff3af87db6225f82a389f80372e6f34a455a0db66676410fe404961938221032",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.product.GoCompatibleMarketplaceSearchTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.product.GoGeneralPluginsManagerTest.xml",
+      "bytes": 6369,
+      "sha256": "8c6a18059225c2c193ea4551902ab821a95710a43a759f03b32b47fcfdd0b82b",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.product.GoGeneralPluginsManagerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.product.GoProductPluginManagementPolicyTest.xml",
+      "bytes": 1693,
+      "sha256": "570152a8c3a1b4e00e5000e4d2cc3918f2175a8950cf1dc4f882f7f9538479e7",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.product.GoProductPluginManagementPolicyTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.profile.GoProfileModelTest.xml",
+      "bytes": 812,
+      "sha256": "80573d602c7cf63f97c3c8b82be3e7e53a17f4ea3f5174160610d367634b29cb",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.profile.GoProfileModelTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.project.GoJavaCreationEntriesTest.xml",
+      "bytes": 857,
+      "sha256": "0c51945f3d4058288c7cff21ae79ba08ea3901143e70f77d9654dfa1d1e22260",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.project.GoJavaCreationEntriesTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.project.GoModuleEnvironmentTest.xml",
+      "bytes": 673,
+      "sha256": "382d9516e860879f82c47cf4df6baa06f57b37e9a064a205a72cb24ab05e050f",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.project.GoModuleEnvironmentTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.project.GoModuleGeneratorTest.xml",
+      "bytes": 1081,
+      "sha256": "05b672b2f6fb9307411f924d88043736c9a0e56005159e666b7c664a7158225f",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.project.GoModuleGeneratorTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.project.GoNewProjectSdkStartupTest.xml",
+      "bytes": 899,
+      "sha256": "d6d928fe34b7a00e1cedb0f3c2d7d81aa87106972b5b86647f239d3599170dee",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.project.GoNewProjectSdkStartupTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.project.GoNewProjectTest.xml",
+      "bytes": 14738,
+      "sha256": "1603bbab0bc1b6f198052e1fccecccf5c282f5ae7225046be11c576c986ce81c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.project.GoNewProjectTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.project.GoSdkProbeTest.xml",
+      "bytes": 1680,
+      "sha256": "f04ce94cb85384b145e0801d41b99bb31d638806972519b8e9eb538b7cba9ae6",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.project.GoSdkProbeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.GoWorkspaceEditCaseAliasesTest.xml",
+      "bytes": 1916,
+      "sha256": "a5827c96899a3dc17084da5d2732c4b533c05e69f3880e53e0312767be5a1a6c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditCaseAliasesTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.GoWorkspaceEditGuardTest.xml",
+      "bytes": 1164,
+      "sha256": "05f66b39a533e1ca2ac68e19f850ea909e559180330994ae2b9a9d04a49f0439",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditGuardTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.GoWorkspaceEditJournalTest.xml",
+      "bytes": 837,
+      "sha256": "65b154fa07192d74a0ab48a0e1ca4dc6d6d309c04c20f0ae37cacf3233efbd73",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditJournalTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.GoWorkspaceEditNativeCaseTest.xml",
+      "bytes": 938,
+      "sha256": "afc3f7cdffab6167ae48cc7f0df66558c82752dbcde18e369ea7bb9e451540f3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditNativeCaseTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.GoWorkspaceEditPlanTest.xml",
+      "bytes": 2153,
+      "sha256": "c8bc8cfcf615f636852092c27dcf8402ad23c80bc6a5fb1375f5d5fe913523f0",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditPlanTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest.xml",
+      "bytes": 2222,
+      "sha256": "af82781ce71f137d55dfc3bac1eff42a2ddfb39034739778d9a9c973b3de3aef",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest.xml",
+      "bytes": 1451,
+      "sha256": "213d3de9786ae62981fc08b72ac9747cc66df800532f789838bfb1e22107a012",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.signature.GoChangeSignatureHandlerTest.xml",
+      "bytes": 701,
+      "sha256": "73f41b4407d51273613cc8c0d7cd8fd2409b3522e5a868d59577109f984e3d6c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.signature.GoChangeSignatureHandlerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.signature.GoSignatureModelTest.xml",
+      "bytes": 999,
+      "sha256": "c29d30de996ccf0df41a39321731f44436c31462e92bb9bdfb0d167f15c16e87",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.signature.GoSignatureModelTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.refactor.signature.GoSignatureValidationTest.xml",
+      "bytes": 1748,
+      "sha256": "a190304960846df58050f5df3311607bb9a7e483bb353afb94b513926ec19228",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.refactor.signature.GoSignatureValidationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoCancelledParentNativeTest.xml",
+      "bytes": 687,
+      "sha256": "e0b83976bc63da5156b55b475ddf30866d6ccdc75e8bfeea6cac1855476040d2",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoCancelledParentNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+      "bytes": 1424,
+      "sha256": "81810a29d92d97acd81883428a17befd2a248ca28e678bbb4d71847821490a39",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoFuzzFailureRerunToolTest.xml",
+      "bytes": 684,
+      "sha256": "ab82144702dbbd730eba12129d2543b9fa94e3102f7eac6a87c7ceddd30e9087",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoFuzzFailureRerunToolTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoGlobalFailedTestsRunTest.xml",
+      "bytes": 805,
+      "sha256": "50e937efdc575f280af7fecaf8272c6573a9130eae1574d65dfeb1126200a903",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoGlobalFailedTestsRunTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoLiveTestRunnerTest.xml",
+      "bytes": 838,
+      "sha256": "c644c68345c48bfba52a3cc52d20fe3fcd1bf70f49fa28cc67d6ff4d0ba1c083",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoLiveTestRunnerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+      "bytes": 4244,
+      "sha256": "6a4f8521a6e4318d765c568ab087343243b720c873dcefd7174879219bfdfcb5",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoNativeCoverageIntegrationTest.xml",
+      "bytes": 521,
+      "sha256": "1c3d0dfd0ca49f20ef69dde11870a6b82305b6375b0a65509dcc12518ec1fa81",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoNativeCoverageIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoPackageDirectoriesTest.xml",
+      "bytes": 949,
+      "sha256": "15b77576596dc4779624ec4589e1ce87c7b1cb90116dd11924938fdd711a750c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoPackageDirectoriesTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunArgumentBoundaryTest.xml",
+      "bytes": 538,
+      "sha256": "bda5872810151900de7208919ae6a8782991b5c105cd25cf8a5243cdea5eaf35",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunArgumentBoundaryTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunBuildContextLaunchTest.xml",
+      "bytes": 3134,
+      "sha256": "be16b0203927954aab30c0a8a111b4101036e7bed22e8b1b8aa5201591dfb21a",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunBuildContextLaunchTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunBuildContextLoaderTest.xml",
+      "bytes": 2373,
+      "sha256": "2566614faed6420bfdc7146092deda5d09fd063512527586a458f1a0600a04a3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunBuildContextLoaderTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunBuildContextNativeTest.xml",
+      "bytes": 502,
+      "sha256": "131e8bdfcee0de0d7eb31fa13e0497fa2e501414c94d27f710edb6b66f2edae2",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunBuildContextNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest.xml",
+      "bytes": 907,
+      "sha256": "12fdc6fa3038d7b1821081a9a6fcd843cad634264e7e9d33de45d759a20987d3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunBuildContextServiceTest.xml",
+      "bytes": 2585,
+      "sha256": "13d4d8767e2397e86127b0547a931eb956b748ca79fbb950076c532da7006ee1",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunBuildContextServiceTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunContextNativeTest.xml",
+      "bytes": 1316,
+      "sha256": "d4c04640c3b45c6e47c6dda85f6397f6752c485aeb7f610bedc1bb709d26f023",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunContextNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoRunParametersTest.xml",
+      "bytes": 1314,
+      "sha256": "6a6f8dcad4f90a72c45705bb8e7348a1925f43b67c34dcfb51612fe607e605a4",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoRunParametersTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoSourceFunctionsTest.xml",
+      "bytes": 1971,
+      "sha256": "891963137ef42259f957658069cbb613162b6a345de47f64a4ea063244650af4",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoSourceFunctionsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoTestOutputTest.xml",
+      "bytes": 2222,
+      "sha256": "621c6bff866823f6cef2205a58612f45ba54357fac51d4dbf4cdbe4ae70ed6d3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoTestOutputTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoTestOwnershipTest.xml",
+      "bytes": 791,
+      "sha256": "f2a848ce22db834469a1254f9d9f1115e74dde5b21b7d7b29ae49318feb8f4cb",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoTestOwnershipTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoTestRerunPlanTest.xml",
+      "bytes": 640,
+      "sha256": "5592a29e6dc8a18f54e5aa5a07d2057b4ac5730a180cdd060cfaffeae8201a2e",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoTestRerunPlanTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoTestWorkflowIntegrationTest.xml",
+      "bytes": 861,
+      "sha256": "492548639a5b5824145cc86ae8409cf635377314851d0de07336d6dc18b5f44c",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoTestWorkflowIntegrationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoTestWorkflowNativeTest.xml",
+      "bytes": 637,
+      "sha256": "59e6d1b10c8cc29cb9a9756ef28dcb079d466540d0bc9fae60bdad600cdc71e3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoTestWorkflowNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.GoTestWorkflowTest.xml",
+      "bytes": 1196,
+      "sha256": "99b7af9ee070bdaee0276f980d0f330d2dfcfd85084e69f88fdedae0e06eaedb",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.GoTestWorkflowTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest.xml",
+      "bytes": 1674,
+      "sha256": "20f71ec346dbe2f3de082ddf7809ab516e2feb38d85b21fe97ba34f37d8d933e",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusTest.xml",
+      "bytes": 1020,
+      "sha256": "c7515ad2890338af711a252c7b0732ef7621739d9bab11a3c079b147a67d6530",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusToolTest.xml",
+      "bytes": 506,
+      "sha256": "8778e40331ae9683d02fbbb33697d92a319398fe31cca4158dde93c970a404e5",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusToolTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.sdk.GoSdkDownloadDialogTest.xml",
+      "bytes": 1187,
+      "sha256": "ca00f88b52705d7d49c847776b0d8354f345a1ed931352442b972d11f39791d3",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.sdk.GoSdkDownloadDialogTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.sdk.GoSdkDownloadsTest.xml",
+      "bytes": 3372,
+      "sha256": "0acb2b39df65c7e5ea18e396081cee7abb698349c90058ce15df6d35f2c20aa0",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.sdk.GoSdkDownloadsTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.sdk.GoSdkRegistryTest.xml",
+      "bytes": 926,
+      "sha256": "799de8893b202bad2f2c1e1c5829eb757ce105d111011e1ee9a706d3d063f272",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.sdk.GoSdkRegistryTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.sdk.GoSdkSelectorTest.xml",
+      "bytes": 1894,
+      "sha256": "dbeead1304bfb1603773a11929ad226b9114bc291128b09dab8f113ed9a6706f",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.sdk.GoSdkSelectorTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.semantic.GoCommandEditOwnerTest.xml",
+      "bytes": 1358,
+      "sha256": "7f6838898314a297bb7672850a68556913ca720fc9323b3f5498fdf93b58470e",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.semantic.GoCommandEditOwnerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.semantic.GoIdentifiersTest.xml",
+      "bytes": 630,
+      "sha256": "afad97b80906ac676c32cc3c4124fde89a21d0cd1f512fdaa26ca0d1354ee2ce",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.semantic.GoIdentifiersTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.semantic.GoSemanticContinuationTest.xml",
+      "bytes": 701,
+      "sha256": "c0c71c686908fac8bedfd86925c9a21f9a6671a1d05b371ba2f6c5ae00145a98",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.semantic.GoSemanticContinuationTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.settings.GoBundledToolchainTest.xml",
+      "bytes": 965,
+      "sha256": "88c24a379f7c297c28dbf3e671b3ae59e5b801fa7c8fcb1bb38f6fb4684d7b39",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.settings.GoBundledToolchainTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.settings.GoGoplsEnvironmentTest.xml",
+      "bytes": 1094,
+      "sha256": "c97d8e426566919760d713ef1a4fea0c67bc14c8eb3136aabe0ff963e48db519",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.settings.GoGoplsEnvironmentTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml",
+      "bytes": 1240,
+      "sha256": "c19c6446665b4f445dcc6876851be9dca9c4176f01c5878a73c91427e29e4092",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.settings.GoSettingsSearchTest.xml",
+      "bytes": 506,
+      "sha256": "9610bcd48f28c154d9468eebef72e767e08915e2d864d855b762cbd19dd0f5b5",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.settings.GoSettingsSearchTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.settings.GoToolchainTest.xml",
+      "bytes": 909,
+      "sha256": "30eab6776fbaca0b092a657e7bdd7e7df8018580b1faa6bf2bcbe53d9211b454",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.settings.GoToolchainTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.terminal.GoTerminalCommandCompletionTest.xml",
+      "bytes": 815,
+      "sha256": "05bc4d9cacde9ac6035c757b8f3c73f4b8c5ae5661c874637aeab854aea7a1fc",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.terminal.GoTerminalCommandCompletionTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.terminal.GoTerminalCompletionFallbackTest.xml",
+      "bytes": 1974,
+      "sha256": "45e9b19724a79c6037f4a0504cf5a9e8147133031943c020c0d556f504cc5329",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.terminal.GoTerminalCompletionFallbackTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-full/TEST-dev.openidea.goide.terminal.GoTerminalCustomizerTest.xml",
+      "bytes": 688,
+      "sha256": "9351d6d9b487414249042fa955e46dcf7c4d3d609f9708c27a7d748deaf50b9d",
+      "storedAt": "full-failed/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.terminal.GoTerminalCustomizerTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-go-race/result.json",
+      "bytes": 6034,
+      "sha256": "e692a3291f059693055d4bc00458406aab3b1977e50bf072035feeda6f46892d",
+      "storedAt": "go-race-failed/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-go-race/go-race.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "go-race-failed/go-race.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-go-race/go-vet.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "go-race-failed/go-vet.log",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-two-hour-go-race/go-race.jsonl",
+      "bytes": 309945,
+      "sha256": "50d28d07748278d0d65dd6fed593a1e2d2f55d99442015303333a34c9a757842",
+      "storedAt": "go-race-failed/go-race.jsonl.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/go-race-interruption.json",
+      "bytes": 1749,
+      "sha256": "99c5f92346fd92234220f3f7f544e607fe32e343df7938895ca3b437a93ea3e2",
+      "storedAt": "go-race-failed/interruption.json",
+      "encoding": "identity"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-0884c9d8-890b-4e62-a84d-fa6f6633d1ef/result.json",
+      "bytes": 5478,
+      "sha256": "31a9ccfa85fc91e4e7f04f00b3c9e58f3f619f361de46928b7775aec6f906776",
+      "storedAt": "full-failed/wire/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-0884c9d8-890b-4e62-a84d-fa6f6633d1ef/after-greeting.client-to-server.raw",
+      "bytes": 6139,
+      "sha256": "e947b933374e37941cd4b97fcfb51cbd4e5d357d59a222a4e05cbe04dd6ec712",
+      "storedAt": "full-failed/wire/original-streams.tar.gz",
+      "archiveEntry": "after-greeting.client-to-server.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-0884c9d8-890b-4e62-a84d-fa6f6633d1ef/after-greeting.server-to-client.raw",
+      "bytes": 11956,
+      "sha256": "68a4ac6750feb0501027971f6f232e1ecc0d8c0059dde6f3447d3f3c405f894c",
+      "storedAt": "full-failed/wire/original-streams.tar.gz",
+      "archiveEntry": "after-greeting.server-to-client.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-0884c9d8-890b-4e62-a84d-fa6f6633d1ef/client-to-server.raw",
+      "bytes": 6898,
+      "sha256": "1ec4d20da850df327770090de270191f98784439b7e5eb2798a9c6f3e8df0cf5",
+      "storedAt": "full-failed/wire/original-streams.tar.gz",
+      "archiveEntry": "client-to-server.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-0884c9d8-890b-4e62-a84d-fa6f6633d1ef/server-to-client.raw",
+      "bytes": 13070,
+      "sha256": "e9c0ecd2fc3d09755dcaf7c60474995015fa2f955f73e5737fbc7ab26d282eb9",
+      "storedAt": "full-failed/wire/original-streams.tar.gz",
+      "archiveEntry": "server-to-client.raw"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/command.json",
+      "bytes": 909,
+      "sha256": "ff4bcf06540641cd1641d1857bc42dc5261e845b901c8a980321fda7bc3463cc",
+      "storedAt": "private-cache-green/command.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/result.json",
+      "bytes": 749,
+      "sha256": "7f8f6a2e1eeb5f909835eb4b69c2178a3350a7cdb4320c0c800b6a6d5d883dd5",
+      "storedAt": "private-cache-green/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/driver-result.original.json",
+      "bytes": 381,
+      "sha256": "060ffd4f00e6ef970754fe928fd87a3e4a9e6e7b74add082b2b2555d227daef0",
+      "storedAt": "private-cache-green/driver-result.original.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/gradle.log",
+      "bytes": 9446,
+      "sha256": "4e68056d8f1141dafa337a2e9ed8d6d09a67e4e2f60d832d5b2d214c83d7ff8c",
+      "storedAt": "private-cache-green/gradle.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/source-before.json",
+      "bytes": 102860,
+      "sha256": "43c83024426dd174a9710ce9c0001e8a8210af5ff8b67ebeb829e81d586e4374",
+      "storedAt": "private-cache-green/source-before.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/source-after.json",
+      "bytes": 102860,
+      "sha256": "43c83024426dd174a9710ce9c0001e8a8210af5ff8b67ebeb829e81d586e4374",
+      "storedAt": "private-cache-green/source-after.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml",
+      "bytes": 527,
+      "sha256": "c979e89ae183e611c63daf6bcb0e11ef644117b2f4508b155807fbbf19decb8a",
+      "storedAt": "private-cache-green/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-empty-cache-green/TEST-dev.openidea.goide.debug.GoTestConverterReadinessTest.xml",
+      "bytes": 1934,
+      "sha256": "23788949a10e3d1f51060e55634235b826b43e13ea17f5df98cc355bd1a5352a",
+      "storedAt": "private-cache-green/original-test-results.tar.gz",
+      "archiveEntry": "TEST-dev.openidea.goide.debug.GoTestConverterReadinessTest.xml"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-264f0c97-eb4d-4182-b487-9e495db65b9e/result.json",
+      "bytes": 5836,
+      "sha256": "c59a1ff5aa868089754329c7f7396b007fdd73ff33c54651f0729c127c0f8a22",
+      "storedAt": "private-cache-green/wire/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-264f0c97-eb4d-4182-b487-9e495db65b9e/after-greeting.client-to-server.raw",
+      "bytes": 6297,
+      "sha256": "32eb3d766e4f4e8616a27b143e6e5c38d45b54e2b5a776625c7cf62fe8b10198",
+      "storedAt": "private-cache-green/wire/original-streams.tar.gz",
+      "archiveEntry": "after-greeting.client-to-server.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-264f0c97-eb4d-4182-b487-9e495db65b9e/after-greeting.server-to-client.raw",
+      "bytes": 12113,
+      "sha256": "925b030fdbfb744bf2fdb22bdcb7baaeaef883c9e403993051e6e485aa105802",
+      "storedAt": "private-cache-green/wire/original-streams.tar.gz",
+      "archiveEntry": "after-greeting.server-to-client.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-264f0c97-eb4d-4182-b487-9e495db65b9e/client-to-server.raw",
+      "bytes": 7056,
+      "sha256": "9006a0b5e6d6f7ff200d9250dd69d7e6afd8f1564066cda96829b717d90fe37b",
+      "storedAt": "private-cache-green/wire/original-streams.tar.gz",
+      "archiveEntry": "client-to-server.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-264f0c97-eb4d-4182-b487-9e495db65b9e/server-to-client.raw",
+      "bytes": 13227,
+      "sha256": "be35c4aeb05562056a8cd866778d3755f02e163f39b90c6addb0253ed3bf0ffe",
+      "storedAt": "private-cache-green/wire/original-streams.tar.gz",
+      "archiveEntry": "server-to-client.raw"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/plan.json",
+      "bytes": 1304,
+      "sha256": "2339ce8d4e78042387da1b35d3368f011e8974ebacdf7312bcb42db4701b9489",
+      "storedAt": "candidate11-build/plan.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/command.json",
+      "bytes": 724,
+      "sha256": "7d5635b20beb6d212d7bc1c8020ebaadc4e6bc64a98db056f00f19f56568dff6",
+      "storedAt": "candidate11-build/command.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/build-result.json",
+      "bytes": 754,
+      "sha256": "03d79ef71d06634936b59fb84a3d4983d0571d70538dae5412a3ca7c19bb6060",
+      "storedAt": "candidate11-build/build-result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/audit.json",
+      "bytes": 3084,
+      "sha256": "c333291f67a36eb498a90e16f7e694add7bbedaaddaa1f7a32d61926d980c042",
+      "storedAt": "candidate11-build/audit.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/engine-build-info.txt",
+      "bytes": 1148,
+      "sha256": "bc563c506729ab8544bd251a60378c13845fc54d7857e1618ee5d71d629722ed",
+      "storedAt": "candidate11-build/engine-build-info.txt",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/independent-engine-build-info.txt",
+      "bytes": 1211,
+      "sha256": "30d7099f87c6a0f7def4d4ec30a6fed40b790627679f71388260fb36de3f6cdc",
+      "storedAt": "candidate11-build/independent-engine-build-info.txt",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/codesign.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "candidate11-build/codesign.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/independent-codesign.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "candidate11-build/independent-codesign.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/test-results.tar.gz",
+      "bytes": 91924,
+      "sha256": "52f05b2611645fccdad784058ec0743eb4c23e8b99c5727d5677ddb5c73e526a",
+      "storedAt": "candidate11-build/test-results.tar.gz",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/product-manifest.json",
+      "bytes": 4945217,
+      "sha256": "3a79892e972b71a8c2274e060abf17a3daf4b7a9b268020d8c67c7e2e467c251",
+      "storedAt": "candidate11-build/product-manifest.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/source-before.json",
+      "bytes": 102860,
+      "sha256": "43c83024426dd174a9710ce9c0001e8a8210af5ff8b67ebeb829e81d586e4374",
+      "storedAt": "candidate11-build/source-before.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/source-after.json",
+      "bytes": 102860,
+      "sha256": "43c83024426dd174a9710ce9c0001e8a8210af5ff8b67ebeb829e81d586e4374",
+      "storedAt": "candidate11-build/source-after.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/package.log",
+      "bytes": 5234878,
+      "sha256": "a1d7fe7b464b36f7da7af7c7d979f1109ac4be61fd51f80f087957a96f9b3755",
+      "storedAt": "candidate11-build/package.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/engine-rebuild.log",
+      "bytes": 614,
+      "sha256": "8b14eeb97fc13c7e0eb59c53116b3d89fb95363d115ee5f2ae2561553fc7729d",
+      "storedAt": "candidate11-build/engine-rebuild.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/launch.json",
+      "bytes": 3580,
+      "sha256": "1f61a4f6260e4c0336f2753ce4ff879feff298ac595907a378d2754e33094cd5",
+      "storedAt": "native-atomic/launch.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/environment-check.json",
+      "bytes": 79,
+      "sha256": "d2ef5586c5eff02b89847c08dc7336e13084b55f7b35f68aace61604886f17e0",
+      "storedAt": "native-atomic/environment-check.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/pids.json",
+      "bytes": 58,
+      "sha256": "47591032ba67063229614a2bc8251a6ec98408188fa2604a5d47bbd9d16b7091",
+      "storedAt": "native-atomic/pids.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/message-cli-summary.json",
+      "bytes": 2445,
+      "sha256": "c77255a5f6db6e6f388b42a204ca1db4d6e9c38293cda80e3f9dd920e826e653",
+      "storedAt": "native-atomic/message-cli-summary.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/message-after-restart.png",
+      "bytes": 155288,
+      "sha256": "0d7a22c8ee7204ae3f5737d1ca56f6fdc937e03c0cb47035a994c1b28b4a17cc",
+      "storedAt": "native-atomic/message-after-restart.png",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/message-after-restart.capture.json",
+      "bytes": 42975,
+      "sha256": "db59fc0ff1c62d310e8cfed2bb33fbe3fb228408cfed800abae10f152c7058d6",
+      "storedAt": "native-atomic/message-after-restart.capture.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/rea-after-restart.json",
+      "bytes": 226626,
+      "sha256": "7a6d55ec13dafcf231f152ef86b03ef28a48a3ebf11373b7d98676f492c46165",
+      "storedAt": "native-atomic/rea-after-restart.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/candidate11-build/rea-engine.json",
+      "bytes": 8599,
+      "sha256": "1a7360610970bd125149719b1d1d9dddfa035078c879fa3ddb0589865f422ba3",
+      "storedAt": "candidate11-build/rea-engine.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/state.json",
+      "bytes": 2061,
+      "sha256": "ed6d88c1e727be41aa3afbabb344f6cf5d59f602c0f86066ce08202ff440ef65",
+      "storedAt": "native-atomic/fixture/state.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/operations.jsonl",
+      "bytes": 4715,
+      "sha256": "f537ed21e87aa1e49c962819a6053fed4011607636d172ae85be59c2328389a9",
+      "storedAt": "native-atomic/fixture/operations.jsonl",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/atomic/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-atomic/fixture/atomic/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/atomic/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+      "storedAt": "native-atomic/fixture/atomic/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/atomic/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-atomic/fixture/atomic/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/atomic/dep/dep.go",
+      "bytes": 58,
+      "sha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a",
+      "storedAt": "native-atomic/fixture/atomic/dep/dep.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/atomic/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-atomic/fixture/atomic/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/receipt.json",
+      "bytes": 2448,
+      "sha256": "f4fe19194aef0877bff0c7ef6974689f867619657bf00bec304663c3d83758ed",
+      "storedAt": "native-atomic/cli-controls/greeting/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-atomic/cli-controls/greeting/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/run.stderr",
+      "bytes": 68,
+      "sha256": "5410867b270fe674cc0b8a8794ba0b9cc577f7f4955764673ead18b749825218",
+      "storedAt": "native-atomic/cli-controls/greeting/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/test.stdout",
+      "bytes": 52,
+      "sha256": "2699ab456e6411afc593a9eed37a7612dfd31183b634851e9b71198f5df65884",
+      "storedAt": "native-atomic/cli-controls/greeting/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/test.stderr",
+      "bytes": 102,
+      "sha256": "64fd2411b32ae6f62dc6aa869639aa5cf882aaa80098e48b34add2c8052c0557",
+      "storedAt": "native-atomic/cli-controls/greeting/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-atomic/cli-controls/greeting/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+      "storedAt": "native-atomic/cli-controls/greeting/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-atomic/cli-controls/greeting/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/dep/dep.go",
+      "bytes": 59,
+      "sha256": "b89ad4d73f1127179f7a39ba5af7bf8382b415be474ecb054b8c209d81100928",
+      "storedAt": "native-atomic/cli-controls/greeting/dep/dep.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/greeting-152314664783/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-atomic/cli-controls/greeting/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/receipt.json",
+      "bytes": 2445,
+      "sha256": "c77255a5f6db6e6f388b42a204ca1db4d6e9c38293cda80e3f9dd920e826e653",
+      "storedAt": "native-atomic/cli-controls/message/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/run.stdout",
+      "bytes": 21,
+      "sha256": "2e32cbea0dff12f729258caf72caca4e35921b13fc1e8faaaf84f6be993ae4f8",
+      "storedAt": "native-atomic/cli-controls/message/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-atomic/cli-controls/message/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/test.stdout",
+      "bytes": 39,
+      "sha256": "2a62821dc28d44f3022ebc9a03338e03eb644619978fded85f1ec99151d601d5",
+      "storedAt": "native-atomic/cli-controls/message/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-atomic/cli-controls/message/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-atomic/cli-controls/message/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+      "storedAt": "native-atomic/cli-controls/message/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-atomic/cli-controls/message/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/dep/dep.go",
+      "bytes": 58,
+      "sha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a",
+      "storedAt": "native-atomic/cli-controls/message/dep/dep.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/atomic/message-153503761177/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-atomic/cli-controls/message/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-serial-go-race/result.json",
+      "bytes": 2258,
+      "sha256": "90d7666cbd24288d8fa69a7e36531d62d389c4f8abc0f60980fc201ddf626331",
+      "storedAt": "serial-go-race/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-serial-go-race/go-race.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "serial-go-race/go-race.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-serial-go-race/go-vet.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "serial-go-race/go-vet.log",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-serial-go-race/go-race.jsonl",
+      "bytes": 385952,
+      "sha256": "ad44baeaf95aee2f94c6b526d56edb985522d332b6f14434e5c192a79d8f4176",
+      "storedAt": "serial-go-race/go-race.jsonl.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-portable-identity-green/command.json",
+      "bytes": 650,
+      "sha256": "dc33a05b46b4052157d41d91a05e80372a1f5cffb71c2b75aa62a17e5805aaf0",
+      "storedAt": "portable-identity-green/command.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-portable-identity-green/result.json",
+      "bytes": 381,
+      "sha256": "8c5240329e071bc5372e7a59992c28e82f426bc06c8ab147d5a31095c0c7b796",
+      "storedAt": "portable-identity-green/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-portable-identity-green/gradle.log",
+      "bytes": 126634,
+      "sha256": "ff4e9ac96307e4e41613deeade0c5b65754693b05a80c9fd69572ff40919c9b2",
+      "storedAt": "portable-identity-green/gradle.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-portable-identity-green/source-before.json",
+      "bytes": 102860,
+      "sha256": "cd9791c3b4a32fe3ae33f0d66006fa9671e1a8049d6ce4c2bb4674faff769c6a",
+      "storedAt": "portable-identity-green/source-before.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-portable-identity-green/source-after.json",
+      "bytes": 102860,
+      "sha256": "cd9791c3b4a32fe3ae33f0d66006fa9671e1a8049d6ce4c2bb4674faff769c6a",
+      "storedAt": "portable-identity-green/source-after.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/initial-missing-repair/resume-portable-identity-green/TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml",
+      "bytes": 1941,
+      "sha256": "fe928d72e78033952ea4fdcc066f2fe621e906df79e91c291d867e864917c69c",
+      "storedAt": "portable-identity-green/original-test-results.tar.gz",
+      "archiveEntry": "TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-ddd5ec81-87ff-4caf-9376-44d5f589e782/result.json",
+      "bytes": 6053,
+      "sha256": "56db418ef9674342cbddc0271baf5b9c1e8a503861bf2d1808ad393599e72dc0",
+      "storedAt": "portable-identity-green/wire/result.json",
+      "encoding": "identity"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-ddd5ec81-87ff-4caf-9376-44d5f589e782/after-greeting.client-to-server.raw",
+      "bytes": 6297,
+      "sha256": "c1b85843f828bac402b27ee12838c035a5056d8e3526f18adcf5ef613f3e68ef",
+      "storedAt": "portable-identity-green/wire/original-streams.tar.gz",
+      "archiveEntry": "after-greeting.client-to-server.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-ddd5ec81-87ff-4caf-9376-44d5f589e782/after-greeting.server-to-client.raw",
+      "bytes": 12113,
+      "sha256": "23d30ddb6b7625dc76f5741ccea5d92df1d7d9b78178fc4dea9bcec93c3c3882",
+      "storedAt": "portable-identity-green/wire/original-streams.tar.gz",
+      "archiveEntry": "after-greeting.server-to-client.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-ddd5ec81-87ff-4caf-9376-44d5f589e782/client-to-server.raw",
+      "bytes": 7056,
+      "sha256": "6a8dd6b4817d1af127e7216f1e49556ec0925404504a1f3d16805038ca334dd6",
+      "storedAt": "portable-identity-green/wire/original-streams.tar.gz",
+      "archiveEntry": "client-to-server.raw"
+    },
+    {
+      "source": "build/test-wire-evidence/initial-missing/wire-ddd5ec81-87ff-4caf-9376-44d5f589e782/server-to-client.raw",
+      "bytes": 13227,
+      "sha256": "d94fd62882b3cb3f8653bbd0933811d5fb3f248dbc285bf5528365793bd02648",
+      "storedAt": "portable-identity-green/wire/original-streams.tar.gz",
+      "archiveEntry": "server-to-client.raw"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/baseline.capture.json",
+      "bytes": 38302,
+      "sha256": "a4362a57f81ee81f013417370db64a1ea9f7a35e97b9626b02f1a7df53da54ff",
+      "storedAt": "native-slow/baseline.capture.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/baseline.png",
+      "bytes": 152951,
+      "sha256": "7c261b816f997b94382f240eac073e010fd31b9c7d667703f4baa46d338fdd76",
+      "storedAt": "native-slow/baseline.png",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/greeting.capture.json",
+      "bytes": 4008,
+      "sha256": "50d364f43e994d6ba7982d5914db35f9b4ba66406359a7878e7613b75dc82e7e",
+      "storedAt": "native-slow/greeting.capture.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/greeting.png",
+      "bytes": 174968,
+      "sha256": "4802ad4110879d010534c5a88bbad53c45b61cfa142c82ffbd167a5b10d92846",
+      "storedAt": "native-slow/greeting.png",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/message.capture.json",
+      "bytes": 4007,
+      "sha256": "d9cf88da94a651876d394eb91728a050bfd2a852c1658db8a1d82166189a120a",
+      "storedAt": "native-slow/message.capture.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/message.png",
+      "bytes": 169695,
+      "sha256": "0fd84ba333a95da9218d03edc42f834d39d507b1082e65084ce9da582718a3ee",
+      "storedAt": "native-slow/message.png",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/launch.json",
+      "bytes": 3791,
+      "sha256": "e208c9f9bf60fc8480882b0cd98d6b5f331be03ef4120f04ca1274969933320e",
+      "storedAt": "native-slow/launch.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/environment-check.json",
+      "bytes": 79,
+      "sha256": "2d8f37525621e89f27cc86452648ad61b389f2fa78474095418965f4e0f2fe64",
+      "storedAt": "native-slow/environment-check.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/pids.json",
+      "bytes": 58,
+      "sha256": "d742256544c3cbe96e0ccae3f19bfeb488edab764fbaa263251cc93be0e710d0",
+      "storedAt": "native-slow/pids.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/directory-cli-summary.json",
+      "bytes": 2445,
+      "sha256": "95adb4836712ecb0ff3cf9acac26a37f50d82ef0450a326a45c222a3c199ec3e",
+      "storedAt": "native-slow/directory-cli-summary.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/manifest-cli-summary.json",
+      "bytes": 2442,
+      "sha256": "7d5309605dbcc406da309afdb43867b0f8ff8d6b046e7e3fa3843356d81c72da",
+      "storedAt": "native-slow/manifest-cli-summary.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/greeting-cli-summary.json",
+      "bytes": 2442,
+      "sha256": "a2adbcfd14bd7e128836ceaddd0f56ba4315a98256016ea959f03d206af531f4",
+      "storedAt": "native-slow/greeting-cli-summary.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/message-cli-summary.json",
+      "bytes": 2439,
+      "sha256": "f5e161b90620059b1fc78547f1920f659dd77fcd4329cb60c8715faa23b03827",
+      "storedAt": "native-slow/message-cli-summary.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/capture-failure.json",
+      "bytes": 594,
+      "sha256": "1a6a5558f28d4567d5682a287b7c3f0bebc4ef1a3a3a9e25218fd6ec314b70b6",
+      "storedAt": "native-slow/capture-failure.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/thread-print.txt",
+      "bytes": 1003080,
+      "sha256": "81c8c9548686fb51c1dcb91de2ebd2a190bcbc9f990ed56f526b209ef2cf6b39",
+      "storedAt": "native-slow/thread-print.txt.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/fixture.py",
+      "bytes": 10566,
+      "sha256": "4e417a43e5728e4a1f214a74b01c9d49573d27bafdb7850ba231f1141dffdfc2",
+      "storedAt": "native-slow/reproduction-scripts/fixture.py",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/launch-cli.py",
+      "bytes": 3189,
+      "sha256": "8fe8c9122f2da05d40da0d92e07b18e8fe97449ea343b6ea7f650a74e5f2fed0",
+      "storedAt": "native-slow/reproduction-scripts/launch-cli.py",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/state.json",
+      "bytes": 3039,
+      "sha256": "d4fcfa7535b9932c3f3805c0593aac5260136de5e7e64878141cd729cd3c085d",
+      "storedAt": "native-slow/fixture/state.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/operations.jsonl",
+      "bytes": 11932,
+      "sha256": "06d7395106f5b11ef42e9069885bbb498c29ee326999b9fe01e060f451dfb6f5",
+      "storedAt": "native-slow/fixture/operations.jsonl",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/slow/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-slow/fixture/slow/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/slow/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06",
+      "storedAt": "native-slow/fixture/slow/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/slow/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-slow/fixture/slow/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/slow/dep/deep/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c",
+      "storedAt": "native-slow/fixture/slow/dep/deep/a/b/leaf.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/slow/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-slow/fixture/slow/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/receipt.json",
+      "bytes": 2445,
+      "sha256": "95adb4836712ecb0ff3cf9acac26a37f50d82ef0450a326a45c222a3c199ec3e",
+      "storedAt": "native-slow/cli-controls/directory/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-slow/cli-controls/directory/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/run.stderr",
+      "bytes": 278,
+      "sha256": "3ad3a6b54cd375d579005ce206329a90553252827fff42f503ef87a31f789542",
+      "storedAt": "native-slow/cli-controls/directory/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/test.stdout",
+      "bytes": 52,
+      "sha256": "82615e08da34050e51aba6c18cb6b3ab0493b2661029977847baa96bf21e40ec",
+      "storedAt": "native-slow/cli-controls/directory/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/test.stderr",
+      "bytes": 307,
+      "sha256": "e92e0035dd42670fa15626239e130d99fd1933499e64eb56e667d49f3de746b9",
+      "storedAt": "native-slow/cli-controls/directory/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-slow/cli-controls/directory/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06",
+      "storedAt": "native-slow/cli-controls/directory/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/directory-155833674688/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-slow/cli-controls/directory/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/receipt.json",
+      "bytes": 2442,
+      "sha256": "7d5309605dbcc406da309afdb43867b0f8ff8d6b046e7e3fa3843356d81c72da",
+      "storedAt": "native-slow/cli-controls/manifest/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-slow/cli-controls/manifest/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/run.stderr",
+      "bytes": 127,
+      "sha256": "d4c05f9554facd0d690fb7e0bc25549afd915a3f9a54f0206acf35cdd7e99fd6",
+      "storedAt": "native-slow/cli-controls/manifest/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/test.stdout",
+      "bytes": 52,
+      "sha256": "82615e08da34050e51aba6c18cb6b3ab0493b2661029977847baa96bf21e40ec",
+      "storedAt": "native-slow/cli-controls/manifest/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/test.stderr",
+      "bytes": 156,
+      "sha256": "ff920a6b6200309d72577dfab7277173ab933e5772530556cbc3009b29695a3e",
+      "storedAt": "native-slow/cli-controls/manifest/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-slow/cli-controls/manifest/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06",
+      "storedAt": "native-slow/cli-controls/manifest/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-slow/cli-controls/manifest/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/manifest-160045695536/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-slow/cli-controls/manifest/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/receipt.json",
+      "bytes": 2442,
+      "sha256": "a2adbcfd14bd7e128836ceaddd0f56ba4315a98256016ea959f03d206af531f4",
+      "storedAt": "native-slow/cli-controls/greeting/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-slow/cli-controls/greeting/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/run.stderr",
+      "bytes": 68,
+      "sha256": "5410867b270fe674cc0b8a8794ba0b9cc577f7f4955764673ead18b749825218",
+      "storedAt": "native-slow/cli-controls/greeting/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/test.stdout",
+      "bytes": 52,
+      "sha256": "2699ab456e6411afc593a9eed37a7612dfd31183b634851e9b71198f5df65884",
+      "storedAt": "native-slow/cli-controls/greeting/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/test.stderr",
+      "bytes": 102,
+      "sha256": "64fd2411b32ae6f62dc6aa869639aa5cf882aaa80098e48b34add2c8052c0557",
+      "storedAt": "native-slow/cli-controls/greeting/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-slow/cli-controls/greeting/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06",
+      "storedAt": "native-slow/cli-controls/greeting/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-slow/cli-controls/greeting/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/dep/deep/a/b/leaf.go",
+      "bytes": 60,
+      "sha256": "d7fb727625c8fc2b6bd7578dc52e7af430f66fc3c756d67c10bfc1be402491d0",
+      "storedAt": "native-slow/cli-controls/greeting/dep/deep/a/b/leaf.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/greeting-160245228652/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-slow/cli-controls/greeting/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/receipt.json",
+      "bytes": 2439,
+      "sha256": "f5e161b90620059b1fc78547f1920f659dd77fcd4329cb60c8715faa23b03827",
+      "storedAt": "native-slow/cli-controls/message/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/run.stdout",
+      "bytes": 21,
+      "sha256": "2e32cbea0dff12f729258caf72caca4e35921b13fc1e8faaaf84f6be993ae4f8",
+      "storedAt": "native-slow/cli-controls/message/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-slow/cli-controls/message/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/test.stdout",
+      "bytes": 39,
+      "sha256": "272e80bf4b1e0f470815c847060d9e0af6cefd3f23b20b23f9488ed88946e96f",
+      "storedAt": "native-slow/cli-controls/message/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-slow/cli-controls/message/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-slow/cli-controls/message/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06",
+      "storedAt": "native-slow/cli-controls/message/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-slow/cli-controls/message/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/dep/deep/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c",
+      "storedAt": "native-slow/cli-controls/message/dep/deep/a/b/leaf.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/slow/message-160520404013/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-slow/cli-controls/message/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/termination.json",
+      "bytes": 1002,
+      "sha256": "e135e042a7532c53f655a042e4fbc1dc1f3aab57141d6b7c3fa170d12af8b665",
+      "storedAt": "native-atomic/termination.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/atomic-ls/profile/log/idea.log",
+      "bytes": 66232,
+      "sha256": "545e6063675d8e422ca1d6f535a05ff96f17c9a035b55ebebe41deacc63a7745",
+      "storedAt": "native-atomic/idea.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/termination.json",
+      "bytes": 1785,
+      "sha256": "64157d3f889986b85d660d04d6a8c34752e57203d8bb06811cf72f767373ca2e",
+      "storedAt": "native-slow/termination.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/slow-cli/profile/log/idea.log",
+      "bytes": 86121,
+      "sha256": "993f30a01056e05858ceb8d361c0931845c301b558c8badaf865b512786b12f6",
+      "storedAt": "native-slow/idea.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/baseline.capture.json",
+      "bytes": 4008,
+      "sha256": "8ec6c3fd1e67b788f7205df37afd1520a4fb1ee6d69d1529443612856de92845",
+      "storedAt": "native-steady/baseline.capture.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/baseline.png",
+      "bytes": 182957,
+      "sha256": "51b9c70dffb3f66413503340c814f475c726a4a199c24ee8039d5ba1e6a06421",
+      "storedAt": "native-steady/baseline.png",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/greeting.capture.json",
+      "bytes": 4008,
+      "sha256": "927f489e109a1da55d76d3209d771c860fd8c879358a6a5c2a363bee000c2235",
+      "storedAt": "native-steady/greeting.capture.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/greeting.png",
+      "bytes": 164117,
+      "sha256": "cf5907deb2233e6c83e564aedd096659d35107e36f1a243f44d57fc394879f04",
+      "storedAt": "native-steady/greeting.png",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/message.capture.json",
+      "bytes": 4007,
+      "sha256": "fb9e649485c1779e669c66eb79d8b7e4775c17dd5b04fcd6686ab430e1843b21",
+      "storedAt": "native-steady/message.capture.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/message.png",
+      "bytes": 160228,
+      "sha256": "8183027b7c367017b6e40c1c6850014baac588450fc3ee7dcb88770804f71df0",
+      "storedAt": "native-steady/message.png",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/launch.json",
+      "bytes": 3809,
+      "sha256": "81169e13a7ddd2799dba23bc3906d2f9703942ff0f62e916ad4fa937813af1b6",
+      "storedAt": "native-steady/launch.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/environment-check.json",
+      "bytes": 79,
+      "sha256": "6ea4855dbf343e70a7a4b14967acf254c3592105dcaec2cf9838f245e41ca0dd",
+      "storedAt": "native-steady/environment-check.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/pids.json",
+      "bytes": 146,
+      "sha256": "58adc2334b7978896ffede5ff884b36a0596c3ae039443d0ee075e9c5d4ea669",
+      "storedAt": "native-steady/pids.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/greeting-cli-summary.json",
+      "bytes": 2448,
+      "sha256": "2505db360e359abfd0b03142e9e6c21ead6e1a199eb19a2089032b21c00fda2c",
+      "storedAt": "native-steady/greeting-cli-summary.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/message-cli-summary.json",
+      "bytes": 2445,
+      "sha256": "13068046a438202d9f5515db08becb90d691c47c6dbf963608a75e50e133ccb0",
+      "storedAt": "native-steady/message-cli-summary.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/termination.json",
+      "bytes": 1789,
+      "sha256": "a9ee857763cc9f09241dc1b6964a1bcf8aaeabc913ff4608539ea89992a71646",
+      "storedAt": "native-steady/termination.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/state.json",
+      "bytes": 4021,
+      "sha256": "b14f572257d5194c24749ceb0c3188b1c0867b85e6d404ccd7c64c75e0d34dde",
+      "storedAt": "native-steady/fixture/state.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/operations.jsonl",
+      "bytes": 16926,
+      "sha256": "ae9cfe4cb46c1587f568c831393eb412412a4f61eec20a490bbc0136a3f86c5e",
+      "storedAt": "native-steady/fixture/operations.jsonl",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-steady/fixture/steady/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/app/main.go",
+      "bytes": 235,
+      "sha256": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782",
+      "storedAt": "native-steady/fixture/steady/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-steady/fixture/steady/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/dep/anchor.go",
+      "bytes": 48,
+      "sha256": "43b69caf529542af8c3a3a9539cd3ed59f31404d9a60b6f4193fa8ed60d2d18b",
+      "storedAt": "native-steady/fixture/steady/dep/anchor.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/dep/fresh/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c",
+      "storedAt": "native-steady/fixture/steady/dep/fresh/a/b/leaf.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-steady/fixture/steady/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/receipt.json",
+      "bytes": 2448,
+      "sha256": "2505db360e359abfd0b03142e9e6c21ead6e1a199eb19a2089032b21c00fda2c",
+      "storedAt": "native-steady/cli-controls/greeting/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-steady/cli-controls/greeting/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/run.stderr",
+      "bytes": 68,
+      "sha256": "f7ad36451c71a8e128c7d050185de78eac38fc2ba5d2d695004ff9020d82a230",
+      "storedAt": "native-steady/cli-controls/greeting/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/test.stdout",
+      "bytes": 52,
+      "sha256": "2699ab456e6411afc593a9eed37a7612dfd31183b634851e9b71198f5df65884",
+      "storedAt": "native-steady/cli-controls/greeting/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/test.stderr",
+      "bytes": 102,
+      "sha256": "095c97cab7250a9669c95f147316af2fe686a8395d7a95400b4859f6c4c3873e",
+      "storedAt": "native-steady/cli-controls/greeting/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-steady/cli-controls/greeting/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/app/main.go",
+      "bytes": 235,
+      "sha256": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782",
+      "storedAt": "native-steady/cli-controls/greeting/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-steady/cli-controls/greeting/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/dep/anchor.go",
+      "bytes": 48,
+      "sha256": "43b69caf529542af8c3a3a9539cd3ed59f31404d9a60b6f4193fa8ed60d2d18b",
+      "storedAt": "native-steady/cli-controls/greeting/dep/anchor.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/dep/fresh/a/b/leaf.go",
+      "bytes": 60,
+      "sha256": "d7fb727625c8fc2b6bd7578dc52e7af430f66fc3c756d67c10bfc1be402491d0",
+      "storedAt": "native-steady/cli-controls/greeting/dep/fresh/a/b/leaf.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/greeting-161401944600/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-steady/cli-controls/greeting/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/receipt.json",
+      "bytes": 2445,
+      "sha256": "13068046a438202d9f5515db08becb90d691c47c6dbf963608a75e50e133ccb0",
+      "storedAt": "native-steady/cli-controls/message/receipt.json",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/run.stdout",
+      "bytes": 21,
+      "sha256": "2e32cbea0dff12f729258caf72caca4e35921b13fc1e8faaaf84f6be993ae4f8",
+      "storedAt": "native-steady/cli-controls/message/run.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-steady/cli-controls/message/run.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/test.stdout",
+      "bytes": 39,
+      "sha256": "aa55a902a2a8fd01be9391a7f97a161798b2c1ff49ffe908dd999fa065bdf44a",
+      "storedAt": "native-steady/cli-controls/message/test.stdout",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "storedAt": "native-steady/cli-controls/message/test.stderr",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "storedAt": "native-steady/cli-controls/message/app/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/app/main.go",
+      "bytes": 235,
+      "sha256": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782",
+      "storedAt": "native-steady/cli-controls/message/app/main.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "storedAt": "native-steady/cli-controls/message/app/main_test.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/dep/anchor.go",
+      "bytes": 48,
+      "sha256": "43b69caf529542af8c3a3a9539cd3ed59f31404d9a60b6f4193fa8ed60d2d18b",
+      "storedAt": "native-steady/cli-controls/message/dep/anchor.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/dep/fresh/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c",
+      "storedAt": "native-steady/cli-controls/message/dep/fresh/a/b/leaf.go",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native-c11-fixtures/cli-controls/steady/message-161726379147/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "storedAt": "native-steady/cli-controls/message/dep/go.mod",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/rea-steady-message.json",
+      "bytes": 1601517,
+      "sha256": "4d65a173a8c7bb62cc25ed364246e44b04265a29de0c94e41e8b79edd6d7ce42",
+      "storedAt": "native-steady/rea-steady-message.json.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/native/steady-cli/profile/log/idea.log",
+      "bytes": 85978,
+      "sha256": "5f0568edc2e12ed5d11acb88993cd190b3b2ddcc78aca5fc30c615844fb13042",
+      "storedAt": "native-steady/idea.log.gz",
+      "encoding": "gzip"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/end-instance.py",
+      "bytes": 1831,
+      "sha256": "9955bd9fac240ff0bc44e53d9055505dc06ff3637416f79c86dc9d83bd7a3e5a",
+      "storedAt": "reproduction-scripts/end-instance.py",
+      "encoding": "identity"
+    },
+    {
+      "source": ".tools/continuation-20261114/two-hour-resume/save-rea-capture.py",
+      "bytes": 1338,
+      "sha256": "66402e76294dce96d3f71fed5f90806e640e34ce4908c25b11b0e587963c8155",
+      "storedAt": "reproduction-scripts/save-rea-capture.py",
+      "encoding": "identity"
+    }
+  ],
+  "files": [
+    {
+      "path": "candidate11-build/audit.json",
+      "bytes": 3084,
+      "sha256": "c333291f67a36eb498a90e16f7e694add7bbedaaddaa1f7a32d61926d980c042"
+    },
+    {
+      "path": "candidate11-build/build-result.json",
+      "bytes": 754,
+      "sha256": "03d79ef71d06634936b59fb84a3d4983d0571d70538dae5412a3ca7c19bb6060"
+    },
+    {
+      "path": "candidate11-build/codesign.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "candidate11-build/command.json",
+      "bytes": 724,
+      "sha256": "7d5635b20beb6d212d7bc1c8020ebaadc4e6bc64a98db056f00f19f56568dff6"
+    },
+    {
+      "path": "candidate11-build/engine-build-info.txt",
+      "bytes": 1148,
+      "sha256": "bc563c506729ab8544bd251a60378c13845fc54d7857e1618ee5d71d629722ed"
+    },
+    {
+      "path": "candidate11-build/engine-rebuild.log.gz",
+      "bytes": 395,
+      "sha256": "b757ac5e424224e737258d5b952d0174d162ccfbb3794ec2ec7e1c436c72bdf2"
+    },
+    {
+      "path": "candidate11-build/independent-codesign.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "candidate11-build/independent-engine-build-info.txt",
+      "bytes": 1211,
+      "sha256": "30d7099f87c6a0f7def4d4ec30a6fed40b790627679f71388260fb36de3f6cdc"
+    },
+    {
+      "path": "candidate11-build/package.log.gz",
+      "bytes": 1497133,
+      "sha256": "19946c85a7b377495e74cb13906c643d2df5a33ecfdad375de9897b9ec6ce40c"
+    },
+    {
+      "path": "candidate11-build/plan.json",
+      "bytes": 1304,
+      "sha256": "2339ce8d4e78042387da1b35d3368f011e8974ebacdf7312bcb42db4701b9489"
+    },
+    {
+      "path": "candidate11-build/product-manifest.json.gz",
+      "bytes": 1485463,
+      "sha256": "a20497b7f66aab40db1f0cc30d9421e86b9713fb89de926cb869196838c30d0c"
+    },
+    {
+      "path": "candidate11-build/rea-engine.json",
+      "bytes": 8599,
+      "sha256": "1a7360610970bd125149719b1d1d9dddfa035078c879fa3ddb0589865f422ba3"
+    },
+    {
+      "path": "candidate11-build/source-after.json.gz",
+      "bytes": 30430,
+      "sha256": "9b29622c042c39c6d6099a7f7880d78df6d5df197725d2e1887237a3587effcd"
+    },
+    {
+      "path": "candidate11-build/source-before.json.gz",
+      "bytes": 30430,
+      "sha256": "9b29622c042c39c6d6099a7f7880d78df6d5df197725d2e1887237a3587effcd"
+    },
+    {
+      "path": "candidate11-build/test-result-entries.json",
+      "bytes": 33313,
+      "sha256": "61cdac110e5617549a790479cd11983b74cfb5fcbffe2325463766e27bfc23f3"
+    },
+    {
+      "path": "candidate11-build/test-results.tar.gz",
+      "bytes": 91924,
+      "sha256": "52f05b2611645fccdad784058ec0743eb4c23e8b99c5727d5677ddb5c73e526a"
+    },
+    {
+      "path": "full-failed/command.json",
+      "bytes": 487,
+      "sha256": "80185853926c21f02b08cb8c1893a69ffd8001b1070372ad581254315914875f"
+    },
+    {
+      "path": "full-failed/driver-result.original.json",
+      "bytes": 327,
+      "sha256": "df01f5b983a271e25632f91933351f55eedd12889ff1f5a597ca11b1967b5ee1"
+    },
+    {
+      "path": "full-failed/gradle.log.gz",
+      "bytes": 3759,
+      "sha256": "292ed017b64a6c1a56d098596bb3cd9a66f6c939cb6cd7a419e314cc11ab87a4"
+    },
+    {
+      "path": "full-failed/original-test-results.tar.gz",
+      "bytes": 86269,
+      "sha256": "2787cba1e5f9dff969b0b3308a9f9f71b94238073ec37dfded2bfe49a3493b4a"
+    },
+    {
+      "path": "full-failed/result.json",
+      "bytes": 27152,
+      "sha256": "a92fa271ba68f851dee5de17102b5796444e6d0e33e46ffd57714fbc691a2241"
+    },
+    {
+      "path": "full-failed/source-after.json.gz",
+      "bytes": 30428,
+      "sha256": "78f2593dd99d4302f0a26497768fdd97d94180117be0884f896a1ceb24aeac42"
+    },
+    {
+      "path": "full-failed/source-before.json.gz",
+      "bytes": 30428,
+      "sha256": "78f2593dd99d4302f0a26497768fdd97d94180117be0884f896a1ceb24aeac42"
+    },
+    {
+      "path": "full-failed/wire/original-streams.tar.gz",
+      "bytes": 5959,
+      "sha256": "acb21f33b023897b4cd909f0960c7668eafd2a249610dfe8b16ae1917107e905"
+    },
+    {
+      "path": "full-failed/wire/result.json",
+      "bytes": 5478,
+      "sha256": "31a9ccfa85fc91e4e7f04f00b3c9e58f3f619f361de46928b7775aec6f906776"
+    },
+    {
+      "path": "go-race-failed/go-race.jsonl.gz",
+      "bytes": 23359,
+      "sha256": "25b4d151763c0b52ce055329bcf5e3a6a9576c7787683a73e322aa1457840e4f"
+    },
+    {
+      "path": "go-race-failed/go-race.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "go-race-failed/go-vet.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "go-race-failed/interruption.json",
+      "bytes": 1749,
+      "sha256": "99c5f92346fd92234220f3f7f544e607fe32e343df7938895ca3b437a93ea3e2"
+    },
+    {
+      "path": "go-race-failed/result.json",
+      "bytes": 6034,
+      "sha256": "e692a3291f059693055d4bc00458406aab3b1977e50bf072035feeda6f46892d"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/dep/dep.go",
+      "bytes": 59,
+      "sha256": "b89ad4d73f1127179f7a39ba5af7bf8382b415be474ecb054b8c209d81100928"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/receipt.json",
+      "bytes": 2448,
+      "sha256": "f4fe19194aef0877bff0c7ef6974689f867619657bf00bec304663c3d83758ed"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/run.stderr",
+      "bytes": 68,
+      "sha256": "5410867b270fe674cc0b8a8794ba0b9cc577f7f4955764673ead18b749825218"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/test.stderr",
+      "bytes": 102,
+      "sha256": "64fd2411b32ae6f62dc6aa869639aa5cf882aaa80098e48b34add2c8052c0557"
+    },
+    {
+      "path": "native-atomic/cli-controls/greeting/test.stdout",
+      "bytes": 52,
+      "sha256": "2699ab456e6411afc593a9eed37a7612dfd31183b634851e9b71198f5df65884"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/dep/dep.go",
+      "bytes": 58,
+      "sha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/receipt.json",
+      "bytes": 2445,
+      "sha256": "c77255a5f6db6e6f388b42a204ca1db4d6e9c38293cda80e3f9dd920e826e653"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/run.stdout",
+      "bytes": 21,
+      "sha256": "2e32cbea0dff12f729258caf72caca4e35921b13fc1e8faaaf84f6be993ae4f8"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-atomic/cli-controls/message/test.stdout",
+      "bytes": 39,
+      "sha256": "2a62821dc28d44f3022ebc9a03338e03eb644619978fded85f1ec99151d601d5"
+    },
+    {
+      "path": "native-atomic/environment-check.json",
+      "bytes": 79,
+      "sha256": "d2ef5586c5eff02b89847c08dc7336e13084b55f7b35f68aace61604886f17e0"
+    },
+    {
+      "path": "native-atomic/fixture/atomic/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-atomic/fixture/atomic/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19"
+    },
+    {
+      "path": "native-atomic/fixture/atomic/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-atomic/fixture/atomic/dep/dep.go",
+      "bytes": 58,
+      "sha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a"
+    },
+    {
+      "path": "native-atomic/fixture/atomic/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-atomic/fixture/operations.jsonl",
+      "bytes": 4715,
+      "sha256": "f537ed21e87aa1e49c962819a6053fed4011607636d172ae85be59c2328389a9"
+    },
+    {
+      "path": "native-atomic/fixture/state.json",
+      "bytes": 2061,
+      "sha256": "ed6d88c1e727be41aa3afbabb344f6cf5d59f602c0f86066ce08202ff440ef65"
+    },
+    {
+      "path": "native-atomic/idea.log.gz",
+      "bytes": 12882,
+      "sha256": "a8549eef1bdb2a9eb79f5948dc77dedf7d292649b4d3951e109883bc6d12642c"
+    },
+    {
+      "path": "native-atomic/launch.json",
+      "bytes": 3580,
+      "sha256": "1f61a4f6260e4c0336f2753ce4ff879feff298ac595907a378d2754e33094cd5"
+    },
+    {
+      "path": "native-atomic/message-after-restart.capture.json",
+      "bytes": 42975,
+      "sha256": "db59fc0ff1c62d310e8cfed2bb33fbe3fb228408cfed800abae10f152c7058d6"
+    },
+    {
+      "path": "native-atomic/message-after-restart.png",
+      "bytes": 155288,
+      "sha256": "0d7a22c8ee7204ae3f5737d1ca56f6fdc937e03c0cb47035a994c1b28b4a17cc"
+    },
+    {
+      "path": "native-atomic/message-cli-summary.json",
+      "bytes": 2445,
+      "sha256": "c77255a5f6db6e6f388b42a204ca1db4d6e9c38293cda80e3f9dd920e826e653"
+    },
+    {
+      "path": "native-atomic/pids.json",
+      "bytes": 58,
+      "sha256": "47591032ba67063229614a2bc8251a6ec98408188fa2604a5d47bbd9d16b7091"
+    },
+    {
+      "path": "native-atomic/rea-after-restart.json.gz",
+      "bytes": 143364,
+      "sha256": "2772d161edf1a5b59ba2e2143b1102f9f56e6eee10074e0287804d03afc8f818"
+    },
+    {
+      "path": "native-atomic/termination.json",
+      "bytes": 1002,
+      "sha256": "e135e042a7532c53f655a042e4fbc1dc1f3aab57141d6b7c3fa170d12af8b665"
+    },
+    {
+      "path": "native-slow/baseline.capture.json",
+      "bytes": 38302,
+      "sha256": "a4362a57f81ee81f013417370db64a1ea9f7a35e97b9626b02f1a7df53da54ff"
+    },
+    {
+      "path": "native-slow/baseline.png",
+      "bytes": 152951,
+      "sha256": "7c261b816f997b94382f240eac073e010fd31b9c7d667703f4baa46d338fdd76"
+    },
+    {
+      "path": "native-slow/capture-failure.json",
+      "bytes": 594,
+      "sha256": "1a6a5558f28d4567d5682a287b7c3f0bebc4ef1a3a3a9e25218fd6ec314b70b6"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/receipt.json",
+      "bytes": 2445,
+      "sha256": "95adb4836712ecb0ff3cf9acac26a37f50d82ef0450a326a45c222a3c199ec3e"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/run.stderr",
+      "bytes": 278,
+      "sha256": "3ad3a6b54cd375d579005ce206329a90553252827fff42f503ef87a31f789542"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/test.stderr",
+      "bytes": 307,
+      "sha256": "e92e0035dd42670fa15626239e130d99fd1933499e64eb56e667d49f3de746b9"
+    },
+    {
+      "path": "native-slow/cli-controls/directory/test.stdout",
+      "bytes": 52,
+      "sha256": "82615e08da34050e51aba6c18cb6b3ab0493b2661029977847baa96bf21e40ec"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/dep/deep/a/b/leaf.go",
+      "bytes": 60,
+      "sha256": "d7fb727625c8fc2b6bd7578dc52e7af430f66fc3c756d67c10bfc1be402491d0"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/receipt.json",
+      "bytes": 2442,
+      "sha256": "a2adbcfd14bd7e128836ceaddd0f56ba4315a98256016ea959f03d206af531f4"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/run.stderr",
+      "bytes": 68,
+      "sha256": "5410867b270fe674cc0b8a8794ba0b9cc577f7f4955764673ead18b749825218"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/test.stderr",
+      "bytes": 102,
+      "sha256": "64fd2411b32ae6f62dc6aa869639aa5cf882aaa80098e48b34add2c8052c0557"
+    },
+    {
+      "path": "native-slow/cli-controls/greeting/test.stdout",
+      "bytes": 52,
+      "sha256": "2699ab456e6411afc593a9eed37a7612dfd31183b634851e9b71198f5df65884"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/receipt.json",
+      "bytes": 2442,
+      "sha256": "7d5309605dbcc406da309afdb43867b0f8ff8d6b046e7e3fa3843356d81c72da"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/run.stderr",
+      "bytes": 127,
+      "sha256": "d4c05f9554facd0d690fb7e0bc25549afd915a3f9a54f0206acf35cdd7e99fd6"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/test.stderr",
+      "bytes": 156,
+      "sha256": "ff920a6b6200309d72577dfab7277173ab933e5772530556cbc3009b29695a3e"
+    },
+    {
+      "path": "native-slow/cli-controls/manifest/test.stdout",
+      "bytes": 52,
+      "sha256": "82615e08da34050e51aba6c18cb6b3ab0493b2661029977847baa96bf21e40ec"
+    },
+    {
+      "path": "native-slow/cli-controls/message/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-slow/cli-controls/message/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06"
+    },
+    {
+      "path": "native-slow/cli-controls/message/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-slow/cli-controls/message/dep/deep/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c"
+    },
+    {
+      "path": "native-slow/cli-controls/message/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-slow/cli-controls/message/receipt.json",
+      "bytes": 2439,
+      "sha256": "f5e161b90620059b1fc78547f1920f659dd77fcd4329cb60c8715faa23b03827"
+    },
+    {
+      "path": "native-slow/cli-controls/message/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-slow/cli-controls/message/run.stdout",
+      "bytes": 21,
+      "sha256": "2e32cbea0dff12f729258caf72caca4e35921b13fc1e8faaaf84f6be993ae4f8"
+    },
+    {
+      "path": "native-slow/cli-controls/message/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-slow/cli-controls/message/test.stdout",
+      "bytes": 39,
+      "sha256": "272e80bf4b1e0f470815c847060d9e0af6cefd3f23b20b23f9488ed88946e96f"
+    },
+    {
+      "path": "native-slow/directory-cli-summary.json",
+      "bytes": 2445,
+      "sha256": "95adb4836712ecb0ff3cf9acac26a37f50d82ef0450a326a45c222a3c199ec3e"
+    },
+    {
+      "path": "native-slow/environment-check.json",
+      "bytes": 79,
+      "sha256": "2d8f37525621e89f27cc86452648ad61b389f2fa78474095418965f4e0f2fe64"
+    },
+    {
+      "path": "native-slow/fixture/operations.jsonl",
+      "bytes": 11932,
+      "sha256": "06d7395106f5b11ef42e9069885bbb498c29ee326999b9fe01e060f451dfb6f5"
+    },
+    {
+      "path": "native-slow/fixture/slow/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-slow/fixture/slow/app/main.go",
+      "bytes": 179,
+      "sha256": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06"
+    },
+    {
+      "path": "native-slow/fixture/slow/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-slow/fixture/slow/dep/deep/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c"
+    },
+    {
+      "path": "native-slow/fixture/slow/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-slow/fixture/state.json",
+      "bytes": 3039,
+      "sha256": "d4fcfa7535b9932c3f3805c0593aac5260136de5e7e64878141cd729cd3c085d"
+    },
+    {
+      "path": "native-slow/greeting-cli-summary.json",
+      "bytes": 2442,
+      "sha256": "a2adbcfd14bd7e128836ceaddd0f56ba4315a98256016ea959f03d206af531f4"
+    },
+    {
+      "path": "native-slow/greeting.capture.json",
+      "bytes": 4008,
+      "sha256": "50d364f43e994d6ba7982d5914db35f9b4ba66406359a7878e7613b75dc82e7e"
+    },
+    {
+      "path": "native-slow/greeting.png",
+      "bytes": 174968,
+      "sha256": "4802ad4110879d010534c5a88bbad53c45b61cfa142c82ffbd167a5b10d92846"
+    },
+    {
+      "path": "native-slow/idea.log.gz",
+      "bytes": 15006,
+      "sha256": "b88da07b3531cb4cddc59c02281b4e768a12598fe34abfd18c494570bd52dd42"
+    },
+    {
+      "path": "native-slow/launch.json",
+      "bytes": 3791,
+      "sha256": "e208c9f9bf60fc8480882b0cd98d6b5f331be03ef4120f04ca1274969933320e"
+    },
+    {
+      "path": "native-slow/manifest-cli-summary.json",
+      "bytes": 2442,
+      "sha256": "7d5309605dbcc406da309afdb43867b0f8ff8d6b046e7e3fa3843356d81c72da"
+    },
+    {
+      "path": "native-slow/message-cli-summary.json",
+      "bytes": 2439,
+      "sha256": "f5e161b90620059b1fc78547f1920f659dd77fcd4329cb60c8715faa23b03827"
+    },
+    {
+      "path": "native-slow/message.capture.json",
+      "bytes": 4007,
+      "sha256": "d9cf88da94a651876d394eb91728a050bfd2a852c1658db8a1d82166189a120a"
+    },
+    {
+      "path": "native-slow/message.png",
+      "bytes": 169695,
+      "sha256": "0fd84ba333a95da9218d03edc42f834d39d507b1082e65084ce9da582718a3ee"
+    },
+    {
+      "path": "native-slow/pids.json",
+      "bytes": 58,
+      "sha256": "d742256544c3cbe96e0ccae3f19bfeb488edab764fbaa263251cc93be0e710d0"
+    },
+    {
+      "path": "native-slow/reproduction-scripts/fixture.py",
+      "bytes": 10566,
+      "sha256": "4e417a43e5728e4a1f214a74b01c9d49573d27bafdb7850ba231f1141dffdfc2"
+    },
+    {
+      "path": "native-slow/reproduction-scripts/launch-cli.py",
+      "bytes": 3189,
+      "sha256": "8fe8c9122f2da05d40da0d92e07b18e8fe97449ea343b6ea7f650a74e5f2fed0"
+    },
+    {
+      "path": "native-slow/termination.json",
+      "bytes": 1785,
+      "sha256": "64157d3f889986b85d660d04d6a8c34752e57203d8bb06811cf72f767373ca2e"
+    },
+    {
+      "path": "native-slow/thread-print.txt.gz",
+      "bytes": 43851,
+      "sha256": "21382fabc21c8a2d1db80e8d69bc17622a2fc4a9b4f59e1fbd5c60135b56228f"
+    },
+    {
+      "path": "native-steady/baseline.capture.json",
+      "bytes": 4008,
+      "sha256": "8ec6c3fd1e67b788f7205df37afd1520a4fb1ee6d69d1529443612856de92845"
+    },
+    {
+      "path": "native-steady/baseline.png",
+      "bytes": 182957,
+      "sha256": "51b9c70dffb3f66413503340c814f475c726a4a199c24ee8039d5ba1e6a06421"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/app/main.go",
+      "bytes": 235,
+      "sha256": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/dep/anchor.go",
+      "bytes": 48,
+      "sha256": "43b69caf529542af8c3a3a9539cd3ed59f31404d9a60b6f4193fa8ed60d2d18b"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/dep/fresh/a/b/leaf.go",
+      "bytes": 60,
+      "sha256": "d7fb727625c8fc2b6bd7578dc52e7af430f66fc3c756d67c10bfc1be402491d0"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/receipt.json",
+      "bytes": 2448,
+      "sha256": "2505db360e359abfd0b03142e9e6c21ead6e1a199eb19a2089032b21c00fda2c"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/run.stderr",
+      "bytes": 68,
+      "sha256": "f7ad36451c71a8e128c7d050185de78eac38fc2ba5d2d695004ff9020d82a230"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/run.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/test.stderr",
+      "bytes": 102,
+      "sha256": "095c97cab7250a9669c95f147316af2fe686a8395d7a95400b4859f6c4c3873e"
+    },
+    {
+      "path": "native-steady/cli-controls/greeting/test.stdout",
+      "bytes": 52,
+      "sha256": "2699ab456e6411afc593a9eed37a7612dfd31183b634851e9b71198f5df65884"
+    },
+    {
+      "path": "native-steady/cli-controls/message/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-steady/cli-controls/message/app/main.go",
+      "bytes": 235,
+      "sha256": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782"
+    },
+    {
+      "path": "native-steady/cli-controls/message/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-steady/cli-controls/message/dep/anchor.go",
+      "bytes": 48,
+      "sha256": "43b69caf529542af8c3a3a9539cd3ed59f31404d9a60b6f4193fa8ed60d2d18b"
+    },
+    {
+      "path": "native-steady/cli-controls/message/dep/fresh/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c"
+    },
+    {
+      "path": "native-steady/cli-controls/message/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-steady/cli-controls/message/receipt.json",
+      "bytes": 2445,
+      "sha256": "13068046a438202d9f5515db08becb90d691c47c6dbf963608a75e50e133ccb0"
+    },
+    {
+      "path": "native-steady/cli-controls/message/run.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-steady/cli-controls/message/run.stdout",
+      "bytes": 21,
+      "sha256": "2e32cbea0dff12f729258caf72caca4e35921b13fc1e8faaaf84f6be993ae4f8"
+    },
+    {
+      "path": "native-steady/cli-controls/message/test.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "native-steady/cli-controls/message/test.stdout",
+      "bytes": 39,
+      "sha256": "aa55a902a2a8fd01be9391a7f97a161798b2c1ff49ffe908dd999fa065bdf44a"
+    },
+    {
+      "path": "native-steady/environment-check.json",
+      "bytes": 79,
+      "sha256": "6ea4855dbf343e70a7a4b14967acf254c3592105dcaec2cf9838f245e41ca0dd"
+    },
+    {
+      "path": "native-steady/fixture/operations.jsonl",
+      "bytes": 16926,
+      "sha256": "ae9cfe4cb46c1587f568c831393eb412412a4f61eec20a490bbc0136a3f86c5e"
+    },
+    {
+      "path": "native-steady/fixture/state.json",
+      "bytes": 4021,
+      "sha256": "b14f572257d5194c24749ceb0c3188b1c0867b85e6d404ccd7c64c75e0d34dde"
+    },
+    {
+      "path": "native-steady/fixture/steady/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+    },
+    {
+      "path": "native-steady/fixture/steady/app/main.go",
+      "bytes": 235,
+      "sha256": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782"
+    },
+    {
+      "path": "native-steady/fixture/steady/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    {
+      "path": "native-steady/fixture/steady/dep/anchor.go",
+      "bytes": 48,
+      "sha256": "43b69caf529542af8c3a3a9539cd3ed59f31404d9a60b6f4193fa8ed60d2d18b"
+    },
+    {
+      "path": "native-steady/fixture/steady/dep/fresh/a/b/leaf.go",
+      "bytes": 59,
+      "sha256": "9a889142d0a8bbefbcc0894aa515157f7089e802e2976e2cadd91e8280ea3d7c"
+    },
+    {
+      "path": "native-steady/fixture/steady/dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+    },
+    {
+      "path": "native-steady/greeting-cli-summary.json",
+      "bytes": 2448,
+      "sha256": "2505db360e359abfd0b03142e9e6c21ead6e1a199eb19a2089032b21c00fda2c"
+    },
+    {
+      "path": "native-steady/greeting.capture.json",
+      "bytes": 4008,
+      "sha256": "927f489e109a1da55d76d3209d771c860fd8c879358a6a5c2a363bee000c2235"
+    },
+    {
+      "path": "native-steady/greeting.png",
+      "bytes": 164117,
+      "sha256": "cf5907deb2233e6c83e564aedd096659d35107e36f1a243f44d57fc394879f04"
+    },
+    {
+      "path": "native-steady/idea.log.gz",
+      "bytes": 14111,
+      "sha256": "683c1705cfadeba936892f96b6e29ae4db05fc89c98d9bb155774421ddcb8049"
+    },
+    {
+      "path": "native-steady/launch.json",
+      "bytes": 3809,
+      "sha256": "81169e13a7ddd2799dba23bc3906d2f9703942ff0f62e916ad4fa937813af1b6"
+    },
+    {
+      "path": "native-steady/message-cli-summary.json",
+      "bytes": 2445,
+      "sha256": "13068046a438202d9f5515db08becb90d691c47c6dbf963608a75e50e133ccb0"
+    },
+    {
+      "path": "native-steady/message.capture.json",
+      "bytes": 4007,
+      "sha256": "fb9e649485c1779e669c66eb79d8b7e4775c17dd5b04fcd6686ab430e1843b21"
+    },
+    {
+      "path": "native-steady/message.png",
+      "bytes": 160228,
+      "sha256": "8183027b7c367017b6e40c1c6850014baac588450fc3ee7dcb88770804f71df0"
+    },
+    {
+      "path": "native-steady/pids.json",
+      "bytes": 146,
+      "sha256": "58adc2334b7978896ffede5ff884b36a0596c3ae039443d0ee075e9c5d4ea669"
+    },
+    {
+      "path": "native-steady/rea-steady-message.json.gz",
+      "bytes": 1070074,
+      "sha256": "5c673fd00492b157f10127f414a58c385009ddf240846a58b597455a84b3e722"
+    },
+    {
+      "path": "native-steady/termination.json",
+      "bytes": 1789,
+      "sha256": "a9ee857763cc9f09241dc1b6964a1bcf8aaeabc913ff4608539ea89992a71646"
+    },
+    {
+      "path": "portable-identity-green/command.json",
+      "bytes": 650,
+      "sha256": "dc33a05b46b4052157d41d91a05e80372a1f5cffb71c2b75aa62a17e5805aaf0"
+    },
+    {
+      "path": "portable-identity-green/gradle.log.gz",
+      "bytes": 9415,
+      "sha256": "cad3310dbecb8a6c769e023a445f4d78b11aa174fd7ef9b52d2d508a68981e85"
+    },
+    {
+      "path": "portable-identity-green/original-test-results.tar.gz",
+      "bytes": 874,
+      "sha256": "86b104ab138d9af7fa30140296043242de83f040f6feb881d208c4481591831d"
+    },
+    {
+      "path": "portable-identity-green/result.json",
+      "bytes": 381,
+      "sha256": "8c5240329e071bc5372e7a59992c28e82f426bc06c8ab147d5a31095c0c7b796"
+    },
+    {
+      "path": "portable-identity-green/source-after.json.gz",
+      "bytes": 30432,
+      "sha256": "79080b9f04a06e4c6a006b261e68ff0d580734c977ed302a37095ba9c9a76ead"
+    },
+    {
+      "path": "portable-identity-green/source-before.json.gz",
+      "bytes": 30432,
+      "sha256": "79080b9f04a06e4c6a006b261e68ff0d580734c977ed302a37095ba9c9a76ead"
+    },
+    {
+      "path": "portable-identity-green/wire/original-streams.tar.gz",
+      "bytes": 5961,
+      "sha256": "087c0f52f92c9031b1ff7c099b230ec471461a0025d3f931ea5807e645c508ad"
+    },
+    {
+      "path": "portable-identity-green/wire/result.json",
+      "bytes": 6053,
+      "sha256": "56db418ef9674342cbddc0271baf5b9c1e8a503861bf2d1808ad393599e72dc0"
+    },
+    {
+      "path": "private-cache-green/command.json",
+      "bytes": 909,
+      "sha256": "ff4bcf06540641cd1641d1857bc42dc5261e845b901c8a980321fda7bc3463cc"
+    },
+    {
+      "path": "private-cache-green/driver-result.original.json",
+      "bytes": 381,
+      "sha256": "060ffd4f00e6ef970754fe928fd87a3e4a9e6e7b74add082b2b2555d227daef0"
+    },
+    {
+      "path": "private-cache-green/gradle.log.gz",
+      "bytes": 3555,
+      "sha256": "8c8f5796e4f086235e3b21db69501ffce067c90223d03782598fd09180449974"
+    },
+    {
+      "path": "private-cache-green/original-test-results.tar.gz",
+      "bytes": 1000,
+      "sha256": "d14f3426a93570cf9702242f24ff01a81de1216c21525dda774d2b1b87d96136"
+    },
+    {
+      "path": "private-cache-green/result.json",
+      "bytes": 749,
+      "sha256": "7f8f6a2e1eeb5f909835eb4b69c2178a3350a7cdb4320c0c800b6a6d5d883dd5"
+    },
+    {
+      "path": "private-cache-green/source-after.json.gz",
+      "bytes": 30430,
+      "sha256": "9b29622c042c39c6d6099a7f7880d78df6d5df197725d2e1887237a3587effcd"
+    },
+    {
+      "path": "private-cache-green/source-before.json.gz",
+      "bytes": 30430,
+      "sha256": "9b29622c042c39c6d6099a7f7880d78df6d5df197725d2e1887237a3587effcd"
+    },
+    {
+      "path": "private-cache-green/wire/original-streams.tar.gz",
+      "bytes": 5957,
+      "sha256": "a54b4fd922312d8b88f8fa97f977ec40ecb91735bf20b09389c69d08193b9b64"
+    },
+    {
+      "path": "private-cache-green/wire/result.json",
+      "bytes": 5836,
+      "sha256": "c59a1ff5aa868089754329c7f7396b007fdd73ff33c54651f0729c127c0f8a22"
+    },
+    {
+      "path": "reproduction-scripts/end-instance.py",
+      "bytes": 1831,
+      "sha256": "9955bd9fac240ff0bc44e53d9055505dc06ff3637416f79c86dc9d83bd7a3e5a"
+    },
+    {
+      "path": "reproduction-scripts/save-rea-capture.py",
+      "bytes": 1338,
+      "sha256": "66402e76294dce96d3f71fed5f90806e640e34ce4908c25b11b0e587963c8155"
+    },
+    {
+      "path": "serial-go-race/go-race.jsonl.gz",
+      "bytes": 26725,
+      "sha256": "fcae65c5d8a028bf3659dea37008dcf87668741791210e444a77380e325b1f7d"
+    },
+    {
+      "path": "serial-go-race/go-race.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "serial-go-race/go-vet.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "serial-go-race/result.json",
+      "bytes": 2258,
+      "sha256": "90d7666cbd24288d8fa69a7e36531d62d389c4f8abc0f60980fc201ddf626331"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 22381,
+      "sha256": "df53a83388da61681f128053b2d913e4702800d64d68d6282d18d7fc0b52b320"
+    }
+  ],
+  "updatedAtUtc": "2026-11-14T16:24:28.943540+00:00"
+}

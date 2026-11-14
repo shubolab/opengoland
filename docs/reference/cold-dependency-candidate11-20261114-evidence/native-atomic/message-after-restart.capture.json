@@ -1,0 +1,2049 @@
+{
+  "analysis_profile": null,
+  "authority": "shipped-artifact",
+  "confidence": "observed",
+  "environment": null,
+  "evidence_id": "ev_cc956e9bb9cfa678eef91ef7f777b5977a4b82252219e2a9110ea50d21375c82",
+  "evidence_links": [],
+  "limitations": [
+    "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+    "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+    "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+    "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+    "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+  ],
+  "locations": [],
+  "normalized_result": {
+    "initial": {
+      "gaps": [
+        "AX child count unavailable at path [0, 1, 0]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 1]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 2]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 3]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 4]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 5]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 6]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 7]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 8]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 9]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 10]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 11]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 12]: AXError -25202",
+        "AX child count unavailable at path [0, 1, 13]: AXError -25202"
+      ],
+      "nodes": [
+        {
+          "actions": [
+            "AXRaise"
+          ],
+          "children_count": 4,
+          "path": [],
+          "role": "AXWindow",
+          "title": "app \u2013 main.go",
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 7,
+          "path": [
+            0
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 1,
+          "path": [
+            0,
+            0
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            0,
+            0
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            0,
+            0,
+            0
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            0,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            0,
+            2
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            1
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            0,
+            0,
+            2
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 5,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            0
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            2
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            3
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            0,
+            4
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            0,
+            0,
+            2,
+            2
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 23,
+          "path": [
+            0,
+            1
+          ],
+          "role": "AXTabGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            0
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            1
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            2
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            3
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            4
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            5
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            6
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            7
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            8
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            9
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            10
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            11
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            12
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": null,
+          "path": [
+            0,
+            1,
+            13
+          ],
+          "role": null,
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 2,
+          "path": [
+            0,
+            1,
+            14
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            14,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            14,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            15
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 2,
+          "path": [
+            0,
+            1,
+            16
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            16,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            16,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 2,
+          "path": [
+            0,
+            1,
+            17
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            17,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            17,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            1,
+            18
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            18,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Auto test on"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            18,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            18,
+            2
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            19
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 1,
+          "path": [
+            0,
+            1,
+            20
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            20,
+            0
+          ],
+          "role": "AXImage",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            21
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": ""
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            1,
+            22
+          ],
+          "role": "AXScrollArea",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            22,
+            0
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            22,
+            1
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            1,
+            22,
+            2
+          ],
+          "role": "AXTextArea",
+          "title": null,
+          "value": "package main\n\nimport (\n \"fmt\"\n \"example.invalid/accept/dep\"\n)\n\nfunc Compose() string { return dep.Message() + \"|\u4e2d\u6587\ud83d\ude00\" }\n\nfunc main() { fmt.Println(Compose()) }\n"
+        },
+        {
+          "actions": [],
+          "children_count": 5,
+          "path": [
+            0,
+            2
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Project"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            2
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 6,
+          "path": [
+            0,
+            2,
+            3
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            3,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            3,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            3,
+            2
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            3,
+            3
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            3,
+            4
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            3,
+            5
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            2,
+            4
+          ],
+          "role": "AXScrollArea",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            0
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            1
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 7,
+          "path": [
+            0,
+            2,
+            4,
+            2
+          ],
+          "role": "AXOutline",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            0
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 4,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            0,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            0,
+            0,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": ".idea"
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            0,
+            0,
+            1
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "go.mod"
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            0,
+            0,
+            2
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "main.go"
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            0,
+            0,
+            3
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "main_test.go"
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            1
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            1,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            2
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            2,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            3
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            3,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            4
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            4,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            5
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            5,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            6
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            2,
+            4,
+            2,
+            6,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 6,
+          "path": [
+            0,
+            3
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Problems"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            1
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "File"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            2
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Project Errors"
+        },
+        {
+          "actions": [],
+          "children_count": 2,
+          "path": [
+            0,
+            3,
+            3
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            3,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            3,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            3,
+            4
+          ],
+          "role": "AXScrollArea",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 2,
+          "path": [
+            0,
+            3,
+            4,
+            0
+          ],
+          "role": "AXOutline",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            3,
+            4,
+            0,
+            0
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXShowMenu",
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            4,
+            0,
+            0,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 1,
+          "path": [
+            0,
+            3,
+            4,
+            0,
+            1
+          ],
+          "role": "AXRow",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            4,
+            0,
+            1,
+            0
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            4,
+            1
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            4,
+            2
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            3,
+            5
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            5,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            5,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            3,
+            5,
+            2
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 12,
+          "path": [
+            0,
+            4
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            2
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            3
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            4
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            5
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            6
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            7
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            8
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            9
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            10
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            4,
+            11
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 2,
+          "path": [
+            0,
+            5
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            5,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            5,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 16,
+          "path": [
+            0,
+            6
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 3,
+          "path": [
+            0,
+            6,
+            0
+          ],
+          "role": "AXScrollArea",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 2,
+          "path": [
+            0,
+            6,
+            0,
+            0
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            0,
+            0,
+            0
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            0,
+            0,
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            0,
+            1
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            0,
+            2
+          ],
+          "role": "AXScrollBar",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            1
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Hide processes (1)"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            2
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            3
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            4
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            5
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "1:1"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            6
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Language Services Button"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            7
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "LF"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            8
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "UTF-8"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            9
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Column selection mode"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            10
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": ""
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            11
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Tab"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            12
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            13
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": ""
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            14
+          ],
+          "role": "AXStaticText",
+          "title": null,
+          "value": "Make file read-only"
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            0,
+            6,
+            15
+          ],
+          "role": "AXImage",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            1
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress",
+            "AXZoomWindow",
+            "AXShowMenu"
+          ],
+          "children_count": 1,
+          "path": [
+            2
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [],
+          "children_count": 0,
+          "path": [
+            2,
+            0
+          ],
+          "role": "AXGroup",
+          "title": null,
+          "value": null
+        },
+        {
+          "actions": [
+            "AXPress"
+          ],
+          "children_count": 0,
+          "path": [
+            3
+          ],
+          "role": "AXButton",
+          "title": null,
+          "value": null
+        }
+      ],
+      "screenshot": {
+        "base64": "[stored in message-after-restart.png; original bytes and SHA preserved]",
+        "height": 875,
+        "mime_type": "image/png",
+        "sha256": "0d7a22c8ee7204ae3f5737d1ca56f6fdc937e03c0cb47035a994c1b28b4a17cc",
+        "width": 1400
+      },
+      "truncated": true,
+      "window": {
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794669508.2849932,
+        "pid": 39850,
+        "title": "app \u2013 main.go",
+        "window_id": 15568
+      }
+    },
+    "limitations": [
+      "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+      "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+      "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+      "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+      "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+    ],
+    "restore": "leave-as-is",
+    "steps": [],
+    "target_sha256": "a694d3890155051269825d2acf6674f0351074ae1b4282af5296b000dcce4006"
+  },
+  "operation": "observe_native_ui",
+  "parameters": {
+    "accessibility": true,
+    "max_nodes": 550,
+    "pid": 39850,
+    "screenshot": true,
+    "window_id": 15568
+  },
+  "predicate_type": "rea.analysis",
+  "provider": {
+    "id": "native-macos",
+    "name": "macOS native inspection utilities",
+    "version": null
+  },
+  "raw_result": null,
+  "relationship_coverage": null,
+  "subject": {
+    "architecture": "arm64",
+    "digest": {
+      "sha256": "a694d3890155051269825d2acf6674f0351074ae1b4282af5296b000dcce4006"
+    },
+    "format": "mach-o",
+    "local_path": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea",
+    "name": "idea"
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "authority": "Mixed local headless regression checks and selected real C11 macOS desktop observations with process/fixture evidence. Native failure stages and screenshot-retention gaps are explicitly recorded. This is not full native workflow, Windows desktop, installer or release acceptance.",
+  "fullSuite": {
+    "status": "failed",
+    "sourceStableDuringRun": true,
+    "exitCode": 1,
+    "tests": {
+      "tests": 1029,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "originalXmlReports": 180,
+    "failure": {
+      "class": "dev.openidea.goide.debug.GoTestConverterReadinessTest",
+      "test": "testLateProgressCancellationCannotDestroyTheUiClaimedSession",
+      "message": "The selected Go SDK's test2json did not become ready within 60 seconds."
+    },
+    "sourceBuildContinuation": "Gradle test failed; this command does not establish that subsequent buildPlugin/verifyPluginStructure completed.",
+    "automaticScopeCaptureExercised": false,
+    "automaticVfsForwardingExercised": false,
+    "wireTest": {
+      "status": "passed",
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "suiteTimestampUtc": "2026-11-14T14:45:00.141Z",
+      "matchingOriginalResult": "full-failed/wire/result.json",
+      "matchingEvidenceReason": "One wire result has cleanup timestamps within this testcase interval 14:45:00.141Z + 3.156 seconds.",
+      "greetingUpdatedToActualUndefined": true,
+      "exactFileControlClearedDiagnostics": true,
+      "protocolShutdownAcknowledged": true,
+      "protocolExitSent": true,
+      "ownedExitedBeforeWrapperDispose": true,
+      "cleanupFailures": [],
+      "ownedProcessAliveAfterCleanup": false,
+      "observedChildPidsStillAliveAfterCleanup": []
+    }
+  },
+  "goRace": {
+    "status": "failed-and-actively-terminated",
+    "exitCode": -15,
+    "testPassEvents": 265,
+    "testSkipEvents": 0,
+    "failEventsIncludingPackageEvents": 16,
+    "testFailEvents": 13,
+    "packageFailEvents": 3,
+    "vetExitCode": 0,
+    "interruptionRecord": "go-race-failed/interruption.json",
+    "terminationNotes": "Owned driver and sampled owned test children were sent SIGTERM after earlier SIGINT; same sampled identities were absent at the end. This is not a complete successful race run."
+  },
+  "causality": "The first attempts overlapped heavy suites and contain timeout observations. This evidence does not establish a unique cause or prove they were only resource contention.",
+  "goCachePortabilityReview": "The old wire test required GOCACHE and GOMODCACHE environment variables; release preparation set Go/gopls paths but did not guarantee those cache variables. Later test changes and reruns are separate evidence.",
+  "privateCacheControl": {
+    "authority": "Local headless targeted tests, not native desktop or full regression.",
+    "status": "passed",
+    "sourceCommit": "7b98f16",
+    "exitCode": 0,
+    "sourceStableDuringRun": true,
+    "totals": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "GOCACHEAbsentFromParentEnvironment": true,
+    "GOMODCACHEAbsentFromParentEnvironment": true,
+    "privateCaches": [
+      "/Users/wangshubo/develop/openidea-go/build/test-wire-evidence/initial-missing/wire-264f0c97-eb4d-4182-b487-9e495db65b9e/fixture 中文😀/gocache",
+      "/Users/wangshubo/develop/openidea-go/build/test-wire-evidence/initial-missing/wire-264f0c97-eb4d-4182-b487-9e495db65b9e/fixture 中文😀/modcache"
+    ],
+    "wireTestSuiteTimestampUtc": "2026-11-14T15:00:34.963Z",
+    "greetingUpdatedToActualUndefined": true,
+    "exactFileControlClearedDiagnostics": true,
+    "cleanupFailures": [],
+    "ownedProcessAliveAfterCleanup": false,
+    "observedChildPidsStillAliveAfterCleanup": [],
+    "includedReadinessControl": "The exact readiness test that failed in the first full attempt passed in this targeted run. This does not erase the earlier failure or establish its unique cause."
+  },
+  "candidate11Build": {
+    "authority": "Local packaged macOS candidate and independent key-payload/source/test audit. This does not establish native desktop, Windows, installer or release acceptance.",
+    "sourceCommit": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+    "version": "0.1.0-preview.20261114.4",
+    "status": "pass",
+    "tests": {
+      "totals": {
+        "tests": 1029,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reportCount": 180,
+      "allReportsStartedAfterBuildCommand": true,
+      "previousC10Identities": 1028,
+      "removedPreviousIdentities": [],
+      "addedIdentities": [
+        [
+          "com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest",
+          "testInitialMissingAtomicGreetingThroughProductionOwnedReconcile"
+        ]
+      ],
+      "originalArchiveSha256": "52f05b2611645fccdad784058ec0743eb4c23e8b99c5727d5677ddb5c73e526a"
+    },
+    "inputDigest": "fe2f8887405f029586bfdf330ed2d2671e4523218aba447fcf5e4e738414fd1f",
+    "inputCount": 597,
+    "independentCodesignExitCode": 0,
+    "protectedC9AndC10CriticalFilesUnchanged": true,
+    "nativeRuntimeEvidence": "This section remains build-only. Later nativeAtomic and nativeSlow sections preserve separate runtime observations and limitations."
+  },
+  "nativeAtomic": {
+    "authority": "Actual isolated macOS C11 app observation plus retained final REA screenshot and NIO/process/CLI-control receipts. Earlier baseline and Greeting screenshots were observed in conversation but their original PNGs were not successfully saved.",
+    "sourceCommit": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+    "app": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app",
+    "appPid": 39850,
+    "goplsPids": [
+      40036,
+      40038
+    ],
+    "callerHashesUnchanged": {
+      "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "main.go": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+      "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    "sampledSameProcessIdentities": true,
+    "phaseAtArchive": "message",
+    "retainedFinalCapture": {
+      "path": "native-atomic/message-after-restart.png",
+      "sha256": "0d7a22c8ee7204ae3f5737d1ca56f6fdc937e03c0cb47035a994c1b28b4a17cc",
+      "evidenceId": "ev_cc956e9bb9cfa678eef91ef7f777b5977a4b82252219e2a9110ea50d21375c82",
+      "observation": "Screenshot shows main.go with green status and Problems panel text No problems in main.go.",
+      "toolRestartOnly": "REA was reinitialized before this capture. App and gopls retained the sampled process identities; this is not an application/server restart control.",
+      "verifiedWindow": {
+        "pid": 39850,
+        "windowId": 15568,
+        "title": "app – main.go",
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea",
+        "parametersAndObservedWindowMatch": true
+      }
+    },
+    "earlierScreenshotGap": {
+      "baselineAndGreetingOriginalPngsArchived": false,
+      "reason": "Temporary REA session and large-payload transfer failed to write those original PNGs before tool reinitialization. Conversation observations/evidence IDs are not substituted with invented archived screenshots.",
+      "evidenceIds": {
+        "authority": "Historical metadata supplied from conversation; neither raw PNG is archived or guaranteed retrievable.",
+        "baseline": {
+          "evidenceId": "ev_3e821c467f864e57187402f22f19b30852288bad9ca45b537e2a2e52218d4c45",
+          "observedPngSha256": "4019cf7fd0b323f5e25a1a270f13d290a642c95d2c0dcc4060aa0c49d74b6502",
+          "originalPngRetained": false
+        },
+        "greeting": {
+          "evidenceId": "ev_382123284e2777f1b316400e61b23749db75142057380a9a90dc0313bac85999",
+          "observedPngSha256": "c7d4696d5d781b5f911ea7c05dc19dabb39c979631c4d26e8c3baea154f2a125",
+          "originalPngRetained": false
+        }
+      },
+      "consequence": "Final clear alone does not prove every intermediate native stage; repeat and retain all native stages for a complete trace."
+    },
+    "cliControls": {
+      "authority": "Separate source clones driven by the C11 bundled Go executable, not IDE Run/Test.",
+      "greeting": "CLI reports undefined dep.Message; original source/output/receipt retained.",
+      "message": "CLI run/test exit 0; original source/output/receipt retained.",
+      "GOWORKDifference": "Native process check records absent GOWORK; CLI control explicitly sets GOWORK=off. Preserve this distinction."
+    },
+    "nativeRunOrTestExecuted": false,
+    "currentProcessExitClaim": true,
+    "fullMatrixCompleted": false,
+    "slowNativeExecutedAtAtomicArchive": false,
+    "termination": {
+      "atUtc": "2026-11-14T15:53:34.174296+00:00",
+      "normalMenuQuit": false,
+      "signal": "SIGTERM to owned App only",
+      "allSampledPidsGone": true,
+      "reason": "CUA unavailable after Codex restart; ending only this owned completed atomic instance before isolating the remaining CLI-started instance",
+      "receipt": "native-atomic/termination.json",
+      "scope": "Only the sampled owned process identities; this is SIGTERM cleanup, not UI Quit acceptance."
+    },
+    "steadyNativeExecutedAtEarlierArchive": false
+  },
+  "serialGoRace": {
+    "authority": "Actual local Go race run and Go vet. Separate from the earlier interrupted concurrent attempt; not a native desktop or Windows acceptance.",
+    "status": "passed",
+    "command": [
+      "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+      "test",
+      "-race",
+      "-p",
+      "1",
+      "-count=1",
+      "-json",
+      "./..."
+    ],
+    "startedAtUtc": "2026-11-14T15:31:04.945756+00:00",
+    "endedAtUtc": "2026-11-14T15:46:05.802400+00:00",
+    "exitCode": 0,
+    "vetExitCode": 0,
+    "testPassEvents": 349,
+    "testSkipEvents": 0,
+    "failEventsIncludingPackageEvents": 0,
+    "packageResults": [
+      {
+        "Package": "github.com/shubolab/opengoland/engine/cmd/opengoland-engine",
+        "Action": "skip"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/engine",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/tags",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/processowner",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/protocol",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/refactor/native",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/refactor/signature",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/rpc",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/search/types",
+        "Action": "pass"
+      }
+    ],
+    "endCheckEngineInputsComparedToCandidate11FrozenSources": {
+      "total": 132,
+      "matching": 132,
+      "scope": "Hashes checked after the run against C11 frozen source. Not a continuous file-monitoring proof."
+    }
+  },
+  "portableIdentityControl": {
+    "authority": "Actual local macOS targeted test of the test-only identity portability change; not execution of the Windows fallback.",
+    "sourceCommit": "c15e102",
+    "status": "passed",
+    "tests": 1,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "parentGOCACHEAbsent": true,
+    "parentGOMODCACHEAbsent": true,
+    "sourceStableDuringRun": true,
+    "identityBefore": {
+      "method": "nio-file-key",
+      "value": "(dev=1000011,ino=92558616)"
+    },
+    "identityAfter": {
+      "method": "nio-file-key",
+      "value": "(dev=1000011,ino=92558616)"
+    },
+    "cleanupFailures": [],
+    "windowsFallbackExecutionVerified": false,
+    "productionSourceAndEngineDiffFromC11CommitEmpty": true,
+    "newAppBuiltForThisTestOnlyChange": false,
+    "limitation": "The C11 packaged-app evidence remains bound to 7b98f16. The c15e102 change only modifies the test helper; local success is not Windows CI success."
+  },
+  "nativeSlow": {
+    "authority": "Actual isolated C11 macOS screenshots with exact PID/window/evidence binding, fixture and process receipts, and separate CLI controls. No exact native diagnostic message text was read from Problems.",
+    "sourceCommit": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+    "status": "counterexample-at-greeting-partial-recovery-after-source-edit",
+    "appPid": 49178,
+    "goplsPids": [
+      49480,
+      49483
+    ],
+    "callerHashesUnchanged": {
+      "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "main.go": "4c60e8a10fc8c4d21e614ee91edfbcaf225bad581c4184bae076e695e57ada06",
+      "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    "sameSampledProcessIdentities": true,
+    "retainedRootInode": 92576018,
+    "captures": [
+      {
+        "phase": "baseline",
+        "evidenceId": "ev_b136f95ec58f64dfee65c7183ea0617aab72f1a852548a2c5497dfb4e8e37a95",
+        "pid": 49178,
+        "windowId": 16202,
+        "pngSha256": "7c261b816f997b94382f240eac073e010fd31b9c7d667703f4baa46d338fdd76",
+        "parametersAndObservedWindowMatch": true
+      },
+      {
+        "phase": "greeting",
+        "evidenceId": "ev_deb34975b8b873a782a09284018d23de41736b1e8427bf7ee3480ebd3e9d2edd",
+        "pid": 49178,
+        "windowId": 16202,
+        "pngSha256": "4802ad4110879d010534c5a88bbad53c45b61cfa142c82ffbd167a5b10d92846",
+        "parametersAndObservedWindowMatch": true
+      },
+      {
+        "phase": "message",
+        "evidenceId": "ev_1b275e42c7dbfb1a5865320caed2fc606a810dd2b1bf729beae2f756029d417d",
+        "pid": 49178,
+        "windowId": 16202,
+        "pngSha256": "0fd84ba333a95da9218d03edc42f834d39d507b1082e65084ce9da582718a3ee",
+        "parametersAndObservedWindowMatch": true
+      }
+    ],
+    "baselineObserved": "Import location has a red underline and editor error count 1.",
+    "greetingObserved": "After empty directory, go.mod and then deep/a/b/leaf.go defining only Greeting, the import location still has a red underline and error count 1. Separate CLI control has already changed to undefined dep.Message. This stage did not update to the CLI-corresponding source location.",
+    "messageObserved": "After only the external leaf source changed to define Message, the editor has a green check and no red underline. The govulncheck question remains visible; it was not answered.",
+    "exactNativeErrorMessageObserved": false,
+    "nativeProblemsPanelOpened": false,
+    "govulncheckPromptAnswered": false,
+    "nativeRunOrTestExecuted": false,
+    "fullMatrixCompleted": false,
+    "captureCorrection": "An earlier slow capture timed out in the xcrun helper and a later export still contained only a prior atomic record. That image was detected by its atomic PID/evidence ID and quarantined. It is excluded here. capture-failure.json and thread-print.txt.gz are historical failed-attempt evidence; the three included slow captures were individually verified against PID49178/window16202.",
+    "reproductionScripts": "fixture.py and launch-cli.py preserve this machine-specific evidence procedure and absolute paths. They are not portable product code or instructions to modify reference applications.",
+    "processExitVerified": true,
+    "termination": {
+      "atUtc": "2026-11-14T16:11:33.336004+00:00",
+      "normalMenuQuit": false,
+      "signal": "SIGTERM to owned App only",
+      "allSampledPidsGone": true,
+      "reason": "CUA unavailable after desktop update; terminate this completed owned fixture instance only",
+      "receipt": "native-slow/termination.json",
+      "scope": "Only the sampled owned process identities; this is SIGTERM cleanup, not UI Quit acceptance."
+    },
+    "steadyNativeExecutedAtEarlierArchive": false
+  },
+  "nativeSteady": {
+    "authority": "Actual isolated C11 macOS steady-root observation with exact process/window/evidence binding, source and CLI controls. This does not establish native Run/Test or full matrix acceptance.",
+    "sourceCommit": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+    "capturedPhases": [
+      {
+        "phase": "baseline",
+        "evidenceId": "ev_69d73786bf1ddbbb080cc98a57827174540e668f1fb7e81f48d5c16cc2889401",
+        "pid": 61186,
+        "windowId": 16949,
+        "pngSha256": "51b9c70dffb3f66413503340c814f475c726a4a199c24ee8039d5ba1e6a06421",
+        "parametersAndObservedWindowMatch": true
+      },
+      {
+        "phase": "greeting",
+        "evidenceId": "ev_281a796520412658a2cfcc08b28682680479c918ad48dd24917f55893352fa85",
+        "pid": 61186,
+        "windowId": 16949,
+        "pngSha256": "cf5907deb2233e6c83e564aedd096659d35107e36f1a243f44d57fc394879f04",
+        "parametersAndObservedWindowMatch": true
+      },
+      {
+        "phase": "message",
+        "evidenceId": "ev_be29adbf64f2413ba630036bec53c9feaad9bb183ae6884d4d01ba3eca7611b5",
+        "pid": 61186,
+        "windowId": 16949,
+        "pngSha256": "8183027b7c367017b6e40c1c6850014baac588450fc3ee7dcb88770804f71df0",
+        "parametersAndObservedWindowMatch": true
+      }
+    ],
+    "missingOriginalPngPhases": [],
+    "traceCaptureStatus": "complete-three-captures",
+    "appPid": 61186,
+    "goplsPids": [
+      61272,
+      61274
+    ],
+    "sameSampledProcessIdentities": true,
+    "callerHashesUnchanged": {
+      "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "main.go": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782",
+      "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    "retainedRootInode": 91788866,
+    "depGoModSha256BeforeAndAfter": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+    "phaseAtArchive": "message",
+    "initialLayout": "Existing dependency root containing go.mod and anchor.go; fresh/a/b/leaf.go was introduced later.",
+    "cliControlPhases": [
+      "greeting",
+      "message"
+    ],
+    "nativeProblemsPanelOpened": false,
+    "exactNativeErrorMessageObserved": false,
+    "nativeRunOrTestExecuted": false,
+    "fullMatrixCompleted": false,
+    "visualObservation": {
+      "baseline": "Fresh subpackage import is red-underlined with editor error count 1; the pre-existing anchor import is not red-underlined.",
+      "greeting": "After fresh/a/b/leaf.go defining only Greeting was added, the fresh import remains red-underlined with error count 1. Separate CLI control already reports undefined dep.Message. This is not a successful update to the CLI-corresponding source location.",
+      "message": "After only the external leaf source changed to define Message, the editor has a green check and no red underline.",
+      "limitations": "Problems was not opened and no precise native diagnostic text was read. Native Run/Test was not performed."
+    },
+    "termination": {
+      "receipt": "native-steady/termination.json",
+      "normalMenuQuit": false,
+      "signal": "SIGTERM to owned App only",
+      "allSampledPidsGone": true,
+      "scope": "Sampled owned identities only; not normal UI Quit acceptance."
+    },
+    "status": "counterexample-at-greeting-partial-recovery-after-source-edit"
+  },
+  "retainedCombinedReaExport": {
+    "path": "native-steady/rea-steady-message.json.gz",
+    "recordCount": 7,
+    "evidenceIds": [
+      "ev_1b275e42c7dbfb1a5865320caed2fc606a810dd2b1bf729beae2f756029d417d",
+      "ev_281a796520412658a2cfcc08b28682680479c918ad48dd24917f55893352fa85",
+      "ev_69d73786bf1ddbbb080cc98a57827174540e668f1fb7e81f48d5c16cc2889401",
+      "ev_b136f95ec58f64dfee65c7183ea0617aab72f1a852548a2c5497dfb4e8e37a95",
+      "ev_be29adbf64f2413ba630036bec53c9feaad9bb183ae6884d4d01ba3eca7611b5",
+      "ev_cc956e9bb9cfa678eef91ef7f777b5977a4b82252219e2a9110ea50d21375c82",
+      "ev_deb34975b8b873a782a09284018d23de41736b1e8427bf7ee3480ebd3e9d2edd"
+    ],
+    "coverage": "Retained atomic final, three slow frames and three steady frames. Supersedes the earlier four-record slow export in this compact archive; individual PNG/capture bindings were verified separately."
+  },
+  "reproductionScripts": {
+    "paths": [
+      "native-slow/reproduction-scripts/fixture.py",
+      "native-slow/reproduction-scripts/launch-cli.py",
+      "reproduction-scripts/end-instance.py",
+      "reproduction-scripts/save-rea-capture.py"
+    ],
+    "purpose": "Archive the exact machine-scoped fixture, launch, evidence-saving and owned-instance termination procedure. These include local absolute paths and are not portable product code or general commands for reference applications."
+  },
+  "latestValidatedLocalState": {
+    "candidate11": {
+      "sourceCommit": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+      "headlessTests": 1029,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "Local packaged macOS candidate build and key-payload/source audit, with separately scoped desktop observations and remaining native failures."
+    },
+    "serialGoRace": {
+      "testPassEvents": 349,
+      "testSkipEvents": 0,
+      "failEvents": 0,
+      "exitCode": 0,
+      "vetExitCode": 0
+    },
+    "portableIdentityChange": {
+      "sourceCommit": "c15e102",
+      "localMacTargetedTests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "scope": "Test-only portability helper change; local NIO branch verified. This statement does not establish Windows fallback or CI acceptance."
+    },
+    "historicalFailures": "The original first failed fullSuite and interrupted goRace records remain unchanged below."
+  }
+}

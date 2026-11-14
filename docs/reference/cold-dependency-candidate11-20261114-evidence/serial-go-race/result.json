@@ -1,0 +1,79 @@
+{
+  "startedAtUtc": "2026-11-14T15:31:04.945756+00:00",
+  "endedAtUtc": "2026-11-14T15:46:05.802400+00:00",
+  "command": [
+    "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+    "test",
+    "-race",
+    "-p",
+    "1",
+    "-count=1",
+    "-json",
+    "./..."
+  ],
+  "GOWORKAbsent": true,
+  "exitCode": 0,
+  "testPasses": 349,
+  "testSkips": 0,
+  "failures": [],
+  "packages": [
+    {
+      "Package": "github.com/shubolab/opengoland/engine/cmd/opengoland-engine",
+      "Action": "skip"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/engine",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/tags",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/processowner",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/protocol",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/refactor/native",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/refactor/signature",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/rpc",
+      "Action": "pass"
+    },
+    {
+      "Package": "github.com/shubolab/opengoland/engine/internal/search/types",
+      "Action": "pass"
+    }
+  ],
+  "vetExitCode": 0,
+  "fileSha256": {
+    "go-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "go-race.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "go-race.jsonl": "ad44baeaf95aee2f94c6b526d56edb985522d332b6f14434e5c192a79d8f4176"
+  }
+}

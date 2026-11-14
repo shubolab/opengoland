@@ -1,0 +1,902 @@
+[
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoStructureControlsTest.xml",
+    "bytes": 1407,
+    "sha256": "b8fe497b2f26f73a3ddeb01a7280e0b69f1a20cff06b43d71a66c3bd72ab5cf8"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.xml",
+    "bytes": 29092,
+    "sha256": "0f9f452f485f862e26cb8f2ac7b70219934715299a5f14a44a6921866302a2e5"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.engine.EngineClientOutboundTest.xml",
+    "bytes": 739,
+    "sha256": "b646c8ffc5306a232440cbd1bde2f1a904bff5e4f62bbaabe4613165adbfb0ab"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpResponseFilesTest.xml",
+    "bytes": 680,
+    "sha256": "ca7aeaa64f87e46e1399ea21611a3fe64e683b349298f9b5a10d60d280eca7bd"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.GoNamedTypeHeadersTest.xml",
+    "bytes": 852,
+    "sha256": "bbccae9f5ed3834f460a2ca443bb36c3c7cf0db42cdd1fb82a5ed25c2cac126e"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.product.GoGeneralPluginsManagerTest.xml",
+    "bytes": 6368,
+    "sha256": "050b6449ff3a11cf3a6be90f962887fa3571fe06820a637988a483f7ce46dc55"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoMulticaretGoplsSyncTest.xml",
+    "bytes": 530,
+    "sha256": "45e62fb5f6afa6c99820ef6f043fbb68b5cbdf90ebd5cd9154c1fc8134b091d2"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tests.GoGenerateTestsModelTest.xml",
+    "bytes": 843,
+    "sha256": "5a14328d8d522536ebea7a91a1b6ffb574ddbbfcf6faea063924d40e9d2171a1"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.product.GoProductPluginManagementPolicyTest.xml",
+    "bytes": 1695,
+    "sha256": "e2b622cf68aeef5d507eb5d9b1c34ad5277465d48cb366ffa0ea7da06115fb7e"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.settings.GoGoplsEnvironmentTest.xml",
+    "bytes": 1096,
+    "sha256": "5d1bc44fa8bb083d3912a883055092b73894a6c14487a983a09e67cbc9862559"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoTestRerunPlanTest.xml",
+    "bytes": 636,
+    "sha256": "50a69215cb406e196114d350ff692ecc9bfe0556c8b4d0f581ff9312b88902ab"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDapSessionControlTest.xml",
+    "bytes": 14099,
+    "sha256": "d9b59975792346db8f2328ddf769797418e43faced9076f8f96f5417e225d870"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditNativeCaseTest.xml",
+    "bytes": 1019,
+    "sha256": "98e346064566b9975e3c5ef7a9f0162cdf173b5dd1c0edecf7c705c4c9678d5b"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoNativeCompletionOrderingTest.xml",
+    "bytes": 527,
+    "sha256": "2da9bdf7577c3cf47b91d2ff8a7c4fe39c72aed637c3db32770b482f25c5510c"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lifecycle.StandaloneProxyWarmupTest.xml",
+    "bytes": 1159,
+    "sha256": "e0b493a6ace9332fc4fe8e01e1ba05912efcef920c332d650779f79b3f26bcb6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoCancelledParentNativeTest.xml",
+    "bytes": 687,
+    "sha256": "8b2673d9ab12d70750fd24bd666cc275e75a4d5537c5987b1c6ef62b9ad3705c"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+    "bytes": 2730,
+    "sha256": "dc76e16c44674da648145e76b7751b6f4daa14a33f49837975042d4d2240b2e9"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.semantic.GoCommandEditOwnerTest.xml",
+    "bytes": 1358,
+    "sha256": "4c1a03fbd0705698c4a741efe2c76d28ec39157ca1261fde322b955acd604716"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoNavigationParameterGateTest.xml",
+    "bytes": 1004,
+    "sha256": "d978aa6589de6657e477f0dc8be4acb66f490497f9fd2f5356457a201ca9b459"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpRequestDocumentTest.xml",
+    "bytes": 3160,
+    "sha256": "11eb869675ba82a0ca6624c40e67f277374c5a06d49e49cf6d9458629078e55c"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest.xml",
+    "bytes": 907,
+    "sha256": "53f527ccd51197fff775717a5ce7a35731ba5d577fbc0958bb5be944eaa0a6a9"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoAttachedAdapterLifecycleTest.xml",
+    "bytes": 1199,
+    "sha256": "4ac5fdee38d73d2f71c59bcd5d63f81cd223317ea172aa541d8f344dd9fabc9f"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpResponseViewNativeTest.xml",
+    "bytes": 866,
+    "sha256": "9b984c35148d5b0a83d8961db2abb2f8f5108303e08ef37cd17d01d2c6960e5d"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.GoLexerTest.xml",
+    "bytes": 1577,
+    "sha256": "17c7195c27497bc042bdfd987a3ca6cf79465d0809e7b087c476c6e51cec6d81"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.engine.EngineClientEdtDisposalTest.xml",
+    "bytes": 509,
+    "sha256": "ce02fb37dd0d87d8a2da2bc72cccefed9326115db9265bfef08209ff07dbe7bf"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoDocumentSyncTest.xml",
+    "bytes": 1354,
+    "sha256": "6af200de64335c8b5822366e8b08c65f77fb9e6b04140836e9ac04908100429a"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDapBreakpointHandlerTest.xml",
+    "bytes": 1169,
+    "sha256": "02dadc1deb9d247e1ae0b14bc46309d5a57c83a983891d7b6ba1039d7745f1fb"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoCompletionBarrierLifecycleTest.xml",
+    "bytes": 903,
+    "sha256": "a345cfd51d708df246285c2abd39106e760e419ab01ecc35c691ff2146648133"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest.xml",
+    "bytes": 2289,
+    "sha256": "b3f56d262c90215720e1a61914dfe1e70a0dc281455ed13aa59f54114459ba45"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDapColdSourceNavigationTest.xml",
+    "bytes": 828,
+    "sha256": "7dc5a10b32a6574cdbdd30cd42e953ed1253a6187881603b6ad8b44bee3cce1a"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugTestConsoleTest.xml",
+    "bytes": 795,
+    "sha256": "85b213fd0839caa037d7a5d8bcd82305d22c9d765723d61128cb963514cbc764"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoGlobalFailedTestsActionTest.xml",
+    "bytes": 1579,
+    "sha256": "e18197aa57e889c5003037a17894d74cf643121db9aff0a0befd204496741212"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml",
+    "bytes": 703,
+    "sha256": "880d73c15f6f7c703345b5a5d400fb1ba16d0a78c836e5b5001ef951b29fd2c3"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest.xml",
+    "bytes": 4589,
+    "sha256": "e3c9422affeb2d12b7bccf4f67cab1d8edb20934c8dcd8c02cd81b0c36739f91"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.GoTemplateLexerTest.xml",
+    "bytes": 893,
+    "sha256": "ab8dc7cf414af474a71af613a442a340735fd13027570e5872e7a51a02569c04"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.GoQuoteCommentNativeTest.xml",
+    "bytes": 1900,
+    "sha256": "8f741fb96fe4ae89d4594db91e560ca2d030ccd179906bb58b7a5a94404ba000"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.GoEnterNativeTest.xml",
+    "bytes": 3197,
+    "sha256": "ef7e308ac26a22738a27ef66948116e153a9a4e556be7070a2e8fabfc00d6804"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoTestConverterReadinessTest.xml",
+    "bytes": 2035,
+    "sha256": "6cf344af8ec37a7a6c17656c8120064da77f312331f0fad8ca64e5c2838942d4"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoOwnedLaunchedAdapterLifecycleTest.xml",
+    "bytes": 538,
+    "sha256": "95e01226b8eeee67bbf5aeaf82ca5112669a35aafa8f7709e21398c9de21e9bb"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebuggerEditorsProviderTest.xml",
+    "bytes": 856,
+    "sha256": "95691dc510fc055c96db9a363414af4b816970a6ae01ce8743c1f6f98f2398b1"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoPackageStructureTest.xml",
+    "bytes": 13675,
+    "sha256": "aeb59a46d9e41bf037b270654f155963cf002b2c79c216af27706c47e227d763"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.methods.GoMethodGenerationIntegrationTest.xml",
+    "bytes": 735,
+    "sha256": "507f3cae6c1ae7cd66c2fcc132842bc467d4ecf4c09dceed1fa023b34670841b"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoStructurePresentationTest.xml",
+    "bytes": 1205,
+    "sha256": "27338bc2451f0a565471c7daee3c9cc1672425638751fcd22a0c35d4994067a0"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructIntegrationTest.xml",
+    "bytes": 724,
+    "sha256": "598c9488e32b274f001d378fe8c302622eef9fe2fbfbd745b83fa99ea32f76c2"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.sdk.GoSdkDownloadsTest.xml",
+    "bytes": 3373,
+    "sha256": "f12c0a2e05f5936c093f54261b3ea33772df15de392b75edfd51b41a1289c842"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoTestWorkflowTest.xml",
+    "bytes": 1194,
+    "sha256": "b4318b266f89c10436bbd61d3ca299d3379e98e85149af4f4ac1053f8ad400de"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+    "bytes": 152214,
+    "sha256": "3800c207ed169c2e6eba238fa506a755164846038705de62ad16d233db4bcc78"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditGuardTest.xml",
+    "bytes": 1164,
+    "sha256": "b1af358e20cde2c599615270e03d9e887fd39f88fdda1405bb94fe438a7b6a61"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDapProtocolTest.xml",
+    "bytes": 2301,
+    "sha256": "9a32a5a1ec038908b04a9c1e4958bb7140b3e781f46a73574233bebc932d6b69"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunBuildContextNativeTest.xml",
+    "bytes": 504,
+    "sha256": "6de791b7c54ce745cc30b88c4bf9a2413983ba3d1351a8ef767babeafe6e5b1c"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.settings.GoSettingsSearchTest.xml",
+    "bytes": 506,
+    "sha256": "ddb4c4bfecbd54b8549e7cc1566a75b7f605fae28df884e89366574225b790dd"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.SqlNativeTest.xml",
+    "bytes": 569,
+    "sha256": "495884fe065bcc5ac385177f0d9fa6e5b2820c06c9a037a9f4d9db3584c3753e"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoTestOutputTest.xml",
+    "bytes": 2224,
+    "sha256": "12c3ff45901ec16884df7e64b80624c5cf1ddba8c3c7620bbb452ad1d8cdeea6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunParametersTest.xml",
+    "bytes": 1310,
+    "sha256": "6452022ffb1ec4d769d010f3287dc3bc0e53c63b132771417c3fd6c6e57e41bd"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.xml",
+    "bytes": 1014,
+    "sha256": "e2893e399bc6703dc4e46ccc75cd35862665784fb713d7d5717dc2b2698b956f"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusToolTest.xml",
+    "bytes": 508,
+    "sha256": "cc783c72d0f61dedd002c40d6a94b6dba1a005d18fff0152147b1d71c396ea56"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditCaseAliasesTest.xml",
+    "bytes": 1918,
+    "sha256": "ee6a7537a631353eda9dbb8680c859942f57fd85f7f61d251e909728c4aaa60c"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoTestDebugArgumentsTest.xml",
+    "bytes": 1464,
+    "sha256": "8579c66c3a841f64a434b8553910ad0c2e05b8aca41cbe19ef1f2d978b5a3ec6"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest.xml",
+    "bytes": 1047,
+    "sha256": "f932f6fd8dc6be1e19035ac660a01badbc74801c0bd03cc524d3da2c2751b526"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.structs.GoStructHelpersIntegrationTest.xml",
+    "bytes": 1794,
+    "sha256": "0da15d894fd2d3f22bfdf60de4fe3a63e190adf147e9b568f232051a9bad3815"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.xml",
+    "bytes": 6870,
+    "sha256": "18f4a26991ba1e928232f352523c584e43212c56109d13fe4afc10af2afb4b74"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoLspHighlightOrderingTest.xml",
+    "bytes": 2635,
+    "sha256": "f519c69979b326dde3172c8cae358f1bd40aaf807e5c100803c1bcd4fe99f1dc"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoSourceFunctionsTest.xml",
+    "bytes": 1971,
+    "sha256": "523996ef3b662c85a7fed8a930975a8aaaca7a4a2db68bb9c8cdaf2c488d8164"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest.xml",
+    "bytes": 1780,
+    "sha256": "b98b3201994da3e150cdb27b92d5c8fdb91ea476f70ad32064978164d5a5f107"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpServicesToolbarNativeTest.xml",
+    "bytes": 533,
+    "sha256": "7d7a2443a0493107472c46230055b8f7871fcebd269121838f3c96e89898da06"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest.xml",
+    "bytes": 1504,
+    "sha256": "39800930c9cc80506569f5494a32301f510fe03e08a91560c715728b26594050"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest.xml",
+    "bytes": 12813,
+    "sha256": "76c05b7288214972bdff5e6bd5f0a28cc57002bc0172b449151e950f7206f983"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.settings.GoToolchainTest.xml",
+    "bytes": 909,
+    "sha256": "e308c8116d907c6a143a932274644094718f0a9228ec95e2daf50064b077dfb2"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.structs.GoStructHelpersDialogTest.xml",
+    "bytes": 1450,
+    "sha256": "cdddc19af38c44043148d7e0bd643190990c9399edf0c360fbe80c0b9099139d"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lint.GoInspectionProcessTest.xml",
+    "bytes": 502,
+    "sha256": "b3d9e733e270ae6a518016bd8a7f0a85bf8e36abc11891a914db654e4de10127"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lint.GoLintCommandsTest.xml",
+    "bytes": 644,
+    "sha256": "a40c9a793b9cdfdec74fe6e12a0c3cd20ba968e684732aa6bb89d91544a0740c"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.project.GoJavaCreationEntriesTest.xml",
+    "bytes": 856,
+    "sha256": "1145e3319412f641d000bc10bf82a7fea1a340f2b545783924e4aeffa31e9191"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpRequestRunNativeTest.xml",
+    "bytes": 808,
+    "sha256": "491149fa54cea529db05dd20b9b23a4108d816aef630bfe9c56d41872463fd4b"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoNativeCoverageIntegrationTest.xml",
+    "bytes": 521,
+    "sha256": "6b17c74fbe4d4dfcdaf9c670c36207c1fd5b34e3352639fff2078385501c63b8"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.SqlLexerTest.xml",
+    "bytes": 705,
+    "sha256": "cbc4a32e71537fdd284b47c0132ee8c968d20b847c69c86297b3c46a163e54d8"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoNavigationCacheTest.xml",
+    "bytes": 2121,
+    "sha256": "9428e6f18acce13d2233db88ee974c6de79a438acd2b4be251f088be2f70d72d"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.platform.PlatformUnicodePersistenceTest.xml",
+    "bytes": 1064,
+    "sha256": "3114e5c9f00c8220aabe3fc4e495e8ace2a997de2ea36e8b0b056bde2a53630f"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.profile.GoProfileModelTest.xml",
+    "bytes": 812,
+    "sha256": "ae8b859fedc23b333bea9e0d48cdb767ad65d0fb7609a6f38a492082b6307d37"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.methods.GoImplementMethodsDialogTest.xml",
+    "bytes": 1838,
+    "sha256": "5a94a0e2f117c882ee9c80d0ed038bfd6de8fe1139df565325c3ea4c113c381c"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationTest.xml",
+    "bytes": 2201,
+    "sha256": "4e7eeddb41dbc24497d96cf8e604fb160052af3e6f429ce7d37f1c663b44bde1"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusTest.xml",
+    "bytes": 1018,
+    "sha256": "a71010576344e0fbcffcf59983cb1274ff839ef9f9d3e9001f4192dfa594de03"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lint.GoVetIntegrationTest.xml",
+    "bytes": 641,
+    "sha256": "1fd0467350f6516f306ea1acac411a9c48adb34fba02e7f71259dcc4e888e5cd"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoFuzzFailureRerunToolTest.xml",
+    "bytes": 683,
+    "sha256": "4ea089b1fecda5c0b05a713f2b2e95b8b18358c718004f56ddec96ff61e1d64a"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.HttpRequestNativeTest.xml",
+    "bytes": 605,
+    "sha256": "80d2265001a40061ce032e4a6f7cedd3716d7603a6daf293461f3cce0982c136"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml",
+    "bytes": 1240,
+    "sha256": "3b27abf3c38457673200df207afa287017d95087f9e625a61b4e178567c73235"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunArgumentBoundaryTest.xml",
+    "bytes": 538,
+    "sha256": "f9c2d6ed872c747a422783e3d43ddc2c5d5e730ee57e01fd92fc39e313175bfc"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.DockerfileLexerTest.xml",
+    "bytes": 745,
+    "sha256": "5713c879386aa9c635ea757b27b375579afbfd57d5182d96a5632879dd6ec4c4"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunBuildContextServiceTest.xml",
+    "bytes": 2585,
+    "sha256": "c6cb3864590acfbd81d9d8430a057315e20f99ba0867f9f0521167a8e1f7a2e8"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.engine.EngineClientEnvironmentTest.xml",
+    "bytes": 685,
+    "sha256": "5ff6e179887ed4fead70511c14e8e669e6e7e83229657ab0ce6ba8c4fac7b0e5"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest.xml",
+    "bytes": 1676,
+    "sha256": "037b047a0d4d1801783367238d79c2031118220b3c2b07ab134aa5f23761420b"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.project.GoNewProjectTest.xml",
+    "bytes": 14738,
+    "sha256": "3a6fcf02f1b43dde831ab2ea1db5992197e5f28f6752e8c82053f02c0496624a"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoLspDeletionLifecycleTest.xml",
+    "bytes": 688,
+    "sha256": "5ae575bd17a569c3b1591332ef93249cc2226f47744642fc3af57e0665f7ad88"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest.xml",
+    "bytes": 1171,
+    "sha256": "1c0c2cf7881e4dc2fdb85fe37f0473a609072feca4c07d457879f5be4cbf8883"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugTestEventsTest.xml",
+    "bytes": 8256,
+    "sha256": "c2f73af9c413b476db6f4b92e1ae25a836139230ef1bca8a6c5a73a07e24747b"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml",
+    "bytes": 954,
+    "sha256": "5d1855dfbb787364997bdc5ffc907fb901becdc02ddc850b54a84e8e7f50f8aa"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
+    "bytes": 1029,
+    "sha256": "0582d6c20f771a88028e3a91ae5d5238946697c2ca7c861ccc56bfe659a1e196"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructDialogTest.xml",
+    "bytes": 1451,
+    "sha256": "f01d463c08c938124a54ca76628092363d23d524a918bb933b3ecb898fdcfce5"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.engine.GoTaskTargetsIntegrationTest.xml",
+    "bytes": 1719,
+    "sha256": "14bf1d84eb7cac5fa0fe44c6cca8fba8780be08d5339e96732ecbab8671f8422"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+    "bytes": 2050,
+    "sha256": "aaf7ddfd368bb8cafbb87db7f2649be62a835a56b83b217f602bc0115921ba97"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDapProtocolForwardingTest.xml",
+    "bytes": 499,
+    "sha256": "2ebe4eecd6dcf832fd64eeb6ece7d277e5eda47db74435296a9eb57bc58bd22d"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.engine.EngineFramingTest.xml",
+    "bytes": 602,
+    "sha256": "9885671b45ae507d6a1a6290dd1ef52fa05fa97880271456f91a2edb52d72ad6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.icons.GoFileIconsTest.xml",
+    "bytes": 669,
+    "sha256": "3145ca09c64e6ed038e3332f46a4fc2443c9380ceaf2df0b87edc6cb733012dd"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugTestProfilesTest.xml",
+    "bytes": 669,
+    "sha256": "e7fcf9a560c26313e011c66abc0f4dc373d188c951be1c138e3743507a5df085"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest.xml",
+    "bytes": 1370,
+    "sha256": "5275daa944f85742c8824a9974d4b19fbd0a391c932576cb7dfd35e2f404dbec"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tests.GoTestFinderNativeTest.xml",
+    "bytes": 725,
+    "sha256": "0685a255dc1d330deefbb2dca905e9ffd9283e1c7b0d746086ac615f053865bf"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugConnectionTest.xml",
+    "bytes": 1260,
+    "sha256": "5cd88badba937b005470e31d6b33b735e4cf99a647c8bbb1f1c37d4db875cf03"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.project.GoNewProjectSdkStartupTest.xml",
+    "bytes": 899,
+    "sha256": "ec77aa0c6dbd7a90b5eb7abc2f769783b8e63f384a6541129d60d6dc3d48b457"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunBuildContextLaunchTest.xml",
+    "bytes": 3135,
+    "sha256": "431bd5357ec618b67c8fa1de2e5f0b272c9c38114368634b5242ab19282c51d2"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.GoTemplateNativeTest.xml",
+    "bytes": 622,
+    "sha256": "67836e2076f7b772b0497bc541dd7088045ae36297065022d55e222d21e7fcc4"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoStructureGroupingTest.xml",
+    "bytes": 1662,
+    "sha256": "ef80b29de5172b05da253537ef88d849593b66d04ac00ffab0fe23c3df207f8b"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoLspIntentionDescriptionsTest.xml",
+    "bytes": 700,
+    "sha256": "2b4af7b7691bafca436de3d07f18983fa38a8343c0bf9a181aad46cf512fb563"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.semantic.GoIdentifiersTest.xml",
+    "bytes": 626,
+    "sha256": "ba9147bccc0960796ddee37a91e2f9b8c55a94d4b46def17efd3476a966b532e"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoTestWorkflowNativeTest.xml",
+    "bytes": 636,
+    "sha256": "b112b5601376b151797e328c951d0707e710dad58f7dbbb87259578252ed8718"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoSemanticTokensServerTest.xml",
+    "bytes": 2249,
+    "sha256": "ecc786955fa237b6c01d5ecbc9c62c4873b9e1c9dcbe52bbf8a15a5c008c8c93"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.product.GoCompatibleMarketplaceSearchTest.xml",
+    "bytes": 893,
+    "sha256": "7512ba4563fd21878d839e6835a016c43b97c6bc21b651f264881bb73a2d1ac2"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.terminal.GoTerminalCommandCompletionTest.xml",
+    "bytes": 815,
+    "sha256": "a7f137d33aa646f4a5e7b464709fc77613447b2a8195e1c87cf6a62b56764413"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsNativeTest.xml",
+    "bytes": 1093,
+    "sha256": "dca8731aae1c9e83f630972483e64034de3c2435cb82224906e9f81866f8016a"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugLaunchTest.xml",
+    "bytes": 1032,
+    "sha256": "809417b1b9f0f635933eb18e2855607507d6fc63abe8923f9c43dbe5ece87965"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoLiveTestRunnerTest.xml",
+    "bytes": 838,
+    "sha256": "3e90e3ac11c1365d2491f19649cbc8339f7dc710db49b290b6acbb539da2f5b6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tags.GoStructTagsDialogTest.xml",
+    "bytes": 1177,
+    "sha256": "dca18a977a4d67edd4a5d7741613ae083b8ceb71587b6006670ccacea5613396"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.project.GoModuleGeneratorTest.xml",
+    "bytes": 1080,
+    "sha256": "6fe40e54c590246c71be210c108fd66f4275a02513675c4c00cbc12b95f73c00"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lint.GoLintParserTest.xml",
+    "bytes": 1082,
+    "sha256": "2b5bcee1e5230db0f6a240707397b700f8143bd0e5c69a8a6b14d5f68593bee8"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest.xml",
+    "bytes": 534,
+    "sha256": "9a2b8402d947740c92cc72f74c78ff7324a099b9d6ede3add5dc81c12c79974d"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.terminal.GoTerminalCustomizerTest.xml",
+    "bytes": 689,
+    "sha256": "5b8889fe6d3764356f76130daae2ffdf6708034a62d7b68c4bbc739b6413578b"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpRequestSessionNativeTest.xml",
+    "bytes": 1629,
+    "sha256": "edbae447bd15f8ab797e4c8d0520d6a65ac32691e2a2dd2759a8e7d9a277dc19"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpResponseCacheTest.xml",
+    "bytes": 1089,
+    "sha256": "4646ba703290ec6f056d06c106ccc3aafa13d762045d5a3b778c077a077bf324"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest.xml",
+    "bytes": 1277,
+    "sha256": "d7d1e9afa93bd00564c93f5f9c2f3ddae9a7a5d33888f0ca1e2521069ccfe28c"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.plugins.ChineseLanguagePackDialogTest.xml",
+    "bytes": 2208,
+    "sha256": "aea92f790ec8893862fa8cb50e479ea72573164ed482f2049c789b5ffa1934c6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tests.GoTestGenerationIntegrationTest.xml",
+    "bytes": 1309,
+    "sha256": "0a5ffb9678e28e93041fd16e7064239ce1844d5dc21b45242f0ec2a28c123434"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoHierarchyWorkflowTest.xml",
+    "bytes": 2507,
+    "sha256": "3899b0720222384c788134576ce7a3132508a963cb845d7eb50aa79999c85f49"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoSemanticTokensGoplsTest.xml",
+    "bytes": 524,
+    "sha256": "41752fe0908353c68332131ee5777c09bd449be10ca34370b10b6ff2c74dc204"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugTestManagedArgumentsTest.xml",
+    "bytes": 842,
+    "sha256": "89f0c0e8b9c788592cde75ab8d4592a95b848ee9c70d70d882ade1fb0877bc1e"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoTestWorkflowIntegrationTest.xml",
+    "bytes": 862,
+    "sha256": "38c69b94b4cb889e8f3b48fef117824606848b30af46823b8795e4f76427e6bb"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunBuildContextLoaderTest.xml",
+    "bytes": 2370,
+    "sha256": "6c6c94eddcaaee0d4be447a500db1aed558bf53644776a5924b51593783a0ee7"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+    "bytes": 11945,
+    "sha256": "0dd55e108f904a8285f87aa48b984494f4881c76c6e0ab06f4b02712a7c9ec2d"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugRunnerEligibilityTest.xml",
+    "bytes": 514,
+    "sha256": "36c716ed35b32fd2a0dc60cfeb6e5e5cde32b7c01228fbc051d549a0485aa129"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.sdk.GoSdkRegistryTest.xml",
+    "bytes": 928,
+    "sha256": "e08fde1b6cecb240a1f23d06fd685dbe2d7765a6e47038ef051bc5dc7b041065"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest.xml",
+    "bytes": 574,
+    "sha256": "f11b2bf34a3b419ea0a89f765f638271c8c610cd58f9389d922da393bd34647f"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tags.GoStructTagContextTest.xml",
+    "bytes": 669,
+    "sha256": "50dd9c76a0df4bebd13d96ae1f38c2ee02d99cd5241dcbc7dde5571d64e03627"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDapClientRoutingTest.xml",
+    "bytes": 952,
+    "sha256": "91a144e7033ff38e59409dde5688f16710fcacafd3f9e21ed99d4d75824f3333"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.settings.GoBundledToolchainTest.xml",
+    "bytes": 965,
+    "sha256": "081dc27e36e223cf00ccfffd3e1c2a1d7eb78a372ba2a33bb831d47cc6fbd0c6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.coverage.GoCoverageProfileTest.xml",
+    "bytes": 1098,
+    "sha256": "cf19a16dc52a90a670eec65cf1415f615a45302b2d718b6068201917dd375841"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.DockerfileNativeTest.xml",
+    "bytes": 597,
+    "sha256": "115414062fd24735f124a9935236f1c31939b378590422beba586cfcd94cc398"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml",
+    "bytes": 2245,
+    "sha256": "795932bdcc3373cc19fae5cc1d5c623ccd3e08a33f0b4ea8bb20a1dc9f92fb9d"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 4247,
+    "sha256": "75f0e9e46baabf77e91e651caf193d924665af68afe0085304b2b1df760f0dae"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.sdk.GoSdkDownloadDialogTest.xml",
+    "bytes": 1189,
+    "sha256": "5231d3a836209489f3d385285a2627666daf4b27d2ddb817decac91ea305f1fe"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lang.HttpRequestLexerTest.xml",
+    "bytes": 616,
+    "sha256": "87bc0c2846bc2757c86643fa27614057ee813936b5c8d51b0a567e53a6bc11b5"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.project.GoModuleEnvironmentTest.xml",
+    "bytes": 673,
+    "sha256": "d8e74c2c345cbed71696e0c33a94c333bfd8fbb3a6e6280481fd56600d57c2e7"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoTestOwnershipTest.xml",
+    "bytes": 789,
+    "sha256": "792461269b73669fb66fbb8a8aa0fe89e8210cfe8739a2a9b958f16ef29798ea"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.project.GoSdkProbeTest.xml",
+    "bytes": 1681,
+    "sha256": "a0a19fd9a9491eeef486f15fb62c57df70e2ed1cdcf29ef2750a8865360d30df"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoGlobalFailedTestsRunTest.xml",
+    "bytes": 805,
+    "sha256": "945c93879ea01a99084ab7a020441d90787c09838071b3560ae65cd349697331"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.engine.GoTaskTargetsTest.xml",
+    "bytes": 678,
+    "sha256": "b6a7b56aca4acd9f7a840dc58c3656bb60efdc2c378116744182bffced4e8c1f"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditJournalTest.xml",
+    "bytes": 835,
+    "sha256": "ac1fc51743e155be1cea945c29f2ec789116366420a6d5ac9864ccfdc326cbc7"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest.xml",
+    "bytes": 1023,
+    "sha256": "0739c82225805cbc1dfa4b8aba61efbe04beb40100f3920a213b6842351e4e5e"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpRequestCallTest.xml",
+    "bytes": 1444,
+    "sha256": "06110160c3a8705dc1c4066f5577f75086eb398eac21e39f85142cc0a7af1019"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.xml",
+    "bytes": 6710,
+    "sha256": "e415d1e1f622c05e94d0a4cd53c4fd3b0d361a3be544718b1d2a160ff5ec22b6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tests.GoTestChooserNativeTest.xml",
+    "bytes": 11799,
+    "sha256": "8d7f9d78f83b98b6d99fba578dfdd775d7919d564c938b05ce21713275568c7f"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+    "bytes": 2768,
+    "sha256": "0901987bfc05b795e70f10ed6b6c48d3bce830b44ac948a250da66cfd89b075b"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.coverage.GoCoverageIntegrationTest.xml",
+    "bytes": 526,
+    "sha256": "5aa9fa54c181d31cc29f6d4a3f4f38ce27407c24f9bcf3823388e863278acbb8"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.semantic.GoSemanticContinuationTest.xml",
+    "bytes": 701,
+    "sha256": "17762ac52bcc95df1a95e9ec1c96e1d90c4fab96c412dbec41d4bb7948370e9a"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.platform.PlatformPsiListenerInitializationTest.xml",
+    "bytes": 922,
+    "sha256": "8aa1f28592996a087c13d9b16a5b67ba7c678a0c7acb949cff34dd0120803606"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tags.GoStructTagsIntegrationTest.xml",
+    "bytes": 1256,
+    "sha256": "d9dab3a48b63220078e5681dac7ac33b996953e6d1c599217c4945f0a548c20e"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.signature.GoChangeSignatureHandlerTest.xml",
+    "bytes": 701,
+    "sha256": "a8fd5376832d7a79a9a96946b6cdaf29f5a26bf390106322f2086cd770accc23"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml",
+    "bytes": 527,
+    "sha256": "b91966c70bcb5242ed894787fbad503de0a6f04f8a1351ce5683606b17ca1f47"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest.xml",
+    "bytes": 2221,
+    "sha256": "c90f03eed27160fe654968cf78d6fe3796ff3d46c04910f5aa02f370c75e3967"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoRunContextNativeTest.xml",
+    "bytes": 1312,
+    "sha256": "a89711a447f014e80f2dc08158ca0716716a7a2afb85111424096b9545f85b44"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.debug.GoDebugPrerequisitesTest.xml",
+    "bytes": 814,
+    "sha256": "2a1109734d3bb6f43e2d59cb41c258ef8b5143a44787910af520b1ba70675add"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+    "bytes": 1426,
+    "sha256": "7671e28ed244400b491e54abd572478ffeb9ab2d9195a438a8ee57e980a3c42f"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.signature.GoSignatureValidationTest.xml",
+    "bytes": 1750,
+    "sha256": "e64e73c11d4305519042e7ae5b3f8dee9d45da23a1b6d7faced0456cfbe91b30"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.tests.GoGenerateTestsDialogTest.xml",
+    "bytes": 1239,
+    "sha256": "7911aadefb1fb3166cebbdb5b3c4453da16e9c3febfb0d6bcdaf909bed104800"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpResponsePresentationTest.xml",
+    "bytes": 2059,
+    "sha256": "039ca9b1d4161b8928876130c1ebd401b33abe53ecf48d264736310f98082be5"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.run.GoPackageDirectoriesTest.xml",
+    "bytes": 953,
+    "sha256": "123256cdf90e5eac89018b97fa935b7863d33ea0304955394c38d90d17f286f7"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.signature.GoSignatureModelTest.xml",
+    "bytes": 997,
+    "sha256": "d9fecff8f938fdf9afaad75d8fb3a8ef03256afc9d02c528e32a9546263186f6"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.terminal.GoTerminalCompletionFallbackTest.xml",
+    "bytes": 1976,
+    "sha256": "dc65ef085387a98f7ebe41c3494f4fade218217ffd346837e23275d57e770aba"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.plugins.ChineseLanguagePackTest.xml",
+    "bytes": 2670,
+    "sha256": "45e1b54a44368a115af98d4472d538cc57326c3c202e7cf582b0c1d094df2012"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.http.HttpBatchProcessHandlerTest.xml",
+    "bytes": 7012,
+    "sha256": "4ed7237e2df2099d9ec4c0c3d70ca97ee56639c9179641de9d0fa131613246bb"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.sdk.GoSdkSelectorTest.xml",
+    "bytes": 1896,
+    "sha256": "28fffe523c4033972757397e59617e28a8bc03bede1126f31538bc987175a802"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsScanTest.xml",
+    "bytes": 899,
+    "sha256": "3095efe54da615d3158445d8c6e6b330401389e04f194a332ae550a3864ec892"
+  },
+  {
+    "name": "TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest.xml",
+    "bytes": 2765,
+    "sha256": "dc9b65627ed03be363efc3052226e3c2af748e026e35d47b51c139ba0bfbf176"
+  },
+  {
+    "name": "TEST-dev.openidea.goide.refactor.GoWorkspaceEditPlanTest.xml",
+    "bytes": 2151,
+    "sha256": "120e131c5e6b1a3b4d41f4fcab6b886d84453bd2a7e41db7868437bcc5042fe5"
+  }
+]

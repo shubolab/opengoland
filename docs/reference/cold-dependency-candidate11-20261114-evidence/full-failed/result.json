@@ -1,0 +1,1108 @@
+{
+  "endedAtUtc": "2026-11-14T14:58:33.955721+00:00",
+  "exitCode": 1,
+  "sourceStableDuringRun": true,
+  "testTaskExecuted": true,
+  "xml": {
+    "com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoColdExternalWatchTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoCompletionBarrierLifecycleTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoGoworkGoplsTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoHierarchyWorkflowTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoLspDeletionLifecycleTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoLspHighlightOrderingTest": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoLspIntentionDescriptionsTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoMulticaretGoplsSyncTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoNativeCompletionOrderingTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoNavigationCacheTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoNavigationParameterGateTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoPackageStructureTest": {
+      "tests": 27,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoStandardNavigationTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoStructureControlsTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoStructureGroupingTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoStructurePresentationTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest": {
+      "tests": 22,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.coverage.GoCoverageIntegrationTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.coverage.GoCoverageProfileTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoAttachedAdapterLifecycleTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDapBreakpointHandlerTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDapClientRoutingTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDapColdSourceNavigationTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDapProtocolForwardingTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDapProtocolTest": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDapSessionControlTest": {
+      "tests": 33,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugConnectionTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugLaunchTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugPrerequisitesTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugRunnerEligibilityTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugTestConsoleTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugTestEventsTest": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugTestManagedArgumentsTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebugTestProfilesTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoDebuggerEditorsProviderTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoGlobalFailedTestsActionTest": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoOwnedLaunchedAdapterLifecycleTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoTestConverterReadinessTest": {
+      "tests": 10,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.debug.GoTestDebugArgumentsTest": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.engine.EngineClientEdtDisposalTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.engine.EngineClientEnvironmentTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.engine.EngineClientLifecycleTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.engine.EngineClientOutboundTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.engine.EngineFramingTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.engine.GoTaskTargetsIntegrationTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.engine.GoTaskTargetsTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.GoNamedTypeHeadersTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.jsonstruct.GoJsonStructDialogTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.jsonstruct.GoJsonStructIntegrationTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.methods.GoImplementInterfaceHintsNativeTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.methods.GoImplementInterfaceHintsScanTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.methods.GoImplementMethodsDialogTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.methods.GoMethodGenerationIntegrationTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.structs.GoStructHelpersDialogTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.structs.GoStructHelpersIntegrationTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tags.GoStructTagContextTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tags.GoStructTagsDialogTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tags.GoStructTagsIntegrationTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tests.GoGenerateTestsDialogTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tests.GoGenerateTestsModelTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tests.GoTestChooserNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tests.GoTestFinderNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.generate.tests.GoTestGenerationIntegrationTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpBatchProcessHandlerTest": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpRequestCallTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpRequestDocumentTest": {
+      "tests": 19,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpRequestRunNativeTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpRequestSessionNativeTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpResponseCacheTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpResponseFilesTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpResponsePresentationTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpResponseViewNativeTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.http.HttpServicesToolbarNativeTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.icons.GoFileIconsTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.DockerfileLexerTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.DockerfileNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.GoEnterNativeTest": {
+      "tests": 18,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.GoLexerTest": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.GoQuoteCommentNativeTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.GoTemplateLexerTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.GoTemplateNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.HttpRequestLexerTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.HttpRequestNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.SqlLexerTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lang.SqlNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lifecycle.StandaloneProxyWarmupTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lint.GoInspectionProcessTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lint.GoLintCommandsTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lint.GoLintParserTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lint.GoVetIntegrationTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest": {
+      "tests": 14,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoDocumentSyncTest": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoExternalFileWatchesTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoPendingDependencyRootsTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoSemanticTokensGoplsTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.lsp.GoSemanticTokensServerTest": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.platform.PlatformPsiListenerInitializationTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.platform.PlatformUnicodePersistenceTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.plugins.ChineseLanguagePackDialogTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.plugins.ChineseLanguagePackTest": {
+      "tests": 15,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.product.GoCompatibleMarketplaceSearchTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.product.GoGeneralPluginsManagerTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.product.GoProductPluginManagementPolicyTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.profile.GoProfileModelTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.project.GoJavaCreationEntriesTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.project.GoModuleEnvironmentTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.project.GoModuleGeneratorTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.project.GoNewProjectSdkStartupTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.project.GoNewProjectTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.project.GoSdkProbeTest": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.GoWorkspaceEditCaseAliasesTest": {
+      "tests": 9,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.GoWorkspaceEditGuardTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.GoWorkspaceEditJournalTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.GoWorkspaceEditNativeCaseTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.GoWorkspaceEditPlanTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.signature.GoChangeSignatureHandlerTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.signature.GoSignatureModelTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.refactor.signature.GoSignatureValidationTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoCancelledParentNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoDependencyRootStateTest": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoFuzzFailureRerunToolTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoGlobalFailedTestsRunTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoLiveTestRunnerTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoNativeCoverageIntegrationTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoPackageDirectoriesTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunArgumentBoundaryTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunBuildContextLaunchTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunBuildContextLoaderTest": {
+      "tests": 12,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunBuildContextNativeTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunBuildContextServiceTest": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunContextNativeTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoRunParametersTest": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoSourceFunctionsTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoTestOutputTest": {
+      "tests": 13,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoTestOwnershipTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoTestRerunPlanTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoTestWorkflowIntegrationTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoTestWorkflowNativeTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.GoTestWorkflowTest": {
+      "tests": 6,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest": {
+      "tests": 8,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.corpus.GoFuzzCorpusTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.run.corpus.GoFuzzCorpusToolTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.sdk.GoSdkDownloadDialogTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.sdk.GoSdkDownloadsTest": {
+      "tests": 20,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.sdk.GoSdkRegistryTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.sdk.GoSdkSelectorTest": {
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.semantic.GoCommandEditOwnerTest": {
+      "tests": 7,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.semantic.GoIdentifiersTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.semantic.GoSemanticContinuationTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.settings.GoBundledToolchainTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.settings.GoGoplsEnvironmentTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.settings.GoSettingsConfigurableTest": {
+      "tests": 5,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.settings.GoSettingsSearchTest": {
+      "tests": 1,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.settings.GoToolchainTest": {
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.terminal.GoTerminalCommandCompletionTest": {
+      "tests": 3,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.terminal.GoTerminalCompletionFallbackTest": {
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "dev.openidea.goide.terminal.GoTerminalCustomizerTest": {
+      "tests": 2,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "logSha256": "03d3e67abec4c1076d6eb2623563a1d49a18e5fd669c193b9bb86f6ec9ca8d66",
+  "totals": {
+    "tests": 1029,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "reportCount": 180,
+  "previousC10TestIdentities": 1028,
+  "removedPreviousTestIdentities": [],
+  "addedTestIdentities": [
+    [
+      "com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest",
+      "testInitialMissingAtomicGreetingThroughProductionOwnedReconcile"
+    ]
+  ],
+  "driverAggregationCorrection": {
+    "originalSha256": "df01f5b983a271e25632f91933351f55eedd12889ff1f5a597ca11b1967b5ee1",
+    "reason": "Wildcard selected all classes and copied all fresh XML; initial summary used the wildcard as one repeated map key. Reparsed each original suite name without rerunning or modifying tests."
+  }
+}

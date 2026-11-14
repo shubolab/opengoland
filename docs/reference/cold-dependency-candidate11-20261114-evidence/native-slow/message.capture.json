@@ -1,0 +1,74 @@
+{
+  "analysis_profile": null,
+  "authority": "shipped-artifact",
+  "confidence": "observed",
+  "environment": null,
+  "evidence_id": "ev_1b275e42c7dbfb1a5865320caed2fc606a810dd2b1bf729beae2f756029d417d",
+  "evidence_links": [],
+  "limitations": [
+    "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+    "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+    "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+    "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+    "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+  ],
+  "locations": [],
+  "normalized_result": {
+    "initial": {
+      "gaps": [
+        "Accessibility capture was disabled"
+      ],
+      "nodes": [],
+      "screenshot": {
+        "base64": "[stored in message.png; original bytes and SHA preserved]",
+        "height": 875,
+        "mime_type": "image/png",
+        "sha256": "0fd84ba333a95da9218d03edc42f834d39d507b1082e65084ce9da582718a3ee",
+        "width": 1400
+      },
+      "truncated": false,
+      "window": {
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794670734.573189,
+        "pid": 49178,
+        "title": "app \u2013 main.go",
+        "window_id": 16202
+      }
+    },
+    "limitations": [
+      "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+      "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+      "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+      "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+      "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+    ],
+    "restore": "leave-as-is",
+    "steps": [],
+    "target_sha256": "a694d3890155051269825d2acf6674f0351074ae1b4282af5296b000dcce4006"
+  },
+  "operation": "observe_native_ui",
+  "parameters": {
+    "accessibility": false,
+    "max_nodes": 30,
+    "pid": 49178,
+    "screenshot": true,
+    "window_id": 16202
+  },
+  "predicate_type": "rea.analysis",
+  "provider": {
+    "id": "native-macos",
+    "name": "macOS native inspection utilities",
+    "version": null
+  },
+  "raw_result": null,
+  "relationship_coverage": null,
+  "subject": {
+    "architecture": "arm64",
+    "digest": {
+      "sha256": "a694d3890155051269825d2acf6674f0351074ae1b4282af5296b000dcce4006"
+    },
+    "format": "mach-o",
+    "local_path": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea",
+    "name": "idea"
+  }
+}

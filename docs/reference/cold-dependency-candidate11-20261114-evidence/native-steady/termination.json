@@ -1,0 +1,41 @@
+{
+  "atUtc": "2026-11-14T16:20:26.533335+00:00",
+  "normalMenuQuit": false,
+  "reason": "CUA unavailable after desktop update; terminate this completed owned fixture instance only",
+  "before": {
+    "61186": {
+      "parent": 1,
+      "start": "Sun Nov 15 00:11:34 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/app /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/steady/app/main.go"
+    },
+    "61192": {
+      "parent": 61186,
+      "start": "Sun Nov 15 00:11:35 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/bin/fsnotifier"
+    },
+    "61272": {
+      "parent": 61186,
+      "start": "Sun Nov 15 00:11:50 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+    },
+    "61274": {
+      "parent": 61272,
+      "start": "Sun Nov 15 00:11:50 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    }
+  },
+  "signal": "SIGTERM to owned App only",
+  "after": {
+    "61186": "",
+    "61272": "",
+    "61192": "",
+    "61274": ""
+  },
+  "allSampledPidsGone": true,
+  "signalsToChildren": [],
+  "callerSha256": {
+    "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+    "main.go": "0e6d4e77154f1363570536bc7754854bb08e1782f2e977ae803cb56be9dd2782",
+    "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+  }
+}

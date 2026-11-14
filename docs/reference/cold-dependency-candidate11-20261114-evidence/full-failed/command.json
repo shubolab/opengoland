@@ -1,0 +1,19 @@
+{
+  "startedAtUtc": "2026-11-14T14:44:23.359086+00:00",
+  "command": [
+    "./gradlew",
+    "--no-daemon",
+    "--offline",
+    "-PplatformPath=/Users/wangshubo/develop/openidea-go/.tools/platform/idea-2026.1.4/IntelliJ IDEA.app",
+    "-PgoBuilder=/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+    "test",
+    "--tests",
+    "*",
+    "buildPlugin",
+    "verifyPluginStructure"
+  ],
+  "classes": [
+    "*"
+  ],
+  "GOWORKAbsent": true
+}

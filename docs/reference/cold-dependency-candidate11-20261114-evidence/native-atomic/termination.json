@@ -1,0 +1,17 @@
+{
+  "atUtc": "2026-11-14T15:53:34.174296+00:00",
+  "normalMenuQuit": false,
+  "reason": "CUA unavailable after Codex restart; ending only this owned completed atomic instance before isolating the remaining CLI-started instance",
+  "before": {
+    "39850": "Sat Nov 14 23:18:28 2026     /Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native-c11-fixtures/atomic/app",
+    "40036": "Sat Nov 14 23:19:15 2026     /Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+    "40038": "Sat Nov 14 23:19:15 2026     /Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+  },
+  "signal": "SIGTERM to owned App only",
+  "after": {
+    "39850": "",
+    "40036": "",
+    "40038": ""
+  },
+  "allSampledPidsGone": true
+}

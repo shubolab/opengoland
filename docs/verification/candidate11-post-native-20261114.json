@@ -1,0 +1,60 @@
+{
+  "atUtc": "2026-11-14T16:21:42.547949+00:00",
+  "scope": "Critical payload and signature post-native checks, not a full byte-for-byte App audit",
+  "protected": {
+    "C9": {
+      "criticalPayloadsUnchanged": true,
+      "sha256": {
+        "Resources/openidea-product.json": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7",
+        "MacOS/idea": "91f2b4b00392ef1135a6554df03153aed360eb32fab690d893dbc0569f47975c",
+        "plugins/opengoland/bin/opengoland-engine": "3a8d00c2471fc8ff6c210a67ea8ea402be90e2905cd17ab7b9c8103c3ff50799",
+        "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.3.jar": "fc7e24aa9965eedecc560f1e947e1e0925674eb6f16344e5b7b1316a2d22422b"
+      }
+    },
+    "C10": {
+      "criticalPayloadsUnchanged": true,
+      "sha256": {
+        "Resources/openidea-product.json": "2c32306ef8ffba09c01e90862545d33e2bb8f349f6fd693f891128cae828a58a",
+        "MacOS/idea": "a1ed1da954cc70dc4e9695295aa3ac99064510cfcb7e67b33089f58b2296adfd",
+        "plugins/opengoland/bin/opengoland-engine": "5f06acb94cd2023366eb20b228e688ef7581b6c56242706327dc234afd14a7ab",
+        "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.4.jar": "ed7418db7b4334dd4a3db6e9c59e6cbef58cc89a582e5455d7e817219d8ade32"
+      }
+    },
+    "C11": {
+      "criticalPayloadsUnchanged": true,
+      "sha256": {
+        "Resources/openidea-product.json": "3a79892e972b71a8c2274e060abf17a3daf4b7a9b268020d8c67c7e2e467c251",
+        "MacOS/idea": "a694d3890155051269825d2acf6674f0351074ae1b4282af5296b000dcce4006",
+        "plugins/opengoland/bin/opengoland-engine": "f4e68744ec0d0b1423d7da935a56c12c9826b3c5ce2dadadbddafa6a558176d4",
+        "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.4.jar": "0c06e160b0850b6701010dcf723853ffc884773a831536b1ad78ab4f498c973e"
+      },
+      "jarComparedWithInitialAudit": true
+    }
+  },
+  "codesignExitCode": 0,
+  "codesignStderr": "",
+  "remainingC11AppToolProcesses": [],
+  "logs": {
+    "atomic": {
+      "bytes": 84335,
+      "sha256": "d79b9d665e268c1f3d8608ffa8fb2e3f16a163fe5a6737c1f892ae4bc50a5d4e",
+      "errorOrSevereLines": 0
+    },
+    "atomic-ls": {
+      "bytes": 66232,
+      "sha256": "545e6063675d8e422ca1d6f535a05ff96f17c9a035b55ebebe41deacc63a7745",
+      "errorOrSevereLines": 0
+    },
+    "slow-cli": {
+      "bytes": 86121,
+      "sha256": "993f30a01056e05858ceb8d361c0931845c301b558c8badaf865b512786b12f6",
+      "errorOrSevereLines": 0
+    },
+    "steady-cli": {
+      "bytes": 85978,
+      "sha256": "5f0568edc2e12ed5d11acb88993cd190b3b2ddcc78aca5fc30c615844fb13042",
+      "errorOrSevereLines": 0
+    }
+  },
+  "freeBytes": 29925421056
+}

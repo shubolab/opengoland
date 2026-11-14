@@ -1,0 +1,22 @@
+{
+  "timeUtc": "2026-11-14T15:47:28.160237+00:00",
+  "status": "deleted-exact-stopped-cache",
+  "target": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/native/atomic/profile/system",
+  "targetAbsent": true,
+  "files": 944,
+  "directories": 257,
+  "fileLogicalBytes": 298216099,
+  "freeBeforeBytes": 30485221376,
+  "freeAfterBytes": 30786846720,
+  "observedFreeDeltaBytes": 301625344,
+  "freeAfterGiB": 28.6724853515625,
+  "scope": "Only stopped direct-launch atomic/profile/system. Parent/config/log, all fixtures/Apps/SDKs, build system-test, atomic-ls and slow-cli excluded.",
+  "protectedDirectConfigLogUnchanged": true,
+  "caveat": "Free-space change is the measured operation-window delta, possibly affected by concurrent I/O. No du estimate or hardlink-name sum is claimed as released bytes. Other live C11 profiles excluded. No full cache/App backup.",
+  "provenance": {
+    "localEvidenceDirectory": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/direct-system-retirement",
+    "manifestSha256": "26ae0e133a689e8bf00fdee533a9c4da12d79d64b67205c6d7894c93ad09a121",
+    "resultSha256": "1f913ca86cd7c7222a4bcf8d063e5f41f27c08f7897a23f74364bcdb42ac7562"
+  },
+  "reuseWarning": "Do not execute this old plan against a later same-name path."
+}

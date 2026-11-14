@@ -1,0 +1,68 @@
+{
+  "atUtc": "2026-11-14T15:13:43.917804+00:00",
+  "scope": "Independent read-only source/key-payload and archived-test provenance checks; not native desktop, Windows, installer or full App-payload acceptance.",
+  "status": "pass",
+  "sourceCommit": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+  "app": "/Users/wangshubo/develop/openidea-go/build/product-candidate11/open Goland.app",
+  "version": "0.1.0-preview.20261114.4",
+  "buildResultSha256": "03d79ef71d06634936b59fb84a3d4983d0571d70538dae5412a3ca7c19bb6060",
+  "inputCount": 597,
+  "inputDigest": "fe2f8887405f029586bfdf330ed2d2671e4523218aba447fcf5e4e738414fd1f",
+  "allFrozenInputsMatchGitBlobs": true,
+  "sourceBeforeAfterAndEmbeddedInputsMatch": true,
+  "manifestSha256": "3a79892e972b71a8c2274e060abf17a3daf4b7a9b268020d8c67c7e2e467c251",
+  "plugin": {
+    "path": "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.4.jar",
+    "sha256": "0c06e160b0850b6701010dcf723853ffc884773a831536b1ad78ab4f498c973e",
+    "identityAndEmbeddedInputsMatch": true
+  },
+  "engine": {
+    "sha256": "f4e68744ec0d0b1423d7da935a56c12c9826b3c5ce2dadadbddafa6a558176d4",
+    "metadataMatchesManifest": true,
+    "vcsRevision": "7b98f1672fc8097d4493ea1481db21ca8a12cdde",
+    "vcsModified": false
+  },
+  "tests": {
+    "totals": {
+      "tests": 1029,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "reportCount": 180,
+    "allReportsStartedAfterBuildCommand": true,
+    "previousC10Identities": 1028,
+    "removedPreviousIdentities": [],
+    "addedIdentities": [
+      [
+        "com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest",
+        "testInitialMissingAtomicGreetingThroughProductionOwnedReconcile"
+      ]
+    ],
+    "originalArchiveSha256": "52f05b2611645fccdad784058ec0743eb4c23e8b99c5727d5677ddb5c73e526a"
+  },
+  "protectedApps": {
+    "C9": {
+      "verifiedCriticalFiles": 4,
+      "unchanged": true,
+      "hashes": {
+        "Resources/openidea-product.json": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7",
+        "MacOS/idea": "91f2b4b00392ef1135a6554df03153aed360eb32fab690d893dbc0569f47975c",
+        "plugins/opengoland/bin/opengoland-engine": "3a8d00c2471fc8ff6c210a67ea8ea402be90e2905cd17ab7b9c8103c3ff50799",
+        "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.3.jar": "fc7e24aa9965eedecc560f1e947e1e0925674eb6f16344e5b7b1316a2d22422b"
+      }
+    },
+    "C10": {
+      "verifiedCriticalFiles": 4,
+      "unchanged": true,
+      "hashes": {
+        "Resources/openidea-product.json": "2c32306ef8ffba09c01e90862545d33e2bb8f349f6fd693f891128cae828a58a",
+        "MacOS/idea": "a1ed1da954cc70dc4e9695295aa3ac99064510cfcb7e67b33089f58b2296adfd",
+        "plugins/opengoland/bin/opengoland-engine": "5f06acb94cd2023366eb20b228e688ef7581b6c56242706327dc234afd14a7ab",
+        "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.4.jar": "ed7418db7b4334dd4a3db6e9c59e6cbef58cc89a582e5455d7e817219d8ade32"
+      }
+    }
+  },
+  "launcherSha256": "a694d3890155051269825d2acf6674f0351074ae1b4282af5296b000dcce4006",
+  "independentCodesignExitCode": 0
+}

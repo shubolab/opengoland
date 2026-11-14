@@ -1,0 +1,2 @@
+# example.invalid/accept/app [example.invalid/accept/app.test]
+./main.go:8:36: undefined: dep.Message
