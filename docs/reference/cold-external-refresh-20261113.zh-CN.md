@@ -1,6 +1,6 @@
 # 项目外 Go 依赖刷新：2026-11-13 原生观察与修复草稿
 
-**当前：固定源码 `07bb8eb` 的 `.20261114.2` candidate6 已通过 969 项 / 174 报告的本机完整门禁，以及冷依赖、参数提示、Run/Test、深浅图标和退出完整性的限定原生复验。** 新双平台 CI 与发布核验仍是独立事项；原 `.14.1` 因 Windows 失败未发布。下文各历史阶段不混用源码、图片或产物，完整 GoLand 矩阵继续开放。
+**当前：源码 `07ae69f` 的 C7 完成本机969项/174报告、组装与startup/Run/macOS终端/原生测试/退出完整性复验。** 新双平台安装器和公开发布仍需独立核验；C4的外部刷新与主题结果保留在原C4阶段，没有改标为C7。完整72项矩阵继续开放。
 
 本轮发现的问题很具体：项目通过 `replace` 使用项目目录外的本地模块。在 IDE 从未打开该依赖文件的情况下，外部工具改了函数名，编辑器的分析没有跟上磁盘。结果既出现“编辑器没有报错，但运行编译失败”，也出现“编辑器报错，但运行成功”。
 
@@ -194,6 +194,36 @@ App 正常退出后，[收尾摘要](cold-external-refresh-20261113-evidence/can
 
 **C6 收尾已观察：** Cmd+Q、确认退出后 App 正常关闭；[运行后记录](cold-external-refresh-20261113-evidence/candidate6/post-quit.json)确认 4 个已知 PID `99893` / `99968` / `630` / `633` 均消失，587 输入与 manifest、插件、启动器摘要未变，签名结构检查 exit 0，整个本次日志零 SEVERE/ERROR，15 个自有源文件恢复初始字节。范围只含已记录进程，不延伸到未采样子进程、公证或 Windows 交互。新 producer `43536268282` attempt1、Mac job `132265950662` / Windows job `132265950724` 仍是独立 CI 证据，本段没有记录其运行通过或发布成功。
 
-截至本稿，实际保留 **7 组旧 product、2 组 reference、2 组中间 candidate1、2 组 candidate2 图标、5 组 candidate3、7 组历史源码 candidate4、7 组 candidate6** 的 PNG 与 REA 元数据摘要，另保留必要失败摘录，详见[文件及 SHA 清单](cold-external-refresh-20261113-evidence/manifest.json)。没有用截图代替未保留的补全 popup；提交目录没有完整 AX、profile、config、许可文件或完整 `idea.log`。
+## candidate7：C5 启动初始化与真实终端
+
+新源码 **`07ae69f3b2bbc36f3221ff08e8fe9046f199b624`**、版本 `.20261114.2`；
+587输入摘要 `6a6111a5…b8d8655` 全部独立匹配固定Git blob，engine同源、`modified=false`。
+[原构建摘要](cold-external-refresh-20261113-evidence/candidate7/build-summary.json)保留969项/174报告、零失败/错误/跳过；
+[原XML包](cold-external-refresh-20261113-evidence/candidate7/test-results.tar.gz)已独立计数，
+[来源提取](cold-external-refresh-20261113-evidence/candidate7/source-inputs.json)绑定manifest `5dfd710b…48cfce`、
+JAR `8ec58a99…98942e`、启动器 `b928f4e8…d9fd07`。构建时pending状态按原样保留。
+
+[冷版本查询](cold-external-refresh-20261113-evidence/candidate7/native-version.json)使用全新配置，
+`-version` 退出0，stdout为平台2026.1.4；stderr有WARN，不是零警告，但没有ERROR/SEVERE。
+GUI实例PID25338/window7516，[原生摘要](cold-external-refresh-20261113-evidence/candidate7/native-summary.json)分开记录：
+
+| 实际阶段 | 观察 |
+| --- | --- |
+| [Run](cold-external-refresh-20261113-evidence/candidate7/baseline-run.png) | 中文/emoji输出、exit0 |
+| [当前macOS终端](cold-external-refresh-20261113-evidence/candidate7/terminal.png) | `go tes` → `go test`，`go test -r` 选择`-run`而非`-race`；实际Go1.26.10，`go test -run TestCompose -count=1 ./one` 成功0.450s。补全交互来自CUA观察，不把这帧称作保留的chooser动画 |
+| [原生Go Test](cold-external-refresh-20261113-evidence/candidate7/uncached-test.png) | `go test -json -count=1 -run ^TestCompose$ .`，1passed/package0.344s/907ms/exit0，cached=false；初次cached结果排除 |
+
+[收尾](cold-external-refresh-20261113-evidence/candidate7/post-quit.json)保留实际退出顺序：点击Exit后AX读取超时，
+随后inventory明确显示相应应用都不在运行；五个已采样自有PID25338/25354/25412/25413/25976均已消失。
+没有再查询旧App绑定。源与manifest/JAR/启动器/587输入未变，codesign深度严格检查exit0，
+整个本次日志零ERROR/SEVERE，15个自有源文件字节未变。没有复制profile、配置文件或完整AX/启动日志。
+
+![C7实际Run、终端和无缓存原生测试](../demo/native-go-workflow-20261114-2-startup-fixed.gif)
+
+[新GIF记录](../demo/native-go-workflow-20261114-2-startup-fixed-recording.json)是三帧各4秒，
+1200×857，统一Lanczos缩放和调色，无补画UI或光标。C7没有重做外部改名、主题、Windows交互或调试权限；
+这些不由本次startup/terminal流程推导。C6/GIF继续绑定C4源码，旧图未改标；CI安装器字节与本机App分别核验。
+
+截至本稿，实际保留 **7 组旧 product、2 组 reference、2 组中间 candidate1、2 组 candidate2 图标、5 组 candidate3、7 组历史源码 candidate4、7 组 candidate6、3 组 candidate7** 的 PNG 与 REA 元数据摘要，另保留必要失败摘录，详见[文件及 SHA 清单](cold-external-refresh-20261113-evidence/manifest.json)。没有用截图代替未保留的补全 popup；提交目录没有完整 AX、profile、config、许可文件或完整 `idea.log`。
 
 此前旧 product、gopls 与参考实例的已知 PID 均已消失。桌面工具早先额外打开的无工程实例不计入验收，并已按确切生成应用进程清理。早先两份自有工程的 15 个初始源文件均已恢复。检查无运行依赖和打开文件后，曾清理三套已结束的隔离配置/索引，实测可用空间增加 1,762,250,752 字节；保留共享 SDK、参考应用、产品 App 和紧凑证据。这段历史清理不代替 C6 的收尾记录。

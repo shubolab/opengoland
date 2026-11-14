@@ -1,0 +1,16 @@
+{
+  "at": "2026-11-14T02:01:08.119910+00:00",
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "argv": [
+    "<own-product-launcher>",
+    "-version"
+  ],
+  "returncode": 0,
+  "stdout": "2026.1.4\n",
+  "stdoutMeaning": "Platform version output, not the preview release version.",
+  "stderrErrorOrSevereMatches": 0,
+  "stderrWarningsPresent": true,
+  "manifestSha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce",
+  "rawRecordSha256": "712d3439a1309d9b0eb8b78af754f4804033021c9f4c087b5b7094c5d0720da7",
+  "scope": "Own fresh-profile cold-version probe; short result summary only, no full startup log/profile copied."
+}

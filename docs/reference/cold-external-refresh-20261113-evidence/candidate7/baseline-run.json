@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "candidate": "candidate7",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "evidenceId": "ev_139e0c36202d92e4e7ee63d2861cdcf917b40a26de1bc4dd156854de46598cb2",
+  "launcherSha256": "b928f4e80e21cc71fd9ce9fce8772d2155e5bf761b0ab6ed7658f6ca6dd9fd07",
+  "window": {
+    "pid": 25338,
+    "window_id": 7516,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794621679.2081718,
+    "title": "project – main.go"
+  },
+  "screenshot": {
+    "width": 1400,
+    "height": 1000,
+    "sha256": "5f61d3b16cbd884762368b58c516fa4a0ea1f2c72326353d6eea9c2f49c7ac6b"
+  },
+  "accessibilityEnabled": false,
+  "observedViaCua": {
+    "run": "go run .",
+    "output": "外部-v1|workspace-two|default|中文😀",
+    "exitCode": 0
+  },
+  "scope": "Actual native Go Run with Chinese/emoji output and exit0.",
+  "limitations": [
+    "Exact selected macOS process/window still capture; REA AX disabled.",
+    "CUA action observation and PNG content have distinct bounds; no continuous video or fabricated popup.",
+    "No Windows, new cold-external/theme or full72-matrix acceptance from this cohort."
+  ],
+  "originalMetadataSha256": "079b6fde1c52df6af5c48210c6150beb045bddfd39843c123ed40dd4c640e4b6"
+}

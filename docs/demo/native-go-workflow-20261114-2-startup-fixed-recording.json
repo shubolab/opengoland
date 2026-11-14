@@ -1,0 +1,104 @@
+{
+  "schemaVersion": 1,
+  "recordedOnLocalDate": "2026-11-14",
+  "timeZone": "Asia/Shanghai",
+  "scope": "Three real operation-stage screenshots: Go Run, actual current macOS terminal, uncached native GoTest; not continuous recording.",
+  "candidate": {
+    "candidate": "candidate7",
+    "version": "0.1.0-preview.20261114.2",
+    "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "sourceInputsMatchedToGit": 587,
+    "buildInputDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+    "pluginJarSha256": "8ec58a993453f32ff6afdf2fca38adedcb5f62ef852a1b2666e1cf3ef898942e",
+    "launcherSha256": "b928f4e80e21cc71fd9ce9fce8772d2155e5bf761b0ab6ed7658f6ca6dd9fd07",
+    "engineVcsMetadata": {
+      "revision": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+      "modified": false
+    },
+    "stateAtCapture": "Source-C5 local candidate; final CI/public installer verification separate"
+  },
+  "capture": {
+    "method": "CUA actual operations and REA exact PID25338/window7516 PNGs",
+    "platform": "macOS arm64",
+    "appPid": 25338,
+    "sourceFrames": [
+      {
+        "stage": "baseline-run",
+        "evidenceId": "ev_139e0c36202d92e4e7ee63d2861cdcf917b40a26de1bc4dd156854de46598cb2",
+        "pid": 25338,
+        "windowId": 7516,
+        "windowTitle": "project – main.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate7/baseline-run.png",
+        "originalScreenshot": {
+          "width": 1400,
+          "height": 1000,
+          "sha256": "5f61d3b16cbd884762368b58c516fa4a0ea1f2c72326353d6eea9c2f49c7ac6b"
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      },
+      {
+        "stage": "terminal",
+        "evidenceId": "ev_e59fd96600df5aa34633e83877fcd4c423b6a98f250890282b342dcb1cbe92fd",
+        "pid": 25338,
+        "windowId": 7516,
+        "windowTitle": "project – main.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate7/terminal.png",
+        "originalScreenshot": {
+          "width": 1400,
+          "height": 1000,
+          "sha256": "20179d4333d725e95fdfca497700452bd1fea630a54dae9e07933fd2e49bd334"
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      },
+      {
+        "stage": "uncached-test",
+        "evidenceId": "ev_a590f915ff405a7a432bbe754a68e2d1d1ffad2b2d488af094496417e38bd131",
+        "pid": 25338,
+        "windowId": 7516,
+        "windowTitle": "project – main_default_test.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate7/uncached-test.png",
+        "originalScreenshot": {
+          "width": 1400,
+          "height": 1000,
+          "sha256": "7c72d4e0731a6bb8449d41c6ceac9027594156568cabe8c87bf0fc861a233127"
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      }
+    ],
+    "fixture": "docs/reference/cold-external-refresh-20261113-evidence/fixture",
+    "nativeVerification": "docs/reference/cold-external-refresh-20261113-evidence/candidate7/native-summary.json"
+  },
+  "encoding": {
+    "tool": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "transform": "Uniform Lanczos scaling and global GIF palette only; no cropping, annotations, fake cursor, synthetic UI or transitions.",
+    "width": 1200,
+    "height": 857,
+    "frames": 3,
+    "durationMs": 12000,
+    "framePtsSeconds": [
+      0,
+      4,
+      8
+    ],
+    "palette": "256 colors; no dithering",
+    "path": "docs/demo/native-go-workflow-20261114-2-startup-fixed.gif",
+    "bytes": 281770,
+    "sha256": "4a5fe618ea3ee14980a96bef7933923b8c5998dcfd04d0d19581216d20cc8aec"
+  },
+  "previousRecording": {
+    "record": "docs/demo/native-go-workflow-20261114-2-recording.json",
+    "version": "0.1.0-preview.20261114.2",
+    "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+    "retainedUnchanged": true
+  },
+  "limitations": [
+    "The terminal chooser/unique completion actions are CUA observations; this GIF is not a retained popup animation.",
+    "Terminal uncached test0.450s is distinct from native IDE test0.344s/907ms; initial cached IDE result excluded.",
+    "All three REA captures disabled AX. Native Exit AX read timed out, followed by explicit not-running inventory and sampled-PID checks.",
+    "C7 startup/terminal/Run/nativeTest only; old C4 external/theme evidence is not relabeled.",
+    "No Windows, debugging, full72-matrix completion or CI-binary identity claimed."
+  ]
+}

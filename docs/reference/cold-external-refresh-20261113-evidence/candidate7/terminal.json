@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "candidate": "candidate7",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "evidenceId": "ev_e59fd96600df5aa34633e83877fcd4c423b6a98f250890282b342dcb1cbe92fd",
+  "launcherSha256": "b928f4e80e21cc71fd9ce9fce8772d2155e5bf761b0ab6ed7658f6ca6dd9fd07",
+  "window": {
+    "pid": 25338,
+    "window_id": 7516,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794621679.2081718,
+    "title": "project – main.go"
+  },
+  "screenshot": {
+    "width": 1400,
+    "height": 1000,
+    "sha256": "20179d4333d725e95fdfca497700452bd1fea630a54dae9e07933fd2e49bd334"
+  },
+  "accessibilityEnabled": false,
+  "observedViaCua": {
+    "uniqueCompletion": {
+      "input": "go tes",
+      "output": "go test"
+    },
+    "chooser": {
+      "input": "go test -r",
+      "candidates": [
+        "go test -run",
+        "go test -race"
+      ],
+      "selected": "go test -run"
+    },
+    "version": "go version go1.26.10 darwin/arm64",
+    "testCommand": "go test -run TestCompose -count=1 ./one",
+    "testOutput": "ok example.invalid/open-goland/consistency/one 0.450s",
+    "shellPromptStatus": "ok",
+    "cached": false,
+    "scope": "Actual current macOS zsh/Powerlevel10k session; no Windows terminal claim"
+  },
+  "scope": "Actual current macOS terminal after command/flag completion, Go SDK check and uncached test; chooser interaction observed via CUA, not asserted as a retained popup frame.",
+  "limitations": [
+    "Exact selected macOS process/window still capture; REA AX disabled.",
+    "CUA action observation and PNG content have distinct bounds; no continuous video or fabricated popup.",
+    "No Windows, new cold-external/theme or full72-matrix acceptance from this cohort."
+  ],
+  "originalMetadataSha256": "a7afa42cf04906073d7e06034ae505438f1be4e2eb695872a900d0606f571bfc"
+}

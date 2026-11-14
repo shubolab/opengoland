@@ -10,11 +10,11 @@
 
 ## 运行起来是什么样
 
-![open Goland 实际运行：Go 文件图标、程序输出、定义跳转和测试](docs/demo/native-go-workflow-20261114-2.gif)
+![open Goland 实际运行：Run、终端补全与无缓存原生测试](docs/demo/native-go-workflow-20261114-2-startup-fixed.gif)
 
-这是实际运行的 **0.1.0-preview.20261114.2 macOS arm64 候选版**：运行含中文和 emoji 的 Go 程序 → 跳到项目外本地依赖的新函数定义 → 在原生测试面板查看一次不使用结果缓存的测试。文件树中可以区分 Go 源码、测试、模块和工作区文件，侧栏也按功能显示不同图标。
+这是 **0.1.0-preview.20261114.2 候选版在 macOS（Apple silicon）上的真实界面**：运行含中文和 emoji 的 Go 程序 → 在终端执行 Go 命令 → 在 IDE 测试面板查看一次不使用结果缓存的测试。源码、测试、模块和工作区文件各有对应图标，侧栏也按功能区分。
 
-动图由三个真实操作阶段的窗口截图组成，共 12 秒，不是连续录屏。[示例源码](docs/reference/cold-external-refresh-20261113-evidence/fixture)与[录制记录](docs/demo/native-go-workflow-20261114-2-recording.json)保留了复现方法和验证范围；公开安装包以下方下载区为准。另保留[早期版本的断点与单步调试演示](docs/demo/native-go-workflow.gif)，其版本和环境见[演示说明](docs/demo/README.md)。
+动图由三个真实操作阶段的窗口截图组成，共 12 秒，不是连续录屏。[示例源码](docs/reference/cold-external-refresh-20261113-evidence/fixture)与[录制记录](docs/demo/native-go-workflow-20261114-2-startup-fixed-recording.json)保留了实际来源和范围；公开安装包以下方下载区为准。[较早的外部依赖与跳转演示](docs/demo/native-go-workflow-20261114-2.gif)及[历史断点与单步演示](docs/demo/native-go-workflow.gif)保留各自的源码、版本和验证边界，见[演示说明](docs/demo/README.md)。
 
 ![原生构建标签、测试调试、补全自动导入和一次撤销](docs/demo/native-build-context-completion.gif)
 

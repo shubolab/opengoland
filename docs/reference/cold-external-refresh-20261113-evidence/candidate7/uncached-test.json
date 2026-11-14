@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "candidate": "candidate7",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "evidenceId": "ev_a590f915ff405a7a432bbe754a68e2d1d1ffad2b2d488af094496417e38bd131",
+  "launcherSha256": "b928f4e80e21cc71fd9ce9fce8772d2155e5bf761b0ab6ed7658f6ca6dd9fd07",
+  "window": {
+    "pid": 25338,
+    "window_id": 7516,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794621679.2081718,
+    "title": "project – main_default_test.go"
+  },
+  "screenshot": {
+    "width": 1400,
+    "height": 1000,
+    "sha256": "7c72d4e0731a6bb8449d41c6ceac9027594156568cabe8c87bf0fc861a233127"
+  },
+  "accessibilityEnabled": false,
+  "observedViaCua": {
+    "nativeConfigurationGoToolArguments": "-count=1",
+    "testCommand": "go test -json -count=1 -run ^TestCompose$ .",
+    "test": "TestCompose",
+    "passed": 1,
+    "totalMillis": 907,
+    "packageSeconds": 0.344,
+    "exitCode": 0,
+    "cached": false,
+    "previousInitialRun": "cached, not used as uncached evidence"
+  },
+  "scope": "Actual native IDE GoTest with-count=1:1pass/package0.344s/907ms/exit0; earlier cached attempt excluded.",
+  "limitations": [
+    "Exact selected macOS process/window still capture; REA AX disabled.",
+    "CUA action observation and PNG content have distinct bounds; no continuous video or fabricated popup.",
+    "No Windows, new cold-external/theme or full72-matrix acceptance from this cohort."
+  ],
+  "originalMetadataSha256": "d081fd8340f155911426f939d79fb5abb3523c1505e6343d69857fb9bd1fbf14"
+}

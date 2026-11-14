@@ -1,0 +1,70 @@
+{
+  "at": "2026-11-14T02:12:33.353611+00:00",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "buildInputCount": 587,
+  "buildInputDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+  "normalQuitObservedViaCua": true,
+  "cuaObservation": "Exit clicked; subsequent read timed out after process quit, then inventory explicitly reported all dev.opengoland.ide entries isRunning=false. No stale App binding queried after that.",
+  "sampledOwnedProcesses": [
+    {
+      "pid": 25338,
+      "originalStart": "Sat Nov 14 10:01:19 2026",
+      "status": "pid no longer exists"
+    },
+    {
+      "pid": 25354,
+      "originalStart": "Sat Nov 14 10:01:20 2026",
+      "status": "pid no longer exists"
+    },
+    {
+      "pid": 25412,
+      "originalStart": "Sat Nov 14 10:02:05 2026",
+      "status": "pid no longer exists"
+    },
+    {
+      "pid": 25413,
+      "originalStart": "Sat Nov 14 10:02:05 2026",
+      "status": "pid no longer exists"
+    },
+    {
+      "pid": 25976,
+      "originalStart": "Sat Nov 14 10:05:01 2026",
+      "status": "pid no longer exists"
+    }
+  ],
+  "codesignDeepStrictExit": 0,
+  "sourceAndProductHashesUnchanged": true,
+  "severeOrErrorLogMatches": 0,
+  "all15FixtureSourcesUnchanged": true,
+  "terminalCompletion": {
+    "unique": "go tes -> go test",
+    "chooser": [
+      "go test -run",
+      "go test -race"
+    ],
+    "chosen": "go test -run",
+    "sdk": "go1.26.10 darwin/arm64",
+    "actualCommand": "go test -run TestCompose -count=1 ./one",
+    "packageSeconds": 0.45,
+    "shellPromptStatus": "ok",
+    "cached": false
+  },
+  "nativeTest": {
+    "command": "go test -json -count=1 -run ^TestCompose$ .",
+    "passed": 1,
+    "totalMillis": 907,
+    "packageSeconds": 0.344,
+    "exitCode": 0,
+    "cached": false
+  },
+  "scope": "Only five recorded owned identities. No new C7 external-refresh/theme/Windows/full-parity claim; no profile/config contents copied.",
+  "knownPidsNoLongerExist": [
+    25338,
+    25354,
+    25412,
+    25413,
+    25976
+  ],
+  "originalPostQuitSha256": "c8824c12cb27f95d1c8f635781d90edd42f8dcdada819515172db432aed992a9"
+}

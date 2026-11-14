@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "status": "candidate6-source07bb8eb-local969-pass-core-native-observed; light-and-postquit-recorded; fullmatrix-and-Windows-CI-separate",
-  "recordedAtUtc": "2026-11-14T01:11:51.278755+00:00",
+  "status": "candidate7-source07ae69f-startup-Run-mac-terminal-nativeTest-postquit-observed; priorC4-cold-theme-separate; CI-and-fullmatrix-open",
+  "recordedAtUtc": "2026-11-14T02:22:13.790805+00:00",
   "scope": "Only own fixture, necessary unchanged window screenshots and safe metadata/test extracts. No profiles, config, license files, raw AX trees or complete idea.log are copied.",
   "nativeCaptureCounts": {
     "product": 7,
@@ -10,7 +10,8 @@
     "intermediateCandidate2": 2,
     "intermediateCandidate3": 5,
     "finalSourceCandidate4": 7,
-    "sourceC4Candidate6": 7
+    "sourceC4Candidate6": 7,
+    "sourceC5Candidate7": 3
   },
   "nativeCaptures": [
     {
@@ -259,6 +260,30 @@
       "sha256": "0ce8e071409aff63cd27ebf4c3e86a00be727295699f1f6ae73a7b6bd6154245",
       "pid": 99893,
       "candidate": "candidate6-source-07bb8eb-bounded-native"
+    },
+    {
+      "name": "candidate7-baseline-run",
+      "evidenceId": "ev_139e0c36202d92e4e7ee63d2861cdcf917b40a26de1bc4dd156854de46598cb2",
+      "png": "candidate7/baseline-run.png",
+      "sha256": "5f61d3b16cbd884762368b58c516fa4a0ea1f2c72326353d6eea9c2f49c7ac6b",
+      "pid": 25338,
+      "candidate": "candidate7-source07ae69f-local-startup-terminal-test"
+    },
+    {
+      "name": "candidate7-terminal",
+      "evidenceId": "ev_e59fd96600df5aa34633e83877fcd4c423b6a98f250890282b342dcb1cbe92fd",
+      "png": "candidate7/terminal.png",
+      "sha256": "20179d4333d725e95fdfca497700452bd1fea630a54dae9e07933fd2e49bd334",
+      "pid": 25338,
+      "candidate": "candidate7-source07ae69f-local-startup-terminal-test"
+    },
+    {
+      "name": "candidate7-uncached-test",
+      "evidenceId": "ev_a590f915ff405a7a432bbe754a68e2d1d1ffad2b2d488af094496417e38bd131",
+      "png": "candidate7/uncached-test.png",
+      "sha256": "7c72d4e0731a6bb8449d41c6ceac9027594156568cabe8c87bf0fc861a233127",
+      "pid": 25338,
+      "candidate": "candidate7-source07ae69f-local-startup-terminal-test"
     }
   ],
   "files": [
@@ -997,6 +1022,138 @@
         "path": ".tools/continuation-20261113/workspace-consistency/runtime/evidence/candidate6-uncached-test.png",
         "bytes": 304481,
         "sha256": "eaa895b89f48d7abc42dbf69e658b6bb6ca22a06be94a2cf10202ef583db6f58"
+      }
+    },
+    {
+      "path": "candidate7/baseline-run.json",
+      "bytes": 1312,
+      "sha256": "6bacffb937078a82acc3a8a280a71906083c16732004b1ca575764a64c7dfc83",
+      "kind": "compact-native-frame-identity",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/evidence/candidate7-baseline-run.json",
+        "bytes": 1941,
+        "sha256": "079b6fde1c52df6af5c48210c6150beb045bddfd39843c123ed40dd4c640e4b6"
+      }
+    },
+    {
+      "path": "candidate7/baseline-run.png",
+      "bytes": 247866,
+      "sha256": "5f61d3b16cbd884762368b58c516fa4a0ea1f2c72326353d6eea9c2f49c7ac6b",
+      "kind": "unchanged-native-window-png",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/evidence/candidate7-baseline-run.png",
+        "bytes": 247866,
+        "sha256": "5f61d3b16cbd884762368b58c516fa4a0ea1f2c72326353d6eea9c2f49c7ac6b"
+      }
+    },
+    {
+      "path": "candidate7/build-summary.json",
+      "bytes": 960,
+      "sha256": "63204eec98c3d501aad64419521383e4bebce56b7cc45402276670b242012112",
+      "kind": "unchanged-historical-build-time-summary",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-build-summary.json",
+        "bytes": 960,
+        "sha256": "63204eec98c3d501aad64419521383e4bebce56b7cc45402276670b242012112"
+      }
+    },
+    {
+      "path": "candidate7/native-summary.json",
+      "bytes": 5806,
+      "sha256": "eed7e54a47d59ba1c102876ee13311c530ee4069983a3e0d03fe8dfbbe391158",
+      "kind": "source-bound-native-workflow-summary",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-post-quit.json",
+        "bytes": 2339,
+        "sha256": "c8824c12cb27f95d1c8f635781d90edd42f8dcdada819515172db432aed992a9"
+      }
+    },
+    {
+      "path": "candidate7/native-version.json",
+      "bytes": 656,
+      "sha256": "af32eb32a044143f262ee3680fcec11648b6440a0a7c2d4377b40219c3c84fc5",
+      "kind": "compact-cold-native-version-probe",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-native-version.json",
+        "bytes": 1316,
+        "sha256": "712d3439a1309d9b0eb8b78af754f4804033021c9f4c087b5b7094c5d0720da7"
+      }
+    },
+    {
+      "path": "candidate7/post-quit.json",
+      "bytes": 2172,
+      "sha256": "c7eccdfff0bb5f13d146102cd6265aa26b9017eacd4ca9a770a6ad9dd20fc224",
+      "kind": "compact-post-quit-and-integrity-record",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-post-quit.json",
+        "bytes": 2339,
+        "sha256": "c8824c12cb27f95d1c8f635781d90edd42f8dcdada819515172db432aed992a9"
+      }
+    },
+    {
+      "path": "candidate7/source-inputs.json",
+      "bytes": 111058,
+      "sha256": "22ce3abd40bb81855b835f4dcb794c128cd647e83faa54b51ae45b7315d1e713",
+      "kind": "source-and-essential-payload-extract",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-product-manifest.json",
+        "bytes": 4943358,
+        "sha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce"
+      }
+    },
+    {
+      "path": "candidate7/terminal.json",
+      "bytes": 1903,
+      "sha256": "96e800101bb424422329f818c1800f74a662b482c9a4051b580e8c19d97546b0",
+      "kind": "compact-native-frame-identity",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/evidence/candidate7-terminal.json",
+        "bytes": 2419,
+        "sha256": "a7afa42cf04906073d7e06034ae505438f1be4e2eb695872a900d0606f571bfc"
+      }
+    },
+    {
+      "path": "candidate7/terminal.png",
+      "bytes": 291383,
+      "sha256": "20179d4333d725e95fdfca497700452bd1fea630a54dae9e07933fd2e49bd334",
+      "kind": "unchanged-native-window-png",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/evidence/candidate7-terminal.png",
+        "bytes": 291383,
+        "sha256": "20179d4333d725e95fdfca497700452bd1fea630a54dae9e07933fd2e49bd334"
+      }
+    },
+    {
+      "path": "candidate7/test-results.tar.gz",
+      "bytes": 85077,
+      "sha256": "5970ce048100f8b2f1f06ac0cb2b5afcf0784490bb4e67e80891e8748ac3c0a3",
+      "kind": "unchanged-original-JUnit-XML-archive",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-test-results.tar.gz",
+        "bytes": 85077,
+        "sha256": "5970ce048100f8b2f1f06ac0cb2b5afcf0784490bb4e67e80891e8748ac3c0a3"
+      }
+    },
+    {
+      "path": "candidate7/uncached-test.json",
+      "bytes": 1593,
+      "sha256": "ed68b15b48e3ae4a66fa54ff87b85a312ac068610af675acca8c88c29876b537",
+      "kind": "compact-native-frame-identity",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/evidence/candidate7-uncached-test.json",
+        "bytes": 2176,
+        "sha256": "d081fd8340f155911426f939d79fb5abb3523c1505e6343d69857fb9bd1fbf14"
+      }
+    },
+    {
+      "path": "candidate7/uncached-test.png",
+      "bytes": 312854,
+      "sha256": "7c72d4e0731a6bb8449d41c6ceac9027594156568cabe8c87bf0fc861a233127",
+      "kind": "unchanged-native-window-png",
+      "original": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/evidence/candidate7-uncached-test.png",
+        "bytes": 312854,
+        "sha256": "7c72d4e0731a6bb8449d41c6ceac9027594156568cabe8c87bf0fc861a233127"
       }
     },
     {

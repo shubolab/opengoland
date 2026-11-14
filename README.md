@@ -11,20 +11,19 @@ components of the generated product.
 
 ## See it running
 
-![Actual open Goland: Go icons, program output, definition navigation and tests](docs/demo/native-go-workflow-20261114-2.gif)
+![Actual open Goland: Go Run, terminal completion and uncached native test](docs/demo/native-go-workflow-20261114-2-startup-fixed.gif)
 
-The **0.1.0-preview.20261114.2 macOS arm64 candidate** running in its native
-window: run a Go program with Chinese and emoji output, navigate to a newly
-named function in a local dependency outside the project, then inspect one
-uncached test. Source, test, module and workspace files have distinct icons;
-sidebar icons identify their functions.
+The **0.1.0-preview.20261114.2 candidate on macOS (Apple silicon)**:
+run a Go program with Chinese and emoji output, use the terminal, and see an
+uncached test pass in the IDE's test panel. Source, test, module and workspace
+files have distinct icons; sidebar icons identify their functions.
 
 Three real operation-stage screenshots play for 12 seconds; this is not
 continuous video. See the [example source](docs/reference/cold-external-refresh-20261113-evidence/fixture)
-and [capture record](docs/demo/native-go-workflow-20261114-2-recording.json).
-Published installer versions are listed below. The [earlier breakpoint and
-single-step clip](docs/demo/native-go-workflow.gif) remains available with its
-original version and environment in the [demo notes](docs/demo/README.md).
+and [capture record](docs/demo/native-go-workflow-20261114-2-startup-fixed-recording.json). Published installers are listed below.
+The [earlier external-dependency/navigation clip](docs/demo/native-go-workflow-20261114-2.gif)
+and [breakpoint/step clip](docs/demo/native-go-workflow.gif) retain their own
+source, version and scope in the [demo notes](docs/demo/README.md).
 
 ![Native build tags, test debugging, completion with automatic import and one Undo](docs/demo/native-build-context-completion.gif)
 

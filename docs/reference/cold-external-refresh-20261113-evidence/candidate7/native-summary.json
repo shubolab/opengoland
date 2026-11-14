@@ -1,0 +1,165 @@
+{
+  "schemaVersion": 1,
+  "candidate": "candidate7",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "status": "Source-C5 local package/startup/Run/current macOS terminal/nativeTest/postquit verified; CI/public delivery remains separate",
+  "buildInputs": {
+    "count": 587,
+    "digest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+    "matchedToFixedGitInputs": true
+  },
+  "sourceEngine": {
+    "revision": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "modified": false
+  },
+  "fullGateFromOriginalXml": {
+    "reports": 174,
+    "tests": 969,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "appPid": 25338,
+  "windowId": 7516,
+  "coldVersionProbe": {
+    "at": "2026-11-14T02:01:08.119910+00:00",
+    "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "argv": [
+      "<own-product-launcher>",
+      "-version"
+    ],
+    "returncode": 0,
+    "stdout": "2026.1.4\n",
+    "stdoutMeaning": "Platform version output, not the preview release version.",
+    "stderrErrorOrSevereMatches": 0,
+    "stderrWarningsPresent": true,
+    "manifestSha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce",
+    "rawRecordSha256": "712d3439a1309d9b0eb8b78af754f4804033021c9f4c087b5b7094c5d0720da7",
+    "scope": "Own fresh-profile cold-version probe; short result summary only, no full startup log/profile copied."
+  },
+  "run": {
+    "run": "go run .",
+    "output": "外部-v1|workspace-two|default|中文😀",
+    "exitCode": 0
+  },
+  "terminal": {
+    "uniqueCompletion": {
+      "input": "go tes",
+      "output": "go test"
+    },
+    "chooser": {
+      "input": "go test -r",
+      "candidates": [
+        "go test -run",
+        "go test -race"
+      ],
+      "selected": "go test -run"
+    },
+    "version": "go version go1.26.10 darwin/arm64",
+    "testCommand": "go test -run TestCompose -count=1 ./one",
+    "testOutput": "ok example.invalid/open-goland/consistency/one 0.450s",
+    "shellPromptStatus": "ok",
+    "cached": false,
+    "scope": "Actual current macOS zsh/Powerlevel10k session; no Windows terminal claim"
+  },
+  "nativeTest": {
+    "command": "go test -json -count=1 -run ^TestCompose$ .",
+    "passed": 1,
+    "totalMillis": 907,
+    "packageSeconds": 0.344,
+    "exitCode": 0,
+    "cached": false
+  },
+  "earlierCachedNativeResultExcluded": true,
+  "postQuit": {
+    "at": "2026-11-14T02:12:33.353611+00:00",
+    "version": "0.1.0-preview.20261114.2",
+    "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "buildInputCount": 587,
+    "buildInputDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+    "normalQuitObservedViaCua": true,
+    "cuaObservation": "Exit clicked; subsequent read timed out after process quit, then inventory explicitly reported all dev.opengoland.ide entries isRunning=false. No stale App binding queried after that.",
+    "sampledOwnedProcesses": [
+      {
+        "pid": 25338,
+        "originalStart": "Sat Nov 14 10:01:19 2026",
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 25354,
+        "originalStart": "Sat Nov 14 10:01:20 2026",
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 25412,
+        "originalStart": "Sat Nov 14 10:02:05 2026",
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 25413,
+        "originalStart": "Sat Nov 14 10:02:05 2026",
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 25976,
+        "originalStart": "Sat Nov 14 10:05:01 2026",
+        "status": "pid no longer exists"
+      }
+    ],
+    "codesignDeepStrictExit": 0,
+    "sourceAndProductHashesUnchanged": true,
+    "severeOrErrorLogMatches": 0,
+    "all15FixtureSourcesUnchanged": true,
+    "terminalCompletion": {
+      "unique": "go tes -> go test",
+      "chooser": [
+        "go test -run",
+        "go test -race"
+      ],
+      "chosen": "go test -run",
+      "sdk": "go1.26.10 darwin/arm64",
+      "actualCommand": "go test -run TestCompose -count=1 ./one",
+      "packageSeconds": 0.45,
+      "shellPromptStatus": "ok",
+      "cached": false
+    },
+    "nativeTest": {
+      "command": "go test -json -count=1 -run ^TestCompose$ .",
+      "passed": 1,
+      "totalMillis": 907,
+      "packageSeconds": 0.344,
+      "exitCode": 0,
+      "cached": false
+    },
+    "scope": "Only five recorded owned identities. No new C7 external-refresh/theme/Windows/full-parity claim; no profile/config contents copied.",
+    "knownPidsNoLongerExist": [
+      25338,
+      25354,
+      25412,
+      25413,
+      25976
+    ],
+    "originalPostQuitSha256": "c8824c12cb27f95d1c8f635781d90edd42f8dcdada819515172db432aed992a9"
+  },
+  "producer": {
+    "runId": 43543358207,
+    "attempt": 1,
+    "versionJobId": 132288775707,
+    "windowsJobId": 132288803301,
+    "macosJobId": 132288803355,
+    "publish": false,
+    "scope": "Known producer identity only; no CI outcome or public asset assertion by local native record."
+  },
+  "previousC4Native": {
+    "record": "docs/reference/cold-external-refresh-20261113-evidence/candidate6/native-summary.json",
+    "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+    "scope": "Earlier cold-external/theme checks remain source-C4 historical evidence; not repeated or relabeled as C7."
+  },
+  "limits": [
+    "Current macOS zsh/Powerlevel10k terminal only; no Windows terminal workflow acceptance.",
+    "Zero ERROR/SEVERE is not a zero-warning claim. Cold-version stdout2026.1.4 is platform version.",
+    "Exit click followed by AX timeout, then inventory explicitly not running and five sampled identities gone; no stale binding queried.",
+    "No new external rename/theme proof, debugging permission change, CI-binary equivalence or72-field completion."
+  ]
+}

@@ -95,7 +95,7 @@
 
 ## 2026-11-14 修正版：最终源码的原生演示
 
-首页主图 `native-go-workflow-20261114-2.gif` 使用 **0.1.0-preview.20261114.2**
+此前 C4 主图 `native-go-workflow-20261114-2.gif` 使用 **0.1.0-preview.20261114.2**
 本机独立 App 的三张新截图，源码固定为 `07bb8eb35f48f11564bac5b076fa7752ff03466a`。
 依次展示中文/emoji 的 Run exit 0、Cmd+B 跳到外部 `Greeting` 定义、原生 Test
 以 `-count=1` 执行并显示 1 passed / package 0.587s / exit 0。
@@ -110,3 +110,25 @@ Basic唯一候选补全、实际 `<no parameters>` 提示、深浅图标、正�
 较早的 `.14.1` 候选GIF和日期保持不变；该版本没有双平台安装器发布，Windows失败与修正过程见
 [失败记录](../verification/windows-build-context-process-20261114/REPORT.zh-CN.md)。
 公开安装包的状态以首页下载区为准，不能仅凭这段本机演示认定已经发布。
+
+
+## C5 启动窄修：新的 Run、终端和原生测试演示
+
+首页主图 `native-go-workflow-20261114-2-startup-fixed.gif` 使用 C7 的三张新原图，
+源码 `07ae69f3b2bbc36f3221ff08e8fe9046f199b624`、版本 `.20261114.2`、macOS arm64。
+依次是中文/emoji Run exit0、真实终端完成命令/参数补全后的实际测试、原生 Go Test 的无缓存结果。
+每帧4秒、共12秒，只缩放和调色，没有模拟UI、鼠标或补全弹窗动画。
+
+在自有 fixture 副本的 `project` 打开终端，`go tes` 唯一补成 `go test`；
+输入 `go test -r` 可见 `-run` / `-race` 候选，接受 `-run`。
+实际 `go version` 为 Go1.26.10 darwin/arm64，终端执行
+`go test -run TestCompose -count=1 ./one` 成功，package0.450s。
+原生 Go Test 配置设置 `-count=1`，实际 `go test -json -count=1 -run ^TestCompose$ .`
+显示1passed/package0.344s/907ms/exit0；最初一次cached结果没有用来证明无缓存。
+
+[新录制记录](native-go-workflow-20261114-2-startup-fixed-recording.json)与
+[C7证据](../reference/cold-external-refresh-20261113-evidence/candidate7/native-summary.json)
+绑定新源码587个输入、原图和退出检查。冷 `-version` 退出0，stdout是平台版本2026.1.4；
+有WARN但没有ERROR/SEVERE。C7只验证本机startup/Run/当前macOS终端/nativeTest，
+没有重做C4的外部改名或深浅主题，也不增加Windows、调试或完整矩阵验收。
+C6/C4旧图和记录保持原源码，不改标；公开安装器仍以首页下载区为准。
