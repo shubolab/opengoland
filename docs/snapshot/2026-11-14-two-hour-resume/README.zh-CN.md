@@ -45,7 +45,8 @@ slow右下的 `Dependencies changed ... Yes / No / Always / Never` 提示来自g
 ## GitHub构建与公开下载
 
 - 首次不公开候选：[43610212164](https://github.com/shubolab/opengoland/actions/runs/43610212164)，源码 `7b98f16`、版本字符串14.4、`publish=false`。Windows原始180份XML为1029项、1失败、0错误或跳过，唯一失败就是上述目录身份采样。未生成Windows EXE。修正后该旧构建被取消，失败报告仍保留。
-- 修正后不公开候选：[43612505270](https://github.com/shubolab/opengoland/actions/runs/43612505270)，源码 **`c15e102a77fd422cd58536041e851f33d2a08000`**，同样 `publish=false`。最终状态在截止前回读更新；触发构建不等于已经生成或公开安装包。
+- 修正后不公开候选：[43612505270](https://github.com/shubolab/opengoland/actions/runs/43612505270)，源码 **`c15e102a77fd422cd58536041e851f33d2a08000`**，同样 `publish=false`。**16:37:18 UTC实际回读：Windows成功，macOS仍运行，整个run尚未结束。** Windows原始180份XML为1029项、0失败/错误/跳过；fresh Go race347项通过、0测试跳过、0缓存命中、0失败，12包通过、cmd无测试。实际安装、窗口启动、内置引擎无缓存测试及卸载记录通过。
+- Windows artifact为 `14121693726`。本轮只按有界HTTP Range提取原始证明成员，排除了安装后的IDE索引缓存；原成员CRC/SHA和报告已核对。没有下载EXE或独立验证整个artifact/安装器的原字节，也没有取得新的Mac artifact。分析端生成的selected-members tar与正式发布tar是不同载体；具体范围见[CI证据清单](../../verification/timeboxed-candidate14-4-20261114/manifest.json)、[Windows核对](../../verification/timeboxed-candidate14-4-20261114/new-windows/verification-summary.json)和[最后API回读](../../verification/timeboxed-candidate14-4-20261114/new-run/at-close.json)。候选artifact有保留期限，后续必要时从固定提交重建。
 - 当前公开下载仍为 **[14.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.3)**，该版首次缺失依赖的已知问题仍适用。旧tag和五个公开资产保持原样，本轮没有新tag或Release。
 
 ## 磁盘和保留位置
@@ -58,11 +59,11 @@ C9／14.3已验证App和安装器继续保留。C10失败App暂时保留作对�
 
 ## 下次续接
 
-1. 先看新CI的准确结果。如果仍运行中，继续检查该run；如果失败，读取实际原始XML与日志。Windows身份采样分支在实测前不能记作修好。
+1. 先看新CI的Mac结果。Windows修正已由新原始测试报告验证通过；Mac在本轮最后回读时仍运行。继续已有run，不重复触发；如果失败，读取原始XML与日志。即使两端构建均成功，下面的原生刷新反例仍阻止本候选交付。
 2. 优先围绕本轮两条新建深层源码反例补实际RED：分步建立空根与go.mod、确认真实通知到达，再创建Greeting叶文件；检查生产VFS prime后的包中是否含精确leaf URI，失败后仅补同FIFO的leaf Changed作正控。保持调用方、根身份、go.mod摘要及语言服务PID，不回答漏洞扫描提示，也不改workspaceFolders。完成有界发现、FIFO、身份、失败重试与ack验证后再改生产代码。
 3. 恢复桌面操作能力后，补录首次缺根的初始错误→Greeting错误→Message清错完整证据，重新验证分步和稳态流程，避免把重开后的恢复误记为自动恢复。
 4. 做独立App中的无缓存Test、中文/emoji Run、工具链选择和退出检查。CLI克隆与headless回归只能证明各自范围。
 5. 原生与安装器条件满足后，再创建新版本tag、核对真实EXE／DMG及校验值、发布并回读五个资产。当前候选不可直接标为已交付，14.3资产也不可替换。
 6. 继续完整36×2验收矩阵，包括真实工程、重构、生成、调试、终端、Git、插件及Windows交互；本轮局部进展不代表整个IDE完成。
 
-**收尾状态：进行中，最晚16:43:37 UTC更新snapshot、提交并推送，然后暂停。**
+**收尾记录更新于2026-11-14 16:38 UTC（北京时间11月15日00:38），在两小时上限之前进入提交、推送与暂停收口。** 源码修正已推送，第一份证据检查点为 `8acf664`；本次补入最后CI状态和证明。完整目标不标为完成，本轮不发布14.4。GitHub上的非发布构建可以继续运行，下一轮从本快照和上述run续接。

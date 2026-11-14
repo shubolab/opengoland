@@ -1,0 +1,28 @@
+{
+  "xmlCount": 180,
+  "totals": {
+    "tests": 1029,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "goTestPasses": 347,
+  "goTestSkips": 0,
+  "goFailures": [],
+  "cachedOutputs": 0,
+  "goPackages": {
+    "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+    "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+    "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+    "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+    "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+    "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+    "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+    "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+    "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+    "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+    "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+    "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+    "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+  }
+}

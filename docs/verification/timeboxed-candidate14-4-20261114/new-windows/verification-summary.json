@@ -1,0 +1,77 @@
+{
+  "observedAtUtc": "2026-11-14T16:32:42.187907+00:00",
+  "sourceCommit": "c15e102a77fd422cd58536041e851f33d2a08000",
+  "artifactId": 14121693726,
+  "tests": {
+    "xmlCount": 180,
+    "totals": {
+      "tests": 1029,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goTestPasses": 347,
+    "goTestSkips": 0,
+    "goFailures": [],
+    "cachedOutputs": 0,
+    "goPackages": {
+      "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+      "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+      "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+      "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+      "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+      "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+      "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+      "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+    }
+  },
+  "installExitCode": 0,
+  "uninstallExitCode": 0,
+  "smokeStatus": "pass",
+  "installedFilesVerified": 17003,
+  "nativeVersionCode": 0,
+  "nativeProjectStartup": {
+    "pid": 9720,
+    "projectFrame": {
+      "handle": 589932,
+      "title": "\u5de5\u7a0b \u7a7a\u683c \ud83d\ude00",
+      "class": "SunAwtFrame"
+    },
+    "exitCode": 0,
+    "exitCommand": {
+      "argv": [
+        "D:\\a\\opengoland\\opengoland\\build\\installed-smoke-9ab5400c30d04b3294ee0878e3fcbee1\\open Goland\\bin\\opengoland64.exe",
+        "exit"
+      ],
+      "pid": 4396,
+      "code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "scope": "Actual visible owned project frame and plugin-loaded log; no interactive editor/menu parity claim."
+  },
+  "installerReportedByProducer": {
+    "name": "open-Goland-0.1.0-preview.20261114.4-windows-x64-setup.exe",
+    "bytes": 871288779,
+    "sha256": "04ba25292a6e7d8283bd599ec5c7dc97c722e0d6e3d33c2a68de5c9920ff8df0"
+  },
+  "installerBytesDownloadedByAuditor": false,
+  "wholeArtifactDigestVerified": false,
+  "provenanceRetrieval": {
+    "selectedMemberCount": 273,
+    "selectedLogicalBytes": 34457820,
+    "networkBytes": 4447833,
+    "analystCreatedCarrier": {
+      "path": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/ci43612505270/artifact-14121693726-windows-provenance-retry-cache-excluded/windows-provenance-selected-members.analyst-created.tar.gz",
+      "bytes": 4182340,
+      "sha256": "1d146045afd454841fbb26d667d36537e4fec97723ed0fd8a7b07b39f1941f24"
+    }
+  },
+  "omittedWindowsSystemMembers": 798,
+  "scope": "Selected original provenance members validated by ZIP CRC and local SHA only; actual EXE bytes and full artifact not downloaded or independently authenticated"
+}

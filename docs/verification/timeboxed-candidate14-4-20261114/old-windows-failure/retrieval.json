@@ -1,0 +1,1596 @@
+{
+  "startedAtUtc": "2026-11-14T15:45:42.341648+00:00",
+  "artifactId": 14120940090,
+  "prefix": "windows-provenance",
+  "sourceArtifactMetadata": {
+    "id": 14120940090,
+    "node_id": "MDg6QXJ0aWZhY3QxNDEyMDk0MDA5MA==",
+    "name": "windows-x64",
+    "size_in_bytes": 1015588,
+    "url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14120940090",
+    "archive_download_url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14120940090/zip",
+    "expired": false,
+    "digest": "sha256:d8b4c0c6e0ab86dfddca1159532f8a019061dc02849736d6276f0c572864b49e",
+    "created_at": "2026-11-14T15:44:00Z",
+    "updated_at": "2026-11-14T15:44:00Z",
+    "expires_at": "2026-11-28T15:43:59Z",
+    "workflow_run": {
+      "id": 43610212164,
+      "repository_id": 1450286669,
+      "head_repository_id": 1450286669,
+      "head_branch": "main",
+      "head_sha": "7b98f1672fc8097d4493ea1481db21ca8a12cdde"
+    }
+  },
+  "scope": "Only selected raw provenance ZIP members; no installer or complete artifact byte verification",
+  "signedUrlRetained": false,
+  "originalPublishTar": false,
+  "installerMemberRead": false,
+  "wholeArtifactDigestVerified": false,
+  "members": [
+    {
+      "name": "windows-provenance/gcc-version.log",
+      "bytes": 277,
+      "sha256": "6f53eab311bb27e48a576c4a414038faa27e41818609dc2192011637779793f3",
+      "zipCrc32Validated": true,
+      "compressedBytes": 224,
+      "headerOffset": 0
+    },
+    {
+      "name": "windows-provenance/builder-version.log",
+      "bytes": 35,
+      "sha256": "d42b5c51ad703f11806c6c4111df03919876017017f7956e20d822808a6b74c4",
+      "zipCrc32Validated": true,
+      "compressedBytes": 37,
+      "headerOffset": 304
+    },
+    {
+      "name": "windows-provenance/gradle-package.log",
+      "bytes": 144881,
+      "sha256": "2c1fd91b5b3f5285d40833bb487f6f1d85627febf02fe45e4dc4864bb7f1110c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 11713,
+      "headerOffset": 425
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/binary/output.bin",
+      "bytes": 283046,
+      "sha256": "94593f0717015a373c847680a28f58d36bf2f03b01806bdbf81d402cb5b8abdf",
+      "zipCrc32Validated": true,
+      "compressedBytes": 42624,
+      "headerOffset": 12221
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/binary/output.bin.idx",
+      "bytes": 3598,
+      "sha256": "e53001343a4f3a9db42257addbd096f3edfb0c86c6d4769447acbae34c02f6e9",
+      "zipCrc32Validated": true,
+      "compressedBytes": 978,
+      "headerOffset": 54947
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/binary/results.bin",
+      "bytes": 171584,
+      "sha256": "c8756e640568bc84301898dcacf9a199c2cd4c90d51203f0258e7a64eabb6018",
+      "zipCrc32Validated": true,
+      "compressedBytes": 44123,
+      "headerOffset": 56031
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+      "bytes": 2458,
+      "sha256": "2fbd050bbd32c08eed9dff6b7ec5dc3ac27c538eb5ead0c1672e5f12f58b96fc",
+      "zipCrc32Validated": true,
+      "compressedBytes": 867,
+      "headerOffset": 100257
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml",
+      "bytes": 2246,
+      "sha256": "74cf8dce323c36ebdd9b29e2d4e3f26e6919361ff0c35d68fbc99602a9908b31",
+      "zipCrc32Validated": true,
+      "compressedBytes": 749,
+      "headerOffset": 101282
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.xml",
+      "bytes": 24961,
+      "sha256": "d429a5418639562675b9111130390b39ea0eea1617113c2f2ee7b2892160b985",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1901,
+      "headerOffset": 102188
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
+      "bytes": 1023,
+      "sha256": "071c78cd626109744252c0b7e049dfcf92e6866dbe14bde49d7c3ce49ff7e5b6",
+      "zipCrc32Validated": true,
+      "compressedBytes": 428,
+      "headerOffset": 104247
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoCompletionBarrierLifecycleTest.xml",
+      "bytes": 896,
+      "sha256": "e7081942402ba1c899e91d5cfda145748f5f6072214feb333b4edf55d93588c6",
+      "zipCrc32Validated": true,
+      "compressedBytes": 419,
+      "headerOffset": 104819
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+      "bytes": 150221,
+      "sha256": "5857696ddcaeeef5bce1f8ed2a55e5fc9f4f60f7d039effa3269ab706d15763a",
+      "zipCrc32Validated": true,
+      "compressedBytes": 27422,
+      "headerOffset": 105391
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoHierarchyWorkflowTest.xml",
+      "bytes": 2513,
+      "sha256": "5ed1842f97d508db18b2129d6d5ef31a5f163831bb1bd3df427db12e8458b233",
+      "zipCrc32Validated": true,
+      "compressedBytes": 761,
+      "headerOffset": 132951
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest.xml",
+      "bytes": 17049,
+      "sha256": "87dccdaed28db809ee82ebf4c2e4247cce8e7f6f507f46ce788b592c08eab268",
+      "zipCrc32Validated": true,
+      "compressedBytes": 3143,
+      "headerOffset": 133856
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest.xml",
+      "bytes": 526,
+      "sha256": "b31754d4f474e39f018ed06692c5714805b814239b1712dea9cf94ff75fa6ea6",
+      "zipCrc32Validated": true,
+      "compressedBytes": 318,
+      "headerOffset": 137149
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoLspDeletionLifecycleTest.xml",
+      "bytes": 680,
+      "sha256": "1a1b33b4c981a64096b95f0743ce94622c6251ac5ee865ffa060f707c780949d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 353,
+      "headerOffset": 137612
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest.xml",
+      "bytes": 1018,
+      "sha256": "54b4dde875f9eab2f93b992d1a004f550500828d50ee0750e38160ce1d69d14d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 439,
+      "headerOffset": 138112
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoLspHighlightOrderingTest.xml",
+      "bytes": 2639,
+      "sha256": "d24f56b095475dc16d258a0facf2603657b2435e353aae66e9161254d927b7d3",
+      "zipCrc32Validated": true,
+      "compressedBytes": 728,
+      "headerOffset": 138697
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoLspIntentionDescriptionsTest.xml",
+      "bytes": 693,
+      "sha256": "54c994415a3c959674cc61b5e4ce67122fe08576adc1541c73f3df0e6803efd8",
+      "zipCrc32Validated": true,
+      "compressedBytes": 346,
+      "headerOffset": 139572
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest.xml",
+      "bytes": 1166,
+      "sha256": "0eced6ede3d29fe2d3627403ff645f65c6d03e40fff0a0328ec03445bc414052",
+      "zipCrc32Validated": true,
+      "compressedBytes": 458,
+      "headerOffset": 140069
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest.xml",
+      "bytes": 1275,
+      "sha256": "d2eeb9e925ddbc9488612c3b8826584e6cf9733391a3e604012d86d38c3ae1da",
+      "zipCrc32Validated": true,
+      "compressedBytes": 478,
+      "headerOffset": 140675
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoMulticaretGoplsSyncTest.xml",
+      "bytes": 520,
+      "sha256": "97c59de156188fafd2e49f43da32e8be7b4ebb647389c8e32e9fb2245dc40ebe",
+      "zipCrc32Validated": true,
+      "compressedBytes": 311,
+      "headerOffset": 141294
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoNativeCompletionOrderingTest.xml",
+      "bytes": 517,
+      "sha256": "2b7e45d466df2b20c63b4cb87995f409b0bd4a25d106220b141b636e6a158740",
+      "zipCrc32Validated": true,
+      "compressedBytes": 298,
+      "headerOffset": 141751
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoNavigationCacheTest.xml",
+      "bytes": 2122,
+      "sha256": "89ad367a7cd1d692866ac2f02749843d27e5f16abc78811174a3914873816278",
+      "zipCrc32Validated": true,
+      "compressedBytes": 660,
+      "headerOffset": 142200
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoNavigationParameterGateTest.xml",
+      "bytes": 1000,
+      "sha256": "d76dfa1c52ba127644790086387fbcff5d17294ee9b72688729e9eb465a5071f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 330,
+      "headerOffset": 143002
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoPackageStructureTest.xml",
+      "bytes": 13787,
+      "sha256": "e1e2b0a2566da8678466b09ab9cb928df387371979f98688589e92bed7528d85",
+      "zipCrc32Validated": true,
+      "compressedBytes": 2710,
+      "headerOffset": 143482
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest.xml",
+      "bytes": 1043,
+      "sha256": "4c0eaf1f2a909a83b4c6db29c2865c99b56c70b95149ebd6993efc729cb991ea",
+      "zipCrc32Validated": true,
+      "compressedBytes": 435,
+      "headerOffset": 146335
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest.xml",
+      "bytes": 2779,
+      "sha256": "731c7a154ba199684ad2d735f8830e5918aea6feae7de307a67c6e3f1caed440",
+      "zipCrc32Validated": true,
+      "compressedBytes": 882,
+      "headerOffset": 146923
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationTest.xml",
+      "bytes": 2204,
+      "sha256": "b1f70f6218550ee65209eca7df6207c70fbf3690b10cfce9791f5f7ae38905d1",
+      "zipCrc32Validated": true,
+      "compressedBytes": 775,
+      "headerOffset": 147955
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoStructureControlsTest.xml",
+      "bytes": 1404,
+      "sha256": "07d79a3e41ff8b80042cc44d59cb7d086b5656bfcb637e975c5e95f6f6fcf164",
+      "zipCrc32Validated": true,
+      "compressedBytes": 569,
+      "headerOffset": 148875
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoStructureGroupingTest.xml",
+      "bytes": 1660,
+      "sha256": "352afb56d0449cde4aa12d1b50c75af3ebf82369c435961b492bad235fb105ca",
+      "zipCrc32Validated": true,
+      "compressedBytes": 597,
+      "headerOffset": 149588
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest.xml",
+      "bytes": 1502,
+      "sha256": "3ea80fc00595759d05b1754b67dcc699b37f94325e98cec2aa38da1d03087020",
+      "zipCrc32Validated": true,
+      "compressedBytes": 498,
+      "headerOffset": 150329
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoStructurePresentationTest.xml",
+      "bytes": 1200,
+      "sha256": "feca470940d55fcce834ca9e34d92bf7820dc29445ea706053635114319a1a12",
+      "zipCrc32Validated": true,
+      "compressedBytes": 470,
+      "headerOffset": 150977
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest.xml",
+      "bytes": 4613,
+      "sha256": "7339059d9f2ba66f5b22c96b3ddc5d9271924cfc1877325db14a545480f49b71",
+      "zipCrc32Validated": true,
+      "compressedBytes": 789,
+      "headerOffset": 151595
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.coverage.GoCoverageIntegrationTest.xml",
+      "bytes": 518,
+      "sha256": "7377879a70cdc430ba93e019b37dfc1bc63b20c6111408197eaf5259fa68ef4f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 310,
+      "headerOffset": 152527
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest.xml",
+      "bytes": 13004,
+      "sha256": "5e223331dcd143342b5604088f5047b42b6e75030c0ab742b941c52ba18c4d8d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1502,
+      "headerOffset": 152984
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.coverage.GoCoverageProfileTest.xml",
+      "bytes": 1094,
+      "sha256": "762ed93fb01b8e947c1f52fcacf45ddfad1836c0ef33ac5cc8145324beb67031",
+      "zipCrc32Validated": true,
+      "compressedBytes": 448,
+      "headerOffset": 154629
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoAttachedAdapterLifecycleTest.xml",
+      "bytes": 1196,
+      "sha256": "8658df35beba688e00c21cc02047f25df6d233623a9221752d915294dafb5ef2",
+      "zipCrc32Validated": true,
+      "compressedBytes": 489,
+      "headerOffset": 155220
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDapBreakpointHandlerTest.xml",
+      "bytes": 1164,
+      "sha256": "00e82a71a2486f58463fcec56209838b93341d0c667d62e7ee56b7339d583a5e",
+      "zipCrc32Validated": true,
+      "compressedBytes": 452,
+      "headerOffset": 155858
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDapClientRoutingTest.xml",
+      "bytes": 946,
+      "sha256": "964cc3ddfc320a1f649ffa67db2cb01983e73d7fe65b58a76b9be385f1846201",
+      "zipCrc32Validated": true,
+      "compressedBytes": 411,
+      "headerOffset": 156455
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDapColdSourceNavigationTest.xml",
+      "bytes": 822,
+      "sha256": "b1cdbe95a4eeee833c40a16efc8713cd8ea6b2eade3541df9c2298a34bf1afe6",
+      "zipCrc32Validated": true,
+      "compressedBytes": 364,
+      "headerOffset": 157007
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDapProtocolForwardingTest.xml",
+      "bytes": 491,
+      "sha256": "aed18db425ad4720b23c0e9f5494f0bfa59aca7f577163ffae3de844428d1b4d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 295,
+      "headerOffset": 157519
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDapProtocolTest.xml",
+      "bytes": 2304,
+      "sha256": "8e6b5586f37593703ac112a40330298db0a039a8ca14efb4f0506323f93c6d0f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 743,
+      "headerOffset": 157960
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDapSessionControlTest.xml",
+      "bytes": 14006,
+      "sha256": "04f51ab2f74c14048813a314bea82e84d02682c86ddb48b3c4e4194142b6d139",
+      "zipCrc32Validated": true,
+      "compressedBytes": 2772,
+      "headerOffset": 158839
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugConnectionTest.xml",
+      "bytes": 1253,
+      "sha256": "1eee24f525ab459a1227916c90b18a0a8b064092af771866539d47d122dc8ff3",
+      "zipCrc32Validated": true,
+      "compressedBytes": 494,
+      "headerOffset": 161753
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebuggerEditorsProviderTest.xml",
+      "bytes": 850,
+      "sha256": "f23ad437ab523724d20dee560034233bc6856c923d1fac2461d4c7a4de88ce0d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 403,
+      "headerOffset": 162387
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugPrerequisitesTest.xml",
+      "bytes": 808,
+      "sha256": "aad517bc8ce60cce239982925d327caae2125e439ab16b9ee574be1bb197cb8f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 366,
+      "headerOffset": 162938
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugLaunchTest.xml",
+      "bytes": 1028,
+      "sha256": "63e801e46507e43cb1369926383f66588e9002e698a8b3d60e98dbcbb9f9a730",
+      "zipCrc32Validated": true,
+      "compressedBytes": 433,
+      "headerOffset": 163447
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugRunnerEligibilityTest.xml",
+      "bytes": 506,
+      "sha256": "e0724ad80fb5940e87e59eb51647e9cb7af0f656230e2689529b51ed49750c54",
+      "zipCrc32Validated": true,
+      "compressedBytes": 298,
+      "headerOffset": 164016
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugTestConsoleTest.xml",
+      "bytes": 789,
+      "sha256": "d9e616f343ab82405bbb05c09e58f9cd4adb59dc2fb59e417e3cbedc85aa9610",
+      "zipCrc32Validated": true,
+      "compressedBytes": 355,
+      "headerOffset": 164461
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugTestEventsTest.xml",
+      "bytes": 8321,
+      "sha256": "857e3b0419da273603c91a82b37809fc31c6ed22e6c35b0e65a598bdda932a03",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1944,
+      "headerOffset": 164957
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugTestManagedArgumentsTest.xml",
+      "bytes": 836,
+      "sha256": "8794ec96e75ac412805520bdff1bc035d3d9a32c420bafcd020382f641bc5ea1",
+      "zipCrc32Validated": true,
+      "compressedBytes": 382,
+      "headerOffset": 167041
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoDebugTestProfilesTest.xml",
+      "bytes": 661,
+      "sha256": "4e75b87aad6c6d5d4792817704daf7a7e24c59b0b58b0ef49a29e9eb1eee6a5a",
+      "zipCrc32Validated": true,
+      "compressedBytes": 340,
+      "headerOffset": 167573
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoGlobalFailedTestsActionTest.xml",
+      "bytes": 1577,
+      "sha256": "672e1d97f8022b69389af14b7b7352c01e5ce17baf1264c29265832978e20fdd",
+      "zipCrc32Validated": true,
+      "compressedBytes": 579,
+      "headerOffset": 168055
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.xml",
+      "bytes": 13712,
+      "sha256": "47eb255f3c308fbf5f88a1dda03d4c73912260d0d35d4657f16c80d9fdc2a220",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1993,
+      "headerOffset": 168782
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoOwnedLaunchedAdapterLifecycleTest.xml",
+      "bytes": 530,
+      "sha256": "9080099418703999912164233c781077c7498e01ba0f3b2846d596dabfd615a7",
+      "zipCrc32Validated": true,
+      "compressedBytes": 308,
+      "headerOffset": 170924
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoTestConverterReadinessTest.xml",
+      "bytes": 2034,
+      "sha256": "17a179cadf12d5cbc30cabb0fd472a584ebfbf93383f4bb37b121e2a9451f8e9",
+      "zipCrc32Validated": true,
+      "compressedBytes": 615,
+      "headerOffset": 171386
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest.xml",
+      "bytes": 2293,
+      "sha256": "20baed40833e330530f32fea10cf5a41b8aed966bbce7a411fd67d000986666d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 692,
+      "headerOffset": 172148
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.debug.GoTestDebugArgumentsTest.xml",
+      "bytes": 1458,
+      "sha256": "dcdc8345f6457f76fae44a0fb18db35329f5c6b48ba5c882a3c01f86f6ffda39",
+      "zipCrc32Validated": true,
+      "compressedBytes": 539,
+      "headerOffset": 172991
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.engine.EngineClientEnvironmentTest.xml",
+      "bytes": 676,
+      "sha256": "e44028f10be6903312bcd280d4d8c33005eaa078e3c7b8f9d528863e0fd258a2",
+      "zipCrc32Validated": true,
+      "compressedBytes": 405,
+      "headerOffset": 173673
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.engine.EngineClientEdtDisposalTest.xml",
+      "bytes": 501,
+      "sha256": "1a7757fbeb66b1c641144fde916a611a373b3152f72fb46cf0bcf4e02c264be3",
+      "zipCrc32Validated": true,
+      "compressedBytes": 290,
+      "headerOffset": 174225
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml",
+      "bytes": 948,
+      "sha256": "74642d1b6e739bb17df4b13851567a4b2b1b86687d1eefd3e982686506d46da1",
+      "zipCrc32Validated": true,
+      "compressedBytes": 415,
+      "headerOffset": 174662
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.engine.EngineClientOutboundTest.xml",
+      "bytes": 732,
+      "sha256": "67fce5490b46443ad0dbc1173845c7bc3c474d9f23d5fd2bb8c26a96942835eb",
+      "zipCrc32Validated": true,
+      "compressedBytes": 400,
+      "headerOffset": 175222
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.engine.EngineFramingTest.xml",
+      "bytes": 593,
+      "sha256": "07ff3103975ead7a77726e796754c2e7c79a5f4e1c8436bd0883380276cad3d7",
+      "zipCrc32Validated": true,
+      "compressedBytes": 303,
+      "headerOffset": 175766
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.engine.GoTaskTargetsIntegrationTest.xml",
+      "bytes": 1664,
+      "sha256": "d9e6a6c0fa675a1e09f7ef7b5feebc4aca403028d1d6c3d021a61ae309bec151",
+      "zipCrc32Validated": true,
+      "compressedBytes": 699,
+      "headerOffset": 176206
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.engine.GoTaskTargetsTest.xml",
+      "bytes": 668,
+      "sha256": "6a8d210ea5672ea15484190e88fcc10a3574f7961779ce9913f99e0c82aecff7",
+      "zipCrc32Validated": true,
+      "compressedBytes": 362,
+      "headerOffset": 177053
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.GoNamedTypeHeadersTest.xml",
+      "bytes": 848,
+      "sha256": "47732ee98bcd09e1a1ce3a4f24cad1d0781361e26a0eed5aa061959ddf1cbc0c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 409,
+      "headerOffset": 177552
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructDialogTest.xml",
+      "bytes": 1448,
+      "sha256": "93547bcf615da2acc0cbd95acc90d4c8cd8434a80d77c1d7ed098f2b5352cb25",
+      "zipCrc32Validated": true,
+      "compressedBytes": 561,
+      "headerOffset": 178105
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructIntegrationTest.xml",
+      "bytes": 716,
+      "sha256": "c1950ee64f4f37bc28303471b7d7191b1015c901a7f3f766df034f00dfc5682c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 362,
+      "headerOffset": 178821
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsNativeTest.xml",
+      "bytes": 1087,
+      "sha256": "9764a4cdff6a26e99ece20878e6a2107cc40580e0a1fa2c4c7e321ae0b943a92",
+      "zipCrc32Validated": true,
+      "compressedBytes": 427,
+      "headerOffset": 179343
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsScanTest.xml",
+      "bytes": 895,
+      "sha256": "68202213409448dd7e108820beebce6752ba03447ce827476ca2a38c19bf0af0",
+      "zipCrc32Validated": true,
+      "compressedBytes": 388,
+      "headerOffset": 179935
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.methods.GoImplementMethodsDialogTest.xml",
+      "bytes": 1841,
+      "sha256": "a6d02bc6910f69852eda107ac034b8eda4af1089786d7c16a1dfd3ccc47925c9",
+      "zipCrc32Validated": true,
+      "compressedBytes": 643,
+      "headerOffset": 180486
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.methods.GoMethodGenerationIntegrationTest.xml",
+      "bytes": 730,
+      "sha256": "0c70fb26775c7f2b25cf90202e22bf1a11d9eae9c09131bf6e2d52718fdb2c87",
+      "zipCrc32Validated": true,
+      "compressedBytes": 361,
+      "headerOffset": 181287
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.structs.GoStructHelpersDialogTest.xml",
+      "bytes": 1447,
+      "sha256": "73650cdcee7b1cfbe5e4e66bda32a23914c9b0030c21b532bc40105cce09d2c7",
+      "zipCrc32Validated": true,
+      "compressedBytes": 552,
+      "headerOffset": 181811
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.structs.GoStructHelpersIntegrationTest.xml",
+      "bytes": 1740,
+      "sha256": "426fe477d586bcd21c4cc3f2c4773c44e5c5eb181bf2d9b4a6b5816b347876bd",
+      "zipCrc32Validated": true,
+      "compressedBytes": 709,
+      "headerOffset": 182518
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest.xml",
+      "bytes": 1779,
+      "sha256": "a2bb979b1581c9f86ca5e9294d4e71bca5259982845505ee94518e799614e0d5",
+      "zipCrc32Validated": true,
+      "compressedBytes": 618,
+      "headerOffset": 183387
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tags.GoStructTagContextTest.xml",
+      "bytes": 666,
+      "sha256": "30682af4161821c866904fd6c23cdc5b70c50eec3c9a91ae0a7b09c80658c560",
+      "zipCrc32Validated": true,
+      "compressedBytes": 340,
+      "headerOffset": 184159
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tags.GoStructTagsDialogTest.xml",
+      "bytes": 1173,
+      "sha256": "00539be3d60fc13299df4c5605d0d6d221c2b84f81e08d38af8beb8430bf395b",
+      "zipCrc32Validated": true,
+      "compressedBytes": 478,
+      "headerOffset": 184648
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tags.GoStructTagsIntegrationTest.xml",
+      "bytes": 1217,
+      "sha256": "03ca9b8772c080ccf3f0eb367063ad10e08a28c65de622207e4414f3c5b680b7",
+      "zipCrc32Validated": true,
+      "compressedBytes": 583,
+      "headerOffset": 185275
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest.xml",
+      "bytes": 566,
+      "sha256": "261551f5134a620e8fbf1b9d505b52deffeb6416ffbba7022e62064f80a52059",
+      "zipCrc32Validated": true,
+      "compressedBytes": 326,
+      "headerOffset": 186012
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsDialogTest.xml",
+      "bytes": 1235,
+      "sha256": "860727870903db9866c13aef16e6e5073045f3ca2bccfc90db40350e8028d73f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 489,
+      "headerOffset": 186498
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsModelTest.xml",
+      "bytes": 839,
+      "sha256": "b05c26fcff5c5ea720c6cc09cbb1ec61170ed121a9cfd68419ac96d882f919e8",
+      "zipCrc32Validated": true,
+      "compressedBytes": 387,
+      "headerOffset": 187140
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tests.GoTestChooserNativeTest.xml",
+      "bytes": 705,
+      "sha256": "4b16d09b9bedb735607d9d534909f2d7b90b8dee01ae3e92412cc9eafc95936f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 360,
+      "headerOffset": 187679
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tests.GoTestFinderNativeTest.xml",
+      "bytes": 718,
+      "sha256": "c9fbfd5732117fd4191802bb27c4e0c161e76b3239021863985ceacfe50f94be",
+      "zipCrc32Validated": true,
+      "compressedBytes": 373,
+      "headerOffset": 188190
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.generate.tests.GoTestGenerationIntegrationTest.xml",
+      "bytes": 1270,
+      "sha256": "1445e3b90701a8f577076e037e9cf794f7319b1d4889bd9667f85601ae7989b4",
+      "zipCrc32Validated": true,
+      "compressedBytes": 605,
+      "headerOffset": 188713
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpBatchProcessHandlerTest.xml",
+      "bytes": 7067,
+      "sha256": "217cf3dd090edb69ee1a5175afef95f1259e1ea2b58bca68add84b71c2b5797c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1261,
+      "headerOffset": 189477
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpRequestCallTest.xml",
+      "bytes": 1441,
+      "sha256": "2d8e1f54bea60fc4d6b54d656eb11a8c08feb3e58b68f7e8544d4d0c8ca4a921",
+      "zipCrc32Validated": true,
+      "compressedBytes": 536,
+      "headerOffset": 190883
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpRequestDocumentTest.xml",
+      "bytes": 3170,
+      "sha256": "5e17ec33c5466802ee45cd5b6f59e8146dfd2b602ff51c1c3591b4392ac0c76c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 866,
+      "headerOffset": 191556
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpRequestRunNativeTest.xml",
+      "bytes": 802,
+      "sha256": "923b6219fec70444c5a0335774ed3d22691abe8c4830550f28cd7b3bd3ceea03",
+      "zipCrc32Validated": true,
+      "compressedBytes": 378,
+      "headerOffset": 192563
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpRequestSessionNativeTest.xml",
+      "bytes": 1627,
+      "sha256": "bd01e0bba68002433a97311b5f59cb71eb26787759d998c61c7436dd3d5a7e5e",
+      "zipCrc32Validated": true,
+      "compressedBytes": 578,
+      "headerOffset": 193083
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpResponseCacheTest.xml",
+      "bytes": 1087,
+      "sha256": "ef1a385dd5e661c3bee6cc551d96c912c2f7d77713407225ed6c9a91355b2d52",
+      "zipCrc32Validated": true,
+      "compressedBytes": 445,
+      "headerOffset": 193807
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpResponseFilesTest.xml",
+      "bytes": 673,
+      "sha256": "3dfe0b753e7e4449b1480975b749039914449f83b80c993998d7d501cdd4bca6",
+      "zipCrc32Validated": true,
+      "compressedBytes": 336,
+      "headerOffset": 194391
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpResponsePresentationTest.xml",
+      "bytes": 2059,
+      "sha256": "1ccb61a5533e84880cea06fa5fd44fac686d48e013b653edca54847d0590baa9",
+      "zipCrc32Validated": true,
+      "compressedBytes": 669,
+      "headerOffset": 194866
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpResponseViewNativeTest.xml",
+      "bytes": 859,
+      "sha256": "cd42c38f8aa50d084d0f3838bb4a43f2e8726a1f9a9820df25a55950efce4853",
+      "zipCrc32Validated": true,
+      "compressedBytes": 397,
+      "headerOffset": 195681
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.http.HttpServicesToolbarNativeTest.xml",
+      "bytes": 525,
+      "sha256": "9e849a89aa777f4f868ba70897beef53d264272d3c554897c539ff75e4abff1a",
+      "zipCrc32Validated": true,
+      "compressedBytes": 305,
+      "headerOffset": 196222
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.icons.GoFileIconsTest.xml",
+      "bytes": 662,
+      "sha256": "5968983d03fc8b40ae869a248d39c1c6d26a560ab902d9d677753a1ad5f068ef",
+      "zipCrc32Validated": true,
+      "compressedBytes": 356,
+      "headerOffset": 196674
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.DockerfileLexerTest.xml",
+      "bytes": 739,
+      "sha256": "077b83c88599b595b225a660083d701940d5cc4b22c0a040deca8f366a924c6c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 352,
+      "headerOffset": 197164
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.DockerfileNativeTest.xml",
+      "bytes": 592,
+      "sha256": "5a49339ef3251a2e60606375cad3535920628ae05479a73b7bf2f6568c163f7a",
+      "zipCrc32Validated": true,
+      "compressedBytes": 297,
+      "headerOffset": 197653
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.GoLexerTest.xml",
+      "bytes": 1577,
+      "sha256": "ac7c9530d6aa370d2955841e20d80f5341ea9537d8fa4b0c4f6f3cd07831693a",
+      "zipCrc32Validated": true,
+      "compressedBytes": 576,
+      "headerOffset": 198088
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.GoEnterNativeTest.xml",
+      "bytes": 3206,
+      "sha256": "955f41aab82f093ecac70bf587dd0644f8545e4e4ac18a3b525d42eb7d34a6af",
+      "zipCrc32Validated": true,
+      "compressedBytes": 981,
+      "headerOffset": 198793
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.GoQuoteCommentNativeTest.xml",
+      "bytes": 1900,
+      "sha256": "ae00fb876d4b43ac8154738cce7c60ac6618140a51769e456472aea21d8967db",
+      "zipCrc32Validated": true,
+      "compressedBytes": 635,
+      "headerOffset": 199909
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.GoTemplateLexerTest.xml",
+      "bytes": 888,
+      "sha256": "e58496b5fdee2375d2d6d4f7a0361e4d677ce9d5144274a02cd657b230dd62fc",
+      "zipCrc32Validated": true,
+      "compressedBytes": 384,
+      "headerOffset": 200686
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.HttpRequestLexerTest.xml",
+      "bytes": 609,
+      "sha256": "951c8257ea305de2c20fe2fcdb18aaa71df71d6576a463b57f38c505116f7547",
+      "zipCrc32Validated": true,
+      "compressedBytes": 322,
+      "headerOffset": 201207
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.GoTemplateNativeTest.xml",
+      "bytes": 615,
+      "sha256": "5f424815940be9e22f15795bc0d6f097e691d5ebebd1fabc915aa7cfa84c8c0b",
+      "zipCrc32Validated": true,
+      "compressedBytes": 310,
+      "headerOffset": 201667
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.HttpRequestNativeTest.xml",
+      "bytes": 597,
+      "sha256": "abf58c8bb88cdf6357e61865d56c4e8fa51c8cc8d0fbc92b33071153447318c6",
+      "zipCrc32Validated": true,
+      "compressedBytes": 299,
+      "headerOffset": 202115
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.SqlLexerTest.xml",
+      "bytes": 697,
+      "sha256": "48ced30e8ee0ccf2e4f7a57572384ee76ea98d1a79120732acb398cf927decac",
+      "zipCrc32Validated": true,
+      "compressedBytes": 340,
+      "headerOffset": 202553
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lang.SqlNativeTest.xml",
+      "bytes": 561,
+      "sha256": "49470627d203379e3c874824393d665afcf5bc49bd2a46e6bc06357a39a1f60d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 295,
+      "headerOffset": 203023
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lifecycle.StandaloneProxyWarmupTest.xml",
+      "bytes": 1155,
+      "sha256": "2df2691537078f213867c1c085a86039e9aa7efb8d1934cf7dd898071c6067bd",
+      "zipCrc32Validated": true,
+      "compressedBytes": 455,
+      "headerOffset": 203449
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lint.GoInspectionProcessTest.xml",
+      "bytes": 494,
+      "sha256": "f649ff0112ff8638f48e0fdb515d418676ff8354afc6e1db468a114c8062441e",
+      "zipCrc32Validated": true,
+      "compressedBytes": 299,
+      "headerOffset": 204052
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lint.GoLintCommandsTest.xml",
+      "bytes": 637,
+      "sha256": "2081d7cce57495c0f25198b41a874f3711ea4190e3818d055e5e45bbd26917c4",
+      "zipCrc32Validated": true,
+      "compressedBytes": 336,
+      "headerOffset": 204492
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lint.GoVetIntegrationTest.xml",
+      "bytes": 634,
+      "sha256": "3eed991e462866ac52f4983e95df6dbd3a4013c269d430257cc089098c1ae9ab",
+      "zipCrc32Validated": true,
+      "compressedBytes": 350,
+      "headerOffset": 204964
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+      "bytes": 2053,
+      "sha256": "efc3e05808177d54b5a00db108924dc183becb76c78b493672fe785135d2194f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 641,
+      "headerOffset": 205452
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+      "bytes": 2783,
+      "sha256": "a748d8d4e2486507b8664262d428a1ff42e15f1edc9b202adfbfb15a0728d139",
+      "zipCrc32Validated": true,
+      "compressedBytes": 782,
+      "headerOffset": 206242
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lint.GoLintParserTest.xml",
+      "bytes": 1077,
+      "sha256": "547dce7d89cb3245c7779bcb6ee3a510d4b08e0907d8f5665fe2a4a61fc401f5",
+      "zipCrc32Validated": true,
+      "compressedBytes": 480,
+      "headerOffset": 207176
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoDocumentSyncTest.xml",
+      "bytes": 1356,
+      "sha256": "fc7c1f2556de0e7c86766d342511173c531070499b637544170b381787e00d6b",
+      "zipCrc32Validated": true,
+      "compressedBytes": 524,
+      "headerOffset": 207790
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.xml",
+      "bytes": 6922,
+      "sha256": "b7627ca0f905df1a4a19690cea5fa974ce78530e8086d105beee5fbdf1e6634b",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1587,
+      "headerOffset": 208449
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.xml",
+      "bytes": 1009,
+      "sha256": "97130eb85a9e73a04350b67c926fe2a09ddc0a5eaee8dd030805d2e985e52c7d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 439,
+      "headerOffset": 210178
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml",
+      "bytes": 697,
+      "sha256": "1e64ef930c0673afb981e8cdde3fcf42b73b7e96251a722bc78d4e60179b6378",
+      "zipCrc32Validated": true,
+      "compressedBytes": 360,
+      "headerOffset": 210763
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+      "bytes": 12013,
+      "sha256": "a425562230d06b6ee195a5b9c6e513ea95c35bd5eb4653f30a795cecac726d31",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1722,
+      "headerOffset": 211275
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoSemanticTokensGoplsTest.xml",
+      "bytes": 516,
+      "sha256": "c5db6ac34fab1ca024c9bc8662e51055d0669db4c6ec3caadb1a43b076fd08de",
+      "zipCrc32Validated": true,
+      "compressedBytes": 309,
+      "headerOffset": 213142
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.lsp.GoSemanticTokensServerTest.xml",
+      "bytes": 2250,
+      "sha256": "635a5aff7d979b99c31f0adbca07a4b6602c11ab063cf5200b8c1cd0671a4ef7",
+      "zipCrc32Validated": true,
+      "compressedBytes": 732,
+      "headerOffset": 213593
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.platform.PlatformPsiListenerInitializationTest.xml",
+      "bytes": 917,
+      "sha256": "7515c2127731f9504df45ae0713093323b1d685cd87e5b41228d787098daa2c1",
+      "zipCrc32Validated": true,
+      "compressedBytes": 417,
+      "headerOffset": 214468
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.platform.PlatformUnicodePersistenceTest.xml",
+      "bytes": 1058,
+      "sha256": "c1831086849766a8b19d7a23f9881234d5a00bf3e06cf8fca884a180c6f95492",
+      "zipCrc32Validated": true,
+      "compressedBytes": 449,
+      "headerOffset": 215044
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.plugins.ChineseLanguagePackDialogTest.xml",
+      "bytes": 2206,
+      "sha256": "63a9030a6809c832f13139df569ce9cd279dfdeecf42b66a92a3619493104b90",
+      "zipCrc32Validated": true,
+      "compressedBytes": 689,
+      "headerOffset": 215645
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.plugins.ChineseLanguagePackTest.xml",
+      "bytes": 2678,
+      "sha256": "b4201504d8902c8eb5dca61851948bf59cc69b68d2e4ef9d6b0fdd258fc6b63e",
+      "zipCrc32Validated": true,
+      "compressedBytes": 822,
+      "headerOffset": 216484
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.product.GoCompatibleMarketplaceSearchTest.xml",
+      "bytes": 887,
+      "sha256": "0a8a103bfaee232dfa4c7c12ef1b176c8b8ba46a728e8a4d16ca2844d4e900f1",
+      "zipCrc32Validated": true,
+      "compressedBytes": 410,
+      "headerOffset": 217450
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.product.GoGeneralPluginsManagerTest.xml",
+      "bytes": 6438,
+      "sha256": "f8e61384743158d94378aa1a4691a6fbd23d470616d9bb82b3d27aeaae05b877",
+      "zipCrc32Validated": true,
+      "compressedBytes": 809,
+      "headerOffset": 218014
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.profile.GoProfileModelTest.xml",
+      "bytes": 806,
+      "sha256": "cabfbc8a52e9c88ae323d01502441092f43a52e66568b2fee8755390992dac8f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 393,
+      "headerOffset": 218971
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.product.GoProductPluginManagementPolicyTest.xml",
+      "bytes": 1692,
+      "sha256": "d2c4cf7cc6deb1ae9d23b84acb0f9b0a6915b8457e102e96fec4a74e224e5d51",
+      "zipCrc32Validated": true,
+      "compressedBytes": 619,
+      "headerOffset": 219503
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.project.GoJavaCreationEntriesTest.xml",
+      "bytes": 851,
+      "sha256": "c44bb256b165f9fafe55054d8fe05155ab70e4907efda7fef84a087c1b97cae9",
+      "zipCrc32Validated": true,
+      "compressedBytes": 384,
+      "headerOffset": 220278
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.project.GoModuleEnvironmentTest.xml",
+      "bytes": 662,
+      "sha256": "4e026b1e7ea343110003fd75599d7b4daa090df78c1c77c5366a0598ddf6916e",
+      "zipCrc32Validated": true,
+      "compressedBytes": 340,
+      "headerOffset": 220808
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.project.GoModuleGeneratorTest.xml",
+      "bytes": 1076,
+      "sha256": "f12de1e703903c9ad32d0457946b21e6cff0861b5403bcce77744c305367ebba",
+      "zipCrc32Validated": true,
+      "compressedBytes": 446,
+      "headerOffset": 221292
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.project.GoNewProjectSdkStartupTest.xml",
+      "bytes": 893,
+      "sha256": "62e2fc70ef7d639616347e126317b38d6b27c1906fdf945edf1ce30d3e50745c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 423,
+      "headerOffset": 221880
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.project.GoSdkProbeTest.xml",
+      "bytes": 1681,
+      "sha256": "77f6bf6d90a06d55cbe188c7ed926d3044f89203bbcd8c7f899c43d8e8f98549",
+      "zipCrc32Validated": true,
+      "compressedBytes": 620,
+      "headerOffset": 222450
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.project.GoNewProjectTest.xml",
+      "bytes": 14863,
+      "sha256": "96fea723bb4279bd43f8ca83751b8e1d0f1e11ed5097c47b53e6ff6a275f6cf5",
+      "zipCrc32Validated": true,
+      "compressedBytes": 2005,
+      "headerOffset": 223205
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.GoWorkspaceEditCaseAliasesTest.xml",
+      "bytes": 1916,
+      "sha256": "b13ecd93d1fef3e89548879bc2158372f0d70c75ed36a8a9d0466d5aef2a0de8",
+      "zipCrc32Validated": true,
+      "compressedBytes": 636,
+      "headerOffset": 225347
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.GoWorkspaceEditGuardTest.xml",
+      "bytes": 1156,
+      "sha256": "8778ced457e1d8fb8329371481c295cba5f6ff1ea6ceac30bc7e6542b07cadb2",
+      "zipCrc32Validated": true,
+      "compressedBytes": 464,
+      "headerOffset": 226135
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.GoWorkspaceEditJournalTest.xml",
+      "bytes": 831,
+      "sha256": "6353dc39d2e8b8a5113f6b29dd4e8dda8f3b1b111b69c0e2d56a345fac1df1ee",
+      "zipCrc32Validated": true,
+      "compressedBytes": 391,
+      "headerOffset": 226745
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.GoWorkspaceEditNativeCaseTest.xml",
+      "bytes": 932,
+      "sha256": "d1ddbf64f3724a26793790394eea438258d6d01b46c93ee9a36204c6b36d4c47",
+      "zipCrc32Validated": true,
+      "compressedBytes": 432,
+      "headerOffset": 227284
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.GoWorkspaceEditPlanTest.xml",
+      "bytes": 2153,
+      "sha256": "9ec01860a63a094d545cf65fa65db3e26f7d69d077ac1d950c4274530f3afba3",
+      "zipCrc32Validated": true,
+      "compressedBytes": 700,
+      "headerOffset": 227867
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest.xml",
+      "bytes": 2152,
+      "sha256": "025b732898496ac3a75bb4ab7dead70a19f2ebeb725019cb83506fb7c509888f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 798,
+      "headerOffset": 228712
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest.xml",
+      "bytes": 1446,
+      "sha256": "c2362af068d722b0bd43a20b4c0754fc17023464004108eb93e5cf6a4d83d581",
+      "zipCrc32Validated": true,
+      "compressedBytes": 553,
+      "headerOffset": 229670
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.signature.GoChangeSignatureHandlerTest.xml",
+      "bytes": 695,
+      "sha256": "2b756b9cfa834df7cd4641aeeb2ca60f6983fd687e51aacfc4239b7201d01715",
+      "zipCrc32Validated": true,
+      "compressedBytes": 337,
+      "headerOffset": 230378
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.signature.GoSignatureModelTest.xml",
+      "bytes": 994,
+      "sha256": "ebcceff2c9892a73e4291b44d4424eb6212a71e44ded79cfe4f051c0a35a5825",
+      "zipCrc32Validated": true,
+      "compressedBytes": 420,
+      "headerOffset": 230875
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.refactor.signature.GoSignatureValidationTest.xml",
+      "bytes": 1749,
+      "sha256": "0b3eea69fdc2eff3cd5850559af05cd9f50c46c32f400b3257186ba58048d808",
+      "zipCrc32Validated": true,
+      "compressedBytes": 582,
+      "headerOffset": 231447
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest.xml",
+      "bytes": 1673,
+      "sha256": "784e12536b6d5f236075c7403dee7650e92d64491e2d7c8278f64f98556d7947",
+      "zipCrc32Validated": true,
+      "compressedBytes": 580,
+      "headerOffset": 232186
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusTest.xml",
+      "bytes": 1011,
+      "sha256": "ec87f5318168d1d3262ea8b88536b444833a9b605bf7508dcd5da24cfa5d7584",
+      "zipCrc32Validated": true,
+      "compressedBytes": 461,
+      "headerOffset": 232912
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusToolTest.xml",
+      "bytes": 500,
+      "sha256": "6e65e4b1d958405dce644bce9165e3eae302ca89c0bdfd48d9855e70a34d7690",
+      "zipCrc32Validated": true,
+      "compressedBytes": 296,
+      "headerOffset": 233513
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoCancelledParentNativeTest.xml",
+      "bytes": 679,
+      "sha256": "f0189274416fa590e4fd1499a4128ab5820e09b162927cfce42efc1f5aed5c60",
+      "zipCrc32Validated": true,
+      "compressedBytes": 343,
+      "headerOffset": 233953
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+      "bytes": 1424,
+      "sha256": "0044ccf2f636db27c9f8e614f97ad95b4f5c5a41b78d680dbbfd039a555e17d7",
+      "zipCrc32Validated": true,
+      "compressedBytes": 510,
+      "headerOffset": 234440
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoFuzzFailureRerunToolTest.xml",
+      "bytes": 677,
+      "sha256": "c5e206d7ae957f6515662ece4704279a40fd0c5a7ddb1bfa027bb8bc90fe177f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 360,
+      "headerOffset": 235092
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoGlobalFailedTestsRunTest.xml",
+      "bytes": 799,
+      "sha256": "53822872758cee6ddd3d4b97daa8eb43b58f98bd5af5344087f132c2386ce2c4",
+      "zipCrc32Validated": true,
+      "compressedBytes": 419,
+      "headerOffset": 235595
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoLiveTestRunnerTest.xml",
+      "bytes": 832,
+      "sha256": "8db39e97d30d88d4a4b44b52353f213cc26bf44cd3722b8490dfa030925a7295",
+      "zipCrc32Validated": true,
+      "compressedBytes": 410,
+      "headerOffset": 236157
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+      "bytes": 4264,
+      "sha256": "adcdbad8469c1a05f8d746d61c2c54d1c1b343786709736413d1add0db26602b",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1045,
+      "headerOffset": 236704
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoNativeCoverageIntegrationTest.xml",
+      "bytes": 513,
+      "sha256": "eb08705b399ef988d7c5d8518b42e67bdfd801b5e36b71b45dbe74f6fc39b8b9",
+      "zipCrc32Validated": true,
+      "compressedBytes": 302,
+      "headerOffset": 237898
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoPackageDirectoriesTest.xml",
+      "bytes": 946,
+      "sha256": "312515cb026050e79700b2dd51e1d104340f241f38b4b3cef31eeb40330357b2",
+      "zipCrc32Validated": true,
+      "compressedBytes": 400,
+      "headerOffset": 238348
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunArgumentBoundaryTest.xml",
+      "bytes": 528,
+      "sha256": "a3c778c05fbf77533407c14bc398946093778414a109002aecfbd2ab7bac73ec",
+      "zipCrc32Validated": true,
+      "compressedBytes": 314,
+      "headerOffset": 238889
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunBuildContextLaunchTest.xml",
+      "bytes": 3136,
+      "sha256": "98aa35a194d87e0322c35b0dbd71d97def9368ed9dce1e0a1e62ae11737d88fb",
+      "zipCrc32Validated": true,
+      "compressedBytes": 881,
+      "headerOffset": 239345
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunBuildContextLoaderTest.xml",
+      "bytes": 2375,
+      "sha256": "667006c4552f24ee29d8f96ddd0dbe59c7a414ce4bd19ce7932cfdfde4d15523",
+      "zipCrc32Validated": true,
+      "compressedBytes": 822,
+      "headerOffset": 240370
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunBuildContextNativeTest.xml",
+      "bytes": 498,
+      "sha256": "7f0df19bd3803bf853e0cd20f2538ecd7a7fafb23c29e76e31097af2aef21a04",
+      "zipCrc32Validated": true,
+      "compressedBytes": 293,
+      "headerOffset": 241336
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest.xml",
+      "bytes": 900,
+      "sha256": "5a833427e90ca341a62b4e0fd1ae68bef61bffb7898235462d41e192e58fd36d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 426,
+      "headerOffset": 241773
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunBuildContextServiceTest.xml",
+      "bytes": 2588,
+      "sha256": "54ee120c9f68413c7b17e52ac9474d2ae1f05b65325026df79fa42dcdf1ce3e9",
+      "zipCrc32Validated": true,
+      "compressedBytes": 846,
+      "headerOffset": 242353
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunContextNativeTest.xml",
+      "bytes": 1312,
+      "sha256": "4f85adfd4002092e435596de68485ded290334b6dd66036a52c948d6bc115a14",
+      "zipCrc32Validated": true,
+      "compressedBytes": 521,
+      "headerOffset": 243344
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoRunParametersTest.xml",
+      "bytes": 1308,
+      "sha256": "893d11ad35d5eb7f561c242d1c47c881baeaaada89f1cbf6b0cd6c0f558499fc",
+      "zipCrc32Validated": true,
+      "compressedBytes": 466,
+      "headerOffset": 244004
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoSourceFunctionsTest.xml",
+      "bytes": 1977,
+      "sha256": "0862026ef6b91fcde189954655a2c4d391f79980131516f3cd4bad7ab77f9893",
+      "zipCrc32Validated": true,
+      "compressedBytes": 667,
+      "headerOffset": 244606
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoTestOutputTest.xml",
+      "bytes": 2230,
+      "sha256": "98ad3ba3871d9cbff9f3b8469084dd55481d79694bc114750f40e87f35627154",
+      "zipCrc32Validated": true,
+      "compressedBytes": 713,
+      "headerOffset": 245411
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoTestOwnershipTest.xml",
+      "bytes": 785,
+      "sha256": "a8773f7edd9abd75256878cb261c8ee53788a559f889631b08cabba1608408f3",
+      "zipCrc32Validated": true,
+      "compressedBytes": 382,
+      "headerOffset": 246257
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoTestRerunPlanTest.xml",
+      "bytes": 633,
+      "sha256": "f619714b87bdd713e8edc2633af6b157ea017b5f0d60a59aa2212d82a44766cb",
+      "zipCrc32Validated": true,
+      "compressedBytes": 332,
+      "headerOffset": 246775
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoTestWorkflowNativeTest.xml",
+      "bytes": 630,
+      "sha256": "d94c1f73bfd921e99f285bbd58e4f906442830df99825550c90590519b0aef12",
+      "zipCrc32Validated": true,
+      "compressedBytes": 330,
+      "headerOffset": 247243
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoTestWorkflowIntegrationTest.xml",
+      "bytes": 856,
+      "sha256": "6ed910f13350ef518e423da1e3c65759898a55e55d260f4be99919d53eb23a25",
+      "zipCrc32Validated": true,
+      "compressedBytes": 407,
+      "headerOffset": 247714
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoTestWorkflowTest.xml",
+      "bytes": 1191,
+      "sha256": "7182dc9ce9d110e95175f2de3c044a767d88ee1f8ee3b6048f0795d849994203",
+      "zipCrc32Validated": true,
+      "compressedBytes": 469,
+      "headerOffset": 248267
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.sdk.GoSdkDownloadDialogTest.xml",
+      "bytes": 1184,
+      "sha256": "f302d7908751f469a9d09828f7be38e169935556481d9fdf75d24f2767d0fa9e",
+      "zipCrc32Validated": true,
+      "compressedBytes": 494,
+      "headerOffset": 248871
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.sdk.GoSdkRegistryTest.xml",
+      "bytes": 925,
+      "sha256": "15137807b23c89dbc77786c6f0d58c54489bf5732319d0cd9bb9ad7548b0f862",
+      "zipCrc32Validated": true,
+      "compressedBytes": 410,
+      "headerOffset": 249505
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.sdk.GoSdkDownloadsTest.xml",
+      "bytes": 3382,
+      "sha256": "3c2e5f659b0cc8677d411a74814d06b8d03e8d3d82e8abae3bf6d90851b4f2b0",
+      "zipCrc32Validated": true,
+      "compressedBytes": 1059,
+      "headerOffset": 250049
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.sdk.GoSdkSelectorTest.xml",
+      "bytes": 1896,
+      "sha256": "5a2e1f99e1699c2060a8f6e206f5cc93130caf3523027b2fef585edb85dff3f6",
+      "zipCrc32Validated": true,
+      "compressedBytes": 672,
+      "headerOffset": 251243
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.semantic.GoCommandEditOwnerTest.xml",
+      "bytes": 1358,
+      "sha256": "665a25e91b6b8dd4a04c2dd5e56cd2ee52d39f8cf15f464fcc494152c359178e",
+      "zipCrc32Validated": true,
+      "compressedBytes": 476,
+      "headerOffset": 252049
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.semantic.GoIdentifiersTest.xml",
+      "bytes": 619,
+      "sha256": "21b6f1c86b651d15077b855a324e7958d736e9a4ec28c5374b72706e7c906039",
+      "zipCrc32Validated": true,
+      "compressedBytes": 323,
+      "headerOffset": 252669
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.semantic.GoSemanticContinuationTest.xml",
+      "bytes": 694,
+      "sha256": "4b623d84aebae8adc284b4b5bf615f68e3255bf0fd99615479b6775a3a2da946",
+      "zipCrc32Validated": true,
+      "compressedBytes": 353,
+      "headerOffset": 253131
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.settings.GoBundledToolchainTest.xml",
+      "bytes": 960,
+      "sha256": "ddde6a5973ad55d0118bebfe0f768f8e28f692855e62e3070caf31d73d6cfb5b",
+      "zipCrc32Validated": true,
+      "compressedBytes": 422,
+      "headerOffset": 253632
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.settings.GoGoplsEnvironmentTest.xml",
+      "bytes": 1090,
+      "sha256": "84b906ffeb0ae8812b3067d0b212ac0e0d2a6bd4716b88c83d0ae05d24c0d23d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 445,
+      "headerOffset": 254198
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.settings.GoSettingsSearchTest.xml",
+      "bytes": 498,
+      "sha256": "200aabb50fb150dac0387159afb168c02e290a2e00723702530fb8ad1dc8de0d",
+      "zipCrc32Validated": true,
+      "compressedBytes": 294,
+      "headerOffset": 254787
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml",
+      "bytes": 1234,
+      "sha256": "d2ff12c2107115c858765586efa58d11f3b9e3125c2ace8778e21f5c434b90bc",
+      "zipCrc32Validated": true,
+      "compressedBytes": 497,
+      "headerOffset": 255223
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.settings.GoToolchainTest.xml",
+      "bytes": 902,
+      "sha256": "e5402a591f8e92318ebfd17a19ee2fb9aec5766d231d472b0ed3507fff2ea3de",
+      "zipCrc32Validated": true,
+      "compressedBytes": 405,
+      "headerOffset": 255868
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.terminal.GoTerminalCommandCompletionTest.xml",
+      "bytes": 809,
+      "sha256": "56eb8c5c261a0e7d3c094f543dc6c44a6bd59658f5aa61fbae04794b31ffc6a3",
+      "zipCrc32Validated": true,
+      "compressedBytes": 330,
+      "headerOffset": 256410
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.terminal.GoTerminalCompletionFallbackTest.xml",
+      "bytes": 1978,
+      "sha256": "d1cfb2ba3d81022a51f76a6809b645084e337651e640e7a73422507ed7fc0ca1",
+      "zipCrc32Validated": true,
+      "compressedBytes": 510,
+      "headerOffset": 256893
+    },
+    {
+      "name": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.terminal.GoTerminalCustomizerTest.xml",
+      "bytes": 681,
+      "sha256": "4cb55754be2e17b64a4c603a2d968ab20f3da30ac2a1c8f98d0f6d0f3e3099f8",
+      "zipCrc32Validated": true,
+      "compressedBytes": 352,
+      "headerOffset": 257557
+    },
+    {
+      "name": "windows-provenance/patch-version.log",
+      "bytes": 347,
+      "sha256": "5ad955fc7b76fd783ebd969cf6139a487403aea091143d6e479dee5d58f74b14",
+      "zipCrc32Validated": true,
+      "compressedBytes": 250,
+      "headerOffset": 258055
+    },
+    {
+      "name": "windows-provenance/platform-layout-tests.log",
+      "bytes": 18474,
+      "sha256": "b85a10510a164bd39ae59fc9f6d399c7ee0912bbd3b0ee3248d362381e576e0c",
+      "zipCrc32Validated": true,
+      "compressedBytes": 3414,
+      "headerOffset": 258387
+    },
+    {
+      "name": "windows-provenance/tool-preparation.json",
+      "bytes": 2543696,
+      "sha256": "c60d0351858651391cf1621caa3a605ed41ab33bdf38d9e47a6a11db34a1808f",
+      "zipCrc32Validated": true,
+      "compressedBytes": 725805,
+      "headerOffset": 261891
+    },
+    {
+      "name": "windows-provenance/tool-preparation.log",
+      "bytes": 3354,
+      "sha256": "59703e36b1ab9d2ec69b78e256172580f34c22bd4a709efed80ea8a02c757a61",
+      "zipCrc32Validated": true,
+      "compressedBytes": 616,
+      "headerOffset": 987782
+    }
+  ],
+  "selectedMemberCount": 190,
+  "selectedLogicalBytes": 3680666,
+  "omittedCacheAndProfileMembers": [],
+  "compressedProvenanceRegions": [
+    {
+      "start": 0,
+      "endExclusive": 988483
+    }
+  ],
+  "analystCreatedCarrier": {
+    "path": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/two-hour-resume/ci43610212164/artifact-14120940090-windows-provenance/windows-provenance-selected-members.analyst-created.tar.gz",
+    "bytes": 945116,
+    "sha256": "c7f029538fcf324980312ff158399502880e60a23ce06af1fb44e2f94b9a15bd"
+  },
+  "outcome": "SELECTED_ORIGINAL_MEMBER_BYTES_RETAINED",
+  "endedAtUtc": "2026-11-14T15:45:50.086363+00:00",
+  "networkBytes": 1015608,
+  "ranges": [
+    {
+      "start": 1015566,
+      "end": 1015587,
+      "bytes": 22,
+      "sha256": "26111c9e19444504d79e2465467de7434528529e869283e13aabd4e67a1ded80"
+    },
+    {
+      "start": 1015546,
+      "end": 1015565,
+      "bytes": 20,
+      "sha256": "69a54f4853063dafe410ca18dcd7449f4a8b68ef7a4be9d2b7b2ad34cef57cac"
+    },
+    {
+      "start": 988483,
+      "end": 1015565,
+      "bytes": 27083,
+      "sha256": "bde5ea769ed6be68acd05dbb2bd597a688a85a4ac76dff651a93324c90ba4613"
+    },
+    {
+      "start": 0,
+      "end": 988482,
+      "bytes": 988483,
+      "sha256": "d2624caafb5d77d98041c8952be4b9929a922022e11f28b5ed53b7b0cabce15d"
+    }
+  ],
+  "archiveEtag": "\"0x8DF42661A093628\""
+}

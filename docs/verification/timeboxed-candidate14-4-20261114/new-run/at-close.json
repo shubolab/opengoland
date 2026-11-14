@@ -1,0 +1,34 @@
+{
+  "observedAtUtc": "2026-11-14T16:37:18.923069+00:00",
+  "run": 43612505270,
+  "headSha": "c15e102a77fd422cd58536041e851f33d2a08000",
+  "status": "in_progress",
+  "conclusion": null,
+  "publishRequested": false,
+  "jobs": [
+    {
+      "id": 132500883453,
+      "name": "version",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T15:54:21Z",
+      "completed_at": "2026-11-14T15:54:23Z"
+    },
+    {
+      "id": 132500903635,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T15:54:26Z",
+      "completed_at": "2026-11-14T16:29:01Z"
+    },
+    {
+      "id": 132500903653,
+      "name": "macos",
+      "status": "in_progress",
+      "conclusion": null,
+      "started_at": "2026-11-14T15:54:26Z",
+      "completed_at": null
+    }
+  ]
+}

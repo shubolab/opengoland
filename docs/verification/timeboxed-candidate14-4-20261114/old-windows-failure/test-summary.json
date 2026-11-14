@@ -1,0 +1,22 @@
+{
+  "artifactId": 14120940090,
+  "xmlCount": 180,
+  "totals": {
+    "tests": 1029,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "failed": [
+    {
+      "class": "com.redhat.devtools.lsp4ij.GoInitialMissingGoplsWireTest",
+      "name": "testInitialMissingAtomicGreetingThroughProductionOwnedReconcile"
+    }
+  ],
+  "wireXmlSha256": "87dccdaed28db809ee82ebf4c2e4247cce8e7f6f507f46ce788b592c08eab268",
+  "onlyFailure": {
+    "message": "java.lang.IllegalArgumentException: Required value was null.",
+    "type": "java.lang.IllegalArgumentException"
+  },
+  "scope": "original selected ZIP members CRC/size/SHA verified; no installer built"
+}

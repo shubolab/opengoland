@@ -1,0 +1,20 @@
+{
+  "id": 14120940090,
+  "node_id": "MDg6QXJ0aWZhY3QxNDEyMDk0MDA5MA==",
+  "name": "windows-x64",
+  "size_in_bytes": 1015588,
+  "url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14120940090",
+  "archive_download_url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14120940090/zip",
+  "expired": false,
+  "digest": "sha256:d8b4c0c6e0ab86dfddca1159532f8a019061dc02849736d6276f0c572864b49e",
+  "created_at": "2026-11-14T15:44:00Z",
+  "updated_at": "2026-11-14T15:44:00Z",
+  "expires_at": "2026-11-28T15:43:59Z",
+  "workflow_run": {
+    "id": 43610212164,
+    "repository_id": 1450286669,
+    "head_repository_id": 1450286669,
+    "head_branch": "main",
+    "head_sha": "7b98f1672fc8097d4493ea1481db21ca8a12cdde"
+  }
+}

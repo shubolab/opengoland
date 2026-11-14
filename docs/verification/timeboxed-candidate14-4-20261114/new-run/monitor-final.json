@@ -1,0 +1,71 @@
+{
+  "observedAtUtc": "2026-11-14T16:33:32.553442+00:00",
+  "run": 43612505270,
+  "status": "in_progress",
+  "conclusion": null,
+  "headSha": "c15e102a77fd422cd58536041e851f33d2a08000",
+  "jobs": [
+    {
+      "id": 132500883453,
+      "name": "version",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T15:54:21Z",
+      "completed_at": "2026-11-14T15:54:23Z"
+    },
+    {
+      "id": 132500903635,
+      "name": "windows",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T15:54:26Z",
+      "completed_at": "2026-11-14T16:29:01Z"
+    },
+    {
+      "id": 132500903653,
+      "name": "macos",
+      "status": "in_progress",
+      "conclusion": null,
+      "started_at": "2026-11-14T15:54:26Z",
+      "completed_at": null
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 14121693726,
+      "name": "windows-x64",
+      "size_in_bytes": 879889866,
+      "digest": "sha256:71c5f28aae8f01940f5d40d353688d0f8a38734968f2579df6cf764ae1d95440",
+      "expired": false
+    }
+  ],
+  "deadlineUtc": "2026-11-14T16:35:00+00:00",
+  "downloadedInstallers": false,
+  "mutatedRemote": false,
+  "kind": "monitor-deadline",
+  "monitorStoppedAtUtc": "2026-11-14T16:34:15.013938+00:00",
+  "noNewFetchAtDeadline": true,
+  "retainedMetadata": {
+    "run.json": {
+      "bytes": 12066,
+      "sha256": "84b67f414f147f383faee304f2c8ac0132e2b75fe40676c92a034d1918e550c9"
+    },
+    "jobs.json": {
+      "bytes": 6974,
+      "sha256": "79939294803facba5fbf2b9fd6a0e1b70dbdccf79ca877465fe7e25c064a908a"
+    },
+    "artifacts.json": {
+      "bytes": 712,
+      "sha256": "03fa0098bdc0cded0abfbfa2fe699272193707bdd44a8bab2df5e265b4b524f1"
+    },
+    "status.json": {
+      "bytes": 1159,
+      "sha256": "841077f7b4f38e4ced94bdc0c62a28894a6ad0f8d720b5f008e5a08f24204994"
+    },
+    "events.jsonl": {
+      "bytes": 1432,
+      "sha256": "5c7bd10c42275272cc375f60c367022b7be4be823a184d6a24f18c54d9aae668"
+    }
+  },
+  "retrievalSummary": "Windows selected provenance audited; macOS pending with no artifact at last metadata observation; no EXE/DMG or whole-artifact byte verification"
+}

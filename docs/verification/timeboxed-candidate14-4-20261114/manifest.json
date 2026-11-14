@@ -1,0 +1,91 @@
+{
+  "scope": "Selected original CI proof members and API metadata; analyst-created tar files are not producer publication tar files. Installer EXE/DMG and whole artifact bytes were not downloaded or independently verified. Windows system/index caches excluded. No publication.",
+  "files": [
+    {
+      "path": "new-run/monitor-final.json",
+      "bytes": 2139,
+      "sha256": "1728d95be92cde8186c5fa45f6f7a4884f26fad2c7e8f10a0590245c65e6ed4d"
+    },
+    {
+      "path": "new-run/run.json",
+      "bytes": 12066,
+      "sha256": "84b67f414f147f383faee304f2c8ac0132e2b75fe40676c92a034d1918e550c9"
+    },
+    {
+      "path": "new-run/jobs.json",
+      "bytes": 6974,
+      "sha256": "79939294803facba5fbf2b9fd6a0e1b70dbdccf79ca877465fe7e25c064a908a"
+    },
+    {
+      "path": "new-run/artifacts.json",
+      "bytes": 712,
+      "sha256": "03fa0098bdc0cded0abfbfa2fe699272193707bdd44a8bab2df5e265b4b524f1"
+    },
+    {
+      "path": "new-windows/verification-summary.json",
+      "bytes": 3177,
+      "sha256": "36d6004090b91f006ae1549fa56c86d1238b2864d24a09384e302b4e2b1a7753"
+    },
+    {
+      "path": "new-windows/test-and-race-summary.json",
+      "bytes": 1203,
+      "sha256": "2b7dbb867d287ef326fadab6ab163252ba61f51776567047072154ba6ded7ff6"
+    },
+    {
+      "path": "new-windows/artifact-metadata.json",
+      "bytes": 763,
+      "sha256": "318a5f5cc8693c9fab303cea090a3e649130b702e7c8894a50650287e3f536fd"
+    },
+    {
+      "path": "new-windows/retrieval.json",
+      "bytes": 203345,
+      "sha256": "2150f1b2bd384bba25f8826c6a6db50f6ae1a3948d3d8917aedb3c3a38f535bf"
+    },
+    {
+      "path": "new-windows/zip-member-inventory.json",
+      "bytes": 264920,
+      "sha256": "c44c061779aebbdf064b1fc25d678fedf14de7bf19ba7cc32ee8d64ebbe100ad"
+    },
+    {
+      "path": "new-windows/windows-provenance-selected-members.analyst-created.tar.gz",
+      "bytes": 4182340,
+      "sha256": "1d146045afd454841fbb26d667d36537e4fec97723ed0fd8a7b07b39f1941f24"
+    },
+    {
+      "path": "old-windows-failure/artifact-metadata.json",
+      "bytes": 761,
+      "sha256": "eac145f155bffcdd578c9ca69cf43d2f4cf9ff6ee54e6e01f942d0e7b2a64500"
+    },
+    {
+      "path": "old-windows-failure/windows-provenance-selected-members.analyst-created.tar.gz",
+      "bytes": 945116,
+      "sha256": "c7f029538fcf324980312ff158399502880e60a23ce06af1fb44e2f94b9a15bd"
+    },
+    {
+      "path": "old-windows-failure/test-summary.json",
+      "bytes": 653,
+      "sha256": "76cbead084aca6264cd1139cd6850b46a2aa5455a95033077d69f01de6d3d04d"
+    },
+    {
+      "path": "old-windows-failure/retrieval.json",
+      "bytes": 64202,
+      "sha256": "9b9c62d9072f64dc0041ce168e785676a6dee181dfd73c64de5398dcde24bb3e"
+    },
+    {
+      "path": "new-run/run-at-close.json",
+      "bytes": 12066,
+      "sha256": "84b67f414f147f383faee304f2c8ac0132e2b75fe40676c92a034d1918e550c9"
+    },
+    {
+      "path": "new-run/jobs-at-close.json",
+      "bytes": 6974,
+      "sha256": "79939294803facba5fbf2b9fd6a0e1b70dbdccf79ca877465fe7e25c064a908a"
+    },
+    {
+      "path": "new-run/at-close.json",
+      "bytes": 847,
+      "sha256": "fc4738a8a08afdae20c22b0aa0f6b47b19e74914150c846c052950a6178249a0"
+    }
+  ],
+  "sealedAtUtc": "2026-11-14T16:39:01.254185+00:00"
+}
