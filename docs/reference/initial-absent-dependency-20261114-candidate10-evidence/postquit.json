@@ -1,0 +1,44 @@
+{
+  "atUtc": "2026-11-14T09:55:16.723309+00:00",
+  "normalQuitViaUI": true,
+  "sampledOwnedPidsAbsent": [
+    69073,
+    69095,
+    69270,
+    69271
+  ],
+  "sourceCommit": "7e4679b9cf6faf281a7b223ad3809d41e770e643",
+  "version": "0.1.0-preview.20261114.4",
+  "keyPayloadUnchanged": {
+    "Resources/openidea-product.json": "2c32306ef8ffba09c01e90862545d33e2bb8f349f6fd693f891128cae828a58a",
+    "MacOS/idea": "a1ed1da954cc70dc4e9695295aa3ac99064510cfcb7e67b33089f58b2296adfd",
+    "plugins/opengoland/bin/opengoland-engine": "5f06acb94cd2023366eb20b228e688ef7581b6c56242706327dc234afd14a7ab",
+    "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.4.jar": "ed7418db7b4334dd4a3db6e9c59e6cbef58cc89a582e5455d7e817219d8ade32"
+  },
+  "protectedC9KeyPayloadUnchanged": true,
+  "callerUnchanged": {
+    "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+    "main.go": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+    "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+  },
+  "rootIdentity": {
+    "device": 16777233,
+    "inode": 91377860
+  },
+  "logSha256": "6eed9a0679aaba6c85cb1c1ce383368be689d50cb33bcdf6d77779cf15428ee9",
+  "logBytes": 85078,
+  "loggedErrorSevereLines": 0,
+  "codesignExitCode": 0,
+  "nativeRunOrTestPerformed": false,
+  "atomicCreationDiagnosticStage": "failed; old BrokenImport persisted",
+  "laterMessageEditDiagnosticStage": "cleared; screenshot recorded",
+  "slowOrSteadyNativePerformed": false,
+  "releasePublished": false,
+  "freeBytes": 40606416896,
+  "postquitOwnedExecutablePrefixScan": {
+    "atUtc": "2026-11-14T09:59:35.748635+00:00",
+    "prefix": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents",
+    "matches": [],
+    "scope": "visible current processes with an executable under the owned C10 App"
+  }
+}

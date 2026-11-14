@@ -1,0 +1,56 @@
+{
+  "atUtc": "2026-11-14T09:33:01.551088+00:00",
+  "flow": "atomic",
+  "phase": "missing",
+  "cliOnly": true,
+  "nativeRunOrTest": false,
+  "environment": {
+    "HOME": "/Users/wangshubo",
+    "LANG": "C.UTF-8",
+    "LC_ALL": "C.UTF-8",
+    "LOGNAME": "wangshubo",
+    "USER": "wangshubo",
+    "PATH": "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go/bin:/usr/bin:/bin",
+    "GOROOT": "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go",
+    "GOENV": "off",
+    "GOTOOLCHAIN": "local",
+    "GOFLAGS": "",
+    "GOWORK": "off",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "CGO_ENABLED": "0",
+    "GOCACHE": "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/build-cache",
+    "GOMODCACHE": "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/modules",
+    "GOPATH": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-c10-plan/native-c10-fixtures/cli-only-gopath",
+    "TMPDIR": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-c10-plan/native-c10-fixtures/cli-only-tmp"
+  },
+  "results": [
+    {
+      "command": [
+        "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go/bin/go",
+        "run",
+        "-mod=readonly",
+        "."
+      ],
+      "cwd": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-c10-plan/native-c10-fixtures/cli-controls/atomic/missing-093301503981/app",
+      "exitCode": 1,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "9282929cc9e07fb634648b5f622f08da048c0a4fb68be5d43cef15b50ecac110"
+    },
+    {
+      "command": [
+        "/Users/wangshubo/develop/openidea-go/.tools/release-tools/darwin-arm64/go/bin/go",
+        "test",
+        "-mod=readonly",
+        "-count=1",
+        "."
+      ],
+      "cwd": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-c10-plan/native-c10-fixtures/cli-controls/atomic/missing-093301503981/app",
+      "exitCode": 1,
+      "stdoutSha256": "82615e08da34050e51aba6c18cb6b3ab0493b2661029977847baa96bf21e40ec",
+      "stderrSha256": "2aa93ffc9c2f67d2e93ea9660705cd27046282a2a6298d43cdc7090e4e0db669"
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+main.go:5:2: example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist

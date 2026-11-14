@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-14T10:35:44.071977+00:00",
+  "status": "EXACT_ORIGINAL_C10_SYSTEM_REMOVED",
+  "retiredPath": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-candidate10/atomic/profile/system",
+  "sourceCommit": "7e4679b9cf6faf281a7b223ad3809d41e770e643",
+  "localCandidateVersion": "0.1.0-preview.20261114.4",
+  "scope": "One ended C10 atomic profile/system cache; no App, installer, SDK, source, profile config/log, fixture or shared test-system removal.",
+  "preservedOriginalBytes": 593991,
+  "preservedEntries": 132,
+  "xmlEntries": 1,
+  "regularFilesHashVerifiedBeforeRemoval": 944,
+  "metadataEntriesVerifiedBeforeRemoval": 1201,
+  "removedRegularFiles": 944,
+  "removedDirectories": 257,
+  "freeBytesBefore": 40082423808,
+  "freeBytesAfter": 40384040960,
+  "actualFreeDeltaBytes": 301617152,
+  "measurementScope": "Observed APFS free-space delta over the operation window; concurrent build writes may contribute. Not a sum of logical file sizes.",
+  "lastPredeleteQuiescence": {
+    "atUtc": "2026-11-14T10:30:08.758249+00:00",
+    "visibleProcessTableExitCode": 0,
+    "visibleFdExitCode": 0,
+    "visibleFdWarnings": "",
+    "matchingReferences": [],
+    "sampledOwnedPidsStillPresent": [],
+    "signalsSent": false,
+    "scope": "User-visible process/FD inventory only; no claim about invisible kernel/other-user references."
+  },
+  "afterQuiescence": {
+    "atUtc": "2026-11-14T10:30:09.572893+00:00",
+    "visibleProcessTableExitCode": 0,
+    "visibleFdExitCode": 0,
+    "visibleFdWarnings": "",
+    "matchingReferences": [],
+    "sampledOwnedPidsStillPresent": [],
+    "signalsSent": false,
+    "scope": "User-visible process/FD inventory only; no claim about invisible kernel/other-user references."
+  },
+  "protectedC9AndC10CriticalPayloadsUnchanged": true,
+  "protected14_3ActualAssetIdentitiesUnchanged": true,
+  "installerHashesNewlyComputed": false,
+  "signalsSent": false,
+  "originalTargetAbsent": true,
+  "preservationAndExecutionFiles": [
+    {
+      "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/plan.json",
+      "bytes": 13260,
+      "sha256": "660a17a0f614537fc3f776f62643a2a70b7b3968242788b232c62bfc99079694"
+    },
+    {
+      "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/receipt.json",
+      "bytes": 3324,
+      "sha256": "3ebf9c34c3e60f9fc0bc6977fe8cc50fc5c77483b9fed7fa4ae1b308f204bbe9"
+    },
+    {
+      "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/pinned-readback-audit.json",
+      "bytes": 2309,
+      "sha256": "b22d04890b2f2a1ad11f1b80ef56710006840e4ef391e61f5ba3db6051919c4f"
+    },
+    {
+      "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/execute-candidate10-system.py",
+      "bytes": 26988,
+      "sha256": "7f5c4ec2bbf7ab30ac4a82b6416e4aa0dab960f9164ad11d8fd4db9eef353f29"
+    },
+    {
+      "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/execution-check-root-20261114.json",
+      "bytes": 2136,
+      "sha256": "0c35f05158d65bee754e21829feb4ce1aafadc5ae1880c6007a553e59b5a5313"
+    },
+    {
+      "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/execution-apply-root-20261114.json",
+      "bytes": 14866,
+      "sha256": "3e52c5d726e8bff316b2c585a90084350644c1ca98225f3b51e3ad84b16e5ca3"
+    },
+    {
+      "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/preserved-original-bytes.tar.gz",
+      "bytes": 233917,
+      "sha256": "5dc17d7d2440f3359196df5b1b58b099cdd924420e1cdffc49ee21805df8c35b"
+    }
+  ],
+  "rawDeletionJournal": {
+    "path": ".tools/continuation-20261114/initial-missing-repair/candidate10-system-retirement/execution-apply-root-20261114.deleted.jsonl",
+    "sha256": "cef48f0b7acec8f0441ba096439504288c68cd372b5ce72ef7a128785d5c5977"
+  },
+  "retained": "C9 latest verified App; C10 temporary comparison App; actual 14.3 five assets; all config/log and source fixtures.",
+  "evidenceLocationScope": "Full plan, original-byte archive, inode/full hash inventory and per-entry intent/completed journal remain in the same machine ignored evidence directory."
+}

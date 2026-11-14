@@ -1,0 +1,38 @@
+{
+  "atUtc": "2026-11-14T09:38:29.936890+00:00",
+  "sourceCommit": "7e4679b9cf6faf281a7b223ad3809d41e770e643",
+  "version": "0.1.0-preview.20261114.4",
+  "app": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app",
+  "project": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-c10-plan/native-c10-fixtures/atomic/app",
+  "profile": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-candidate10/atomic/profile",
+  "scopedEnvironment": {
+    "IDEA_PROPERTIES": "/Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-candidate10/atomic/profile/idea.properties",
+    "IDEA_VM_OPTIONS": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/bin/opengoland.vmoptions",
+    "PATH": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/plugins/opengoland/tools/go/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+    "GOROOT": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/plugins/opengoland/tools/go",
+    "GOCACHE": "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/build-cache",
+    "GOMODCACHE": "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/modules",
+    "GOTOOLCHAIN": "local",
+    "GOENV": "off",
+    "GOFLAGS": "",
+    "GOPROXY": "off",
+    "GOSUMDB": "off",
+    "GOPRIVATE": "",
+    "GONOPROXY": "",
+    "GONOSUMDB": "",
+    "GOVCS": "*:off",
+    "GOTELEMETRY": "off",
+    "CGO_ENABLED": "0"
+  },
+  "GOWORKAbsentRequested": true,
+  "defaultBundledGopls": true,
+  "initialRootMissing": true,
+  "callerSha256": {
+    "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+    "main.go": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+    "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+  },
+  "launchExitCode": 0,
+  "launchStderr": "",
+  "launchStdout": ""
+}

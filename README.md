@@ -101,6 +101,10 @@ Standalone desktop acceptance and new installers are still pending; see the
 [repair evidence](docs/reference/initial-absent-dependency-repair-20261114.zh-CN.md).
 The public 14.3 download retains the known issue above.
 
+The subsequent [C10 desktop check](docs/reference/initial-absent-dependency-20261114-candidate10.zh-CN.md)
+still failed the initial directory-creation stage; a later external source edit
+cleared diagnostics. This local 14.4 candidate remains unaccepted and unpublished.
+
 | Platform | Direct installer download |
 | --- | --- |
 | Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe) |

@@ -218,3 +218,23 @@ C9 已存在根成功流程与首次缺根失败流程均已正常退出。最�
 定向67项通过；完整 **1028项／179份原始XML，0失败、错误或跳过**，原C9的981项测试身份全部保留，新增47项。`test buildPlugin verifyPluginStructure`通过，596构建输入在运行前后不变，摘要 `95c406da…1a6ce`。无缓存Go race349项测试通过、0项测试跳过，12包通过、cmd包无测试；vet通过。完整说明、九组对照、原始XML/日志/源码清单和摘要在[源码修复记录](../../reference/initial-absent-dependency-repair-20261114.zh-CN.md)。
 
 **本轮尚未构建或启动新的独立App，没有新的Windows运行结论，也没有新安装包或tag。** 公开下载仍是14.3，C9 App和实际14.3五资产保持保留；完整36×2状态不变、goal继续active。下次先从本次提交的干净源码构建新候选，复验首次缺根→原子补齐、空目录→mod→深层源码、稳态新增深层目录，再做原生诊断/Test/Run与进程/退出核对；通过后再走新版本双安装器与公开五资产审计，不能移动14.3 tag或替换旧公开资产。
+
+## C10 已构建并完成首次缺根原生对照，仍有未修好的阶段
+
+随后从干净提交 `7e4679b` 构建了本机C10（版本字符串14.4），独立路径 `build/product-candidate10/open Goland.app`；未创建tag或Release。强制重建引擎并核验当前提交/modified=false，实际打包1028项/179报告全绿、签名及596输入的Git原blob核对通过。manifest为`2c32306e…8a58a`；旧C9四个关键载荷保持不变。
+
+默认内置gopls的实际App已复验：初始缺根报BrokenImport；09:43:26原子创建只定义Greeting的完整依赖后，CLI已改报undefined Message，随后封存的原生界面仍停旧错误；09:47:52仅改外部Message后，原生自动清错。调用方三个SHA、依赖根inode、App与两个gopls身份均保持。故首次补齐阶段仍FAIL，后续文件变更有恢复；不能称首次缺根已修好。正常Quit后App/fsnotifier/两gopls均不存在，关键载荷不变、codesign通过、日志0ERROR/SEVERE。原生Test/Run及slow/steady流程本轮未执行，见[C10原生记录与原始证据](../../reference/initial-absent-dependency-20261114-candidate10.zh-CN.md)。
+
+下次先补真实gopls wire RED：生产当前只发根目录Changed；官方0.24源码的目录展开只涉及已经认识的文件，可能不足以认识完全冷的新依赖。先以精确文件通知作正控证实或反证，再修改；目前只有源码推断与相符观测，没有已证唯一根因。同时仍需真实started→openFiles/capture→loader→pending自动链测试。独立CLI的12条同lane控制未发现GOWORK缺省/off、路径空格/中文或selected-module输出差异能解释本次FAIL。
+
+新候选C10暂留作比较；14.3仍是最新公版，C9与实际14.3五资产保留。下一次不得把C10清错截图称成整个流程通过，也不得提前发布14.4；完成修复后重新构建并验收atomic/slow/steady及原生Test/Run，再走双平台产物。36条要求的参考与重建两列仍各36条unverified，goal保持active。
+
+C10正常退出后，其唯一已结束的atomic `profile/system`已按新计划、原字节保全及两轮新鲜引用/身份核对删除；944个文件、257个目录。操作窗口空闲增加301,617,152字节，结束时约37.6GiB；config/log、fixtures、C9/C10 App、实际14.3资产及将继续使用的 `build/.../system-test`均保留，见[本次缓存退役](../../verification/generated-system-retired-after-candidate10-20261114.json)。不要重跑本次旧执行器针对后来再建的同名目录。
+
+## C10 后续：补充 gopls 通知合同，完整回归未能收尾
+
+直接对照 C10 内置 gopls 0.24 的 stdio 控制发现：全冷依赖根只发根目录 `Changed` 后，BrokenImport 仍保留；对已存在的 `go.mod` 单独发精确文件 `Changed` 后，约1.15秒得到预期 `undefined: dep.Message`；对外部 `dep.go` 单独通知也能得到同一诊断。该实验是 gopls 协议层控制，不单独证明 IDE 自动链。基于此，生产恢复贡献现会在原根目录通知旁，对确实存在的 `go.mod` 发送精确 `Changed`；不扫描目录、不更改 workspace folders，并保留原服务器身份与 FIFO 守卫。
+
+新增真实 LSP4IJ 客户端/服务端线级回归，使用本机选定 C10 gopls：复现 BrokenImport，走生产根注册/重协商后收到 undefined，再用同一通知 FIFO 验证 go.mod 之外的源文件更新可清错和 hover。定向 **45项通过，0失败/错误/跳过**；原始结果在 `.tools/continuation-20261114/initial-missing-repair/actual-client-gopls-wire-green/result.json`。较早三份 RED 中两份是测试夹具/协议解析错误，一份受 headless 进度 UI/未配置源事件限制；不把它们冒充产品失败证据。
+
+随后启动 `test --tests '*' buildPlugin verifyPluginStructure` 全量回归，但执行进程已退出且没有最终结果/XML归档，因此全量结果记为**未完成/未验证**，不能引用之前的1028全绿代替新代码的结果。源码改动也尚无新的独立 App 原生验收：C10首次原子补全的 Greeting 阶段仍失败，只有后续外部 `.go` 文件更新才清错。没有新构建、tag、Release或安装器；最新公开版本仍为14.3。本轮提交只承载可复现的线级修正、定向测试及如实记录，不宣称插件兼容问题已最终解决。继续目标时应从干净状态先重跑全量回归，再构建隔离候选并原生复验首次缺根全流程、慢速/稳态与 Run/Test；36×2矩阵仍未完成。

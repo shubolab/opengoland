@@ -51,6 +51,8 @@
 
 主分支已加入首次缺失依赖及分批创建深层目录的修复，1028项完整回归通过；新的独立客户端验收和安装包尚未完成，见[修复进度与证据](docs/reference/initial-absent-dependency-repair-20261114.zh-CN.md)。上述公开版的已知问题仍适用于14.3下载包。
 
+后续[C10独立客户端对照](docs/reference/initial-absent-dependency-20261114-candidate10.zh-CN.md)发现：首次补齐目录仍保留旧错误，随后修改外部源码才自动清错。这个本机14.4候选尚未通过验收，也没有发布；修复仍在继续。
+
 IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitHub、私有仓库和项目依赖所需的认证仍然保留，使用这些服务时需要它们各自的凭据。
 
 当前 Windows 安装器未使用发行者证书签名；macOS 应用采用临时签名，尚未公证。系统可能要求你确认是否打开。具体要求见[安装说明](docs/installation.md)。当前发布的安装器覆盖 Windows x64 和 macOS arm64；没有在这里承诺 Linux 或 Intel Mac 安装包。

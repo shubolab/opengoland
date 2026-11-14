@@ -1,0 +1,6 @@
+{
+  "GOWORKAbsentObserved": true,
+  "propertiesObserved": true,
+  "runtimePathPresentInProcessSnapshot": true,
+  "scope": "GOWORK absence was checked by the environment-key marker; properties/runtime checks only show expected path text present in the owned process snapshot, not a full environment reconstruction."
+}

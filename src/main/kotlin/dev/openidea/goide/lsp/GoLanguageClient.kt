@@ -1,5 +1,6 @@
 package dev.openidea.goide.lsp
 
+import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.Disposer
 import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
@@ -22,6 +23,8 @@ import org.eclipse.lsp4j.DidChangeWatchedFilesParams
 import org.eclipse.lsp4j.FileEvent
 import org.eclipse.lsp4j.FileChangeType
 import org.eclipse.lsp4j.services.LanguageServer
+import java.nio.file.Files
+import java.nio.file.LinkOption
 import java.nio.file.Path
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.atomic.AtomicBoolean
@@ -91,6 +94,18 @@ class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
             val server = expectedServer ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language server stopped"))
             val wrapper = expectedWrapper ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language client is detached"))
             check(ownerWrapper === wrapper && activeServer === server && languageServer === server && wrapper.serverStatus == ServerStatus.started && wrapper.languageServer === server)
+            check(!ApplicationManager.getApplication().isDispatchThread) { "Go dependency reconciliation disk checks must run in background" }
+            val changes = buildList {
+                for (root in roots) {
+                    add(FileEvent(GoDocumentSync.fileUri(root), FileChangeType.Changed))
+                    // A cold replacement has no known files for gopls to
+                    // expand from a directory event. Seed its existing manifest
+                    // without scanning the tree or changing workspace folders.
+                    val module = root.resolve("go.mod")
+                    if (Files.exists(module, LinkOption.NOFOLLOW_LINKS))
+                        add(FileEvent(GoDocumentSync.fileUri(module), FileChangeType.Changed))
+                }
+            }.distinctBy { it.uri }
             wrapper.sendNotification { dispatched ->
                 // Ordinary VFS events use this same dispatcher. Validate again
                 // after its queue wait, without adopting a replacement proxy.
@@ -101,9 +116,7 @@ class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
                 // to this one validated FIFO consumer.
                 project.getService(AbstractLSPDocumentFeatureSupport.NavigationModificationTracker::class.java).incrementWatchedDependency()
                 wrapper.incrementModificationCount()
-                dispatched.workspaceService.didChangeWatchedFiles(DidChangeWatchedFilesParams(roots.map {
-                    FileEvent(GoDocumentSync.fileUri(it), FileChangeType.Changed)
-                }))
+                dispatched.workspaceService.didChangeWatchedFiles(DidChangeWatchedFilesParams(changes))
                 dispatched
             }.thenApply { null }
         }

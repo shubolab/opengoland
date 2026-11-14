@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-14T10:01:18.517225+00:00",
+  "sourceCommit": "7e4679b9cf6faf281a7b223ad3809d41e770e643",
+  "version": "0.1.0-preview.20261114.4",
+  "releaseState": "local candidate only; no tag, installers or public Release",
+  "manifestSha256": "2c32306ef8ffba09c01e90862545d33e2bb8f349f6fd693f891128cae828a58a",
+  "build": {
+    "tests": 1028,
+    "reports": 179,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "inputCount": 596,
+    "inputDigest": "95c406dab85365e4d2935957ac87f5f1704f4e463266821f2eb2d7a47411a6ce",
+    "sourceAndActualGitBlobsMatched": true,
+    "freshEngineVcsRevision": "7e4679b9cf6faf281a7b223ad3809d41e770e643",
+    "freshEngineVcsModified": false
+  },
+  "nativeFlow": "atomic initial absence; default bundled gopls; no caller edits, reload, external file opens or server restarts",
+  "observations": [
+    {
+      "stage": "missing",
+      "native": "could not import example.invalid/accept/dep (no required module provides package \"example.invalid/accept/dep\")",
+      "evidenceId": "ev_35156cceb747d631c763655e413bc8d62c672e3478419545d2c64cc78cff9f09",
+      "image": "baseline.png"
+    },
+    {
+      "stage": "created-greeting",
+      "expected": "undefined dep.Message",
+      "native": "old BrokenImport persisted in sealed screenshot",
+      "result": "failed",
+      "evidenceId": "ev_2402bf3a180d8ac243c7cc06654ec3602bff942b84858a37346d5a4065fb42e0",
+      "image": "created-greeting.png",
+      "observationScope": "Discrete observations during the approximately 4m26s Greeting phase, not a continuous screen recording or measured response-time trace."
+    },
+    {
+      "stage": "restored-message",
+      "native": "No problems in main.go; green editor check",
+      "result": "cleared after only external source edit",
+      "evidenceId": "ev_1417b9a16413fcee9f73aee8510cb4f94c7084ea912b07e7ede8743c06f5f73b",
+      "image": "restored-message.png"
+    }
+  ],
+  "overallAtomicRecovery": "incomplete; creation stage did not reach expected diagnostic, so not accepted",
+  "cliControls": {
+    "missing": {
+      "cliOnly": true,
+      "receipt": "cli-controls/missing/receipt.json",
+      "sourceSnapshot": "no dependency directory"
+    },
+    "greeting": {
+      "cliOnly": true,
+      "receipt": "cli-controls/greeting/receipt.json",
+      "sourceSnapshot": "fixture/cli-greeting-dep"
+    },
+    "message": {
+      "cliOnly": true,
+      "receipt": "cli-controls/message/receipt.json",
+      "sourceSnapshot": "fixture/cli-message-dep"
+    }
+  },
+  "nativeRunOrTestPerformed": false,
+  "slowOrSteadyNativePerformed": false,
+  "ownership": "Same recorded App and two gopls process identities throughout; all four sampled owned processes absent after normal UI quit; postquit executable-prefix scan empty.",
+  "inference": "A directory-only reconciliation notification may not seed files previously unknown to gopls; primary-source review supports testing this hypothesis. No wire-level causal proof yet.",
+  "remaining": "Actual gopls wire RED/positive control and complete automatic started/capture chain; then new candidate native atomic/slow/steady, Test/Run, dual-platform installers and full matrix.",
+  "protected": "C9 critical payload unchanged; latest public version remains 14.3. C10 App retained temporarily for comparison.",
+  "evidenceLimits": "Raw original PNG bytes and metadata are retained. Source snapshots under fixture/cli-*-dep are actual CLI clone bytes, not falsely labeled direct snapshots of the live native path. Full 4.9MB App manifest remains in the retained local candidate; this compact public evidence is not an installer or a full payload archive."
+}

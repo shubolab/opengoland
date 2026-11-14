@@ -1,0 +1,16 @@
+{
+  "status": "pass",
+  "scope": "read-only source and key payload provenance; not a runtime, codesign, installer or full payload audit",
+  "app": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app",
+  "sourceCommit": "7e4679b9cf6faf281a7b223ad3809d41e770e643",
+  "version": "0.1.0-preview.20261114.4",
+  "inputCount": 596,
+  "inputDigest": "95c406dab85365e4d2935957ac87f5f1704f4e463266821f2eb2d7a47411a6ce",
+  "manifestSha256": "2c32306ef8ffba09c01e90862545d33e2bb8f349f6fd693f891128cae828a58a",
+  "engineSha256": "5f06acb94cd2023366eb20b228e688ef7581b6c56242706327dc234afd14a7ab",
+  "plugin": {
+    "path": "plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.4.jar",
+    "sha256": "ed7418db7b4334dd4a3db6e9c59e6cbef58cc89a582e5455d7e817219d8ade32"
+  },
+  "protectedC9ManifestUnchanged": true
+}

@@ -1,0 +1,74 @@
+{
+  "evidence_id": "ev_2402bf3a180d8ac243c7cc06654ec3602bff942b84858a37346d5a4065fb42e0",
+  "subject": {
+    "name": "idea",
+    "digest": {
+      "sha256": "a1ed1da954cc70dc4e9695295aa3ac99064510cfcb7e67b33089f58b2296adfd"
+    },
+    "local_path": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/MacOS/idea",
+    "format": "mach-o",
+    "architecture": "arm64"
+  },
+  "provider": {
+    "id": "native-macos",
+    "name": "macOS native inspection utilities",
+    "version": null
+  },
+  "analysis_profile": null,
+  "predicate_type": "rea.analysis",
+  "operation": "observe_native_ui",
+  "parameters": {
+    "pid": 69073,
+    "window_id": 12985,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 30
+  },
+  "raw_result": null,
+  "normalized_result": {
+    "target_sha256": "a1ed1da954cc70dc4e9695295aa3ac99064510cfcb7e67b33089f58b2296adfd",
+    "initial": {
+      "window": {
+        "pid": 69073,
+        "window_id": 12985,
+        "executable": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/MacOS/idea",
+        "launch_time": 1794649110.019278,
+        "title": "app – main.go"
+      },
+      "nodes": [],
+      "truncated": false,
+      "screenshot": {
+        "mime_type": "image/png",
+        "base64": "[stored in created-greeting.png; original bytes and SHA preserved]",
+        "sha256": "1d60f2130bc2587523acea8c33d94b9ccc4f5aba17fbe9b1e4124f7b0977d49f",
+        "width": 1400,
+        "height": 1000
+      },
+      "gaps": [
+        "Accessibility capture was disabled"
+      ]
+    },
+    "steps": [],
+    "restore": "leave-as-is",
+    "limitations": [
+      "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+      "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+      "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+      "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+      "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+    ]
+  },
+  "confidence": "observed",
+  "authority": "shipped-artifact",
+  "environment": null,
+  "limitations": [
+    "Only the explicitly selected already-running process/window is admitted. REA starts no target process and does not change permissions, foreground applications, or restore application data.",
+    "Click uses AXPress; scroll uses AXIncrement/AXDecrement; key-entry sets the selected element's AXValue. Unsupported elements fail without global event fallback.",
+    "Each completed action is followed immediately by capture; delayed UI changes require explicit wait steps. A failed after-capture can follow a completed action, so failure does not prove absence of application effects.",
+    "Scenarios can change app data, cause app network activity and persist changes. The caller explicitly chooses leave-as-is; automatic restoration is unsupported.",
+    "Window matching uses exact PID and window ID for screenshots and unique accessibility geometry. Accessibility paths can change as the UI changes; stale or ambiguous paths fail. Screenshots are scaled to at most 2048 pixels; scenario output is budgeted at 64 MiB and execution is cancelled after 180 seconds."
+  ],
+  "relationship_coverage": null,
+  "locations": [],
+  "evidence_links": []
+}

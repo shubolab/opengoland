@@ -1,0 +1,20 @@
+{
+  "endedAtUtc": "2026-11-14T09:37:06.482983+00:00",
+  "packageExitCode": 0,
+  "sourceStableDuringBuild": true,
+  "sourceCommit": "7e4679b9cf6faf281a7b223ad3809d41e770e643",
+  "version": "0.1.0-preview.20261114.4",
+  "rebuiltEngineSha256": "5f06acb94cd2023366eb20b228e688ef7581b6c56242706327dc234afd14a7ab",
+  "manifestSha256": "2c32306ef8ffba09c01e90862545d33e2bb8f349f6fd693f891128cae828a58a",
+  "testReportCount": 179,
+  "testTotals": {
+    "tests": 1028,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "launcherSha256": "a1ed1da954cc70dc4e9695295aa3ac99064510cfcb7e67b33089f58b2296adfd",
+  "codesignExitCode": 0,
+  "protectedC9Unchanged": true,
+  "packageLogSha256": "a9b449dd3b3e15c63a8f91cd2007b5c515a36aec762da1a67c7c21447f17c3db"
+}

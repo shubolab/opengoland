@@ -1,0 +1,29 @@
+{
+  "atUtc": "2026-11-14T09:41:17.819199+00:00",
+  "processes": [
+    {
+      "pid": 69073,
+      "ppid": 1,
+      "started": "Sat Nov 14 17:38:30 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/MacOS/idea /Users/wangshubo/develop/openidea-go/.tools/continuation-20261114/initial-missing-repair/native-c10-plan/native-c10-fixtures/atomic/app"
+    },
+    {
+      "pid": 69095,
+      "ppid": 69073,
+      "started": "Sat Nov 14 17:38:41 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/bin/fsnotifier"
+    },
+    {
+      "pid": 69270,
+      "ppid": 69073,
+      "started": "Sat Nov 14 17:39:38 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve"
+    },
+    {
+      "pid": 69271,
+      "ppid": 69270,
+      "started": "Sat Nov 14 17:39:38 2026",
+      "command": "/Users/wangshubo/develop/openidea-go/build/product-candidate10/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    }
+  ]
+}
