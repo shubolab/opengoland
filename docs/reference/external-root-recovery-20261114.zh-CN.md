@@ -173,3 +173,11 @@ candidate9 来自固定提交 **`643480a3d9d01c526210bdeba16df8431c1f4d75`**，�
 **这是固定源码在本机 macOS 的有限通过，尚不等于 14.3 已交付。** Windows/Mac CI、公开 EXE/DMG 另待实际证据；本机 App 不声称与未来 CI 安装器逐字节相同。首次不存在的根、稳态深层新增子树、Windows 交互及完整 PROJECT-02/72 项矩阵不由本轮关闭。原构建摘要仍保留构建时的 pending，C8 与 `.14.2` 的历史失败均原样保留。
 
 上述 [41 项定向检查](external-root-recovery-20261114-repair-controls/summary.json)覆盖稳定 URI、FIFO 排队、旧连接/所有者隔离和真实 VFS 恢复；排序与 URI 的原始红测分别保留。定向检查本身不代表 App 或安装器通过；C9 的完整打包与有限原生重放由本节独立记录，双平台交付另以发布记录为准。
+
+## C9 本机验收后的阶段 A 清理
+
+C9 正常退出、原生 Run/Test 与载荷核验完成后，已精确退役失败 C8 的 App、共用的 C8/trace `profile/system`、已结束的 `system-test`，以及实际为空的 App 父目录；这些旧路径现在已不存在。[选取并规范化的执行记录](../verification/generated-artifacts-retired-during-14.3-20261114.json)绑定原始报告、执行后封存的脚本和固定计划 SHA，并保留两次删除前全机进程/FD 零引用检查。操作窗口内实际可用空间增加 **1,326,170,112 字节（约 1.235 GiB）**，结束时为 **49,352,327,168 字节（约 45.96 GiB）**；这不是把 du 或硬链接名称大小相加的估算。
+
+删除前把两个 system 目录的 288 个原字节文本/XML 条目共 636,567 字节归档并逐项回读核对，其中 27 份 XML 共 31,243 字节；原始完整 manifest、构建/engine 信息、JUnit tar、失败截图、gopls trace 与收尾记录继续保留。C8 的原配置/完整日志及 C9 profile 均在删除目标之外，原字节归档和完整目录清单留在 `.tools/continuation-20261114/root-recreation/retirement14-3-preservation/`。这些事实可追溯，**不等于保留了完整 C8 App 备份**。
+
+当前 C9 App、最近已发布的 C5/14.2 App 和八个旧 14.2 安装器硬链接名称仍保留；后者属于阶段 B HOLD，需等实际公开 14.3 的五资产、双安装器与独立审计通过后另作精确检查。源码、用户数据、共享 SDK、参考应用及 GitHub 公开资产均未触及；本次清理不改变前文各候选的验收或发布状态。

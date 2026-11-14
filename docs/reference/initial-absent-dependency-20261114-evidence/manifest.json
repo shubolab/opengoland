@@ -1,0 +1,213 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "version": "0.1.0-preview.20261114.3",
+  "scope": "Original PNG/caller/final Message-source bytes plus explicitly selected or derived normalized records; no raw AX/profile/config/full log copied. Manifest excludes itself.",
+  "files": [
+    {
+      "path": "baseline.capture.normalized.json",
+      "bytes": 1080,
+      "sha256": "7527c7118d03f43de0279991c95e4089d3d0476fedb1bf8861e666f462bd82ad",
+      "representation": "selected-normalized-capture-metadata",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/baseline.capture.json",
+        "bytes": 3048,
+        "sha256": "05278db654b23d917a63e10802a5eece0a38701c82df5e450df4bbdec5e05dcb"
+      }
+    },
+    {
+      "path": "baseline.png",
+      "bytes": 202358,
+      "sha256": "fefeebd7f2405427a7b5d8b089846484ff9aced3a2bc4a22d7796e6db7f712ee",
+      "representation": "original-png-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/baseline.png",
+        "bytes": 202358,
+        "sha256": "fefeebd7f2405427a7b5d8b089846484ff9aced3a2bc4a22d7796e6db7f712ee"
+      }
+    },
+    {
+      "path": "created-greeting.capture.normalized.json",
+      "bytes": 1088,
+      "sha256": "501c6617d3d83600840527492d820552a17db130b6fd8d88cd43e0049993fa45",
+      "representation": "selected-normalized-capture-metadata",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/created-greeting.capture.json",
+        "bytes": 3048,
+        "sha256": "3d9db167cf0387e65194c478b5e1646ed1717a77f8e014c1f46c7aa89bf22738"
+      }
+    },
+    {
+      "path": "created-greeting.png",
+      "bytes": 202360,
+      "sha256": "4d49c9ccdb96e0f7a6d63c42a27afed0b0fe3d4a1d5b490eca9e263dda9cae33",
+      "representation": "original-png-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/created-greeting.png",
+        "bytes": 202360,
+        "sha256": "4d49c9ccdb96e0f7a6d63c42a27afed0b0fe3d4a1d5b490eca9e263dda9cae33"
+      }
+    },
+    {
+      "path": "fixture/README.zh-CN.md",
+      "bytes": 722,
+      "sha256": "8b699f8e49b0630e3bda600c3e28c4ef49fd141abb42346f816b9fee9cd8ef89",
+      "representation": "authored-scope-note"
+    },
+    {
+      "path": "fixture/app/go.mod",
+      "bytes": 131,
+      "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "representation": "original-caller-source-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/fixture/app/go.mod",
+        "bytes": 131,
+        "sha256": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3"
+      }
+    },
+    {
+      "path": "fixture/app/main.go",
+      "bytes": 166,
+      "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+      "representation": "original-caller-source-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/fixture/app/main.go",
+        "bytes": 166,
+        "sha256": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19"
+      }
+    },
+    {
+      "path": "fixture/app/main_test.go",
+      "bytes": 155,
+      "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0",
+      "representation": "original-caller-source-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/fixture/app/main_test.go",
+        "bytes": 155,
+        "sha256": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+      }
+    },
+    {
+      "path": "fixture/retained-created-dep/dep.go",
+      "bytes": 58,
+      "sha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a",
+      "representation": "original-retained-message-stage-source-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/retained-created-dep/dep.go",
+        "bytes": 58,
+        "sha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a"
+      }
+    },
+    {
+      "path": "fixture/retained-created-dep/go.mod",
+      "bytes": 43,
+      "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+      "representation": "original-retained-message-stage-source-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/retained-created-dep/go.mod",
+        "bytes": 43,
+        "sha256": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb"
+      }
+    },
+    {
+      "path": "launch.selected.normalized.json",
+      "bytes": 1866,
+      "sha256": "6e0622357485fc30628fa2b7829220d70e959bebd95d09c0a28bf7154a86df49",
+      "representation": "selected-normalized-verification",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/launch.json",
+        "bytes": 2089,
+        "sha256": "afd58c7f45c875cffe1d307c55b30ca44ed2d874964450b25a0101236aff1f83"
+      }
+    },
+    {
+      "path": "native-failure-summary.json",
+      "bytes": 3503,
+      "sha256": "982ac036f2cb23e3f599df8b551431c6aaf1106f5df3b938f45752d917097d59",
+      "representation": "derived-bounded-summary",
+      "sources": [
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/launch.json",
+          "bytes": 2089,
+          "sha256": "afd58c7f45c875cffe1d307c55b30ca44ed2d874964450b25a0101236aff1f83"
+        },
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/baseline-operation.json",
+          "bytes": 578,
+          "sha256": "dc02419219f0196b516361d14a99beaa102bf0463b876aec6fd12f4b587ba194"
+        },
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/created-greeting-operation.json",
+          "bytes": 621,
+          "sha256": "faa642a825312633e28a5a19a5e29a7d0bc1af4fe1efeeb99819010a720a22c7"
+        },
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/restored-message-operation.json",
+          "bytes": 435,
+          "sha256": "dd61b2bf4878eec2b73885f13199380b0c28f0e15e654a7dff1b4f330cf01144"
+        },
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/postquit.json",
+          "bytes": 2696,
+          "sha256": "183bb7e65e9ac28f261194c7f614919cbabe0aa9009192d2928fc52950461ab8"
+        }
+      ]
+    },
+    {
+      "path": "operations.selected.normalized.json",
+      "bytes": 2937,
+      "sha256": "6c2713937122aff41cc0d14d53a78e53dc56c33319fdd3648373edf18b38fc1e",
+      "representation": "selected-normalized-cli-and-operation-records",
+      "sources": [
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/baseline-operation.json",
+          "bytes": 578,
+          "sha256": "dc02419219f0196b516361d14a99beaa102bf0463b876aec6fd12f4b587ba194"
+        },
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/created-greeting-operation.json",
+          "bytes": 621,
+          "sha256": "faa642a825312633e28a5a19a5e29a7d0bc1af4fe1efeeb99819010a720a22c7"
+        },
+        {
+          "path": ".tools/continuation-20261114/root-initial-absent-c9/restored-message-operation.json",
+          "bytes": 435,
+          "sha256": "dd61b2bf4878eec2b73885f13199380b0c28f0e15e654a7dff1b4f330cf01144"
+        }
+      ]
+    },
+    {
+      "path": "postquit.selected.normalized.json",
+      "bytes": 3092,
+      "sha256": "88edea70ab098b4a7422283c7a695c19606ed51311bddca080a635eef416ca0c",
+      "representation": "selected-normalized-verification",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/postquit.json",
+        "bytes": 2696,
+        "sha256": "183bb7e65e9ac28f261194c7f614919cbabe0aa9009192d2928fc52950461ab8"
+      }
+    },
+    {
+      "path": "restored-message.capture.normalized.json",
+      "bytes": 1088,
+      "sha256": "df3a6a36b98ea51f44802a0a18bfd20b5e514434177d66653d05881325e8f916",
+      "representation": "selected-normalized-capture-metadata",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/restored-message.capture.json",
+        "bytes": 3048,
+        "sha256": "f6c74659effc6a70fefe4269a78b5c53e8873b71149cbbcae3e1958ebad7f545"
+      }
+    },
+    {
+      "path": "restored-message.png",
+      "bytes": 202366,
+      "sha256": "347db7e9e01cb9d8a14ba08803a7a833bb85d13af6a8373ab65a1f9e22220efe",
+      "representation": "original-png-bytes",
+      "source": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/restored-message.png",
+        "bytes": 202366,
+        "sha256": "347db7e9e01cb9d8a14ba08803a7a833bb85d13af6a8373ab65a1f9e22220efe"
+      }
+    }
+  ]
+}

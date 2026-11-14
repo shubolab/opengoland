@@ -1,0 +1,76 @@
+{
+  "representation": "selected-normalized-cli-and-operation-records",
+  "normalization": "Repository prefix replaced by <repo>; commands/results are independent CLI controls, not native Run/Test.",
+  "operations": [
+    {
+      "rawSource": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/baseline-operation.json",
+        "bytes": 578,
+        "sha256": "dc02419219f0196b516361d14a99beaa102bf0463b876aec6fd12f4b587ba194"
+      },
+      "selected": {
+        "atUtc": "2026-11-14T06:38:02.079807+00:00",
+        "command": [
+          "bundled-go",
+          "run",
+          "."
+        ],
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "main.go:5:2: example.invalid/accept/dep@v0.0.0: replacement directory ../dep does not exist\n",
+        "externalRootExists": false,
+        "allCallerSourcesUnchanged": true,
+        "uiSelectedObservation": "Problems shows could not import example.invalid/accept/dep (no required module provides package \"example.invalid/accept/dep\") :5",
+        "callerEditorOnlyOpened": true,
+        "manualReload": false,
+        "goplsPids": [
+          7005,
+          7006
+        ]
+      }
+    },
+    {
+      "rawSource": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/created-greeting-operation.json",
+        "bytes": 621,
+        "sha256": "faa642a825312633e28a5a19a5e29a7d0bc1af4fe1efeeb99819010a720a22c7"
+      },
+      "selected": {
+        "atUtc": "2026-11-14T06:40:21.346208+00:00",
+        "operation": "Atomically renamed fully prepared sibling directory into previously absent external dependency path",
+        "rootInode": 90698594,
+        "sources": {
+          "dep/go.mod": "e344e5771f705c64f3b79ec9b97f2d3816de8b8942ca4da0c11692e890ededeb",
+          "dep/dep.go": "b89ad4d73f1127179f7a39ba5af7bf8382b415be474ecb054b8c209d81100928"
+        },
+        "exitCode": 1,
+        "stdout": "",
+        "stderr": "# example.invalid/accept/app\n./main.go:8:36: undefined: dep.Message\n",
+        "allCallerSourcesUnchanged": true,
+        "manualReload": false,
+        "goplsRestart": false,
+        "externalFileOpened": false
+      }
+    },
+    {
+      "rawSource": {
+        "path": ".tools/continuation-20261114/root-initial-absent-c9/restored-message-operation.json",
+        "bytes": 435,
+        "sha256": "dd61b2bf4878eec2b73885f13199380b0c28f0e15e654a7dff1b4f330cf01144"
+      },
+      "selected": {
+        "atUtc": "2026-11-14T06:42:43.845548+00:00",
+        "operation": "Only external dep.go changed Greeting to Message; caller untouched",
+        "rootInode": 90698594,
+        "sourceSha256": "26783ad3c17efc52b880471c19ddac5b22cbe782d037dffa93923254c8d9682a",
+        "exitCode": 0,
+        "stdout": "依赖-v1|中文😀\n",
+        "stderr": "",
+        "allCallerSourcesUnchanged": true,
+        "manualReload": false,
+        "goplsRestart": false,
+        "externalFileOpened": false
+      }
+    }
+  ]
+}

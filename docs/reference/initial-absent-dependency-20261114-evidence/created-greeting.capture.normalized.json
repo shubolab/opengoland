@@ -1,0 +1,30 @@
+{
+  "representation": "selected-normalized-capture-metadata",
+  "rawSource": {
+    "path": ".tools/continuation-20261114/root-initial-absent-c9/created-greeting.capture.json",
+    "bytes": 3048,
+    "sha256": "3d9db167cf0387e65194c478b5e1646ed1717a77f8e014c1f46c7aa89bf22738"
+  },
+  "normalization": "Only selected window/screenshot metadata retained; repository prefix replaced by <repo>; no AX tree or profile/config content copied.",
+  "evidence_id": "ev_0839d39fffa204330fb406c772afbd152546b5955acac45a6dcbde4e80773f99",
+  "authority": "shipped-artifact",
+  "confidence": "observed",
+  "window": {
+    "pid": 6975,
+    "window_id": 9927,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794638154.7977781,
+    "title": "app – main.go"
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "width": 1400,
+    "height": 1000,
+    "sha256": "4d49c9ccdb96e0f7a6d63c42a27afed0b0fe3d4a1d5b490eca9e263dda9cae33",
+    "base64Omitted": true
+  },
+  "capturedAccessibility": false,
+  "gaps": [
+    "Accessibility capture was disabled"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "representation": "selected-normalized-verification",
+  "rawSource": {
+    "path": ".tools/continuation-20261114/root-initial-absent-c9/launch.json",
+    "bytes": 2089,
+    "sha256": "afd58c7f45c875cffe1d307c55b30ca44ed2d874964450b25a0101236aff1f83"
+  },
+  "normalization": "Repository prefix replaced by <repo>; selected launch metadata only, not profile/config contents.",
+  "selected": {
+    "atUtc": "2026-11-14T06:35:54.859417+00:00",
+    "version": "0.1.0-preview.20261114.3",
+    "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "manifestSha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7",
+    "project": "<repo>/.tools/continuation-20261114/root-initial-absent-c9/fixture/app",
+    "profile": "<repo>/.tools/continuation-20261114/root-initial-absent-c9/profile",
+    "configSeed": "<repo>/.tools/continuation-20261114/root-recreation/candidate9-native/profile/config",
+    "freshSystemPluginsLog": true,
+    "defaultBundledGopls": true,
+    "externalRootInitiallyAbsent": true,
+    "originalSources": {
+      "go.mod": "c83ca34dfe1f480c8f3a8f2b23051cf66be001dc02b7787a58ddcfc7f14736a3",
+      "main.go": "6b1844ce050d563fdf4a76abe2c2a38284a272f52460cd5530dea22bcc606f19",
+      "main_test.go": "23dd15dd932d791205ae045d980620fdd73eb5ec93a6963772a81e55016b0fe0"
+    },
+    "GOWORKAbsent": true,
+    "launchReturncode": 0,
+    "launchStderr": "",
+    "scope": "Separate initial-absence probe; not previous existing-root recovery or full parity.",
+    "scopedEnvironment": {
+      "GOROOT": "<repo>/.tools/release-tools/darwin-arm64/go",
+      "GOTOOLCHAIN": "local",
+      "GOENV": "off",
+      "GOFLAGS": "",
+      "GOPROXY": "off",
+      "GOSUMDB": "off",
+      "GOPRIVATE": "",
+      "GONOPROXY": "",
+      "GONOSUMDB": "",
+      "GOVCS": "*:off",
+      "GOTELEMETRY": "off",
+      "CGO_ENABLED": "0"
+    }
+  }
+}

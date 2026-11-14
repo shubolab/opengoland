@@ -1,0 +1,76 @@
+{
+  "representation": "selected-normalized-verification",
+  "rawSource": {
+    "path": ".tools/continuation-20261114/root-initial-absent-c9/postquit.json",
+    "bytes": 2696,
+    "sha256": "183bb7e65e9ac28f261194c7f614919cbabe0aa9009192d2928fc52950461ab8"
+  },
+  "normalization": "Repository prefix replaced by <repo>; original full idea.log and profile/config remain ignored and are not copied.",
+  "selected": {
+    "atUtc": "2026-11-14T06:46:48.067122+00:00",
+    "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "version": "0.1.0-preview.20261114.3",
+    "normalQuitObservedViaCua": true,
+    "ownAppsAllClosed": true,
+    "sampledOwnedProcessIdentitiesGone": [
+      {
+        "pid": 6975,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 6980,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 7005,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 7006,
+        "status": "pid no longer exists"
+      }
+    ],
+    "goplsIdentitiesUnchangedDuringProbe": [
+      7005,
+      7006
+    ],
+    "allThreeCallerSourcesUnchanged": true,
+    "originalExternalAbsenceRestored": true,
+    "createdDependencyRetainedAt": "<repo>/.tools/continuation-20261114/root-initial-absent-c9/retained-created-dep",
+    "retainedDependencyRootInode": 90698594,
+    "defaultBundledGopls": true,
+    "traceWrapperUsed": false,
+    "criticalArtifacts": {
+      "manifest": {
+        "path": "<repo>/build/product/open Goland.app/Contents/Resources/openidea-product.json",
+        "bytes": 4943868,
+        "sha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7"
+      },
+      "engine": {
+        "path": "<repo>/build/product/open Goland.app/Contents/plugins/opengoland/bin/opengoland-engine",
+        "bytes": 10629650,
+        "sha256": "3a8d00c2471fc8ff6c210a67ea8ea402be90e2905cd17ab7b9c8103c3ff50799"
+      },
+      "pluginJar": {
+        "path": "<repo>/build/product/open Goland.app/Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.3.jar",
+        "bytes": 2469734,
+        "sha256": "fc7e24aa9965eedecc560f1e947e1e0925674eb6f16344e5b7b1316a2d22422b"
+      },
+      "launcher": {
+        "path": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+        "bytes": 721520,
+        "sha256": "91f2b4b00392ef1135a6554df03153aed360eb32fab690d893dbc0569f47975c"
+      }
+    },
+    "codesignDeepStrictExit": 0,
+    "wholeIdeaLog": {
+      "bytes": 83356,
+      "sha256": "fad9fb47e959571cc3895b5b8d12912425206cd112cecb41ceddb109482c552c"
+    },
+    "errorSevereMatches": [],
+    "nativeAutomaticRecovery": "FAIL: initially absent local replace created later stayed BrokenImport despite unchanged caller and CLI undefined Message; external source restored to Message then CLI exited0 while native retained BrokenImport.",
+    "nativeRunOrTestPerformed": false,
+    "manualReloadOrReopenControlPerformed": false,
+    "scope": "Standalone frozen C9 initial-absence failure only; preserve separately from successful existing-root recovery. No Windows/full matrix inference."
+  }
+}

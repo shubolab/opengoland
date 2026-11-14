@@ -1,0 +1,273 @@
+{
+  "schemaVersion": 1,
+  "recordKind": "selected-normalized-execution-report",
+  "selectionNote": "Selected fields from original ignored execution/plan/preservation receipts. Paths are repository-relative; this is not the complete raw report or a complete App backup.",
+  "stage": "A",
+  "result": "EXACT_TARGET_RETIREMENT_COMPLETED",
+  "startedAtUtc": "2026-11-14T06:32:58.649887+00:00",
+  "finishedAtUtc": "2026-11-14T06:33:04.253764+00:00",
+  "rawExecutionReport": {
+    "path": ".tools/continuation-20261114/root-recreation/retirement14-3-a-apply.json",
+    "bytes": 3159,
+    "sha256": "65fee864f053670c240465e065f73fdce23a489b34a6702796dcb91773ed6b63"
+  },
+  "executor": {
+    "path": ".tools/continuation-20261114/root-recreation/retire14_3.py",
+    "bytes": 16443,
+    "sha256": "9cbea03ed40ae7410fcdcf24bc4f2e2d745bfbc5510c7d143cd4f767161c6582",
+    "digestCapturedAfterExecution": true,
+    "digestProvenance": "Computed from the executor sealed immediately after execution; root reports no known intervening source modification. The original execution report did not itself embed this executor SHA."
+  },
+  "frozenFdRelativeCore": {
+    "path": ".tools/continuation-20261113/workspace-consistency/runtime/post_publication_retirement.py",
+    "bytes": 32055,
+    "sha256": "d6b6c9ffd5fb1036d38f0997a70e65462f141abb54cbf7efa3fbb5db4e9eca7e"
+  },
+  "plan": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-retirement-plan.json",
+    "bytes": 24555,
+    "sha256": "055f7c11b10367dcb1aa579b2927071802452dacdedb5b3876392d0d69886c56"
+  },
+  "preservationReceipt": {
+    "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/receipt.json",
+    "bytes": 5330,
+    "sha256": "e9bc9df5485eff4978cf5eceb6bb0981f47094f7f2b219d94cf027fc262ab3a0"
+  },
+  "removed": [
+    {
+      "key": "c8-app",
+      "path": "build/product-candidate8-failed-20261114.3/open Goland.app",
+      "atUtc": "2026-11-14T06:33:03.875010+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "emptyParentOnly": "build/product-candidate8-failed-20261114.3",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "c8-system",
+      "path": ".tools/continuation-20261114/root-recreation/candidate8-native/profile/system",
+      "atUtc": "2026-11-14T06:33:04.065515+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "test-system",
+      "path": "build/idea-sandbox/opengoland/IC-2026.1.4/system-test",
+      "atUtc": "2026-11-14T06:33:04.194298+00:00",
+      "confirmedAbsentAfterExecution": true
+    }
+  ],
+  "unlinkedEntries": 21726,
+  "ownershipChecks": {
+    "initialQuiescence": {
+      "atUtc": "2026-11-14T06:32:59.857249+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "quiescence1": {
+      "atUtc": "2026-11-14T06:33:00.936246+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "quiescence2": {
+      "atUtc": "2026-11-14T06:33:02.341400+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    }
+  },
+  "nativePrerequisite": {
+    "postquitSha256": "43f60e564fab06ad90817363fc370f42abb5ef0adabee2cd253555cdeb1b4d3f",
+    "localNativePassed": true
+  },
+  "protectedCurrentApp": {
+    "path": "build/product/open Goland.app",
+    "manifestSha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7"
+  },
+  "protectedLatestReleasedApp": {
+    "path": "build/product-verified-c5-20261114.2/open Goland.app",
+    "manifestSha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce"
+  },
+  "protectedCurrentAppUnchanged": true,
+  "protectedLatestReleasedAppAndOutsideProfilesUnchanged": true,
+  "diskMeasurement": {
+    "method": "Observed filesystem free-space snapshots in the execution report; not du, logical file sizes, or summed hardlink names.",
+    "before": {
+      "atUtc": "2026-11-14T06:33:02.347840+00:00",
+      "total": 494353338368,
+      "used": 446327181312,
+      "free": 48026157056,
+      "dfExitCode": 0
+    },
+    "after": {
+      "atUtc": "2026-11-14T06:33:04.253718+00:00",
+      "total": 494353338368,
+      "used": 445001011200,
+      "free": 49352327168,
+      "dfExitCode": 0
+    },
+    "observedFreeDeltaBytes": 1326170112,
+    "observedFreeDeltaGiB": 1.2350921630859375,
+    "limit": "APFS sharing and concurrent filesystem activity affect free space. These are observations for this operation window, not bytes attributable to individual targets."
+  },
+  "originalEvidenceRetainedOutsideTargets": {
+    "compactProvenance": {
+      "c8Manifest": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-build/product-manifest.json",
+        "bytes": 4943868,
+        "sha256": "b3b1438e099c346a6ff3de980e2fae5525dce4d82068944a64a6a58e5a2908c0"
+      },
+      "c8Build": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-build/build-summary.json",
+        "bytes": 4169,
+        "sha256": "7179e8c8c027a29402bc2ba7df16cb11041bbc01fbac84a4cc74c5e630811609"
+      },
+      "c8EngineMetadata": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-build/engine-build-info.txt",
+        "bytes": 1148,
+        "sha256": "4fabf0ed2d34f3e75d260fa4bcf4c53757451768f1cf26662736eced67576591"
+      },
+      "c8JUnit": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-build/test-results.tar.gz",
+        "bytes": 84584,
+        "sha256": "8dc2ff34a503565f76e413f1ddd6764a561aa575a9e76d75100ac5bea815cf8a"
+      },
+      "c8Postquit": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/postquit.json",
+        "bytes": 934,
+        "sha256": "9962cfef13a9b2c6220c6940de81907b8bc56e4774e95de0b8fe852107bd7b78"
+      },
+      "c8TracePostquit": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-trace-native/postquit.json",
+        "bytes": 1137,
+        "sha256": "ec39c0da89d9745b6b9357f12b25de214bd9f335547511a010da94d7da88ab0e"
+      },
+      "c8Trace": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-trace-native/gopls-rpc.log",
+        "bytes": 35180,
+        "sha256": "84c89d8801c4effa6c52865e16735e2ca31217f773b83313df0c833f9db4df2b"
+      },
+      "c9Manifest": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-build/product-manifest.json",
+        "bytes": 4943868,
+        "sha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7"
+      },
+      "c9Build": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-build/build-summary.json",
+        "bytes": 4144,
+        "sha256": "766fb79b41c9cb2084713d95de01c1b40f6b73f6b2f1a0e2045b156ae8f0c7ab"
+      },
+      "c9JUnit": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-build/test-results.tar.gz",
+        "bytes": 86694,
+        "sha256": "c20de4bd14db695f09fb03b7dc92b4425ccdb9e9588f5946fca5cb74142f6419"
+      },
+      "c5FullManifest": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-product-manifest.json",
+        "bytes": 4943358,
+        "sha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce"
+      }
+    },
+    "preservation": {
+      "archive": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/preserved-original-bytes.tar.gz",
+        "bytes": 243762,
+        "sha256": "b5d792d878c703057b159f74a495a4663934c4bc40ada53c74fdf65c7699d23d",
+        "originalBytes": 636567,
+        "entries": 288,
+        "xmlEntries": 27,
+        "xmlOriginalBytes": 31243,
+        "currentBytesAndSha256Verified": true
+      },
+      "entryManifest": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/preserved-entry-manifest.json",
+        "bytes": 177904,
+        "sha256": "531710cc72eb22d61b6b2c47ab5f4f3a3ba7092fd7b09d5796c49849719acf36",
+        "currentBytesAndSha256Verified": true
+      },
+      "catalogues": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/source-catalogues.json.gz",
+        "bytes": 45324,
+        "sha256": "1df1a4b9e1c9470b57f380c25c7a28ef1b0984f78168037c2c9ea092a7a6f403",
+        "currentBytesAndSha256Verified": true
+      },
+      "allRegularFileInventory": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/all-regular-file-inventory.jsonl.gz",
+        "bytes": 67875,
+        "sha256": "86f114550784fa0d2527bd12106c813230b57b151d1e275fa649075d658ea4f5",
+        "currentBytesAndSha256Verified": true
+      },
+      "outsideSharedLog": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/profile/log/idea.log",
+        "bytes": 142397,
+        "sha256": "bf0927f40f861a810789f89e6b0fcc5b0ee657694cb6f6b9a57e589f91b849b6",
+        "currentBytesAndSha256Verified": true
+      },
+      "outsideOriginalC8Manifest": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-build/product-manifest.json",
+        "bytes": 4943868,
+        "sha256": "b3b1438e099c346a6ff3de980e2fae5525dce4d82068944a64a6a58e5a2908c0",
+        "currentBytesAndSha256Verified": true
+      }
+    },
+    "archiveOriginalBytes": 636567,
+    "archiveEntries": 288,
+    "archiveXmlEntries": 27,
+    "archiveXmlOriginalBytes": 31243,
+    "allArchiveMembersReadbackVerified": true,
+    "sourceMetadataUnchangedDuringPreservation": true,
+    "unknownObjectCount": 0,
+    "binaryCacheFilesCataloguedButNotCopied": 1706,
+    "binaryCacheBytesCataloguedButNotCopied": 501523182,
+    "classificationRules": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/README.zh-CN.md",
+    "outsideOriginalConfigAndLogs": [
+      ".tools/continuation-20261114/root-recreation/candidate8-native/profile/config",
+      ".tools/continuation-20261114/root-recreation/candidate8-native/profile/log",
+      ".tools/continuation-20261114/root-recreation/candidate9-native/profile"
+    ],
+    "c8PublicEvidenceManifest": {
+      "path": "docs/reference/external-root-recovery-20261114-candidate8/manifest.json",
+      "bytes": 8127,
+      "sha256": "a5743a97ea8087c92629379d0fecf681c339510777b1c2d070a2e8fad45d9567"
+    },
+    "backupLimit": "C8 original full product manifest, engine metadata, build summary, raw JUnit tar, native/trace postquit, screenshots and trace remain available. Only selected original system text/XML was archived. The removed C8 application binary and binary caches were not backed up as a complete App."
+  },
+  "excludedFromDeletion": {
+    "userDataTouched": false,
+    "sourceOrWorktreesTouched": false,
+    "sharedSdkOrToolCachesTouched": false,
+    "referenceApplicationsTouched": false,
+    "githubReleaseAssetsTouched": false,
+    "scopeBasis": "The executor deletes only the three exact planned generated targets and one verified empty App parent. Config/log parents and current C9/last released C5 Apps are outside this allowlist; unchanged protected App/profile checks are recorded above."
+  },
+  "stageB": {
+    "status": "HOLD_NOT_EXECUTED",
+    "app": "build/product-verified-c5-20261114.2/open Goland.app",
+    "installerHardlinkNameCount": 8,
+    "installerGroups": [
+      {
+        "name": "open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+        "bytes": 871230954,
+        "sha256": "02dc6790866a6b541b5a71907eb570b488a219167d6742ea918ad8516be93515",
+        "knownPaths": [
+          ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/merged/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+          ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/prepared/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+          ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+          ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-audit/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe"
+        ]
+      },
+      {
+        "name": "open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+        "bytes": 1022010762,
+        "sha256": "dad7cfb9e1c0b5bdd6d2fd1819de4f3e4eecb21aec0a59fc069462952e9d560e",
+        "knownPaths": [
+          ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/merged/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+          ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/prepared/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+          ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+          ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-audit/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg"
+        ]
+      }
+    ],
+    "gate": "Keep C5 and all eight old 14.2 installer names until actual public 14.3 five-asset verification, both actual installer proofs and independent release audits pass, followed by fresh exact-path/identity/process/FD checks. Stage A does not authorize or execute Stage B."
+  },
+  "doesNotProve": "No new product behavior, full acceptance-matrix pass, Windows interactive parity, or public 14.3 delivery is asserted by this retirement record."
+}

@@ -1,0 +1,95 @@
+{
+  "schemaVersion": 1,
+  "representation": "derived-bounded-native-failure-summary",
+  "status": "FAIL-local-macos-initially-absent-replacement-auto-recovery",
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "version": "0.1.0-preview.20261114.3",
+  "manifestSha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7",
+  "fullBuildBinding": {
+    "source": "../external-root-recovery-20261114-candidate9/independent-verification.json",
+    "inputCount": 590,
+    "inputDigest": "895ae89d7e6906732612365dcdc650a60928c5019317bf8a14872d9d6ef08644",
+    "tests": 981,
+    "reports": 175,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "scope": "Prior sealed C9 full build; no tests or build were rerun for this probe."
+  },
+  "appPid": 6975,
+  "windowId": 9927,
+  "goplsPidsUnchanged": [
+    7005,
+    7006
+  ],
+  "profileScope": "Own C9 config seed with fresh system/plugins/log, default bundled gopls, no trace wrapper; not a clean-default-profile claim.",
+  "callerModified": false,
+  "manualReload": false,
+  "goplsRestart": false,
+  "externalSourceOpened": false,
+  "stages": [
+    {
+      "name": "baseline",
+      "externalRootExists": false,
+      "cliExitCode": 1,
+      "native": "BrokenImport at main.go:5, expected for missing replacement root"
+    },
+    {
+      "name": "created-greeting",
+      "externalRootInode": 90698594,
+      "cliExitCode": 1,
+      "cli": "undefined: dep.Message",
+      "native": "Still old BrokenImport, not the current undefined error",
+      "wait": "Approximately two minutes of native observation; no exact diagnostic deadline asserted"
+    },
+    {
+      "name": "restored-message",
+      "externalRootInode": 90698594,
+      "cliExitCode": 0,
+      "cliStdout": "依赖-v1|中文😀\n",
+      "native": "Still old BrokenImport despite successful independent CLI"
+    }
+  ],
+  "cleanup": {
+    "normalQuitObservedViaCua": true,
+    "ownAppsAllClosed": true,
+    "sampledOwnedProcessIdentitiesGone": [
+      {
+        "pid": 6975,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 6980,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 7005,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 7006,
+        "status": "pid no longer exists"
+      }
+    ],
+    "allThreeCallerSourcesUnchanged": true,
+    "originalExternalAbsenceRestored": true,
+    "retainedDependencyRootInode": 90698594,
+    "codesignDeepStrictExit": 0,
+    "wholeIdeaLog": {
+      "bytes": 83356,
+      "sha256": "fad9fb47e959571cc3895b5b8d12912425206cd112cecb41ceddb109482c552c"
+    },
+    "errorSevereMatches": []
+  },
+  "originalGreetingSourceAvailability": "Greeting-stage dep.go was overwritten by the Message-stage change. Its operation SHA is retained, but no surviving original Greeting file is claimed or copied.",
+  "nativeRunOrTestPerformed": false,
+  "manualReloadOrReopenControlPerformed": false,
+  "verifiedWorkaround": null,
+  "limits": [
+    "This initial-absence failure is separate from the same C9 existing-root delete/recreate success.",
+    "No runtime wire trace or raw go list metadata from this probe establishes a production root cause.",
+    "CLI controls are not native Run/Test; no reload/reopen workaround was verified.",
+    "No Windows interactive or full PROJECT-02/LANG-04/ROBUST-01/matrix pass is claimed.",
+    "This evidence does not change installer publication status; all 36 reference and 36 reconstruction states remain unverified."
+  ]
+}

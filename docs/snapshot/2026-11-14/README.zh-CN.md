@@ -168,3 +168,17 @@ C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已
 新的[真实 GIF](../../demo/native-go-workflow-20261114-3.gif)按“恢复后编辑器 → 无缓存测试 → 中文 Run”三个阶段组成，12秒、1200×857；[录制记录](../../demo/native-go-workflow-20261114-3-recording.json)明确本机 C9 来源，不能当作云端安装器字节相同或连续录屏。
 
 本段记录时已推送 annotated tag `v0.1.0-preview.20261114.3`，精确指向 `643480a`；正常 tag 工作流 [43564600307](https://github.com/shubolab/opengoland/actions/runs/43564600307) 的 Windows 与 macOS 实际安装器仍在构建，尚未核验公开五资产。本机通过不代表云端已经交付。C9当前App与最新已验证14.2实际安装器继续保留；旧候选清理必须先归档原文本/XML并复核进程、FD与身份。首次缺根、稳态深层新目录、Windows交互、调试权限和36×2完整矩阵仍开放，goal继续active。
+
+## C9 之后的阶段 A 资源退役
+
+已完成精确的阶段 A 清理：失败 C8 App、C8/trace 共用 `profile/system`、已结束的 `system-test` 及一个实际空 App 父目录现在均不存在。两次新鲜全机进程/FD 检查均为零引用；C9 和最新已发布 C5 App、C8 原 config/log、C9 profile 保持不变。操作窗口的实际可用空间增加 **1,326,170,112 字节（约 1.235 GiB）**，结束为 **49,352,327,168 字节（约 45.96 GiB）**，不把 du 或八个硬链接名称重复计作释放量。
+
+[阶段 A 执行选取记录](../../verification/generated-artifacts-retired-during-14.3-20261114.json)保留原始报告/执行后封存脚本/计划 SHA 和证据去向。删除前归档 288 个原字节文本/XML 条目共 636,567 字节（含 27 XML），逐 entry 回读 SHA 一致；C8 完整原 manifest、engine/构建信息、原始 JUnit tar、原配置/完整日志、失败截图、trace 和收尾记录仍在目标之外。归档目录为 `.tools/continuation-20261114/root-recreation/retirement14-3-preservation/`，它是紧凑证据归档，**不是完整 C8 App 备份**。
+
+阶段 B 的 C5/14.2 App 和八个旧 14.2 安装器硬链接名称仍为 HOLD，尚未删除；需实际公开 14.3 五资产、双安装器与独立审计通过后再检查。用户数据、源码、共享 SDK、参考应用和 GitHub 公版资产零触及，完整目标和前文未验范围继续开放。
+
+## C9 后续独立探针：首次缺根仍未恢复
+
+同一固定 C9 源码 `643480a` 的新隔离工程，首次打开时 `replace ../dep` 目录不存在。随后原子创建定义 Greeting 的目录，CLI 已改报 undefined Message，但原生等待约两分钟仍停在旧 BrokenImport；只改外部源码回 Message 后，CLI exit 0 并输出中文/emoji，原生仍未清错。调用方三个文件不变，无 Reload、重开或服务重启，gopls `7005`/`7006` 身份不变。此结果单独见[首次缺根失败记录](../../reference/initial-absent-dependency-20261114.zh-CN.md)，不覆盖前文已存在根删除重建的成功，也不把源码推断当成已证根因。
+
+本轮未做原生 Run/Test 或重开对照，没有已验证的 workaround。正常退出后四个已采样自有 PID 消失，调用方原 SHA 未变，外部路径恢复原缺失状态，新建依赖目录的最终 Message 原字节另行保留；App 关键载荷与签名通过，完整日志零 ERROR/SEVERE。三张原 PNG、规范化选取、来源 SHA 和夹具已封存；Greeting 阶段原文件后来被覆盖，不声称仍存在。矩阵只加局部失败证据，36×2 状态仍全部 unverified，完整 goal 继续推进。
