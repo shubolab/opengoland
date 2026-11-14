@@ -1,0 +1,2 @@
+# Retain the normalized message transcript, including its final blank line.
+r2-gopls-rpc.normalized.log -text -whitespace

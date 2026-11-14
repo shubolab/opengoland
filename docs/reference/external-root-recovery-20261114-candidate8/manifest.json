@@ -207,6 +207,12 @@
       "bytes": 84584,
       "sha256": "8dc2ff34a503565f76e413f1ddd6764a561aa575a9e76d75100ac5bea815cf8a",
       "representation": "original-bytes"
+    },
+    {
+      "path": ".gitattributes",
+      "bytes": 122,
+      "sha256": "d005f815c1776196265a30c1e9b5a890ad5b26c883a6fbd2a8f6a1b2e0e3a557",
+      "representation": "evidence-preservation-policy"
     }
   ],
   "limits": "Old build files and normal native RED remain unchanged. R2 actual message-level trace and independent slash control are separate; no claim of a new native fix or release."
