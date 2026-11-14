@@ -16,3 +16,6 @@
 docs/verification/change-signature-evidence/source/** -text -whitespace
 # Unified diff context includes a required space on empty upstream lines.
 product/patches/*.patch -text whitespace=-blank-at-eol
+
+# Preserve Windows JUnit failure evidence with its original CRLF.
+docs/verification/windows-build-context-process-20261114/TEST-*.xml -text -whitespace

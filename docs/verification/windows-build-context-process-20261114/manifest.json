@@ -30,9 +30,10 @@
     },
     {
       "path": "REPORT.zh-CN.md",
-      "bytes": 3676,
-      "sha256": "a43ae678184b31d3f3db7a2ea4f5eaaf76ff8cbef314f9b1fd540b1f136975de",
+      "bytes": 4310,
+      "sha256": "8758cb0662f5996a9971009cd6ea5139224e6fd36a11a582169a7b144c33a0b2",
       "kind": "Chinese-human-readable-bounded-report"
     }
-  ]
+  ],
+  "bytePreservation": "Exact Windows XML bytes retained through a scoped -text attribute; includes original CRLF. Report hash refreshed after adding targeted local result."
 }
