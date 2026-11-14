@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-14T00:45:01.739190+00:00",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "status": "complete local build and full gate passed; native and CI acceptance pending",
+  "sourceInputsVerifiedAgainstGit": true,
+  "engineCleanSourceMetadataVerified": true,
+  "manifestSha256": "5a23469c9b53577d6d58352f2d74b67c04f74db31b570328095f5662473ca4e9",
+  "fullGate": {
+    "reports": 174,
+    "tests": 969,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "buildInputCount": 587,
+  "buildInputDigest": "9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d",
+  "pluginJars": {
+    "Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.2.jar": "7ca51228e7cef3e41cafdf879538b3d8b57b961a719c9cb56aab1c5780d62013"
+  },
+  "launchers": {
+    "Contents/MacOS/idea": "c3472a88e89a963c611527cc68b5b6899a608b6c6c124cf2f781c9d78df0facd"
+  },
+  "codesignDeepStrictExit": 0
+}

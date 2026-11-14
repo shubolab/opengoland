@@ -1,0 +1,32 @@
+{
+  "at": "2026-11-14T01:09:38.996708+00:00",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "buildInputCount": 587,
+  "buildInputDigest": "9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d",
+  "nativeAcceptance": "bounded candidate6 operations passed; full GoLand matrix remains open",
+  "knownPidsNoLongerExist": [
+    99893,
+    99968,
+    630,
+    633
+  ],
+  "codesignDeepStrictExit": 0,
+  "sourceAndProductHashesUnchanged": true,
+  "severeOrErrorLogMatches": 0,
+  "all15FixtureSourcesRestored": true,
+  "nativeEditedHashesBeforeRestore": {
+    "project/one/main.go": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6",
+    "external/external.go": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f"
+  },
+  "testCommand": "go test -json -count=1 -run ^TestCompose$ .",
+  "testResult": {
+    "passed": 1,
+    "totalMillis": 1171,
+    "packageSeconds": 0.587,
+    "exitCode": 0,
+    "cached": false
+  },
+  "lightTheme": "Islands Light; final source/test red-green/mod/work and functional-sidebar icons visually confirmed",
+  "scope": "Known recorded process identities only; not a claim about unsampled descendants or Windows interactive acceptance"
+}

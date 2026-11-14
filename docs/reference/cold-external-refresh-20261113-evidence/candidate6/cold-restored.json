@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-frame-identity; raw_result/AX excluded",
+  "candidate": "candidate6",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "evidenceId": "ev_2fb32e49281f186fe19bc40052b537f9b01fb126fc45e13199ba5c83d6d08b44",
+  "launcherSha256": "c3472a88e89a963c611527cc68b5b6899a608b6c6c124cf2f781c9d78df0facd",
+  "window": {
+    "pid": 99893,
+    "window_id": 7268,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794617221.861034,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 99893,
+    "window_id": 7268,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "39f2eff1057bf50cbc210d61e705cb509166e3902f87a311fa90334dfaf01c70",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "External-only restore; unchanged main clears diagnostic without refresh/restart.",
+  "proofLimit": "Exact macOS process/window still capture paired with CUA operations. No continuous video, completion-popup record, Windows/full-parity or publication claim.",
+  "sourceMetadataSha256": "b41c37a54cdae67fa36764d257d200f3162916ef93a0418a56fc19a1b972aa21"
+}

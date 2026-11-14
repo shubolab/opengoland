@@ -1,0 +1,12 @@
+{
+  "at": "2026-11-14T00:59:19.405500+00:00",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "version": "0.1.0-preview.20261114.2",
+  "appPid": 99893,
+  "basicCompletion": "Gree native Basic unique auto-inserted Greeting; no popup retained",
+  "explicitParameterInfo": "Cmd+P in focused editor inside Greeting() displayed <no parameters>",
+  "mainSha256": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6",
+  "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+  "severeOrErrorLogMatches": 0,
+  "hintScreenshot": "evidence/candidate6-no-parameters.png"
+}

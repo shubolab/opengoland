@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-frame-identity; raw_result/AX excluded",
+  "candidate": "candidate6",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "evidenceId": "ev_1a078a1138115ce5ece1ee773fb0b5b000a3338dfafa50cddd4e5b5f0d8c9978",
+  "launcherSha256": "c3472a88e89a963c611527cc68b5b6899a608b6c6c124cf2f781c9d78df0facd",
+  "window": {
+    "pid": 99893,
+    "window_id": 7268,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794617221.861034,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 99893,
+    "window_id": 7268,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "858d9a4226c449b7b2127a0041d0d7d4c7f7195ff3b72cea3e2b61a44ca4530a",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Never-opened external-only Message -> Greeting; unchanged main automatically shows undefined Message.",
+  "proofLimit": "Exact macOS process/window still capture paired with CUA operations. No continuous video, completion-popup record, Windows/full-parity or publication claim.",
+  "sourceMetadataSha256": "1528e0b9f95e1cdce0349d901e77c04e3acc9ca9c4682bea962d93385c3fd422"
+}

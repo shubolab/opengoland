@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-frame-identity; raw_result/AX excluded",
+  "candidate": "candidate6",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "evidenceId": "ev_86722ce599678942cbeb5178ee8f6013e8db91f60aa2716edf250d0fa3bd1d92",
+  "launcherSha256": "c3472a88e89a963c611527cc68b5b6899a608b6c6c124cf2f781c9d78df0facd",
+  "window": {
+    "pid": 99893,
+    "window_id": 7268,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794617221.861034,
+    "title": "project – main_default_test.go"
+  },
+  "captureParameters": {
+    "pid": 99893,
+    "window_id": 7268,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "eaa895b89f48d7abc42dbf69e658b6bb6ca22a06be94a2cf10202ef583db6f58",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Native TestCompose configuration -count=1;1passed/PASS/package0.587s/exit0.",
+  "proofLimit": "Exact macOS process/window still capture paired with CUA operations. No continuous video, completion-popup record, Windows/full-parity or publication claim.",
+  "sourceMetadataSha256": "698dc59d494c13323027163f0d5eee1cff07151a91323ed67aa8bdf77fdb0a68"
+}

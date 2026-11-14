@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "kind": "compact-REA-native-frame-identity; raw_result/AX excluded",
+  "candidate": "candidate6",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "evidenceId": "ev_eb194c337f430427c915b61733886d29d1f2e75bd425c1da2b5cfe62d764d3cb",
+  "launcherSha256": "c3472a88e89a963c611527cc68b5b6899a608b6c6c124cf2f781c9d78df0facd",
+  "window": {
+    "pid": 99893,
+    "window_id": 7268,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794617221.861034,
+    "title": "project – main.go"
+  },
+  "captureParameters": {
+    "pid": 99893,
+    "window_id": 7268,
+    "screenshot": true,
+    "accessibility": false,
+    "max_nodes": 500
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "b5e24e65235cd64d731dfcd2f4a4085a22b3ac40a319f7d07fc9c887a3bd6410",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "capturedNodes": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ]
+  },
+  "phaseScope": "Baseline Go editor, final icons and native Run0 Chinese/emoji output.",
+  "proofLimit": "Exact macOS process/window still capture paired with CUA operations. No continuous video, completion-popup record, Windows/full-parity or publication claim.",
+  "sourceMetadataSha256": "580ffb78f03a6b7089787807fbd5c558636a9cd4fa7471570297099eda2c5bc4"
+}

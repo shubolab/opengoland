@@ -72,7 +72,7 @@
 
 ## 2026-11-14：Go 图标、外部依赖与无缓存测试
 
-首页当前主图 `native-go-workflow-20261114.gif` 来自独立 App 的实际窗口，
+早期候选图 `native-go-workflow-20261114.gif` 来自独立 App 的实际窗口，
 录制版本为 `0.1.0-preview.20261114.1`，macOS arm64，固定源码 `cac8501`。
 三个阶段各 4 秒：默认程序运行并输出中文和 emoji、Cmd+B 跳到项目外本地依赖的
 新 `Greeting` 定义、原生测试面板显示 1 passed 和退出码 0。
@@ -92,3 +92,21 @@
 [录制记录](native-go-workflow-20261114-recording.json)和
 [原生验证](../reference/cold-external-refresh-20261113.zh-CN.md)
 区分了本机 App 与云端安装包证据；完整 GoLand 对齐和 Windows 交互仍需继续验收。
+
+## 2026-11-14 修正版：最终源码的原生演示
+
+首页主图 `native-go-workflow-20261114-2.gif` 使用 **0.1.0-preview.20261114.2**
+本机独立 App 的三张新截图，源码固定为 `07bb8eb35f48f11564bac5b076fa7752ff03466a`。
+依次展示中文/emoji 的 Run exit 0、Cmd+B 跳到外部 `Greeting` 定义、原生 Test
+以 `-count=1` 执行并显示 1 passed / package 0.587s / exit 0。
+每帧4秒，共12秒；只进行等比缩放和GIF调色，未添加模拟界面。
+
+示例与操作沿用上面的自有副本步骤。修正版另完成外部依赖改名自动报错/恢复、
+Basic唯一候选补全、实际 `<no parameters>` 提示、深浅图标、正常退出与签名完整性检查。
+[新录制记录](native-go-workflow-20261114-2-recording.json)绑定587个封存输入、原始截图和实际App；
+[原生证据](../reference/cold-external-refresh-20261113.zh-CN.md)保留具体边界。
+本机完整门禁969项/174报告通过，仍不能代替Windows交互或完整GoLand对齐。
+
+较早的 `.14.1` 候选GIF和日期保持不变；该版本没有双平台安装器发布，Windows失败与修正过程见
+[失败记录](../verification/windows-build-context-process-20261114/REPORT.zh-CN.md)。
+公开安装包的状态以首页下载区为准，不能仅凭这段本机演示认定已经发布。

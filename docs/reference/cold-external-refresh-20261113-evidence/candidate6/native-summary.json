@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "candidate": "candidate6",
+  "version": "0.1.0-preview.20261114.2",
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "status": "bounded source-C4 local native workflow passed; full matrix and dual-platform delivery remain open",
+  "buildInputs": {
+    "count": 587,
+    "digest": "9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d",
+    "matchedToFixedGitInputs": true
+  },
+  "sourceEngine": {
+    "revision": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+    "modified": false
+  },
+  "fullGateFromOriginalXml": {
+    "reports": 174,
+    "tests": 969,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "appPid": 99893,
+  "windowId": 7268,
+  "ownedKnownPids": {
+    "app": 99893,
+    "fsnotifier": 99968,
+    "goplsParent": 630,
+    "goplsChild": 633
+  },
+  "goplsStartObservedLocal": "2026-11-14 08:48:19; unchanged in parent samples",
+  "initialEditorScope": "main.go only; external source first opened after cold changes when navigating to Greeting",
+  "externalOperations": {
+    "candidate6-external-mutation-1.json": {
+      "at": "2026-11-14T00:51:37.987251+00:00",
+      "operation": "external-only Message→Greeting; no caller edit or manual refresh",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "pidsBefore": {
+        "app": 99893,
+        "fsnotifier": 99968,
+        "goplsParent": 630,
+        "goplsChild": 633
+      }
+    },
+    "candidate6-external-restore-1.json": {
+      "at": "2026-11-14T00:53:48.572552+00:00",
+      "operation": "Restore external-only Greeting→Message; caller remains unchanged; no UI refresh/restart",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "externalSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+      "processSample": "  630 99893 Sat Nov 14 08:48:19 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls\n  633   630 Sat Nov 14 08:48:19 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls\n99893     1 Sat Nov 14 08:47:01 2026     <repo>/build/product/open Goland.app/Contents/MacOS/idea\n99968 99893 Sat Nov 14 08:47:14 2026     <repo>/build/product/open Goland.app/Contents/bin/fsnotifier\n"
+    },
+    "candidate6-external-mutation-2.json": {
+      "at": "2026-11-14T00:55:56.566385+00:00",
+      "operation": "second cold external-only rename before any external editor open; main unchanged",
+      "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "processSample": "  630 99893 Sat Nov 14 08:48:19 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls\n  633   630 Sat Nov 14 08:48:19 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls\n99893     1 Sat Nov 14 08:47:01 2026     <repo>/build/product/open Goland.app/Contents/MacOS/idea\n99968 99893 Sat Nov 14 08:47:14 2026     <repo>/build/product/open Goland.app/Contents/bin/fsnotifier\n"
+    }
+  },
+  "completionAndParameterInfo": {
+    "at": "2026-11-14T00:59:19.405500+00:00",
+    "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+    "version": "0.1.0-preview.20261114.2",
+    "appPid": 99893,
+    "basicCompletion": "Gree native Basic unique auto-inserted Greeting; no popup retained",
+    "explicitParameterInfo": "Cmd+P in focused editor inside Greeting() displayed <no parameters>",
+    "mainSha256": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6",
+    "externalSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+    "severeOrErrorLogMatches": 0,
+    "hintScreenshot": "evidence/candidate6-no-parameters.png"
+  },
+  "runAndNavigation": {
+    "output": "外部-v1|workspace-two|default|中文😀",
+    "runExitCode": 0,
+    "target": "outside project external/external.go: Greeting",
+    "evidence": "greeting-navigation.png",
+    "source": "Parent CUA native operation record and exact REA frame"
+  },
+  "uncachedNativeTest": {
+    "nativeConfigurationGoToolArguments": "-count=1",
+    "test": "TestCompose",
+    "passed": 1,
+    "packageSeconds": 0.587,
+    "exitCode": 0,
+    "evidence": "uncached-test.png",
+    "source": "Parent CUA operation record and exact REA frame",
+    "command": "go test -json -count=1 -run ^TestCompose$ .",
+    "finalResult": {
+      "passed": 1,
+      "totalMillis": 1171,
+      "packageSeconds": 0.587,
+      "exitCode": 0,
+      "cached": false
+    }
+  },
+  "lightTheme": {
+    "status": "observed",
+    "evidence": "light-icons.png",
+    "theme": "Islands Light; final source/test red-green/mod/work and functional-sidebar icons visually confirmed"
+  },
+  "postQuit": {
+    "at": "2026-11-14T01:09:38.996708+00:00",
+    "version": "0.1.0-preview.20261114.2",
+    "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+    "buildInputCount": 587,
+    "buildInputDigest": "9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d",
+    "nativeAcceptance": "bounded candidate6 operations passed; full GoLand matrix remains open",
+    "knownPidsNoLongerExist": [
+      99893,
+      99968,
+      630,
+      633
+    ],
+    "codesignDeepStrictExit": 0,
+    "sourceAndProductHashesUnchanged": true,
+    "severeOrErrorLogMatches": 0,
+    "all15FixtureSourcesRestored": true,
+    "nativeEditedHashesBeforeRestore": {
+      "project/one/main.go": "ceb8fbb4c11eb1b7c3229e0e86bcbb74622e3461be93fef92aabd9c3682209c6",
+      "external/external.go": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f"
+    },
+    "testCommand": "go test -json -count=1 -run ^TestCompose$ .",
+    "testResult": {
+      "passed": 1,
+      "totalMillis": 1171,
+      "packageSeconds": 0.587,
+      "exitCode": 0,
+      "cached": false
+    },
+    "lightTheme": "Islands Light; final source/test red-green/mod/work and functional-sidebar icons visually confirmed",
+    "scope": "Known recorded process identities only; not a claim about unsampled descendants or Windows interactive acceptance"
+  },
+  "producer": {
+    "runId": 43536268282,
+    "attempt": 1,
+    "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+    "macosJobId": 132265950662,
+    "windowsJobId": 132265950724,
+    "stateAtPreparation": "running publish=false; no Windows runtime/pass or public release claim"
+  },
+  "limits": [
+    "Existing opened-package active local replace dependency and own fixture workflow only.",
+    "Unique Basic candidate inserted directly; completion popup not retained. REA screenshots have AX disabled; CUA parameter info observation is separate.",
+    "No Windows interactive or CI result claimed here; all36x2 matrix fields remain unverified.",
+    "Missing/deleted roots, deep new directories, metadata resource-limit cases and macOS debug permission closure remain separate.",
+    "Source-matched local App bytes are not claimed identical to later CI installers."
+  ],
+  "originalRecordSha256": {
+    "candidate6-external-mutation-1.json": "f3aa7aef7cb741009994f2ca734635a1708a3e67307442bf69cc6456836abba2",
+    "candidate6-external-restore-1.json": "c02d3a24f7b2f3b305e605f22ee10154773a91b7658efa919edd718913d3cd98",
+    "candidate6-external-mutation-2.json": "e6d5f769b14e8c282cdbaf43770cdcd6c0f5a28e92b8710034bebe95a20c5e84"
+  }
+}

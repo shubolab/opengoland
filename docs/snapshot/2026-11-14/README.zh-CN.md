@@ -2,7 +2,7 @@
 
 完整目标仍为 **active**：继续建设可日常使用、尽可能还原 GoLand 2026.1.4 的独立原生 Go IDE。工作台使用 Kotlin / 开源 IntelliJ Platform，语言及工程服务使用 Go engine、gopls、Delve。IDE 账号、计费、订阅和试用门槛保持移除，开发工具认证保留。
 
-**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。`.20261114.1` 的 Windows 检查失败，保持未发布；正在准备修正版 `.20261114.2`。** 本机原生通过不等于新 EXE/DMG 已交付。
+**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。`.20261114.1` 的 Windows 检查失败，保持未发布；`.20261114.2` 已完成本机完整门禁及原生复验，正在检查双平台安装器。** 本机原生通过不等于新 EXE/DMG 已交付。
 
 ## 本轮做成了什么
 
@@ -48,9 +48,28 @@ Windows attempt1 的 hosted runner 于 23:18:32Z 失联，原日志不可取，�
 
 夹具已收紧为：父进程发布PID记录后等release；第二次检查中先验证父子都存活、记录可执行文件和出生身份，再允许父正常退出；随后只断言已捕获句柄回收，独立sentinel继续运行。清理复用已知身份，未知活进程不冒险终止，不跳过用例或删除断言。修改后的五类针对性检查再次 **38/38通过、零跳过**。首轮新夹具的Unix PTY换行预期失败也单独保留，生产输出解码没有改变。
 
-下一步先让新源码的完整 `.14.2` 打包通过，再创建新的同源双平台CI；C3云端小型取消证据不能作为安装器。全部实际安装器、XML、race、源码和五资产摘要核对通过后才公开。
+## 当前最终源码 C4 / candidate6
 
-14.1 的本机 GIF 保留原版本/日期/源码，不改标为14.2；新源码的实际运行画面需要单独取得。中英文下载区继续指向公开 `.13.3`。旧14.1专用 promotion/updater辅助脚本保持冻结，不对新的版本或失败产物套用。
+固定提交 **`07bb8eb35f48f11564bac5b076fa7752ff03466a`** 已推送。587个输入摘要
+`9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d`
+逐项匹配Git；engine同提交、`modified=false`。完整打包成功：**969项 /174报告，零失败、错误、跳过**。
+
+candidate6 使用全新隔离配置，先仅打开调用方。两次外部改名均自动被感知，恢复外部文件后自动清错；
+Basic将Gree补成唯一Greeting，Cmd+P显示 `<no parameters>`，Run与外部定义跳转均成功。
+原生Go Test配置实际带 `-count=1`，1 passed、package0.587s、exit0。最终深浅主题图标均实机检查。
+正常退出后四个已知PID消失，整个本次日志无SEVERE/ERROR，签名结构检查exit0；587输入及产品摘要不变，
+15个自有源文件全部恢复。记录范围仍限于这些具体操作和已采样身份。
+
+[新的14.2真实GIF](../../demo/native-go-workflow-20261114-2.gif)及
+[录制记录](../../demo/native-go-workflow-20261114-2-recording.json)使用本次三张新原图；
+旧14.1图不改标。中英文README主图已换为14.2，下载区仍指向公开13.3。
+
+新最终 [producer43536268282](https://github.com/shubolab/opengoland/actions/runs/43536268282)
+于00:45:03Z以C4、14.2、`publish=false`启动，attempt1：Windows job `132265950724`，
+Mac job `132265950662`。此时两平台仍在构建，尚无新公开安装包，也未创建14.2tag。
+只在两端真实成功后下载/核对实际EXE、DMG、原XML、race、安装结果与五个资产；私有草稿审计通过后公开。
+C3取消的小型证据与C1失败产物均不复用成C4安装器。辅助工具使用 `*-release14-2-final-*` 名称，
+固定C4和新run；旧14.1/C3工具保持归档，不混用。
 
 ## 完整目标还剩什么
 
@@ -60,7 +79,7 @@ Windows attempt1 的 hosted runner 于 23:18:32Z 失联，原日志不可取，�
 
 ## 本机资源
 
-C1 candidate4 已从 canonical 路径原地移动到 `build/product-verified-20261114.1/open Goland.app`，未再复制一份；等待新候选完整通过。C3 candidate5 完整门禁失败，未生成 App。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
+C1 candidate4 已从 canonical 路径原地移动到 `build/product-verified-20261114.1/open Goland.app`，未再复制一份；C3 candidate5 完整门禁失败，未生成 App。当前 canonical `build/product/open Goland.app` 是已完成本机完整与原生检查的 candidate6；等待双平台安装器通过后再退役旧App。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
 
 此前已清理两份旧生成 App 和 candidate1/2 的已结束配置，实测净回收 **3.83 GiB**；[退役记录](../../verification/generated-artifacts-retired-20261114.json)保存身份、占用检查与历史路径说明。更早三套 profile 清理回收约 1.64 GiB，两轮不能重复计算。当前约 **62 GiB 可用**，大下载或构建前仍需重测并保留至少 20 GiB。
 

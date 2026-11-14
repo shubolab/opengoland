@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "recordedOnLocalDate": "2026-11-14",
+  "timeZone": "Asia/Shanghai",
+  "scope": "Three actual native operation-stage stills,4s each; not continuous video, Windows or complete-parity proof.",
+  "candidate": {
+    "candidate": "candidate6",
+    "version": "0.1.0-preview.20261114.2",
+    "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+    "stateAtCapture": "source-C4 local candidate; CI/public delivery separate",
+    "sourceInputsMatchedToGit": 587,
+    "buildInputDigest": "9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d",
+    "pluginJarSha256": "7ca51228e7cef3e41cafdf879538b3d8b57b961a719c9cb56aab1c5780d62013",
+    "launcherSha256": "c3472a88e89a963c611527cc68b5b6899a608b6c6c124cf2f781c9d78df0facd",
+    "engineVcsMetadata": {
+      "revision": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+      "modified": false
+    }
+  },
+  "capture": {
+    "method": "CUA actual native actions and REA exact PID99893/window7268 screenshots",
+    "platform": "macOS arm64",
+    "appPid": 99893,
+    "goplsPidsUnchanged": [
+      630,
+      633
+    ],
+    "goplsStartObservedLocal": "2026-11-14 08:48:19",
+    "fixture": "docs/reference/cold-external-refresh-20261113-evidence/fixture",
+    "sourceFrames": [
+      {
+        "stage": "baseline",
+        "evidenceId": "ev_eb194c337f430427c915b61733886d29d1f2e75bd425c1da2b5cfe62d764d3cb",
+        "pid": 99893,
+        "windowId": 7268,
+        "windowTitle": "project – main.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate6/baseline.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "b5e24e65235cd64d731dfcd2f4a4085a22b3ac40a319f7d07fc9c887a3bd6410",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      },
+      {
+        "stage": "greeting-navigation",
+        "evidenceId": "ev_eaf1f32fc2258471bb7f2f9d9fcd61a696740e815c96cece5fef8f3ecdd9dbd9",
+        "pid": 99893,
+        "windowId": 7268,
+        "windowTitle": "project – <repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate6/greeting-navigation.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "07e76133a5e34b73e2eab1bfcda5dc83ba56025ac3a19c945a0463321ece9164",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      },
+      {
+        "stage": "uncached-test",
+        "evidenceId": "ev_86722ce599678942cbeb5178ee8f6013e8db91f60aa2716edf250d0fa3bd1d92",
+        "pid": 99893,
+        "windowId": 7268,
+        "windowTitle": "project – main_default_test.go",
+        "sourcePng": "docs/reference/cold-external-refresh-20261113-evidence/candidate6/uncached-test.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "eaa895b89f48d7abc42dbf69e658b6bb6ca22a06be94a2cf10202ef583db6f58",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000
+      }
+    ],
+    "nativeVerification": "docs/reference/cold-external-refresh-20261113-evidence/candidate6/native-summary.json"
+  },
+  "encoding": {
+    "tool": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "transform": "Uniform Lanczos scaling and global palette conversion only; no crop, annotations, synthetic cursor, simulated UI or transitions.",
+    "width": 1200,
+    "height": 857,
+    "frames": 3,
+    "durationMs": 12000,
+    "framePtsSeconds": [
+      0,
+      4,
+      8
+    ],
+    "path": "docs/demo/native-go-workflow-20261114-2.gif",
+    "bytes": 262016,
+    "sha256": "7c8dd29d6d21cdb2759c65b84c02feaac82fcd46ee8642805d15792a24f26cdd",
+    "palette": "256 colors; no dithering"
+  },
+  "previousRecording": {
+    "record": "docs/demo/native-go-workflow-20261114-recording.json",
+    "version": "0.1.0-preview.20261114.1",
+    "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+    "retainedUnchanged": true
+  },
+  "limitations": [
+    "Actual Run0, external Greeting navigation and native uncached test1pass are frame-scoped, with idle time compressed.",
+    "No retained Basic completion popup or REA AX tree.",
+    "No relabeling of the earlier14.1 C1 clip as14.2; final CI install and public release checks remain separate.",
+    "Full72 matrix fields remain unverified; no added Windows or debug-permission acceptance."
+  ]
+}
