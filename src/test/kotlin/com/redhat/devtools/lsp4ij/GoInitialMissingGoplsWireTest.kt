@@ -55,6 +55,10 @@ class GoInitialMissingGoplsWireTest : LightPlatformTestCase() {
         val evidence = Files.createDirectories(Path.of(System.getProperty("opengoland.recoveryWireEvidence") ?: System.getenv("OPENGOLAND_RECOVERY_WIRE_EVIDENCE") ?: repo.resolve("build/test-wire-evidence/initial-missing").toString())
             .resolve("wire-" + UUID.randomUUID()))
         val root = Files.createDirectory(evidence.resolve("fixture 中文😀"))
+        // CI and ordinary shells need not export Go cache variables. Keep this
+        // real-server fixture independent of the developer's cache settings.
+        val goCache = Files.createDirectory(root.resolve("gocache"))
+        val moduleCache = Files.createDirectory(root.resolve("modcache"))
         val app = Files.createDirectory(root.resolve("app"))
         val dep = root.resolve("dep")
         val source = dep.resolve("dep.go")
@@ -94,6 +98,8 @@ class GoInitialMissingGoplsWireTest : LightPlatformTestCase() {
             "gopls" to selectedGopls.toString(), "goSha256" to sha(selectedGo), "goplsSha256" to sha(selectedGopls),
             "headlessWorkDoneProgressDisabled" to true,
             "automaticVfsForwardingExercised" to false,
+            "inheritedCacheEnvironment" to mapOf("GOCACHE" to System.getenv("GOCACHE"), "GOMODCACHE" to System.getenv("GOMODCACHE")),
+            "privateCaches" to listOf(goCache.toString(), moduleCache.toString()),
             "positiveControl" to "test-supplied exact external-file Changed through actual live wrapper FIFO after real NIO source modification",
             "wireCaptureBoundary" to "actual factory provider streams consumed by LSP4J; input headers may be normalized to LF")
         var remote: LanguageServer? = null
@@ -106,7 +112,7 @@ class GoInitialMissingGoplsWireTest : LightPlatformTestCase() {
                     buildTags = ""; goos = ""; goarch = ""; cgoEnabled = "0"
                     environment = listOf("GOROOT=${selectedGo.parent.parent}", "GOENV=off", "GOTOOLCHAIN=local", "GOFLAGS=",
                         "GOPROXY=off", "GOSUMDB=off", "GOVCS=*:off", "GOTELEMETRY=off", "CGO_ENABLED=0",
-                        "GOCACHE=${requireNotNull(System.getenv("GOCACHE"))}", "GOMODCACHE=${requireNotNull(System.getenv("GOMODCACHE"))}").joinToString("\n")
+                        "GOCACHE=$goCache", "GOMODCACHE=$moduleCache").joinToString("\n")
                     // GOWORK deliberately absent, matching native C10 scoped env.
                 }
             }
