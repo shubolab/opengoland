@@ -2,7 +2,7 @@
 
 完整目标仍为 **active**：继续建设可日常使用、尽可能还原 GoLand 2026.1.4 的独立原生 Go IDE。工作台使用 Kotlin / 开源 IntelliJ Platform，语言及工程服务使用 Go engine、gopls、Delve。IDE 账号、计费、订阅和试用门槛保持移除，开发工具认证保留。
 
-**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。C4的Mac成功、Windows安装后版本查询日志门禁失败，未发布；新C5源码C7已完成本机完整打包和startup/Run/macOS终端/nativeTest复验。** 新C5双平台结果及公开交付仍待root核验，本快照不把本机通过写成EXE/DMG已发布。
+**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。C5本机与双平台安装验收均已通过，实际EXE/DMG及来源已校验，`.14.2` tag固定C5。** 目前只有私有草稿，正在修复云端传输环节；尚未公开新版，下载区仍为13.3。C4失败和C7本机原生证据分别保留。
 
 ## 本轮做成了什么
 
@@ -107,8 +107,24 @@ GUI Run输出中文emoji并exit0。当前macOS真实终端 `go tes` 补成 `go t
 
 新producer [43543358207](https://github.com/shubolab/opengoland/actions/runs/43543358207) attempt1，
 version job132288775707、Windows132288803301、Mac132288803355，已核对14.2/publish=false/workflow_dispatch。
-本快照尚未登记两端终态或公开资产；后续以新C5实际proof和双审计为准。C5文档updater在ignored目录准备，
-未公开前不改下载入口、不启用C4旧推广工具；提交/标签及发布由root在核验后处理。
+两端现均为 **success**：Mac于02:36:58Z完成，Windows于02:48:16Z完成；publish按 `false` 跳过。
+两份实际ZIP已各下载一份、核对完整API SHA，原始XML两端均969项/174报告全0，587输入逐blob匹配C5。
+Mac actual DMG 1,022,010,762B / SHA `dad7cfb9e1c0b5bdd6d2fd1819de4f3e4eecb21aec0a59fc069462952e9d560e`；
+Windows actual EXE 871,230,954B / SHA `02dc6790866a6b541b5a71907eb570b488a219167d6742ea918ad8516be93515`。
+Windows实际安装/原生项目窗/卸载均退出0；原故障点的冷 `-version` 与共享日志均零ERROR/SEVERE。
+严格C5 assembler已生成恰好五个资产，位置为 `.tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets`。
+
+annotated tag `v0.1.0-preview.20261114.2` 已新建并推送，固定C5；自动触发的冗余tag run `43548847135` 已精确取消并确认cancelled，原成功producer不变。
+private release `444970702` 已创建并保留审阅说明，目前仅三份小校验/证据文件已上传，**尚未公开，两个大安装包尚未上传完毕**。
+本机直传实测约0.43MB/s，已有代理通道的4MB探测超时；仅本次命令试用，没有改系统网络设置。
+root已精确中断自己的慢传 `gh` PID37796，原始安装器和tag未变，没有遗留本机上传。
+现正修复现有 `publish-tested-installers.yml` 所用control-plane Python，使GitHub服务器复用上述已验收产物上传，避免重跑编译。
+不修改workflow、不改目标C5二进制来源；新controller必须保留原始校验、区分CI安装证据和C7本地原生证据，并在真实五资产的独立私有审计通过后才公开。
+控制层实现及独立审查已通过，完整Python检查为 **102项全绿**（其中发布器14项、独立审计9项）；实际C5只读组装也确认五资产字节精确一致。当前尚未启动云端推广，不能登记公版交付已完成。新CI模式只允许上述已复核C5 cohort；未知新版本必须先复核并增加精确来源约束，旧手工完整草稿的重试路径保留。
+
+C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已具备真实检查/写入实现，默认只检查；
+实际公开状态、C5来源、双端证据和私有/公开双审计齐全后才允许 `--apply`。未公开前不改下载入口，不启用C4旧推广工具。
+历史App/ZIP/缓存退役目前只有只读清单，未执行新删除；最新C7 App、SDK、实际五资产及原始证据继续保护。
 
 ## 完整目标还剩什么
 

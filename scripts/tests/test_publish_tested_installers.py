@@ -152,6 +152,17 @@ class TestedInstallerPublicationTest(unittest.TestCase):
         (self.win / 'windows-provenance/go-race.jsonl').write_text('{}\n')
         with self.assertRaises((ValueError, KeyError)): p.validate_proofs(ctx, self.win, self.mac)
 
+    def test_legacy_complete_private_draft_still_routes_to_manual_validation(self):
+        receipt = p.prepare(self.context(), self.win, self.mac, self.root / 'manual-first')
+        final = copy.deepcopy(self.release)
+        final['assets'] = [self.asset(name, value['bytes'], value['sha256']) for name, value in receipt['assets'].items()]
+        self.release = final
+        resumed = self.context()
+        self.assertNotEqual(resumed.get('mode'), 'ci-proofs')
+        self.assertEqual(resumed['artifactId'], 8)
+        self.assertIn(self.names['mac'], resumed['macAssets'])
+        p.validate_proofs(resumed, self.win, self.mac)
+
     def test_git_capture_covers_the_exact_release_commit_source_set(self):
         import subprocess
         repo = self.root / 'repo'; repo.mkdir(); (repo / 'engine').mkdir(); (repo / 'scripts').mkdir()
@@ -174,6 +185,127 @@ class TestedInstallerPublicationTest(unittest.TestCase):
         with self.assertRaises(ValueError): p.git_capture(repo, source, {'files': entries[:1]})
         entries[0]['sha256'] = 'f' * 64
         with self.assertRaises(ValueError): p.git_capture(repo, source, {'files': entries})
+
+
+class CiInstallerPublicationTest(unittest.TestCase):
+    """Synthetic CI-shaped fixtures test fail-closed gates, never real release acceptance."""
+    def setUp(self):
+        fixture_spec = importlib.util.spec_from_file_location('audit_fixtures', Path(__file__).with_name('test_audit_public_release.py'))
+        fixture_module = importlib.util.module_from_spec(fixture_spec); fixture_spec.loader.exec_module(fixture_module)
+        self.f = fixture_module.ReleaseAuditTest('test_nested_ci_proofs_and_actual_five_bytes_pass_without_manual_gui_evidence')
+        self.f.setUp(); self.addCleanup(self.f.doCleanups)
+        self.root = self.f.root; self.names = p.names(self.f.version); self.repo = 'owner/repo'
+        self.f.windows['assembly.json']['manifest'].update(version=self.f.version, target='windows-x64')
+        self.f.release['body'] = 'Reviewed bilingual fixture notes'
+        self.run = {**self.f.run, 'repository': {'full_name': self.repo, 'id': 7}, 'head_repository': {'full_name': self.repo, 'id': 7}}
+        self.jobs = {'total_count': 2, 'jobs': [{'id': identity, 'name': name, 'run_id': self.run['id'], 'head_sha': self.f.source, 'run_attempt': 1, 'status': 'completed', 'conclusion': 'success', 'started_at': '2026-11-14T00:00:00Z', 'completed_at': '2026-11-14T01:00:00Z'} for name, identity in [('windows', 8), ('macos', 9)]]}
+        self.artifacts = {'total_count': 2, 'artifacts': [{'id': identity, 'name': name, 'expired': False, 'digest': 'sha256:' + digit * 64, 'size_in_bytes': 100, 'created_at': '2026-11-14T00:50:00Z', 'workflow_run': {'id': self.run['id'], 'head_sha': self.f.source, 'repository_id': 7, 'head_repository_id': 7}} for name, identity, digit in [('windows-x64', 80, 'd'), ('macos-arm64', 90, 'e')]]}
+        self.merged = self.root / 'merged'; self.key = (self.repo, self.f.version, self.f.source)
+        self.previous_cohorts = copy.deepcopy(p.CI_COHORTS); self.addCleanup(lambda: (p.CI_COHORTS.clear(), p.CI_COHORTS.update(self.previous_cohorts)))
+        self.refresh()
+
+    def refresh(self):
+        import shutil
+        self.f.refresh()
+        if self.merged.exists(): shutil.rmtree(self.merged)
+        self.merged.mkdir()
+        for key in ['mac', 'win']: shutil.copyfile(self.f.directory / self.names[key], self.merged / self.names[key])
+        for key in ['macProof', 'winProof']:
+            with tarfile.open(self.f.directory / self.names[key], 'r:gz') as archive:
+                for member in archive.getmembers():
+                    path = self.merged / member.name; path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_bytes(archive.extractfile(member).read())
+        self.initial = copy.deepcopy(self.f.release)
+        self.initial['assets'] = [a for a in self.initial['assets'] if a['name'] in {self.names[k] for k in ['macProof', 'winProof', 'sums']}]
+        assets = {a['name']: {'bytes': a['size'], 'sha256': a['digest'][7:]} for a in self.f.release['assets']}
+        p.CI_COHORTS[self.key] = {'runId': self.run['id'], 'runAttempt': 1, 'jobs': {'windows': 8, 'macos': 9}, 'artifacts': {a['name']: {k: a[k] for k in ['id', 'digest', 'size_in_bytes']} for a in self.artifacts['artifacts']}, 'sourceInputs': 1, 'sourceDigest': self.f.capture['digest'], 'tests': {'reports': 1, 'tests': 2, 'failures': 0, 'errors': 0, 'skipped': 0}, 'assets': assets}
+
+    def context(self):
+        return p.context(self.repo, self.f.version, self.run['id'], self.f.source, self.run, self.jobs, self.artifacts, self.initial)
+
+    def prepare(self, output='prepared'):
+        return p.prepare_ci(self.context(), self.merged, self.f.directory, self.root / output, self.f.repo)
+
+    def test_nested_ci_mode_uses_both_ids_and_preserves_exact_uploaded_small_bytes(self):
+        ctx = self.context(); self.assertEqual(ctx['mode'], 'ci-proofs'); self.assertEqual(ctx['artifactIds'], '80,90')
+        self.assertNotIn('native-observations.json', self.f.mac)
+        receipt = self.prepare(); self.assertEqual(receipt['assets'], p.CI_COHORTS[self.key]['assets'])
+        for key in ['macProof', 'winProof', 'sums']:
+            self.assertEqual((Path(receipt['assetDirectory']) / self.names[key]).read_bytes(), (self.f.directory / self.names[key]).read_bytes())
+        final = copy.deepcopy(self.f.release); p.verify_release(receipt, final)
+
+    def test_whole_producer_same_attempt_and_exact_actual_jobs_artifacts_are_required(self):
+        for mutate in ['producer', 'mac_job', 'attempt', 'job_id', 'artifact_id', 'artifact_digest', 'artifact_time', 'missing_artifact', 'unreviewed_source']:
+            with self.subTest(mutate=mutate):
+                saved = copy.deepcopy((self.run, self.jobs, self.artifacts, self.initial))
+                if mutate == 'producer': self.run['conclusion'] = 'failure'
+                elif mutate == 'mac_job': self.jobs['jobs'][1]['conclusion'] = 'failure'
+                elif mutate == 'attempt': self.jobs['jobs'][1]['run_attempt'] = 2
+                elif mutate == 'job_id': self.jobs['jobs'][1]['id'] = 99
+                elif mutate == 'artifact_id': self.artifacts['artifacts'][1]['id'] = 99
+                elif mutate == 'artifact_digest': self.artifacts['artifacts'][1]['digest'] = 'sha256:' + 'f' * 64
+                elif mutate == 'artifact_time': self.artifacts['artifacts'][1]['created_at'] = '2026-11-14T02:00:00Z'
+                elif mutate == 'missing_artifact': self.artifacts['artifacts'].pop(); self.artifacts['total_count'] = 1
+                else: p.CI_COHORTS.pop(self.key)
+                with self.assertRaises(ValueError): self.context()
+                self.run, self.jobs, self.artifacts, self.initial = saved
+                if mutate == 'unreviewed_source': self.refresh()
+
+    def test_action_success_cannot_hide_missing_or_changed_merged_proof_or_installer(self):
+        for mutate in ['missing_mac', 'changed_win', 'missing_proof_file', 'changed_proof_file']:
+            with self.subTest(mutate=mutate):
+                self.refresh()
+                if mutate == 'missing_mac': (self.merged / self.names['mac']).unlink()
+                elif mutate == 'changed_win': (self.merged / self.names['win']).write_bytes(b'changed')
+                elif mutate == 'missing_proof_file': (self.merged / 'windows-provenance/go-race.jsonl').unlink()
+                else: (self.merged / 'windows-provenance/go-race.jsonl').write_bytes(b'changed')
+                with self.assertRaises(ValueError): self.prepare()
+
+    def test_original_small_bytes_and_notes_cannot_change(self):
+        self.initial['assets'][0]['digest'] = 'sha256:' + 'f' * 64
+        with self.assertRaises(ValueError): self.context()
+        self.refresh(); receipt = self.prepare(); final = copy.deepcopy(self.f.release)
+        for mutate in ['notes', 'proof', 'public']:
+            bad = copy.deepcopy(final)
+            if mutate == 'notes': bad['body'] = 'unreviewed'
+            elif mutate == 'proof': next(a for a in bad['assets'] if a['name'] == self.names['winProof'])['digest'] = 'sha256:' + 'f' * 64
+            else: bad['draft'] = False
+            with self.assertRaises(ValueError): p.verify_release(receipt, bad)
+
+    def test_skips_missing_reports_identities_and_cold_errors_remain_blocking(self):
+        for mutate in ['skip', 'missing_both_reports', 'wrong_identity', 'cold_severe', 'wrong_source']:
+            with self.subTest(mutate=mutate):
+                previous = copy.deepcopy((self.f.mac, self.f.windows, self.f.native_version))
+                if mutate == 'skip': self.f.windows['kotlin-test-results/TEST-Fixture.xml'] = self.f.xml.replace('skipped="0"', 'skipped="1"').replace('name="first"/>', 'name="first"><skipped/></testcase>')
+                elif mutate == 'missing_both_reports':
+                    del self.f.mac['kotlin-test-results/TEST-Fixture.xml']; del self.f.windows['kotlin-test-results/TEST-Fixture.xml']
+                elif mutate == 'wrong_identity': self.f.windows['kotlin-test-results/TEST-Fixture.xml'] = self.f.xml.replace('name="second"', 'name="changed"')
+                elif mutate == 'cold_severe':
+                    self.f.windows['installed-smoke/native-version.json']['stderr'] = 'SEVERE startup initialization'
+                    self.f.windows['installed-smoke/smoke.json']['nativeVersion']['stderr'] = 'SEVERE startup initialization'
+                else: self.f.mac['release.json']['sourceCommit'] = '0' * 40
+                self.refresh()
+                with self.assertRaises((ValueError, KeyError)): self.prepare()
+                self.f.mac, self.f.windows, self.f.native_version = previous
+                self.f.smoke = self.f.windows['installed-smoke/smoke.json']
+
+    def test_final_gate_rechecks_real_api_data_and_runs_independent_private_audit(self):
+        from unittest import mock
+        receipt = self.prepare(); receipt_path = self.root / 'receipt.json'; receipt_path.write_text(json.dumps(receipt))
+        final = copy.deepcopy(self.f.release); original = p.subprocess.check_output; calls = []
+        def api_or_git(command, **kwargs):
+            if command[:2] != ['gh', 'api']: return original(command, **kwargs)
+            calls.append(command[2]); endpoint = command[2]
+            if '/releases/' in endpoint: value = final
+            elif '/jobs?' in endpoint: value = self.jobs
+            elif '/artifacts?' in endpoint: value = self.artifacts
+            else: value = self.run
+            return json.dumps(value).encode()
+        with mock.patch.object(p.subprocess, 'check_output', side_effect=api_or_git):
+            result = p.independent_ci_audit(receipt, final, receipt_path, self.f.repo)
+        self.assertEqual(result['releaseState'], 'private-draft'); self.assertEqual(len(calls), 4)
+        self.assertTrue((self.root / 'independent-draft-audit.json').is_file())
+        self.assertTrue((self.root / 'independent-release-api.json').is_file())
 
 
 if __name__ == '__main__':
