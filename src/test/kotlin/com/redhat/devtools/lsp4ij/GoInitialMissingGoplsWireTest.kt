@@ -18,6 +18,10 @@ import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures
 import com.redhat.devtools.lsp4ij.server.OSProcessStreamConnectionProvider
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
 import com.redhat.devtools.lsp4ij.server.definition.LanguageServerDefinition
+import com.sun.jna.platform.win32.Kernel32
+import com.sun.jna.platform.win32.WinBase
+import com.sun.jna.platform.win32.WinDef
+import com.sun.jna.platform.win32.WinNT
 import dev.openidea.goide.lsp.GoDocumentSync
 import dev.openidea.goide.lsp.GoLanguageClient
 import dev.openidea.goide.lsp.GoLanguageServerFactory
@@ -32,7 +36,9 @@ import java.io.FilterOutputStream
 import java.io.InputStream
 import java.io.OutputStream
 import java.nio.file.Files
+import java.nio.file.LinkOption
 import java.nio.file.Path
+import java.nio.file.attribute.BasicFileAttributes
 import java.security.MessageDigest
 import java.util.UUID
 import java.util.concurrent.CompletableFuture
@@ -143,7 +149,8 @@ class GoInitialMissingGoplsWireTest : LightPlatformTestCase() {
             val originalDependency = Files.readString(public.resolve("retained-created-dep/dep.go"))
             Files.writeString(prepared.resolve("dep.go"), originalDependency.replace("func Message()", "func Greeting()"))
             Files.move(prepared, dep)
-            val identity = requireNotNull(Files.readAttributes(dep, java.nio.file.attribute.BasicFileAttributes::class.java).fileKey())
+            val identity = directoryIdentity(dep)
+            result["dependencyDirectoryIdentityBefore"] = identity.record()
             val registrationId = "owned.actual-gopls.initial-missing"
             invokeClient(actualClient, "registerDependencyScope", registrationId, setOf(dep)).get(25, TimeUnit.SECONDS)
             invokeClient(actualClient, "reconcileDependencyScope", setOf(dep)).get(20, TimeUnit.SECONDS)
@@ -198,7 +205,9 @@ class GoInitialMissingGoplsWireTest : LightPlatformTestCase() {
                 assertNotNull("The real server must resolve the restored external Message", hover)
                 assertTrue(Gson().toJson(hover).contains("Message"))
             }
-            assertEquals(identity, Files.readAttributes(dep, java.nio.file.attribute.BasicFileAttributes::class.java).fileKey())
+            val identityAfter = directoryIdentity(dep)
+            result["dependencyDirectoryIdentityAfter"] = identityAfter.record()
+            assertEquals("The actual dependency directory identity must remain unchanged", identity, identityAfter)
             assertEquals(expectedHashes, callerNames.associateWith { sha(app.resolve(it)) })
             assertTrue(processHandle.isAlive); assertEquals(originalPid, provider.pid)
             val frames = outgoing.messages()
@@ -269,6 +278,48 @@ class GoInitialMissingGoplsWireTest : LightPlatformTestCase() {
             Files.writeString(evidence.resolve("result.json"), Gson().toJson(result))
             if (primary != null) cleanup.forEach(primary::addSuppressed)
             else check(cleanup.isEmpty()) { "Owned cleanup failed: $cleanup" }
+        }
+    }
+
+    private data class DirectoryIdentity(val method: String, val value: Any) {
+        fun record() = mapOf("method" to method, "value" to value.toString())
+    }
+
+    private data class WindowsDirectoryIdentity(val volumeSerial: Long, val fileId128: String)
+
+    /**
+     * Windows NIO can omit fileKey. Preserve a real directory identity instead
+     * of substituting a path, timestamp or nullable comparison. Uses the same
+     * SDK-provided JNA mappings as GoSdkDownloads.fileIdentity.
+     * Microsoft documents volume + FILE_ID_128 as the identity of an open file:
+     * https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-file_id_info
+     * Directory handles require FILE_FLAG_BACKUP_SEMANTICS:
+     * https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-createfilew
+     */
+    private fun directoryIdentity(path: Path): DirectoryIdentity {
+        val attributes = Files.readAttributes(path, BasicFileAttributes::class.java, LinkOption.NOFOLLOW_LINKS)
+        check(attributes.isDirectory && !attributes.isSymbolicLink) { "The fixture dependency must be a real directory" }
+        attributes.fileKey()?.let { return DirectoryIdentity("nio-file-key", it) }
+        check(System.getProperty("os.name").startsWith("Windows")) { "The filesystem did not provide a directory identity" }
+        val api = Kernel32.INSTANCE
+        val filename = path.toAbsolutePath().toString().let {
+            if (it.startsWith("\\\\?\\")) it else if (it.startsWith("\\\\")) "\\\\?\\UNC\\" + it.removePrefix("\\\\") else "\\\\?\\$it"
+        }
+        val handle = api.CreateFile(filename, WinNT.FILE_READ_ATTRIBUTES,
+            WinNT.FILE_SHARE_READ or WinNT.FILE_SHARE_WRITE or WinNT.FILE_SHARE_DELETE, null, WinNT.OPEN_EXISTING,
+            WinNT.FILE_FLAG_BACKUP_SEMANTICS or WinNT.FILE_FLAG_OPEN_REPARSE_POINT, null)
+        check(handle != WinBase.INVALID_HANDLE_VALUE) { "Cannot open the dependency directory identity (Windows error ${api.GetLastError()})" }
+        try {
+            val information = WinBase.FILE_ID_INFO()
+            check(information.size() == 24) { "Unsupported Windows directory identity layout" }
+            check(api.GetFileInformationByHandleEx(handle, 18, information.pointer, WinDef.DWORD(information.size().toLong()))) {
+                "Cannot read the dependency directory identity (Windows error ${api.GetLastError()})"
+            }
+            information.read()
+            return DirectoryIdentity("win32-volume-file-id128", WindowsDirectoryIdentity(information.VolumeSerialNumber,
+                information.FileId.Identifier.joinToString("") { "%02x".format(it.toByte()) }))
+        } finally {
+            check(api.CloseHandle(handle)) { "Cannot close the dependency directory handle (Windows error ${api.GetLastError()})" }
         }
     }
 
