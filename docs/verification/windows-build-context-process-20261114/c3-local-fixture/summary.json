@@ -1,0 +1,78 @@
+{
+  "status": "C3 full local gate failed only new post-exit identity-query fixture; no App produced",
+  "sourceCommit": "e6264e4abeab13ecfa0384c2f61c2997d26a0957",
+  "version": "0.1.0-preview.20261114.2",
+  "counts": {
+    "reports": 174,
+    "tests": 969,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "failingCase": "GoRunBuildContextProcessOwnershipTest.testCompletedLauncherCannotLeaveAChildHoldingTheMetadataPipes",
+  "observed": "ProcessHandle.isAlive true but optional command missing after command exit; precise OS snapshot cause unknown",
+  "nextChange": "Capture live parent/child identities behind a release barrier before normal launcher exit; no product normalization or skipped checks",
+  "files": {
+    "test-results.tar.gz": "a56d95a76e25590a043bcb52c592c94262fc55603cabc47d887565c8b46052a7",
+    "source-inputs.json": "6d77f3664a815d97a732485cf395f2b1d012c75d7a15cd90b5909f7768c781f1",
+    "package.log": "1f62f3231d6c1a8bf16cef95d698199ebd3e91baeff51be80f61e93080e5173e"
+  },
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-14T00:28:27.981395+00:00",
+  "sourceInputs": {
+    "count": 587,
+    "digest": "d21cb2c6d71931a947d547fb93835e752c7751ebeee74f62504c8d677cff827e",
+    "originalSourceInputsSha256": "6d77f3664a815d97a732485cf395f2b1d012c75d7a15cd90b5909f7768c781f1"
+  },
+  "countsIndependentlyReadFromOriginalTar": {
+    "reports": 174,
+    "tests": 969,
+    "failures": 1,
+    "errors": 0,
+    "skipped": 0
+  },
+  "actualFailure": [
+    {
+      "suite": "dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest",
+      "case": "testCompletedLauncherCannotLeaveAChildHoldingTheMetadataPipes",
+      "type": "java.lang.IllegalStateException",
+      "message": "java.lang.IllegalStateException: Cannot identify the live fixture process 91318",
+      "stackHead": [
+        "java.lang.IllegalStateException: Cannot identify the live fixture process 91318",
+        "\tat dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest$Fixture.recorded(GoRunBuildContextProcessOwnershipTest.kt:131)",
+        "\tat dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest.testCompletedLauncherCannotLeaveAChildHoldingTheMetadataPipes(GoRunBuildContextProcessOwnershipTest.kt:26)"
+      ]
+    }
+  ],
+  "requiredNewOwnershipCases": [
+    {
+      "name": "testShortLivedCommandsKeepPrivateEnvironmentWorkingDirectoryUtf8AndFailureStatus",
+      "result": "pass"
+    },
+    {
+      "name": "testCompletedLauncherCannotLeaveAChildHoldingTheMetadataPipes",
+      "result": "failure"
+    },
+    {
+      "name": "testCancellationBeforeTheFirstLoopCheckClosesOwnedPipesAndPreservesTheSentinel",
+      "result": "pass"
+    }
+  ],
+  "classification": "Local fixture optional process identity queried after command exit; this alone does not establish a production regression. The exact inconsistent OS snapshot cause remains unknown.",
+  "cloudRun": {
+    "id": 43532637816,
+    "attempt": 1,
+    "sourceCommit": "e6264e4abeab13ecfa0384c2f61c2997d26a0957",
+    "status": "completed",
+    "conclusion": "cancelled",
+    "url": "https://github.com/shubolab/opengoland/actions/runs/43532637816",
+    "cancelledByTaskOwner": true,
+    "classification": "Owned cancellation after local full-gate fixture failure; not a cloud test-failure conclusion.",
+    "sourceRunJsonSha256": "3587baa018f953be5df2b49a71761214c42298aa97f26bf8e25e18f27ab8f3bd"
+  },
+  "applicationProduced": false,
+  "tagCreatedForThisC3Source": false,
+  "futureAcceptance": "C4 source/test barrier pending. All three new ownership cases remain required; no skips, weakened checks, Windows fix acceptance or publication claimed.",
+  "originalSummarySha256": "8d7a4e5c85642d49c4416ed56bd5c9d6ddaef5cfc5e5ada5b6bacfdfbae7462f",
+  "localOriginalFilesScope": "The files map binds ignored original source-input/package-log/archive hashes. Only the unchanged raw XML tar and this compact summary are copied into this subdirectory; no complete package log is included."
+}

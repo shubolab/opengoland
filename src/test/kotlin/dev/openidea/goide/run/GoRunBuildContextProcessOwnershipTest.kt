@@ -22,8 +22,16 @@ class GoRunBuildContextProcessOwnershipTest : LightPlatformTestCase() {
     fun testCompletedLauncherCannotLeaveAChildHoldingTheMetadataPipes() = Fixture().use { f ->
         val sentinel = f.sentinel()
         try {
-            val output = f.execute("orphan")
-            val owned = f.recorded("orphan")
+            var owned = emptyList<Pair<Long, ProcessHandle>>()
+            val checks = AtomicInteger()
+            val output = f.execute("orphan") {
+                if (checks.incrementAndGet() == 2) {
+                    owned = f.recorded("orphan")
+                    assertEquals(2, owned.size)
+                    assertTrue("The normal-exit gate must keep both command processes alive", owned.all { it.second.isAlive })
+                    Files.writeString(f.root.resolve("release-orphan"), "allow the launcher to exit normally")
+                }
+            }
             assertEquals("metadata 😀", output)
             assertEquals(2, owned.size)
             f.assertExited(owned)
@@ -58,7 +66,7 @@ class GoRunBuildContextProcessOwnershipTest : LightPlatformTestCase() {
             assertTrue("The real command must reach the first post-launch check", entered.await(10, TimeUnit.SECONDS))
             val owned = f.recorded("blocked")
             assertEquals(2, owned.size)
-            assertTrue("Both command processes must exist before cancellation", owned.all { it.second?.isAlive == true })
+            assertTrue("Both command processes must exist before cancellation", owned.all { it.second.isAlive })
             val readers = Thread.getAllStackTraces().keys.filter {
                 it !in priorReaders && it.name == "open Goland build-context output"
             }
@@ -96,7 +104,7 @@ class GoRunBuildContextProcessOwnershipTest : LightPlatformTestCase() {
         val root: Path = Files.createTempDirectory("go-metadata-owned-process-").toRealPath()
         private val loader = GoRunBuildContextLoader(project)
         private val program = GoOwnedTestExecutable.compile(root.resolve(GoOwnedTestExecutable.name("metadata-command")), HELPER)
-        private val owned = linkedMapOf<Long, Pair<ProcessHandle, java.time.Instant?>>()
+        private val owned = linkedMapOf<Long, Pair<ProcessHandle, java.time.Instant>>()
         private val execute = GoRunBuildContextLoader::class.java.getDeclaredMethod(
             "execute", GeneralCommandLine::class.java, kotlin.jvm.functions.Function0::class.java,
         ).apply { isAccessible = true }
@@ -110,40 +118,46 @@ class GoRunBuildContextProcessOwnershipTest : LightPlatformTestCase() {
             catch (failure: InvocationTargetException) { throw failure.targetException }
         }
 
-        fun recorded(mode: String): List<Pair<Long, ProcessHandle?>> {
+        fun recorded(mode: String): List<Pair<Long, ProcessHandle>> {
             val file = root.resolve("$mode.json")
             val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(10)
             while (!Files.isRegularFile(file)) {
                 check(System.nanoTime() < deadline) { "The real command did not record its children" }
                 Thread.sleep(10)
             }
-            return JsonParser.parseString(Files.readString(file)).asJsonArray.map { value ->
-                val pid = value.asLong
-                // A normal launcher and its child can both be gone before the
-                // reader returns. Keep that outcome distinct from a live leak.
-                val handle = ProcessHandle.of(pid).orElse(null)?.takeIf { candidate ->
-                    if (!candidate.isAlive) false else {
-                        // The launcher may already have exited. A reused PID is
-                        // not test ownership: this executable has a unique path
-                        // under this fixture and is never launched elsewhere.
-                        val info = candidate.info()
-                        val executable = info.command().orElse(null)
-                        check(executable != null || !candidate.isAlive) { "Cannot identify the live fixture process $pid" }
-                        executable != null && Files.isSameFile(Path.of(executable), program)
-                    }
-                }?.also {
-                    val started = it.info().startInstant().orElse(null)
-                    check(started != null || !it.isAlive) { "Cannot identify the live fixture process incarnation" }
-                    if (started != null) owned[pid] = it to started
-                }
-                pid to handle
+            return recordPids(mode).map { pid ->
+                pid to checkNotNull(capture(pid)) { "The gated fixture process $pid exited before identity capture" }
             }
         }
 
-        fun assertExited(handles: List<Pair<Long, ProcessHandle?>>) {
+        private fun recordPids(mode: String): List<Long> =
+            JsonParser.parseString(Files.readString(root.resolve("$mode.json"))).asJsonArray.map { it.asLong }
+
+        private fun capture(pid: Long): ProcessHandle? {
+            // A saved handle is already bound to the incarnation proved while
+            // the gate kept it alive. Never re-query its command after exit.
+            owned[pid]?.let { return it.first }
+            val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(2)
+            while (true) {
+                val handle = ProcessHandle.of(pid).orElse(null)
+                if (handle == null || !handle.isAlive) return null
+                val info = handle.info()
+                val executable = info.command().orElse(null)
+                val started = info.startInstant().orElse(null)
+                if (executable != null && started != null && handle.isAlive) {
+                    check(Files.isSameFile(Path.of(executable), program)) { "Recorded PID $pid belongs to another executable" }
+                    owned[pid] = handle to started
+                    return handle
+                }
+                check(System.nanoTime() < deadline) { "Cannot identify the live fixture process $pid within two seconds" }
+                Thread.sleep(10)
+            }
+        }
+
+        fun assertExited(handles: List<Pair<Long, ProcessHandle>>) {
             val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(3)
-            while (handles.any { it.second?.isAlive == true } && System.nanoTime() < deadline) Thread.sleep(10)
-            assertTrue("No recorded owned process may survive metadata cleanup: ${handles.map { it.first }}", handles.none { it.second?.isAlive == true })
+            while (handles.any { it.second.isAlive } && System.nanoTime() < deadline) Thread.sleep(10)
+            assertTrue("No recorded owned process may survive metadata cleanup: ${handles.map { it.first }}", handles.none { it.second.isAlive })
         }
 
         fun sentinel(): Process = ProcessBuilder(program.toString(), "child").directory(root.toFile()).start()
@@ -156,19 +170,28 @@ class GoRunBuildContextProcessOwnershipTest : LightPlatformTestCase() {
             loader.dispose()
             // Recovery only; these assertions have already run before cleanup.
             // Never rediscover a PID tree after its root has exited.
+            val recoveryFailures = mutableListOf<Throwable>()
             try {
-                // execute or an earlier assertion can fail before recorded().
-                // Read only this fixture's two atomically published records;
-                // recorded() still proves the unique executable and incarnation.
+                // Recover only identities missed before an earlier failure.
+                // Known handles must survive optional post-exit info becoming
+                // unavailable; an unknown live identity still fails closed.
                 listOf("orphan", "blocked").forEach { mode ->
-                    if (Files.isRegularFile(root.resolve("$mode.json"))) recorded(mode)
+                    if (Files.isRegularFile(root.resolve("$mode.json"))) {
+                        recordPids(mode).filterNot(owned::containsKey).forEach { pid ->
+                            runCatching { capture(pid) }.exceptionOrNull()?.let { recoveryFailures += it }
+                        }
+                    }
                 }
             } finally {
-                owned.values.forEach { (handle, started) ->
-                    if (handle.isAlive && started != null && handle.info().startInstant().orElse(null) == started) handle.destroyForcibly()
+                owned.values.forEach { (handle, _) ->
+                    if (handle.isAlive) handle.destroyForcibly()
                 }
                 owned.values.forEach { (handle, _) -> if (handle.isAlive) handle.onExit().get(3, TimeUnit.SECONDS) }
                 Files.walk(root).use { paths -> paths.sorted(Comparator.reverseOrder()).forEach(Files::deleteIfExists) }
+            }
+            recoveryFailures.firstOrNull()?.let { failure ->
+                recoveryFailures.drop(1).forEach { failure.addSuppressed(it) }
+                throw failure
             }
         }
     }
@@ -192,7 +215,11 @@ class GoRunBuildContextProcessOwnershipTest : LightPlatformTestCase() {
                 data,_:=json.Marshal([]int{os.Getpid(),child.Process.Pid})
                 name:=filepath.Join(dir,mode+".json");if err:=os.WriteFile(name+".tmp",data,0600);err!=nil{panic(err)}
                 if err:=os.Rename(name+".tmp",name);err!=nil{panic(err)}
-                if mode=="orphan"{fmt.Print("metadata 😀");return}
+                if mode=="orphan"{
+                    deadline:=time.Now().Add(20*time.Second)
+                    for{if _,err:=os.Stat(filepath.Join(dir,"release-orphan"));err==nil{break};if time.Now().After(deadline){child.Process.Kill();child.Wait();panic("normal-exit gate was not released")};time.Sleep(time.Millisecond)}
+                    fmt.Print("metadata 😀");return
+                }
                 child.Wait()
             }
         """.trimIndent()

@@ -44,7 +44,11 @@ Windows attempt1 的 hosted runner 于 23:18:32Z 失联，原日志不可取，�
 - Windows metadata 命令复用 Go engine 既有的原子 Job 所有者，保留选定 SDK 的环境、目录和参数；删除后代快照清理。仅终止本次直接启动的 owner，由 Job 回收真实后代。清理异常保留原始失败。
 - 新增真实进程控制：正常 launcher 退出后遗留子进程、首次循环检查前取消、独立 sentinel、私有环境/工作目录/UTF-8/非零退出。没有改 Go engine 源码。
 
-五类针对性检查已在本机通过 **38 项 / 5 份报告，零失败、错误和跳过**；这仍不是 Windows 分支或原生通过。首轮38项中只有新夹具对 Unix PTY 的 CRLF 预期不符，已保留日志并将夹具改为无换行精确 UTF-8 输出；生产解码语义未改，也未跳过该测试。下一步：冻结新源码、重新完整打包 `.14.2` 并原生复验，以同一源码跑双平台 CI。所有实际安装器、XML、race、源码及五资产摘要核对通过后才公开。
+五类针对性检查先通过38项，但 C3 `e6264e4` 的本机完整门禁随后为 **969 项 / 174 报告，1 失败**：新增 orphan 夹具在命令返回后读取可选进程身份信息，遇到 `isAlive=true`、command缺失。具体OS快照原因未知，不能据此定性生产回归。没有生成App；root主动取消同源云端 `43532637816`，两端为cancelled，不是云端测试失败，未创建14.2 tag。完整原XML和来源见[本机夹具失败记录](../../verification/windows-build-context-process-20261114/REPORT.zh-CN.md)。
+
+夹具已收紧为：父进程发布PID记录后等release；第二次检查中先验证父子都存活、记录可执行文件和出生身份，再允许父正常退出；随后只断言已捕获句柄回收，独立sentinel继续运行。清理复用已知身份，未知活进程不冒险终止，不跳过用例或删除断言。修改后的五类针对性检查再次 **38/38通过、零跳过**。首轮新夹具的Unix PTY换行预期失败也单独保留，生产输出解码没有改变。
+
+下一步先让新源码的完整 `.14.2` 打包通过，再创建新的同源双平台CI；C3云端小型取消证据不能作为安装器。全部实际安装器、XML、race、源码和五资产摘要核对通过后才公开。
 
 14.1 的本机 GIF 保留原版本/日期/源码，不改标为14.2；新源码的实际运行画面需要单独取得。中英文下载区继续指向公开 `.13.3`。旧14.1专用 promotion/updater辅助脚本保持冻结，不对新的版本或失败产物套用。
 
@@ -56,7 +60,7 @@ Windows attempt1 的 hosted runner 于 23:18:32Z 失联，原日志不可取，�
 
 ## 本机资源
 
-当前 canonical `build/product/open Goland.app` 是已通过上述本机检查的 candidate4。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
+C1 candidate4 已从 canonical 路径原地移动到 `build/product-verified-20261114.1/open Goland.app`，未再复制一份；等待新候选完整通过。C3 candidate5 完整门禁失败，未生成 App。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
 
 此前已清理两份旧生成 App 和 candidate1/2 的已结束配置，实测净回收 **3.83 GiB**；[退役记录](../../verification/generated-artifacts-retired-20261114.json)保存身份、占用检查与历史路径说明。更早三套 profile 清理回收约 1.64 GiB，两轮不能重复计算。当前约 **62 GiB 可用**，大下载或构建前仍需重测并保留至少 20 GiB。
 

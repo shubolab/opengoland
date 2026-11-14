@@ -1,9 +1,15 @@
 {
   "schemaVersion": 1,
-  "status": "unreleased-C1-Windows-attempt2-failure; correction-pending",
+  "status": "C1-Windows-failed; C3-local-full-gate-fixture-failed; C3-cloud-owned-cancelled; C4-source-acceptance-pending",
   "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
   "version": "0.1.0-preview.20261114.1",
   "files": [
+    {
+      "path": "REPORT.zh-CN.md",
+      "bytes": 6526,
+      "sha256": "5f2e5a8ca45abb9d8a389087d9bb6a4fbb475cc63326c92310637e5000011306",
+      "kind": "Chinese-human-readable-bounded-report"
+    },
     {
       "path": "TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
       "bytes": 29475,
@@ -23,17 +29,27 @@
       "archiveMember": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml"
     },
     {
+      "path": "c3-local-fixture/summary.json",
+      "bytes": 3958,
+      "sha256": "526d309eb596ce2c8d95f6112e6aa5fbbbf9a5ffd25148f12aec70c7a9b749b3",
+      "kind": "compact-C3-local-fixture-stage-summary",
+      "originalPath": ".tools/continuation-20261113/workspace-consistency/runtime/candidate5-failed-full-gate/summary.json",
+      "originalSha256": "8d7a4e5c85642d49c4416ed56bd5c9d6ddaef5cfc5e5ada5b6bacfdfbae7462f"
+    },
+    {
+      "path": "c3-local-fixture/test-results.tar.gz",
+      "bytes": 85190,
+      "sha256": "a56d95a76e25590a043bcb52c592c94262fc55603cabc47d887565c8b46052a7",
+      "kind": "original-unchanged-C3-JUnit-XML-archive",
+      "originalPath": ".tools/continuation-20261113/workspace-consistency/runtime/candidate5-failed-full-gate/test-results.tar.gz",
+      "originalSha256": "a56d95a76e25590a043bcb52c592c94262fc55603cabc47d887565c8b46052a7"
+    },
+    {
       "path": "failure-summary.json",
       "bytes": 8287,
       "sha256": "339a7b445f7a7363d9e39aee48e455b621bf4ed3c2f139a0eff06205914b5095",
       "kind": "compact-source-bound-failure-and-cohort-summary"
-    },
-    {
-      "path": "REPORT.zh-CN.md",
-      "bytes": 4310,
-      "sha256": "8758cb0662f5996a9971009cd6ea5139224e6fd36a11a582169a7b144c33a0b2",
-      "kind": "Chinese-human-readable-bounded-report"
     }
   ],
-  "bytePreservation": "Exact Windows XML bytes retained through a scoped -text attribute; includes original CRLF. Report hash refreshed after adding targeted local result."
+  "bytePreservation": "Exact C1 Windows XML bytes, including original CRLF, retained through scoped -text attributes. C3 raw JUnit tar copied byte-for-byte without normalization; every listed file hash refreshed."
 }
