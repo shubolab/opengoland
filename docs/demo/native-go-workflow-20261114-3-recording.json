@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 1,
+  "recordedOnLocalDate": "2026-11-14",
+  "timeZone": "Asia/Shanghai",
+  "scope": "Three real operation-stage stills in actual order: diagnostics restored, uncached native test, native Run with Chinese/emoji. Not a continuous screen recording.",
+  "candidate": {
+    "candidate": "candidate9",
+    "version": "0.1.0-preview.20261114.3",
+    "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "sourceInputsMatchedToGit": 590,
+    "buildInputDigest": "895ae89d7e6906732612365dcdc650a60928c5019317bf8a14872d9d6ef08644",
+    "manifestSha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7",
+    "pluginJarSha256": "fc7e24aa9965eedecc560f1e947e1e0925674eb6f16344e5b7b1316a2d22422b",
+    "launcherSha256": "91f2b4b00392ef1135a6554df03153aed360eb32fab690d893dbc0569f47975c",
+    "engineVcsMetadata": {
+      "revision": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "modified": false
+    },
+    "stateAtCapture": "Local C9 candidate; native selected macOS flows passed. CI and public installer identity are separate.",
+    "byteIdenticalToCiInstallerClaimed": false
+  },
+  "capture": {
+    "method": "CUA actual operations with REA exact PID99982/window9819 original PNGs",
+    "platform": "macOS arm64",
+    "hostSystemObservedDuringEncoding": {
+      "productName": "macOS",
+      "version": "27.2",
+      "build": "26B123",
+      "architecture": "arm64",
+      "observedAtUtc": "2026-11-14T06:16:42.741110+00:00"
+    },
+    "appPid": 99982,
+    "sourceFrames": [
+      {
+        "stage": "source-restored",
+        "evidenceId": "ev_ea6d25a1497e1545b05c279fdaced6fef00bc18819abd6b78e69c0f43699a286",
+        "pid": 99982,
+        "windowId": 9819,
+        "windowTitle": "project – main.go",
+        "sourcePng": "docs/reference/external-root-recovery-20261114-candidate9/native-source-restored.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "0b0e41743837fc16a5d3017f16cc7f666fa419b2f640fe15bd42d5a2ed7c62dc",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000,
+        "rawCaptureMetadataReceipt": {
+          "path": ".tools/continuation-20261114/root-recreation/candidate9-native/source-restored-capture.json",
+          "bytes": 3905,
+          "sha256": "11d65b49601c017c9bc02dd348903413562f32b42806e59cd3f1fb2917537b88"
+        }
+      },
+      {
+        "stage": "uncached-test",
+        "evidenceId": "ev_94eeb6963d860f8bb458d9e64b56ed453b0c5124558809e7af3fabe1be4ea46b",
+        "pid": 99982,
+        "windowId": 9819,
+        "windowTitle": "project – main.go",
+        "sourcePng": "docs/reference/external-root-recovery-20261114-candidate9/native-uncached-test.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "1b3200ca91fe63fdfec0a248aeb5f9e47a5cfc19330b899e364acc170ede0f16",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000,
+        "rawCaptureMetadataReceipt": {
+          "path": ".tools/continuation-20261114/root-recreation/candidate9-native/uncached-test-capture.json",
+          "bytes": 3905,
+          "sha256": "9df7d61a236eaea85b82e9aa0c02500170e6cc1db42e8efb943baea755ee9394"
+        }
+      },
+      {
+        "stage": "native-run",
+        "evidenceId": "ev_a18819c5a5bf6ed5f0a03bd765176ca1188b2aa243a8af2352091ed089a7375f",
+        "pid": 99982,
+        "windowId": 9819,
+        "windowTitle": "project – main.go",
+        "sourcePng": "docs/reference/external-root-recovery-20261114-candidate9/native-run.png",
+        "originalScreenshot": {
+          "mime_type": "image/png",
+          "sha256": "0042353c288490c88cbd4afdf644fe72b61dfad47a187edc971d6d69fafaa957",
+          "width": 1400,
+          "height": 1000
+        },
+        "accessibilityRequested": false,
+        "durationMs": 4000,
+        "rawCaptureMetadataReceipt": {
+          "path": ".tools/continuation-20261114/root-recreation/candidate9-native/native-run-capture.json",
+          "bytes": 3905,
+          "sha256": "2bd872aec5ae609e298aba0cc8d5e165332af46e5e03b5cd63a540728ff2d972"
+        }
+      }
+    ],
+    "nativeVerification": "docs/reference/external-root-recovery-20261114-candidate9/native-summary.json",
+    "nativePostquit": "docs/reference/external-root-recovery-20261114-candidate9/native-postquit.normalized.json",
+    "actualNativeTest": {
+      "observation": "Actual CUA native Run/Test console, recorded from visible result",
+      "command": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" test -json -count=1 -run ^TestCompose$ .",
+      "passed": 1,
+      "totalMillis": 840,
+      "packageSeconds": 0.365,
+      "exitCode": 0,
+      "cached": false,
+      "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "externalRootInodeDuringTest": 90673515,
+      "scope": "One actual native selected test after root recreation and source restoration; not all tests/native parity."
+    },
+    "actualNativeRun": {
+      "actualCommand": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" run .",
+      "stdout": "外部-v1|workspace-two|default|中文😀\n",
+      "exitCode": 0,
+      "observedViaCua": true,
+      "externalRootInodeDuringRun": 90673515
+    }
+  },
+  "encoding": {
+    "tool": "ffmpeg version 9.0.2 Copyright (c) 2000-2026 the FFmpeg developers",
+    "method": "Actual ffmpeg encoding; not the prior Pillow encoder.",
+    "commandWithRepositoryPathsNormalized": [
+      "/opt/homebrew/bin/ffmpeg",
+      "-hide_banner",
+      "-loglevel",
+      "error",
+      "-f",
+      "concat",
+      "-safe",
+      "0",
+      "-i",
+      "<repo>/.tools/continuation-20261114/root-recreation/candidate9-demo/frames.ffconcat",
+      "-filter_complex",
+      "[0:v]scale=1200:857:flags=lanczos,split[v][p];[p]palettegen=stats_mode=full:reserve_transparent=1[pal];[v][pal]paletteuse=dither=none",
+      "-fps_mode",
+      "vfr",
+      "-frames:v",
+      "3",
+      "-loop",
+      "0",
+      "-final_delay",
+      "400",
+      "<repo>/.tools/continuation-20261114/root-recreation/candidate9-demo/candidate9.gif"
+    ],
+    "commandPathNormalization": "<repo> substitutes only the absolute repository prefix. Original argument vector remains in the ignored encoding-command.json.",
+    "originalCommandReceipt": {
+      "path": ".tools/continuation-20261114/root-recreation/candidate9-demo/encoding-command.json",
+      "bytes": 758,
+      "sha256": "6f453143b0f09b6e70f733bd908db5560fa5e7ffd46647b2225921a96555cb93"
+    },
+    "transform": "Uniform proportional Lanczos resize and one global GIF palette; no crop, padding, overlay, mock UI, fake cursor, or animated transition.",
+    "width": 1200,
+    "height": 857,
+    "frames": 3,
+    "durationMs": 12000,
+    "framePtsSeconds": [
+      0,
+      4,
+      8
+    ],
+    "frameDurationsMs": [
+      4000,
+      4000,
+      4000
+    ],
+    "palette": "Global palette from actual frames; dithering disabled; GIF transparency quantization only.",
+    "loop": 0,
+    "lastFrameDelayCentiseconds": 400,
+    "path": "docs/demo/native-go-workflow-20261114-3.gif",
+    "bytes": 286614,
+    "sha256": "ee34e89f8a67281f848a7d4bcca7ba0726da22fe5416b1bbf00a1dce5d7d4e35"
+  },
+  "verification": {
+    "actualGifDecodedFrames": 3,
+    "actualGifDurationSeconds": 12,
+    "actualGifCanvas": [
+      1200,
+      857
+    ],
+    "perFrameSsimAgainstResizedOriginalPng": [
+      0.999243,
+      0.99912,
+      0.999186
+    ],
+    "ssimMinimumAcceptanceThreshold": 0.98,
+    "ssimComparison": "Original PNG steps proportionally Lanczos resized to1200x857; yuv444p comparison against actual decoded GIF at 0/4/8seconds.",
+    "actualDecodedVisualReview": [
+      "Frame1 retains No problems in main.go after source restoration.",
+      "Frame2 retains 1test passed,840ms,package0.365s,exit0.",
+      "Frame3 retains actual Chinese/emoji program output and exit0."
+    ],
+    "sourcePngShaMatchesNativeCaptureMetadata": true,
+    "originalInputOrderPreserved": true,
+    "ffprobeReceipt": {
+      "path": ".tools/continuation-20261114/root-recreation/candidate9-demo/ffprobe.json",
+      "bytes": 4501,
+      "sha256": "3516f350d08926812d0a4287266a1ddc0b93c96ea9260224ed97fc2b4eca318a"
+    },
+    "ssimReceipt": {
+      "path": ".tools/continuation-20261114/root-recreation/candidate9-demo/ssim.log",
+      "bytes": 186,
+      "sha256": "fc0d7333a7dd568237bb2eba8b2fbb8b29fc61dac0fe118f584de1653bc7bdc2"
+    }
+  },
+  "previousRecording": {
+    "record": "docs/demo/native-go-workflow-20261114-2-startup-fixed-recording.json",
+    "recordSha256": "f56e819a792262f75f6806e20551376c5642490d31cf9ec69c93b4b1f35708cb",
+    "gif": "docs/demo/native-go-workflow-20261114-2-startup-fixed.gif",
+    "gifSha256": "4a5fe618ea3ee14980a96bef7933923b8c5998dcfd04d0d19581216d20cc8aec",
+    "retainedUnchanged": true
+  },
+  "limitations": [
+    "Authored four-second still holds are not operation latency or a continuous recording.",
+    "Only these selected local macOS flows are shown; no Windows interaction/full72 acceptance or new public installer claim.",
+    "The full command/count=1 binding is retained in native verification JSON; scaled GIF text is not a replacement for those records.",
+    "All source PNGs disable AX. No screenshot or product content was fabricated.",
+    "CI/publication state may advance later; capture source and version must never be relabeled."
+  ]
+}

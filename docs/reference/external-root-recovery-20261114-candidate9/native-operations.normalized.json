@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-original-operation-records",
+  "operations": [
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-native/baseline-operation.json",
+        "bytes": 517,
+        "sha256": "536e520c16c7465a30994046f030a7aa3c4cb0d63f2ec4d43a84f28450dcf719"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:51:35.470923+00:00",
+        "stage": "baseline",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 86979628,
+        "currentExternalSourceSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:51:35.685298+00:00",
+        "goRunExit": 0,
+        "stdout": "外部-v1|workspace-two|default|中文😀\n",
+        "stderr": ""
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-native/root-absent-operation.json",
+        "bytes": 656,
+        "sha256": "82233009625499021bcdb2dbf152162cc0bdc8831c8433de316c00569b0a63a2"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:53:32.653175+00:00",
+        "stage": "root-absent",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "originalRootInode": 86979628,
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:53:32.720896+00:00",
+        "goRunExit": 1,
+        "stdout": "",
+        "stderr": "one/main.go:6:2: example.invalid/open-goland/consistency/external@v0.0.0 (replaced by ../external): reading ../external/go.mod: open <repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/go.mod: no such file or directory\n"
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-native/root-recreated-greeting-operation.json",
+        "bytes": 616,
+        "sha256": "b9a1e21ece439f8fe3723805410a9be3b4da0eee11606c6bba634dd75d08b782"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:54:45.936084+00:00",
+        "stage": "root-recreated-greeting",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 90673515,
+        "currentExternalSourceSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+        "originalRootInode": 86979628,
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:54:46.134009+00:00",
+        "goRunExit": 1,
+        "stdout": "",
+        "stderr": "# example.invalid/open-goland/consistency/one\none/main.go:11:53: undefined: external.Message\n"
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-native/source-restored-operation.json",
+        "bytes": 557,
+        "sha256": "3cf7121bd42cba9e427a3331c6861dcd60621ecf269617644a64f0e7e9b85e1a"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:56:43.327861+00:00",
+        "stage": "source-restored",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 90673515,
+        "currentExternalSourceSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+        "originalRootInode": 86979628,
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:56:43.816149+00:00",
+        "goRunExit": 0,
+        "stdout": "外部-v1|workspace-two|default|中文😀\n",
+        "stderr": ""
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate9-native/original-root-restored-operation.json",
+        "bytes": 575,
+        "sha256": "14ab9092540eaed6966120d851f799dd978e534eb061ddc324405b1d67e395f4"
+      },
+      "data": {
+        "startedAt": "2026-11-14T06:03:21.858579+00:00",
+        "stage": "original-root-restored",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 86979628,
+        "currentExternalSourceSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T06:03:22.089523+00:00",
+        "goRunExit": 0,
+        "stdout": "外部-v1|workspace-two|default|中文😀\n",
+        "stderr": "",
+        "all15FixtureSourceHashesRestored": true
+      }
+    }
+  ],
+  "scope": "These five goRunExit records are CLI controls. Native Run/Test are independently recorded in native-run/native-test."
+}

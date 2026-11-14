@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-native/baseline-owned-processes.json",
+    "bytes": 716,
+    "sha256": "719460bea917cad24ab3cf67a84b0d55c35b442b6481e4f7f2bb301c54770b18"
+  },
+  "data": {
+    "pid": 99982,
+    "processes": [
+      "  113 99982 Sat Nov 14 13:50:48 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+      "  114   113 Sat Nov 14 13:50:48 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **",
+      "99982     1 Sat Nov 14 13:50:28 2026     <repo>/build/product/open Goland.app/Contents/MacOS/idea",
+      "99986 99982 Sat Nov 14 13:50:29 2026     <repo>/build/product/open Goland.app/Contents/bin/fsnotifier"
+    ],
+    "goplsMustRemainSame": true,
+    "defaultBundledGopls": true
+  },
+  "transform": "Repository path prefix replaced with <repo>; no profile/config body or full idea.log copied."
+}

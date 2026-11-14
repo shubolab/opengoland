@@ -157,3 +157,14 @@ C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已
 真正App复验却发现：旧根消失能自动报BrokenImport，新inode根恢复后仍停旧错误，直到额外修改新根源文件才恢复；全部调用方字节未动、gopls PID未变、没有Reload或重启。原始运行与带官方rpc.trace的同C8重放分别保留，后者实际输入目录URI在存在时多尾slash、缺失时无slash。独立真实gopls只改变通知地址尾slash、不改磁盘/版本即可复现错误与恢复；先前统一无slash的协议控制不能证明这条链。
 
 下一修复工作树已改用既有词法稳定 `GoDocumentSync.fileUri`，并修复单独红测证实的目录通知绕过VFS dispatcher FIFO；旧连接/owner在实际dispatch时再次校验。最终41定向全部绿，原排序和URI红测均封存，见[受控结果](../../reference/external-root-recovery-20261114-repair-controls/summary.json)。仍需固定新源码完整打包、新原生复验、真实双平台安装器与新公开版本。C8尚未交付，不用其绿门禁覆盖原生失败，完整目标继续active。
+
+
+## C9：固定源码后的真实根恢复闭环
+
+固定源码 `643480a3d9d01c526210bdeba16df8431c1f4d75` 的 C9（版本 `.20261114.3`）已经完整打包，本机 **981 项／175 报告通过，0 失败、错误或跳过**；590 个封存输入逐个匹配 Git，摘要 `895ae89d…08644`。engine 绑定该源码、modified=false，签名与关键载荷核验通过。41 项定向控制及旧 C8 原生失败证据继续保留。
+
+使用 C8 自有配置种子、全新 system/plugins/log 和默认内置 gopls 的实际 macOS App 已验证：原外部根移走后自动报缺失；原路径以不同 inode 新建、仅定义 `Greeting` 后自动改报 `undefined Message`；只恢复外部 `Message` 后自动清错。全程不改调用方、不重启服务、不手动 Reload；接着通过原生 `-count=1` 测试和含中文/emoji 的 Run。最终15个源文件及原目录 inode 均恢复，正常退出后四个已记录自有进程均不存在，日志0 ERROR/SEVERE，App载荷不变。见[原始截图与摘要](../../reference/external-root-recovery-20261114-candidate9/native-summary.json)。
+
+新的[真实 GIF](../../demo/native-go-workflow-20261114-3.gif)按“恢复后编辑器 → 无缓存测试 → 中文 Run”三个阶段组成，12秒、1200×857；[录制记录](../../demo/native-go-workflow-20261114-3-recording.json)明确本机 C9 来源，不能当作云端安装器字节相同或连续录屏。
+
+本段记录时已推送 annotated tag `v0.1.0-preview.20261114.3`，精确指向 `643480a`；正常 tag 工作流 [43564600307](https://github.com/shubolab/opengoland/actions/runs/43564600307) 的 Windows 与 macOS 实际安装器仍在构建，尚未核验公开五资产。本机通过不代表云端已经交付。C9当前App与最新已验证14.2实际安装器继续保留；旧候选清理必须先归档原文本/XML并复核进程、FD与身份。首次缺根、稳态深层新目录、Windows交互、调试权限和36×2完整矩阵仍开放，goal继续active。

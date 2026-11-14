@@ -1,6 +1,6 @@
 # 项目外依赖目录删除、重建：2026-11-14 失败记录
 
-**已发布的 `.20261114.2` 在本场景是原生 RED；修复提交 `89dc532` 的 candidate8 虽通过本机 977 项/175 报告，随后原生重放仍未通过，不能发布 14.3。** 已公开的 `0.1.0-preview.20261114.2` 对既有外部文件改名有成功记录，但本次发现了更完整的目录生命周期问题：整个外部依赖根消失、再在原路径创建新目录后，编辑器仍显示“没有问题”，真实 Go 编译却失败。本记录不改变已发布安装器，也不把新问题写成已发布修复。
+**当前：固定提交 `643480a` 的 candidate9 完成本机 981 项/175 报告，并通过默认 bundled gopls 的整根删除、重建、原生 Run 和无缓存 Test；14.3 的双平台 CI 与公开安装器仍待完成。** 已发布 `.20261114.2` 与中间 candidate8 的原生失败保留在各自阶段，不改标为成功。本记录区分原生观察、受控协议、源码检查和交付证据，完整工程语义及 72 项矩阵仍开放。
 
 ## 固定对象
 
@@ -147,4 +147,29 @@ Go 驱动摘要记录使用匹配的 Go 1.27.3/GOROOT、`go test -race -count=1 
 
 本组证据明确区分实际 C8 消息与显式控制通知。生产端的词法 URI 规范化和 FIFO 修正仍属于后续源码验证；此处没有新 App 原生通过、Windows/Mac CI、tag 或公开安装器证明，C8 仍不能作为 14.3 发布。
 
-后续修复工作树已通过 [41 项定向检查](external-root-recovery-20261114-repair-controls/summary.json)，覆盖稳定 URI、FIFO 排队、旧连接/所有者隔离和真实 VFS 恢复；排序与 URI 的原始红测分别保留。这仍不是新 App 或双平台安装器通过证明，后续候选将重新完整构建并原生重放。
+## candidate9：默认 bundled gopls 的本机原生通过
+
+candidate9 来自固定提交 **`643480a3d9d01c526210bdeba16df8431c1f4d75`**，候选版本为 `0.1.0-preview.20261114.3`。目录补发通知复用同一 FIFO，并使用不受磁盘目录存在性影响的词法 URI；Client 源码 SHA 为 `f73db33a…0dbe02`。独立核对 [590 个原封存输入](external-root-recovery-20261114-candidate9/source-inputs.original.json)与全部原始 Git blob 一致，摘要 `895ae89d…08644`；engine VCS 为同一提交、`modified=false`，完整 manifest SHA 为 `8e5bb04a…538e7`。
+
+[175 份原始 XML](external-root-recovery-20261114-candidate9/test-results.original.tar.gz)独立统计为 **981 个唯一用例，零失败、错误、跳过**。本阶段 [Go race 复用记录](external-root-recovery-20261114-candidate9/go-race-reuse.json)明确没有重新执行 C9 race：123 个 Go 源文件及 go.mod/go.sum 与 C5、C8 原始 Git 内容相同，引用前次真实 349 个测试通过、12 个包通过记录；不能将它写成 C9 新执行。其他独立核对见[来源记录](external-root-recovery-20261114-candidate9/independent-verification.json)。
+
+新 App PID `99982`，使用默认 bundled gopls `113` / `114`，没有 exec trace 覆盖；自有 C8 配置作为种子，system/log 为新目录，不是干净默认配置。所述阶段 gopls 身份保持不变，调用方 `main.go` 始终为 `0ee5aa91…de112`，没有手动 Reload、重开工程或重启服务。[本轮原生摘要](external-root-recovery-20261114-candidate9/native-summary.json)与[启动副本](external-root-recovery-20261114-candidate9/native-launch.normalized.json)保留固定绑定。
+
+| 本机实际操作 | 原生结果 |
+| --- | --- |
+| [基线](external-root-recovery-20261114-candidate9/native-baseline.png) | 当前文件无问题 |
+| [移走整个原外部根](external-root-recovery-20261114-candidate9/native-root-absent.png) | 自动报告无法导入外部模块，与缺根 CLI 错误一致 |
+| [原路径创建 Greeting 新根](external-root-recovery-20261114-candidate9/native-root-recreated.png) | 新 inode `90673515`；无需额外源码编辑，自动更新为第 11 行 `undefined: external.Message`，不再卡在旧导入错误 |
+| [仅恢复新根中的 Message](external-root-recovery-20261114-candidate9/native-source-restored.png) | 自动清除诊断，根 inode 保持不变 |
+| [原生无缓存 TestCompose](external-root-recovery-20261114-candidate9/native-uncached-test.png) | 实际 `go test -json -count=1 -run ^TestCompose$ .`，1 passed / 840ms / package 0.365s / exit 0，未使用结果缓存 |
+| [原生 Run](external-root-recovery-20261114-candidate9/native-run.png) | bundled Go 执行 `go run .`，输出 `外部-v1\|workspace-two\|default\|中文😀`，exit 0 |
+
+![C9 原路径新根已被正确识别为 undefined Message](external-root-recovery-20261114-candidate9/native-root-recreated.png)
+
+[五份磁盘操作副本](external-root-recovery-20261114-candidate9/native-operations.normalized.json)仍将 CLI 控制与真实[原生 Test](external-root-recovery-20261114-candidate9/native-test.normalized.json)、[原生 Run](external-root-recovery-20261114-candidate9/native-run.normalized.json)分别记录。Run/Test 在新根 inode `90673515` 中完成；随后放回原目录 inode `86979628`，15 个源文件恢复初始摘要。
+
+正常退出后，[收尾副本](external-root-recovery-20261114-candidate9/native-postquit.normalized.json)记录 4 个已采样自有 PID 消失、manifest/启动器/关键产物未变、codesign 深度严格检查 exit 0、所检查日志无 ERROR/SEVERE。版本查询仍有 WARN/Unsafe 警告，不称零警告。六张 PNG 保持原字节，所选元数据和操作记录则明确标为规范化副本，完整 profile、配置正文和 idea.log 不公开；[独立清单](external-root-recovery-20261114-candidate9/manifest.json)逐项记录大小/SHA。
+
+**这是固定源码在本机 macOS 的有限通过，尚不等于 14.3 已交付。** Windows/Mac CI、公开 EXE/DMG 另待实际证据；本机 App 不声称与未来 CI 安装器逐字节相同。首次不存在的根、稳态深层新增子树、Windows 交互及完整 PROJECT-02/72 项矩阵不由本轮关闭。原构建摘要仍保留构建时的 pending，C8 与 `.14.2` 的历史失败均原样保留。
+
+上述 [41 项定向检查](external-root-recovery-20261114-repair-controls/summary.json)覆盖稳定 URI、FIFO 排队、旧连接/所有者隔离和真实 VFS 恢复；排序与 URI 的原始红测分别保留。定向检查本身不代表 App 或安装器通过；C9 的完整打包与有限原生重放由本节独立记录，双平台交付另以发布记录为准。

@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-native/prequit.json",
+    "bytes": 2094,
+    "sha256": "eb66864e59ae7a1b658d28f4e75d46c1f2a80137121cc97bca53cc6cac8192da"
+  },
+  "data": {
+    "at": "2026-11-14T06:03:22.158379+00:00",
+    "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "ownedProcesses": [
+      "  113 99982 Sat Nov 14 13:50:48 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+      "  114   113 Sat Nov 14 13:50:48 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **",
+      "99982     1 Sat Nov 14 13:50:28 2026     <repo>/build/product/open Goland.app/Contents/MacOS/idea",
+      "99986 99982 Sat Nov 14 13:50:29 2026     <repo>/build/product/open Goland.app/Contents/bin/fsnotifier"
+    ],
+    "baselineProcessesUnchanged": true,
+    "goplsPidsUnchanged": [
+      113,
+      114
+    ],
+    "rootCycle": "baseline green -> root missing BrokenImport -> new-inode Greeting undefined Message without extra edit -> restore Message green",
+    "manualReload": false,
+    "goplsRestart": false,
+    "callerModified": false,
+    "originalRootInodeRestored": 86979628,
+    "all15FixtureSourcesRestored": true,
+    "actualNativeTest": {
+      "observation": "Actual CUA native Run/Test console, recorded from visible result",
+      "command": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" test -json -count=1 -run ^TestCompose$ .",
+      "passed": 1,
+      "totalMillis": 840,
+      "packageSeconds": 0.365,
+      "exitCode": 0,
+      "cached": false,
+      "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "externalRootInodeDuringTest": 90673515,
+      "scope": "One actual native selected test after root recreation and source restoration; not all tests/native parity."
+    },
+    "actualNativeRun": {
+      "actualCommand": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" run .",
+      "stdout": "外部-v1|workspace-two|default|中文😀\n",
+      "exitCode": 0,
+      "observedViaCua": true,
+      "externalRootInodeDuringRun": 90673515
+    }
+  },
+  "transform": "Repository path prefix replaced with <repo>; no profile/config body or full idea.log copied."
+}

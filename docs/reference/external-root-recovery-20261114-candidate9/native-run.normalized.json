@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-native/native-run.json",
+    "bytes": 291,
+    "sha256": "b42ebc03ce557b4328a7e3d290844a8ffd7ee15aca16c0ffe71bd6cb7c6deb1d"
+  },
+  "data": {
+    "actualCommand": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" run .",
+    "stdout": "外部-v1|workspace-two|default|中文😀\n",
+    "exitCode": 0,
+    "observedViaCua": true,
+    "externalRootInodeDuringRun": 90673515
+  },
+  "transform": "Repository path prefix replaced with <repo>; no profile/config body or full idea.log copied."
+}

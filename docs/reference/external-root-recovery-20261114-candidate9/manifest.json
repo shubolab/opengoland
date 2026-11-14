@@ -1,0 +1,188 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "version": "0.1.0-preview.20261114.3",
+  "stage": "candidate9-local-native-passed-ci-publication-pending",
+  "files": [
+    {
+      "path": "build-summary.original.json",
+      "bytes": 4144,
+      "sha256": "766fb79b41c9cb2084713d95de01c1b40f6b73f6b2f1a0e2045b156ae8f0c7ab",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "go-race-reuse.json",
+      "bytes": 1899,
+      "sha256": "2afbd545e5c90d96eb1722138c74b0dad69c6a3a7803e4048cc16be7bb32316b",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "independent-verification.json",
+      "bytes": 5676,
+      "sha256": "626ae36de67d246a885b81497149e25552881798a2db451d2dfceaa21c56fc3a",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-baseline-owned-processes.normalized.json",
+      "bytes": 1044,
+      "sha256": "89baf2cf8622cc9b13179fee34a9a8f806310fbb0f0df0ea52881c3df54b47b8",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-baseline.capture.normalized.json",
+      "bytes": 1378,
+      "sha256": "aeb5f297d5953823a91d4efadeef6a35010f8ef1291d83f4dc1ddb68ef6c322c",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-baseline.png",
+      "bytes": 245322,
+      "sha256": "ff16af4df0c330c103229e7060842c8b4d05633d1ea782064ce2862e7f7223a1",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "native-launch.normalized.json",
+      "bytes": 3479,
+      "sha256": "620c8a4f553565bcfba98b92b046b311cea0c8b31d8d05c43758eaad52abd2d7",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-operations.normalized.json",
+      "bytes": 4946,
+      "sha256": "9331d2f67ce4d271134f123b7627fc2def0ab5edd5e637dd290dc3c951e6b9df",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-postquit.normalized.json",
+      "bytes": 2917,
+      "sha256": "00cd19fde838815dc75a833e2fac6f9a581552709f62023d654badea248d47ac",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-prequit.normalized.json",
+      "bytes": 2404,
+      "sha256": "09c97dd261ba40b7f6788e08db60653187760677b31bd40c7959ff9e2e508e56",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-root-absent.capture.normalized.json",
+      "bytes": 1381,
+      "sha256": "af758a9c3871b9f80ef0685325b1220f5f4c25a6f443a1f775519e57cdd34bb9",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-root-absent.png",
+      "bytes": 292744,
+      "sha256": "3a8bb0db97f44572f30c3ebf75ba6d84ee412be47be3b1c6746c030b0884abfc",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "native-root-recreated.capture.normalized.json",
+      "bytes": 1384,
+      "sha256": "0c1dfb73d47951b07afcaf916d2b812136210117625f87074da268fe9d982b39",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-root-recreated.png",
+      "bytes": 270623,
+      "sha256": "0a0e10b5c133a325b9ff6af81ed666dd2a57ca480c01c2af45b26a58d1a4739a",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "native-run.capture.normalized.json",
+      "bytes": 1380,
+      "sha256": "d333e857555e7f5f004b65db8d1ed974e4bc3f836fefabb9506be0a4174841bb",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-run.normalized.json",
+      "bytes": 687,
+      "sha256": "7603b991c1f7f52e7b663959885e034ad86c90d8f2b46e7d780fe82ce8573a43",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-run.png",
+      "bytes": 280940,
+      "sha256": "0042353c288490c88cbd4afdf644fe72b61dfad47a187edc971d6d69fafaa957",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "native-source-restored.capture.normalized.json",
+      "bytes": 1385,
+      "sha256": "0825d1c7271c478a42d887010ec7529d866623702d13e3f96d00f7472decff67",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-source-restored.png",
+      "bytes": 245952,
+      "sha256": "0b0e41743837fc16a5d3017f16cc7f666fa419b2f640fe15bd42d5a2ed7c62dc",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "native-summary.json",
+      "bytes": 5349,
+      "sha256": "1ee8ff20d483e985c70ebe4d65b092b6f90a437e852512e7cd38c61472325a41",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-test.normalized.json",
+      "bytes": 993,
+      "sha256": "bf844d33d59d9fe62a249966ccb1125d62ac9be4508f09e3e70ed655c8ffbdfa",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-uncached-test.capture.normalized.json",
+      "bytes": 1383,
+      "sha256": "afa930e3e0920ddda74c42c425214cdc1bf01c3d3ba0471a69bd2bf3ffd5ecfa",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "native-uncached-test.png",
+      "bytes": 322831,
+      "sha256": "1b3200ca91fe63fdfec0a248aeb5f9e47a5cfc19330b899e364acc170ede0f16",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "native-version.original.json",
+      "bytes": 1194,
+      "sha256": "3c62df6ccdf56ac2fe5083f14851f33179d17a68a70d14c470d76eb18fbbc195",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "product-manifest.selected.json",
+      "bytes": 5837,
+      "sha256": "92c2ff83932bc99ad84d4123b6eab76a9c2c1150625a48860e61a75ec1df0764",
+      "representation": "selected-or-derived-verification"
+    },
+    {
+      "path": "source-inputs.original.json",
+      "bytes": 111065,
+      "sha256": "31d7dde572b73db9e3d9aef7b6752c1303358688763f4eb4d98028dc3cbd4f98",
+      "representation": "original-bytes"
+    },
+    {
+      "path": "test-results.original.tar.gz",
+      "bytes": 86694,
+      "sha256": "c20de4bd14db695f09fb03b7dc92b4425ccdb9e9588f5946fca5cb74142f6419",
+      "representation": "original-bytes"
+    }
+  ],
+  "reusedEvidence": [
+    {
+      "path": "../external-root-recovery-20261114-candidate8/go-race-summary.original.json",
+      "bytes": 2236,
+      "sha256": "9e71be5767aa156b5e97a0c2f0033ee3ba01dda3d902d991d4d7da78a807761f"
+    },
+    {
+      "path": "../external-root-recovery-20261114-candidate8/go-race.original.jsonl",
+      "bytes": 386042,
+      "sha256": "c4ca765f3a4001532e89e6c67b4207add3d5e49894d663789612be7ecd5f87b8"
+    },
+    {
+      "path": "../external-root-recovery-20261114-candidate8/go-race.original.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "limits": "Build files unchanged. Native macOS success is source-bound and separate from CI/public installers; prior C8/14.2 failures remain historical unchanged."
+}

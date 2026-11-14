@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-native/postquit.json",
+    "bytes": 2440,
+    "sha256": "43f60e564fab06ad90817363fc370f42abb5ef0adabee2cd253555cdeb1b4d3f"
+  },
+  "data": {
+    "at": "2026-11-14T06:04:47.212823+00:00",
+    "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "version": "0.1.0-preview.20261114.3",
+    "manifestSha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7",
+    "normalQuitObservedViaCua": true,
+    "ownAppsAllClosed": true,
+    "sampledOwnedProcessIdentitiesGone": [
+      {
+        "pid": 113,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 114,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 99982,
+        "status": "pid no longer exists"
+      },
+      {
+        "pid": 99986,
+        "status": "pid no longer exists"
+      }
+    ],
+    "goplsPidsUnchangedDuringCycle": [
+      113,
+      114
+    ],
+    "all15FixtureSourcesRestored": true,
+    "defaultBundledGopls": true,
+    "traceOverrideAbsent": true,
+    "manifestLauncherAndKeyPayloadHashesUnchanged": true,
+    "codesignDeepStrictExit": 0,
+    "errorSevereMatches": [],
+    "wholeIdeaLog": {
+      "bytes": 92762,
+      "sha256": "8a49a701f2bb8cf35be2812703f773f7df0cd48e45983122ac86561dbade2055"
+    },
+    "nativeRootRecovery": "pass existing watched root deletion, different-inode recreation, immediate correct undefined diagnostic, source restoration clears error; caller unchanged; no reload or server restart",
+    "nativeTest": {
+      "observation": "Actual CUA native Run/Test console, recorded from visible result",
+      "command": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" test -json -count=1 -run ^TestCompose$ .",
+      "passed": 1,
+      "totalMillis": 840,
+      "packageSeconds": 0.365,
+      "exitCode": 0,
+      "cached": false,
+      "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+      "externalRootInodeDuringTest": 90673515,
+      "scope": "One actual native selected test after root recreation and source restoration; not all tests/native parity."
+    },
+    "nativeRun": {
+      "actualCommand": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" run .",
+      "stdout": "外部-v1|workspace-two|default|中文😀\n",
+      "exitCode": 0,
+      "observedViaCua": true,
+      "externalRootInodeDuringRun": 90673515
+    },
+    "localNativePassed": true,
+    "ciAndPublicationPending": true,
+    "scope": "Selected local macOS default-profile-seed flows only; no Windows interactive/full acceptance matrix conclusion. Initial absent roots and steady new deep subtrees remain open."
+  },
+  "transform": "Repository path prefix replaced with <repo>; no profile/config body or full idea.log copied."
+}

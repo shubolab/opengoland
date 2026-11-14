@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-native/native-test.json",
+    "bytes": 586,
+    "sha256": "cdad9918ce3c07a158f4872282a4880e9a53f05370205af488d9abdb60665804"
+  },
+  "data": {
+    "observation": "Actual CUA native Run/Test console, recorded from visible result",
+    "command": "\"<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go/bin/go\" test -json -count=1 -run ^TestCompose$ .",
+    "passed": 1,
+    "totalMillis": 840,
+    "packageSeconds": 0.365,
+    "exitCode": 0,
+    "cached": false,
+    "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "externalRootInodeDuringTest": 90673515,
+    "scope": "One actual native selected test after root recreation and source restoration; not all tests/native parity."
+  },
+  "transform": "Repository path prefix replaced with <repo>; no profile/config body or full idea.log copied."
+}

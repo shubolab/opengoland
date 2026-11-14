@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "stage": "candidate9-local-build-only-native-ci-release-pending",
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "version": "0.1.0-preview.20261114.3",
+  "sourceInputs": {
+    "count": 590,
+    "digest": "895ae89d7e6906732612365dcdc650a60928c5019317bf8a14872d9d6ef08644",
+    "exactImmutableGitInputSetMatches": true,
+    "all590RawGitBlobSha256Match": true
+  },
+  "languageClient": {
+    "path": "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt",
+    "sha256": "f73db33a0b83bfda4a163c9572a2c69b7c13dd5d6b66111a2c7571da0a0dbe02",
+    "matchedCapturedAndRawGitBlob": true
+  },
+  "originalManifest": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-build/product-manifest.json",
+    "bytes": 4943868,
+    "sha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7"
+  },
+  "savedManifestSourceEngineKeyPayloadAgree": true,
+  "engineRevision": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "engineModified": false,
+  "rawTestArchive": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-build/test-results.tar.gz",
+    "bytes": 86694,
+    "sha256": "c20de4bd14db695f09fb03b7dc92b4425ccdb9e9588f5946fca5cb74142f6419"
+  },
+  "fullXmlGate": {
+    "reports": 175,
+    "tests": 981,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "uniqueTestcaseIdentities": 981,
+  "testcaseIdentitySha256": "410fbea0ba685eeb9957e1900eb2a8ed03b68325d311147862f3eacd7170df37",
+  "focusedRawXmlCases": {
+    "TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.xml": {
+      "tests": 23,
+      "cases": [
+        "testQueuedAndLateOldDirectoryReconciliationCannotNotifyAReplacementServer",
+        "testCancellingCallerViewDoesNotLetUnregisterPassTheInternalRegistration",
+        "testStoppedRealClientCannotAcknowledgeAnOwnedScopeAsInstalled",
+        "testStoppedGenerationCannotRegisterIntoItsReplacement",
+        "testRecreatedDirectoryReconciliationNotifiesTheBoundStartedConnection",
+        "testOldClientUnregisterBeforeFirstCaptureCannotRemoveTheCurrentWatcher",
+        "testDirectoryReconciliationPreservesPreviouslyQueuedVfsNotificationOrder",
+        "testRealStartedClientOwnedScopeRejectsIncompleteRootCoverage",
+        "testOldClientRegisterWithReusedIdCannotReplaceTheCurrentWatcher",
+        "testHeldInitializationPreservesRegisterThenUnregisterOrder",
+        "testStoppingDuringInitializedCannotPublishTheOldConnection",
+        "testLateInitializedCancellationCannotStopOrPoisonTheReplacementServer",
+        "testDirectoryReconciliationQueuedOnTheDispatcherCannotNotifyAfterConnectionReplacement",
+        "testOldClientRegisterBeforeFirstCaptureCannotInstallIntoTheReplacement",
+        "testCancellableIdleStoppingCanResumeQueuedNotificationOnTheSameClientAndProxy",
+        "testRealStartedClientOwnedScopeInstallsTheActualMatcherAndColdRoot",
+        "testCancellingOneOwnedRegistrationDoesNotCancelSharedStartupOrAnotherRegistration",
+        "testInitializationFailureFailsTheRegistrationAndReleasesTheFollowingUnregister",
+        "testStopCancelsWaitingRegistrationsAndLateUncancellableStartupCannotReviveThem",
+        "testDisposedWrapperRejectsLateStartupAndNewRegistration",
+        "testRegistrationCanFinishInsideInitializedBeforeTheStartupFutureFinishes",
+        "testLateInitializeResponseCannotOverwriteTheReplacementCapabilities",
+        "testRealStartupAllowsTheInitializedPeerToAwaitItsRegistrationAck"
+      ]
+    },
+    "TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.xml": {
+      "tests": 10,
+      "cases": [
+        "testDirtyRefreshIsBackgroundAndCoalescesWhileThePreviousRefreshIsPending",
+        "testRelativePatternBaseUriKeepsBracketDirectoryNamesLiteral",
+        "testRetainedButUnusableBroadRootDoesNotHideANewOwnersNarrowRoot",
+        "testFailedAsynchronousReconciliationRetainsTheTransitionAndCoalescesUntilCompletion",
+        "testRegistrationReplacementAndUnregistrationRetainAnotherOwnersSharedRoot",
+        "testUnregisteredRootsCannotDeliverALateRefreshTransitionToAnotherOwner",
+        "testRelativePatternsAndAbsoluteFilesHaveBoundedExternalRootsButBroadAndEscapingPatternsDoNot",
+        "testDisposeDuringBackgroundInstallReleasesTheLateLeaseAndCannotReopenIt",
+        "testOwnedScopeChecksActualCoverageAndReleasesPartialPrimingAfterRefusal",
+        "testARefusedBroadRootDoesNotHideAnInstallableNarrowRoot"
+      ]
+    },
+    "TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.xml": {
+      "tests": 4,
+      "cases": [
+        "testFastReplacementPrimesNewChildrenEvenWhileTheOldVirtualRootIsValid",
+        "testMovedVirtualRootDoesNotRefreshTheParkedTreeOutsideItsFixedPath",
+        "testRecreatedRootIsDiscoveredWhenItsCachedParentIsClean",
+        "testOwnedColdRootRecoversAfterTheWholeDirectoryIsRemovedAndRecreated"
+      ]
+    }
+  },
+  "goSourceComparison": {
+    "goFiles": 123,
+    "moduleFiles": [
+      "engine/go.mod",
+      "engine/go.sum"
+    ],
+    "samePathsAndRawGitBlobSha256AsC5AndC8": true,
+    "baseC5Commit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "candidate8Commit": "89dc532aac60678f875c3b4c3740aab709172ea3"
+  },
+  "raceEvidence": "go-race-reuse.json; explicitly not a fresh C9 race execution",
+  "recordedBuildSeal": {
+    "codesignDeepStrictExit": 0,
+    "launcherSha256": "91f2b4b00392ef1135a6554df03153aed360eb32fab690d893dbc0569f47975c"
+  },
+  "limits": [
+    "C9 native GUI and post-quit acceptance are not recorded at this build stage.",
+    "Version 14.3 tag/CI/public installers are not proved.",
+    "Build summary preserves its original build-time pending state; C8 native failures retain their C8 identity."
+  ]
+}

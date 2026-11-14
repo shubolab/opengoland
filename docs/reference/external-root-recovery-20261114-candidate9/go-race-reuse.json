@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "candidateSourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "freshRaceExecutionForCandidate9": false,
+  "originalExecutionSourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "originalExecutionAt": "2026-11-14T04:53:23.753138+00:00",
+  "originalCommandScope": "Uncached go test -race -count=1 -json ./... with matching Go1.27.3/GOROOT, shared caches, GOWORK absent; all current Go source hashes independently equal C5 original Git blobs.",
+  "reusedPublicEvidence": [
+    {
+      "path": "../external-root-recovery-20261114-candidate8/go-race-summary.original.json",
+      "bytes": 2236,
+      "sha256": "9e71be5767aa156b5e97a0c2f0033ee3ba01dda3d902d991d4d7da78a807761f"
+    },
+    {
+      "path": "../external-root-recovery-20261114-candidate8/go-race.original.jsonl",
+      "bytes": 386042,
+      "sha256": "c4ca765f3a4001532e89e6c67b4207add3d5e49894d663789612be7ecd5f87b8"
+    },
+    {
+      "path": "../external-root-recovery-20261114-candidate8/go-race.original.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "reason": {
+    "all123GoSourceFilesAndBothModuleFilesUnchanged": true,
+    "baseC5Commit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "candidate8Commit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+    "candidate9Commit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "comparison": "Exact same path sets and SHA-256 of immutable Git blobs, independently checked."
+  },
+  "originalLogReparsed": {
+    "testPassEvents": 349,
+    "testSkipEvents": 0,
+    "packagesPassed": 12,
+    "commandPackageWithoutTests": 1,
+    "noFailedOrCachedEvents": true
+  },
+  "limits": [
+    "This reuses the earlier actual race execution; it is not a C9 fresh Go test/race/vet run.",
+    "A future C9 Windows/Mac CI execution must supply its own fresh platform evidence."
+  ]
+}

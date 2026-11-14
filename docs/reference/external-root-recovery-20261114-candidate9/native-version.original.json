@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-14T05:50:28.506008+00:00",
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "manifestSha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7",
+  "exitCode": 0,
+  "stdout": "2026.1.4\n",
+  "stderr": "2026-11-14 13:50:26,367 [    761]   WARN - #c.i.p.instanceContainer - InstanceNotOverridableException: Override failed for com.intellij.openapi.project.impl.ProjectStoreFactory: com.intellij.configurationScript.providers.ConfigurationScriptProjectStoreFactory attempts to override com.intellij.configurationStore.PlatformLangProjectStoreFactory, but the existing implementation is not overriddable (not declared as 'open=true')\nWARNING: A terminally deprecated method in sun.misc.Unsafe has been called\nWARNING: sun.misc.Unsafe::allocateMemory has been called by io.netty.util.internal.PlatformDependent0$2\nWARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$2\nWARNING: sun.misc.Unsafe::allocateMemory will be removed in a future release\n",
+  "errorSevereMatches": [],
+  "profileSeed": "Own C8 config copied; fresh system/plugins/log; default bundled gopls, no trace override"
+}
