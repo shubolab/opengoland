@@ -52,29 +52,31 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3).
+[Download preview 0.1.0-preview.20261114.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2).
 Both installers include checksums and platform verification records.
 
-This release adds sequential HTTP batches, named Services results, formatted
-JSON and headers, per-item failures with later requests continuing, Stop All,
-and original-byte response saving. Earlier repairs for HTTP body boundaries,
-supporting-file highlighting, plugin management, Chinese language packs,
-terminal/SDK settings and process ownership remain included.
+This preview replaces the blue GO tiles with transparent Gopher file icons,
+red/green test badges, distinct module/workspace markers and functional sidebar
+icons. Existing files in active local `replace` dependencies of open Go packages
+now refresh diagnostics, completion and navigation; no-argument parameter hints
+also receive a repair. Windows installed-startup initialization is repaired, and metadata queries
+clean up only their own tool processes when completing or cancelling. The earlier .14.1 Windows candidate
+remained unreleased; its [failure record](docs/verification/windows-build-context-process-20261114/REPORT.zh-CN.md)
+is retained. Earlier HTTP, plugin/Chinese and terminal/SDK work remains included.
 
-Both published platform builds passed **911 Kotlin tests in 166 reports**, with
-zero failures, errors or skips. Each includes 72 HTTP tests, with the response
-view and source-navigation regressions passing on both platforms. All eight tests in the Windows process-ownership
-package passed, including the actual file-sharing-lock regression. The EXE and
-DMG passed their installed-product checks; source inputs, test identities and all
-five public asset digests have been independently checked. See the
-[.13.3 verification record](docs/verification/releases/0.1.0-preview.20261113.3.json).
+Both platform installer builds passed **969 Kotlin tests in 174 reports**,
+with zero failures, errors or skips. The actual EXE and DMG passed their own
+installed-product checks. Source inputs, original test identities and all five
+public asset digests passed private-draft and public audits. The native demo uses the same source; the CI installers have separate installation evidence. See the
+[.14.2 verification record](docs/verification/releases/0.1.0-preview.20261114.2.json).
+
 Interactive Windows workflows, macOS Developer Mode debugging and full GoLand
 parity still require separate acceptance.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.3/open-Goland-0.1.0-preview.20261113.3-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261113.3/open-Goland-0.1.0-preview.20261113.3-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -154,7 +156,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261113.3.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261114.2.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,

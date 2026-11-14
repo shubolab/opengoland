@@ -1,0 +1,440 @@
+{
+  "schemaVersion": 1,
+  "release": {
+    "tag": "v0.1.0-preview.20261114.2",
+    "name": "open Goland 0.1.0-preview.20261114.2",
+    "id": 444970702,
+    "status": "public-prerelease",
+    "publishedAt": "2026-11-14T03:41:02Z",
+    "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "workflowRun": 43543358207,
+    "workflowAttempt": 1,
+    "workflowConclusion": "success",
+    "producerEvent": "workflow_dispatch",
+    "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2",
+    "sourceUrl": "https://github.com/shubolab/opengoland/tree/07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "runUrl": "https://github.com/shubolab/opengoland/actions/runs/43543358207"
+  },
+  "summaryZh": "透明蓝色Gopher、红绿测试角标与功能侧栏；修正已打开Go包实际使用的本地replace依赖现有文件刷新、零参数提示、Windows安装后启动初始化及元数据查询进程所有权。双平台实际安装器、源码、原始测试与五资产通过独立私有/公开核验，完整GoLand与Windows交互仍开放。",
+  "assets": {
+    "SHA256SUMS": {
+      "id": 746177787,
+      "bytes": 426,
+      "sha256": "c2bf5f49012d2e923dcfa4333c6767e28b46278eba7837091cdd925c5c563ac1",
+      "state": "uploaded",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/SHA256SUMS"
+    },
+    "macos-provenance.tar.gz": {
+      "id": 746177784,
+      "bytes": 4141351,
+      "sha256": "84dd1a2f06697bebba876911d4c0116a533ee2dc39c3891e38affc971ce94241",
+      "state": "uploaded",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/macos-provenance.tar.gz"
+    },
+    "open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg": {
+      "id": 746177774,
+      "bytes": 1022010762,
+      "sha256": "dad7cfb9e1c0b5bdd6d2fd1819de4f3e4eecb21aec0a59fc069462952e9d560e",
+      "state": "uploaded",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg"
+    },
+    "open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe": {
+      "id": 746177776,
+      "bytes": 871230954,
+      "sha256": "02dc6790866a6b541b5a71907eb570b488a219167d6742ea918ad8516be93515",
+      "state": "uploaded",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe"
+    },
+    "windows-provenance.tar.gz": {
+      "id": 746177785,
+      "bytes": 6469735,
+      "sha256": "7d3e18e1b7207842e90ff8396e2722fc7a60d08cf66f019469ef051b25df9a6e",
+      "state": "uploaded",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/windows-provenance.tar.gz"
+    }
+  },
+  "verification": {
+    "independentDraftAudit": {
+      "version": "0.1.0-preview.20261114.2",
+      "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+      "runId": 43543358207,
+      "attempt": 1,
+      "producerEvent": "workflow_dispatch",
+      "releaseState": "private-draft",
+      "publishedAt": null,
+      "assets": {
+        "open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg": {
+          "bytes": 1022010762,
+          "sha256": "dad7cfb9e1c0b5bdd6d2fd1819de4f3e4eecb21aec0a59fc069462952e9d560e"
+        },
+        "open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe": {
+          "bytes": 871230954,
+          "sha256": "02dc6790866a6b541b5a71907eb570b488a219167d6742ea918ad8516be93515"
+        },
+        "macos-provenance.tar.gz": {
+          "bytes": 4141351,
+          "sha256": "84dd1a2f06697bebba876911d4c0116a533ee2dc39c3891e38affc971ce94241"
+        },
+        "windows-provenance.tar.gz": {
+          "bytes": 6469735,
+          "sha256": "7d3e18e1b7207842e90ff8396e2722fc7a60d08cf66f019469ef051b25df9a6e"
+        },
+        "SHA256SUMS": {
+          "bytes": 426,
+          "sha256": "c2bf5f49012d2e923dcfa4333c6767e28b46278eba7837091cdd925c5c563ac1"
+        }
+      },
+      "windows": {
+        "tests": {
+          "reports": 174,
+          "tests": 969,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "goRace": {
+          "packages": {
+            "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+            "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+            "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+            "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+            "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+            "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+          },
+          "passEvents": 347,
+          "processownerTests": [
+            "TestCompletedLauncherCannotLeaveItsChildOrPipes",
+            "TestExistingEngineModesRemainUnclaimed",
+            "TestKillingOwnerStopsAlreadyStartedChildrenAndPipes",
+            "TestMalformedOwnerRequestsCannotReachAPlatformLauncher",
+            "TestOwnedCommandFixture",
+            "TestOwnedCommandPreservesArgumentsEnvironmentDirectoryStreamsAndStatus",
+            "TestParentLifetimePipeEOFStopsOwnedChildrenAndPipes",
+            "TestReadinessWaitsForARealWindowsSharingLock"
+          ],
+          "moduleDownloadDiagnostics": 0
+        },
+        "native": {
+          "installExitCode": 0,
+          "uninstallExitCode": 0,
+          "installedSmoke": "pass",
+          "scope": "Real installer bytes, native version and visible project-frame startup, explicit installed bundled tools and one uncached Go test via engine RPC; not interactive editor parity or Kotlin default-resolver acceptance."
+        }
+      },
+      "macos": {
+        "tests": {
+          "reports": 174,
+          "tests": 969,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "goRace": {
+          "packages": {
+            "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+            "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+            "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+            "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+            "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+            "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+          },
+          "passEvents": 349,
+          "processownerTests": [
+            "TestExistingEngineModesRemainUnclaimed",
+            "TestMalformedOwnerRequestsCannotReachAPlatformLauncher"
+          ],
+          "moduleDownloadDiagnostics": 0
+        },
+        "native": {
+          "sourceDirty": false,
+          "sourceDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+          "imageVerified": true,
+          "mountedAndCopied": true,
+          "signatureVerified": true,
+          "signing": "ad-hoc; not notarized",
+          "scope": "Actual DMG verify, mount/install copy, signatures, native version, bundled tools and one uncached pure-Go test; not full interactive parity."
+        }
+      },
+      "sourceInputs": 587,
+      "sourceDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655"
+    },
+    "independentPublicAudit": {
+      "version": "0.1.0-preview.20261114.2",
+      "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+      "runId": 43543358207,
+      "attempt": 1,
+      "producerEvent": "workflow_dispatch",
+      "releaseState": "public",
+      "publishedAt": "2026-11-14T03:41:02Z",
+      "assets": {
+        "open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg": {
+          "bytes": 1022010762,
+          "sha256": "dad7cfb9e1c0b5bdd6d2fd1819de4f3e4eecb21aec0a59fc069462952e9d560e"
+        },
+        "open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe": {
+          "bytes": 871230954,
+          "sha256": "02dc6790866a6b541b5a71907eb570b488a219167d6742ea918ad8516be93515"
+        },
+        "macos-provenance.tar.gz": {
+          "bytes": 4141351,
+          "sha256": "84dd1a2f06697bebba876911d4c0116a533ee2dc39c3891e38affc971ce94241"
+        },
+        "windows-provenance.tar.gz": {
+          "bytes": 6469735,
+          "sha256": "7d3e18e1b7207842e90ff8396e2722fc7a60d08cf66f019469ef051b25df9a6e"
+        },
+        "SHA256SUMS": {
+          "bytes": 426,
+          "sha256": "c2bf5f49012d2e923dcfa4333c6767e28b46278eba7837091cdd925c5c563ac1"
+        }
+      },
+      "windows": {
+        "tests": {
+          "reports": 174,
+          "tests": 969,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "goRace": {
+          "packages": {
+            "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+            "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+            "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+            "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+            "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+            "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+          },
+          "passEvents": 347,
+          "processownerTests": [
+            "TestCompletedLauncherCannotLeaveItsChildOrPipes",
+            "TestExistingEngineModesRemainUnclaimed",
+            "TestKillingOwnerStopsAlreadyStartedChildrenAndPipes",
+            "TestMalformedOwnerRequestsCannotReachAPlatformLauncher",
+            "TestOwnedCommandFixture",
+            "TestOwnedCommandPreservesArgumentsEnvironmentDirectoryStreamsAndStatus",
+            "TestParentLifetimePipeEOFStopsOwnedChildrenAndPipes",
+            "TestReadinessWaitsForARealWindowsSharingLock"
+          ],
+          "moduleDownloadDiagnostics": 0
+        },
+        "native": {
+          "installExitCode": 0,
+          "uninstallExitCode": 0,
+          "installedSmoke": "pass",
+          "scope": "Real installer bytes, native version and visible project-frame startup, explicit installed bundled tools and one uncached Go test via engine RPC; not interactive editor parity or Kotlin default-resolver acceptance."
+        }
+      },
+      "macos": {
+        "tests": {
+          "reports": 174,
+          "tests": 969,
+          "failures": 0,
+          "errors": 0,
+          "skipped": 0
+        },
+        "goRace": {
+          "packages": {
+            "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+            "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+            "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+            "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+            "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+            "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+            "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+            "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+          },
+          "passEvents": 349,
+          "processownerTests": [
+            "TestExistingEngineModesRemainUnclaimed",
+            "TestMalformedOwnerRequestsCannotReachAPlatformLauncher"
+          ],
+          "moduleDownloadDiagnostics": 0
+        },
+        "native": {
+          "sourceDirty": false,
+          "sourceDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+          "imageVerified": true,
+          "mountedAndCopied": true,
+          "signatureVerified": true,
+          "signing": "ad-hoc; not notarized",
+          "scope": "Actual DMG verify, mount/install copy, signatures, native version, bundled tools and one uncached pure-Go test; not full interactive parity."
+        }
+      },
+      "sourceInputs": 587,
+      "sourceDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655"
+    },
+    "source": {
+      "commit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+      "inputs": 587,
+      "digest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+      "bothPlatformSourceSetsAndOriginalTestIdentitiesCheckedByAuditor": true
+    },
+    "platformProducers": {
+      "macos-arm64": {
+        "jobId": 132288803355,
+        "actualExecutionAttempt": 1,
+        "startedAt": "2026-11-14T01:55:08Z",
+        "completedAt": "2026-11-14T02:36:58Z",
+        "artifactId": 14094508173,
+        "artifactCreatedAt": "2026-11-14T02:36:49Z",
+        "artifactBytes": 940021655,
+        "artifactApiSha256": "sha256:73fe37baa29066844d2e0c4c3c330a46152c6e3025363766bd61760ecfe41aef"
+      },
+      "windows-x64": {
+        "jobId": 132288803301,
+        "actualExecutionAttempt": 1,
+        "startedAt": "2026-11-14T01:55:08Z",
+        "completedAt": "2026-11-14T02:48:16Z",
+        "artifactId": 14095076153,
+        "artifactCreatedAt": "2026-11-14T02:47:18Z",
+        "artifactBytes": 877691674,
+        "artifactApiSha256": "sha256:f436b31fddd041a75dcbe8c19fdc5791e7f4bac83bb3b1f8f1ca29dbf9621cc1"
+      }
+    },
+    "producerArtifacts": {
+      "macos-arm64": {
+        "id": 14094508173,
+        "node_id": "MDg6QXJ0aWZhY3QxNDA5NDUwODE3Mw==",
+        "name": "macos-arm64",
+        "size_in_bytes": 940021655,
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14094508173",
+        "archive_download_url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14094508173/zip",
+        "expired": false,
+        "digest": "sha256:73fe37baa29066844d2e0c4c3c330a46152c6e3025363766bd61760ecfe41aef",
+        "created_at": "2026-11-14T02:36:49Z",
+        "updated_at": "2026-11-14T02:36:49Z",
+        "expires_at": "2026-11-28T02:36:15Z",
+        "workflow_run": {
+          "id": 43543358207,
+          "repository_id": 1450286669,
+          "head_repository_id": 1450286669,
+          "head_branch": "main",
+          "head_sha": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624"
+        }
+      },
+      "windows-x64": {
+        "id": 14095076153,
+        "node_id": "MDg6QXJ0aWZhY3QxNDA5NTA3NjE1Mw==",
+        "name": "windows-x64",
+        "size_in_bytes": 877691674,
+        "url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14095076153",
+        "archive_download_url": "https://api.github.com/repos/shubolab/opengoland/actions/artifacts/14095076153/zip",
+        "expired": false,
+        "digest": "sha256:f436b31fddd041a75dcbe8c19fdc5791e7f4bac83bb3b1f8f1ca29dbf9621cc1",
+        "created_at": "2026-11-14T02:47:18Z",
+        "updated_at": "2026-11-14T02:47:18Z",
+        "expires_at": "2026-11-28T02:46:48Z",
+        "workflow_run": {
+          "id": 43543358207,
+          "repository_id": 1450286669,
+          "head_repository_id": 1450286669,
+          "head_branch": "main",
+          "head_sha": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624"
+        }
+      }
+    },
+    "executionScope": "Both actual successful C5 Mac132288803355 and Windows132288803301 jobs executed in original attempt1 of43543358207. No C1 artifact reuse or attempt2 carried-success alias is used in this release.",
+    "actualLocalVerificationFilesRehashed": [
+      "SHA256SUMS",
+      "macos-provenance.tar.gz",
+      "windows-provenance.tar.gz"
+    ],
+    "installerAuthority": "Actual producer artifact/API/source/installation checks and matching private/public provenance audits. This updater performs no installer download and does not substitute local App7 bytes."
+  },
+  "nativeCandidate": {
+    "record": "docs/reference/cold-external-refresh-20261113-evidence/candidate7/native-summary.json",
+    "gifRecord": "docs/demo/native-go-workflow-20261114-2-startup-fixed-recording.json",
+    "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+    "inputs": 587,
+    "buildInputDigest": "6a6111a516d49a65aee5292ac75d523bc96cc1b1b06500596f1a7a257b8d8655",
+    "manifestSha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce",
+    "pluginJars": {
+      "Contents/plugins/opengoland/lib/opengoland-0.1.0-preview.20261114.2.jar": "8ec58a993453f32ff6afdf2fca38adedcb5f62ef852a1b2666e1cf3ef898942e"
+    },
+    "launchers": {
+      "Contents/MacOS/idea": "b928f4e80e21cc71fd9ce9fce8772d2155e5bf761b0ab6ed7658f6ca6dd9fd07"
+    },
+    "capturedSourceInputsMatchReleaseSource": true,
+    "byteIdenticalToCiInstallerClaimed": false,
+    "scope": "Existing source-C5 local candidate7 startup/Run/current-macOS-terminal/nativeTest observations. Its manifest/JAR/launchers/frames are separately bound; earlier C4 external-refresh/theme checks are not relabeled as C7."
+  },
+  "history": {
+    "unreleasedC4InstalledVersionStartup": {
+      "version": "0.1.0-preview.20261114.2 pretag candidate",
+      "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+      "record": "docs/verification/windows-build-context-process-20261114/c4-installed-startup/README.md",
+      "runUrl": "https://github.com/shubolab/opengoland/actions/runs/43536268282",
+      "scope": "C4 Mac succeeded; Windows built and installed EXE but installed-version process emitted SEVERE. The subsequent GUI shared-log check rejected it; the evidence does not assign first occurrence to the GUI process. No C4 release/tag was accepted."
+    },
+    "previousC4NativeClip": {
+      "record": "docs/demo/native-go-workflow-20261114-2-recording.json",
+      "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+      "scope": "Historical C4/candidate6 cold-external/theme/navigation workflow. Kept unchanged, not relabeled as current source-C5 native acceptance."
+    },
+    "unreleasedC1WindowsFailure": {
+      "version": "0.1.0-preview.20261114.1",
+      "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+      "record": "docs/verification/windows-build-context-process-20261114/failure-summary.json",
+      "report": "docs/verification/windows-build-context-process-20261114/REPORT.zh-CN.md",
+      "runUrl": "https://github.com/shubolab/opengoland/actions/runs/43517336656",
+      "scope": "Original C1 Windows attempt2 had966 tests/2failures and no EXE;14.1 remained unreleased. Attempt1 runner-loss underlying cause remains unknown."
+    },
+    "cancelledC3Candidate": {
+      "sourceCommit": "e6264e4abeab13ecfa0384c2f61c2997d26a0957",
+      "record": "docs/verification/windows-build-context-process-20261114/c3-local-fixture/summary.json",
+      "runUrl": "https://github.com/shubolab/opengoland/actions/runs/43532637816",
+      "scope": "C3 local full gate had969 tests/one fixture identity-query failure. Its cloud run was owner-cancelled, not classified as a cloud test failure; no C3 App/tag/publication was accepted."
+    },
+    "priorGifRetained": {
+      "record": "docs/demo/native-go-workflow-20261114-recording.json",
+      "version": "0.1.0-preview.20261114.1",
+      "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+      "relabelledForThisRelease": false
+    }
+  },
+  "remaining": [
+    "Full36 reference_runtime and36 reconstruction acceptance matrix remains open.",
+    "Windows interactive plugin/Chinese, terminal, Git, run/test/debug and larger-project workflows need separate acceptance.",
+    "macOS Developer Mode/debug permission closure remains open; no system permission change is implied.",
+    "Missing/deleted external roots, deep new directories and workflows beyond the tested active existing local dependency scope remain separate.",
+    "Windows installer is unsigned; macOS is ad-hoc signed and not notarized."
+  ],
+  "localAudit": {
+    "directory": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-audit",
+    "independentDraftAuditSha256": "2d3c8135465fa538accab5f5f0cf239d4ff2a0ada2db0012b8170da59b3c07ff",
+    "independentPublicAuditSha256": "1a332d06dc8b38b956410a66c377edbf1d68f01cbcb519e46d6e4076ecfd239f",
+    "publicReleaseApiSha256": "2ef288b849e4af38818a933779fb5c00f7f2eca7252f31fd6e5ff75b3cf22c4e",
+    "producerRunApiSha256": "09f337e726a595d4a509c6b7800735675b8ac6def0979e5d60d0b9ab1bd77fc5",
+    "assemblyReceipt": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assembly-receipt.json",
+    "assemblyReceiptSha256": "a7dc487793e70f62f3aa51f47eb8c95f7cfb702d5dec6fa301cc754e687e3155",
+    "localNativeRawManifest": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-product-manifest.json",
+    "localNativeRawManifestSha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2",
+  "publishedAt": "2026-11-14T03:41:02Z",
+  "installerSourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "installerProducerRunId": 43543358207,
+  "publicationController": {
+    "sourceCommit": "067c633dc8b97f631c2063b955bb503c3062f64c",
+    "runId": 43552785200,
+    "runUrl": "https://github.com/shubolab/opengoland/actions/runs/43552785200",
+    "jobId": 132318791397,
+    "attempt": 1,
+    "conclusion": "success",
+    "scope": "Transfer and publish already-tested C5 bytes; no installer rebuild"
+  },
+  "receiptArtifact": {
+    "id": 14096732857,
+    "bytes": 29395,
+    "sha256": "5a6a30dd7f549c994493da7ef6238febcfdde4b9797d297b9d7516fc6a9ea982",
+    "apiDigestMatched": true
+  },
+  "privateAudit": {
+    "sha256": "2d3c8135465fa538accab5f5f0cf239d4ff2a0ada2db0012b8170da59b3c07ff",
+    "state": "private-draft",
+    "publishedAt": null
+  },
+  "localPublicAudit": {
+    "sha256": "1a332d06dc8b38b956410a66c377edbf1d68f01cbcb519e46d6e4076ecfd239f",
+    "state": "public",
+    "allFiveActualFilesRehashed": true,
+    "sameOriginalCohortsAsPrivate": true
+  },
+  "anonymousPublicChecksumDownload": {
+    "bytes": 426,
+    "sha256": "c2bf5f49012d2e923dcfa4333c6767e28b46278eba7837091cdd925c5c563ac1",
+    "matchesApi": true
+  },
+  "controlPlaneValidation": {
+    "pythonTests": 102,
+    "failures": 0,
+    "independentReviewCompleted": true
+  },
+  "binaryAssetsRebuiltByPublisher": false,
+  "record": "docs/verification/releases/0.1.0-preview.20261114.2.json"
+}

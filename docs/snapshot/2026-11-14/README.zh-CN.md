@@ -2,7 +2,7 @@
 
 完整目标仍为 **active**：继续建设可日常使用、尽可能还原 GoLand 2026.1.4 的独立原生 Go IDE。工作台使用 Kotlin / 开源 IntelliJ Platform，语言及工程服务使用 Go engine、gopls、Delve。IDE 账号、计费、订阅和试用门槛保持移除，开发工具认证保留。
 
-**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。C5本机与双平台安装验收均已通过，实际EXE/DMG及来源已校验，`.14.2` tag固定C5。** 目前只有私有草稿，正在修复云端传输环节；尚未公开新版，下载区仍为13.3。C4失败和C7本机原生证据分别保留。
+**当前公开安装版为 [.20261114.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2)。实际 EXE、DMG 均已发布，双端安装验收、真实五资产和公开后核对全部通过。** 产品源码固定 C5 `07ae69f`；发布控制层 `067c633` 只转存既有产物，没有重新构建或改变二进制。完整目标继续 active。
 
 ## 本轮做成了什么
 
@@ -103,7 +103,7 @@ GUI Run输出中文emoji并exit0。当前macOS真实终端 `go tes` 补成 `go t
 [新的startup-fixed GIF](../../demo/native-go-workflow-20261114-2-startup-fixed.gif)与
 [录制记录](../../demo/native-go-workflow-20261114-2-startup-fixed-recording.json)使用C7三张新实际截图；
 [原生记录](../../reference/cold-external-refresh-20261113-evidence/candidate7/native-summary.json)绑定来源与边界。
-主README已换新图但下载仍13.3。C6的外部刷新/主题与旧GIF仍是C4证据，不改标为C7；没有新增Windows或完整矩阵验收。
+主README先换为新图，公开发布后下载区也已同步14.2。C6的外部刷新/主题与旧GIF仍是C4证据，不改标为C7；C7本机记录没有新增Windows交互或完整矩阵验收。
 
 新producer [43543358207](https://github.com/shubolab/opengoland/actions/runs/43543358207) attempt1，
 version job132288775707、Windows132288803301、Mac132288803355，已核对14.2/publish=false/workflow_dispatch。
@@ -115,16 +115,16 @@ Windows实际安装/原生项目窗/卸载均退出0；原故障点的冷 `-vers
 严格C5 assembler已生成恰好五个资产，位置为 `.tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets`。
 
 annotated tag `v0.1.0-preview.20261114.2` 已新建并推送，固定C5；自动触发的冗余tag run `43548847135` 已精确取消并确认cancelled，原成功producer不变。
-private release `444970702` 已创建并保留审阅说明，目前仅三份小校验/证据文件已上传，**尚未公开，两个大安装包尚未上传完毕**。
+发布过程曾创建 private release `444970702`，当时仅三份小校验/证据文件已上传；这是早期传输阶段记录，最终公开结果见下面。
 本机直传实测约0.43MB/s，已有代理通道的4MB探测超时；仅本次命令试用，没有改系统网络设置。
 root已精确中断自己的慢传 `gh` PID37796，原始安装器和tag未变，没有遗留本机上传。
-现正修复现有 `publish-tested-installers.yml` 所用control-plane Python，使GitHub服务器复用上述已验收产物上传，避免重跑编译。
+随后修复现有 `publish-tested-installers.yml` 所用control-plane Python，使GitHub服务器复用上述已验收产物上传，避免重跑编译。
 不修改workflow、不改目标C5二进制来源；新controller必须保留原始校验、区分CI安装证据和C7本地原生证据，并在真实五资产的独立私有审计通过后才公开。
-控制层实现及独立审查已通过，完整Python检查为 **102项全绿**（其中发布器14项、独立审计9项）；实际C5只读组装也确认五资产字节精确一致。当前尚未启动云端推广，不能登记公版交付已完成。新CI模式只允许上述已复核C5 cohort；未知新版本必须先复核并增加精确来源约束，旧手工完整草稿的重试路径保留。
+控制层实现及独立审查已通过，完整Python检查为 **102项全绿**（其中发布器14项、独立审计9项）；实际C5只读组装也确认五资产字节精确一致。控制层提交 `067c633dc8b97f631c2063b955bb503c3062f64c` 的实际推广 [43552785200](https://github.com/shubolab/opengoland/actions/runs/43552785200) 已 success，03:41:02Z公开五资产。新CI模式只允许上述已复核C5 cohort；未知新版本必须先复核并增加精确来源约束，旧手工完整草稿的重试路径保留。
 
 C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已具备真实检查/写入实现，默认只检查；
-实际公开状态、C5来源、双端证据和私有/公开双审计齐全后才允许 `--apply`。未公开前不改下载入口，不启用C4旧推广工具。
-历史App/ZIP/缓存退役目前只有只读清单，未执行新删除；最新C7 App、SDK、实际五资产及原始证据继续保护。
+已用实际公开状态、C5来源、双端证据和私有/公开双审计执行 `--check` / `--apply`；中英文README下载区已同步14.2，不启用C4旧推广工具。
+云端真实私有审计回执仅29KB，完整API SHA已核对；本机同一新auditor重新读取五实际文件并与公开API比对，两审计的平台对象和资产字节完全一致。匿名公开下载的426B校验文件也与API SHA匹配。[正式发布证明](../../verification/releases/0.1.0-preview.20261114.2.json)与[控制层接力证明](../../verification/releases/0.1.0-preview.20261114.2-publication.json)区分两种源码来源。历史生成物已按下述精确范围退役。
 
 ## 完整目标还剩什么
 
@@ -134,10 +134,12 @@ C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已
 
 ## 本机资源
 
-C1 candidate4 已从 canonical 路径原地移动到 `build/product-verified-20261114.1/open Goland.app`，未再复制一份；C3 candidate5 完整门禁失败，未生成 App。已关闭的 C6 经两次无打开句柄检查后，原地移动到 `build/product-verified-c4-20261114.2/open Goland.app`，没有复制；记录在 `.tools/continuation-20261113/workspace-consistency/runtime/candidate6-relocated.json`。canonical 已是完成本机验证并正常退出的C7启动修复候选；C4验证应用、C1/13.3应用和共享SDK继续保留。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
+当前仅保留最新本机验收 App：`build/product/open Goland.app`（C7/C5、manifest `5dfd710b…48cfce`）。真实EXE、DMG、两份原始证明及校验值保留在 `.tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/`；审计目录的大文件为同inode硬链接，没有另复制一份安装器。
 
-此前已清理两份旧生成 App 和 candidate1/2 的已结束配置，实测净回收 **3.83 GiB**；[退役记录](../../verification/generated-artifacts-retired-20261114.json)保存身份、占用检查与历史路径说明。更早三套 profile 清理回收约 1.64 GiB，两轮不能重复计算。本次重测约 **52.1 GiB 可用**，大下载或构建前仍需重测并保留至少 20 GiB。
+本轮精确移除三个旧App、C1与C5下载ZIP、两份已完成的解压证明目录、C6/C7已结束system及test system-test，共11个明确目标及三个空父目录。旧路径现在已经不存在；不要继续把历史来源记录理解成文件仍在。[退役记录](../../verification/generated-artifacts-retired-after-14.2-20261114.json)保存原始来源/摘要、两次进程及FD检查、真实公开tag/资产验证和执行回执。
 
-共享 SDK/工具、必要缓存、worktrees、其他项目、参考应用和公开 Release 资产均保留。85 → 64 GiB 的历史下降缺少分目录基线，原因仍未知。没有修改参考应用、用户原配置、许可或系统调试权限。
+删除前已把80,011,056字节的原始XML、源/配置/日志文字及旧App完整manifest等紧凑事实归档并逐entry核对，含1,145份XML，归档SHA `deefd5e031493d09767fbb5449908673f39cdeaeced7e59063108d7e93a87a68`。profile/config、profile/log、原始JUnit tar、共享SDK/缓存、源码、worktrees、参考应用及GitHub公版资产均保留。删除后再次确认最新App与实际五资产全部未变。
+
+本轮操作窗口的实际可用空间增加约 **5.64 GiB**，结束时约 **52.6 GiB可用**，高于20GiB保留线；APFS共享及同期写入使du约11.82GiB不能当成实际释放量。此前3.83、1.64和0.54GiB各轮记录独立，不重复相加。大构建前仍应重测空间并先清已结束的自有输出。
 
 前序完整交付与 HTTP/Git 记录见 [11 月 13 日快照](../2026-11-13/README.zh-CN.md)；原始工作记录在 `.tools/continuation-20261113/`，profile、完整日志和 AX 仅留在 ignored 工作区，不提交。

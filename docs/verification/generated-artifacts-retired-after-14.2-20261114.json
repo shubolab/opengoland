@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 1,
+  "sourceCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+  "version": "0.1.0-preview.20261114.2",
+  "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2",
+  "startedAtUtc": "2026-11-14T03:57:29.975392+00:00",
+  "finishedAtUtc": "2026-11-14T03:58:03.787555+00:00",
+  "result": "EXACT_TARGET_RETIREMENT_COMPLETED",
+  "partialRetirement": false,
+  "planSha256": "d3018ce8e3d0075f8c5525fb43d6dd86a538544752054da1454d3dbe4ad0452d",
+  "executorSha256": "d6b6c9ffd5fb1036d38f0997a70e65462f141abb54cbf7efa3fbb5db4e9eca7e",
+  "removed": [
+    {
+      "key": "app13",
+      "atUtc": "2026-11-14T03:57:57.597788+00:00",
+      "path": "build/product-verified-20261113.3/open Goland.app",
+      "historicalAppFacts": {
+        "manifestSha256": "326422fe28ce9e9561971fc7c303bbca721b900ff98d7a90afde016d32e60c37",
+        "manifestBytes": 4939592,
+        "version": "0.1.0-preview.20261113.3",
+        "engineSha256": "00e06d38b03f3828812dfbf993faea708323b02e9160b580a4b603012a72fe4c",
+        "engineSource": "c7164f8fc17d98c53b4d03179f18685c2bef2dce",
+        "engineBuildInfo": "plugins/opengoland/bin/opengoland-engine: go1.27.3\n\tpath\tgithub.com/shubolab/opengoland/engine/cmd/opengoland-engine\n\tmod\tgithub.com/shubolab/opengoland/engine\t(devel)\t\n\tdep\tgithub.com/google/pprof\tv0.0.0-20241101162523-b92577c0c142\th1:sAGdeJj0bnMgUNVeUpp6AYlVdCt3/GdI3pGRqsNSQLs=\n\tdep\tgolang.org/x/mod\tv0.30.0\th1:fDEXFVZ/fmCKProc/yAXXUijritrDzahmwwefnjoPFk=\n\tdep\tgolang.org/x/sync\tv0.18.0\th1:kr88TuHDroi+UVf+0hZnirlk8o8T+4MrK6mr60WkH/I=\n\tdep\tgolang.org/x/tools\tv0.39.1-0.20260109155911-b69ac100ecb7\th1:UaaZx92hw3fDa9xRcX2//NBRE3sR4VHQLlt0TkN2geY=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=c7164f8fc17d98c53b4d03179f18685c2bef2dce\n\tbuild\tvcs.time=2026-11-13T04:11:04Z\n\tbuild\tvcs.modified=true\n",
+        "buildInputDigest": "86585480144da1f3d78c5d418b7280c40f96696ef7c843d4dcd95bdb9bc5d095"
+      }
+    },
+    {
+      "atUtc": "2026-11-14T03:57:57.598354+00:00",
+      "emptyParentOnly": "build/product-verified-20261113.3"
+    },
+    {
+      "key": "app14-1",
+      "atUtc": "2026-11-14T03:57:59.064156+00:00",
+      "path": "build/product-verified-20261114.1/open Goland.app",
+      "historicalAppFacts": {
+        "manifestSha256": "91ff495b30cca69905d19c3074abaea17efb0609434132fda7415d6c92e65482",
+        "manifestBytes": 4943157,
+        "version": "0.1.0-preview.20261114.1",
+        "engineSha256": "e1c936baba34b74b43b8b35e501b9ef60142fba1f1bd49bea65db6688099cab5",
+        "engineSource": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+        "engineBuildInfo": "plugins/opengoland/bin/opengoland-engine: go1.27.3\n\tpath\tgithub.com/shubolab/opengoland/engine/cmd/opengoland-engine\n\tmod\tgithub.com/shubolab/opengoland/engine\t(devel)\t\n\tdep\tgithub.com/google/pprof\tv0.0.0-20241101162523-b92577c0c142\th1:sAGdeJj0bnMgUNVeUpp6AYlVdCt3/GdI3pGRqsNSQLs=\n\tdep\tgolang.org/x/mod\tv0.30.0\th1:fDEXFVZ/fmCKProc/yAXXUijritrDzahmwwefnjoPFk=\n\tdep\tgolang.org/x/sync\tv0.18.0\th1:kr88TuHDroi+UVf+0hZnirlk8o8T+4MrK6mr60WkH/I=\n\tdep\tgolang.org/x/tools\tv0.39.1-0.20260109155911-b69ac100ecb7\th1:UaaZx92hw3fDa9xRcX2//NBRE3sR4VHQLlt0TkN2geY=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=cac85013896b0508d88dab9f8c42d5bbc388fec0\n\tbuild\tvcs.time=2026-11-13T22:09:42Z\n\tbuild\tvcs.modified=false\n",
+        "buildInputDigest": "59dd547a00eecb7f06cfd53255561b80b08baa3fb69fa4d060d04a86f73f4c02"
+      }
+    },
+    {
+      "atUtc": "2026-11-14T03:57:59.064427+00:00",
+      "emptyParentOnly": "build/product-verified-20261114.1"
+    },
+    {
+      "key": "app-c4",
+      "atUtc": "2026-11-14T03:58:00.498870+00:00",
+      "path": "build/product-verified-c4-20261114.2/open Goland.app",
+      "historicalAppFacts": {
+        "manifestSha256": "5a23469c9b53577d6d58352f2d74b67c04f74db31b570328095f5662473ca4e9",
+        "manifestBytes": 4943358,
+        "version": "0.1.0-preview.20261114.2",
+        "engineSha256": "0e60e9ab08f960179f936e5bc7b49f4dd42adc4a08082febd63b17a3188c0b53",
+        "engineSource": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+        "engineBuildInfo": "plugins/opengoland/bin/opengoland-engine: go1.27.3\n\tpath\tgithub.com/shubolab/opengoland/engine/cmd/opengoland-engine\n\tmod\tgithub.com/shubolab/opengoland/engine\t(devel)\t\n\tdep\tgithub.com/google/pprof\tv0.0.0-20241101162523-b92577c0c142\th1:sAGdeJj0bnMgUNVeUpp6AYlVdCt3/GdI3pGRqsNSQLs=\n\tdep\tgolang.org/x/mod\tv0.30.0\th1:fDEXFVZ/fmCKProc/yAXXUijritrDzahmwwefnjoPFk=\n\tdep\tgolang.org/x/sync\tv0.18.0\th1:kr88TuHDroi+UVf+0hZnirlk8o8T+4MrK6mr60WkH/I=\n\tdep\tgolang.org/x/tools\tv0.39.1-0.20260109155911-b69ac100ecb7\th1:UaaZx92hw3fDa9xRcX2//NBRE3sR4VHQLlt0TkN2geY=\n\tbuild\t-buildmode=exe\n\tbuild\t-compiler=gc\n\tbuild\tDefaultGODEBUG=containermaxprocs=0,cryptocustomrand=1,decoratemappings=0,httpservecontentmaxranges=1,tlssecpmlkem=0,tlssha1=1,tracebacklabels=0,updatemaxprocs=0,urlstrictcolons=0,x509sha256skid=0,x509sslcertoverrideplatform=0\n\tbuild\tCGO_ENABLED=1\n\tbuild\tCGO_CFLAGS=\n\tbuild\tCGO_CPPFLAGS=\n\tbuild\tCGO_CXXFLAGS=\n\tbuild\tCGO_LDFLAGS=\n\tbuild\tGOARCH=arm64\n\tbuild\tGOOS=darwin\n\tbuild\tGOARM64=v8.0\n\tbuild\tvcs=git\n\tbuild\tvcs.revision=07bb8eb35f48f11564bac5b076fa7752ff03466a\n\tbuild\tvcs.time=2026-11-14T00:33:56Z\n\tbuild\tvcs.modified=false\n",
+        "buildInputDigest": "9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d"
+      }
+    },
+    {
+      "atUtc": "2026-11-14T03:58:00.499304+00:00",
+      "emptyParentOnly": "build/product-verified-c4-20261114.2"
+    },
+    {
+      "key": "c1-mac-zip",
+      "atUtc": "2026-11-14T03:58:00.603127+00:00",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-1-zips/macos-arm64.zip",
+      "removedZipSha256": "1a73e933a2b277a7da8c3dc4422ded8e21732125137f4ca626ea3ecd1578f58a"
+    },
+    {
+      "key": "c5-mac-zip",
+      "atUtc": "2026-11-14T03:58:00.751996+00:00",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-zips/macos-arm64.zip",
+      "removedZipSha256": "73fe37baa29066844d2e0c4c3c330a46152c6e3025363766bd61760ecfe41aef"
+    },
+    {
+      "key": "c5-win-zip",
+      "atUtc": "2026-11-14T03:58:00.823956+00:00",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-zips/windows-x64.zip",
+      "removedZipSha256": "f436b31fddd041a75dcbe8c19fdc5791e7f4bac83bb3b1f8f1ca29dbf9621cc1"
+    },
+    {
+      "key": "c5-mac-proof",
+      "atUtc": "2026-11-14T03:58:00.884538+00:00",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/macos-arm64"
+    },
+    {
+      "key": "c5-win-proof",
+      "atUtc": "2026-11-14T03:58:00.960905+00:00",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/windows-x64"
+    },
+    {
+      "key": "c6-system",
+      "atUtc": "2026-11-14T03:58:01.108811+00:00",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate6-profile/system"
+    },
+    {
+      "key": "c7-system",
+      "atUtc": "2026-11-14T03:58:01.245234+00:00",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-profile/system"
+    },
+    {
+      "key": "test-system",
+      "atUtc": "2026-11-14T03:58:02.692321+00:00",
+      "path": "build/idea-sandbox/opengoland/IC-2026.1.4/system-test"
+    }
+  ],
+  "preservedOriginalText": {
+    "archivePath": ".tools/continuation-20261113/workspace-consistency/runtime/retirement-preserved-text/20261114T035740Z-51252/preserved-original-bytes.tar.gz",
+    "archiveBytes": 13736965,
+    "archiveSha256": "deefd5e031493d09767fbb5449908673f39cdeaeced7e59063108d7e93a87a68",
+    "rawBytes": 80011056,
+    "entries": 1436,
+    "xmlEntries": 1145,
+    "entriesVerifiedBeforeDeletion": true,
+    "manifestAndReceiptDirectory": ".tools/continuation-20261113/workspace-consistency/runtime/retirement-preserved-text/20261114T035740Z-51252"
+  },
+  "protected": {
+    "currentApp": "build/product/open Goland.app",
+    "currentAppManifestSha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce",
+    "allFiveReleaseAssets": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets",
+    "auditFiles": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-audit",
+    "largeAuditFilesAreSameInodeHardLinks": true,
+    "appAndAllFiveAssetBytesUnchangedAfterDeletion": true,
+    "sharedSdkCachesSourceWorktreesReferenceAppsProfileConfigLogsAndPublicReleaseAssetsPreserved": true
+  },
+  "quiescence": {
+    "initialQuiescence": {
+      "atUtc": "2026-11-14T03:57:40.459286+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "freshCheck1": {
+      "atUtc": "2026-11-14T03:57:44.986122+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "freshCheck2": {
+      "atUtc": "2026-11-14T03:57:50.734338+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    }
+  },
+  "diskBefore": {
+    "total": 494353338368,
+    "used": 443971969024,
+    "free": 50381369344,
+    "dfExitCode": 0,
+    "dfRaw": "Filesystem   1024-blocks      Used Available Capacity iused     ifree %iused  Mounted on\n/dev/disk3s5   482766932 389297248  49200556    89% 5609713 492005560    1%   /System/Volumes/Data\n",
+    "atUtc": "2026-11-14T03:57:56.099767+00:00"
+  },
+  "diskAfter": {
+    "total": 494353338368,
+    "used": 437919322112,
+    "free": 56434016256,
+    "dfExitCode": 0,
+    "dfRaw": "Filesystem   1024-blocks      Used Available Capacity iused     ifree %iused  Mounted on\n/dev/disk3s5   482766932 383386460  55111344    88% 5539228 551113440    1%   /System/Volumes/Data\n",
+    "atUtc": "2026-11-14T03:58:03.787519+00:00"
+  },
+  "observedFreeDeltaBytes": 6052646912,
+  "spaceClaim": "Observed filesystem delta only; concurrent activity/APFS sharing prevents attribution to du estimates",
+  "executionReceipt": {
+    "path": ".tools/continuation-20261113/workspace-consistency/runtime/retirement-preserved-text/20261114T035740Z-51252/execution-receipt.json",
+    "sha256": "dc04e947f9f47aa8a7a0af137ce76f275d6094730ab85b65365d163a4e542d92"
+  },
+  "boundaries": [
+    "This is retirement of exact owned generated files, not a broad filesystem purge.",
+    "Historical App version labels do not prove identity to public installer bytes; exact original manifests and engine metadata are archived.",
+    "Current C7 App and newest real installers remain available; removed historical paths must not be treated as still present."
+  ]
+}
