@@ -10,6 +10,7 @@ import com.redhat.devtools.lsp4ij.client.LanguageClientImpl
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider
 import com.redhat.devtools.lsp4ij.server.definition.LanguageServerDefinition
 import dev.openidea.goide.lsp.GoLanguageClient
+import dev.openidea.goide.lsp.GoDocumentSync
 import org.eclipse.lsp4j.*
 import org.eclipse.lsp4j.jsonrpc.Launcher
 import org.eclipse.lsp4j.jsonrpc.RemoteEndpoint
@@ -28,6 +29,7 @@ import java.util.concurrent.CancellationException
 import java.util.concurrent.CompletableFuture
 import java.util.concurrent.ConcurrentLinkedQueue
 import java.util.concurrent.CountDownLatch
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 import java.util.concurrent.TimeoutException
@@ -182,11 +184,102 @@ class GoCapabilityRegistrationLifecycleTest : LightPlatformTestCase() {
         val peer = StartupPeer(blocked = false)
         f.start(peer)
         f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
+        val expected = GoDocumentSync.fileUri(f.path("a"))
         f.reconcileOwned(setOf("a")).await()
-        val changes = peer.watchedChanges.single().changes
-        assertEquals(1, changes.size)
-        assertEquals(f.path("a").toUri().toASCIIString(), changes.single().uri)
-        assertEquals(FileChangeType.Changed, changes.single().type)
+        Files.move(f.path("a"), f.path("parked-a"))
+        f.reconcileOwned(setOf("a")).await()
+        Files.writeString(Files.createDirectory(f.path("a")).resolve("external.go"), "package external\n")
+        f.reconcileOwned(setOf("a")).await()
+        val changes = peer.watchedChanges.map { it.changes.single() }
+        println("CONTROLLED_PEER_EXISTS_MISSING_RECREATED_URIS=${JSONUtils.getLsp4jGson().toJson(changes)}")
+        assertEquals("The same directory has one lexical URI while present, missing and recreated",
+            List(3) { expected }, changes.map { it.uri })
+        assertEquals(List(3) { FileChangeType.Changed }, changes.map { it.type })
+    }
+
+    fun testDirectoryReconciliationPreservesPreviouslyQueuedVfsNotificationOrder() = StartupFixture().use { f ->
+        val peer = StartupPeer(blocked = false)
+        f.start(peer)
+        f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
+        val entered = CountDownLatch(1)
+        val release = CountDownLatch(1)
+        val dispatcher = f.field("dispatcher") as ExecutorService
+        val held = dispatcher.submit { entered.countDown(); check(release.await(10, TimeUnit.SECONDS)) }
+        assertTrue("The actual wrapper dispatcher must be held", entered.await(10, TimeUnit.SECONDS))
+        try {
+            val deleted = FileEvent(f.path("a/go.mod").toUri().toASCIIString(), FileChangeType.Deleted)
+            val listener = requireNotNull(f.field("fileListener"))
+            listener.javaClass.superclass.getDeclaredMethod("didChangeWatchedFiles", List::class.java).apply { isAccessible = true }
+                .invoke(listener, listOf(deleted))
+            val reconciled = f.reconcileOwned(setOf("a"))
+            // Observe whether the real client can overtake the held dispatcher.
+            // A correctly queued reconciliation is allowed to remain pending.
+            val completedBeforeRelease = try {
+                reconciled.get(500, TimeUnit.MILLISECONDS)
+                true
+            } catch (_: TimeoutException) { false }
+            println("CONTROLLED_PEER_RECONCILE_COMPLETED_BEFORE_DISPATCH_RELEASE=$completedBeforeRelease")
+            release.countDown()
+            held.get(10, TimeUnit.SECONDS)
+            f.wrapper.sendNotification { it }.get(10, TimeUnit.SECONDS)
+            reconciled.await()
+            val actual = peer.watchedChanges.flatMap { it.changes }.map { it.uri to it.type }
+            println("CONTROLLED_PEER_WATCHED_SERVICE_INVOCATIONS=${JSONUtils.getLsp4jGson().toJson(peer.watchedChanges)}")
+            assertEquals("Directory reconciliation must preserve the ordinary VFS dispatch FIFO",
+                listOf(deleted.uri to FileChangeType.Deleted, GoDocumentSync.fileUri(f.path("a")) to FileChangeType.Changed), actual)
+        } finally { release.countDown() }
+    }
+
+    fun testDirectoryReconciliationQueuedOnTheDispatcherCannotNotifyAfterConnectionReplacement() = StartupFixture().use { f ->
+        val old = StartupPeer(blocked = false)
+        f.start(old)
+        f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
+        val oldClient = f.client()
+        val entered = CountDownLatch(1)
+        val release = CountDownLatch(1)
+        val dispatcher = f.field("dispatcher") as ExecutorService
+        val held = dispatcher.submit { entered.countDown(); check(release.await(10, TimeUnit.SECONDS)) }
+        assertTrue(entered.await(10, TimeUnit.SECONDS))
+        try {
+            val notification = f.reconcileOwned(setOf("a"), oldClient)
+            pending(notification)
+            f.wrapper.stop().await()
+            val current = StartupPeer(blocked = false)
+            f.start(current)
+            assertSame(current.remote, f.wrapper.initializedServer.get(10, TimeUnit.SECONDS))
+            release.countDown()
+            held.get(10, TimeUnit.SECONDS)
+            rejected(notification)
+            assertTrue("A stale dispatcher consumer cannot notify the replacement connection", current.watchedChanges.isEmpty())
+            assertTrue("A disposed client cannot send to its stopped connection either", old.watchedChanges.isEmpty())
+        } finally { release.countDown() }
+    }
+
+    fun testCancellableIdleStoppingCanResumeQueuedNotificationOnTheSameClientAndProxy() = StartupFixture().use { f ->
+        val peer = StartupPeer(blocked = false)
+        f.start(peer)
+        f.wrapper.initializedServer.get(10, TimeUnit.SECONDS)
+        val client = f.client()
+        val entered = CountDownLatch(1)
+        val release = CountDownLatch(1)
+        val dispatcher = f.field("dispatcher") as ExecutorService
+        val held = dispatcher.submit { entered.countDown(); check(release.await(10, TimeUnit.SECONDS)) }
+        assertTrue(entered.await(10, TimeUnit.SECONDS))
+        try {
+            val notification = f.reconcileOwned(setOf("a"), client)
+            pending(notification)
+            // Explicit client lifecycle callbacks model a cancelled idle timer;
+            // the actual started wrapper and its remote proxy stay unchanged.
+            client.handleServerStatusChanged(ServerStatus.stopping)
+            client.handleServerStatusChanged(ServerStatus.started)
+            assertSame(peer.remote, f.field("languageServer"))
+            assertSame(client, f.client())
+            release.countDown()
+            held.get(10, TimeUnit.SECONDS)
+            notification.await()
+            assertEquals(listOf(GoDocumentSync.fileUri(f.path("a")) to FileChangeType.Changed),
+                peer.watchedChanges.flatMap { it.changes }.map { it.uri to it.type })
+        } finally { release.countDown() }
     }
 
     fun testQueuedAndLateOldDirectoryReconciliationCannotNotifyAReplacementServer() = StartupFixture().use { f ->

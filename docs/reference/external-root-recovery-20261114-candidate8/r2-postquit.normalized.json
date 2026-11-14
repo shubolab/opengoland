@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-trace-native/postquit.json",
+    "bytes": 1137,
+    "sha256": "ec39c0da89d9745b6b9357f12b25de214bd9f335547511a010da94d7da88ab0e"
+  },
+  "data": {
+    "at": "2026-11-14T05:31:36.698515+00:00",
+    "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+    "normalQuitObservedViaCua": true,
+    "ownAppsAllClosed": true,
+    "sampledOwnedPidsAbsent": [
+      90757,
+      90761,
+      90763,
+      90770
+    ],
+    "goplsTracePidUnchangedWithinCycle": 90763,
+    "all15FixtureSourcesRestored": true,
+    "originalProjectGoSettingsRestored": true,
+    "traceSettingsExistedBefore": false,
+    "removedOnlyCreatedSettingsFile": "<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/.idea/openidea-go.xml",
+    "savedSettingsSha256": "b057ae1cb820eb54e9c957da7048e98a3868f462e360d85ac4f4e28cadd11c45",
+    "manifestUnchanged": true,
+    "codesignDeepStrictExit": 0,
+    "errorSevereMatches": [],
+    "rpcTrace": {
+      "bytes": 35180,
+      "sha256": "84c89d8801c4effa6c52865e16735e2ca31217f773b83313df0c833f9db4df2b"
+    },
+    "releaseEligible": false,
+    "scope": "Same frozen C8 app/source89dc, own project exec-wrapper selected same bundled gopls with official logging flags; functional root recreation failure reproduced; no new build/native fix/CI/publication."
+  },
+  "transform": "Only repository path prefix replaced; no profile/config body or complete idea.log copied."
+}

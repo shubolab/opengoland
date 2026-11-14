@@ -1,0 +1,74 @@
+{
+  "at": "2026-11-14T04:53:23.753138+00:00",
+  "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "goSourcesUnchangedFromC5": true,
+  "goSourceFiles": 123,
+  "exitCode": 0,
+  "packages": [
+    {
+      "package": "github.com/shubolab/opengoland/engine/cmd/opengoland-engine",
+      "action": "skip"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/processowner",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/protocol",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/generate/tags",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/engine",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/search/types",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/rpc",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/refactor/native",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+      "action": "pass"
+    },
+    {
+      "package": "github.com/shubolab/opengoland/engine/internal/refactor/signature",
+      "action": "pass"
+    }
+  ],
+  "passEvents": 361,
+  "testPassEvents": 349,
+  "failEvents": 0,
+  "testSkipEvents": [],
+  "log": {
+    "bytes": 386042,
+    "sha256": "c4ca765f3a4001532e89e6c67b4207add3d5e49894d663789612be7ecd5f87b8"
+  },
+  "stderr": {
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "scope": "Uncached go test -race -count=1 -json ./... with matching Go1.27.3/GOROOT, shared caches, GOWORK absent; all current Go source hashes independently equal C5 original Git blobs."
+}

@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-native/prequit.json",
+    "bytes": 1569,
+    "sha256": "a2a6eb063c9fe667d10c7fa460eeb8ad472c3604986134732b92d1d40cc75568"
+  },
+  "data": {
+    "at": "2026-11-14T05:20:24.855879+00:00",
+    "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+    "sampledOwnedProcesses": [
+      "84426     1 Sat Nov 14 13:01:51 2026     <repo>/build/product/open Goland.app/Contents/MacOS/idea",
+      "84432 84426 Sat Nov 14 13:01:52 2026     <repo>/build/product/open Goland.app/Contents/bin/fsnotifier",
+      "84551 84426 Sat Nov 14 13:02:13 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls serve",
+      "84553 84551 Sat Nov 14 13:02:13 2026     <repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/bin/gopls ** telemetry **"
+    ],
+    "goplsPidsUnchanged": [
+      84551,
+      84553
+    ],
+    "manifestUnchanged": true,
+    "all15FixtureHashesRestored": true,
+    "observedNativeStages": {
+      "baseline": "No problems; F1 actual func external.Message() string",
+      "root-absent": "Automatic could not import external at line6",
+      "root-recreated-greeting": "Still BrokenImport despite CLI undefined Message; candidate failed",
+      "source-restored": "Additional external.go change to Message automatically cleared diagnostics",
+      "steady-greeting": "Same-root additional external.go rename correctly produced undefined Message at line11"
+    },
+    "noManualReloadOrServerRestart": true,
+    "nativeRunOrTestPerformed": false,
+    "autoTestDisableAttempt": "AX exposed an offscreen Disable control; click rejected. No successful setting change is claimed."
+  },
+  "transform": "Repository path prefix replaced with <repo>; no original config/profile body copied."
+}

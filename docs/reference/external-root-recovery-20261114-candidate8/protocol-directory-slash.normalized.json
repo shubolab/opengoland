@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "representation": "selected-normalized-controlled-stdio-result",
+  "status": "reproduced-trailing-slash-directory-uri-misses-invalidation",
+  "goVersion": "go version go1.26.10 darwin/arm64",
+  "goplsVersion": "v0.24.0",
+  "goSha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+  "goplsSha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f",
+  "didOpenCount": 1,
+  "mainVersion": 1,
+  "didChangeCount": 0,
+  "mainDiskUnchanged": true,
+  "clientFrameCount": 22,
+  "serverFrameCount": 48,
+  "explicitDirectoryNotifications": [
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external",
+        "type": 2
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external/",
+        "type": 2
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external",
+        "type": 2
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external",
+        "type": 2
+      }
+    ]
+  ],
+  "diagnosticCodeSummary": {
+    "directoryWithSlash": [
+      "BrokenImport"
+    ],
+    "sameRootWithoutSlash": [
+      "UndeclaredImportedName"
+    ],
+    "restoredSource": []
+  },
+  "phases": {
+    "baseline": {
+      "diagnostics": {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/project/one/main.go",
+        "version": 1,
+        "diagnostics": []
+      },
+      "definition": [
+        {
+          "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external/external.go",
+          "range": {
+            "start": {
+              "line": 2,
+              "character": 5
+            },
+            "end": {
+              "line": 2,
+              "character": 12
+            }
+          }
+        }
+      ],
+      "hover": {
+        "contents": {
+          "kind": "markdown",
+          "value": "```go\nfunc external.Message() string\n```\n\n---\n\n[`external.Message` on pkg.go.dev](https://pkg.go.dev/../external@#Message)"
+        },
+        "range": {
+          "start": {
+            "line": 10,
+            "character": 46
+          },
+          "end": {
+            "line": 10,
+            "character": 53
+          }
+        }
+      }
+    },
+    "missing-root-directory-without-trailing-slash": {
+      "firstBrokenImport": {
+        "atUtc": "2026-11-14T05:27:56.025035+00:00",
+        "phase": "missing-root-directory-without-trailing-slash",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": [
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 1
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 51
+                  }
+                },
+                "severity": 1,
+                "code": "BrokenImport",
+                "codeDescription": {
+                  "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#BrokenImport"
+                },
+                "source": "compiler",
+                "message": "could not import example.invalid/open-goland/consistency/external (no required module provides package \"example.invalid/open-goland/consistency/external\")"
+              }
+            ]
+          }
+        }
+      },
+      "directoryUri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external",
+      "oldRootInode": 90424992
+    },
+    "recreated-greeting-directory-with-trailing-slash": {
+      "observationSeconds": 5.002395624993369,
+      "receivedMainDiagnostics": [],
+      "latestPublishedMainDiagnostic": {
+        "atUtc": "2026-11-14T05:27:56.025035+00:00",
+        "phase": "missing-root-directory-without-trailing-slash",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": [
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 1
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 51
+                  }
+                },
+                "severity": 1,
+                "code": "BrokenImport",
+                "codeDescription": {
+                  "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#BrokenImport"
+                },
+                "source": "compiler",
+                "message": "could not import example.invalid/open-goland/consistency/external (no required module provides package \"example.invalid/open-goland/consistency/external\")"
+              }
+            ]
+          }
+        }
+      },
+      "mainDiskUnchanged": true,
+      "directoryUri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external/",
+      "newRootInode": 90425077,
+      "oldRootInode": 90424992,
+      "externalSourceSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f"
+    },
+    "same-recreated-root-without-trailing-slash-no-disk-change": {
+      "observationSeconds": 5.000133707988425,
+      "receivedMainDiagnostics": [
+        {
+          "atUtc": "2026-11-14T05:28:02.186543+00:00",
+          "phase": "same-recreated-root-without-trailing-slash-no-disk-change",
+          "direction": "server-to-client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/project/one/main.go",
+              "version": 1,
+              "diagnostics": [
+                {
+                  "range": {
+                    "start": {
+                      "line": 10,
+                      "character": 46
+                    },
+                    "end": {
+                      "line": 10,
+                      "character": 53
+                    }
+                  },
+                  "severity": 1,
+                  "code": "UndeclaredImportedName",
+                  "codeDescription": {
+                    "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredImportedName"
+                  },
+                  "source": "compiler",
+                  "message": "undefined: external.Message"
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "latestPublishedMainDiagnostic": {
+        "atUtc": "2026-11-14T05:28:02.186543+00:00",
+        "phase": "same-recreated-root-without-trailing-slash-no-disk-change",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": [
+              {
+                "range": {
+                  "start": {
+                    "line": 10,
+                    "character": 46
+                  },
+                  "end": {
+                    "line": 10,
+                    "character": 53
+                  }
+                },
+                "severity": 1,
+                "code": "UndeclaredImportedName",
+                "codeDescription": {
+                  "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredImportedName"
+                },
+                "source": "compiler",
+                "message": "undefined: external.Message"
+              }
+            ]
+          }
+        }
+      },
+      "mainDiskUnchanged": true,
+      "directoryUri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external",
+      "rootInodeUnchanged": true,
+      "externalSourceBytesUnchanged": true
+    },
+    "source-restored-directory-without-trailing-slash": {
+      "observationSeconds": 5.005104708005092,
+      "receivedMainDiagnostics": [
+        {
+          "atUtc": "2026-11-14T05:28:07.044708+00:00",
+          "phase": "source-restored-directory-without-trailing-slash",
+          "direction": "server-to-client",
+          "message": {
+            "jsonrpc": "2.0",
+            "method": "textDocument/publishDiagnostics",
+            "params": {
+              "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/project/one/main.go",
+              "version": 1,
+              "diagnostics": []
+            }
+          }
+        }
+      ],
+      "latestPublishedMainDiagnostic": {
+        "atUtc": "2026-11-14T05:28:07.044708+00:00",
+        "phase": "source-restored-directory-without-trailing-slash",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": []
+          }
+        }
+      },
+      "mainDiskUnchanged": true,
+      "directoryUri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-directory-slash-001/fixture/external",
+      "rootInodeUnchanged": true
+    }
+  },
+  "sameRootAndSourceBytesBetweenSlashAndNoSlash": true,
+  "ownedGoplsPid": 91655,
+  "goplsExitCode": 0,
+  "ownedGoplsExited": true,
+  "rawFileReceipts": {
+    "result.json": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-directory-slash-001/result.json",
+      "bytes": 24210,
+      "sha256": "b55f38cbf97d2d9041199755a938e3e8c034d4c963f631e21b72fc8368aa19ca"
+    },
+    "client.frames": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-directory-slash-001/client.frames",
+      "bytes": 5521,
+      "sha256": "18219c9b2f1901901ad450b129fc30bede0b1ab5d5324eb321695dc9b12a4040"
+    },
+    "server.frames": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-directory-slash-001/server.frames",
+      "bytes": 19378,
+      "sha256": "9be6b1461189eda39182e80ce2b4bbc366eb072a956eec3b633fe07f00274b14"
+    },
+    "protocol.jsonl": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-directory-slash-001/protocol.jsonl",
+      "bytes": 33630,
+      "sha256": "cca332c25629ed09da706ef1ef1556231aa22c8efbd1608769856e09742cba32"
+    },
+    "probe.py": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-directory-slash-001/probe.py",
+      "bytes": 14783,
+      "sha256": "35c4b536fed4cfa6f3e333f2695868a1cd3b9614250e2c70f69649afee23d9ab"
+    },
+    "gopls.stderr": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-directory-slash-001/gopls.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "rawFilesCopied": false,
+  "limits": [
+    "All four directory Changed notifications are explicit probe inputs, separate from actual native C8 LoggingStream records.",
+    "Trailing-slash versus no-slash comparison changes no file, root inode or main version. Each observation lasts about five seconds.",
+    "This validates the specified URI difference in the real gopls control. The new production URI/FIFO changes still need a new packaged App/native/CI/release acceptance."
+  ]
+}

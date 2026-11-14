@@ -1,0 +1,10 @@
+{
+  "at": "2026-11-14T05:01:50.947046+00:00",
+  "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "manifestSha256": "b3b1438e099c346a6ff3de980e2fae5525dce4d82068944a64a6a58e5a2908c0",
+  "exitCode": 0,
+  "stdout": "2026.1.4\n",
+  "stderr": "2026-11-14 13:01:48,988 [    705]   WARN - #c.i.p.instanceContainer - InstanceNotOverridableException: Override failed for com.intellij.openapi.project.impl.ProjectStoreFactory: com.intellij.configurationScript.providers.ConfigurationScriptProjectStoreFactory attempts to override com.intellij.configurationStore.PlatformLangProjectStoreFactory, but the existing implementation is not overriddable (not declared as 'open=true')\nWARNING: A terminally deprecated method in sun.misc.Unsafe has been called\nWARNING: sun.misc.Unsafe::allocateMemory has been called by io.netty.util.internal.PlatformDependent0$2\nWARNING: Please consider reporting this to the maintainers of class io.netty.util.internal.PlatformDependent0$2\nWARNING: sun.misc.Unsafe::allocateMemory will be removed in a future release\n",
+  "errorSevereMatches": [],
+  "profileSeed": "Own C7 config copied; fresh system/plugins/log directories; not a fresh-default profile"
+}

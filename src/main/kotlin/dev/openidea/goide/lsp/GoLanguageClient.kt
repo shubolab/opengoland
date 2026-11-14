@@ -86,19 +86,26 @@ class GoLanguageClient(project: Project) : LanguageClientImpl(project) {
         // A delayed refresh belongs to the connection that requested it. The
         // wrapper can already own a replacement server when this queue resumes.
         val expectedServer = activeServer
+        val expectedWrapper = ownerWrapper
         return capabilityChange(rejectClosed = true) {
             val server = expectedServer ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language server stopped"))
-            val wrapper = ownerWrapper ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language client is detached"))
-            check(activeServer === server && languageServer === server && wrapper.serverStatus == ServerStatus.started && wrapper.languageServer === server)
-            // Cold VFS materialization may establish a new baseline after gopls
-            // read the dependency. Reconcile both initial priming and a replaced
-            // directory; ordinary content updates still use real VFS events.
-            project.getService(AbstractLSPDocumentFeatureSupport.NavigationModificationTracker::class.java).incrementWatchedDependency()
-            wrapper.incrementModificationCount()
-            server.workspaceService.didChangeWatchedFiles(DidChangeWatchedFilesParams(roots.map {
-                FileEvent(it.toUri().toASCIIString(), FileChangeType.Changed)
-            }))
-            CompletableFuture.completedFuture(null)
+            val wrapper = expectedWrapper ?: return@capabilityChange CompletableFuture.failedFuture(IllegalStateException("The Go language client is detached"))
+            check(ownerWrapper === wrapper && activeServer === server && languageServer === server && wrapper.serverStatus == ServerStatus.started && wrapper.languageServer === server)
+            wrapper.sendNotification { dispatched ->
+                // Ordinary VFS events use this same dispatcher. Validate again
+                // after its queue wait, without adopting a replacement proxy.
+                check(!capabilitiesClosed.get() && !project.isDisposed && ownerWrapper === wrapper && activeServer === server &&
+                    languageServer === server && dispatched === server && wrapper.serverStatus == ServerStatus.started && wrapper.languageServer === server)
+                // Cold VFS materialization may establish a new baseline after
+                // gopls read the dependency. Counters and notification belong
+                // to this one validated FIFO consumer.
+                project.getService(AbstractLSPDocumentFeatureSupport.NavigationModificationTracker::class.java).incrementWatchedDependency()
+                wrapper.incrementModificationCount()
+                dispatched.workspaceService.didChangeWatchedFiles(DidChangeWatchedFilesParams(roots.map {
+                    FileEvent(GoDocumentSync.fileUri(it), FileChangeType.Changed)
+                }))
+                dispatched
+            }.thenApply { null }
         }
     }
 

@@ -1,6 +1,6 @@
 # 项目外依赖目录删除、重建：2026-11-14 失败记录
 
-**已发布的 `.20261114.2` 在本场景是原生 RED；修复工作树已通过 37 项定向测试，新 App 和安装器尚待验证。** 已公开的 `0.1.0-preview.20261114.2` 对既有外部文件改名有成功记录，但本次发现了更完整的目录生命周期问题：整个外部依赖根消失、再在原路径创建新目录后，编辑器仍显示“没有问题”，真实 Go 编译却失败。本记录不改变已发布安装器，也不把新问题写成已发布修复。
+**已发布的 `.20261114.2` 在本场景是原生 RED；修复提交 `89dc532` 的 candidate8 虽通过本机 977 项/175 报告，随后原生重放仍未通过，不能发布 14.3。** 已公开的 `0.1.0-preview.20261114.2` 对既有外部文件改名有成功记录，但本次发现了更完整的目录生命周期问题：整个外部依赖根消失、再在原路径创建新目录后，编辑器仍显示“没有问题”，真实 Go 编译却失败。本记录不改变已发布安装器，也不把新问题写成已发布修复。
 
 ## 固定对象
 
@@ -71,3 +71,80 @@
 最终冻结工作树的 **37 项 / 4 类定向检查全部通过，零失败、错误、跳过**。其中真实 VFS 检查覆盖先消失再重建、快速换目录但旧对象仍有效、旧 VFS 根已移动后的范围约束。首次原生反例和红测仍保留；第一轮 35 项有 2 项失败、第二轮 36 项有 1 项失败，修复刷新时序后第三轮 36 项通过，补移动范围约束后最终 37 项通过。[分阶段结果和源码摘要](external-root-recovery-20261114-evidence/working-tree-green.normalized.json)保留准确边界及原 XML 摘要。
 
 这些是工作树受控检查，不是新 App 的桌面通过证明。首次就不存在的外部根、稳态深层新子目录、Windows 交互仍未由本轮证明；完整构建、原生重放和新版本双安装器交付继续推进。
+
+## candidate8：固定修复提交的本机完整构建
+
+修复现已提交为 **`89dc532aac60678f875c3b4c3740aab709172ea3`**，本机候选版本为 `0.1.0-preview.20261114.3`。[原始构建摘要](external-root-recovery-20261114-candidate8/build-summary.original.json)保留构建完成时的状态：完整本机门禁与独立 App 组装已完成，新的原生、CI、发布验收待进行。它不是已发布版本的声明。
+
+独立核对 [590 个封存输入](external-root-recovery-20261114-candidate8/source-inputs.original.json)：路径集合与固定 Git 提交的全部构建输入一致，每个原始 Git blob 的 SHA 均匹配，集合摘要为 `7c2ec4c0…0816e8`。engine 的 VCS revision 同为 `89dc532`、`modified=false`。保存的完整 manifest SHA 为 `b3b1438e…2908c0`；[紧凑提取](external-root-recovery-20261114-candidate8/product-manifest.selected.json)记录插件 JAR `e8fa8c88…6eeae2`、启动器 `da8cc49c…7060f3` 及关键产物摘要，不复制整个 App 或完整 4.9 MB manifest。
+
+| 独立核对对象 | 本机结果 |
+| --- | --- |
+| [原字节 JUnit 压缩包](external-root-recovery-20261114-candidate8/test-results.original.tar.gz) | 175 份原始 XML，977 个唯一 testcase，零失败、错误、跳过；压缩包 SHA `8dc2ff34…15cf8a` |
+| 目录恢复定向用例 | 本次完整报告中，真实 VFS 恢复类 3 项、watcher 生命周期类 10 项均通过；具体用例名称保留在[独立核对记录](external-root-recovery-20261114-candidate8/independent-verification.json)，不拿这 13 项代替全部工程语义验收 |
+| [Go race 原日志](external-root-recovery-20261114-candidate8/go-race.original.jsonl)及[驱动摘要](external-root-recovery-20261114-candidate8/go-race-summary.original.json) | 重新解析得到 349 个测试通过事件、12 个 package 通过；命令 package 没有测试，产生 1 个包级 skip，没有测试级 skip、失败或缓存事件 |
+| Go 源码对照 | 123 个 Go 源文件的集合及原始 Git blob SHA 与已发布 C5 源码逐项相同；engine 仍重新构建并记录当前提交，不能沿用旧 revision |
+| 构建封存 | 构建摘要记录 `codesign --verify --deep --strict` exit 0；不等于公证或新 App 桌面验收 |
+
+Go 驱动摘要记录使用匹配的 Go 1.27.3/GOROOT、`go test -race -count=1 -json ./...`，GOWORK 未设置。本次文档核对重新读取原日志与不可变 Git blob，没有重跑 Go 或 Gradle。原始 XML 压缩包保留完整原字节；[本阶段独立清单](external-root-recovery-20261114-candidate8/manifest.json)逐文件给出大小与 SHA，之前 RED/工作树阶段清单不变。
+
+**本节只证明固定提交的本机构建和受控检查。** 原构建记录保留当时的 native/CI/release pending 状态；下述后续原生重放未通过，不能倒写为构建阶段已验收。`.20261114.3` 尚未由本节建立 tag、双平台 CI 或公开安装器证明。原 `.14.2` 原生失败、首次缺根和深层新增目录边界，以及完整 `PROJECT-02`/72 项矩阵均不因此关闭。
+
+## candidate8：原生重放仍失败，不能发布
+
+同一固定 C8 App 使用新建的隔离 system/plugins/log 目录及复制的自有 C7 配置，不是干净默认配置。[启动副本](external-root-recovery-20261114-candidate8/native-launch.normalized.json)绑定版本、源码和 manifest；App PID `84426`、window `9613`，gopls `84551` / `84553` 在所述阶段保持身份不变。原生 `-version` exit 0，仍有 WARN/Unsafe 警告，没有 ERROR/SEVERE；不称零警告。
+
+| 实际阶段 | 磁盘与独立 Go CLI | 原生当前文件诊断 |
+| --- | --- | --- |
+| [基线](external-root-recovery-20261114-candidate8/native-baseline.png) | 原根 inode `86979628`，CLI exit 0，输出中文/emoji | 无问题；实际 F1 显示 `external.Message() string` |
+| [整个根移走](external-root-recovery-20261114-candidate8/native-root-absent.png) | CLI exit 1，缺少外部 `go.mod` | 自动报告无法导入外部模块，符合缺根状态 |
+| [原路径重建 Greeting 新根](external-root-recovery-20261114-candidate8/native-root-recreated-failure.png) | 新 inode `90386408`，CLI 已报 `undefined: external.Message` | 仍停在第 6 行无法导入模块，未跟上重建后的实际错误；本次候选失败 |
+| [只把新根源码恢复 Message](external-root-recovery-20261114-candidate8/native-source-restored.png) | 根 inode 不变，CLI exit 0 | 自动清除诊断 |
+| [同一新根再改 Greeting](external-root-recovery-20261114-candidate8/native-steady-greeting.png) | CLI exit 1，`undefined: external.Message` | 自动显示第 11 行 undefined，符合本次普通文件变化 |
+| 放回原 inode 的原目录 | 15 个源文件摘要恢复，CLI exit 0 | 没有对应的最终原目录恢复截图；不能拿上一张新根源码恢复图替代 |
+
+![C8 同路径新根已经存在，原生诊断仍停在无法导入模块](external-root-recovery-20261114-candidate8/native-root-recreated-failure.png)
+
+[六份操作回执的规范化副本](external-root-recovery-20261114-candidate8/native-operations.normalized.json)逐份保留原始输入大小/SHA。调用方 `main.go` 始终为 `0ee5aa91…de112`，没有手动 Reload 或重启 gopls。表中的 Go 执行结果均来自独立 CLI，**本轮没有执行原生 Run/Test**，不借用旧测试面板或旧通过记录。关闭 Auto Test 的一次屏外点击被工具拒绝，也不声称相关设置已成功改变。
+
+正常退出后，[原字节收尾记录](external-root-recovery-20261114-candidate8/native-postquit.original.json)确认 4 个已采样自有 PID 均不存在、15 个源文件恢复、manifest/启动器/关键 JAR 未变，codesign 深度严格检查 exit 0，所检查日志没有 ERROR/SEVERE。[失败摘要](external-root-recovery-20261114-candidate8/native-failure-summary.json)保留 `releaseEligible=false`；五张原 PNG 均关闭 AX 捕获，不复制 profile 或完整日志。普通新根文件变化能刷新，仍不能替代整根重建成功。
+
+## 带子文件删除和等待的控制没有复现
+
+为检验通知组合，在全新的自有工程副本启动真实 gopls：只 `didOpen main.go` 版本 1、没有 `didChange`。先移走根并显式发目录 Changed，得到 BrokenImport；再分别发 `go.mod` 和 `external.go` 的 Deleted，实际等待 12.005 秒后创建 Greeting 新根，仅发目录 Changed。
+
+这次控制**没有复现原生失败**：目录通知后已经收到 `UndeclaredImportedName / undefined: external.Message`。再发 `go.mod` Created 与源码 Changed，没有新的诊断发布，原结果已正确，不能称这些额外通知修好了控制。最后只恢复源码并发文件 Changed，诊断清空。每个后续观察窗约 15 秒，主文件字节不变，gopls 正常 exit 0。
+
+[紧凑反例记录](external-root-recovery-20261114-candidate8/protocol-children-order-counterexample.normalized.json)保留 29 条 client / 66 条 server 原帧的大小/SHA、探针来源摘要、七次实际通知顺序和阶段原始诊断身份；原帧继续留在 ignored 工作区。它只排除了该显式组合在这份夹具中必然失败的解释，不能证明 IDE 实际发送了相同消息，也不能确定 C8 原生失败的根因。后续原生读流取证与修复应另列，当前不下结论。
+
+## C8 第二轮：实际读流消息暴露目录 URI 差异
+
+第二轮沿用同一冻结 C8 App 和隔离配置，仅在自有工程选择一个 exec 包装脚本，让它启动同一个 bundled gopls，附加官方 `serve -rpc.trace -logfile` 参数；没有修改 App、SDK 或参考 IDE。[本轮启动记录](external-root-recovery-20261114-candidate8/r2-launch.normalized.json)绑定真实 gopls SHA `d4b779c2…591f`、包装脚本摘要与配置变更范围。本轮[失败原图](external-root-recovery-20261114-candidate8/r2-root-recreated-failure.png)独立于前五帧，仍是新根已出现而诊断停在无法导入模块。
+
+实际 gopls 日志为 **35,180 字节，SHA `84c89d88…4df2b`，81 条消息**。[选取的真实消息](external-root-recovery-20261114-candidate8/r2-trace.selected.normalized.json)已经重新从原日志解析比对；[日志规范化副本](external-root-recovery-20261114-candidate8/r2-gopls-rpc.normalized.log)只替换机器路径前缀，保留 URI 结尾：
+
+| 日志顺序 | gopls 实际读到的目录 Changed | 随后的主文件诊断 |
+| --- | --- | --- |
+| ordinal 50，根存在 | `.../external/`，有尾斜杠 | 基线原本无诊断 |
+| ordinal 54，根缺失 | `.../external`，无尾斜杠 | ordinal 56 发布 BrokenImport |
+| ordinal 59，新根 Greeting 已出现 | `.../external/`，有尾斜杠 | 未发布更新诊断，原生仍停在无法导入模块 |
+
+这是 `NewHeaderStream` 解码后、gopls `LoggingStream` 保存的**消息层记录，不是原始 Content-Length 线缆字节**。源码 `internal/protocol/log.go` 中，`Read` 成功后使用客户端视角标签 `Sending`，实际表示 gopls 从 stdio 读入；`Received` 则是 gopls 的输出日志，记录在底层 Write 之前，不等于写入确认。源码大小/SHA 与字段解释保存在选取记录中，避免误读方向。
+
+[本轮四份操作记录](external-root-recovery-20261114-candidate8/r2-operations.normalized.json)仍区分 CLI 与原生观察。正常退出后，[收尾副本](external-root-recovery-20261114-candidate8/r2-postquit.normalized.json)确认 4 个已采样自有 PID 消失、15 个源文件恢复、临时工程 Go 设置恢复原本不存在的状态、manifest 未变、codesign exit 0、无 ERROR/SEVERE；配置正文不公开。收尾成功不改变本轮功能失败。
+
+## 仅改变 URI 尾斜杠的真实 gopls 对照
+
+在另一份全新自有工程和 gopls 进程中，调用方只 didOpen 一次、始终版本 1，不发 didChange。先让缺根的无斜杠目录通知产生 BrokenImport，再按下列顺序控制输入，每个观察窗约 5 秒：
+
+| 控制输入 | 实际结果 |
+| --- | --- |
+| 创建含 Greeting 的新根，只发 `.../external/` Changed | 仍停在 BrokenImport，复现不一致（RED） |
+| 不改任何文件、根 inode 或主文件版本，只再发 `.../external` Changed | 更新为 `undefined: external.Message`，与实际源码相符（控制 GREEN） |
+| 恢复 Message 源码，再发无尾斜杠目录 Changed | 诊断清空 |
+
+[精确对照结果](external-root-recovery-20261114-candidate8/protocol-directory-slash.normalized.json)保留 22 条 client / 48 条 server 原帧的摘要、四次实际输入、阶段原始诊断及工具身份；原帧留在 ignored 工作区。main 字节未变，gopls 正常 exit 0。此前统一使用 Python 无尾斜杠 URI 的控制没有复现，这一反例仍保留，不被改标。
+
+本组证据明确区分实际 C8 消息与显式控制通知。生产端的词法 URI 规范化和 FIFO 修正仍属于后续源码验证；此处没有新 App 原生通过、Windows/Mac CI、tag 或公开安装器证明，C8 仍不能作为 14.3 发布。
+
+后续修复工作树已通过 [41 项定向检查](external-root-recovery-20261114-repair-controls/summary.json)，覆盖稳定 URI、FIFO 排队、旧连接/所有者隔离和真实 VFS 恢复；排序与 URI 的原始红测分别保留。这仍不是新 App 或双平台安装器通过证明，后续候选将重新完整构建并原生重放。

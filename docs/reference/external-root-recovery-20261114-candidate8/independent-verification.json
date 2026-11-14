@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "stage": "candidate8-local-build-only",
+  "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "version": "0.1.0-preview.20261114.3",
+  "sourceInputs": {
+    "count": 590,
+    "digest": "7c2ec4c0c6f35d0e67bb53cd494d5857cb7106617565f031ad5499752d0816e8",
+    "matchesExactImmutableGitInputSet": true,
+    "all590RawGitBlobSha256Matched": true
+  },
+  "originalManifest": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-build/product-manifest.json",
+    "bytes": 4943868,
+    "sha256": "b3b1438e099c346a6ff3de980e2fae5525dce4d82068944a64a6a58e5a2908c0"
+  },
+  "manifestSourceInputsEngineAndKeyPayloadRecordsAgree": true,
+  "rawTestArchive": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-build/test-results.tar.gz",
+    "bytes": 84584,
+    "sha256": "8dc2ff34a503565f76e413f1ddd6764a561aa575a9e76d75100ac5bea815cf8a"
+  },
+  "fullXmlGate": {
+    "reports": 175,
+    "tests": 977,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "uniqueTestcaseIdentities": 977,
+  "testcaseIdentitySha256": "86a308eec622c26d8704e76aacedadb6fc4fe163de4e2d9140e48842fd50c9f6",
+  "testcaseIdentityCanonicalization": "UTF-8 sorted classname::testname followed by newline",
+  "focusedRawXmlCases": {
+    "TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.xml": {
+      "tests": 10,
+      "cases": [
+        "testDirtyRefreshIsBackgroundAndCoalescesWhileThePreviousRefreshIsPending",
+        "testRelativePatternBaseUriKeepsBracketDirectoryNamesLiteral",
+        "testRetainedButUnusableBroadRootDoesNotHideANewOwnersNarrowRoot",
+        "testFailedAsynchronousReconciliationRetainsTheTransitionAndCoalescesUntilCompletion",
+        "testRegistrationReplacementAndUnregistrationRetainAnotherOwnersSharedRoot",
+        "testUnregisteredRootsCannotDeliverALateRefreshTransitionToAnotherOwner",
+        "testRelativePatternsAndAbsoluteFilesHaveBoundedExternalRootsButBroadAndEscapingPatternsDoNot",
+        "testDisposeDuringBackgroundInstallReleasesTheLateLeaseAndCannotReopenIt",
+        "testOwnedScopeChecksActualCoverageAndReleasesPartialPrimingAfterRefusal",
+        "testARefusedBroadRootDoesNotHideAnInstallableNarrowRoot"
+      ]
+    },
+    "TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.xml": {
+      "tests": 3,
+      "cases": [
+        "testFastReplacementPrimesNewChildrenEvenWhileTheOldVirtualRootIsValid",
+        "testMovedVirtualRootDoesNotRefreshTheParkedTreeOutsideItsFixedPath",
+        "testOwnedColdRootRecoversAfterTheWholeDirectoryIsRemovedAndRecreated"
+      ]
+    }
+  },
+  "goRace": {
+    "originalLog": {
+      "path": ".tools/continuation-20261114/root-recreation/local-go-race.jsonl",
+      "bytes": 386042,
+      "sha256": "c4ca765f3a4001532e89e6c67b4207add3d5e49894d663789612be7ecd5f87b8"
+    },
+    "originalStderr": {
+      "path": ".tools/continuation-20261114/root-recreation/local-go-race.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "parsedEvents": 1448,
+    "testPassEvents": 349,
+    "testSkipEvents": 0,
+    "packageResults": {
+      "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+      "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+      "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+      "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+      "github.com/shubolab/opengoland/engine/internal/search/types": "pass",
+      "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+      "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+      "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+      "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass"
+    },
+    "packagesPassed": 12,
+    "packagesWithoutTests": 1,
+    "noCachedOrFailedEvents": true,
+    "sourceComparison": {
+      "baseCommit": "07ae69f3b2bbc36f3221ff08e8fe9046f199b624",
+      "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+      "goSourceFiles": 123,
+      "sameFileSet": true,
+      "allRawGitBlobSha256Equal": true
+    },
+    "scope": "Parsed the original race JSON log and immutable source blobs; no Go command rerun during this evidence review."
+  },
+  "recordedBuildSeal": {
+    "codesignDeepStrictExit": 0,
+    "engineRevision": "89dc532aac60678f875c3b4c3740aab709172ea3",
+    "engineModified": false,
+    "launcherSha256": "da8cc49ce661006035bc19695d988f6cb67c4d65fb48a291baa82a3b907060f3"
+  },
+  "limits": [
+    "This is local assembled-App and test evidence, not candidate8 native desktop acceptance.",
+    "Version 14.3 tag, new Windows/Mac CI and public release are not established here.",
+    "Code-signing exit and payload hashes are recorded build-seal facts; this independent document pass verified saved metadata and archives, not the running App or all payload files.",
+    "The published 14.2 source C5 native RED and prior evidence retain their original identity."
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "representation": "selected-normalized-capture-metadata",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-native/root-absent-capture.json",
+    "bytes": 3904,
+    "sha256": "904b0e1755b6fae7a2ad8540d78632cb24db2bbb08b0eb55ca8888f3b2290d6b"
+  },
+  "evidenceId": "ev_4d9cf29bf5531c28cb630e906f6cab3bc310dae84f60fe16c774a47aee0b16cb",
+  "version": "0.1.0-preview.20261114.3",
+  "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "provider": "native-macos",
+  "authority": "shipped-artifact",
+  "operation": "observe_native_ui",
+  "launcherSha256": "da8cc49ce661006035bc19695d988f6cb67c4d65fb48a291baa82a3b907060f3",
+  "window": {
+    "pid": 84426,
+    "window_id": 9613,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794632511.046988,
+    "title": "project – main.go"
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "5cc04c2270718481a81510a0b037ccb1767b11032a1ebc3b87797ed958733462",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibility": {
+    "enabled": false,
+    "capturedNodeCount": 0,
+    "truncated": false,
+    "gaps": [
+      "Accessibility capture was disabled"
+    ],
+    "fullTreeCopied": false
+  },
+  "scope": "Original PNG bytes preserved. Selected metadata is normalized, not original JSON."
+}

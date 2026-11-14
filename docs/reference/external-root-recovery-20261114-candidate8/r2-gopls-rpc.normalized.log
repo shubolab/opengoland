@@ -1,0 +1,321 @@
+[Trace - 13:24:39.837 PM] Sending request 'initialize - (1)'.
+Params: {"processId":90757,"rootPath":"<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project","rootUri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project","initializationOptions":{"env":{},"semanticTokens":true,"usePlaceholders":true,"gofumpt":false,"staticcheck":true,"hints":{"assignVariableTypes":true,"compositeLiteralFields":true,"parameterNames":true}},"capabilities":{"workspace":{"applyEdit":true,"workspaceEdit":{"documentChanges":true,"resourceOperations":["create","delete","rename"]},"didChangeConfiguration":{"dynamicRegistration":true},"didChangeWatchedFiles":{"dynamicRegistration":true},"symbol":{},"executeCommand":{"dynamicRegistration":true},"workspaceFolders":true,"configuration":true,"semanticTokens":{"refreshSupport":true},"codeLens":{"refreshSupport":true},"fileOperations":{"didCreate":true,"didRename":true,"willRename":true,"didDelete":true,"dynamicRegistration":true},"inlayHint":{"refreshSupport":true},"diagnostics":{"refreshSupport":true}},"textDocument":{"synchronization":{"willSave":true,"willSaveWaitUntil":true,"didSave":true},"completion":{"completionItem":{"snippetSupport":true,"documentationFormat":["markdown","plaintext"],"deprecatedSupport":true,"resolveSupport":{"properties":["documentation","detail","additionalTextEdits"]},"insertTextModeSupport":{"valueSet":[1,2]},"labelDetailsSupport":true},"completionList":{"itemDefaults":["editRange"]},"dynamicRegistration":true},"hover":{"contentFormat":["markdown","plaintext"],"dynamicRegistration":true},"signatureHelp":{"signatureInformation":{"parameterInformation":{"labelOffsetSupport":true}},"dynamicRegistration":true},"references":{"dynamicRegistration":true},"documentHighlight":{"dynamicRegistration":true},"documentSymbol":{"symbolKind":{"valueSet":[18,17,5,14,9,10,22,24,8,1,12,11,20,6,2,3,21,16,19,25,4,7,15,23,26,13]},"hierarchicalDocumentSymbolSupport":true,"dynamicRegistration":true},"formatting":{"dynamicRegistration":true},"rangeFormatting":{"dynamicRegistration":true},"declaration":{"linkSupport":true,"dynamicRegistration":true},"definition":{"linkSupport":true,"dynamicRegistration":true},"typeDefinition":{"linkSupport":true,"dynamicRegistration":true},"implementation":{"linkSupport":true,"dynamicRegistration":true},"codeAction":{"codeActionLiteralSupport":{"codeActionKind":{"valueSet":["quickfix","refactor","refactor.extract","refactor.inline","refactor.rewrite","source","source.organizeImports"]}},"dataSupport":true,"resolveSupport":{"properties":["edit"]},"dynamicRegistration":true},"codeLens":{"dynamicRegistration":true},"documentLink":{"dynamicRegistration":true},"colorProvider":{"dynamicRegistration":true},"rename":{"prepareSupport":true,"dynamicRegistration":true},"publishDiagnostics":{"relatedInformation":true,"tagSupport":{"valueSet":[1,2]},"codeDescriptionSupport":true,"dataSupport":true},"foldingRange":{"dynamicRegistration":true},"typeHierarchy":{"dynamicRegistration":true},"callHierarchy":{"dynamicRegistration":true},"semanticTokens":{"requests":{"range":false,"full":true},"tokenTypes":["namespace","type","class","enum","interface","struct","typeParameter","parameter","variable","property","enumMember","event","function","method","macro","keyword","modifier","comment","string","number","regexp","operator","decorator","label"],"tokenModifiers":["declaration","definition","readonly","static"],"formats":["relative"],"multilineTokenSupport":true,"serverCancelSupport":true,"dynamicRegistration":true},"inlayHint":{"dynamicRegistration":true},"diagnostic":{"relatedDocumentSupport":true,"dynamicRegistration":true},"inlineCompletion":{"dynamicRegistration":true}},"window":{"workDoneProgress":true,"showMessage":{"messageActionItem":{"additionalPropertiesSupport":false}},"showDocument":{"support":true}},"general":{"staleRequestSupport":{"cancel":true,"retryOnContentModified":[]},"positionEncodings":["utf-16"]}},"clientInfo":{"name":"open Goland 2026.1.4","version":"open Goland (build IC-261.26222.65)"},"trace":"off","workspaceFolders":[{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project","name":"project"}]}
+
+
+[Trace - 13:24:39.850 PM] Received response 'initialize - (1)' in 13ms.
+Result: {"capabilities":{"textDocumentSync":{"openClose":true,"change":2,"save":{}},"completionProvider":{"triggerCharacters":["."]},"hoverProvider":true,"signatureHelpProvider":{"triggerCharacters":["(",","],"retriggerCharacters":[")"]},"definitionProvider":true,"typeDefinitionProvider":true,"implementationProvider":true,"referencesProvider":true,"documentHighlightProvider":true,"documentSymbolProvider":true,"codeActionProvider":{"codeActionKinds":["gopls.doc.features","gopls.dragonSlayer","quickfix","refactor.extract.constant","refactor.extract.constant-all","refactor.extract.function","refactor.extract.method","refactor.extract.toNewFile","refactor.extract.variable","refactor.extract.variable-all","refactor.inline.call","refactor.inline.variable","refactor.move.moveDeclaration","refactor.move.moveType","refactor.rewrite.changeQuote","refactor.rewrite.fillStruct","refactor.rewrite.fillSwitch","refactor.rewrite.implementInterface","refactor.rewrite.invertIf","refactor.rewrite.joinLines","refactor.rewrite.removeUnusedParam","refactor.rewrite.splitLines","source.assembly","source.doc","source.fixAll","source.freesymbols","source.organizeImports","source.splitPackage"],"resolveProvider":true},"codeLensProvider":{},"documentLinkProvider":{},"workspaceSymbolProvider":true,"documentFormattingProvider":true,"renameProvider":{"prepareProvider":true},"foldingRangeProvider":true,"selectionRangeProvider":true,"executeCommandProvider":{"commands":["gopls.add_dependency","gopls.add_import","gopls.add_telemetry_counters","gopls.add_test","gopls.apply_fix","gopls.assembly","gopls.change_signature","gopls.check_upgrades","gopls.client_open_url","gopls.diagnose_files","gopls.doc","gopls.dragon_slayer","gopls.edit_go_directive","gopls.extract_to_new_file","gopls.fetch_vulncheck_result","gopls.free_symbols","gopls.gc_details","gopls.generate","gopls.go_get_package","gopls.implement_interface","gopls.list_imports","gopls.list_known_packages","gopls.lsp","gopls.maybe_prompt_for_telemetry","gopls.mem_stats","gopls.modify_tags","gopls.modules","gopls.move_declaration","gopls.move_type","gopls.package_symbols","gopls.packages","gopls.regenerate_cgo","gopls.remove_dependency","gopls.reset_go_mod_diagnostics","gopls.resolve_target","gopls.run_go_work_command","gopls.run_govulncheck","gopls.run_tests","gopls.scan_imports","gopls.split_package","gopls.start_debugging","gopls.start_profile","gopls.stop_profile","gopls.tidy","gopls.update_go_sum","gopls.upgrade_dependency","gopls.vendor","gopls.views","gopls.vulncheck","gopls.workspace_stats"]},"callHierarchyProvider":true,"semanticTokensProvider":{"legend":{"tokenTypes":["namespace","type","typeParameter","parameter","property","variable","function","method","macro","keyword","comment","string","number","operator","label"],"tokenModifiers":["definition","readonly","defaultLibrary","static","array","bool","chan","format","interface","map","number","pointer","signature","slice","string","struct","shadowing"]},"range":true,"full":true},"typeHierarchyProvider":true,"inlayHintProvider":{},"workspace":{"workspaceFolders":{"supported":true,"changeNotifications":"workspace/didChangeWorkspaceFolders"},"fileOperations":{"didCreate":{"filters":[{"scheme":"file","pattern":{"glob":"**/*.go"}}]}}},"experimental":{"interactiveResolveProvider":{"kinds":["command"]}}},"serverInfo":{"name":"gopls","version":"{\"GoVersion\":\"go1.27.3\",\"Path\":\"golang.org/x/tools/gopls\",\"Main\":{\"Path\":\"golang.org/x/tools/gopls\",\"Version\":\"v0.24.0\",\"Sum\":\"h1:nPO/LffYa4sP62Ueuema5PPnZPGaZjGl+vZGvbTek4g=\"},\"Deps\":[{\"Path\":\"github.com/BurntSushi/toml\",\"Version\":\"v1.6.0\",\"Sum\":\"h1:dRaEfpa2VI55EwlIW72hMRHdWouJeRF7TPYhI+AUQjk=\"},{\"Path\":\"github.com/fatih/camelcase\",\"Version\":\"v1.0.0\",\"Sum\":\"h1:hxNvNX/xYBp0ovncs8WyWZrOrpBNub/JfaMvbURyft8=\"},{\"Path\":\"github.com/fatih/gomodifytags\",\"Version\":\"v1.17.1-0.20250423142747-f3939df9aa3c\",\"Sum\":\"h1:dDSgAjoOMp8da3egfz0t2S+t8RGOpEmEXZubcGuc0Bg=\"},{\"Path\":\"github.com/fatih/structtag\",\"Version\":\"v1.2.0\",\"Sum\":\"h1:/OdNE99OxoI/PqaW/SuSK9uxxT3f/tcSZgon/ssNSx4=\"},{\"Path\":\"github.com/fsnotify/fsnotify\",\"Version\":\"v1.9.0\",\"Sum\":\"h1:2Ml+OJNzbYCTzsxtv8vKSFD9PbJjmhYF14k/jKC7S9k=\"},{\"Path\":\"github.com/google/jsonschema-go\",\"Version\":\"v0.4.3\",\"Sum\":\"h1:/DBOLZTfDow7pe2GmaJNhltueGTtDKICi8V8p+DQPd0=\"},{\"Path\":\"github.com/modelcontextprotocol/go-sdk\",\"Version\":\"v1.8.0\",\"Sum\":\"h1:KIvahhYqwtbeniWVPs3TcXEA7b8jEtwfBpOTAI+Urx4=\"},{\"Path\":\"github.com/segmentio/asm\",\"Version\":\"v1.2.1\",\"Sum\":\"h1:DTNbBqs57ioxAD4PrArqftgypG4/qNpXoJx8TVXxPR0=\"},{\"Path\":\"github.com/segmentio/encoding\",\"Version\":\"v0.5.4\",\"Sum\":\"h1:OW1VRern8Nw6ITAtwSZ7Idrl3MXCFwXHPgqESYfvNt0=\"},{\"Path\":\"github.com/yosida95/uritemplate/v3\",\"Version\":\"v3.0.2\",\"Sum\":\"h1:Ed3Oyj9yrmi9087+NczuL5BwkIc4wvTb5zIM+UJPGz4=\"},{\"Path\":\"golang.org/x/exp/typeparams\",\"Version\":\"v0.0.0-20260908205506-85c1c2202aba\",\"Sum\":\"h1:ZoZmFkcuQ289xJilBm9Ck3W+/okrhXc4LUpbtKFQE4k=\"},{\"Path\":\"golang.org/x/mod\",\"Version\":\"v0.41.0\",\"Sum\":\"h1:qJmnOUb4YB+FsEuM3HcWucdZASCPGhsX6uljO6pog0c=\"},{\"Path\":\"golang.org/x/oauth2\",\"Version\":\"v0.37.0\",\"Sum\":\"h1:JUlcxA8oAtauLfiH8FX2/FkAWHAdi0QtGCGc+hofE98=\"},{\"Path\":\"golang.org/x/sync\",\"Version\":\"v0.23.0\",\"Sum\":\"h1:KameEIfc1IkluZyXWLn39Wd4tURc6GbCiISGiZm2bQk=\"},{\"Path\":\"golang.org/x/sys\",\"Version\":\"v0.48.0\",\"Sum\":\"h1:bbX/i/6MgT9BVLM9RT1thmxL04yeTAhbEz4SyadbXoo=\"},{\"Path\":\"golang.org/x/telemetry\",\"Version\":\"v0.0.0-20260924152758-ed294f943157\",\"Sum\":\"h1:DftxASHKl6JolFPqoN+2WrFO53JvkHwRXvFqf8gsivA=\"},{\"Path\":\"golang.org/x/text\",\"Version\":\"v0.42.0\",\"Sum\":\"h1:JbOZXgfeCPU9gacVtYliJqOhD+zhrEqK4LfdpmlUZqI=\"},{\"Path\":\"golang.org/x/time\",\"Version\":\"v0.16.0\",\"Sum\":\"h1:vMb6ptszcQMkcwiRTAuNNU50gom6++Q/6gY2hDM6VDE=\"},{\"Path\":\"golang.org/x/tools\",\"Version\":\"v0.51.1-0.20261014163302-24a65270771e\",\"Sum\":\"h1:OKD783ebWgqIZn7EAQNP944SpADpjJ8k4XI3nJAeB4o=\"},{\"Path\":\"golang.org/x/vuln\",\"Version\":\"v1.8.0\",\"Sum\":\"h1:clG4qBU6zH5VKjti8n5j8BBuYzoSha392xXMkXS351U=\"},{\"Path\":\"honnef.co/go/tools\",\"Version\":\"v0.8.1\",\"Sum\":\"h1:+JKf3xJ1ni4CwrhVg4/pqsfPGP6vNAXcKbMXJodYx3w=\"},{\"Path\":\"mvdan.cc/gofumpt\",\"Version\":\"v0.12.0\",\"Sum\":\"h1:1Lbudkz2kpM9Cjz2pL4M19u7q+GaEhCTNf7N9mfpcho=\"},{\"Path\":\"mvdan.cc/xurls/v2\",\"Version\":\"v2.6.0\",\"Sum\":\"h1:3NTZpeTxYVWNSokW3MKeyVkz/j7uYXYiMtXRUfmjbgI=\"}],\"Settings\":[{\"Key\":\"-buildmode\",\"Value\":\"exe\"},{\"Key\":\"-compiler\",\"Value\":\"gc\"},{\"Key\":\"-trimpath\",\"Value\":\"true\"},{\"Key\":\"CGO_ENABLED\",\"Value\":\"0\"},{\"Key\":\"GOARCH\",\"Value\":\"arm64\"},{\"Key\":\"GOOS\",\"Value\":\"darwin\"},{\"Key\":\"GOARM64\",\"Value\":\"v8.0\"}],\"Version\":\"v0.24.0\"}"}}
+
+
+[Trace - 13:24:39.904 PM] Sending notification 'initialized'.
+Params: {}
+
+
+[Trace - 13:24:39.905 PM] Received request 'window/workDoneProgress/create - (1)'.
+Params: {"token":"6333373066723096395"}
+
+
+[Trace - 13:24:39.925 PM] Sending response 'window/workDoneProgress/create - (1)' in 19ms.
+Result: null
+
+
+[Trace - 13:24:39.925 PM] Received notification '$/progress'.
+Params: {"token":"6333373066723096395","value":{"kind":"begin","title":"Setting up workspace","message":"Loading packages..."}}
+
+
+[Trace - 13:24:39.925 PM] Received request 'workspace/configuration - (2)'.
+Params: {"items":[{"scopeUri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project","section":"gopls"}]}
+
+
+[Trace - 13:24:39.954 PM] Sending notification 'textDocument/didOpen'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go","languageId":"go","version":1,"text":"package main\n\nimport (\n\t\"fmt\"\n\n\t\"example.invalid/open-goland/consistency/external\"\n\t\"example.invalid/open-goland/consistency/two\"\n)\n\nfunc Compose() string {\n\treturn fmt.Sprintf(\"%s|%s|%s|中文😀\", external.Message(), two.Origin(), Flavor())\n}\n\nfunc main() {\n\tfmt.Println(Compose())\n}\n"}}
+
+
+[Trace - 13:24:39.954 PM] Sending response 'workspace/configuration - (2)' in 28ms.
+Result: [null]
+
+
+[Trace - 13:24:39.954 PM] Sending request 'textDocument/foldingRange - (2)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:39.954 PM] Sending request 'textDocument/codeLens - (3)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:39.954 PM] Sending request 'textDocument/documentLink - (4)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:39.954 PM] Sending notification '$/cancelRequest'.
+Params: {"id":"3"}
+
+
+[Trace - 13:24:39.954 PM] Sending notification '$/cancelRequest'.
+Params: {"id":"2"}
+
+
+[Trace - 13:24:39.954 PM] Sending notification '$/cancelRequest'.
+Params: {"id":"4"}
+
+
+[Trace - 13:24:39.954 PM] Sending request 'textDocument/documentLink - (5)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:40.019 PM] Received notification 'window/logMessage'.
+Params: {"type":3,"message":"2026/11/14 13:24:40 Created View (#1)\n\tdirectory=<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project\n\tview_type=\"GoWork\"\n\troot_dir=\"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project\"\n\tgo_version=\"go version go1.26.10 darwin/arm64\"\n\tbuild_flags=[]\n\tenv={GOOS:darwin GOARCH:arm64 GOCACHE:<repo>/.tools/go-tools-cache/build-cache GOMODCACHE:<repo>/.tools/go-tools-cache/modules GOPATH:<home>/go GOPRIVATE: GOFLAGS: GO111MODULE: GOTOOLCHAIN:local GOROOT:<repo>/build/product/open Goland.app/Contents/plugins/opengoland/tools/go GoVersion:26 GoVersionOutput:go version go1.26.10 darwin/arm64\n ExplicitGOWORK: EffectiveGOPACKAGESDRIVER:}\n\tenv_overlay=[]\n"}
+
+
+[Trace - 13:24:40.131 PM] Sending request 'textDocument/documentSymbol - (6)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:40.250 PM] Sending request 'textDocument/codeLens - (7)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:40.301 PM] Sending request 'textDocument/foldingRange - (8)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:40.301 PM] Sending request 'textDocument/inlayHint - (9)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"},"range":{"start":{"line":0,"character":0},"end":{"line":16,"character":0}}}
+
+
+[Trace - 13:24:40.334 PM] Sending request 'textDocument/semanticTokens/full - (10)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:40.806 PM] Received notification 'window/logMessage'.
+Params: {"type":3,"message":"2026/11/14 13:24:40 go/packages.Load #1\n\tview_id=\"1\"\n\tsnapshot=0\n\tdirectory=<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project\n\tquery=[<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/... <repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/two/... builtin]\n\tpackages=7\n\tduration=786.534708ms\n"}
+
+
+[Trace - 13:24:40.830 PM] Received notification '$/progress'.
+Params: {"token":"6333373066723096395","value":{"kind":"end","message":"Finished loading packages."}}
+
+
+[Trace - 13:24:40.830 PM] Received request 'client/registerCapability - (3)'.
+Params: {"registrations":[{"id":"workspace/didChangeWatchedFiles-0","method":"workspace/didChangeWatchedFiles","registerOptions":{"watchers":[{"globPattern":"**/*.{mod,work}","kind":7},{"globPattern":"<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/two/**/*.{go,mod,sum,work}","kind":7},{"globPattern":"<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/vendor/**/*.{go,mod,sum,work}","kind":7},{"globPattern":"<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/**/*.{go,mod,sum,work}","kind":7}]}}]}
+
+
+[Trace - 13:24:40.857 PM] Sending response 'client/registerCapability - (3)' in 27ms.
+Result: null
+
+
+[Trace - 13:24:40.857 PM] Received request 'client/registerCapability - (4)'.
+Params: {"registrations":[{"id":"workspace/didChangeConfiguration","method":"workspace/didChangeConfiguration"}]}
+
+
+[Trace - 13:24:40.858 PM] Sending response 'client/registerCapability - (4)' in 0ms.
+Result: null
+
+
+[Trace - 13:24:40.863 PM] Received response 'textDocument/foldingRange - (2)' in 909ms. Request failed: JSON RPC cancelled (-32800).
+
+
+[Trace - 13:24:40.863 PM] Received response 'textDocument/codeLens - (3)' in 909ms. Request failed: JSON RPC cancelled (-32800).
+
+
+[Trace - 13:24:40.863 PM] Received response 'textDocument/documentLink - (4)' in 909ms. Request failed: JSON RPC cancelled (-32800).
+
+
+[Trace - 13:24:40.871 PM] Received response 'textDocument/documentLink - (5)' in 917ms.
+Result: [{"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":5}},"target":"https://pkg.go.dev/fmt"},{"range":{"start":{"line":5,"character":2},"end":{"line":5,"character":50}},"target":"https://pkg.go.dev/example.invalid/open-goland/consistency/external"},{"range":{"start":{"line":6,"character":2},"end":{"line":6,"character":45}},"target":"https://pkg.go.dev/example.invalid/open-goland/consistency/two"}]
+
+
+[Trace - 13:24:40.872 PM] Received response 'textDocument/documentSymbol - (6)' in 741ms.
+Result: [{"name":"Compose","detail":"func() string","kind":12,"range":{"start":{"line":9,"character":0},"end":{"line":11,"character":1}},"selectionRange":{"start":{"line":9,"character":5},"end":{"line":9,"character":12}}},{"name":"main","detail":"func()","kind":12,"range":{"start":{"line":13,"character":0},"end":{"line":15,"character":1}},"selectionRange":{"start":{"line":13,"character":5},"end":{"line":13,"character":9}}}]
+
+
+[Trace - 13:24:40.872 PM] Received response 'textDocument/codeLens - (7)' in 621ms.
+Result: null
+
+
+[Trace - 13:24:40.872 PM] Received response 'textDocument/foldingRange - (8)' in 571ms.
+Result: [{"startLine":2,"startCharacter":8,"endLine":7,"endCharacter":0,"kind":"imports"},{"startLine":9,"startCharacter":23,"endLine":11,"endCharacter":0},{"startLine":10,"startCharacter":20,"endLine":10,"endCharacter":79},{"startLine":13,"startCharacter":13,"endLine":15,"endCharacter":0},{"startLine":14,"startCharacter":13,"endLine":14,"endCharacter":22}]
+
+
+[Trace - 13:24:40.874 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go","version":1,"diagnostics":[]}
+
+
+[Trace - 13:24:40.880 PM] Received response 'textDocument/inlayHint - (9)' in 578ms.
+Result: [{"position":{"line":10,"character":20},"label":[{"value":"format:"}],"kind":2,"paddingRight":true},{"position":{"line":10,"character":37},"label":[{"value":"a...:"}],"kind":2,"paddingRight":true},{"position":{"line":14,"character":13},"label":[{"value":"a...:"}],"kind":2,"paddingRight":true}]
+
+
+[Trace - 13:24:40.880 PM] Received response 'textDocument/semanticTokens/full - (10)' in 546ms.
+Result: {"resultId":"2026-11-14 13:24:40.880329 +0800 CST m=+1.100098626","data":[0,0,7,9,0,0,8,4,0,0,2,0,6,9,0,1,2,3,0,0,2,42,8,0,0,1,42,3,0,0,3,0,4,9,0,0,5,7,6,1,0,10,6,1,0,1,1,6,9,0,0,7,3,0,0,0,4,7,6,0,0,8,1,11,0,0,1,2,11,0,0,2,1,11,0,0,1,2,11,0,0,2,1,11,0,0,1,2,11,0,0,2,6,11,0,0,8,8,0,0,0,9,7,6,0,0,11,3,0,0,0,4,6,6,0,0,10,6,6,0,3,0,4,9,0,0,5,4,6,1,1,1,3,0,0,0,4,7,6,0,0,8,7,6,0]}
+
+
+[Trace - 13:24:41.131 PM] Sending request 'textDocument/foldingRange - (11)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:41.131 PM] Sending request 'textDocument/documentSymbol - (13)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:41.131 PM] Sending request 'textDocument/inlayHint - (12)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"},"range":{"start":{"line":0,"character":0},"end":{"line":16,"character":0}}}
+
+
+[Trace - 13:24:41.131 PM] Received response 'textDocument/foldingRange - (11)' in 0ms.
+Result: [{"startLine":2,"startCharacter":8,"endLine":7,"endCharacter":0,"kind":"imports"},{"startLine":9,"startCharacter":23,"endLine":11,"endCharacter":0},{"startLine":10,"startCharacter":20,"endLine":10,"endCharacter":79},{"startLine":13,"startCharacter":13,"endLine":15,"endCharacter":0},{"startLine":14,"startCharacter":13,"endLine":14,"endCharacter":22}]
+
+
+[Trace - 13:24:41.131 PM] Sending request 'textDocument/documentLink - (14)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:41.131 PM] Sending request 'textDocument/semanticTokens/full - (15)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:24:41.131 PM] Received response 'textDocument/documentSymbol - (13)' in 0ms.
+Result: [{"name":"Compose","detail":"func() string","kind":12,"range":{"start":{"line":9,"character":0},"end":{"line":11,"character":1}},"selectionRange":{"start":{"line":9,"character":5},"end":{"line":9,"character":12}}},{"name":"main","detail":"func()","kind":12,"range":{"start":{"line":13,"character":0},"end":{"line":15,"character":1}},"selectionRange":{"start":{"line":13,"character":5},"end":{"line":13,"character":9}}}]
+
+
+[Trace - 13:24:41.131 PM] Received response 'textDocument/inlayHint - (12)' in 0ms.
+Result: [{"position":{"line":10,"character":20},"label":[{"value":"format:"}],"kind":2,"paddingRight":true},{"position":{"line":10,"character":37},"label":[{"value":"a...:"}],"kind":2,"paddingRight":true},{"position":{"line":14,"character":13},"label":[{"value":"a...:"}],"kind":2,"paddingRight":true}]
+
+
+[Trace - 13:24:41.132 PM] Received response 'textDocument/documentLink - (14)' in 0ms.
+Result: [{"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":5}},"target":"https://pkg.go.dev/fmt"},{"range":{"start":{"line":5,"character":2},"end":{"line":5,"character":50}},"target":"https://pkg.go.dev/example.invalid/open-goland/consistency/external"},{"range":{"start":{"line":6,"character":2},"end":{"line":6,"character":45}},"target":"https://pkg.go.dev/example.invalid/open-goland/consistency/two"}]
+
+
+[Trace - 13:24:41.132 PM] Received response 'textDocument/semanticTokens/full - (15)' in 0ms.
+Result: {"resultId":"2026-11-14 13:24:41.132374 +0800 CST m=+1.352143334","data":[0,0,7,9,0,0,8,4,0,0,2,0,6,9,0,1,2,3,0,0,2,42,8,0,0,1,42,3,0,0,3,0,4,9,0,0,5,7,6,1,0,10,6,1,0,1,1,6,9,0,0,7,3,0,0,0,4,7,6,0,0,8,1,11,0,0,1,2,11,0,0,2,1,11,0,0,1,2,11,0,0,2,1,11,0,0,1,2,11,0,0,2,6,11,0,0,8,8,0,0,0,9,7,6,0,0,11,3,0,0,0,4,6,6,0,0,10,6,6,0,3,0,4,9,0,0,5,4,6,1,1,1,3,0,0,0,4,7,6,0,0,8,7,6,0]}
+
+
+[Trace - 13:24:41.167 PM] Sending request 'textDocument/codeAction - (16)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"},"range":{"start":{"line":10,"character":53},"end":{"line":10,"character":53}},"context":{"diagnostics":[],"triggerKind":2}}
+
+
+[Trace - 13:24:41.167 PM] Received response 'textDocument/codeAction - (16)' in 0ms.
+Result: null
+
+
+[Trace - 13:24:41.282 PM] Sending notification 'workspace/didChangeWatchedFiles'.
+Params: {"changes":[{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/","type":2}]}
+
+
+[Trace - 13:24:42.363 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/","diagnostics":[]}
+
+
+[Trace - 13:25:10.089 PM] Received notification 'window/logMessage'.
+Params: {"type":3,"message":"2026/11/14 13:25:10 background imports cache refresh starting\n"}
+
+
+[Trace - 13:25:10.135 PM] Received notification 'window/logMessage'.
+Params: {"type":3,"message":"2026/11/14 13:25:10 background refresh finished after 115.058042ms\n"}
+
+
+[Trace - 13:25:23.361 PM] Sending notification 'workspace/didChangeWatchedFiles'.
+Params: {"changes":[{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external","type":2}]}
+
+
+[Trace - 13:25:24.545 PM] Received notification 'window/logMessage'.
+Params: {"type":3,"message":"2026/11/14 13:25:24 go/packages.Load #2\n\tview_id=\"1\"\n\tsnapshot=3\n\tdirectory=<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project\n\tquery=[example.invalid/open-goland/consistency/external example.invalid/open-goland/consistency/one]\n\tpackages=4\n\tduration=176.791291ms\n"}
+
+
+[Trace - 13:25:24.554 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go","version":1,"diagnostics":[{"range":{"start":{"line":5,"character":1},"end":{"line":5,"character":51}},"severity":1,"code":"BrokenImport","codeDescription":{"href":"https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#BrokenImport"},"source":"compiler","message":"could not import example.invalid/open-goland/consistency/external (no required module provides package \"example.invalid/open-goland/consistency/external\")"}]}
+
+
+[Trace - 13:25:24.554 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go","diagnostics":[]}
+
+
+[Trace - 13:25:24.554 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/","diagnostics":[]}
+
+
+[Trace - 13:25:59.463 PM] Sending notification 'workspace/didChangeWatchedFiles'.
+Params: {"changes":[{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/","type":2}]}
+
+
+[Trace - 13:25:59.472 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/","diagnostics":[]}
+
+
+[Trace - 13:25:59.800 PM] Sending request 'textDocument/foldingRange - (17)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:25:59.801 PM] Sending request 'textDocument/documentSymbol - (18)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:25:59.802 PM] Received response 'textDocument/foldingRange - (17)' in 2ms.
+Result: [{"startLine":2,"startCharacter":8,"endLine":7,"endCharacter":0,"kind":"imports"},{"startLine":9,"startCharacter":23,"endLine":11,"endCharacter":0},{"startLine":10,"startCharacter":20,"endLine":10,"endCharacter":79},{"startLine":13,"startCharacter":13,"endLine":15,"endCharacter":0},{"startLine":14,"startCharacter":13,"endLine":14,"endCharacter":22}]
+
+
+[Trace - 13:25:59.803 PM] Received response 'textDocument/documentSymbol - (18)' in 1ms.
+Result: [{"name":"Compose","detail":"func() string","kind":12,"range":{"start":{"line":9,"character":0},"end":{"line":11,"character":1}},"selectionRange":{"start":{"line":9,"character":5},"end":{"line":9,"character":12}}},{"name":"main","detail":"func()","kind":12,"range":{"start":{"line":13,"character":0},"end":{"line":15,"character":1}},"selectionRange":{"start":{"line":13,"character":5},"end":{"line":13,"character":9}}}]
+
+
+[Trace - 13:25:59.806 PM] Sending request 'textDocument/inlayHint - (19)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"},"range":{"start":{"line":0,"character":0},"end":{"line":16,"character":0}}}
+
+
+[Trace - 13:25:59.807 PM] Sending request 'textDocument/documentLink - (20)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:25:59.807 PM] Sending request 'textDocument/semanticTokens/full - (21)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+
+[Trace - 13:25:59.810 PM] Received response 'textDocument/inlayHint - (19)' in 3ms.
+Result: [{"position":{"line":10,"character":20},"label":[{"value":"format:"}],"kind":2,"paddingRight":true},{"position":{"line":10,"character":37},"label":[{"value":"a...:"}],"kind":2,"paddingRight":true},{"position":{"line":14,"character":13},"label":[{"value":"a...:"}],"kind":2,"paddingRight":true}]
+
+
+[Trace - 13:25:59.810 PM] Received response 'textDocument/documentLink - (20)' in 3ms.
+Result: [{"range":{"start":{"line":3,"character":2},"end":{"line":3,"character":5}},"target":"https://pkg.go.dev/fmt"},{"range":{"start":{"line":5,"character":2},"end":{"line":5,"character":50}},"target":"https://pkg.go.dev/example.invalid/open-goland/consistency/external"},{"range":{"start":{"line":6,"character":2},"end":{"line":6,"character":45}},"target":"https://pkg.go.dev/example.invalid/open-goland/consistency/two"}]
+
+
+[Trace - 13:25:59.810 PM] Received response 'textDocument/semanticTokens/full - (21)' in 3ms.
+Result: {"resultId":"2026-11-14 13:25:59.810799 +0800 CST m=+80.030404626","data":[0,0,7,9,0,0,8,4,0,0,2,0,6,9,0,1,2,3,0,0,3,42,3,0,0,3,0,4,9,0,0,5,7,6,1,0,10,6,1,0,1,1,6,9,0,0,7,3,0,0,0,4,7,6,0,0,8,1,11,0,0,1,2,11,0,0,2,1,11,0,0,1,2,11,0,0,2,1,11,0,0,1,2,11,0,0,2,6,11,0,0,8,8,0,0,0,9,7,6,0,0,11,3,0,0,0,4,6,6,0,0,10,6,6,0,3,0,4,9,0,0,5,4,6,1,1,1,3,0,0,0,4,7,6,0,0,8,7,6,0]}
+
+
+[Trace - 13:25:59.825 PM] Sending request 'textDocument/codeAction - (22)'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"},"range":{"start":{"line":10,"character":53},"end":{"line":10,"character":53}},"context":{"diagnostics":[],"triggerKind":2}}
+
+
+[Trace - 13:25:59.826 PM] Received response 'textDocument/codeAction - (22)' in 0ms.
+Result: null
+
+
+[Trace - 13:30:47.929 PM] Sending notification 'workspace/didChangeWatchedFiles'.
+Params: {"changes":[{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/","type":2}]}
+
+
+[Trace - 13:30:47.946 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/","diagnostics":[]}
+
+
+[Trace - 13:30:49.947 PM] Sending notification 'workspace/didChangeWatchedFiles'.
+Params: {"changes":[{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/go.mod","type":2},{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go","type":2}]}
+
+
+[Trace - 13:30:51.292 PM] Received notification 'window/logMessage'.
+Params: {"type":3,"message":"2026/11/14 13:30:51 go/packages.Load #3\n\tview_id=\"1\"\n\tsnapshot=6\n\tdirectory=<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project\n\tquery=[example.invalid/open-goland/consistency/one]\n\tpackages=3\n\tduration=328.455ms\n"}
+
+
+[Trace - 13:30:51.306 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go","version":1,"diagnostics":[]}
+
+
+[Trace - 13:30:51.307 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go","diagnostics":[]}
+
+
+[Trace - 13:30:51.307 PM] Received notification 'textDocument/publishDiagnostics'.
+Params: {"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/go.mod","diagnostics":[]}
+
+
+[Trace - 13:30:57.214 PM] Sending notification 'textDocument/didClose'.
+Params: {"textDocument":{"uri":"file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go"}}
+
+

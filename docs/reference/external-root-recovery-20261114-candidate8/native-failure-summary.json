@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "status": "failed-root-recreation-stays-BrokenImport-until-additional-source-change",
+  "releaseEligible": false,
+  "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "version": "0.1.0-preview.20261114.3",
+  "appPid": 84426,
+  "windowId": 9613,
+  "manifestSha256": "b3b1438e099c346a6ff3de980e2fae5525dce4d82068944a64a6a58e5a2908c0",
+  "profileScope": "Own C7 config copied; fresh system/plugins/log directories; not a fresh-default profile",
+  "observedNativeStages": {
+    "baseline": "No problems; F1 actual func external.Message() string",
+    "root-absent": "Automatic could not import external at line6",
+    "root-recreated-greeting": "Still BrokenImport despite CLI undefined Message; candidate failed",
+    "source-restored": "Additional external.go change to Message automatically cleared diagnostics",
+    "steady-greeting": "Same-root additional external.go rename correctly produced undefined Message at line11"
+  },
+  "originalRootInode": 86979628,
+  "recreatedRootInode": 90386408,
+  "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+  "allOperationCallersUnmodified": true,
+  "noManualReloadOrServerRestart": true,
+  "goplsPidsUnchanged": [
+    84551,
+    84553
+  ],
+  "nativeRunOrTestPerformed": false,
+  "autoTestDisableAttempt": "AX exposed an offscreen Disable control; click rejected. No successful setting change is claimed.",
+  "cleanup": {
+    "at": "2026-11-14T05:21:00.726089+00:00",
+    "version": "0.1.0-preview.20261114.3",
+    "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+    "nativeResult": "failed-root-recreation-stays-BrokenImport-until-additional-source-change",
+    "normalQuitObservedViaCua": true,
+    "cuaOwnAppAllClosed": true,
+    "sampledOwnedPidsAbsent": [
+      84426,
+      84432,
+      84551,
+      84553
+    ],
+    "goplsPidsUnchangedThroughoutObservedStages": [
+      84551,
+      84553
+    ],
+    "all15FixtureSourcesRestored": true,
+    "productManifestLauncherAndKeyJarsUnchanged": true,
+    "codesignDeepStrictExit": 0,
+    "errorSevereMatches": [],
+    "wholeIdeaLog": {
+      "bytes": 93217,
+      "sha256": "5470e842b46ae9c01c9fa33bad72683d5b9c044a88e8f5f6204b4d18aaeeac7d"
+    },
+    "releaseEligible": false,
+    "limits": "Native C8 failure plus two correct steady-source follow-ups only; no native Run/Test performed, no new CI/tag/publication, no full-row parity claim."
+  },
+  "limits": [
+    "All six goRunExit/output records are standalone CLI checks, not native IDE Run/Test.",
+    "The source-restored screenshot shows the new root inode with Message restored, not the final original-root inode restoration. There is no final original-root screenshot.",
+    "Five native screenshots have AX disabled and contain no complete AX or wire capture.",
+    "The separate children-notification control below did not reproduce this native failure; it cannot establish native cause or success.",
+    "Build records retain their build-time pending state; new tag/Windows-Mac CI/publication and full PROJECT-02 acceptance remain unproved."
+  ]
+}

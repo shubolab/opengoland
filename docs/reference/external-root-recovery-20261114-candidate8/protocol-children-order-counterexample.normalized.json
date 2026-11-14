@@ -1,0 +1,299 @@
+{
+  "schemaVersion": 1,
+  "representation": "selected-normalized-derived-result",
+  "status": "counterexample-not-reproduced-directory-only-already-updated",
+  "nativeFailureReproduced": false,
+  "scope": "Controlled real gopls sequential directory and child-file notifications, not native IDE/VFS acceptance",
+  "startedAtUtc": "2026-11-14T05:17:18.238776+00:00",
+  "finishedAtUtc": "2026-11-14T05:18:17.003723+00:00",
+  "goVersion": "go version go1.26.10 darwin/arm64",
+  "goplsVersion": "v0.24.0",
+  "goSha256": "5742f0004c49c005313d88cd06df964b09cad6bcf2eac4506bdb90abc923b1f4",
+  "goplsSha256": "d4b779c22d2aaf451ba79a23430df980a3a7f48e43c809957f1050022fa3591f",
+  "mainDiskUnchanged": true,
+  "didOpenCount": 1,
+  "mainVersion": 1,
+  "didChangeCount": 0,
+  "clientFrameCount": 29,
+  "serverFrameCount": 66,
+  "explicitWatchedFileNotifications": [
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/external",
+        "type": 2
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/external/go.mod",
+        "type": 3
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/external/external.go",
+        "type": 3
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/external",
+        "type": 2
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/external/go.mod",
+        "type": 1
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/external/external.go",
+        "type": 2
+      }
+    ],
+    [
+      {
+        "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/external/external.go",
+        "type": 2
+      }
+    ]
+  ],
+  "diagnosticCodeSummary": {
+    "directoryOnly": [
+      "UndeclaredImportedName"
+    ],
+    "explicitChildren": [
+      "UndeclaredImportedName"
+    ],
+    "restoredSource": []
+  },
+  "phases": [
+    {
+      "name": "missing-root-directory-changed",
+      "firstBrokenImport": {
+        "atUtc": "2026-11-14T05:17:19.956672+00:00",
+        "phase": "missing-root-directory-changed",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": [
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 1
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 51
+                  }
+                },
+                "severity": 1,
+                "code": "BrokenImport",
+                "codeDescription": {
+                  "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#BrokenImport"
+                },
+                "source": "compiler",
+                "message": "could not import example.invalid/open-goland/consistency/external (no required module provides package \"example.invalid/open-goland/consistency/external\")"
+              }
+            ]
+          }
+        }
+      },
+      "mainDiskUnchanged": true,
+      "oldRootInode": 90407218
+    },
+    {
+      "name": "missing-root-separate-child-deleted-then-wait",
+      "observationSeconds": 12.005294792004861,
+      "mainDiskUnchanged": true,
+      "newMainDiagnosticCount": 0,
+      "latestActualPublishedDiagnostic": {
+        "atUtc": "2026-11-14T05:17:19.956672+00:00",
+        "phase": "missing-root-directory-changed",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": [
+              {
+                "range": {
+                  "start": {
+                    "line": 5,
+                    "character": 1
+                  },
+                  "end": {
+                    "line": 5,
+                    "character": 51
+                  }
+                },
+                "severity": 1,
+                "code": "BrokenImport",
+                "codeDescription": {
+                  "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#BrokenImport"
+                },
+                "source": "compiler",
+                "message": "could not import example.invalid/open-goland/consistency/external (no required module provides package \"example.invalid/open-goland/consistency/external\")"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "new-root-greeting-directory-changed-only",
+      "observationSeconds": 15.00763104201178,
+      "mainDiskUnchanged": true,
+      "newRootInode": 90407483,
+      "oldRootInode": 90407218,
+      "externalSourceSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+      "newMainDiagnosticCount": 1,
+      "latestActualPublishedDiagnostic": {
+        "atUtc": "2026-11-14T05:17:33.418908+00:00",
+        "phase": "new-root-greeting-directory-changed-only",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": [
+              {
+                "range": {
+                  "start": {
+                    "line": 10,
+                    "character": 46
+                  },
+                  "end": {
+                    "line": 10,
+                    "character": 53
+                  }
+                },
+                "severity": 1,
+                "code": "UndeclaredImportedName",
+                "codeDescription": {
+                  "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredImportedName"
+                },
+                "source": "compiler",
+                "message": "undefined: external.Message"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "new-root-explicit-mod-created-source-changed",
+      "observationSeconds": 15.00035050000588,
+      "mainDiskUnchanged": true,
+      "rootInodeUnchanged": true,
+      "newMainDiagnosticCount": 0,
+      "latestActualPublishedDiagnostic": {
+        "atUtc": "2026-11-14T05:17:33.418908+00:00",
+        "phase": "new-root-greeting-directory-changed-only",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": [
+              {
+                "range": {
+                  "start": {
+                    "line": 10,
+                    "character": 46
+                  },
+                  "end": {
+                    "line": 10,
+                    "character": 53
+                  }
+                },
+                "severity": 1,
+                "code": "UndeclaredImportedName",
+                "codeDescription": {
+                  "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#UndeclaredImportedName"
+                },
+                "source": "compiler",
+                "message": "undefined: external.Message"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "restore-message-source-file-changed-only",
+      "observationSeconds": 15.006380209000781,
+      "mainDiskUnchanged": true,
+      "rootInodeUnchanged": true,
+      "newMainDiagnosticCount": 1,
+      "latestActualPublishedDiagnostic": {
+        "atUtc": "2026-11-14T05:18:02.991635+00:00",
+        "phase": "restore-message-source-file-changed-only",
+        "direction": "server-to-client",
+        "message": {
+          "jsonrpc": "2.0",
+          "method": "textDocument/publishDiagnostics",
+          "params": {
+            "uri": "file://<repo>/.tools/continuation-20261114/root-recreation/protocol-children-order-001/fixture/project/one/main.go",
+            "version": 1,
+            "diagnostics": []
+          }
+        }
+      }
+    }
+  ],
+  "goplsExitCode": 0,
+  "ownedGoplsExited": true,
+  "rawFileReceipts": {
+    "result.json": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-children-order-001/result.json",
+      "bytes": 24858,
+      "sha256": "e695cc46b8b1f431e64d342acec00b1a39fbe726691a84926895d1aebbeb4528"
+    },
+    "client.frames": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-children-order-001/client.frames",
+      "bytes": 6582,
+      "sha256": "6ddc94c3e5c593aff4b48338790566d5cccae8b8498ed37f9136bd429c33ae83"
+    },
+    "server.frames": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-children-order-001/server.frames",
+      "bytes": 23605,
+      "sha256": "9444f0dac13b7ff49754ce8dff782f15b237c8b72a330524d1f311f4ed765c13"
+    },
+    "protocol.jsonl": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-children-order-001/protocol.jsonl",
+      "bytes": 41921,
+      "sha256": "f7da8a896cd33f7669e6448821be0bcb2d3196b7911e35fd4887496dd58dc473"
+    },
+    "probe.py": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-children-order-001/probe.py",
+      "bytes": 15244,
+      "sha256": "9e43b1204418b08015bcff71bbd72bafd8bb5e3e47cd560c0a9952b1e1d097fb"
+    },
+    "gopls.stderr": {
+      "path": ".tools/continuation-20261114/root-recreation/protocol-children-order-001/gopls.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "rawFilesCopied": false,
+  "limits": [
+    "Only explicit notifications in a fresh standalone gopls fixture, not IDE OS/VFS acceptance.",
+    "The new-root directory notification alone already published undefined Message. Later explicit mod Created/source Changed produced zero new diagnostics; they did not demonstrate a necessary fix.",
+    "Latest diagnostic fields retain the actual original message/phase; no new diagnostic is fabricated when a phase had zero new publications.",
+    "Original raw frames and probe stay in ignored storage; public data is selected/normalized with actual byte counts and hashes."
+  ]
+}

@@ -1,0 +1,86 @@
+{
+  "tests": 41,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "sourceFiles": {
+    "src/main/kotlin/dev/openidea/goide/lsp/GoLanguageClient.kt": {
+      "bytes": 8669,
+      "sha256": "f73db33a0b83bfda4a163c9572a2c69b7c13dd5d6b66111a2c7571da0a0dbe02"
+    },
+    "src/main/kotlin/dev/openidea/goide/lsp/GoExternalFileWatches.kt": {
+      "bytes": 23963,
+      "sha256": "bfd987ab3a04d667493642286dc762bb6d28ab857f7a1c11a32331c32fc3b532"
+    },
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalRootRecoveryVfsTest.kt": {
+      "bytes": 15318,
+      "sha256": "56ddba490d7cb17237822c65a988b0a9d4537a38cdef0c4a540388aea1a67e02"
+    },
+    "src/test/kotlin/dev/openidea/goide/lsp/GoExternalFileWatchesTest.kt": {
+      "bytes": 14173,
+      "sha256": "be34725fecd8767a2e39e49d31773656b598d131b6ae89ab24ddcb22a7cbb886"
+    },
+    "src/test/kotlin/com/redhat/devtools/lsp4ij/GoCapabilityRegistrationLifecycleTest.kt": {
+      "bytes": 39019,
+      "sha256": "fe1928662b4ac0cd0e2102308aa7877c7025ffdf8a7f2e14d5ef56de5a33a80d"
+    }
+  },
+  "reports": [
+    {
+      "path": "ordering-red.normalized.xml",
+      "originalBytes": 15533,
+      "originalSha256": "640475f48bf1a05f5ce95599fea7db4bc8e69c6b83e376d0da699d421e155e32",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "uri-red.normalized.xml",
+      "originalBytes": 16360,
+      "originalSha256": "113869e59ffae49ca41a68b5f4d9ba8af9dfa2c539f09145ee0b2096e50055a7",
+      "tests": 1,
+      "failures": 1,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "green-TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.normalized.xml",
+      "originalBytes": 30509,
+      "originalSha256": "7110ee0e2b0e7e80277cc782281b440f08075c2bdcbfe6c56ffe927045c49a74",
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "green-TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.normalized.xml",
+      "originalBytes": 1028,
+      "originalSha256": "0d7f10004bdebc3870977e65d704434622afce5720dafc115ffc6b53579ade02",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "green-TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.normalized.xml",
+      "originalBytes": 6872,
+      "originalSha256": "3de69a9785f878f3a54408e631266dc75430151115a6f25088d0540633102682",
+      "tests": 10,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    {
+      "path": "green-TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.normalized.xml",
+      "originalBytes": 1014,
+      "originalSha256": "9b7af60c58742e1a622b6f88b3dd1d7ac407426ff0edb1b9d47c911a66bf1678",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  ],
+  "scope": "FIFO dispatch and stable lexical directory URI controlled SDK regressions after C8 native failure. C8 native trace and real-gopls slash control are separate evidence. New packaged/native/CI/release acceptance not yet achieved.",
+  "rawOriginals": "Owned ignored root-recreation stage directories retain original XML/source. These XMLs are derived: host and system streams removed, local prefixes normalized."
+}

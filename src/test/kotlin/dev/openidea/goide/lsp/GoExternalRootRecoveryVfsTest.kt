@@ -30,7 +30,11 @@ import java.util.concurrent.atomic.AtomicBoolean
 class GoExternalRootRecoveryVfsTest : LightPlatformTestCase() {
     override fun runInDispatchThread() = false
 
-    fun testOwnedColdRootRecoversAfterTheWholeDirectoryIsRemovedAndRecreated() {
+    fun testOwnedColdRootRecoversAfterTheWholeDirectoryIsRemovedAndRecreated() = rootRecovery(cleanParent = false)
+
+    fun testRecreatedRootIsDiscoveredWhenItsCachedParentIsClean() = rootRecovery(cleanParent = true)
+
+    private fun rootRecovery(cleanParent: Boolean) {
         val temporary = Files.createTempDirectory("owned root recreation 中文😀 ").toRealPath()
         val directory = Files.createDirectories(temporary.resolve("external/nested")).parent
         val source = Files.writeString(directory.resolve("nested/original.go"), "package dependency\nfunc Original() {}\n")
@@ -86,10 +90,18 @@ class GoExternalRootRecoveryVfsTest : LightPlatformTestCase() {
             assertNotNull("An invalid root is not actual watch coverage", runCatching {
                 watches.requireCoverage("owned-root", setOf(directory)).get(10, TimeUnit.SECONDS)
             }.exceptionOrNull())
+            if (cleanParent) {
+                awaitRefreshIdle(watches, directory)
+                // The old OS watch is gone and the parent is outside the owned
+                // scope. Do not carry the deletion's dirty marker into recovery.
+                cachedParent.markClean()
+                assertFalse("The missing-root parent control must begin clean", cachedParent.isDirty)
+            }
 
             val recreatedSource = Files.createDirectories(directory.resolve("nested")).resolve("recreated.go")
             Files.writeString(recreatedSource, "package dependency\nfunc RecreatedWithNewIdentity() {}\n")
-            cachedParent.markDirty()
+            if (cleanParent) assertFalse("NIO recreation must not supply a fabricated parent dirty marker", cachedParent.isDirty)
+            else cachedParent.markDirty()
             watches.requestRefresh().get(10, TimeUnit.SECONDS)
             val recovered = awaitCached(local, recreatedSource)
             assertNotNull("The production refresh must discover the same-path replacement root and its unopened new Go source: $events", recovered)

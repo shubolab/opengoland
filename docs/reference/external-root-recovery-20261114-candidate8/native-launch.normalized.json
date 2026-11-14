@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-derived-copy",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-native/launch.json",
+    "bytes": 3203,
+    "sha256": "5e97fe2cecf6a84ace482323af2c7a350c7f6ffe2d8541f73ae5f9bcc2b01431"
+  },
+  "data": {
+    "at": "2026-11-14T05:01:51.120374+00:00",
+    "version": "0.1.0-preview.20261114.3",
+    "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+    "manifestSha256": "b3b1438e099c346a6ff3de980e2fae5525dce4d82068944a64a6a58e5a2908c0",
+    "product": "<repo>/build/product/open Goland.app",
+    "project": "<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project",
+    "profile": "<repo>/.tools/continuation-20261114/root-recreation/candidate8-native/profile",
+    "scopedEnvironment": {
+      "IDEA_PROPERTIES": "<repo>/.tools/continuation-20261114/root-recreation/candidate8-native/profile/idea.properties",
+      "IDEA_VM_OPTIONS": "<repo>/build/product/open Goland.app/Contents/bin/opengoland.vmoptions",
+      "PATH": "<repo>/.tools/release-tools/darwin-arm64/go/bin:/usr/bin:/bin:/usr/sbin:/sbin",
+      "GOROOT": "<repo>/.tools/release-tools/darwin-arm64/go",
+      "GOCACHE": "<repo>/.tools/go-tools-cache/build-cache",
+      "GOMODCACHE": "<repo>/.tools/go-tools-cache/modules",
+      "GOTOOLCHAIN": "local",
+      "GOENV": "off",
+      "GOWORK": "",
+      "GOFLAGS": "",
+      "GOPROXY": "off",
+      "GOSUMDB": "off",
+      "GOPRIVATE": "",
+      "GONOPROXY": "",
+      "GONOSUMDB": "",
+      "GOVCS": "*:off",
+      "GOTELEMETRY": "off",
+      "CGO_ENABLED": "0"
+    },
+    "originalFixtureFiles": {
+      "two-fallback/go.mod": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b",
+      "two-fallback/shared_test.go": "0ef7fb0a946dfbc984fbeb722a7d64ad36a7085ea080e9c476f88f1c9299b66b",
+      "two-fallback/shared.go": "5bd42bd7e785cec934c277373325df9951dc828335c51a4c6bf82d66c6db4893",
+      "project/go.work": "1ee8ca1c3023e80ae4e33b7028983f6cedc5c36302d23ed53f18a15dafda0379",
+      "external/go.mod": "bbf4074976aa0aa434c0bdc05c3e8e49b866cc8f9d685788b9056b05c88506b5",
+      "external/external.go": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+      "project/one/go.mod": "88b986c9a3db0e67c01cabdf60d6f69ae9672ba76749929b2fc4742e25b8107c",
+      "project/one/flavor_default.go": "2e691eb68f347bfd251c5862baf20a66499a1708809fb719e5274895baf646be",
+      "project/one/flavor_alternate.go": "fdbcff6eb00453605af0d766603444476178ebcaf5395651089e2f71145f44cc",
+      "project/one/main_alternate_test.go": "a5f8bfa9446cff72b2c38e310e66201757b734b8b875a6232d230c52ceab63ad",
+      "project/one/main_default_test.go": "380e5ae8b5afe5faa81efb23297462e1e40996660382cf3685c3a3cc3d7b4bee",
+      "project/one/main.go": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+      "project/two/go.mod": "ead7dce2e9c3add9936417d27dc90704f3e0ffab1b55e397c0c4f856c5d51e3b",
+      "project/two/shared_test.go": "86f4fbee361cb826e519219d69b315fb54a92a7a1a256d04674932452cf3171c",
+      "project/two/shared.go": "d64c6672d2cea5ad3046c7660cda20df26c27a7e5fc54088b57d7ebf34d7dcb8"
+    },
+    "logBytesBeforeGui": 28512,
+    "launchReturncode": 0,
+    "launchStderr": "",
+    "nativeVersionExit": 0,
+    "preGuiErrors": 0,
+    "releaseEligible": false
+  },
+  "transform": "Repository path prefix replaced with <repo>; no original config/profile body copied."
+}

@@ -134,7 +134,7 @@ C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已
 
 ## 本机资源
 
-当前仅保留最新本机验收 App：`build/product/open Goland.app`（C7/C5、manifest `5dfd710b…48cfce`）。真实EXE、DMG、两份原始证明及校验值保留在 `.tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/`；审计目录的大文件为同inode硬链接，没有另复制一份安装器。
+本段清理结束时，仅保留 C7/C5 本机验收 App（manifest `5dfd710b…48cfce`）。开始后续候选前，已在无进程/FD引用时将它原子保留到 `build/product-verified-c5-20261114.2/open Goland.app`；canonical 路径随候选重建，不能再把当前 canonical 字节当成 C7。真实EXE、DMG、两份原始证明及校验值保留在 `.tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/`；审计目录的大文件为同inode硬链接，没有另复制一份安装器。
 
 本轮精确移除三个旧App、C1与C5下载ZIP、两份已完成的解压证明目录、C6/C7已结束system及test system-test，共11个明确目标及三个空父目录。旧路径现在已经不存在；不要继续把历史来源记录理解成文件仍在。[退役记录](../../verification/generated-artifacts-retired-after-14.2-20261114.json)保存原始来源/摘要、两次进程及FD检查、真实公开tag/资产验证和执行回执。
 
@@ -149,3 +149,11 @@ C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已
 已在相同 C5 本机 App 复现完整外部根移走、原路径新 inode 重建后的编辑器/真实编译不一致，三张 REA 原图、Go 控制输出、记录过程缺口和退出恢复均见[独立记录](../../reference/external-root-recovery-20261114.zh-CN.md)。原始已有文件改名成功不能替代整根生命周期。
 
 工作树已修复固定路径重新绑定、安全有界物化、目录通知重试及旧连接/旧所有者隔离；最终37项定向检查通过。两轮中间失败和第三轮36绿均封存，未用最终绿结果覆盖旧失败。新完整构建、真实 App 重放以及后续 EXE/DMG 尚待完成；当前公开安装包仍为14.2，不能把工作树修复当成已发布。首次缺根后创建、稳态深层新目录、双平台交互及完整矩阵仍开放。
+
+## 后续候选 C8：完整门禁通过，原生恢复仍失败
+
+源码 `89dc532` 已提交推送；本机独立 C8（版本字符串 `.20261114.3`，没有 tag/CI/公开发布）实际通过977项/175报告，590输入摘要 `7c2ec4c0…0816e8` 与Git逐个blob匹配，engine同源码/modified=false、签名验证通过。Go引擎的123源文件与C5相同，本轮无缓存race另有349测试通过、12包通过、cmd包无测试；这不把任何Go测试跳过当作通过。
+
+真正App复验却发现：旧根消失能自动报BrokenImport，新inode根恢复后仍停旧错误，直到额外修改新根源文件才恢复；全部调用方字节未动、gopls PID未变、没有Reload或重启。原始运行与带官方rpc.trace的同C8重放分别保留，后者实际输入目录URI在存在时多尾slash、缺失时无slash。独立真实gopls只改变通知地址尾slash、不改磁盘/版本即可复现错误与恢复；先前统一无slash的协议控制不能证明这条链。
+
+下一修复工作树已改用既有词法稳定 `GoDocumentSync.fileUri`，并修复单独红测证实的目录通知绕过VFS dispatcher FIFO；旧连接/owner在实际dispatch时再次校验。最终41定向全部绿，原排序和URI红测均封存，见[受控结果](../../reference/external-root-recovery-20261114-repair-controls/summary.json)。仍需固定新源码完整打包、新原生复验、真实双平台安装器与新公开版本。C8尚未交付，不用其绿门禁覆盖原生失败，完整目标继续active。

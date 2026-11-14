@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 1,
+  "representation": "selected-normalized-actual-gopls-LoggingStream-messages",
+  "originalLog": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-trace-native/gopls-rpc.log",
+    "bytes": 35180,
+    "sha256": "84c89d8801c4effa6c52865e16735e2ca31217f773b83313df0c833f9db4df2b"
+  },
+  "originalSelectedRecord": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-trace-native/latest-selected-trace.json",
+    "bytes": 6232,
+    "sha256": "87b9c24a005e343dd47a1164a83b9d6674c546ce1448e954e4b895bb3c49211c"
+  },
+  "traceMessageCount": 81,
+  "selected": [
+    {
+      "ordinal": 24,
+      "header": "[Trace - 13:24:40.830 PM] Received request 'client/registerCapability - (3)'.",
+      "kind": "Params",
+      "payload": {
+        "registrations": [
+          {
+            "id": "workspace/didChangeWatchedFiles-0",
+            "method": "workspace/didChangeWatchedFiles",
+            "registerOptions": {
+              "watchers": [
+                {
+                  "globPattern": "**/*.{mod,work}",
+                  "kind": 7
+                },
+                {
+                  "globPattern": "<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/two/**/*.{go,mod,sum,work}",
+                  "kind": 7
+                },
+                {
+                  "globPattern": "<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/vendor/**/*.{go,mod,sum,work}",
+                  "kind": 7
+                },
+                {
+                  "globPattern": "<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/**/*.{go,mod,sum,work}",
+                  "kind": 7
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 25,
+      "header": "[Trace - 13:24:40.857 PM] Sending response 'client/registerCapability - (3)' in 27ms.",
+      "kind": "Result",
+      "payload": null
+    },
+    {
+      "ordinal": 26,
+      "header": "[Trace - 13:24:40.857 PM] Received request 'client/registerCapability - (4)'.",
+      "kind": "Params",
+      "payload": {
+        "registrations": [
+          {
+            "id": "workspace/didChangeConfiguration",
+            "method": "workspace/didChangeConfiguration"
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 27,
+      "header": "[Trace - 13:24:40.858 PM] Sending response 'client/registerCapability - (4)' in 0ms.",
+      "kind": "Result",
+      "payload": null
+    },
+    {
+      "ordinal": 35,
+      "header": "[Trace - 13:24:40.874 PM] Received notification 'textDocument/publishDiagnostics'.",
+      "kind": "Params",
+      "payload": {
+        "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go",
+        "version": 1,
+        "diagnostics": []
+      }
+    },
+    {
+      "ordinal": 50,
+      "header": "[Trace - 13:24:41.282 PM] Sending notification 'workspace/didChangeWatchedFiles'.",
+      "kind": "Params",
+      "payload": {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/",
+            "type": 2
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 54,
+      "header": "[Trace - 13:25:23.361 PM] Sending notification 'workspace/didChangeWatchedFiles'.",
+      "kind": "Params",
+      "payload": {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external",
+            "type": 2
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 56,
+      "header": "[Trace - 13:25:24.554 PM] Received notification 'textDocument/publishDiagnostics'.",
+      "kind": "Params",
+      "payload": {
+        "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go",
+        "version": 1,
+        "diagnostics": [
+          {
+            "range": {
+              "start": {
+                "line": 5,
+                "character": 1
+              },
+              "end": {
+                "line": 5,
+                "character": 51
+              }
+            },
+            "severity": 1,
+            "code": "BrokenImport",
+            "codeDescription": {
+              "href": "https://pkg.go.dev/golang.org/x/tools/internal/typesinternal#BrokenImport"
+            },
+            "source": "compiler",
+            "message": "could not import example.invalid/open-goland/consistency/external (no required module provides package \"example.invalid/open-goland/consistency/external\")"
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 59,
+      "header": "[Trace - 13:25:59.463 PM] Sending notification 'workspace/didChangeWatchedFiles'.",
+      "kind": "Params",
+      "payload": {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/",
+            "type": 2
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 73,
+      "header": "[Trace - 13:30:47.929 PM] Sending notification 'workspace/didChangeWatchedFiles'.",
+      "kind": "Params",
+      "payload": {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/",
+            "type": 2
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 75,
+      "header": "[Trace - 13:30:49.947 PM] Sending notification 'workspace/didChangeWatchedFiles'.",
+      "kind": "Params",
+      "payload": {
+        "changes": [
+          {
+            "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/go.mod",
+            "type": 2
+          },
+          {
+            "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/external.go",
+            "type": 2
+          }
+        ]
+      }
+    },
+    {
+      "ordinal": 77,
+      "header": "[Trace - 13:30:51.306 PM] Received notification 'textDocument/publishDiagnostics'.",
+      "kind": "Params",
+      "payload": {
+        "uri": "file://<repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/project/one/main.go",
+        "version": 1,
+        "diagnostics": []
+      }
+    }
+  ],
+  "sourceSemantics": {
+    "files": {
+      "internal/protocol/log.go": {
+        "path": ".tools/go-tools-cache/modules/golang.org/x/tools/gopls@v0.24.0/internal/protocol/log.go",
+        "bytes": 3473,
+        "sha256": "aa0c0dd75615328b5674c6d24a7accfff1060a34086ad39f069ff4802aadef58"
+      },
+      "internal/cmd/serve.go": {
+        "path": ".tools/go-tools-cache/modules/golang.org/x/tools/gopls@v0.24.0/internal/cmd/serve.go",
+        "bytes": 4955,
+        "sha256": "f577d827064452f3d217e7489eaf33011703bd9c28f72444eed0ba2e05230841"
+      }
+    },
+    "read": "LoggingStream.Read logs after NewHeaderStream.Read succeeds. It labels these client-to-gopls messages Sending.",
+    "write": "LoggingStream.Write labels gopls-to-client output Received and logs before the underlying Write; not a transport acknowledgement.",
+    "format": "Formatted message-level log after Content-Length framing decode; not the original Content-Length byte stream."
+  },
+  "scope": "Same frozen C8 App with an own exec-wrapper selecting the same bundled gopls and official serve -rpc.trace -logfile flags; separate cycle from normal-profile C8.",
+  "limits": [
+    "No server payload or client notification is fabricated here. Machine prefixes alone are normalized.",
+    "Actual re-created-root input contains a trailing slash, missing-root input does not. No new diagnostic after re-created-root input is recorded before final original-root restoration.",
+    "Successful cleanup and source/settings restoration do not make the functional root-recreation result pass."
+  ]
+}

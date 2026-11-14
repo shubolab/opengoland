@@ -1,0 +1,28 @@
+{
+  "at": "2026-11-14T05:21:00.726089+00:00",
+  "version": "0.1.0-preview.20261114.3",
+  "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "nativeResult": "failed-root-recreation-stays-BrokenImport-until-additional-source-change",
+  "normalQuitObservedViaCua": true,
+  "cuaOwnAppAllClosed": true,
+  "sampledOwnedPidsAbsent": [
+    84426,
+    84432,
+    84551,
+    84553
+  ],
+  "goplsPidsUnchangedThroughoutObservedStages": [
+    84551,
+    84553
+  ],
+  "all15FixtureSourcesRestored": true,
+  "productManifestLauncherAndKeyJarsUnchanged": true,
+  "codesignDeepStrictExit": 0,
+  "errorSevereMatches": [],
+  "wholeIdeaLog": {
+    "bytes": 93217,
+    "sha256": "5470e842b46ae9c01c9fa33bad72683d5b9c044a88e8f5f6204b4d18aaeeac7d"
+  },
+  "releaseEligible": false,
+  "limits": "Native C8 failure plus two correct steady-source follow-ups only; no native Run/Test performed, no new CI/tag/publication, no full-row parity claim."
+}

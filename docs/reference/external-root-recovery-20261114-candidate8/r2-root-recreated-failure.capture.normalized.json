@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "representation": "selected-normalized-capture-metadata",
+  "originalSource": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate8-trace-native/root-recreated-failure-capture.json",
+    "bytes": 3904,
+    "sha256": "4164b1f0c59cb6da5294cf15dfa07bc1148c310ddf3d54fb1299033eabadaeaf"
+  },
+  "evidenceId": "ev_fed3398c47518a4f226a18e72019ea624251a93ac66063e6488e790497d56772",
+  "sourceCommit": "89dc532aac60678f875c3b4c3740aab709172ea3",
+  "version": "0.1.0-preview.20261114.3",
+  "provider": "native-macos",
+  "launcherSha256": "da8cc49ce661006035bc19695d988f6cb67c4d65fb48a291baa82a3b907060f3",
+  "window": {
+    "pid": 90757,
+    "window_id": 9726,
+    "executable": "<repo>/build/product/open Goland.app/Contents/MacOS/idea",
+    "launch_time": 1794633873.586662,
+    "title": "project – main.go"
+  },
+  "screenshot": {
+    "mime_type": "image/png",
+    "sha256": "9376f361ff0014fcc64f8e54e555dc456ada550bde5ca72b04885175a223d4eb",
+    "width": 1400,
+    "height": 1000
+  },
+  "accessibilityEnabled": false,
+  "fullAxCopied": false
+}

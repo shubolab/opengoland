@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "representation": "normalized-original-operation-records",
+  "operations": [
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/baseline-operation.json",
+        "bytes": 517,
+        "sha256": "e24d44bae0e35a60c39aacd2b9e515b19b722487f19ee9489ff261c1156bd11c"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:02:04.120818+00:00",
+        "stage": "baseline",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 86979628,
+        "currentExternalSourceSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:02:05.228612+00:00",
+        "goRunExit": 0,
+        "stdout": "外部-v1|workspace-two|default|中文😀\n",
+        "stderr": ""
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/root-absent-operation.json",
+        "bytes": 656,
+        "sha256": "ef0af2ed90d03322043b86df90486f27f7017a33f0c1b45ff2c1fcc77a61adf9"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:05:37.108075+00:00",
+        "stage": "root-absent",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "originalRootInode": 86979628,
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:05:37.175025+00:00",
+        "goRunExit": 1,
+        "stdout": "",
+        "stderr": "one/main.go:6:2: example.invalid/open-goland/consistency/external@v0.0.0 (replaced by ../external): reading ../external/go.mod: open <repo>/.tools/continuation-20261113/workspace-consistency/reconstruction/external/go.mod: no such file or directory\n"
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/root-recreated-greeting-operation.json",
+        "bytes": 616,
+        "sha256": "59322db34e560b9d137cb3a55a742683684b18e9f6163a989e349a9ca6b9b622"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:07:11.791197+00:00",
+        "stage": "root-recreated-greeting",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 90386408,
+        "currentExternalSourceSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+        "originalRootInode": 86979628,
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:07:11.993406+00:00",
+        "goRunExit": 1,
+        "stdout": "",
+        "stderr": "# example.invalid/open-goland/consistency/one\none/main.go:11:53: undefined: external.Message\n"
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/source-restored-operation.json",
+        "bytes": 557,
+        "sha256": "3587adb94c6f1630145bc93c57ab0ea5194b7c7cb78faf31ebf476c08c85893c"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:11:58.244247+00:00",
+        "stage": "source-restored",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 90386408,
+        "currentExternalSourceSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+        "originalRootInode": 86979628,
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:11:58.829012+00:00",
+        "goRunExit": 0,
+        "stdout": "外部-v1|workspace-two|default|中文😀\n",
+        "stderr": ""
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/steady-greeting-operation.json",
+        "bytes": 608,
+        "sha256": "a388bd354e2eb57d3ccbbc3b595f1b6db9e096fc2ba0d33657146f6d01db3608"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:18:13.836074+00:00",
+        "stage": "steady-greeting",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 90386408,
+        "currentExternalSourceSha256": "5ad33b6b217793d4c5078cc277a198f78c0db2cc97282deaacf80271fd613c9f",
+        "originalRootInode": 86979628,
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:18:14.024361+00:00",
+        "goRunExit": 1,
+        "stdout": "",
+        "stderr": "# example.invalid/open-goland/consistency/one\none/main.go:11:53: undefined: external.Message\n"
+      }
+    },
+    {
+      "originalSource": {
+        "path": ".tools/continuation-20261114/root-recreation/candidate8-native/original-root-restored-operation.json",
+        "bytes": 575,
+        "sha256": "40872084f8a9e4bb5a651aa239b9328b5da4e515c5e4839c735e8d18a1cd97b6"
+      },
+      "data": {
+        "startedAt": "2026-11-14T05:19:59.285593+00:00",
+        "stage": "original-root-restored",
+        "callerModified": false,
+        "manualReload": false,
+        "goplsRestart": false,
+        "currentRootInode": 86979628,
+        "currentExternalSourceSha256": "86019b8e593fbee1ea7b229ac8a042e33a3f5411cd47a4d038414422dbdfa488",
+        "mainSha256": "0ee5aa9189cc3d1d939d2511c62192d5ed5dbf208cf68583fa6279a1dc3de112",
+        "finishedAt": "2026-11-14T05:19:59.494375+00:00",
+        "goRunExit": 0,
+        "stdout": "外部-v1|workspace-two|default|中文😀\n",
+        "stderr": "",
+        "all15FixtureSourceHashesRestored": true
+      }
+    }
+  ],
+  "transform": "Repository prefix normalized in paths/Go errors; original input byte counts and SHA retained for each of six records."
+}

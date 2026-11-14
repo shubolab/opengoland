@@ -1,0 +1,40 @@
+{
+  "files": [
+    {
+      "path": "green-TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.normalized.xml",
+      "bytes": 4421,
+      "sha256": "dd05d2b9e2e486f7748b2a61e73d9b90c88bcabfe63cd9de7be6f26885cb17cc"
+    },
+    {
+      "path": "green-TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.normalized.xml",
+      "bytes": 915,
+      "sha256": "1b3d5c19308fd3970f42a085165d5c9b1fa2c288bb658ea752c40cabb0358ecf"
+    },
+    {
+      "path": "green-TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.normalized.xml",
+      "bytes": 1914,
+      "sha256": "17c21bc2315519453ce011d531d20586d8d5787765c9717098c776744f5a1eac"
+    },
+    {
+      "path": "green-TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.normalized.xml",
+      "bytes": 901,
+      "sha256": "50fc7c83ae2367b438803772febce9e9a42242b0d4b3baedfdc2008987ed5aa9"
+    },
+    {
+      "path": "ordering-red.normalized.xml",
+      "bytes": 6730,
+      "sha256": "a245d7004426ff0d5c86492f992cc9a1aa298dcf8da457b423a13cf41ee30934"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 3227,
+      "sha256": "b1a9de57dd5f3a64f2d9f8aee4059ee8a368414f17b4bab976d69860a61de2bf"
+    },
+    {
+      "path": "uri-red.normalized.xml",
+      "bytes": 7200,
+      "sha256": "773977055bf76a0d51894a447fb600f8969b2e391b1b7306dffbd77746b3046b"
+    }
+  ],
+  "scope": "FIFO dispatch and stable lexical directory URI controlled SDK regressions after C8 native failure. C8 native trace and real-gopls slash control are separate evidence. New packaged/native/CI/release acceptance not yet achieved."
+}

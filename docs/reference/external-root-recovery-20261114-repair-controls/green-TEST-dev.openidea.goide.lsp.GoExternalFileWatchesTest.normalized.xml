@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuite name="dev.openidea.goide.lsp.GoExternalFileWatchesTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-11-14T05:31:41.073Z" time="0.383">
+  <properties />
+  <testcase name="testDirtyRefreshIsBackgroundAndCoalescesWhileThePreviousRefreshIsPending" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.042" />
+  <testcase name="testRelativePatternBaseUriKeepsBracketDirectoryNamesLiteral" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.029" />
+  <testcase name="testRetainedButUnusableBroadRootDoesNotHideANewOwnersNarrowRoot" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.039" />
+  <testcase name="testFailedAsynchronousReconciliationRetainsTheTransitionAndCoalescesUntilCompletion" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.04" />
+  <testcase name="testRegistrationReplacementAndUnregistrationRetainAnotherOwnersSharedRoot" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.044" />
+  <testcase name="testUnregisteredRootsCannotDeliverALateRefreshTransitionToAnotherOwner" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.036" />
+  <testcase name="testRelativePatternsAndAbsoluteFilesHaveBoundedExternalRootsButBroadAndEscapingPatternsDoNot" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.036" />
+  <testcase name="testDisposeDuringBackgroundInstallReleasesTheLateLeaseAndCannotReopenIt" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.037" />
+  <testcase name="testOwnedScopeChecksActualCoverageAndReleasesPartialPrimingAfterRefusal" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.038" />
+  <testcase name="testARefusedBroadRootDoesNotHideAnInstallableNarrowRoot" classname="dev.openidea.goide.lsp.GoExternalFileWatchesTest" time="0.041" />
+  </testsuite>
