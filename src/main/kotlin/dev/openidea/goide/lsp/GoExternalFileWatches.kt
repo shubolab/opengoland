@@ -9,7 +9,14 @@ import com.intellij.openapi.util.Disposer
 import com.intellij.openapi.vfs.LocalFileSystem
 import com.intellij.openapi.vfs.VFileProperty
 import com.intellij.openapi.vfs.VirtualFile
+import com.intellij.openapi.vfs.VirtualFileManager
+import com.intellij.openapi.vfs.newvfs.BulkFileListener
 import com.intellij.openapi.vfs.newvfs.NewVirtualFile
+import com.intellij.openapi.vfs.newvfs.events.VFileCopyEvent
+import com.intellij.openapi.vfs.newvfs.events.VFileCreateEvent
+import com.intellij.openapi.vfs.newvfs.events.VFileEvent
+import com.intellij.openapi.vfs.newvfs.events.VFileMoveEvent
+import com.intellij.openapi.vfs.newvfs.events.VFilePropertyChangeEvent
 import com.intellij.util.concurrency.AppExecutorUtil
 import com.redhat.devtools.lsp4ij.JSONUtils
 import org.eclipse.lsp4j.DidChangeWatchedFilesRegistrationOptions
@@ -57,9 +64,41 @@ internal class GoExternalFileWatches(
     // Accessed only by the queue; each registration owns its set, not a shared count.
     private val registrations = linkedMapOf<String, Set<Path>>()
     private val roots = linkedMapOf<Path, Root>()
+    @Volatile private var ownedNativeRoots = emptyMap<Path, NativeRoot>()
     private var timer: ScheduledFuture<*>? = null
 
-    init { Disposer.register(project, this) }
+    init {
+        Disposer.register(project, this)
+        project.messageBus.connect(this).subscribe(VirtualFileManager.VFS_CHANGES, object : BulkFileListener {
+            override fun after(events: List<VFileEvent>) {
+                if (closed.get() || project.isDisposed) return
+                val owned = ownedNativeRoots
+                if (owned.isEmpty()) return
+                val marked = hashSetOf<NativeRoot>()
+                for (event in events) {
+                    if (event.fileSystem.protocol != "file") continue
+                    val createdPath = when (event) {
+                        is VFileCreateEvent -> if (event.isDirectory) event.path else null
+                        is VFileMoveEvent -> if (event.file.isDirectory) event.newPath else null
+                        is VFilePropertyChangeEvent -> if (event.isRename && event.file.isDirectory) event.newPath else null
+                        is VFileCopyEvent -> if (event.file.isDirectory) event.newParent.path.trimEnd('/') + "/" + event.newChildName else null
+                        else -> null
+                    } ?: continue
+                    val path = runCatching { Path.of(createdPath).normalize() }.getOrNull() ?: continue
+                    for ((base, root) in owned) {
+                        if (root !in marked && path != base && path.startsWith(base) &&
+                            base.relativize(path).none { it.toString() in VCS_DIRECTORIES }) {
+                            // Event delivery can be on the EDT: publish only an
+                            // atomic intent, never stat, children or refresh here.
+                            root.requestExpansion()
+                            marked.add(root)
+                        }
+                    }
+                    if (marked.size == owned.size) return
+                }
+            }
+        })
+    }
 
     fun register(params: RegistrationParams): CompletableFuture<Void> {
         val updates = params.registrations.filter { it.method == METHOD }.map { registration ->
@@ -122,6 +161,7 @@ internal class GoExternalFileWatches(
         }
         val removed = if (closed.get() || project.isDisposed) roots.keys.toList() else (roots.keys - desired)
         removed.forEach { roots.remove(it)?.close() }
+        ownedNativeRoots = roots.mapNotNull { (path, root) -> (root as? NativeRoot)?.let { path to it } }.toMap()
         if (roots.isEmpty()) {
             timer?.cancel(false); timer = null
         } else if (timer == null && !closed.get()) {
@@ -178,6 +218,7 @@ internal class GoExternalFileWatches(
 
     override fun dispose() {
         synchronized(lock) { if (!closed.compareAndSet(false, true)) return }
+        ownedNativeRoots = emptyMap()
         submit {
             timer?.cancel(false); timer = null
             registrations.clear()
@@ -197,7 +238,11 @@ internal class GoExternalFileWatches(
         private var cachedFile: VirtualFile? = initial.file
         private val revision = AtomicLong()
         private val acknowledged = AtomicLong()
+        private val expansionRevision = AtomicLong()
+        private val expanded = AtomicLong()
         @Volatile private var retryAfterNanos = 0L
+        @Volatile private var expansionRetryAfterNanos = 0L
+        @Volatile private var expansionIncomplete = false
 
         fun cancelled() = closed || cancelled.invoke()
         fun current(): NativeLease? = synchronized(lifetime) { if (cancelled()) null else lease }
@@ -206,7 +251,21 @@ internal class GoExternalFileWatches(
         }
         fun retryReady() = System.nanoTime() >= retryAfterNanos
         fun deferFailure() { retryAfterNanos = System.nanoTime() + TimeUnit.SECONDS.toNanos(30) }
-        override fun usable(): Boolean = current()?.file?.let { it.isValid && Path.of(it.path).normalize() == path } == true
+        fun requestExpansion() { if (!cancelled()) expansionRevision.incrementAndGet() }
+        fun requestedExpansion() = expansionRevision.get()
+        fun expansionPending(): Long? = expansionRevision.get().takeIf {
+            it != expanded.get() && System.nanoTime() >= expansionRetryAfterNanos
+        }
+        fun acknowledgeExpansion(revision: Long) {
+            expanded.updateAndGet { maxOf(it, revision) }
+            expansionIncomplete = false
+        }
+        fun deferExpansionFailure() {
+            expansionIncomplete = true
+            expansionRetryAfterNanos = System.nanoTime() + TimeUnit.SECONDS.toNanos(30)
+        }
+        fun hasCurrentFile(): Boolean = current()?.file?.let { it.isValid && Path.of(it.path).normalize() == path } == true
+        override fun usable(): Boolean = !expansionIncomplete && hasCurrentFile()
         override fun pendingChange(): Long? = revision.get().takeIf { it != acknowledged.get() }
         override fun acknowledgeChange(revision: Long) { acknowledged.updateAndGet { maxOf(it, revision) } }
 
@@ -310,10 +369,30 @@ internal class GoExternalFileWatches(
                 try {
                     val previous = root.current()
                     val incarnation = identity(root.path)
-                    if (previous != null && incarnation == previous.identity && root.usable()) return
+                    val expansionAtStart = root.requestedExpansion()
+                    val expansion = root.expansionPending()
+                    if (previous != null && incarnation == previous.identity && root.hasCurrentFile()) {
+                        if (expansion == null) return
+                        try {
+                            // A stable root may gain an entirely cold subtree.
+                            // Native recursive refresh only walks cached children;
+                            // re-prime only after an actual owned directory event.
+                            val replacement = installLease(root.path, root::cancelled, refreshKnown = true)
+                            if (replacement != null && root.replace(previous, replacement)) root.acknowledgeExpansion(expansion)
+                            else if (!root.cancelled()) root.deferExpansionFailure()
+                        } catch (failure: Exception) {
+                            // Preserve the working lease and ordinary dirty-path
+                            // refresh when a new subtree exceeds the bounds.
+                            if (!root.cancelled()) {
+                                root.deferExpansionFailure()
+                                LOG.warn("Unable to prime new external Go directories ${root.path}", failure)
+                            }
+                        }
+                        return
+                    }
                     if (!root.replace(previous, null) || incarnation == null || root.cancelled()) return
                     val replacement = installLease(root.path, root::cancelled, refreshKnown = true)
-                    if (replacement != null) root.replace(null, replacement)
+                    if (replacement != null && root.replace(null, replacement)) root.acknowledgeExpansion(expansionAtStart)
                 } catch (_: NoSuchFileException) {
                     root.replace(root.current(), null)
                 } catch (_: NotDirectoryException) {
@@ -351,7 +430,7 @@ internal class GoExternalFileWatches(
                     val old = root.cachedFile()?.takeIf(VirtualFile::isValid)
                     if (Files.exists(root.path, LinkOption.NOFOLLOW_LINKS)) { old?.let(shallow::add); null }
                     else old // A genuinely missing root is safe to invalidate recursively.
-                } else if (previous == null || incarnation != previous.identity || !root.usable()) {
+                } else if (previous == null || incarnation != previous.identity || !root.hasCurrentFile()) {
                     // Detect a fast replacement before a recursive refresh can
                     // traverse a new incarnation using the old cached tree.
                     repair(root)

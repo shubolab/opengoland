@@ -27,6 +27,7 @@ import com.google.gson.JsonStreamParser
 import com.intellij.util.execution.ParametersListUtil
 import dev.openidea.goide.navigation.search.GoTypeCatalogCodec
 import dev.openidea.goide.lsp.GoDocumentSync
+import dev.openidea.goide.lsp.GoExternalFileWatches
 import com.intellij.openapi.Disposable
 import dev.openidea.goide.settings.GoToolchain
 import dev.openidea.goide.debug.GoTestDebugArguments
@@ -97,6 +98,7 @@ internal data class GoLocalDependencyScopeSnapshot(
     val complete: Boolean,
     val diagnostics: List<String>,
     val watchedAllDirectoryUris: Set<String> = emptySet(),
+    val recoveryCandidates: Map<Path, GoDependencyRootState> = emptyMap(),
 )
 
 internal interface GoLocalDependencyScopeOperation : Disposable {
@@ -342,7 +344,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                 replacements[guards.physical(sum).toString()] = ownedSum.toString()
                 val vendor = work.parent.resolve("vendor")
                 if (Files.isDirectory(vendor)) watchVendor(vendor, guards, checkCurrent)
-                workspaceEdits = workspacePlan(work.parent, ownedWork, guards, checkCurrent, ::metadataCommand)
+                workspaceEdits = workspacePlan(work.parent, ownedWork, guards, checkCurrent, ::metadataCommand, dependencyScope)
                 // Other declared workspace modules/replacements can change the
                 // build context too. Apply only their now-authoritative manifests.
                 for (known in guards.fileUris.toList()) {
@@ -370,10 +372,10 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             }
             val listArguments = if (dependencyScope) listOf("list", "-deps", "-e", "-test", "-json=$DEPENDENCY_FIELDS")
                 else listOf("list", "-e", "-find", "-json=$FIELDS")
-            fun listCommand() = metadataCommand(listArguments + flags + overlayFlags() + moduleFlags + ".")
             var privateWorkspace = false
-            fun query(): String = try {
-                execute(listCommand().apply { if (privateWorkspace) withEnvironment("GOWORK", ownedWork.toString()) }, checkCurrent)
+            fun query(arguments: List<String>, operands: List<String>): String = try {
+                execute(metadataCommand(arguments + flags + overlayFlags() + moduleFlags + operands)
+                    .apply { if (privateWorkspace) withEnvironment("GOWORK", ownedWork.toString()) }, checkCurrent)
             } catch (failure: MetadataCommandFailure) {
                 // Go refuses to write an overlaid sum. That precise failure is
                 // the only retry: move the workspace/sum to our private copy,
@@ -384,9 +386,11 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                 checkCurrent()
                 if (workspaceEdits.isNotEmpty()) execute(metadataCommand(listOf("work", "edit") + workspaceEdits + ownedWork.toString()), checkCurrent)
                 privateWorkspace = true
-                execute(listCommand().withEnvironment("GOWORK", ownedWork.toString()), checkCurrent)
+                execute(metadataCommand(arguments + flags + overlayFlags() + moduleFlags + operands)
+                    .withEnvironment("GOWORK", ownedWork.toString()), checkCurrent)
             }
-            var output = query()
+            fun queryPackages() = query(listArguments, listOf("."))
+            var output = queryPackages()
             if (dependencyScope) {
                 // Discovery is followed by a guarded query. A newly discovered
                 // module's dirty manifest may reveal another replacement; iterate
@@ -394,8 +398,18 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                 val guardedModules = mutableSetOf<Path>()
                 repeat(MAX_DEPENDENCY_PASSES) {
                     val parsed = dependencyMetadata(output, directory, guards)
+                    val recoveries = parsed.recoveryCandidates.toMutableMap()
+                    val prefixes = recoveryModulePrefixes(parsed.failedImports)
+                    if (prefixes.isNotEmpty()) {
+                        val selected = query(listOf("list", "-m", "-e", "-json=$RECOVERY_MODULE_FIELDS"), prefixes)
+                        recoveryMetadata(selected, prefixes.toSet(), directory, guards).forEach { (root, state) ->
+                            val previous = recoveries.putIfAbsent(root, state)
+                            if (previous != null && previous != state) throw GoDependencyRootChanged("A selected Go recovery root changed while loading")
+                        }
+                    }
+                    require((parsed.roots + recoveries.keys).size <= MAX_DEPENDENCY_ROOTS) { "The selected Go dependency roots exceed the watch limit" }
                     var discovered = false
-                    for (root in parsed.moduleRoots) {
+                    for (root in parsed.moduleRoots + recoveries.filterValues { it.isDirectory }.keys) {
                         if (!guardedModules.add(root)) continue
                         discovered = true
                         guards.directory(root, metadataOnly = true)
@@ -411,9 +425,10 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                     if (!discovered) {
                         checkCurrent(); guards.validate()
                         return Loaded.Dependencies(GoLocalDependencyScopeSnapshot(parsed.roots, guards.fileUris.toSet(),
-                            guards.directoryUris.toSet(), { guards.validate() }, parsed.complete, parsed.diagnostics, guards.allDirectoryUris))
+                            guards.directoryUris.toSet(), { guards.validate() }, parsed.complete, parsed.diagnostics, guards.allDirectoryUris,
+                            recoveries.toMap()))
                     }
-                    output = query()
+                    output = queryPackages()
                 }
                 error("The Go local dependency manifest closure exceeds its limit")
             }
@@ -467,6 +482,8 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         val moduleRoots: Set<Path>,
         val complete: Boolean,
         val diagnostics: List<String>,
+        val failedImports: Set<String>,
+        val recoveryCandidates: Map<Path, GoDependencyRootState>,
     )
 
     /** Use Go's selected package locations, rather than treating raw replace directives as active imports. */
@@ -474,6 +491,8 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         val roots = linkedSetOf<Path>()
         val moduleRoots = linkedSetOf<Path>()
         val diagnostics = linkedSetOf<String>()
+        val failedImports = linkedSetOf<String>()
+        val recoveryCandidates = linkedMapOf<Path, GoDependencyRootState>()
         var incomplete = false
         var anchor = false
         var count = 0
@@ -489,7 +508,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             val value = parser.next()
             require(value.isJsonObject) { "Go returned malformed dependency metadata" }
             val entry = value.asJsonObject
-            string(entry, "ImportPath")
+            val importPath = string(entry, "ImportPath")
             diagnostic(entry.get("Error"))
             entry.get("DepsErrors")?.takeUnless { it.isJsonNull }?.let { errors ->
                 require(errors.isJsonArray) { "Go returned malformed dependency errors" }
@@ -505,7 +524,10 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
                 guards.physical(path)
             }
             if (reported == directory) anchor = true
-            val module = entry.get("Module")?.takeUnless { it.isJsonNull } ?: continue
+            val module = entry.get("Module")?.takeUnless { it.isJsonNull }
+            if ((module == null || reported == null) && (entry.get("Error")?.isJsonNull == false ||
+                    entry.get("Incomplete")?.takeUnless { it.isJsonNull }?.asBoolean == true)) failedImports += importPath
+            if (module == null) continue
             require(module.isJsonObject) { "Go returned malformed dependency module metadata" }
             val moduleObject = module.asJsonObject
             diagnostic(moduleObject.get("Error"))
@@ -537,17 +559,92 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             // Vendoring reports replacement metadata too, but those packages are
             // loaded from vendor rather than the replacement's source directory.
             if (reported == null || !reported.startsWith(root) || root.relativize(reported).any { it.toString() == "vendor" }) continue
-            require(Files.isDirectory(root)) { "An active local replacement directory disappeared" }
+            val state = guards.recoveryRoot(root)
+            if (!state.isDirectory) throw GoDependencyRootChanged("An active local replacement directory disappeared")
             roots.add(root)
             moduleRoots.add(root)
+            requireSafeRecoveryRoot(root, directory)
+            if (moduleObject.get("Error")?.isJsonNull != false && replacementObject.get("Error")?.isJsonNull != false)
+                recoveryCandidates[root] = state
         }
         require(count > 0 && anchor) { "Go returned no metadata for the selected dependency package" }
         if (incomplete && diagnostics.isEmpty()) diagnostics += "Go reported an incomplete dependency graph"
-        return DependencyMetadata(roots.toSet(), moduleRoots.toSet(), !incomplete, diagnostics.toList())
+        require(roots.size <= MAX_DEPENDENCY_ROOTS) { "The selected Go dependency roots exceed the watch limit" }
+        return DependencyMetadata(roots.toSet(), moduleRoots.toSet(), !incomplete, diagnostics.toList(), failedImports.toSet(), recoveryCandidates.toMap())
+    }
+
+    /** Literal path prefixes only; Go decides which of them is an actually selected module. */
+    private fun recoveryModulePrefixes(imports: Set<String>): List<String> {
+        val result = linkedSetOf<String>()
+        for (path in imports) {
+            require(path.length <= 4096) { "A failed Go import exceeds the recovery path limit" }
+            if (path.startsWith('-') || path.any { it.isWhitespace() || it in "\\@*?{}[]\u0000" } ||
+                path.split('/').any { it.isEmpty() || it == "." || it == ".." || it == "..." }) continue
+            val parts = path.split('/')
+            for (size in 1..parts.size) {
+                val prefix = parts.take(size).joinToString("/")
+                // "all" is a go-list pattern, never an exact module query.
+                if (prefix == "all") continue
+                result += prefix
+                require(result.size <= MAX_RECOVERY_PREFIXES) { "The failed Go import prefixes exceed the recovery query limit" }
+            }
+        }
+        return result.toList()
+    }
+
+    private fun recoveryMetadata(output: String, requested: Set<String>, directory: Path, guards: Guards): Map<Path, GoDependencyRootState> {
+        val result = linkedMapOf<Path, GoDependencyRootState>()
+        val seen = linkedSetOf<String>()
+        val parser = JsonStreamParser(output)
+        while (parser.hasNext()) {
+            val value = parser.next()
+            require(value.isJsonObject) { "Go returned malformed selected-module metadata" }
+            val module = value.asJsonObject
+            val path = string(module, "Path")
+            require(path in requested && seen.add(path)) { "Go returned an unrequested or duplicate selected module" }
+            for (objectWithError in listOfNotNull(module, module.get("Replace")?.takeUnless { it.isJsonNull }?.let {
+                require(it.isJsonObject) { "Go returned malformed selected-module replacement" }; it.asJsonObject
+            })) {
+                objectWithError.get("Error")?.takeUnless { it.isJsonNull }?.let {
+                    require(it.isJsonObject) { "Go returned malformed selected-module error" }; string(it.asJsonObject, "Err")
+                }
+            }
+            if (module.get("Error")?.isJsonNull == false) continue
+            val main = module.get("Main")?.takeUnless { it.isJsonNull }?.let {
+                require(it.isJsonPrimitive && it.asJsonPrimitive.isBoolean) { "Go returned malformed selected-module ownership" }; it.asBoolean
+            } ?: false
+            if (main || module.get("Version")?.takeUnless { it.isJsonNull }?.let { string(module, "Version", true) }.isNullOrEmpty()) continue
+            val replacement = module.get("Replace")?.takeUnless { it.isJsonNull }?.asJsonObject ?: continue
+            if (replacement.get("Error")?.isJsonNull == false ||
+                replacement.get("Version")?.takeUnless { it.isJsonNull }?.let { string(replacement, "Version", true) }.orEmpty().isNotEmpty()) continue
+            // Go deliberately omits top-level Dir in vendor mode, even when
+            // Replace.Dir is present. Never turn a broken vendored import into
+            // a watch on the unused original replacement source.
+            val selectedDirectory = module.get("Dir")?.takeUnless { it.isJsonNull } ?: continue
+            val replacementDirectory = replacement.get("Dir")?.takeUnless { it.isJsonNull } ?: continue
+            require(selectedDirectory.isJsonPrimitive && selectedDirectory.asJsonPrimitive.isString &&
+                replacementDirectory.isJsonPrimitive && replacementDirectory.asJsonPrimitive.isString) { "Go returned malformed recovery directory" }
+            val selected = Path.of(selectedDirectory.asString)
+            val lexical = Path.of(replacementDirectory.asString)
+            require(selected.isAbsolute && lexical.isAbsolute) { "Go returned a relative recovery directory" }
+            val root = guards.physical(lexical)
+            require(guards.physical(selected) == root) { "Go returned contradictory selected recovery directories" }
+            requireSafeRecoveryRoot(root, directory)
+            result[root] = guards.recoveryRoot(root)
+            require(result.size <= MAX_DEPENDENCY_ROOTS) { "The selected Go recovery roots exceed the watch limit" }
+        }
+        return result
+    }
+
+    private fun requireSafeRecoveryRoot(root: Path, directory: Path) {
+        val home = GoTypeCatalogCodec.physicalPath(Path.of(System.getProperty("user.home")).toAbsolutePath())
+        val projectRoot = project.basePath?.let { GoTypeCatalogCodec.physicalPath(Path.of(it).toAbsolutePath()) }
+        require(root.toString().length <= 4096 && GoExternalFileWatches.isSafeDependencyRoot(root, projectRoot, home) &&
+            GoExternalFileWatches.isSafeDependencyRoot(root, directory, home)) { "The selected Go recovery root is outside the safe watch scope" }
     }
 
     private fun workspacePlan(originalParent: Path, owned: Path, guards: Guards, checkCurrent: () -> Unit,
-                              command: (List<String>) -> GeneralCommandLine): List<String> {
+                              command: (List<String>) -> GeneralCommandLine, dependencyScope: Boolean): List<String> {
         val parsed = objectJson(execute(command(listOf("work", "edit", "-json", owned.toString())), checkCurrent))
         val edits = mutableListOf<String>()
         val seen = mutableSetOf<String>()
@@ -567,7 +664,8 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             val version = replacement.get("Version")?.let { string(replacement, "Version", allowEmpty = true) }.orEmpty()
             if (version.isEmpty()) {
                 val actual = guards.physical(resolve(originalParent, path))
-                guards.file(actual.resolve("go.mod")); guards.file(actual.resolve("go.sum")); guards.directory(actual, metadataOnly = true)
+                guards.file(actual.resolve("go.mod")); guards.file(actual.resolve("go.sum"))
+                if (!dependencyScope || guards.recoveryRoot(actual, selected = false).isDirectory) guards.directory(actual, metadataOnly = true)
                 if (Path.of(path).isAbsolute) return@forEach
                 val oldVersion = old.get("Version")?.let { string(old, "Version", allowEmpty = true) }.orEmpty()
                 val key = string(old, "Path") + if (oldVersion.isEmpty()) "" else "@$oldVersion"
@@ -695,6 +793,9 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         private val limits = mutableMapOf<String, Int>()
         private val metadataDirectories = mutableSetOf<String>()
         private val allDirectories = mutableSetOf<String>()
+        private val recoveryRoots = linkedMapOf<String, GoDependencyRootState>()
+        private val selectedRecoveryRootUris = linkedSetOf<String>()
+        private val recoveryManifestUris = linkedSetOf<String>()
         val fileUris = linkedSetOf<String>()
         val directoryUris = linkedSetOf<String>()
         val allDirectoryUris: Set<String> get() = allDirectories.toSet()
@@ -702,6 +803,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             require(path.isAbsolute) { "A build-context path must be absolute" }
             val result = GoTypeCatalogCodec.physicalPath(path)
             val previous = aliases.putIfAbsent(path.normalize().toString(), result)
+            if (previous != null && previous != result) validateRecoveryRoots()
             require(previous == null || previous == result) { "A Go path alias changed while loading build context" }
             return result
         }
@@ -711,7 +813,7 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             limits[key] = maxOf(limits[key] ?: 0, limit)
             val hash = hash(actual, limits.getValue(key))
             val previous = files.putIfAbsent(key, actual to hash)
-            require(previous == null || previous.second == hash) { "A Go build-context input changed while loading" }
+            if (previous != null) requireFileHash(key, hash, previous.second, "A Go build-context input changed while loading")
         }
         fun text(path: Path): String {
             file(path)
@@ -729,7 +831,34 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             if (!metadataOnly) metadataDirectories -= key else if (key !in directories) metadataDirectories += key
             if (allEntries || key in allDirectories) { allDirectories += key; allDirectories += uri(path) }
             directoryUris += key; directoryUris += uri(path)
-            directories[key] = actual to entries(actual, key in metadataDirectories, key in allDirectories)
+            val snapshot = try { entries(actual, key in metadataDirectories, key in allDirectories) }
+            catch (failure: Exception) { validateRecoveryRoots(failure); throw failure }
+            directories[key] = actual to snapshot
+        }
+        fun recoveryRoot(path: Path, selected: Boolean = true): GoDependencyRootState {
+            val actual = physical(path)
+            val key = uri(actual)
+            // Raw workspace declarations need presence guards too, but only
+            // Go's actual selection may request an automatic recovery retry.
+            if (selected) selectedRecoveryRootUris += key
+            val state = GoDependencyRootState.capture(actual)
+            val previous = recoveryRoots.putIfAbsent(key, state)
+            if (previous != null && previous != state) rootChanged(key, "A Go recovery root changed while loading")
+            if (selected) recoveryManifestUris += uri(physical(actual.resolve("go.mod")))
+            return state
+        }
+        private fun rootChanged(key: String, message: String, cause: Throwable? = null): Nothing {
+            if (key in selectedRecoveryRootUris) throw GoDependencyRootChanged(message, cause)
+            throw IllegalArgumentException(message, cause)
+        }
+        private fun requireFileHash(key: String, actual: String?, expected: String?, message: String) {
+            if (actual != expected && key in recoveryManifestUris)
+                throw GoDependencyRootChanged("An exact selected Go recovery manifest changed")
+            require(actual == expected) { message }
+        }
+        private fun validateRecoveryRoots(cause: Throwable? = null) {
+            for ((key, state) in recoveryRoots) if (!state.isCurrent())
+                rootChanged(key, "A Go recovery root changed", cause)
         }
         private fun entries(path: Path, metadataOnly: Boolean, allEntries: Boolean): List<String> =
             Files.newDirectoryStream(path).use { children -> children.filter { entry ->
@@ -744,9 +873,16 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             }.sorted() }
         fun validate() {
             check(!ApplicationManager.getApplication().isDispatchThread) { "Go build-context disk validation must run in background" }
+            validateRecoveryRoots()
             aliases.forEach { (path, expected) -> require(GoTypeCatalogCodec.physicalPath(Path.of(path)) == expected) { "A Go path alias changed" } }
-            files.forEach { (key, value) -> val (path, expected) = value; require(hash(path, limits.getValue(key)) == expected) { "A Go build-context source or manifest changed" } }
-            directories.forEach { (key, value) -> require(entries(value.first, key in metadataDirectories, key in allDirectories) == value.second) { "Go package membership changed" } }
+            files.forEach { (key, value) -> val (path, expected) = value
+                requireFileHash(key, hash(path, limits.getValue(key)), expected, "A Go build-context source or manifest changed")
+            }
+            directories.forEach { (key, value) ->
+                val actual = try { entries(value.first, key in metadataDirectories, key in allDirectories) }
+                catch (failure: Exception) { validateRecoveryRoots(failure); throw failure }
+                require(actual == value.second) { "Go package membership changed" }
+            }
         }
     }
 
@@ -796,6 +932,9 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
     private companion object {
         const val FIELDS = "Dir,ImportPath,Module,GoFiles,CgoFiles,TestGoFiles,XTestGoFiles,IgnoredGoFiles,InvalidGoFiles,Error"
         const val DEPENDENCY_FIELDS = "ImportPath,Dir,Module,Error,DepsErrors,Incomplete"
+        const val RECOVERY_MODULE_FIELDS = "Path,Version,Main,Dir,GoMod,Error,Replace"
+        const val MAX_DEPENDENCY_ROOTS = 128
+        const val MAX_RECOVERY_PREFIXES = 1024
         const val MAX_DEPENDENCY_PASSES = 8
         const val MAX_FILE = 8 * 1024 * 1024
         const val MAX_OUTPUT = 2 * 1024 * 1024

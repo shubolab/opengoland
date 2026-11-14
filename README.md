@@ -95,6 +95,12 @@ not fixed, and no workaround has been verified. See the
 New deep subtrees under a stable root, interactive Windows workflows, macOS
 Developer Mode debugging and full GoLand parity still require separate acceptance.
 
+The main branch now includes recovery for initially absent replacements and
+incrementally created cold subtrees, with 1,028 regression tests passing.
+Standalone desktop acceptance and new installers are still pending; see the
+[repair evidence](docs/reference/initial-absent-dependency-repair-20261114.zh-CN.md).
+The public 14.3 download retains the known issue above.
+
 | Platform | Direct installer download |
 | --- | --- |
 | Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe) |

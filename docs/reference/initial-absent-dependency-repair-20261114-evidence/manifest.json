@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "files": [
+    {
+      "path": "archive-entries.json",
+      "bytes": 51457,
+      "sha256": "4d7942e5d2462f74ab717200c4d13e40cbe337d35ec1eccf13011632c07a39ac"
+    },
+    {
+      "path": "original-test-evidence.tar.gz",
+      "bytes": 804369,
+      "sha256": "c81c039e7b50bc596aba3e347b7ec835c3a2cac4d4fb2859e8f38454a0459ee9"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 17982,
+      "sha256": "bfcdd695bdd3a7e6ea2e7a350fb5a78a66f955764e2fe436bfd7a07282ae416f"
+    }
+  ]
+}

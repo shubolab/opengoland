@@ -49,6 +49,8 @@
 
 **已知问题：**首次打开项目时，如果本地 `replace` 依赖还不存在，后来创建完整依赖后，编辑器仍可能保留旧的导入错误，即使实际 Go 命令已经成功。这个场景的自动恢复尚未修好，目前也没有验证过有效的绕行办法，见[首次缺失依赖记录](docs/reference/initial-absent-dependency-20261114.zh-CN.md)。稳定目录下新建深层子树、Windows 交互式终端/插件/中文界面，以及 macOS Developer Mode 调试闭环仍需原生验收；完整 GoLand 对齐仍在进行。
 
+主分支已加入首次缺失依赖及分批创建深层目录的修复，1028项完整回归通过；新的独立客户端验收和安装包尚未完成，见[修复进度与证据](docs/reference/initial-absent-dependency-repair-20261114.zh-CN.md)。上述公开版的已知问题仍适用于14.3下载包。
+
 IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitHub、私有仓库和项目依赖所需的认证仍然保留，使用这些服务时需要它们各自的凭据。
 
 当前 Windows 安装器未使用发行者证书签名；macOS 应用采用临时签名，尚未公证。系统可能要求你确认是否打开。具体要求见[安装说明](docs/installation.md)。当前发布的安装器覆盖 Windows x64 和 macOS arm64；没有在这里承诺 Linux 或 Intel Mac 安装包。

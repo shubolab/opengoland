@@ -1,0 +1,1337 @@
+[
+  {
+    "path": "loader-red/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 12017,
+    "sha256": "f3d3a929c0db2300fe6d199b8ea959aaa84d0277c49bc75383de2e945720fb30"
+  },
+  {
+    "path": "loader-red/command.json",
+    "bytes": 632,
+    "sha256": "d399e30760ed65b78869881e30d7aa1a5722a2d0387f4ced120ce99674826361"
+  },
+  {
+    "path": "loader-red/gradle.log",
+    "bytes": 125471,
+    "sha256": "0e85101ff0ad6f71f9cf9d7315621e7ff9247ad85839af5312972013321cd798"
+  },
+  {
+    "path": "loader-red/result.json",
+    "bytes": 213,
+    "sha256": "0c5154ce0e48c0f7a5d4f7e4001a655ec2ee2000fa92c1e39e464f4b9abad6a7"
+  },
+  {
+    "path": "loader-red/source-after.json",
+    "bytes": 101744,
+    "sha256": "5157f3e4a5b07737201c9cb56e7ff28426ab8a0b6b99d06405c59e3bb0489ff8"
+  },
+  {
+    "path": "loader-red/source-before.json",
+    "bytes": 101744,
+    "sha256": "5157f3e4a5b07737201c9cb56e7ff28426ab8a0b6b99d06405c59e3bb0489ff8"
+  },
+  {
+    "path": "combined-baseline-2/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+    "bytes": 38546,
+    "sha256": "86cc953a81bdafc2b3393f9967b49d8b6c2f1e99715c68e2814ac827b5e1b71d"
+  },
+  {
+    "path": "combined-baseline-2/TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+    "bytes": 11943,
+    "sha256": "364c1f42ba1c2e58b0edef38bf9322d3c811837d52d8aabf2f35e59b44726ba5"
+  },
+  {
+    "path": "combined-baseline-2/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 4953,
+    "sha256": "2a9e228fe52e101a2fe2d072c96ffa2f715538f70f0d2a8c97f40b9579a09c6f"
+  },
+  {
+    "path": "combined-baseline-2/command.json",
+    "bytes": 827,
+    "sha256": "51807145e456b6f50d66baeb5937414e5673aa342ef990fd08e360d0058bfa78"
+  },
+  {
+    "path": "combined-baseline-2/gradle.log",
+    "bytes": 34940,
+    "sha256": "800f5973454d72e536e2f144062da3f5920d403ceb4448f3ab2f6ba8a08aebec"
+  },
+  {
+    "path": "combined-baseline-2/result.json",
+    "bytes": 680,
+    "sha256": "9f696328ecb8b84cf15bce21bece3c2f3c6d70fd6a1219e88364aa0ab3bdee79"
+  },
+  {
+    "path": "combined-baseline-2/source-after.json",
+    "bytes": 102299,
+    "sha256": "ab5a2f78389ca93cf0b36cecd76caa0429084c4e31013908839439e70ddd407b"
+  },
+  {
+    "path": "combined-baseline-2/source-before.json",
+    "bytes": 102299,
+    "sha256": "ab5a2f78389ca93cf0b36cecd76caa0429084c4e31013908839439e70ddd407b"
+  },
+  {
+    "path": "root-state-red/TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+    "bytes": 2056,
+    "sha256": "655550bee83ec23ee166fc25fcee75406d8cd20a1c3fc3ee2b9d769f3a2e2703"
+  },
+  {
+    "path": "root-state-red/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+    "bytes": 5696,
+    "sha256": "16147219cb9f2704d10b767a6dfa4fb959150e460124827fdb56cf298b320361"
+  },
+  {
+    "path": "root-state-red/command.json",
+    "bytes": 674,
+    "sha256": "0f6369e9d9a9c2b435a5aaf38b21dcaeb26e0b13d2f9e905e6b6c74ada4935b8"
+  },
+  {
+    "path": "root-state-red/gradle.log",
+    "bytes": 11003,
+    "sha256": "a76cd70f512b1998d7c1111899b96e8360b4a09be92df0f193b48e019e32b4d3"
+  },
+  {
+    "path": "root-state-red/result.json",
+    "bytes": 523,
+    "sha256": "2419ea18b96aa78005af8a9bf29bf9ad8b567b58acb7d517beaea0807f521372"
+  },
+  {
+    "path": "root-state-red/source-after.json",
+    "bytes": 102480,
+    "sha256": "79a5d27457f14bd204a067917890c11750a8661b9e1ff86e25421216346d6b41"
+  },
+  {
+    "path": "root-state-red/source-before.json",
+    "bytes": 102480,
+    "sha256": "79a5d27457f14bd204a067917890c11750a8661b9e1ff86e25421216346d6b41"
+  },
+  {
+    "path": "root-hash-red/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+    "bytes": 1431,
+    "sha256": "bbc498235f67c7dc9c71996d1cee75f1c7b0d5a207f9ec75b53b3e753bdc187a"
+  },
+  {
+    "path": "root-hash-red/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 14895,
+    "sha256": "56765ed9b233e46fc0b8bc6f17164d8f6773ebf4eda4dd096933e10b24cccc37"
+  },
+  {
+    "path": "root-hash-red/command.json",
+    "bytes": 674,
+    "sha256": "21dd1e7d5ccbb6bad5e7294fe8eafd59aa361f0089ade1d43b4e39c1d327a784"
+  },
+  {
+    "path": "root-hash-red/gradle.log",
+    "bytes": 10091,
+    "sha256": "5a84fc349d92da179b54ee24ff942181e26d084566cd32d44c28c39fd063d202"
+  },
+  {
+    "path": "root-hash-red/result.json",
+    "bytes": 523,
+    "sha256": "81b650b5d8d31975b53b76d8cf26bf198944ec385483842461f0a2b903710e9e"
+  },
+  {
+    "path": "root-hash-red/source-after.json",
+    "bytes": 102480,
+    "sha256": "15a54610044897cbe363f5b204955cc6777e2ea49990182ed05d1cdcee219bce"
+  },
+  {
+    "path": "root-hash-red/source-before.json",
+    "bytes": 102480,
+    "sha256": "15a54610044897cbe363f5b204955cc6777e2ea49990182ed05d1cdcee219bce"
+  },
+  {
+    "path": "coordinator-independent-root-red/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+    "bytes": 6683,
+    "sha256": "ec60be3287dd3635e193a587d7ec811f45e691cdf21bc7d6faadebb0f84520a0"
+  },
+  {
+    "path": "coordinator-independent-root-red/TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+    "bytes": 2052,
+    "sha256": "1b581c601df28e2d8f8a5d803bbd059af64a627e03d6db0e64efb7a2a9646a2c"
+  },
+  {
+    "path": "coordinator-independent-root-red/TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml",
+    "bytes": 12086,
+    "sha256": "89f0ec0f69d17463170f2deafc1bf24f2fd843a9b323f7a260b35229c76820a6"
+  },
+  {
+    "path": "coordinator-independent-root-red/TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+    "bytes": 11944,
+    "sha256": "2baaeca5e2d581738a55bca6ce9b931ce2d7a6e21f57654b5c43b994125f2ec6"
+  },
+  {
+    "path": "coordinator-independent-root-red/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+    "bytes": 1426,
+    "sha256": "6db2d806f6ca4171e6651f994b676a8117e0462cce6840e79004d6157ab8ea72"
+  },
+  {
+    "path": "coordinator-independent-root-red/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 5476,
+    "sha256": "e3a81b569d0172bcbc1d8b97718a4b794460ba3b2465cdad31bec55ca4ba8b5a"
+  },
+  {
+    "path": "coordinator-independent-root-red/command.json",
+    "bytes": 1242,
+    "sha256": "5b3d7932809f7a3fb211e278ad2d778ee49b07b163e8d79a9c7b9262416dd4d5"
+  },
+  {
+    "path": "coordinator-independent-root-red/gradle.log",
+    "bytes": 11675,
+    "sha256": "4e7e51d5e1e40a64cf53146909e3220299fdf1b9da223f3df4a3dc9d155bf2c6"
+  },
+  {
+    "path": "coordinator-independent-root-red/result.json",
+    "bytes": 1124,
+    "sha256": "e4f6e9482eee8c8857d4c9fb00844beeb07efe67456fb7471285e8a6e39b84f7"
+  },
+  {
+    "path": "coordinator-independent-root-red/source-after.json",
+    "bytes": 102671,
+    "sha256": "5d858df765184f3034a0e8c2b3434226116ae56d86b8c88c97b9e89eacb95d03"
+  },
+  {
+    "path": "coordinator-independent-root-red/source-before.json",
+    "bytes": 102671,
+    "sha256": "5d858df765184f3034a0e8c2b3434226116ae56d86b8c88c97b9e89eacb95d03"
+  },
+  {
+    "path": "handoff-and-unused-root-red/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+    "bytes": 10966,
+    "sha256": "f7ec5ab5a06a5bacd0b9e616dfc987b147592a545f89aab775d0dac20ca616b0"
+  },
+  {
+    "path": "handoff-and-unused-root-red/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 15580,
+    "sha256": "0be4e16701ef627576932c1c8dd0e2f928f266fb01a35b51ba569b887ec67566"
+  },
+  {
+    "path": "handoff-and-unused-root-red/command.json",
+    "bytes": 694,
+    "sha256": "513618a4ba55ad670060027aefeda7aae2d690aeee8c75204cde74307e073a0b"
+  },
+  {
+    "path": "handoff-and-unused-root-red/gradle.log",
+    "bytes": 12364,
+    "sha256": "2725be721b809213997a332577f02d8c0cbe07a3b89b05dc4b2348f16f8df2bd"
+  },
+  {
+    "path": "handoff-and-unused-root-red/result.json",
+    "bytes": 534,
+    "sha256": "671e00b243c21569a56e4fa061ae35dc887d2de70cc24718009f54570fdad6de"
+  },
+  {
+    "path": "handoff-and-unused-root-red/source-after.json",
+    "bytes": 102671,
+    "sha256": "51c4b81efed194275eb55d9ced888ce762c5b735046cab47f192b1d36bf60a0e"
+  },
+  {
+    "path": "handoff-and-unused-root-red/source-before.json",
+    "bytes": 102671,
+    "sha256": "51c4b81efed194275eb55d9ced888ce762c5b735046cab47f192b1d36bf60a0e"
+  },
+  {
+    "path": "recovery-last-owner-red/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+    "bytes": 10568,
+    "sha256": "49250c627e6671c8d19001d5307ce43ac3270650b473fce50387b3294635870a"
+  },
+  {
+    "path": "recovery-last-owner-red/TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+    "bytes": 2056,
+    "sha256": "5d4ccf1cc413d1c987bec15385b1f322b9a8076f837ef68f6ffbc3060d6d6674"
+  },
+  {
+    "path": "recovery-last-owner-red/TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml",
+    "bytes": 12942,
+    "sha256": "665f6f79872176ff519bd966cea3c1f6f204e4d1815aeeb317d2510d178905e9"
+  },
+  {
+    "path": "recovery-last-owner-red/TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+    "bytes": 11942,
+    "sha256": "1b17da924497aef6d7d889dbb9c6178204e7105e074b510ae53f1fe7a567e216"
+  },
+  {
+    "path": "recovery-last-owner-red/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+    "bytes": 1426,
+    "sha256": "7a1dbf1eddb78f21fbd50498463860886550038e85d5881b6083a0ef73d97aed"
+  },
+  {
+    "path": "recovery-last-owner-red/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 5395,
+    "sha256": "ee01833fdf23f0732a008898a2c41637a6065ff60cc1aeec5fe0e49227af84e5"
+  },
+  {
+    "path": "recovery-last-owner-red/command.json",
+    "bytes": 1242,
+    "sha256": "cd8645443b6529930925ad5d9011f7a5a314d340b357f7a3aa0b7f8391643d24"
+  },
+  {
+    "path": "recovery-last-owner-red/gradle.log",
+    "bytes": 11893,
+    "sha256": "633152087c1fe0091f866364f45d7582763f0fd497e8ec0a89cbb6e9a2ea6a5e"
+  },
+  {
+    "path": "recovery-last-owner-red/result.json",
+    "bytes": 1124,
+    "sha256": "3e064189dc75c22b5577707c4aee9019ecf77775779c2f8af34e9fc99b996084"
+  },
+  {
+    "path": "recovery-last-owner-red/source-after.json",
+    "bytes": 102671,
+    "sha256": "e04af2f04c419c67119c438099aae20babe706e741faec9756e3b81a4032a67e"
+  },
+  {
+    "path": "recovery-last-owner-red/source-before.json",
+    "bytes": 102671,
+    "sha256": "e04af2f04c419c67119c438099aae20babe706e741faec9756e3b81a4032a67e"
+  },
+  {
+    "path": "recovery-targeted-green/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+    "bytes": 2777,
+    "sha256": "de2438bf523e8c1bd145d8a49b7eea2119e94d1b7842f8bc4dfba4b266bde7b8"
+  },
+  {
+    "path": "recovery-targeted-green/TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+    "bytes": 2052,
+    "sha256": "032fecc9df2d79e39f51b25ccec10333f6da20d7234c1a183fdce6529b9aa4b5"
+  },
+  {
+    "path": "recovery-targeted-green/TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml",
+    "bytes": 1850,
+    "sha256": "23fee6b2721a23fa7f4f3e30743be5570562aadb68a9ede715367617f86c519f"
+  },
+  {
+    "path": "recovery-targeted-green/TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+    "bytes": 11939,
+    "sha256": "9f9c3196a3996eb41b7b0bb08ecc0ca2e631087ad94342559e147f6fb772c651"
+  },
+  {
+    "path": "recovery-targeted-green/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+    "bytes": 1426,
+    "sha256": "ac4e219f4ec93cc83d4f7593204fea417748bd3e474a9e7976098a8c53904313"
+  },
+  {
+    "path": "recovery-targeted-green/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 4249,
+    "sha256": "9942beaa198535ae732a0d7771d0ae643f49b159de96532f0583f943a5f89220"
+  },
+  {
+    "path": "recovery-targeted-green/command.json",
+    "bytes": 1242,
+    "sha256": "71012313cbf729804f2513071bb23d2e05c8a5b309d25eae16a1b05bec081b62"
+  },
+  {
+    "path": "recovery-targeted-green/gradle.log",
+    "bytes": 12168,
+    "sha256": "5e963182ac3673968decbc6322f451529462f80df87343c871f834e7d2dd78d4"
+  },
+  {
+    "path": "recovery-targeted-green/result.json",
+    "bytes": 1124,
+    "sha256": "51e02d95da133b88f746fec878c3fc889a4fdbc47bdf15aedbdd61f6bd6a8d2b"
+  },
+  {
+    "path": "recovery-targeted-green/source-after.json",
+    "bytes": 102671,
+    "sha256": "34561d5e22b32c86c3741110bbdfa5926a938bd793c588fb79abc833cf92ac31"
+  },
+  {
+    "path": "recovery-targeted-green/source-before.json",
+    "bytes": 102671,
+    "sha256": "34561d5e22b32c86c3741110bbdfa5926a938bd793c588fb79abc833cf92ac31"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureCacheRefreshTest.xml",
+    "bytes": 2730,
+    "sha256": "5e3c52bb537faeead71be75986200971d16e035fd81bf8698d62a073df723031"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoBuildContextFeatureEligibilityTest.xml",
+    "bytes": 2519,
+    "sha256": "4f4324691d46d7042a02e719b2e42183644b4601fc2ee8bc33503a2d90cee177"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoCapabilityRegistrationLifecycleTest.xml",
+    "bytes": 29092,
+    "sha256": "2219e4d3523b2c62328acf527d36737e2f317687a4656510af3505e83ba61f44"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
+    "bytes": 1028,
+    "sha256": "fdf6ec9a04e9410b18c29fd4a953ae8dc797d6b1896d7b37695c8de7da593b92"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoCompletionBarrierLifecycleTest.xml",
+    "bytes": 903,
+    "sha256": "1e438179ba91d880117955c74f875aa518cd311ed8d2545ef694253faf7d2132"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoGoworkGoplsTest.xml",
+    "bytes": 152076,
+    "sha256": "6bdc5857323f42cd10fba8c924b8faa48aa0e2a715d9905777a0484ce75df5aa"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoHierarchyWorkflowTest.xml",
+    "bytes": 2506,
+    "sha256": "9c543ead134f0867c449a6101a2ac62fc92b136447262aed34e62fd69109437f"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoLspDeletionLifecycleTest.xml",
+    "bytes": 689,
+    "sha256": "019fc36e7dae6c2391100a2ac5e413f54f6894fa56c8770bede0c2d5e3836f17"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesGoplsTest.xml",
+    "bytes": 534,
+    "sha256": "e66d81c66380582885af54e4e0f5808ea47bf717bfeb5aa8f9a85df17e52bfda"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoLspFindUsagesPolicyTest.xml",
+    "bytes": 1023,
+    "sha256": "a3411abd0d7a89cf379241fa55cd9f1e1b29c49a43b166c04d3bea90e05b6a1f"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoLspHighlightOrderingTest.xml",
+    "bytes": 2637,
+    "sha256": "9aebb81ae1082ed3ad2572f8fa4fd4e487b894d4573baf7334619ba78474c4c7"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoLspInitializationSyncTest.xml",
+    "bytes": 1171,
+    "sha256": "de832c6b7667ad5fa8b35e4a7f6a8e249261b305da2663bc10c4d6ab9474ea8c"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoLspIntentionDescriptionsTest.xml",
+    "bytes": 699,
+    "sha256": "e2434e4dfea065c8552c59a58227ad36555fc07b6fa57ebdc14a2c32f5ccbca5"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoLspUsagesScopeTest.xml",
+    "bytes": 1278,
+    "sha256": "a7da0e8fea2ce1f7e0e375b3a4e5ed2ba80d9eb0364eacf99b0f7d44416558d2"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoMulticaretGoplsSyncTest.xml",
+    "bytes": 532,
+    "sha256": "12c0e8802d8bc620e4734603c7cb4758694d8db1c750ed5994d28f13e054c05e"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoNativeCompletionOrderingTest.xml",
+    "bytes": 527,
+    "sha256": "55094fec93edfaf5cc8e2e3c6f64bdaa5b31455031f2999e9fc704c6d08536f0"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoNavigationCacheTest.xml",
+    "bytes": 4845,
+    "sha256": "cc05776e7bd333568622090f5990df40e50921c7e3856a4ee217b072019556e3"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoNavigationParameterGateTest.xml",
+    "bytes": 1005,
+    "sha256": "3f6536da04d739b02453870055ab14ce9576cc58ca96690d71a203c3fd826cc9"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoPackageStructureTest.xml",
+    "bytes": 13678,
+    "sha256": "b1a132619cb67c00d622d3b0951ae7858df671f0f38a3577f772a63a9b55fe63"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoSignatureHelpParameterInfoTest.xml",
+    "bytes": 1047,
+    "sha256": "a3d341a32bfd124543c07118247f4e22aab1c9ced7f489730b992d4772ee27e1"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationGoplsTest.xml",
+    "bytes": 2842,
+    "sha256": "52c1c0e089d7fd58e5d473e4cdd4a089300b177ad9ba7cecc98d8321bb06e426"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoStandardNavigationTest.xml",
+    "bytes": 2203,
+    "sha256": "8d160d27583f37584f517623270bc8b3bfe42e7e3c674265d7480b7b36c02ba9"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoStructureControlsTest.xml",
+    "bytes": 1409,
+    "sha256": "e08f1cbfaefb6b0533ca8600e9813db74453523b28f09a68c9b2cfc9bf3f90f4"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoStructureGroupingTest.xml",
+    "bytes": 1662,
+    "sha256": "0b729d5539ed5ec1d38400fe2f9dba42cdc3a0887307d1b0bc69d190af12a999"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoStructurePopupSelectionTest.xml",
+    "bytes": 3408,
+    "sha256": "0f9d63b5289e0220e41f2b96a0ae2f7e2a300639f9a3939a7916dff976bb279f"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoStructurePresentationTest.xml",
+    "bytes": 1203,
+    "sha256": "0dbb5a5cfda10229f7ca115a08fa7353c1c17cc92eae6a55d00e8f2df6dcb95f"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchEngineTest.xml",
+    "bytes": 4594,
+    "sha256": "eb11840d9efdb04321401785e4422d71b1d60b9d0bfb7ae4518e303f67365ad7"
+  },
+  {
+    "path": "full-regression/TEST-com.redhat.devtools.lsp4ij.GoTypeSearchNativeTest.xml",
+    "bytes": 12576,
+    "sha256": "33c888607196ea48a6c300e58d23056492a020736c3ef54b0baaaef9c9946aec"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.coverage.GoCoverageIntegrationTest.xml",
+    "bytes": 526,
+    "sha256": "caf70dfcd340c527cb070d6883866cdaebda3cd65b2ba609f44dbca1cc97fd90"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.coverage.GoCoverageProfileTest.xml",
+    "bytes": 1104,
+    "sha256": "95f7cf7bdbc3420ec6c43cfd5bf3c0855984db324bc6d86a0c3eedde73db0c8f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoAttachedAdapterLifecycleTest.xml",
+    "bytes": 1200,
+    "sha256": "3e254dba3047ad20b2716b9d99ed7aed142bf2d6da7081dd8dcda7ce5633db0c"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDapBreakpointHandlerTest.xml",
+    "bytes": 1170,
+    "sha256": "6f615d31949242f19b82f06a7ddcdb536d884b39653c1ce3a0ce97adcb30e40f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDapClientRoutingTest.xml",
+    "bytes": 950,
+    "sha256": "6cd5e2099c5ff87d4b5dc496fd32ebed609149c5c3bcfef6b37d6fddc3030a58"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDapColdSourceNavigationTest.xml",
+    "bytes": 828,
+    "sha256": "31887ce7db129610a59f7c457d495a6c6c9d4b2695c2a01c93761e556dea9b50"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDapProtocolForwardingTest.xml",
+    "bytes": 499,
+    "sha256": "b9651bbceb501d2d461d11b0e3d7432d54ef6f1a3642e0f1dab764c3cd36a13f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDapProtocolTest.xml",
+    "bytes": 2303,
+    "sha256": "d2ef1f7344f64196b631392479468d49eacf7d2af9db9c86632aac029383779c"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDapSessionControlTest.xml",
+    "bytes": 14205,
+    "sha256": "aa2839efa4ecb6e88eec58a4258579e25667b0b695b402bc26b1a014062fbbce"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugConnectionTest.xml",
+    "bytes": 1257,
+    "sha256": "deabd0cb863056c95ebaea3164c4c505cd8db503d7adbf38071745518830b290"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugLaunchTest.xml",
+    "bytes": 1032,
+    "sha256": "699caeab1ae520a2844e7ddcdadd8c15cd07193e53df069d182fa1847ca00d20"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugPrerequisitesTest.xml",
+    "bytes": 814,
+    "sha256": "d3992a058f945a305a01ca6585faef8148bcd78c1e08fd68160ea530be5566f1"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugRunnerEligibilityTest.xml",
+    "bytes": 514,
+    "sha256": "9ebb72b39530751b4b183131d7fa49721cdf0f776be496b365e58503a2febed3"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugTestConsoleTest.xml",
+    "bytes": 795,
+    "sha256": "56be015324fe58ed40ecc0f0d44e7ea88a0ff1968c8f378186d548abe7dbce11"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugTestEventsTest.xml",
+    "bytes": 8254,
+    "sha256": "063e29d18401e4c34ff0e740536303f97f008fd899e335f6ff869bea1583aa0f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugTestManagedArgumentsTest.xml",
+    "bytes": 842,
+    "sha256": "43292ff1495166a47e6f4d648ad5a5f3f9e6f95d32cce87cca832b9b8df5e11d"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebugTestProfilesTest.xml",
+    "bytes": 669,
+    "sha256": "8e3d70642d6c45273dc213fe972e075e5829ebbcc17e7e55a0c0732f4dbd4091"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoDebuggerEditorsProviderTest.xml",
+    "bytes": 856,
+    "sha256": "6963a2974ee98a2f8a88a8865a23febf5fa0de44a5a1e0d029073d9278e95537"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoGlobalFailedTestsActionTest.xml",
+    "bytes": 1578,
+    "sha256": "62339de99c71159ca596e04922f550f45469c956de5f1d08029425b99fc621cf"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoLaunchedAdapterLifecycleTest.xml",
+    "bytes": 6710,
+    "sha256": "493b529ac7a9ce210b448b088cc741f0ccd9197e3b2b011a057d3512182f3767"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoOwnedLaunchedAdapterLifecycleTest.xml",
+    "bytes": 534,
+    "sha256": "beb1e185fe299f85ba4d201490e852c0da4406db4a9fa259e127b0387a463c94"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoTestConverterReadinessTest.xml",
+    "bytes": 2035,
+    "sha256": "7922d49a5768924e02512fc7e71611a3b6c7c7924858fda52b0f14e94cc75c4f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoTestDapPreconnectLifecycleTest.xml",
+    "bytes": 2290,
+    "sha256": "f0ab66ad2f81aa00f6ca5d5fec424a94ac47522a49fc0459e36fd835a7dcb3dd"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.debug.GoTestDebugArgumentsTest.xml",
+    "bytes": 1462,
+    "sha256": "9db4b3d7c5f6fe66005ad4f5edcf3ddc69e89e824d68c4ed0ca3730f07b319e5"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.engine.EngineClientEdtDisposalTest.xml",
+    "bytes": 509,
+    "sha256": "1d9dc2763721b975a353feacd53b5c1128765a5f68012fe479a7e145792b4477"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.engine.EngineClientEnvironmentTest.xml",
+    "bytes": 685,
+    "sha256": "83baa6ca00993f2caa5476ec3160ba7fb269af2fe3f6bc38e05d4323be00cd15"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.engine.EngineClientLifecycleTest.xml",
+    "bytes": 954,
+    "sha256": "7b882f2fd29ad9a72c335ca180323713b5131221afa8558f589c62d1037266fc"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.engine.EngineClientOutboundTest.xml",
+    "bytes": 739,
+    "sha256": "9ed291872b5bf73d638156d1a28f75aa1b60c5ce1abd48b73d474c637c549733"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.engine.EngineFramingTest.xml",
+    "bytes": 600,
+    "sha256": "82c29911933ec1771bab30246ef42faf7988c43ee32dbad852eb59a9b495432f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.engine.GoTaskTargetsIntegrationTest.xml",
+    "bytes": 1719,
+    "sha256": "03925815b7c4b09ede1744d3290a9a29c5bc9594b2408efcc69d848e680ad753"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.engine.GoTaskTargetsTest.xml",
+    "bytes": 678,
+    "sha256": "299415f3d3754d8401e48b79321c580e4784593efbaa590e354cead0b8b16b2a"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.GoNamedTypeHeadersTest.xml",
+    "bytes": 852,
+    "sha256": "873bef5c91f2282a60228bf00abb8168b4ae92f1572a8bce1acdb1c3b77318b2"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructDialogTest.xml",
+    "bytes": 1452,
+    "sha256": "7d4c127f60f319936f4a59350d3337a35c01a78685e6eab51c9ae125925b6a6d"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.jsonstruct.GoJsonStructIntegrationTest.xml",
+    "bytes": 723,
+    "sha256": "ffa53b1e4673b4501c30138cbbd001df7c803b2dea0c10680c72b28f2c2cfa08"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsNativeTest.xml",
+    "bytes": 1093,
+    "sha256": "7b1dc57419e488cd9d1b94932a4c61a738a108f3bad9be89b028e95da66a85e4"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.methods.GoImplementInterfaceHintsScanTest.xml",
+    "bytes": 903,
+    "sha256": "e21a8e25626de183adce0f7ed53ba88f6a99cda9c710770996f33fefafcb2284"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.methods.GoImplementMethodsDialogTest.xml",
+    "bytes": 1839,
+    "sha256": "168f06790026fa92a6115e8f4635aa3bc5df9e5cc441569b8f34a62dc43d143f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.methods.GoMethodGenerationIntegrationTest.xml",
+    "bytes": 737,
+    "sha256": "1ff87bc5a0f87990ce03c10cd9f3734ae187bd715bac4a0aa74edb4a6e025df0"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.structs.GoStructHelpersDialogTest.xml",
+    "bytes": 1450,
+    "sha256": "c359689ef14116117c3d01ce62dc70324979c38a5e29d8bff3461dc6b5d5c2a5"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.structs.GoStructHelpersIntegrationTest.xml",
+    "bytes": 1795,
+    "sha256": "76cfe1b364cd275d88c0cd07f343b395c4f430010ed5d0eed853328481667144"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tags.GoStructTagCaretsNativeTest.xml",
+    "bytes": 1779,
+    "sha256": "a4b431cf42f4e32441f51bc8a824ea55166cf177ed165fe57f6c0a8d4e8b003a"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tags.GoStructTagContextTest.xml",
+    "bytes": 673,
+    "sha256": "20ef48d3c6b665a8eccfc8415d1f37411d0e6bb73fac9afdac273b5a91055b75"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tags.GoStructTagsDialogTest.xml",
+    "bytes": 1177,
+    "sha256": "7526350ecf4bbe2ba2ef43b20c813a322e083f9c9b9820b1e9291af98732949d"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tags.GoStructTagsIntegrationTest.xml",
+    "bytes": 1256,
+    "sha256": "d8e05f3271d3ac02b6b1f333a5b6e2d2e15a6cc77bef6c869101e0cea82707e0"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsConfigurationTest.xml",
+    "bytes": 574,
+    "sha256": "925faa9294625299d35840a1224ab3503adf4784490fbf787989fe286c66b523"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsDialogTest.xml",
+    "bytes": 1240,
+    "sha256": "44ce2083f308e774e9be64c3268766ad662ef89669a1e75c327c4c1ef0ca4cd1"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tests.GoGenerateTestsModelTest.xml",
+    "bytes": 843,
+    "sha256": "ae53224e2df21160c6dee82c3973e0d8b426ee52ec3a2cfe238f07adedba155a"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tests.GoTestChooserNativeTest.xml",
+    "bytes": 713,
+    "sha256": "499e263362a5487c95761f980869205fcfeafbf124c75f87f650a96ead049739"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tests.GoTestFinderNativeTest.xml",
+    "bytes": 725,
+    "sha256": "e6254ea503674068a9a49da68e8713ea25bb3f0a295bc950955e483a91712441"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.generate.tests.GoTestGenerationIntegrationTest.xml",
+    "bytes": 1307,
+    "sha256": "305b574d5575aa11aed6c3153445e3989456e2164c6d42a60fb38381fa910b0c"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpBatchProcessHandlerTest.xml",
+    "bytes": 7012,
+    "sha256": "ab43babf744b25f3f11cf4b1ca80e598bf50ebc9106ccc0444882d9f05a59683"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpRequestCallTest.xml",
+    "bytes": 1444,
+    "sha256": "4799b126c3cef81f7104ed3a309343d589adcd7a7759eb9526567bb524e93e82"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpRequestDocumentTest.xml",
+    "bytes": 3157,
+    "sha256": "0cf8e9adafad739d09cad2f62a1ccc3b2219bbd5064273d212213425298ab3a9"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpRequestRunNativeTest.xml",
+    "bytes": 808,
+    "sha256": "2b293effc2ef5bd0af657b558362f7d582feb44018e8c6facf67e1b08bf64c18"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpRequestSessionNativeTest.xml",
+    "bytes": 1627,
+    "sha256": "c4466c7f31284510a71fdec3cb5c2ed787dbd41d48be6376b6c514f9f3523695"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpResponseCacheTest.xml",
+    "bytes": 1089,
+    "sha256": "1652ece64a9ec191ac150e512367d9d7540b275b5c8ffa426c30d6384c541cc9"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpResponseFilesTest.xml",
+    "bytes": 680,
+    "sha256": "6c31c910ffa9b5c5fc1d05346e10beb51470cc516440be382ef5bbcb184eb05a"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpResponsePresentationTest.xml",
+    "bytes": 2058,
+    "sha256": "f5f5a35788ebf7f79a3f6b6e7b97a5cd8616537592b6cafb84c789bd8c3a1b91"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpResponseViewNativeTest.xml",
+    "bytes": 866,
+    "sha256": "1e969c0bb0b1fdf65ab690fdb645ec4ee43ed7188063903b11607705046d636d"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.http.HttpServicesToolbarNativeTest.xml",
+    "bytes": 533,
+    "sha256": "271a21a20cbf4437ac924d90396a68ada0058bf85031dfc781b2b35b6251be51"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.icons.GoFileIconsTest.xml",
+    "bytes": 669,
+    "sha256": "36d404fa9b19daea834e486a40e9953d7c11ed79c27e600fcef8cf1b0d4cfa42"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.DockerfileLexerTest.xml",
+    "bytes": 745,
+    "sha256": "389ba3b19fcec6dfb47453db2b46aab83142eca8a9531933581ff83eb63621a6"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.DockerfileNativeTest.xml",
+    "bytes": 600,
+    "sha256": "e3b51bc7329197f6d0200ad9e1365c82157f1f405037076f29105b2678404477"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.GoEnterNativeTest.xml",
+    "bytes": 3194,
+    "sha256": "4307064626c4a7b8a8dbbd4e156b36dcf4f9cc77c48299c9bff4a3ce5c3ec318"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.GoLexerTest.xml",
+    "bytes": 1579,
+    "sha256": "405979d47f9c34bd0853ba84dd00ace6d60ac46828372ca68b0a45cf488aa291"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.GoQuoteCommentNativeTest.xml",
+    "bytes": 1899,
+    "sha256": "300609ba8bd421ed16152eca1d2cf514d267e9dc5cd1df81b86c420d6e8f38fd"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.GoTemplateLexerTest.xml",
+    "bytes": 893,
+    "sha256": "9f5c5bc88115469a0853fa1ab4141ebc453d1e4a0636b18cbe5535ef61beac3d"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.GoTemplateNativeTest.xml",
+    "bytes": 622,
+    "sha256": "592fcc35f6286bd4799b0b2671b0d0666ca40cfaadf1d6b1e19e815e78a43ccd"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.HttpRequestLexerTest.xml",
+    "bytes": 618,
+    "sha256": "470b1b9ae037b8dba69ed9df5f985d50768a6dab263ac7f5b662ad58bb551663"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.HttpRequestNativeTest.xml",
+    "bytes": 605,
+    "sha256": "95dd730e207a840de87c81b9a24bf9f55d1a7d4cc926b2bf7a13d74d45d535a3"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.SqlLexerTest.xml",
+    "bytes": 705,
+    "sha256": "653a818d834bb1d4367dabd05be54c77fd1c970ff82ac7c289f6126b55e98922"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lang.SqlNativeTest.xml",
+    "bytes": 569,
+    "sha256": "324afab2475f344d8d43cbaba0d912e3dfbfa188d54b9f9baa6209c04b095956"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lifecycle.StandaloneProxyWarmupTest.xml",
+    "bytes": 1157,
+    "sha256": "1632b66ac5b92da6013335f4b2a4b9e74a514c553addae22bfd2f78b99de78df"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lint.GoInspectionProcessTest.xml",
+    "bytes": 502,
+    "sha256": "bbf8d2736f5863d13ecedeee88fc560d864ae09821f04302ea13e48c220b46a0"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lint.GoLintCommandsTest.xml",
+    "bytes": 642,
+    "sha256": "82a4ab32cdebfb573e6b13d4a508c1dca9df78c5e35fb151a591200676020fd7"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lint.GoLintParserTest.xml",
+    "bytes": 1084,
+    "sha256": "5051a4fa43ae2cd56eb483b17a57d64458f7ce2f2534c6dd024fdc150023a94f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lint.GoVetIntegrationTest.xml",
+    "bytes": 641,
+    "sha256": "43f1d6bde0e379ccb2be53e29977a2f19fc849583d32635d676f50e2b399ae85"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest.xml",
+    "bytes": 2770,
+    "sha256": "0159c590e191b6b9b81f577e57b260d209fc3c6efdfc1d6703e8b6b76dbf9a81"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoDependencyScopeCoordinatorTest.xml",
+    "bytes": 2050,
+    "sha256": "3b0861e151448adad82f622c78fd8607a24f90afba34b0756db8205e4a6cbf10"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoDocumentSyncTest.xml",
+    "bytes": 1350,
+    "sha256": "e053344ba082310b46338253cf18ad00a2acabec0dde2f8972ce5a6c9c288465"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoExternalFileWatchesTest.xml",
+    "bytes": 6871,
+    "sha256": "0607b41a31263fe01a1761ba95c0abdaa55bc09419d32811ca6f79ffff43c79b"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoExternalRootRecoveryVfsTest.xml",
+    "bytes": 1013,
+    "sha256": "aabb4dca13cf053496c19b5db6910165363a1fef6d0678344bb041fe005dabd6"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest.xml",
+    "bytes": 704,
+    "sha256": "a23258306d4ab123935518a9ed95cdbdef04bd913630a9dad8e7aaf6aa733cc8"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoPendingDependencyRootsTest.xml",
+    "bytes": 11944,
+    "sha256": "92b25431d266b9714d39f86f52bb728b3eb7121d72d4fc87da09bcbfb10d6c14"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoSemanticTokensGoplsTest.xml",
+    "bytes": 524,
+    "sha256": "b09ff015605501a3ccb99bb5b0bd651aa7a89303c6ceac66e2719df0e9f39e28"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.lsp.GoSemanticTokensServerTest.xml",
+    "bytes": 2251,
+    "sha256": "06799e3c8da080abd97b7fc173158922f23da8a7bfa5d6d2f7fefd1539ae3860"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.platform.PlatformPsiListenerInitializationTest.xml",
+    "bytes": 924,
+    "sha256": "ba41bf9653fc009137cc1a2d64e5bad0985a0aa2256f905f43b55985e17478c0"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.platform.PlatformUnicodePersistenceTest.xml",
+    "bytes": 1065,
+    "sha256": "18907df26e09939808a7cc3f79e7796014c834dc28a843808880803d07e64586"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.plugins.ChineseLanguagePackDialogTest.xml",
+    "bytes": 2206,
+    "sha256": "1e32d36b744cfc3a883847a0e46eff5415b4e9f899caf6e526cc44ec34956590"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.plugins.ChineseLanguagePackTest.xml",
+    "bytes": 2673,
+    "sha256": "7d0303b215c598abd998b81ba977982a09288b76777d14f642c047575a53471f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.product.GoCompatibleMarketplaceSearchTest.xml",
+    "bytes": 892,
+    "sha256": "b0297cac50350b708a6feab56c169a8e3cfd70af256fb70400a768f4ff464bb2"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.product.GoGeneralPluginsManagerTest.xml",
+    "bytes": 6369,
+    "sha256": "cc02f18cb78dadfc7fd6da4c0312edb73bd7380c55ca7cab0aede32f5d3fa308"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.product.GoProductPluginManagementPolicyTest.xml",
+    "bytes": 1694,
+    "sha256": "7dc3efb5f2764576bf3922ded2559a523f144c836b2e5a22ecd9cd393fad7972"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.profile.GoProfileModelTest.xml",
+    "bytes": 812,
+    "sha256": "b8987cdb7bb58a107bf7a57dbd0cf040e2b21d91c47e38e0b7400bbdf989acb3"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.project.GoJavaCreationEntriesTest.xml",
+    "bytes": 856,
+    "sha256": "ca685902674d854efdf27e6ee311cfeca91f1418e0e6c76a038d8ec81fdaa19c"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.project.GoModuleEnvironmentTest.xml",
+    "bytes": 669,
+    "sha256": "68e027a94e158ef20dd5d64d08926523486d707d9b026668cc01ae8bc22af290"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.project.GoModuleGeneratorTest.xml",
+    "bytes": 1081,
+    "sha256": "1dc14e994db8ab552d9f1727e7fe253e0fd666de1a4231175873e5a63caf7e14"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.project.GoNewProjectSdkStartupTest.xml",
+    "bytes": 897,
+    "sha256": "250b377c5b65c784a9378b1b3fe602ee327f7cc0ac810df15ea78461008645c8"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.project.GoNewProjectTest.xml",
+    "bytes": 14737,
+    "sha256": "2ca96f2414757d57c497364366747937da015da01ef9fdc3890192993354c8e4"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.project.GoSdkProbeTest.xml",
+    "bytes": 1681,
+    "sha256": "6f232f09445d152bfce143c92562ad4e2ee650e1c6d5ea4c1b42a57ffb2da996"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.GoWorkspaceEditCaseAliasesTest.xml",
+    "bytes": 1915,
+    "sha256": "dedf8907d7d63402dc6215553df1c99d827ffe4f38e54f59a89bad50ea67d0a5"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.GoWorkspaceEditGuardTest.xml",
+    "bytes": 1164,
+    "sha256": "f4b4f865090c8337be7dec223a065cb9bee40c50012b78b7105a232b3af5f98f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.GoWorkspaceEditJournalTest.xml",
+    "bytes": 837,
+    "sha256": "56d636cccb64b896cc7e2b50810f8fd05ed41e09a0df7c25886c610827cb26ed"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.GoWorkspaceEditNativeCaseTest.xml",
+    "bytes": 938,
+    "sha256": "ca87f4557b8f4850e81a72e03e5335588eb6d1b2ecd29b3791eac53180ce8865"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.GoWorkspaceEditPlanTest.xml",
+    "bytes": 2149,
+    "sha256": "0633ac1d82b3ef62f028dbdb8f6b2c00224ecb7fd84a10a1600857745f61e618"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorIntegrationTest.xml",
+    "bytes": 2221,
+    "sha256": "dd353637812fe3fd894953699bdc8eed0a5e51d3402e8d5d5b6a50233b231dde"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.native.GoNativeRefactorNativeTest.xml",
+    "bytes": 1450,
+    "sha256": "c9871eed015868f38e581e461ca4a655275142e7c7992da3bc0b38b8d76eb960"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.signature.GoChangeSignatureHandlerTest.xml",
+    "bytes": 700,
+    "sha256": "b7151ae87e9e1ce94643f302182a4c0fe9c10edef30b93582bd605e902f267a5"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.signature.GoSignatureModelTest.xml",
+    "bytes": 999,
+    "sha256": "de445e3d6ec79df35292409cfe23d9ec0207322289c9a4b14a5c440e9892d5ba"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.refactor.signature.GoSignatureValidationTest.xml",
+    "bytes": 1748,
+    "sha256": "babf2266086bd890a2cc8000dadd768b388fca681ca417a5f97cc5f57b860a2c"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoCancelledParentNativeTest.xml",
+    "bytes": 687,
+    "sha256": "986602cdb7b811d302e56ce5ed77b583d9a783af9a5c19b5cfcebe83d962dbb3"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoDependencyRootStateTest.xml",
+    "bytes": 1426,
+    "sha256": "2601ee0756d41d8c47dc01294785c344bfb4ddfac33c323b3b8bdefc67d004da"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoFuzzFailureRerunToolTest.xml",
+    "bytes": 683,
+    "sha256": "81e8166dd02c8c0276655ac6fcf23c791b80394c7b8f281a016a7033596e3e6a"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoGlobalFailedTestsRunTest.xml",
+    "bytes": 803,
+    "sha256": "d46692fbb55e0cbbef0c99278f00bf11e5dc4cbffe351db743d9225a878af9de"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoLiveTestRunnerTest.xml",
+    "bytes": 838,
+    "sha256": "b74372bfddb7f018a94a3366051c6fbdb675ce9a458691b4ba6444efb5b8b925"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+    "bytes": 4246,
+    "sha256": "089b347aec0eef13dbf96775b61db80709d0c0ff383ca563d4303dd69f514589"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoNativeCoverageIntegrationTest.xml",
+    "bytes": 519,
+    "sha256": "59403e483252103dcf8083f4f2e094d41b1540fc50b04884890ee07355a4c1d7"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoPackageDirectoriesTest.xml",
+    "bytes": 949,
+    "sha256": "1773d98d32a5fb22afd420d2675650f5effdd1d16ea58d563d2e98b4c4ce3eae"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunArgumentBoundaryTest.xml",
+    "bytes": 536,
+    "sha256": "1f39a693f8dc7632b9f2752f407a41a91de96885b65ce6a44f10adf34c119c3a"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunBuildContextLaunchTest.xml",
+    "bytes": 3136,
+    "sha256": "e30144a8d451fbbb10e756de14e01a629cd3db8c202797ea8d49ccdfe3df5ce0"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunBuildContextLoaderTest.xml",
+    "bytes": 2372,
+    "sha256": "a5f5b35aeda3f3a6da397409159e5e4743bc819ea4377fe20551efc653d94085"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunBuildContextNativeTest.xml",
+    "bytes": 504,
+    "sha256": "5a3a9ca630c1dc857b7059d710ac2a2a4941938e2c17206abf8652f4e1d360c9"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunBuildContextProcessOwnershipTest.xml",
+    "bytes": 907,
+    "sha256": "d7ee1428b70d99f6d6c972e92f65ed2ad40e8ac9dc46e2a6e972e7a26169dadf"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunBuildContextServiceTest.xml",
+    "bytes": 2583,
+    "sha256": "6b1745cac5cb65459c3aecfdbdfcaa099f6f992b890581997058dd5ece804bb9"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunContextNativeTest.xml",
+    "bytes": 1315,
+    "sha256": "3a92033d298186d184fab1acd550d82c48d6b8e3b879b39357e0663ff2c49c58"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoRunParametersTest.xml",
+    "bytes": 1314,
+    "sha256": "dbdd361287c9284983ce69530e06ada7b3ebc70eccc4f8b6d7df64158d3ef0a5"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoSourceFunctionsTest.xml",
+    "bytes": 1973,
+    "sha256": "df85a37b8cdd2a5b77274f12df6e27a2ca44fc63600e0d77477dd0edc9dda112"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoTestOutputTest.xml",
+    "bytes": 2228,
+    "sha256": "b0f3a4aab414c9476f39ab861559f8d8926b6bac114519e7e14baad14787a2e6"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoTestOwnershipTest.xml",
+    "bytes": 791,
+    "sha256": "d23d58764ff42657ea76868b28f423fd4e9978f9c02bca086ee9404aacdeb7a8"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoTestRerunPlanTest.xml",
+    "bytes": 636,
+    "sha256": "2f6fa0b8722948b5e33a20c13223a37e40fe21be4bde94fd3eb868007aa01757"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoTestWorkflowIntegrationTest.xml",
+    "bytes": 862,
+    "sha256": "f1f8e85d3c56ca07aa2b47b6a0474bb35065203d85c6465678a3ffd1d9843027"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoTestWorkflowNativeTest.xml",
+    "bytes": 637,
+    "sha256": "ef6fe66078cd48d2f323dbf625a451b72c65e5c649a72d114eff12550342054e"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.GoTestWorkflowTest.xml",
+    "bytes": 1192,
+    "sha256": "780b08270b0c53a6b4b1e510d5f123b322c704cc1d3e1e3af862c56ed9c96f7d"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusNativeTest.xml",
+    "bytes": 1675,
+    "sha256": "a9ed04adcb4a97e114090db453ce3591d9463aef30743d315ed529b02ae35c15"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusTest.xml",
+    "bytes": 1018,
+    "sha256": "da432feaad62e8e05f507814c75cd6a00f6bcdae0d4df04cb6e5cd92f86a3fad"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.run.corpus.GoFuzzCorpusToolTest.xml",
+    "bytes": 506,
+    "sha256": "47c8e990005637b9b34b5ddd880e36fa29d966f2ec6ce539498058f788c77dd0"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.sdk.GoSdkDownloadDialogTest.xml",
+    "bytes": 1188,
+    "sha256": "03ba91365000de5a2f21680d397830a1589bb6d4fdac4933797cf121691f1002"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.sdk.GoSdkDownloadsTest.xml",
+    "bytes": 3372,
+    "sha256": "58130a8a800a7767581d25954fb314da003409b2df16f8383601793d8de7f82c"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.sdk.GoSdkRegistryTest.xml",
+    "bytes": 928,
+    "sha256": "d124406afd6950820e35001052c8b684836a1fe3a2f30cc875d273a1ba0508a3"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.sdk.GoSdkSelectorTest.xml",
+    "bytes": 1897,
+    "sha256": "c42e10a871bbcf0457bb69c7f81e3349609906a959263a2571265c9d14482ffc"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.semantic.GoCommandEditOwnerTest.xml",
+    "bytes": 1358,
+    "sha256": "6de3118bf810cc70f2e0e051c46292e705e22d8c659122d7bf8b2925afea7510"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.semantic.GoIdentifiersTest.xml",
+    "bytes": 630,
+    "sha256": "39107afe7305e5da98af12d03070076eb4d3c7e142ce180a1cee109ef22ef6c2"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.semantic.GoSemanticContinuationTest.xml",
+    "bytes": 701,
+    "sha256": "819433e1cd4e6766e8a8ff8e806e09ccd28fac8afae005f221bb9c827f76d2f5"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.settings.GoBundledToolchainTest.xml",
+    "bytes": 965,
+    "sha256": "065aff4d7e9432fbc1e5d139dd4fb4881c105460a54c7c38d398c9f10b6a92a2"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.settings.GoGoplsEnvironmentTest.xml",
+    "bytes": 1094,
+    "sha256": "351380701bcee0af0ba0b5bb86cd4a486b7dedc7f46d56ae3e041b4c8f6989d7"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.settings.GoSettingsConfigurableTest.xml",
+    "bytes": 1239,
+    "sha256": "9fe5a56311590a43372344771d57dc94d4a7be35f7085a178dbef50423d9c393"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.settings.GoSettingsSearchTest.xml",
+    "bytes": 506,
+    "sha256": "43b9a253cfa69aa1496eb244a28cf8259b17c011d9b3aa7584d51756cd10fd2f"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.settings.GoToolchainTest.xml",
+    "bytes": 909,
+    "sha256": "74b2160d1a907c1f5b7cb4f4113afb8d482ce4d7caa80f76b9190a20b9ddc6d4"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.terminal.GoTerminalCommandCompletionTest.xml",
+    "bytes": 813,
+    "sha256": "85c74ad9b3ac43fc130d865c97613dbe89ac42c9c709e3ba1abe34dc6f611fa5"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.terminal.GoTerminalCompletionFallbackTest.xml",
+    "bytes": 1976,
+    "sha256": "3f7a796edb52a663adaeab5f90b48ba14b2572067bafc65c0b76c495ae698d02"
+  },
+  {
+    "path": "full-regression/TEST-dev.openidea.goide.terminal.GoTerminalCustomizerTest.xml",
+    "bytes": 689,
+    "sha256": "3f166401e918badd874781f39c98fe5f27288775ad02f01c81bfcc5196908b50"
+  },
+  {
+    "path": "full-regression/command.json",
+    "bytes": 487,
+    "sha256": "b606fa74296e5429baee7ef2f99798cf68c2a07f394a7d782f5bc6f7599069ae"
+  },
+  {
+    "path": "full-regression/driver-result.original.json",
+    "bytes": 327,
+    "sha256": "f7e7eee690126170528bc813fe17455007689217c018ddad568e2177cd3c76da"
+  },
+  {
+    "path": "full-regression/gradle.log",
+    "bytes": 9431,
+    "sha256": "440f3db8cbcb28d102cc0c354d5ea1496903b75e0edf73f67bb654591b7dda46"
+  },
+  {
+    "path": "full-regression/result.json",
+    "bytes": 33930,
+    "sha256": "85a287cfffee93432471fb3945a99e55dc3c52e269847562ee9c94346c18475d"
+  },
+  {
+    "path": "full-regression/source-after.json",
+    "bytes": 102671,
+    "sha256": "34561d5e22b32c86c3741110bbdfa5926a938bd793c588fb79abc833cf92ac31"
+  },
+  {
+    "path": "full-regression/source-before.json",
+    "bytes": 102671,
+    "sha256": "34561d5e22b32c86c3741110bbdfa5926a938bd793c588fb79abc833cf92ac31"
+  },
+  {
+    "path": "combined-baseline/command.json",
+    "bytes": 723,
+    "sha256": "350bce88597e95eb3c448799c50ade42f62a43535e05b5365a6bae0757e6ae57"
+  },
+  {
+    "path": "combined-baseline/driver-result.original.json",
+    "bytes": 352,
+    "sha256": "b0db44299b510d42979d38940497d4b98078ebde1fe1de4c14fd1f845cbc5f0b"
+  },
+  {
+    "path": "combined-baseline/gradle.log",
+    "bytes": 9303,
+    "sha256": "13b68cfcafedb490af21014ea9aaaff2c9d11cb18c41b83f4589eb8851ce6547"
+  },
+  {
+    "path": "combined-baseline/result.json",
+    "bytes": 524,
+    "sha256": "5a6411ef0b61970a0b7888a2677855fae907451ac35ae57c415424f0c7cb35fe"
+  },
+  {
+    "path": "combined-baseline/source-after.json",
+    "bytes": 102299,
+    "sha256": "c1fe16fe3707ce99198b8ac137aa827cea9d8b96dcd4e755b57bc1372a31d27d"
+  },
+  {
+    "path": "combined-baseline/source-before.json",
+    "bytes": 102299,
+    "sha256": "c1fe16fe3707ce99198b8ac137aa827cea9d8b96dcd4e755b57bc1372a31d27d"
+  },
+  {
+    "path": "fresh-go-race/go-race.jsonl",
+    "bytes": 385975,
+    "sha256": "39d78f5b08f1549550469053a459e88e7f4e1cc37fcd9b7c73dfd6d749557c5b"
+  },
+  {
+    "path": "fresh-go-race/go-race.stderr",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "fresh-go-race/go-vet.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "fresh-go-race/result.json",
+    "bytes": 2239,
+    "sha256": "cb3de6c5bc6068abaa5929f57de6d35f549bc30d6f1b238b52a10e58744faf46"
+  },
+  {
+    "path": "drivers/run-selected-tests.py",
+    "bytes": 2864,
+    "sha256": "0dceab3bc6d073857d2a8dcf0928a3de64e0a7b4adf1dec62822a4e5e2e54f8b"
+  },
+  {
+    "path": "drivers/run-full-tests.py",
+    "bytes": 2912,
+    "sha256": "bd40f4eb15f7ad5432c944dc3d4fbc84dcabe6b1aa7835a72a9df63ddb35932a"
+  },
+  {
+    "path": "drivers/run-fresh-go.py",
+    "bytes": 1866,
+    "sha256": "e10e41295cf089941d374822b70bf04fb616a579fb603ae38780d662b26cb736"
+  },
+  {
+    "path": "drivers/audit-full-results.py",
+    "bytes": 2004,
+    "sha256": "9e7f37a8a1407873d94b8f1e4bde9813741f84108eebdd1828b728a771d985e3"
+  }
+]

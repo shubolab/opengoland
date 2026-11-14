@@ -1,0 +1,516 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-14T09:18:59.362397+00:00",
+  "authority": "source-repository tests, selected real Go CLI, headless IntelliJ SDK/VFS; not standalone native desktop or Windows acceptance",
+  "baselineCommit": "956beb443baf86c8f24d96e83ee16b3cd376704e",
+  "testedWorkingTreeWasUncommitted": true,
+  "buildInputs": {
+    "count": 596,
+    "digest": "95c406dab85365e4d2935957ac87f5f1704f4e463266821f2eb2d7a47411a6ce",
+    "sourceStableDuringFullRun": true
+  },
+  "cohorts": [
+    {
+      "label": "loader-red",
+      "exitCode": 1,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 1,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 1,
+      "failedTestIdentities": [
+        [
+          "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+          "testInitiallyMissingImportedReplacementRemainsAnUncoveredRecoveryCandidate"
+        ]
+      ]
+    },
+    {
+      "label": "combined-baseline-2",
+      "exitCode": 1,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 40,
+        "failures": 9,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 3,
+      "failedTestIdentities": [
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testPresentPartialRecoveryDoesNotReplaceThePreviousVerifiedContribution"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testTypedRootChangeBeforePublicationRequestsRetryWithoutPublishingStaleSelection"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testAnAlreadyMaintainedMissingRootDoesNotBlockAnIndependentReadyRecovery"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testCombinedVerifiedAndPendingBudgetCannotSilentlyTruncate"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testSharedMissingInterestLivesUntilTheLastPackageCloses"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testPendingInterestIsNotCoveredUntilRegistrationAndReconciliationFinish"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testInitiallyMissingPartialGraphKeepsAnInterestWithoutClaimingCoverage"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testClosingLastPackageWithdrawsInterestBeforeAHeldRegistrationReturns"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testFailedInstallationRetainsTheUncoveredRecoveryAndOldWorkingScope"
+        ]
+      ]
+    },
+    {
+      "label": "root-state-red",
+      "exitCode": 1,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 17,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 2,
+      "failedTestIdentities": [
+        [
+          "dev.openidea.goide.run.GoDependencyRootStateTest",
+          "testUnchangedLinkDetectsItsModuleAppearingWithoutClaimingDirectoryCoverage"
+        ]
+      ]
+    },
+    {
+      "label": "root-hash-red",
+      "exitCode": 1,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 27,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 2,
+      "failedTestIdentities": [
+        [
+          "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+          "testExactRecoveryManifestHashChangeRequestsRetryEvenWhenAttributesWereRestored"
+        ]
+      ]
+    },
+    {
+      "label": "coordinator-independent-root-red",
+      "exitCode": 1,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 63,
+        "failures": 2,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 6,
+      "failedTestIdentities": [
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testOneUnwatchableRecoveryCannotBlockAnotherIndependentReadyRoot"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest",
+          "testSlowCheckoutInstallsARealPartialLeaseBeforeTheDeepSourceArrives"
+        ]
+      ]
+    },
+    {
+      "label": "handoff-and-unused-root-red",
+      "exitCode": 1,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 35,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 2,
+      "failedTestIdentities": [
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testOneUnwatchableRecoveryCannotBlockAnotherIndependentReadyRoot"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testRecoveryHandoffRetainsAnUncoveredInterestAcrossAOneShotMetadataFailure"
+        ],
+        [
+          "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+          "testUnusedWorkspaceReplacementRootAttributeChangeDoesNotBecomeASelectedRecoveryRetry"
+        ]
+      ]
+    },
+    {
+      "label": "recovery-last-owner-red",
+      "exitCode": 1,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 66,
+        "failures": 3,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 6,
+      "failedTestIdentities": [
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testOneUnwatchableRecoveryCannotBlockAnotherIndependentReadyRoot"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+          "testClosingTheLastOwnerReleasesItsRootEvenWhenAnotherRootIsRefused"
+        ],
+        [
+          "dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest",
+          "testSlowCheckoutInstallsARealPartialLeaseBeforeTheDeepSourceArrives"
+        ]
+      ]
+    },
+    {
+      "label": "recovery-targeted-green",
+      "exitCode": 0,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 67,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 6,
+      "failedTestIdentities": []
+    },
+    {
+      "label": "full-regression",
+      "exitCode": 0,
+      "sourceStableDuringRun": true,
+      "totals": {
+        "tests": 1028,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      "reports": 179,
+      "failedTestIdentities": []
+    }
+  ],
+  "fullRegression": {
+    "reportCount": 179,
+    "totals": {
+      "tests": 1028,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "previousC9TestIdentities": 981,
+    "removedPreviousTestIdentities": [],
+    "addedTestIdentities": [
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testAnAlreadyAcquiredSharedRootTransfersOwnerDespiteAnotherRootRefusal"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testAnAlreadyMaintainedMissingRootDoesNotBlockAnIndependentReadyRecovery"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testClosingLastPackageWithdrawsInterestBeforeAHeldRegistrationReturns"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testClosingTheLastOwnerReleasesItsRootEvenWhenAnotherRootIsRefused"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testCombinedVerifiedAndPendingBudgetCannotSilentlyTruncate"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testFailedInstallationRetainsTheUncoveredRecoveryAndOldWorkingScope"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testInitiallyMissingPartialGraphKeepsAnInterestWithoutClaimingCoverage"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testOldGenerationCannotPublishOrRequestRetry"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testOneUnwatchableRecoveryCannotBlockAnotherIndependentReadyRoot"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testPendingInterestIsNotCoveredUntilRegistrationAndReconciliationFinish"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testPresentPartialRecoveryDoesNotReplaceThePreviousVerifiedContribution"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testRecoveryHandoffRetainsAnUncoveredInterestAcrossAOneShotMetadataFailure"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testSharedMissingInterestLivesUntilTheLastPackageCloses"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoDependencyRecoveryCoordinatorTest",
+        "testTypedRootChangeBeforePublicationRequestsRetryWithoutPublishingStaleSelection"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest",
+        "testAnInitiallyMissingRootIsPrimedAfterAnAtomicCompleteCheckout"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoInitiallyMissingDependencyVfsTest",
+        "testSlowCheckoutInstallsARealPartialLeaseBeforeTheDeepSourceArrives"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testActualCoverageStopsTheTimerAndAnOldTimerCannotProbeAnotherOwner"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testBudgetRefusalDoesNotReplaceThePreviousInterest"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testCreationBeforeInterestUpdateKeepsTheLoadersMissingBaseline"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testDisposeBeforeTheSchedulerReturnsClosesItsLateHandle"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testDisposeWhileAStatIsHeldSuppressesItsLateRefreshAndTimer"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testExistingUncoveredGraceAndFreshEqualSnapshotsDoNotPostponeRetry"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testFreshDirectoryBaselineRetainsThePreviousChangedAttemptClock"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testHeldProbeCannotRefreshAfterAnInputGenerationChanges"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testMismatchedOrNonLiteralKeysAreRejectedBeforeScheduling"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testStatFailureRetriesDiscoveryWithBackoffAndRecoveryStopsIt"
+      ],
+      [
+        "dev.openidea.goide.lsp.GoPendingDependencyRootsTest",
+        "testUnchangedMissingRootOnlyProbesAndNeverRequestsDiscovery"
+      ],
+      [
+        "dev.openidea.goide.run.GoDependencyRootStateTest",
+        "testAccessFailureIsNotConvertedIntoAConfirmedMissingTarget"
+      ],
+      [
+        "dev.openidea.goide.run.GoDependencyRootStateTest",
+        "testDirectoryAndExactModuleChangesUseAtMostTwoStats"
+      ],
+      [
+        "dev.openidea.goide.run.GoDependencyRootStateTest",
+        "testEqualityIgnoresReaderIdentityButEachObservationReusesItsOwnReader"
+      ],
+      [
+        "dev.openidea.goide.run.GoDependencyRootStateTest",
+        "testMissingTargetOnlyStatsTheExactRoot"
+      ],
+      [
+        "dev.openidea.goide.run.GoDependencyRootStateTest",
+        "testNativeReaderRecordsAnAbsentExactPathWithoutCreatingIt"
+      ],
+      [
+        "dev.openidea.goide.run.GoDependencyRootStateTest",
+        "testSamePathDirectoryIdentityReplacementInvalidatesTheObservation"
+      ],
+      [
+        "dev.openidea.goide.run.GoDependencyRootStateTest",
+        "testUnchangedLinkDetectsItsModuleAppearingWithoutClaimingDirectoryCoverage"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testAncestorRecoveryTargetIsRejectedWithoutWatchingItsContents"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testDirectoryThenManifestThenSourceRemainPartialUntilGoActuallyLoadsThePackage"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testDirtyManifestInLoadedRootRecomputesTheMissingTransitiveRecoveryTarget"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testDirtyWorkspaceReplacementCanSelectAnInitiallyMissingTarget"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testExactRecoveryManifestHashChangeRequestsRetryEvenWhenAttributesWereRestored"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testInitiallyMissingImportedReplacementRemainsAnUncoveredRecoveryCandidate"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testLoadedReplacementAlsoRetainsItsExactRecoveryStateUntilCoverageExists"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testMissingNestedImportQueriesOnlyItsSelectedModulePrefix"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testMissingVendoredPackageDoesNotWatchTheOriginalReplacementSource"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testOrdinaryImporterSourceHashChangeIsNotARecoveryRootRetry"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testRecoveryRootBudgetFailsExplicitlyInsteadOfDroppingSelectedImports"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testUnusedWorkspaceReplacementManifestHashDoesNotBecomeASelectedRecoveryRetry"
+      ],
+      [
+        "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "testUnusedWorkspaceReplacementRootAttributeChangeDoesNotBecomeASelectedRecoveryRetry"
+      ]
+    ],
+    "tasks": [
+      "test --tests *",
+      "buildPlugin",
+      "verifyPluginStructure"
+    ],
+    "allExitCode": 0,
+    "summaryAggregationCorrection": {
+      "originalSha256": "f7e7eee690126170528bc813fe17455007689217c018ddad568e2177cd3c76da",
+      "reason": "Wildcard selected all classes and copied all fresh XML; initial summary used the wildcard as one repeated map key. Reparsed each original suite name without rerunning or modifying tests."
+    }
+  },
+  "goRace": {
+    "startedAtUtc": "2026-11-14T09:05:11.616969+00:00",
+    "endedAtUtc": "2026-11-14T09:13:13.232083+00:00",
+    "command": [
+      "/Users/wangshubo/develop/openidea-go/.tools/go-tools-cache/sdks/go1.27.3/darwin-arm64/go/bin/go",
+      "test",
+      "-race",
+      "-count=1",
+      "-json",
+      "./..."
+    ],
+    "GOWORKAbsent": true,
+    "exitCode": 0,
+    "testPasses": 349,
+    "testSkips": 0,
+    "failures": [],
+    "packages": [
+      {
+        "Package": "github.com/shubolab/opengoland/engine/cmd/opengoland-engine",
+        "Action": "skip"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/processowner",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/protocol",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/tags",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/engine",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/search/types",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/rpc",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/tests",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/structs",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/refactor/native",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/generate/methods",
+        "Action": "pass"
+      },
+      {
+        "Package": "github.com/shubolab/opengoland/engine/internal/refactor/signature",
+        "Action": "pass"
+      }
+    ],
+    "vetExitCode": 0,
+    "fileSha256": {
+      "go-vet.log": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "go-race.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "go-race.jsonl": "39d78f5b08f1549550469053a459e88e7f4e1cc37fcd9b7c73dfd6d749557c5b"
+    }
+  },
+  "classificationNotes": [
+    "combined-baseline failed compilation; its previously copied stale XML are excluded and are not a behavioral RED.",
+    "coordinator-independent-root-red includes an overstrict parent-dirty fixture assertion; atomic SDK/VFS case passed.",
+    "recovery-last-owner-red reached the Slow test cold-source cache assertion and exposed the stable-inode cold subtree defect.",
+    "A wildcard driver summary initially overwrote suite entries under one key; all original fresh XML were copied and were independently reparsed by suite name without rerunning or modifying tests."
+  ],
+  "nativeAcceptance": "not yet performed for these changes",
+  "newInstallers": "none; current public release remains 0.1.0-preview.20261114.3",
+  "goal": "active; complete 36 by 2 acceptance matrix remains unverified",
+  "freeSpaceBytesAtRecord": 41107611648
+}

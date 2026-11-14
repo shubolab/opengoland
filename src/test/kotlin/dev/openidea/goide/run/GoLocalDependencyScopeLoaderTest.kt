@@ -118,6 +118,213 @@ class GoLocalDependencyScopeLoaderTest : LightPlatformTestCase() {
         assertTrue(snapshot.diagnostics.toString(), snapshot.diagnostics.any { it.contains("example.test/missing") })
     }
 
+    fun testInitiallyMissingImportedReplacementRemainsAnUncoveredRecoveryCandidate() = Fixture().use { f ->
+        val missing = f.root.resolve("missing")
+        val unused = f.root.resolve("unused")
+        f.manifest(listOf("example.test/missing" to missing, "example.test/unused" to unused))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/missing\"\n")
+        val snapshot = f.load(f.request(source))
+        assertFalse("A selected-module hint must not turn an incomplete package graph complete", snapshot.complete)
+        assertEquals("A nonexistent target has no verified loaded root or real watch coverage", emptySet<Path>(), snapshot.roots)
+        assertEquals("Only the failed imported module may become a recovery candidate", setOf(missing), snapshot.recoveryCandidates.keys)
+        val candidate = snapshot.recoveryCandidates.getValue(missing)
+        assertFalse(candidate.isDirectory)
+        assertTrue(candidate.isCurrent())
+        snapshot.validateDisk()
+        Files.createDirectory(missing)
+        assertFalse("Creating the first real directory must invalidate its missing observation", candidate.isCurrent())
+        try { snapshot.validateDisk(); fail("The missing root's creation must invalidate its exact recovery guard") }
+        catch (_: GoDependencyRootChanged) {}
+    }
+
+    fun testLoadedReplacementAlsoRetainsItsExactRecoveryStateUntilCoverageExists() = Fixture().use { f ->
+        val external = f.module("external", "example.test/external")
+        f.manifest(listOf("example.test/external" to external))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/external\"\n")
+        val snapshot = f.load(f.request(source))
+        assertTrue(snapshot.complete)
+        assertEquals(setOf(external), snapshot.roots)
+        assertEquals(setOf(external), snapshot.recoveryCandidates.keys)
+        assertTrue(snapshot.recoveryCandidates.getValue(external).isDirectory)
+        val parked = f.root.resolve("parked")
+        Files.move(external, parked)
+        assertFalse(snapshot.recoveryCandidates.getValue(external).isCurrent())
+        try { snapshot.validateDisk(); fail("A loaded root lost before install must request a bounded retry") }
+        catch (_: GoDependencyRootChanged) {}
+    }
+
+    fun testExactRecoveryManifestHashChangeRequestsRetryEvenWhenAttributesWereRestored() = Fixture().use { f ->
+        val external = f.module("external", "example.test/external")
+        f.manifest(listOf("example.test/external" to external))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/external\"\n")
+        val snapshot = f.load(f.request(source))
+        assertTrue(snapshot.complete)
+        val state = snapshot.recoveryCandidates.getValue(external)
+        val mod = external.resolve("go.mod")
+        val before = Files.readString(mod)
+        val modified = Files.getLastModifiedTime(mod)
+        val changed = before.replace("go 1.26", "go 1.25")
+        assertFalse(before == changed)
+        assertEquals(before.length, changed.length)
+        Files.newByteChannel(mod, java.nio.file.StandardOpenOption.WRITE).use { channel ->
+            val bytes = java.nio.ByteBuffer.wrap(changed.toByteArray(Charsets.UTF_8))
+            while (bytes.hasRemaining()) channel.write(bytes)
+        }
+        Files.setLastModifiedTime(mod, modified)
+        assertTrue("A stat-only probe cannot see restored size and timestamp", state.isCurrent())
+        try { snapshot.validateDisk(); fail("An exact candidate go.mod hash change must request a bounded retry") }
+        catch (_: GoDependencyRootChanged) {}
+    }
+
+    fun testOrdinaryImporterSourceHashChangeIsNotARecoveryRootRetry() = Fixture().use { f ->
+        val external = f.module("external", "example.test/external")
+        f.manifest(listOf("example.test/external" to external))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/external\"\n")
+        val snapshot = f.load(f.request(source))
+        Files.writeString(source, Files.readString(source).replace("package sample", "package otherx"))
+        assertGenericDiskChange { snapshot.validateDisk() }
+    }
+
+    fun testUnusedWorkspaceReplacementManifestHashDoesNotBecomeASelectedRecoveryRetry() = Fixture().use { f ->
+        val external = f.module("external", "example.test/external")
+        val unused = f.module("unused", "example.test/unused")
+        f.manifest(listOf("example.test/external" to external, "example.test/unused" to unused))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/external\"\n")
+        val work = Files.writeString(f.root.resolve("go.work"), "go 1.26\nuse ./module\nreplace example.test/unused => ./unused\n")
+        val snapshot = f.load(f.request(source, settings = f.settings.copy(environment = f.settings.environment + "\nGOWORK=$work")))
+        assertTrue(snapshot.complete)
+        assertEquals(setOf(external), snapshot.recoveryCandidates.keys)
+        val mod = unused.resolve("go.mod")
+        val modified = Files.getLastModifiedTime(mod)
+        val changed = Files.readString(mod).replace("go 1.26", "go 1.25")
+        Files.newByteChannel(mod, java.nio.file.StandardOpenOption.WRITE).use { channel ->
+            val bytes = java.nio.ByteBuffer.wrap(changed.toByteArray(Charsets.UTF_8))
+            while (bytes.hasRemaining()) channel.write(bytes)
+        }
+        Files.setLastModifiedTime(mod, modified)
+        assertGenericDiskChange { snapshot.validateDisk() }
+    }
+
+    fun testUnusedWorkspaceReplacementRootAttributeChangeDoesNotBecomeASelectedRecoveryRetry() = Fixture().use { f ->
+        val external = f.module("external", "example.test/external")
+        val unused = f.module("unused", "example.test/unused")
+        f.manifest(listOf("example.test/external" to external, "example.test/unused" to unused))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/external\"\n")
+        val work = Files.writeString(f.root.resolve("go.work"), "go 1.26\nuse ./module\nreplace example.test/unused => ./unused\n")
+        val snapshot = f.load(f.request(source, settings = f.settings.copy(environment = f.settings.environment + "\nGOWORK=$work")))
+        assertTrue(snapshot.complete)
+        assertEquals(setOf(external), snapshot.recoveryCandidates.keys)
+        val before = GoDependencyRootState.capture(unused)
+        val modified = Files.getLastModifiedTime(unused)
+        Files.createDirectory(unused.resolve("unrelated-child"))
+        // Force a distinct timestamp even on filesystems with coarse directory clocks.
+        Files.setLastModifiedTime(unused, java.nio.file.attribute.FileTime.fromMillis(modified.toMillis() + 2_000))
+        assertFalse("The unused declaration's exact root attributes really changed", before.isCurrent())
+        assertGenericDiskChange { snapshot.validateDisk() }
+    }
+
+    fun testDirectoryThenManifestThenSourceRemainPartialUntilGoActuallyLoadsThePackage() = Fixture().use { f ->
+        val external = Files.createDirectory(f.root.resolve("partial"))
+        f.manifest(listOf("example.test/partial" to external))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/partial\"\n")
+        val empty = f.load(f.request(source))
+        assertFalse(empty.complete)
+        assertEquals(emptySet<Path>(), empty.roots)
+        assertTrue(empty.recoveryCandidates.getValue(external).isDirectory)
+        Files.writeString(external.resolve("go.mod"), "module example.test/partial\n\ngo 1.26\n")
+        assertFalse(empty.recoveryCandidates.getValue(external).isCurrent())
+        try { empty.validateDisk(); fail("A new recovery manifest must invalidate the partial snapshot") }
+        catch (_: GoDependencyRootChanged) {}
+        val noSource = f.load(f.request(source))
+        assertFalse(noSource.complete)
+        assertEquals(emptySet<Path>(), noSource.roots)
+        assertEquals(setOf(external), noSource.recoveryCandidates.keys)
+        Files.writeString(external.resolve("dependency.go"), "package dependency\n")
+        val loaded = f.load(f.request(source))
+        assertTrue(loaded.diagnostics.toString(), loaded.complete)
+        assertEquals(setOf(external), loaded.roots)
+    }
+
+    fun testMissingNestedImportQueriesOnlyItsSelectedModulePrefix() = Fixture().use { f ->
+        val missing = f.root.resolve("missing")
+        val unused = f.root.resolve("unused")
+        f.manifest(listOf("example.test/missing" to missing, "example.test/unused" to unused))
+        f.write("go.mod", Files.readString(f.directory.resolve("go.mod")) + "replace example.test/notrequired => ../notrequired\n")
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/missing/deep/pkg\"\n")
+        val snapshot = f.load(f.request(source))
+        assertFalse(snapshot.complete)
+        assertEquals(setOf(missing), snapshot.recoveryCandidates.keys)
+        assertEquals(emptySet<Path>(), snapshot.roots)
+        assertFalse(snapshot.watchedFileUris.contains(uri(unused.resolve("go.mod"))))
+    }
+
+    fun testDirtyManifestInLoadedRootRecomputesTheMissingTransitiveRecoveryTarget() = Fixture().use { f ->
+        val external = f.module("external", "example.test/external")
+        val first = f.root.resolve("first-missing")
+        val second = f.root.resolve("second-missing")
+        f.manifest(listOf("example.test/external" to external))
+        f.write("go.mod", Files.readString(f.directory.resolve("go.mod")) +
+            "replace example.test/nested v0.0.1 => ../${first.fileName}\nreplace example.test/nested v0.0.2 => ../${second.fileName}\n")
+        val mod = Files.writeString(external.resolve("go.mod"), "module example.test/external\n\ngo 1.26\nrequire example.test/nested v0.0.1\n")
+        Files.writeString(external.resolve("dependency.go"), "package dependency\nimport _ \"example.test/nested\"\n")
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/external\"\n")
+        val snapshot = f.load(f.request(source, overlays = listOf(overlay(mod, Files.readString(mod).replace("v0.0.1", "v0.0.2"))),
+            buildFlags = "-mod=mod"))
+        assertFalse(snapshot.complete)
+        assertEquals(setOf(external, second), snapshot.recoveryCandidates.keys)
+        assertEquals(setOf(external), snapshot.roots)
+        assertFalse(snapshot.recoveryCandidates.getValue(second).isDirectory)
+        assertTrue(Files.readString(mod).contains("v0.0.1"))
+    }
+
+    fun testDirtyWorkspaceReplacementCanSelectAnInitiallyMissingTarget() = Fixture().use { f ->
+        val saved = f.root.resolve("saved-missing")
+        val dirty = f.root.resolve("dirty-missing")
+        f.manifest(listOf("example.test/dependency" to saved))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/dependency\"\n")
+        val work = Files.writeString(f.root.resolve("go.work"), "go 1.26\nuse ./module\nreplace example.test/dependency => ./saved-missing\n")
+        val snapshot = f.load(f.request(source, settings = f.settings.copy(environment = f.settings.environment + "\nGOWORK=$work"),
+            overlays = listOf(overlay(work, Files.readString(work).replace("saved-missing", "dirty-missing")))))
+        assertFalse(snapshot.complete)
+        assertEquals(setOf(dirty), snapshot.recoveryCandidates.keys)
+        assertFalse(snapshot.recoveryCandidates.getValue(dirty).isDirectory)
+        assertEquals(emptySet<Path>(), snapshot.roots)
+        assertTrue(Files.readString(work).contains("saved-missing"))
+    }
+
+    fun testMissingVendoredPackageDoesNotWatchTheOriginalReplacementSource() = Fixture().use { f ->
+        val external = f.module("external", "example.test/external")
+        f.manifest(listOf("example.test/external" to external))
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/external\"\n")
+        f.runGo(listOf("mod", "vendor"))
+        Files.move(f.directory.resolve("vendor/example.test/external/dependency.go"), f.root.resolve("parked-vendor-source.go"))
+        val snapshot = f.load(f.request(source))
+        assertFalse(snapshot.complete)
+        assertEquals(emptySet<Path>(), snapshot.roots)
+        assertEquals("Go's vendor mode must not recover the unused original source", emptySet<Path>(), snapshot.recoveryCandidates.keys)
+    }
+
+    fun testRecoveryRootBudgetFailsExplicitlyInsteadOfDroppingSelectedImports() = Fixture().use { f ->
+        val dependencies = (0..128).map { "example.test/missing$it" to f.root.resolve("missing$it") }
+        f.manifest(dependencies)
+        val source = f.write("main.go", "package sample\nimport (\n" + dependencies.joinToString("\n") { "_ \"${it.first}\"" } + "\n)\n")
+        try { f.load(f.request(source)); fail("More than128 selected roots must not be silently truncated") }
+        catch (failure: java.util.concurrent.ExecutionException) {
+            assertTrue(failure.toString(), failure.cause is IllegalArgumentException)
+            assertTrue(failure.toString(), failure.cause?.message.orEmpty().contains("limit"))
+        }
+    }
+
+    fun testAncestorRecoveryTargetIsRejectedWithoutWatchingItsContents() = Fixture().use { f ->
+        f.write("go.mod", "module example.test/loader\n\ngo 1.26\nrequire example.test/unsafe v0.0.0\nreplace example.test/unsafe => ..\n")
+        val source = f.write("main.go", "package sample\nimport _ \"example.test/unsafe\"\n")
+        try { f.load(f.request(source)); fail("A package ancestor must not become a recovery watch") }
+        catch (failure: java.util.concurrent.ExecutionException) {
+            assertTrue(failure.toString(), failure.cause is IllegalArgumentException)
+            assertTrue(failure.toString(), failure.cause?.message.orEmpty().contains("safe watch scope"))
+        }
+    }
+
     fun testUnrelatedOversizedDirtyDocumentDoesNotAffectDependencyDiscovery() = Fixture().use { f ->
         val external = f.module("external", "example.test/external")
         f.manifest(listOf("example.test/external" to external))
@@ -218,6 +425,12 @@ class GoLocalDependencyScopeLoaderTest : LightPlatformTestCase() {
     private fun overlay(path: Path, text: String) = GoRunBuildOverlay(uri(path), text, 1, null)
     private fun expectChanged(action: () -> Unit) {
         try { action(); fail("Changed dependency metadata must invalidate the published scope") }
+        catch (_: IllegalArgumentException) {}
+        catch (_: GoDependencyRootChanged) {}
+    }
+    private fun assertGenericDiskChange(action: () -> Unit) {
+        try { action(); fail("An ordinary input change must invalidate its snapshot") }
+        catch (failure: GoDependencyRootChanged) { fail("Only a selected root or its exact go.mod may request recovery retry: $failure") }
         catch (_: IllegalArgumentException) {}
     }
 }

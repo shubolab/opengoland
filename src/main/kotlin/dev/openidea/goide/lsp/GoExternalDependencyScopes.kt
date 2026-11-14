@@ -46,12 +46,15 @@ internal class GoExternalDependencyScopes(
     private var closed = false
     private var generation = 0L
     private var scheduled: ScheduledFuture<*>? = null
+    private var retryScheduled: ScheduledFuture<*>? = null
     @Volatile private var packages = emptySet<String>()
     private val loader = GoRunBuildContextLoader(project)
     private val executor = SequentialTaskExecutor.createSequentialApplicationPoolExecutor("Go local dependency discovery")
     private val captureExecutor = SequentialTaskExecutor.createSequentialApplicationPoolExecutor("Go dependency input capture")
+    private val pendingRoots = GoPendingDependencyRoots(project, { refreshIfCurrent(null, retainRecovery = true) })
     private val scopes = GoDependencyScopeCoordinator(loader::createDependencyScope, register, reconcile, unregister,
-        AppExecutorUtil.getAppExecutorService(), executor)
+        AppExecutorUtil.getAppExecutorService(), executor,
+        recoveryChanged = pendingRoots::update, retryRequired = ::retryDiscovery)
 
     private data class Observed(val file: VirtualFile, val document: Document, val stamp: Long, val sequence: Int?, val uri: String,
                                 val text: String?, val path: String, val oversized: Boolean) {
@@ -86,19 +89,31 @@ internal class GoExternalDependencyScopes(
         connection.subscribe(GoTaskTargetsService.REFRESH_TOPIC, GoTaskRefreshListener { refresh() })
     }
 
-    fun refresh() {
+    fun refresh() = refreshIfCurrent(null)
+
+    private fun refreshIfCurrent(expected: Long?, retainRecovery: Boolean = false) {
         val epoch = synchronized(lock) {
-            if (closed || project.isDisposed) return
+            if (closed || project.isDisposed || expected != null && generation != expected) return
             scheduled?.cancel(false)
+            retryScheduled?.cancel(false); retryScheduled = null
             ++generation
         }
-        scopes.invalidateQueries()
+        scopes.invalidateQueries(retainRecovery)
         synchronized(lock) {
             if (closed || project.isDisposed || generation != epoch) return
             scheduled = AppExecutorUtil.getAppScheduledExecutorService().schedule({
                 captureExecutor.execute { capture(epoch) }
             }, 400, TimeUnit.MILLISECONDS)
         }
+    }
+
+    /** A root changed before a result could publish an interest. Requery only this owner. */
+    private fun retryDiscovery() = synchronized(lock) {
+        if (closed || project.isDisposed || retryScheduled != null) return@synchronized
+        val epoch = generation
+        retryScheduled = AppExecutorUtil.getAppScheduledExecutorService().schedule({
+            refreshIfCurrent(epoch)
+        }, 30, TimeUnit.SECONDS)
     }
 
     private fun changed(path: String, directory: Boolean) {
@@ -167,7 +182,9 @@ internal class GoExternalDependencyScopes(
             if (closed) return
             closed = true; ++generation
             scheduled?.cancel(false); scheduled = null
+            retryScheduled?.cancel(false); retryScheduled = null
         }
+        Disposer.dispose(pendingRoots)
         scopes.dispose()
         loader.dispose()
     }
