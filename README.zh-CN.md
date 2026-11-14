@@ -10,11 +10,11 @@
 
 ## 运行起来是什么样
 
-![open Goland 实际运行：Run、终端补全与无缓存原生测试](docs/demo/native-go-workflow-20261114-2-startup-fixed.gif)
+![open Goland 实际运行：依赖恢复后的编辑器、无缓存测试与中文 Run](docs/demo/native-go-workflow-20261114-3.gif)
 
-这是 **0.1.0-preview.20261114.2 候选版在 macOS（Apple silicon）上的真实界面**：运行含中文和 emoji 的 Go 程序 → 在终端执行 Go 命令 → 在 IDE 测试面板查看一次不使用结果缓存的测试。源码、测试、模块和工作区文件各有对应图标，侧栏也按功能区分。
+这是 **0.1.0-preview.20261114.3 本机候选版在 macOS 27.2（Apple silicon）上的真实界面**：依赖恢复后的编辑器 → 在 IDE 测试面板查看一次不使用结果缓存的测试 → 运行含中文和 emoji 的 Go 程序。源码、测试、模块和工作区文件各有对应图标，侧栏也按功能区分。
 
-动图由三个真实操作阶段的窗口截图组成，共 12 秒，不是连续录屏。[示例源码](docs/reference/cold-external-refresh-20261113-evidence/fixture)与[录制记录](docs/demo/native-go-workflow-20261114-2-startup-fixed-recording.json)保留了实际来源和范围；公开安装包以下方下载区为准。[较早的外部依赖与跳转演示](docs/demo/native-go-workflow-20261114-2.gif)及[历史断点与单步演示](docs/demo/native-go-workflow.gif)保留各自的源码、版本和验证边界，见[演示说明](docs/demo/README.md)。
+动图由三个真实操作阶段的窗口截图组成，共 12 秒，不是连续录屏，也没有展示完整的目录移走、重建过程。[示例源码](docs/reference/cold-external-refresh-20261113-evidence/fixture)与[录制记录](docs/demo/native-go-workflow-20261114-3-recording.json)保留了实际来源和范围。演示固定源码为 `643480a`；云端安装包有独立的构建与安装记录，不声称与这份本机 App 字节完全相同。公开安装包以下方下载区为准。[此前的 Run、终端与测试演示](docs/demo/native-go-workflow-20261114-2-startup-fixed.gif)、[较早的外部依赖与跳转演示](docs/demo/native-go-workflow-20261114-2.gif)及[历史断点与单步演示](docs/demo/native-go-workflow.gif)保留各自的源码、版本和验证边界，见[演示说明](docs/demo/README.md)。
 
 ![原生构建标签、测试调试、补全自动导入和一次撤销](docs/demo/native-build-context-completion.gif)
 
@@ -30,22 +30,24 @@
 
 ## 下载与安装
 
-当前公开版本是 [0.1.0-preview.20261114.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
+当前公开版本是 [0.1.0-preview.20261114.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.3)。请下载安装程序，GitHub 自动生成的 Source code 压缩包不能直接安装。
 
 | 系统 | 直接下载 | 安装方法 |
 | --- | --- | --- |
-| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
-| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
+| Windows x64 | [下载 EXE 安装器](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe) | 运行安装向导，从开始菜单启动 |
+| macOS，Apple silicon（M 系列芯片） | [下载 DMG 镜像](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-macos-arm64.dmg) | 打开镜像，将 `open Goland.app` 拖到 Applications，再打开应用 |
 
 安装包自带 JVM（运行 IDE 所需的 Java 环境）、**Go 1.26.10、gopls 0.24.0，以及基于 Delve 1.27.2 的补丁构建**。基本的 Go 编辑、构建与测试无需另装 Java、Go 或语言服务工具；也可以选择自己安装的 Go SDK。
 
-每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
+每个发布版本提供 `.exe`、`.dmg`、[SHA256SUMS 校验文件](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/SHA256SUMS)，以及 macOS、Windows 两份构建与安装验证记录。已公开版本的安装包不会原地替换，后续修改使用新版本号。
 
-本版把重复的蓝底 GO 图标换成透明底的 Go 小地鼠（Gopher），测试文件使用红绿角标，模块/工作区文件各有标记，侧栏按功能区分。已打开 Go 包实际使用的本地 `replace` 依赖中，现有文件变化会更新诊断、补全与跳转；零参数提示也已修正。修正 Windows 安装后启动初始化，工程信息查询结束或取消时只回收本次启动的工具进程。此前 `.14.1` Windows 候选失败未发布，[原始失败记录](docs/verification/windows-build-context-process-20261114/REPORT.zh-CN.md)继续保留。已有 HTTP、插件与中文界面、终端/SDK 功能继续包含。
+本版修复了这样一种情况：IDE 已经在监视某个本地 `replace` 依赖，你把整个依赖目录移走，再在原路径创建一个新目录。现在编辑器会先报依赖缺失，再根据新目录里的代码更新错误；只恢复外部依赖的代码后，错误也会自动消失。整个过程无需修改调用方、手动刷新或重启 Go 语言服务。本机 macOS 实际操作还通过了无缓存原生测试和含中文、emoji 输出的程序运行，见[目录恢复记录](docs/reference/external-root-recovery-20261114.zh-CN.md)。
 
-两平台各 **969 个 Kotlin 测试、174 份报告全部通过**，没有失败、错误或跳过；实际 EXE、DMG 的安装检查成功，五个公开资产的摘要、源码清单及原始测试条目通过了私有草稿和公开发布后的独立核对。本机演示来自同一份源码，云端安装包另有各自的安装验证记录。具体结果见[.14.2 发布验证记录](docs/verification/releases/0.1.0-preview.20261114.2.json)。
+此前 `.14.2` 的透明底 Go 小地鼠（Gopher）、红绿测试角标、模块/工作区标记和功能侧栏继续保留；已有本地依赖文件变化刷新、零参数提示、Windows 安装后启动初始化，以及工程信息查询结束或取消时只回收本次启动的工具进程，也继续包含。此前 `.14.1` Windows 候选失败未发布，[原始失败记录](docs/verification/windows-build-context-process-20261114/REPORT.zh-CN.md)继续保留。已有 HTTP、插件与中文界面、终端/SDK 功能同样保留。
 
-Windows 交互式终端、插件与中文界面，以及 macOS Developer Mode 调试闭环仍需原生验收；完整 GoLand 对齐仍在进行。
+两平台各 **981 个 Kotlin 测试、175 份报告全部通过**，没有失败、错误或跳过，并各自重新运行 Go race 检查。实际 EXE 通过安装、启动和卸载检查，DMG 通过镜像、安装副本、签名和内置运行时检查；下载后的五个公开资产原字节、源码清单及原始测试条目通过了公开发布后的独立核对。具体结果见[.14.3 发布验证记录](docs/verification/releases/0.1.0-preview.20261114.3.json)。
+
+**已知问题：**首次打开项目时，如果本地 `replace` 依赖还不存在，后来创建完整依赖后，编辑器仍可能保留旧的导入错误，即使实际 Go 命令已经成功。这个场景的自动恢复尚未修好，目前也没有验证过有效的绕行办法，见[首次缺失依赖记录](docs/reference/initial-absent-dependency-20261114.zh-CN.md)。稳定目录下新建深层子树、Windows 交互式终端/插件/中文界面，以及 macOS Developer Mode 调试闭环仍需原生验收；完整 GoLand 对齐仍在进行。
 
 IDE 本身无需账号，没有计费、订阅或付费功能门槛。Git、GitHub、私有仓库和项目依赖所需的认证仍然保留，使用这些服务时需要它们各自的凭据。
 
@@ -227,9 +229,9 @@ Windows 构建在 Windows 上执行，入口与完整安装/卸载检查见[发�
 每条验证记录都绑定具体源码、工具版本和构建产物。早期版本、开发沙箱、直接工具探测和当前公开安装包的结果分开记录，不能把它们相加当作完整覆盖。
 
 - [插件与中文安装验证](docs/verification/plugin-compatibility.md)：匹配语言包、原生插件流程、重启与具体证据范围。
-- [公开 .3 中文与插件原生检查](docs/verification/plugin-compatibility-public-native.json)：完整下载 DMG 后的安装、中文启用、插件动作及 Go Run/Test。
-- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261114.2.json)：两个系统的安装包、校验值、构建与安装检查。
-- [此前 .2 macOS 公开版本的新建项目检查](docs/verification/sdk-project-management-public-native.json)：默认 SDK 新建项目、Run/Test、状态恢复，以及未完成的本地 SDK 文件选择器验证。
+- [公开 0.1.0-preview.20261110.3 中文与插件原生检查](docs/verification/plugin-compatibility-public-native.json)：完整下载 DMG 后的安装、中文启用、插件动作及 Go Run/Test。
+- [当前公开版本记录](docs/verification/releases/0.1.0-preview.20261114.3.json)：两个系统的安装包、校验值、构建与安装检查。
+- [公开 0.1.0-preview.20261110.2 macOS 新建项目检查](docs/verification/sdk-project-management-public-native.json)：默认 SDK 新建项目、Run/Test、状态恢复，以及未完成的本地 SDK 文件选择器验证。
 - [完整产品验收矩阵](docs/reference/acceptance-matrix.json)：完整目标和仍未完成的验收项。
 - [参考调查](docs/reference/README.md)、[REA 证据台账](docs/reference/rea-ledger.md)：实际参考版本、可见资源和证据局限。
 - [Go 引擎说明](engine/README.md)、[固定平台版本](product/platform.lock.json)：源码开发与协议细节。

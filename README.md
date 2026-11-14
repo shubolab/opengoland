@@ -11,17 +11,23 @@ components of the generated product.
 
 ## See it running
 
-![Actual open Goland: Go Run, terminal completion and uncached native test](docs/demo/native-go-workflow-20261114-2-startup-fixed.gif)
+![Actual open Goland: recovered dependency, uncached native test and Go Run](docs/demo/native-go-workflow-20261114-3.gif)
 
-The **0.1.0-preview.20261114.2 candidate on macOS (Apple silicon)**:
-run a Go program with Chinese and emoji output, use the terminal, and see an
-uncached test pass in the IDE's test panel. Source, test, module and workspace
-files have distinct icons; sidebar icons identify their functions.
+The **0.1.0-preview.20261114.3 local candidate on macOS 27.2 (Apple silicon)**:
+the editor after an external dependency recovers, an uncached test passing in
+the native test panel, and a Go program's Chinese and emoji output. Source,
+test, module and workspace files have distinct icons; sidebar icons identify
+their functions.
 
 Three real operation-stage screenshots play for 12 seconds; this is not
-continuous video. See the [example source](docs/reference/cold-external-refresh-20261113-evidence/fixture)
-and [capture record](docs/demo/native-go-workflow-20261114-2-startup-fixed-recording.json). Published installers are listed below.
-The [earlier external-dependency/navigation clip](docs/demo/native-go-workflow-20261114-2.gif)
+continuous video or a recording of the whole recovery process. See the
+[example source](docs/reference/cold-external-refresh-20261113-evidence/fixture)
+and [capture record](docs/demo/native-go-workflow-20261114-3-recording.json).
+The demo uses frozen source `643480a`; the CI installers have their own build
+and installation evidence and are not claimed to be byte-identical to this
+local App. Published installers are listed below. The
+[previous Run/terminal/test clip](docs/demo/native-go-workflow-20261114-2-startup-fixed.gif),
+[earlier external-dependency/navigation clip](docs/demo/native-go-workflow-20261114-2.gif)
 and [breakpoint/step clip](docs/demo/native-go-workflow.gif) retain their own
 source, version and scope in the [demo notes](docs/demo/README.md).
 
@@ -52,31 +58,47 @@ includes its JVM, Go SDK, gopls and Delve. No IDE account, payment or subscripti
 is required. Git/GitHub/private-repository authentication remains available.
 See [installation and platform requirements](docs/installation.md).
 
-[Download preview 0.1.0-preview.20261114.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2).
-Both installers include checksums and platform verification records.
+[Download preview 0.1.0-preview.20261114.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.3).
+The release provides both installers,
+[SHA256SUMS](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/SHA256SUMS)
+and separate platform build and installation records.
 
-This preview replaces the blue GO tiles with transparent Gopher file icons,
-red/green test badges, distinct module/workspace markers and functional sidebar
-icons. Existing files in active local `replace` dependencies of open Go packages
-now refresh diagnostics, completion and navigation; no-argument parameter hints
-also receive a repair. Windows installed-startup initialization is repaired, and metadata queries
-clean up only their own tool processes when completing or cancelling. The earlier .14.1 Windows candidate
-remained unreleased; its [failure record](docs/verification/windows-build-context-process-20261114/REPORT.zh-CN.md)
-is retained. Earlier HTTP, plugin/Chinese and terminal/SDK work remains included.
+This preview fixes recovery when an already watched local `replace` dependency
+directory is moved away and a new directory appears at the same path. The editor
+reports the missing dependency, updates errors to match the new directory, and
+clears them when its source is restored, without editing the caller, manually
+reloading or restarting the Go language server. The actual local macOS flow
+also passed an uncached native test and ran the program with Chinese and emoji
+output. See the [root recovery record](docs/reference/external-root-recovery-20261114.zh-CN.md).
 
-Both platform installer builds passed **969 Kotlin tests in 174 reports**,
-with zero failures, errors or skips. The actual EXE and DMG passed their own
-installed-product checks. Source inputs, original test identities and all five
-public asset digests passed private-draft and public audits. The native demo uses the same source; the CI installers have separate installation evidence. See the
-[.14.2 verification record](docs/verification/releases/0.1.0-preview.20261114.2.json).
+The transparent Gopher file icons, red/green test badges, module/workspace and
+functional sidebar icons from .14.2 remain included, together with existing-file
+refresh in active local dependencies, repaired no-argument hints, Windows
+installed-startup initialization, and cleanup of each metadata query's own tool
+processes. The earlier .14.1 Windows candidate remained unreleased; its
+[failure record](docs/verification/windows-build-context-process-20261114/REPORT.zh-CN.md)
+is retained. Earlier HTTP, plugin/Chinese and terminal/SDK work also remains included.
 
-Interactive Windows workflows, macOS Developer Mode debugging and full GoLand
-parity still require separate acceptance.
+Both platform installer builds passed **981 Kotlin tests in 175 reports**,
+with zero failures, errors or skips, plus fresh Go race checks. The actual EXE
+passed installation, startup and uninstallation checks; the DMG passed image,
+installation-copy, signing and installed-runtime checks. Downloaded bytes of all
+five public assets, source inputs and original test identities passed an
+independent public-release audit. See the
+[.14.3 verification record](docs/verification/releases/0.1.0-preview.20261114.3.json).
+
+**Known issue:** if a local `replace` dependency is missing when the project
+first opens, creating it later may leave an obsolete import error in the editor,
+even after the real Go command succeeds. Automatic recovery for this case is
+not fixed, and no workaround has been verified. See the
+[initially missing dependency record](docs/reference/initial-absent-dependency-20261114.zh-CN.md).
+New deep subtrees under a stable root, interactive Windows workflows, macOS
+Developer Mode debugging and full GoLand parity still require separate acceptance.
 
 | Platform | Direct installer download |
 | --- | --- |
-| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe) |
-| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.2/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg) |
+| Windows x64 | [Download EXE](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe) |
+| macOS Apple silicon | [Download DMG](https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-macos-arm64.dmg) |
 
 **Development is active. This repository is not yet a complete GoLand replacement.**
 The full target includes the native workbench and editor, Go project/SDK/module
@@ -156,7 +178,7 @@ uses `scripts/build.sh` and `scripts/dev.sh` with the pinned builder on `PATH`.
 The packaged product uses separate configuration, cache, plugin, and log paths
 under `OpenIDEA-Go`. It does not require an installed GoLand or PyCharm.
 The preview installers have passed actual build, installation and startup checks;
-see the [published verification record](docs/verification/releases/0.1.0-preview.20261114.2.json).
+see the [published verification record](docs/verification/releases/0.1.0-preview.20261114.3.json).
 Signing, notarization and full GoLand feature parity remain open.
 
 The display name is `open Goland`, the Gradle project and CLI are `opengoland`,

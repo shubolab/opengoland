@@ -1,0 +1,118 @@
+{
+  "version": "0.1.0-preview.20261114.3",
+  "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+  "runId": 43564600307,
+  "attempt": 1,
+  "producerEvent": "push",
+  "releaseState": "public",
+  "publishedAt": "2026-11-14T06:59:12Z",
+  "assets": {
+    "macos-provenance.tar.gz": {
+      "bytes": 4248613,
+      "sha256": "f1a919cc3da98b2a7c2fa665ab62f0a9a0bb9c47cb4e480900760c6e3381449b"
+    },
+    "open-Goland-0.1.0-preview.20261114.3-macos-arm64.dmg": {
+      "bytes": 1026440322,
+      "sha256": "9c15f60641ddd5e735889bb3486ef616cd30b37386e0a29d82154e7a707ecbda"
+    },
+    "open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe": {
+      "bytes": 871244378,
+      "sha256": "d505fcc8236789e8646fb33a62fc983a6d9324effba0ae7a8786c1d056c4d57f"
+    },
+    "SHA256SUMS": {
+      "bytes": 434,
+      "sha256": "f3899749b18832e930d42517b30f060145bedde2de412310a9ec8e950dd3ea02"
+    },
+    "windows-provenance.tar.gz": {
+      "bytes": 7715932,
+      "sha256": "e213edf146d65eb80f2a89c1a8dd36221b460715ae576924f970399e8d7591a7"
+    }
+  },
+  "windows": {
+    "tests": {
+      "reports": 175,
+      "tests": 981,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goRace": {
+      "packages": {
+        "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+        "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+        "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+        "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+        "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+        "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+        "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+      },
+      "passEvents": 347,
+      "processownerTests": [
+        "TestCompletedLauncherCannotLeaveItsChildOrPipes",
+        "TestExistingEngineModesRemainUnclaimed",
+        "TestKillingOwnerStopsAlreadyStartedChildrenAndPipes",
+        "TestMalformedOwnerRequestsCannotReachAPlatformLauncher",
+        "TestOwnedCommandFixture",
+        "TestOwnedCommandPreservesArgumentsEnvironmentDirectoryStreamsAndStatus",
+        "TestParentLifetimePipeEOFStopsOwnedChildrenAndPipes",
+        "TestReadinessWaitsForARealWindowsSharingLock"
+      ],
+      "moduleDownloadDiagnostics": 0
+    },
+    "native": {
+      "installExitCode": 0,
+      "uninstallExitCode": 0,
+      "installedSmoke": "pass",
+      "scope": "Real installer bytes, native version and visible project-frame startup, explicit installed bundled tools and one uncached Go test via engine RPC; not interactive editor parity or Kotlin default-resolver acceptance."
+    }
+  },
+  "macos": {
+    "tests": {
+      "reports": 175,
+      "tests": 981,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "goRace": {
+      "packages": {
+        "github.com/shubolab/opengoland/engine/cmd/opengoland-engine": "skip",
+        "github.com/shubolab/opengoland/engine/internal/engine": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/jsonstruct": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/methods": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/structs": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/tags": "pass",
+        "github.com/shubolab/opengoland/engine/internal/generate/tests": "pass",
+        "github.com/shubolab/opengoland/engine/internal/processowner": "pass",
+        "github.com/shubolab/opengoland/engine/internal/protocol": "pass",
+        "github.com/shubolab/opengoland/engine/internal/refactor/native": "pass",
+        "github.com/shubolab/opengoland/engine/internal/refactor/signature": "pass",
+        "github.com/shubolab/opengoland/engine/internal/rpc": "pass",
+        "github.com/shubolab/opengoland/engine/internal/search/types": "pass"
+      },
+      "passEvents": 349,
+      "processownerTests": [
+        "TestExistingEngineModesRemainUnclaimed",
+        "TestMalformedOwnerRequestsCannotReachAPlatformLauncher"
+      ],
+      "moduleDownloadDiagnostics": 0
+    },
+    "native": {
+      "sourceDirty": false,
+      "sourceDigest": "895ae89d7e6906732612365dcdc650a60928c5019317bf8a14872d9d6ef08644",
+      "imageVerified": true,
+      "mountedAndCopied": true,
+      "signatureVerified": true,
+      "signing": "ad-hoc; not notarized",
+      "scope": "Actual DMG verify, mount/install copy, signatures, native version, bundled tools and one uncached pure-Go test; not full interactive parity."
+    }
+  },
+  "sourceInputs": 590,
+  "sourceDigest": "895ae89d7e6906732612365dcdc650a60928c5019317bf8a14872d9d6ef08644"
+}

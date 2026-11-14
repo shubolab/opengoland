@@ -114,7 +114,7 @@ Basic唯一候选补全、实际 `<no parameters>` 提示、深浅图标、正�
 
 ## C5 启动窄修：新的 Run、终端和原生测试演示
 
-首页主图 `native-go-workflow-20261114-2-startup-fixed.gif` 使用 C7 的三张新原图，
+此前首页主图 `native-go-workflow-20261114-2-startup-fixed.gif` 使用 C7 的三张新原图，
 源码 `07ae69f3b2bbc36f3221ff08e8fe9046f199b624`、版本 `.20261114.2`、macOS arm64。
 依次是中文/emoji Run exit0、真实终端完成命令/参数补全后的实际测试、原生 Go Test 的无缓存结果。
 每帧4秒、共12秒，只缩放和调色，没有模拟UI、鼠标或补全弹窗动画。
@@ -132,3 +132,38 @@ Basic唯一候选补全、实际 `<no parameters>` 提示、深浅图标、正�
 有WARN但没有ERROR/SEVERE。C7只验证本机startup/Run/当前macOS终端/nativeTest，
 没有重做C4的外部改名或深浅主题，也不增加Windows、调试或完整矩阵验收。
 C6/C4旧图和记录保持原源码，不改标；公开安装器仍以首页下载区为准。
+
+## 2026-11-14：外部依赖目录恢复后的 C9 演示
+
+新的首页主图 `native-go-workflow-20261114-3.gif` 来自固定源码
+`643480a3d9d01c526210bdeba16df8431c1f4d75` 的本机独立 C9，版本
+`0.1.0-preview.20261114.3`，macOS 27.2 arm64（build 26B123）。
+三张真实截图依次展示恢复外部依赖后清错的编辑器、原生无缓存测试、中文与 emoji
+程序输出，每帧4秒、共12秒、1200×857。它不是连续录屏，也没有展示整个目录
+移走、重建过程；编码仅等比缩放和 GIF 调色，没有添加模拟 UI。
+
+实际目录操作沿用[自有示例](../reference/cold-external-refresh-20261113-evidence/fixture)：
+先只打开 `project/one/main.go`，将外部依赖整个根移走；等待原生缺失诊断。
+原路径以新 inode 重建，并只定义 `Greeting` 时，调用方自动出现 `undefined Message`；
+只恢复外部 `Message` 后自动清错。这些阶段的六张原图与磁盘/CLI 对照分别保存在
+[根恢复记录](../reference/external-root-recovery-20261114.zh-CN.md)及
+[C9 原生摘要](../reference/external-root-recovery-20261114-candidate9/native-summary.json)，
+不能只凭主 GIF 宣称完整恢复过程已被录制。
+
+随后原生 Go Test 的实际命令为
+`go test -json -count=1 -run ^TestCompose$ .`，显示1 passed、840ms、
+package 0.365s、exit0；Go Run 输出 `外部-v1|workspace-two|default|中文😀`，exit0。
+[新录制记录](native-go-workflow-20261114-3-recording.json)绑定590个封存输入、
+REA PID/window 身份、原图摘要、实际 ffmpeg 编码命令与三帧解码验证。
+本机 App 使用默认内置 gopls、没有 trace override；操作后15个源文件与原根 inode
+均恢复，正常退出后四个已采样自有 PID 不存在，关键产物与签名核验通过。
+
+本机 C9 与云端安装器使用同份源码，但不声称两者字节完全相同。
+公开版本与双平台安装器证据见首页下载区及
+[14.3 发布记录](../verification/releases/0.1.0-preview.20261114.3.json)。
+另一次同源码本机检查已发现已知问题：首次打开项目时本地 `replace` 依赖不存在，
+后来创建完整依赖后，编辑器仍可能保留旧导入错误，即使实际 Go 命令已经成功。
+这个场景的自动恢复尚未修好，目前没有验证过有效的绕行办法，见
+[首次缺失依赖记录](../reference/initial-absent-dependency-20261114.zh-CN.md)。
+它与本段已监视根恢复通过是不同场景。稳态深层新子树、Windows 交互和完整
+GoLand 矩阵仍开放；此前 C7/C4 及更早的 GIF 和录制记录保持各自的原始来源与日期。

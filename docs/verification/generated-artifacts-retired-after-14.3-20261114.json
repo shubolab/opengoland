@@ -1,0 +1,339 @@
+{
+  "schemaVersion": 1,
+  "recordKind": "selected-normalized-execution-report",
+  "selectionNote": "Selected original stage B execution, authorization and preservation facts. Paths are repository-relative. This is not a raw complete report or complete application backup.",
+  "stage": "B",
+  "result": "EXACT_TARGET_RETIREMENT_COMPLETED",
+  "startedAtUtc": "2026-11-14T07:08:33.085964+00:00",
+  "finishedAtUtc": "2026-11-14T07:08:54.871570+00:00",
+  "rawExecutionReport": {
+    "path": ".tools/continuation-20261114/root-recreation/retirement14-3-b-apply.json",
+    "bytes": 4981,
+    "sha256": "6342e5be017ee30f1b80754627d1659b6ac3855d754edc92896195fe2f26cc35"
+  },
+  "executor": {
+    "path": ".tools/continuation-20261114/root-recreation/retire14_3.py",
+    "bytes": 16443,
+    "sha256": "9cbea03ed40ae7410fcdcf24bc4f2e2d745bfbc5510c7d143cd4f767161c6582",
+    "digestProvenance": "Executor SHA computed after execution; root confirms no change from the stage A/B executing script. The original execution report did not embed this SHA."
+  },
+  "frozenFdRelativeCore": {
+    "path": ".tools/continuation-20261113/workspace-consistency/runtime/post_publication_retirement.py",
+    "bytes": 32055,
+    "sha256": "d6b6c9ffd5fb1036d38f0997a70e65462f141abb54cbf7efa3fbb5db4e9eca7e"
+  },
+  "plan": {
+    "path": ".tools/continuation-20261114/root-recreation/candidate9-retirement-plan.json",
+    "bytes": 24555,
+    "sha256": "055f7c11b10367dcb1aa579b2927071802452dacdedb5b3876392d0d69886c56"
+  },
+  "stageBAuthorization": {
+    "path": ".tools/continuation-20261114/root-recreation/retirement14-3-stageB-authorization.json",
+    "bytes": 1307,
+    "sha256": "90a22bf3c5d534c7f4854c13e9948feec4c6c8923b9afa2c12433f8adee7198e",
+    "selected": {
+      "authorizedAtUtc": "2026-11-14T07:06:19.014990+00:00",
+      "authorization": "Root executing the user-authorized retirement of ended owned test artifacts; no source, user data, shared SDK or remote assets in scope.",
+      "frozenTargetPlanSha256": "055f7c11b10367dcb1aa579b2927071802452dacdedb5b3876392d0d69886c56",
+      "actualPublicAuditSha256": "57f868ea18ca3474960bc6c93f3a621b4bef5f3697c9ef2dc5bfda43ceac60ca",
+      "actualReleaseId": 445091099,
+      "currentGate": "Exact normal-tag source643, successful actual Windows/Mac installer jobs, public exact5 downloaded bytes+independent raw provenance/source/test audit, fresh identity/FD checks, current C9 App/latest14.3 actual assets retained.",
+      "historicalPlanAuditWordingClarification": "The original stageB prose copied C5-specific independent private/public audit wording.14.3 uses the normal tag workflow, with CI prepublication upload digest checks and an independent audit of actual public files; no independent14.3 private-draft audit is claimed or required by AGENTS.md. The current explicit gate is the independently verified public14.3 cohort; original plan target paths/identities/hashes remain immutable.",
+      "scope": "C5 App plus exactly eight known old14.2 installer hardlink names; never any whole evidence directory or remote release asset."
+    }
+  },
+  "normalPublicReleaseGate": {
+    "releaseId": 445091099,
+    "tag": "v0.1.0-preview.20261114.3",
+    "publishedAt": "2026-11-14T06:59:12Z",
+    "releaseUrl": "https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.3",
+    "sourceCommit": "643480a3d9d01c526210bdeba16df8431c1f4d75",
+    "runId": 43564600307,
+    "attempt": 1,
+    "sourceInputs": 590,
+    "sourceDigest": "895ae89d7e6906732612365dcdc650a60928c5019317bf8a14872d9d6ef08644",
+    "actualFiveAssetsVerified": true,
+    "publicApiSnapshot": {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/release.json",
+      "bytes": 12391,
+      "sha256": "354a591ae7657d4ac4d4501688a4fdc0bf48307cd21661372f9e81b5ad7800d5"
+    },
+    "independentPublicAudit": {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/independent-audit.json",
+      "bytes": 5180,
+      "sha256": "57f868ea18ca3474960bc6c93f3a621b4bef5f3697c9ef2dc5bfda43ceac60ca"
+    },
+    "formalReleaseRecord": {
+      "path": "docs/verification/releases/0.1.0-preview.20261114.3.json",
+      "bytes": 20486,
+      "sha256": "4062d64232326d14d447ad3dcccf5288e7c3388f579522016716788488fbf0c2"
+    },
+    "originalPublicAuditCopy": {
+      "path": "docs/verification/releases/0.1.0-preview.20261114.3-independent-audit.json",
+      "bytes": 5180,
+      "sha256": "57f868ea18ca3474960bc6c93f3a621b4bef5f3697c9ef2dc5bfda43ceac60ca"
+    },
+    "scope": "Normal exact-tag release.yml push, actual EXE and DMG evidence plus independent audit of actual public files. No independent14.3 private-draft audit is claimed. The authorization clarifies historical plan prose without changing its target identities/hashes."
+  },
+  "removed": [
+    {
+      "key": "c5-app",
+      "path": "build/product-verified-c5-20261114.2/open Goland.app",
+      "atUtc": "2026-11-14T07:08:53.600003+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "emptyParentOnly": "build/product-verified-c5-20261114.2",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-0-0",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/merged/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+      "atUtc": "2026-11-14T07:08:53.600978+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-0-1",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/prepared/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+      "atUtc": "2026-11-14T07:08:53.601076+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-0-2",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+      "atUtc": "2026-11-14T07:08:53.601359+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-0-3",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-audit/open-Goland-0.1.0-preview.20261114.2-windows-x64-setup.exe",
+      "atUtc": "2026-11-14T07:08:53.722969+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-1-0",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/merged/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+      "atUtc": "2026-11-14T07:08:53.723294+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-1-1",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/ci-promoter-real-c5-dry/prepared/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+      "atUtc": "2026-11-14T07:08:53.723399+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-1-2",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+      "atUtc": "2026-11-14T07:08:53.723497+00:00",
+      "confirmedAbsentAfterExecution": true
+    },
+    {
+      "key": "old-installer-1-3",
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-audit/open-Goland-0.1.0-preview.20261114.2-macos-arm64.dmg",
+      "atUtc": "2026-11-14T07:08:53.799941+00:00",
+      "confirmedAbsentAfterExecution": true
+    }
+  ],
+  "unlinkedEntries": 19219,
+  "oldInstallerHardlinkNamesRemoved": 8,
+  "oldInstallerPayloadGroups": 2,
+  "ownershipChecks": {
+    "initialQuiescence": {
+      "atUtc": "2026-11-14T07:08:42.034092+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "quiescence1": {
+      "atUtc": "2026-11-14T07:08:46.949562+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    },
+    "quiescence2": {
+      "atUtc": "2026-11-14T07:08:52.148871+00:00",
+      "processAndFdReferences": 0,
+      "lsofWarnings": ""
+    }
+  },
+  "protectedCurrentApp": {
+    "path": "build/product/open Goland.app",
+    "manifestSha256": "8e5bb04a73c12abfd5e1ca978a5305b8588a4bebb92f722872c399519fd538e7"
+  },
+  "protectedCurrentAppUnchanged": true,
+  "protectedLatestActualFiveAssetsUnchanged": true,
+  "retainedActual14_3Assets": [
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/macos-provenance.tar.gz",
+      "id": 746624391,
+      "name": "macos-provenance.tar.gz",
+      "bytes": 4248613,
+      "sha256": "f1a919cc3da98b2a7c2fa665ab62f0a9a0bb9c47cb4e480900760c6e3381449b",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/macos-provenance.tar.gz",
+      "sourceOfUnchangedBytesCheck": "Original stage B executor public gate and protectedLatestActualFiveAssetsUnchanged receipt; this document does not rerun payload downloads or runtime checks."
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/open-Goland-0.1.0-preview.20261114.3-macos-arm64.dmg",
+      "id": 746624390,
+      "name": "open-Goland-0.1.0-preview.20261114.3-macos-arm64.dmg",
+      "bytes": 1026440322,
+      "sha256": "9c15f60641ddd5e735889bb3486ef616cd30b37386e0a29d82154e7a707ecbda",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-macos-arm64.dmg",
+      "sourceOfUnchangedBytesCheck": "Original stage B executor public gate and protectedLatestActualFiveAssetsUnchanged receipt; this document does not rerun payload downloads or runtime checks."
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe",
+      "id": 746624388,
+      "name": "open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe",
+      "bytes": 871244378,
+      "sha256": "d505fcc8236789e8646fb33a62fc983a6d9324effba0ae7a8786c1d056c4d57f",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/open-Goland-0.1.0-preview.20261114.3-windows-x64-setup.exe",
+      "sourceOfUnchangedBytesCheck": "Original stage B executor public gate and protectedLatestActualFiveAssetsUnchanged receipt; this document does not rerun payload downloads or runtime checks."
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/SHA256SUMS",
+      "id": 746624389,
+      "name": "SHA256SUMS",
+      "bytes": 434,
+      "sha256": "f3899749b18832e930d42517b30f060145bedde2de412310a9ec8e950dd3ea02",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/SHA256SUMS",
+      "sourceOfUnchangedBytesCheck": "Original stage B executor public gate and protectedLatestActualFiveAssetsUnchanged receipt; this document does not rerun payload downloads or runtime checks."
+    },
+    {
+      "path": ".tools/continuation-20261114/root-recreation/release14-3-audit/windows-provenance.tar.gz",
+      "id": 746624386,
+      "name": "windows-provenance.tar.gz",
+      "bytes": 7715932,
+      "sha256": "e213edf146d65eb80f2a89c1a8dd36221b460715ae576924f970399e8d7591a7",
+      "downloadUrl": "https://github.com/shubolab/opengoland/releases/download/v0.1.0-preview.20261114.3/windows-provenance.tar.gz",
+      "sourceOfUnchangedBytesCheck": "Original stage B executor public gate and protectedLatestActualFiveAssetsUnchanged receipt; this document does not rerun payload downloads or runtime checks."
+    }
+  ],
+  "diskMeasurement": {
+    "method": "Observed filesystem free-space snapshots in the execution report; not du, logical bytes or eight duplicated hardlink names.",
+    "before": {
+      "atUtc": "2026-11-14T07:08:52.156543+00:00",
+      "total": 494353338368,
+      "used": 453114646528,
+      "free": 41238691840,
+      "dfExitCode": 0
+    },
+    "after": {
+      "atUtc": "2026-11-14T07:08:54.871522+00:00",
+      "total": 494353338368,
+      "used": 450416992256,
+      "free": 43936346112,
+      "dfExitCode": 0
+    },
+    "observedFreeDeltaBytes": 2697654272,
+    "observedFreeDeltaGiB": 2.5123863220214844,
+    "limit": "APFS sharing and concurrent writes affect actual free-space observations; do not sum this with historical du estimates."
+  },
+  "originalEvidenceRetainedOutsideDeletedTargets": {
+    "c5CompleteOriginalManifest": {
+      "path": ".tools/continuation-20261113/workspace-consistency/runtime/candidate7-product-manifest.json",
+      "bytes": 4943358,
+      "sha256": "5dfd710b7f273e096510b98bbf0a6486199c85d940b3879d59335da39348cfce"
+    },
+    "c5OriginalInstallerProofsAndChecksums": {
+      "SHA256SUMS": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/SHA256SUMS",
+        "bytes": 426,
+        "sha256": "c2bf5f49012d2e923dcfa4333c6767e28b46278eba7837091cdd925c5c563ac1"
+      },
+      "macos-provenance.tar.gz": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/macos-provenance.tar.gz",
+        "bytes": 4141351,
+        "sha256": "84dd1a2f06697bebba876911d4c0116a533ee2dc39c3891e38affc971ce94241"
+      },
+      "windows-provenance.tar.gz": {
+        "path": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-c5-assembled/assets/windows-provenance.tar.gz",
+        "bytes": 6469735,
+        "sha256": "7d3e18e1b7207842e90ff8396e2722fc7a60d08cf66f019469ef051b25df9a6e"
+      }
+    },
+    "c5FormalReleaseRecord": {
+      "path": "docs/verification/releases/0.1.0-preview.20261114.2.json",
+      "bytes": 22778,
+      "sha256": "e2b106f48b533989475e7953a26e080cfe23fb472dea8d046cd2bbd4df41da2a"
+    },
+    "c8AndTestSystemOriginalTextArchive": {
+      "archive": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/preserved-original-bytes.tar.gz",
+        "bytes": 243762,
+        "sha256": "b5d792d878c703057b159f74a495a4663934c4bc40ada53c74fdf65c7699d23d",
+        "originalBytes": 636567,
+        "entries": 288,
+        "xmlEntries": 27,
+        "xmlOriginalBytes": 31243,
+        "currentBytesAndSha256Verified": true
+      },
+      "entryManifest": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/preserved-entry-manifest.json",
+        "bytes": 177904,
+        "sha256": "531710cc72eb22d61b6b2c47ab5f4f3a3ba7092fd7b09d5796c49849719acf36",
+        "currentBytesAndSha256Verified": true
+      },
+      "catalogues": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/source-catalogues.json.gz",
+        "bytes": 45324,
+        "sha256": "1df1a4b9e1c9470b57f380c25c7a28ef1b0984f78168037c2c9ea092a7a6f403",
+        "currentBytesAndSha256Verified": true
+      },
+      "allRegularFileInventory": {
+        "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/all-regular-file-inventory.jsonl.gz",
+        "bytes": 67875,
+        "sha256": "86f114550784fa0d2527bd12106c813230b57b151d1e275fa649075d658ea4f5",
+        "currentBytesAndSha256Verified": true
+      }
+    },
+    "preservationReceipt": {
+      "path": ".tools/continuation-20261114/root-recreation/retirement14-3-preservation/receipt.json",
+      "bytes": 5330,
+      "sha256": "e9bc9df5485eff4978cf5eceb6bb0981f47094f7f2b219d94cf027fc262ab3a0"
+    },
+    "archiveOriginalBytes": 636567,
+    "archiveEntries": 288,
+    "archiveXmlEntries": 27,
+    "scope": "Original manifests, build/engine facts, provenance/JUnit tars, config/log, screenshots and trace records remain outside removed paths. Compact provenance is not a full C5/C8 application binary backup; old14.2 remote release assets remain available."
+  },
+  "excludedFromDeletion": {
+    "sourceAndWorktreesTouched": false,
+    "userDataTouched": false,
+    "sharedSdkAndNeededToolCachesTouched": false,
+    "referenceApplicationsTouched": false,
+    "remoteReleaseAssetsTouched": false,
+    "scopeBasis": "Only the exact old C5 App, verified empty parent, and eight known old14.2 installer hardlink names were removed. No whole asset/evidence directory, profile/config/log parent or remote resource was a target."
+  },
+  "historicalStageA": {
+    "record": {
+      "path": "docs/verification/generated-artifacts-retired-during-14.3-20261114.json",
+      "bytes": 13424,
+      "sha256": "4a1516cb2c4a3077c7904f7a68da300da580209d01544b98522f580e14830afd"
+    },
+    "holdWasTrueAtStageA": "Original stage A HOLD is retained unchanged as historical evidence. This later stage B record documents satisfaction of its actual normal-public-release gate and the subsequent exact retirement."
+  },
+  "doesNotProve": "This resource operation does not fix the known initial-absence native failure or complete the36 reference+36 reconstruction acceptance states. The full goal remains active.",
+  "remoteOldReleaseAssetsUnchangedVerified": {
+    "verified": true,
+    "representation": "selected-verification-of-root-captured-public-api",
+    "rawApiSnapshot": {
+      "path": ".tools/continuation-20261114/root-recreation/previous14-2-public-after-retirement.json",
+      "bytes": 15731,
+      "sha256": "ebaec3af4ba85e3bf7c4bf8139ecd67a5a941d8f2faafbdff0b63d5418f2ad19"
+    },
+    "releaseId": 444970702,
+    "publishedAt": "2026-11-14T03:41:02Z",
+    "draft": false,
+    "assetCount": 5,
+    "fieldsComparedAgainstOriginal14_2ReleaseRecord": [
+      "id",
+      "name",
+      "size",
+      "digest",
+      "state",
+      "published_at"
+    ],
+    "remoteWritesPerformed": false,
+    "scope": "Root captured the old release after local retirement. All five original remote asset IDs/bytes/SHA/state and publication time match the original formal14.2 record; local installer-name deletion did not remove remote assets."
+  }
+}

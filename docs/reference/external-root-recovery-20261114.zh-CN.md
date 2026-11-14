@@ -1,6 +1,6 @@
-# 项目外依赖目录删除、重建：2026-11-14 失败记录
+# 项目外依赖目录删除、重建：2026-11-14 验证与修复记录
 
-**当前：固定提交 `643480a` 的 candidate9 完成本机 981 项/175 报告，并通过默认 bundled gopls 的整根删除、重建、原生 Run 和无缓存 Test；14.3 的双平台 CI 与公开安装器仍待完成。** 已发布 `.20261114.2` 与中间 candidate8 的原生失败保留在各自阶段，不改标为成功。本记录区分原生观察、受控协议、源码检查和交付证据，完整工程语义及 72 项矩阵仍开放。
+**当前：固定提交 `643480a` 的 candidate9 完成本机 981 项/175 报告，并通过默认 bundled gopls 的整根删除、重建、原生 Run 和无缓存 Test；14.3 的真实双平台安装器已公开，五个实际下载文件与原始源码/测试证明已独立核对通过。** 已发布 `.20261114.2` 与中间 candidate8 的原生失败保留在各自阶段，不改标为成功。本记录区分原生观察、受控协议、源码检查和交付证据，完整工程语义及 72 项矩阵仍开放。
 
 ## 固定对象
 
@@ -170,7 +170,7 @@ candidate9 来自固定提交 **`643480a3d9d01c526210bdeba16df8431c1f4d75`**，�
 
 正常退出后，[收尾副本](external-root-recovery-20261114-candidate9/native-postquit.normalized.json)记录 4 个已采样自有 PID 消失、manifest/启动器/关键产物未变、codesign 深度严格检查 exit 0、所检查日志无 ERROR/SEVERE。版本查询仍有 WARN/Unsafe 警告，不称零警告。六张 PNG 保持原字节，所选元数据和操作记录则明确标为规范化副本，完整 profile、配置正文和 idea.log 不公开；[独立清单](external-root-recovery-20261114-candidate9/manifest.json)逐项记录大小/SHA。
 
-**这是固定源码在本机 macOS 的有限通过，尚不等于 14.3 已交付。** Windows/Mac CI、公开 EXE/DMG 另待实际证据；本机 App 不声称与未来 CI 安装器逐字节相同。首次不存在的根、稳态深层新增子树、Windows 交互及完整 PROJECT-02/72 项矩阵不由本轮关闭。原构建摘要仍保留构建时的 pending，C8 与 `.14.2` 的历史失败均原样保留。
+**本节录制当时只代表固定源码在本机 macOS 的有限通过。** 后续真实双平台交付另见下方发布记录；本机 App 不声称与 CI 安装器逐字节相同。首次不存在的根、稳态深层新增子树、Windows 交互及完整 PROJECT-02/72 项矩阵不由本轮关闭。原构建摘要仍保留构建时的 pending，C8 与 `.14.2` 的历史失败均原样保留。
 
 上述 [41 项定向检查](external-root-recovery-20261114-repair-controls/summary.json)覆盖稳定 URI、FIFO 排队、旧连接/所有者隔离和真实 VFS 恢复；排序与 URI 的原始红测分别保留。定向检查本身不代表 App 或安装器通过；C9 的完整打包与有限原生重放由本节独立记录，双平台交付另以发布记录为准。
 
@@ -181,3 +181,12 @@ C9 正常退出、原生 Run/Test 与载荷核验完成后，已精确退役失�
 删除前把两个 system 目录的 288 个原字节文本/XML 条目共 636,567 字节归档并逐项回读核对，其中 27 份 XML 共 31,243 字节；原始完整 manifest、构建/engine 信息、JUnit tar、失败截图、gopls trace 与收尾记录继续保留。C8 的原配置/完整日志及 C9 profile 均在删除目标之外，原字节归档和完整目录清单留在 `.tools/continuation-20261114/root-recreation/retirement14-3-preservation/`。这些事实可追溯，**不等于保留了完整 C8 App 备份**。
 
 当前 C9 App、最近已发布的 C5/14.2 App 和八个旧 14.2 安装器硬链接名称仍保留；后者属于阶段 B HOLD，需等实际公开 14.3 的五资产、双安装器与独立审计通过后另作精确检查。源码、用户数据、共享 SDK、参考应用及 GitHub 公开资产均未触及；本次清理不改变前文各候选的验收或发布状态。
+
+
+## 14.3：真实双平台安装器已公开并独立复核
+
+正常 tag 工作流 [43564600307](https://github.com/shubolab/opengoland/actions/runs/43564600307) 的两个实际构建任务与发布任务全部成功。`v0.1.0-preview.20261114.3` 固定源码 `643480a`，于 **2026-11-14 06:59:12Z** 公开：真实 Windows EXE、macOS DMG、两份原始 provenance 和 SHA256SUMS 共五资产。两平台均为981项/175报告、零失败/错误/跳过；原始 Go race 分别347/349项测试通过，没有测试跳过。Windows 安装/原生启动/卸载与 DMG 挂载安装副本/签名/工具检查各有实际证明。
+
+本机完整下载五文件后，核对 API 大小与 SHA、原始源码590输入、两端原始测试身份集合、fresh race 与实际安装检查，结果一致。[发布记录](../verification/releases/0.1.0-preview.20261114.3.json)与[原始独立审计](../verification/releases/0.1.0-preview.20261114.3-independent-audit.json)记录交付范围。本版走正常 tag 发布流程，没有将此前 C5 控制层或独立私有草稿审计改标为14.3。
+
+随后同源码的[首次缺根反例](initial-absent-dependency-20261114.zh-CN.md)仍是已知失败；已存在根恢复通过不覆盖它。首次缺根自动恢复、稳态深层新增、完整 Windows 交互、macOS 调试权限及整个验收矩阵继续开放。

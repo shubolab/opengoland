@@ -2,7 +2,7 @@
 
 完整目标仍为 **active**：继续建设可日常使用、尽可能还原 GoLand 2026.1.4 的独立原生 Go IDE。工作台使用 Kotlin / 开源 IntelliJ Platform，语言及工程服务使用 Go engine、gopls、Delve。IDE 账号、计费、订阅和试用门槛保持移除，开发工具认证保留。
 
-**当前公开安装版为 [.20261114.2](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.2)。实际 EXE、DMG 均已发布，双端安装验收、真实五资产和公开后核对全部通过。** 产品源码固定 C5 `07ae69f`；发布控制层 `067c633` 只转存既有产物，没有重新构建或改变二进制。完整目标继续 active。
+**当前公开安装版为 [.20261114.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261114.3)。真实 EXE、DMG 与三份校验/证明已公开，双端实际安装检查和五文件独立核对通过。** 产品源码固定 `643480a`，正常 tag producer `43564600307`；两端各981项/175报告全绿。已存在依赖根删除重建通过，首次缺根后来补齐仍有已记录的原生失败，完整目标继续 active。此前14.2的 C5/控制层记录保留在历史阶段中。
 
 ## 本轮做成了什么
 
@@ -182,3 +182,22 @@ C5文档updater `.tools/continuation-20261113/update-release14-2-c5-docs.py` 已
 同一固定 C9 源码 `643480a` 的新隔离工程，首次打开时 `replace ../dep` 目录不存在。随后原子创建定义 Greeting 的目录，CLI 已改报 undefined Message，但原生等待约两分钟仍停在旧 BrokenImport；只改外部源码回 Message 后，CLI exit 0 并输出中文/emoji，原生仍未清错。调用方三个文件不变，无 Reload、重开或服务重启，gopls `7005`/`7006` 身份不变。此结果单独见[首次缺根失败记录](../../reference/initial-absent-dependency-20261114.zh-CN.md)，不覆盖前文已存在根删除重建的成功，也不把源码推断当成已证根因。
 
 本轮未做原生 Run/Test 或重开对照，没有已验证的 workaround。正常退出后四个已采样自有 PID 消失，调用方原 SHA 未变，外部路径恢复原缺失状态，新建依赖目录的最终 Message 原字节另行保留；App 关键载荷与签名通过，完整日志零 ERROR/SEVERE。三张原 PNG、规范化选取、来源 SHA 和夹具已封存；Greeting 阶段原文件后来被覆盖，不声称仍存在。矩阵只加局部失败证据，36×2 状态仍全部 unverified，完整 goal 继续推进。
+
+
+## 14.3 正式交付与下次续接入口
+
+真实公开 Release ID `445091099`，于 **2026-11-14 06:59:12Z** 公开，源码 `643480a`、tag `v0.1.0-preview.20261114.3` 不移动；正常 producer [43564600307](https://github.com/shubolab/opengoland/actions/runs/43564600307) attempt1 全部 success。Windows job `132355573686`、Mac job `132355573716`、publish job `132368559622`。两个平台各981项/175原始XML报告无失败、错误或跳过，fresh Go race 分别347/349项通过，无测试跳过；两个实际安装器各自的安装/启动/工具检查通过，范围见[正式记录](../../verification/releases/0.1.0-preview.20261114.3.json)。
+
+五个公开原文件已实际下载，源码590输入摘要 `895ae89d…08644`、Git原blob、两端原始测试身份和API大小/SHA经过独立核对；[原审计字节](../../verification/releases/0.1.0-preview.20261114.3-independent-audit.json)与新的中英文 README/真实 C9 GIF 已同步。本版使用正常 tag 工作流，不复用 C5 推广器或称作新的独立私有草稿审计。最新实际 EXE/DMG 与证明保存在 ignored `root-recreation/release14-3-audit/`；本机 C9 App 仍与 CI 载荷分别绑定，不能宣称逐字节相同。
+
+下次优先修复[首次缺根失败](../../reference/initial-absent-dependency-20261114.zh-CN.md)。受控 Go 元数据与安全设计位于 `.tools/continuation-20261114/root-initial-absent-c9/cli-metadata-control-001/`：失败包没有 Module，精确 selected-module 查询可返回 local Replace.Dir；这只是 CLI/源码控制，不是已修复的生产实现或新原生通过。先补实际红测，再做有界 pending/stat 与独立 recovery contribution，并保持已有完整贡献、FIFO/稳定 URI、SDK/owner生命周期守卫。随后验证稳态深层新增、真实工程/重构/生成/调试/终端/Git/插件与双平台交互。完整36×2状态仍 unverified，goal保持active。
+
+## 14.3 公开核验后的阶段 B 退役
+
+在实际公开 14.3 的五个原文件、双平台安装器证明及独立公开审计通过后，已精确删除旧 C5/14.2 App、它的实际空父目录，以及旧 14.2 EXE/DMG 的八个本机硬链接名称；这些旧路径现在已不存在。[阶段 B 选取记录](../../verification/generated-artifacts-retired-after-14.3-20261114.json)保存原执行报告、固定计划、执行脚本及本阶段授权 SHA，明确使用正常 tag 工作流的公开核验，不声称有新的独立私有草稿审计。阶段 A 当时的 HOLD 原文继续作为历史保留，由本段记录后续条件满足与实际执行。
+
+删除前两次新鲜进程/FD 检查均为零引用；结束后当前 C9 App 与新 14.3 五个实际文件的摘要保持不变。操作窗口实际可用空间增加 **2,697,654,272 字节（约 2.512 GiB）**，结束时 **43,936,346,112 字节（约 40.92 GiB）**，高于 20 GiB 保留线；不按八个硬链接名称重复相加，也不与旧 du 估算混算。
+
+C5 完整原始 manifest 仍在目标外的 `candidate7-product-manifest.json`，旧安装器的证明 tar、校验值、原配置/日志和本机失败记录继续保留；阶段 A 的原字节文本/XML 归档亦未删除。这些是可追溯的紧凑证据，不是旧 App 的完整二进制备份。最新实际 EXE/DMG、证明及校验文件保留在 `.tools/continuation-20261114/root-recreation/release14-3-audit/`。退役后另取的旧 14.2 公开 API 也确认五个远端资产的 ID、大小、SHA、状态与发布时间均和原记录一致；本轮没有修改远端 Release。
+
+源码、worktrees、用户数据、共享 SDK、需要的工具缓存和参考应用均未触及。首次缺根已知失败及完整 36×2 矩阵继续开放，完整 goal 保持 active；清理完成不代表产品验收完成。
