@@ -2,7 +2,7 @@
 
 完整目标仍为 **active**：继续建设可日常使用、尽可能还原 GoLand 2026.1.4 的独立原生 Go IDE。工作台使用 Kotlin / 开源 IntelliJ Platform，语言及工程服务使用 Go engine、gopls、Delve。IDE 账号、计费、订阅和试用门槛保持移除，开发工具认证保留。
 
-**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。`.20261114.1` 的 Windows 检查失败，保持未发布；`.20261114.2` 已完成本机完整门禁及原生复验，正在检查双平台安装器。** 本机原生通过不等于新 EXE/DMG 已交付。
+**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。`.20261114.1` 未发布；`.20261114.2` 的 C4 本机完整门禁及原生复验通过，但 CI 的 Mac 成功、Windows 安装后启动日志门禁失败，当前不能发布。** `.14.2` 尚未创建 tag 或公开 Release。本次提交包含窄修，16项本机回归通过，完整包和新CI尚未运行，没有新producer。本机原生通过不等于新 EXE/DMG 已交付。
 
 ## 本轮做成了什么
 
@@ -48,7 +48,7 @@ Windows attempt1 的 hosted runner 于 23:18:32Z 失联，原日志不可取，�
 
 夹具已收紧为：父进程发布PID记录后等release；第二次检查中先验证父子都存活、记录可执行文件和出生身份，再允许父正常退出；随后只断言已捕获句柄回收，独立sentinel继续运行。清理复用已知身份，未知活进程不冒险终止，不跳过用例或删除断言。修改后的五类针对性检查再次 **38/38通过、零跳过**。首轮新夹具的Unix PTY换行预期失败也单独保留，生产输出解码没有改变。
 
-## 当前最终源码 C4 / candidate6
+## C4 / candidate6（本机通过，Windows 安装后启动检查失败）
 
 固定提交 **`07bb8eb35f48f11564bac5b076fa7752ff03466a`** 已推送。587个输入摘要
 `9303eee51d0cf4d6efab26b4d5207d83b8e08dfca09a9fcfe690850c90b3bd3d`
@@ -64,12 +64,28 @@ Basic将Gree补成唯一Greeting，Cmd+P显示 `<no parameters>`，Run与外部�
 [录制记录](../../demo/native-go-workflow-20261114-2-recording.json)使用本次三张新原图；
 旧14.1图不改标。中英文README主图已换为14.2，下载区仍指向公开13.3。
 
-新最终 [producer43536268282](https://github.com/shubolab/opengoland/actions/runs/43536268282)
+本轮 [producer43536268282](https://github.com/shubolab/opengoland/actions/runs/43536268282)
 于00:45:03Z以C4、14.2、`publish=false`启动，attempt1：Windows job `132265950724`，
-Mac job `132265950662`。此时两平台仍在构建，尚无新公开安装包，也未创建14.2tag。
-只在两端真实成功后下载/核对实际EXE、DMG、原XML、race、安装结果与五个资产；私有草稿审计通过后公开。
-C3取消的小型证据与C1失败产物均不复用成C4安装器。辅助工具使用 `*-release14-2-final-*` 名称，
-固定C4和新run；旧14.1/C3工具保持归档，不混用。
+Mac job `132265950662`。两端已结束：**Mac success，Windows failure，整个 run 为 failure，publish skipped**。
+Windows 已通过 Gradle 门禁、创建 EXE 并完成安装。首次真实 `SEVERE` 出现在安装副本的 **`-version` 进程**，
+后续 GUI 烟测检查共享启动日志时立即拒绝；不能写成已经证明 GUI 进程本身触发该错误。
+因此这轮 Windows 安装验收未通过，生成 EXE 与本机 C6 成功都不构成双平台交付。
+
+当前观察到的错误链经过 `GoTerminalCompletionDefaults.applyOnce:38` 与
+`ApplicationInitializedListener:48`，触发 `TerminalEngine` enum 的 `<clinit>`，并沿
+`TerminalBundle`、`LocalizationStateService` 访问 `FeatureUsageSettingsEvents`。
+这里记录的是安装后版本查询/启动阶段的真实错误，不推断 GUI 一定崩溃。
+[原始启动日志与局部 ZIP 取证](../../verification/windows-build-context-process-20261114/c4-installed-startup/README.md)已落盘，保留精确调用链、CRC/SHA 和整包未验证的边界。
+
+当前窄修在迁移条件确认后、首次访问 `TerminalOptionsProvider.instance` 前，
+先调用公开 `DynamicBundle.getLocale()` 做只读语言状态初始化；现有3类终端测试 **16项通过，零失败、错误和跳过**。
+窄修随本次提交保存，新source由 Git 提交确定；完整打包、新Windows安装验证和新producer尚未运行，不能写成已消除该SEVERE。
+
+接下来对新源码完成完整门禁、原生检查与新 CI；
+两端成功、真实安装器和原始证据核对后，才进入私有草稿审计与公开发布。当前没有新的 producer，
+`.14.2` 未创建 tag 或公开；C4 产物不能推广，既有 `*-release14-2-final-*` 工具仍固定该 C4/run，保持未应用。
+C3取消的小型证据、C1失败产物和本机 C6 画面分别保留，不复用成新的 CI 安装验收。
+旧14.1/C3工具继续归档，历史 GIF 的版本、日期与源码不改标。
 
 ## 完整目标还剩什么
 
@@ -79,9 +95,9 @@ C3取消的小型证据与C1失败产物均不复用成C4安装器。辅助工�
 
 ## 本机资源
 
-C1 candidate4 已从 canonical 路径原地移动到 `build/product-verified-20261114.1/open Goland.app`，未再复制一份；C3 candidate5 完整门禁失败，未生成 App。当前 canonical `build/product/open Goland.app` 是已完成本机完整与原生检查的 candidate6；等待双平台安装器通过后再退役旧App。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
+C1 candidate4 已从 canonical 路径原地移动到 `build/product-verified-20261114.1/open Goland.app`，未再复制一份；C3 candidate5 完整门禁失败，未生成 App。已关闭的 C6 经两次无打开句柄检查后，原地移动到 `build/product-verified-c4-20261114.2/open Goland.app`，没有复制；记录在 `.tools/continuation-20261113/workspace-consistency/runtime/candidate6-relocated.json`。canonical 当前尚无新的启动修复候选 App，待新源码组装；C4 验证应用、C1/13.3 应用和共享 SDK 继续保留。`build/product-verified-20261113.3/open Goland.app` 暂保留，待新安装包公开并接受后退役。两个已结束 candidate3/4 的 system 索引已清理，实际可用空间净增加约 0.54 GiB；81 份日志和配置保留。[本次缓存退役记录](../../verification/generated-caches-retired-20261114.json)保留两次占用检查与前后容量。
 
-此前已清理两份旧生成 App 和 candidate1/2 的已结束配置，实测净回收 **3.83 GiB**；[退役记录](../../verification/generated-artifacts-retired-20261114.json)保存身份、占用检查与历史路径说明。更早三套 profile 清理回收约 1.64 GiB，两轮不能重复计算。当前约 **62 GiB 可用**，大下载或构建前仍需重测并保留至少 20 GiB。
+此前已清理两份旧生成 App 和 candidate1/2 的已结束配置，实测净回收 **3.83 GiB**；[退役记录](../../verification/generated-artifacts-retired-20261114.json)保存身份、占用检查与历史路径说明。更早三套 profile 清理回收约 1.64 GiB，两轮不能重复计算。本次重测约 **54 GiB 可用**，大下载或构建前仍需重测并保留至少 20 GiB。
 
 共享 SDK/工具、必要缓存、worktrees、其他项目、参考应用和公开 Release 资产均保留。85 → 64 GiB 的历史下降缺少分目录基线，原因仍未知。没有修改参考应用、用户原配置、许可或系统调试权限。
 

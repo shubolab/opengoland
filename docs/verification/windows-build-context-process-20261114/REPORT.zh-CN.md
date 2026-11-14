@@ -39,3 +39,7 @@ C3的云端run [43532637816](https://github.com/shubolab/opengoland/actions/runs
 ## 屏障夹具的后续针对性检查
 
 将 orphan 父进程在发布PID后保持存活，在首次循环检查内先记录并验证父子身份，再释放父进程正常退出；退出后只检查原句柄。夹具清理复用已知身份，未知活进程仍失败且不终止。五类针对性检查再次38/38通过、零跳过。尚需新源码的完整门禁与 Windows CI，此处不将本机针对性结果写成新的安装器已通过。
+
+## C4 安装后启动失败（独立证据）
+
+C4 的 Gradle、EXE 生成与安装均成功，但安装后 `-version` 已记录 TerminalEngine 静态服务初始化 SEVERE；后续 GUI gate 读到旧日志拒绝继续，未证明已达项目窗。Mac 成功不等于双端可发布。完整失败事实及有界取证边界见 [c4-installed-startup](c4-installed-startup/README.md)；后续候选仍待完整构建与实际启动验收。

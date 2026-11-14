@@ -1,0 +1,208 @@
+{
+  "scope": "Bounded HTTP Range ZIP diagnostics only; not a downloaded/verified full artifact ZIP. Private download URLs and credential fields are removed.",
+  "runId": 43536268282,
+  "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+  "artifactId": 14091462141,
+  "apiArtifactSize": 889830320,
+  "apiArtifactZipSha256": "fdf5bd452593966b432facebdb18d8a997696a77381b67c3f15921299637d9c6",
+  "fullZipSha256Verified": false,
+  "records": [
+    {
+      "sourceFile": "diagnostic-receipt.json",
+      "originalSha256": "cbff15e9cbe48da8e2b8e41d8fb211fb3226cd0d638e7a436005a49d9371335d",
+      "receipt": {
+        "at": "2026-11-14T01:37:35.701173+00:00",
+        "startedAt": "2026-11-14T01:37:05.563555+00:00",
+        "elapsedSeconds": 30.137493208007072,
+        "status": "bounded failed-Windows diagnostic extraction complete",
+        "producerRunId": 43536268282,
+        "producerAttempt": 1,
+        "failedJobId": 132265950724,
+        "sourceCommit": "07bb8eb35f48f11564bac5b076fa7752ff03466a",
+        "artifactId": 14091462141,
+        "fullZipBytes": 889830320,
+        "fullZipApiSha256": "sha256:fdf5bd452593966b432facebdb18d8a997696a77381b67c3f15921299637d9c6",
+        "fullZipSha256Verified": false,
+        "fullZipSha256Limitation": "UNVERIFIED: partial HTTP ranges cannot prove whole ZIP SHA256. Each selected regular entry passed ZIP CRC and has its own computed SHA256.",
+        "etag": "\"0x8DF41EEFF4FC5A5\"",
+        "authorizationForwardedToBlob": "<credential-field-removed>",
+        "networkBudgetBytes": 67108864,
+        "artifactBlobNetworkBytes": 211287,
+        "rangeRequests": [
+          {
+            "start": 0,
+            "end": 1023,
+            "bytes": 1024
+          },
+          {
+            "start": 889830298,
+            "end": 889830319,
+            "bytes": 22
+          },
+          {
+            "start": 889830278,
+            "end": 889830297,
+            "bytes": 20
+          },
+          {
+            "start": 889631657,
+            "end": 889830297,
+            "bytes": 198641
+          },
+          {
+            "start": 888233498,
+            "end": 888233527,
+            "bytes": 30
+          },
+          {
+            "start": 888233528,
+            "end": 888233574,
+            "bytes": 47
+          },
+          {
+            "start": 888233575,
+            "end": 888241341,
+            "bytes": 7767
+          },
+          {
+            "start": 888254045,
+            "end": 888254074,
+            "bytes": 30
+          },
+          {
+            "start": 888254075,
+            "end": 888254130,
+            "bytes": 56
+          },
+          {
+            "start": 888254131,
+            "end": 888254132,
+            "bytes": 2
+          },
+          {
+            "start": 888254149,
+            "end": 888254178,
+            "bytes": 30
+          },
+          {
+            "start": 888254179,
+            "end": 888254234,
+            "bytes": 56
+          },
+          {
+            "start": 888254235,
+            "end": 888254236,
+            "bytes": 2
+          },
+          {
+            "start": 888254253,
+            "end": 888254282,
+            "bytes": 30
+          },
+          {
+            "start": 888254283,
+            "end": 888254340,
+            "bytes": 58
+          },
+          {
+            "start": 888254341,
+            "end": 888254344,
+            "bytes": 4
+          },
+          {
+            "start": 888254361,
+            "end": 888254390,
+            "bytes": 30
+          },
+          {
+            "start": 888254391,
+            "end": 888254444,
+            "bytes": 54
+          },
+          {
+            "start": 888254445,
+            "end": 888257459,
+            "bytes": 3015
+          },
+          {
+            "start": 888544818,
+            "end": 888544847,
+            "bytes": 30
+          },
+          {
+            "start": 888544848,
+            "end": 888544885,
+            "bytes": 38
+          },
+          {
+            "start": 888544886,
+            "end": 888545186,
+            "bytes": 301
+          }
+        ],
+        "entryCount": 1284,
+        "selected": [
+          {
+            "path": "windows-provenance/installed-smoke/log/idea.log",
+            "bytes": 40343,
+            "compressedBytes": 7767,
+            "crc32": "827f3f3c",
+            "crcVerified": true,
+            "sha256": "0b0ad678812571fe7bbb75af1c5da8ef099441a880f88894076d7b7904f54545",
+            "privateOutput": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-final-build/windows-failure-diagnostics/selected/windows-provenance/installed-smoke/log/idea.log"
+          },
+          {
+            "path": "windows-provenance/installed-smoke/native-gui-stderr.log",
+            "bytes": 0,
+            "compressedBytes": 2,
+            "crc32": "00000000",
+            "crcVerified": true,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "privateOutput": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-final-build/windows-failure-diagnostics/selected/windows-provenance/installed-smoke/native-gui-stderr.log"
+          },
+          {
+            "path": "windows-provenance/installed-smoke/native-gui-stdout.log",
+            "bytes": 0,
+            "compressedBytes": 2,
+            "crc32": "00000000",
+            "crcVerified": true,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "privateOutput": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-final-build/windows-failure-diagnostics/selected/windows-provenance/installed-smoke/native-gui-stdout.log"
+          },
+          {
+            "path": "windows-provenance/installed-smoke/native-gui-windows.json",
+            "bytes": 2,
+            "compressedBytes": 4,
+            "crc32": "0d4cbb29",
+            "crcVerified": true,
+            "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+            "privateOutput": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-final-build/windows-failure-diagnostics/selected/windows-provenance/installed-smoke/native-gui-windows.json"
+          },
+          {
+            "path": "windows-provenance/installed-smoke/native-version.json",
+            "bytes": 22300,
+            "compressedBytes": 3015,
+            "crc32": "8ef25587",
+            "crcVerified": true,
+            "sha256": "21706eb7a2e422cc2b18d2128952117bea5f8eaa29ea4fad3c7b5475e6e69846",
+            "privateOutput": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-final-build/windows-failure-diagnostics/selected/windows-provenance/installed-smoke/native-version.json"
+          },
+          {
+            "path": "windows-provenance/installed-smoke.log",
+            "bytes": 760,
+            "compressedBytes": 301,
+            "crc32": "4cbe4619",
+            "crcVerified": true,
+            "sha256": "2c46bc7c7d2fb37ff5e051a32e8eb5cd3cfb2eb1303ff3b754443326e3721d52",
+            "privateOutput": ".tools/continuation-20261113/workspace-consistency/runtime/release14-2-final-build/windows-failure-diagnostics/selected/windows-provenance/installed-smoke.log"
+          }
+        ],
+        "missing": [
+          "windows-provenance/installed-smoke/smoke.json",
+          "windows-provenance/release.json"
+        ],
+        "scope": "Only central directory/ZIP64 metadata and selected small failed native-smoke logs/proofs read. No full ZIP/EXE download or extraction, installer promotion, source change, GitHub write or CI retry."
+      }
+    }
+  ]
+}

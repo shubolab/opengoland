@@ -1,0 +1,291 @@
+2026-11-14 01:30:32,190 [     11]   INFO - #c.i.p.i.b.AppStarter - ------------------------------------------------------ IDE STARTED ------------------------------------------------------
+2026-11-14 01:30:32,213 [     34]   INFO - #c.i.p.i.b.AppStarter - JNA library (64-bit) loaded in 21 ms
+2026-11-14 01:30:32,219 [     40]   INFO - #c.i.p.i.b.AppStarter - IDE: open Goland (build #IC-261.26222.65, Sat, 14 Nov 2026 01:30:32 GMT)
+2026-11-14 01:30:32,219 [     40]   INFO - #c.i.p.i.b.AppStarter - OS: Windows (10.0)
+2026-11-14 01:30:32,219 [     40]   INFO - #c.i.p.i.b.AppStarter - JRE: 25.0.3+1-b329.124, amd64 (JetBrains s.r.o.)
+2026-11-14 01:30:32,219 [     40]   INFO - #c.i.p.i.b.AppStarter - JVM: 25.0.3+1-b329.124 (OpenJDK 64-Bit Server VM)
+2026-11-14 01:30:32,220 [     41]   INFO - #c.i.p.i.b.AppStarter - PID: 8916
+2026-11-14 01:30:32,247 [     68]   INFO - #c.i.p.i.b.AppStarter - JVM options: [abort, vfprintf, -XX:ErrorFile=C:\Users\runneradmin\java_error_in_opengoland_%p.log, -XX:HeapDumpPath=C:\Users\runneradmin\java_error_in_opengoland.hprof, -Xms128m, -Xmx2048m, -XX:JbrShrinkingGcMaxHeapFreeRatio=40, -XX:ReservedCodeCacheSize=512m, -XX:+HeapDumpOnOutOfMemoryError, -XX:-OmitStackTraceInFastThrow, -XX:CICompilerCount=2, -XX:+IgnoreUnrecognizedVMOptions, -XX:+UnlockDiagnosticVMOptions, -XX:TieredOldPercentage=100000, -ea, -Dsun.io.useCanonCaches=false, -Dsun.java2d.metal=true, -Djbr.catch.SIGABRT=true, -Djdk.http.auth.tunneling.disabledSchemes="", -Djdk.attach.allowAttachSelf=true, -Djdk.module.illegalAccess.silent=true, -Djdk.nio.maxCachedBufferSize=2097152, -Djava.util.zip.use.nio.for.zip.file.access=true, -Dkotlinx.coroutines.debug=off, -Dskiko.rendering.useScreenMenuBar=false, -Djava.nio.file.spi.DefaultFileSystemProvider=com.intellij.platform.core.nio.fs.MultiRoutingFileSystemProvider, -Dllm.show.ai.promotion.window.on.start=false, -Didea.no.platform.update=true, -Xms128m, -Xmx2048m, -XX:JbrShrinkingGcMaxHeapFreeRatio=40, -XX:ReservedCodeCacheSize=512m, -XX:+HeapDumpOnOutOfMemoryError, -XX:-OmitStackTraceInFastThrow, -XX:CICompilerCount=2, -XX:+IgnoreUnrecognizedVMOptions, -XX:+UnlockDiagnosticVMOptions, -XX:TieredOldPercentage=100000, -ea, -Dsun.io.useCanonCaches=false, -Dsun.java2d.metal=true, -Djbr.catch.SIGABRT=true, -Djdk.http.auth.tunneling.disabledSchemes="", -Djdk.attach.allowAttachSelf=true, -Djdk.module.illegalAccess.silent=true, -Djdk.nio.maxCachedBufferSize=2097152, -Djava.util.zip.use.nio.for.zip.file.access=true, -Dkotlinx.coroutines.debug=off, -Dskiko.rendering.useScreenMenuBar=false, -Djava.nio.file.spi.DefaultFileSystemProvider=com.intellij.platform.core.nio.fs.MultiRoutingFileSystemProvider, -Dllm.show.ai.promotion.window.on.start=false, -Didea.no.platform.update=true, -Didea.trust.all.projects=true, -Dintellij.startup.wizard=false, -Didea.initially.ask.config=never, -Djb.vmOptionsFile=D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\smoke.vmoptions, -Xbootclasspath/a:D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland\lib\nio-fs.jar, -Djava.system.class.loader=com.intellij.util.lang.PathClassLoader, -Djna.boot.library.path=D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland/lib/jna/amd64, -Djna.nosys=true, -Djna.noclasspath=true, -Dpty4j.preferred.native.folder=D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland/lib/pty4j, -Dio.netty.allocator.type=pooled, -Dskiko.library.path=D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland/lib/skiko-awt-runtime-all, -Dintellij.platform.runtime.repository.path=D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland/modules/module-descriptors.dat, -Didea.platform.prefix=Idea, -Dsplash=true, -Daether.connector.resumeDownloads=false, -Dcompose.swing.render.on.graphics=true, --enable-native-access=ALL-UNNAMED, --add-opens=java.base/java.io=ALL-UNNAMED, --add-opens=java.base/java.lang=ALL-UNNAMED, --add-opens=java.base/java.lang.ref=ALL-UNNAMED, --add-opens=java.base/java.lang.reflect=ALL-UNNAMED, --add-opens=java.base/java.net=ALL-UNNAMED, --add-opens=java.base/java.nio=ALL-UNNAMED, --add-opens=java.base/java.nio.charset=ALL-UNNAMED, --add-opens=java.base/java.text=ALL-UNNAMED, --add-opens=java.base/java.time=ALL-UNNAMED, --add-opens=java.base/java.util=ALL-UNNAMED, --add-opens=java.base/java.util.concurrent=ALL-UNNAMED, --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED, --add-opens=java.base/java.util.concurrent.locks=ALL-UNNAMED, --add-opens=java.base/jdk.internal.ref=ALL-UNNAMED, --add-opens=java.base/jdk.internal.vm=ALL-UNNAMED, --add-opens=java.base/sun.net.dns=ALL-UNNAMED, --add-opens=java.base/sun.nio=ALL-UNNAMED, --add-opens=java.base/sun.nio.ch=ALL-UNNAMED, --add-opens=java.base/sun.nio.fs=ALL-UNNAMED, --add-opens=java.base/sun.security.ssl=ALL-UNNAMED, --add-opens=java.base/sun.security.util=ALL-UNNAMED, --add-opens=java.desktop/com.sun.java.swing=ALL-UNNAMED, --add-opens=java.desktop/java.awt=ALL-UNNAMED, --add-opens=java.desktop/java.awt.dnd.peer=ALL-UNNAMED, --add-opens=java.desktop/java.awt.event=ALL-UNNAMED, --add-opens=java.desktop/java.awt.font=ALL-UNNAMED, --add-opens=java.desktop/java.awt.image=ALL-UNNAMED, --add-opens=java.desktop/java.awt.peer=ALL-UNNAMED, --add-opens=java.desktop/javax.swing=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.plaf.basic=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.text=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.text.html=ALL-UNNAMED, --add-opens=java.desktop/javax.swing.text.html.parser=ALL-UNNAMED, --add-opens=java.desktop/sun.awt=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.datatransfer=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.image=ALL-UNNAMED, --add-opens=java.desktop/sun.awt.windows=ALL-UNNAMED, --add-opens=java.desktop/sun.font=ALL-UNNAMED, --add-opens=java.desktop/sun.java2d=ALL-UNNAMED, --add-opens=java.desktop/sun.swing=ALL-UNNAMED, --add-opens=java.management/sun.management=ALL-UNNAMED, --add-opens=jdk.attach/sun.tools.attach=ALL-UNNAMED, --add-opens=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED, --add-opens=jdk.internal.jvmstat/sun.jvmstat.monitor=ALL-UNNAMED, --add-opens=jdk.jdi/com.sun.tools.jdi=ALL-UNNAMED, -Didea.vendor.name=OpenGoland, -Didea.paths.selector=OpenIDEAGo2026.1, -Dintellij.platform.load.app.info.from.resources=true, -Dplugin.path=D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland/plugins/lsp4ij,D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland/plugins/opengoland, -Dide.native.launcher=true, -Didea.properties.file=D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\isolated.properties, -Djcef.sandbox.ptr=000001FA77F84160, -Djcef.sandbox.cefVersion=122.1.9+gd14e051+chromium-122.0.6261.94]
+2026-11-14 01:30:32,247 [     68]   INFO - #c.i.p.i.b.AppStarter - args: -version
+2026-11-14 01:30:32,248 [     69]   INFO - #c.i.p.i.b.AppStarter - library path: D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland\plugins\opengoland\tools\go\bin;D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland\plugins\opengoland\tools\bin;C:\Windows\System32;C:\Windows;.
+2026-11-14 01:30:32,248 [     69]   INFO - #c.i.p.i.b.AppStarter - boot library path: D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland\jbr\bin
+2026-11-14 01:30:32,248 [     69]   INFO - #c.i.p.i.b.AppStarter - locale=en_US JNU=UTF-8 file.encoding=UTF-8
+    idea.home.path=D:\a\opengoland\opengoland\build\installed-smoke-da016cc6546e4c9fac1a7a33fb3fd4f2\open Goland
+    idea.config.path=D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\config
+    idea.system.path=D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\system
+    idea.plugins.path=D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\plugins -> java.nio.file.NoSuchFileException: D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\plugins
+    idea.log.path=D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\log
+2026-11-14 01:30:32,250 [     71]   INFO - #c.i.p.i.b.AppStarter - CPU cores: 4; ForkJoinPool.commonPool: java.util.concurrent.ForkJoinPool@1b253b1c[Running, parallelism = 3, size = 0, active = 0, running = 0, steals = 0, tasks = 0, submissions = 0]; factory: com.intellij.concurrency.IdeaForkJoinWorkerThreadFactory@29078a13
+2026-11-14 01:30:32,391 [    212]   INFO - #c.i.u.s.JBUIScale - System scale factor: 1.0 (JRE-managed HiDPI)
+2026-11-14 01:30:32,394 [    215]   INFO - #c.i.u.s.JBUIScale - Computed user scale factor: 1.0 (JRE-managed HiDPI)
+2026-11-14 01:30:32,840 [    661]   INFO - #c.i.p.i.b.AppStarter - Will import config to directory "D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\config" (exists = true). Current entries: ".lock".
+2026-11-14 01:30:32,844 [    665]   INFO - #c.i.o.a.ConfigImportHelper - Importing configs to 'D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\config'; veryFirstStart=false
+2026-11-14 01:30:32,844 [    665]   INFO - #c.i.o.a.ConfigImportHelper - Custom migration option: null
+2026-11-14 01:30:32,845 [    666]   INFO - #c.i.o.a.ConfigImportHelper - Custom import settings: null
+2026-11-14 01:30:32,845 [    666]   INFO - #c.i.o.a.ConfigImportHelper - JB_IMPORT_SETTINGS_FROM=null
+2026-11-14 01:30:32,852 [    673]   INFO - #c.i.o.a.ConfigImportHelper - candidates: []
+2026-11-14 01:30:32,852 [    673]   INFO - #c.i.o.a.ConfigImportHelper - no suitable configs found
+2026-11-14 01:30:32,853 [    674]   INFO - #c.i.o.a.ConfigImportHelper - No configs imported, starting with clean configs at D:\a\opengoland\opengoland\build\release\windows-provenance\installed-smoke\config
+2026-11-14 01:30:32,886 [    707]   INFO - #c.i.p.i.b.ClassicUiToIslandsMigration - Detect if switching to Islands needed: isNewUser=true, experimentalUi=false, allowedUserLafToMigrate=true
+2026-11-14 01:30:33,168 [    989]   INFO - #c.i.i.p.PluginManager - Using broken plugins file from IDE distribution
+2026-11-14 01:30:33,214 [   1035]   INFO - #c.i.i.p.PluginManager - Plugin set resolution:
+Module intellij.sh.python is not enabled because dependency com.intellij.modules.python is not available
+Module intellij.xml.langInjection.xpath is not enabled because dependency XPathView is not available
+Module intellij.kotlin.completion.ml is not enabled because dependency com.intellij.completion.ml.ranking is not available
+Module intellij.compose.ide.plugin.k1 is not enabled because dependency com.intellij.modules.kotlin.k1 is not available
+Module intellij.groovy.ant is not enabled because dependency AntSupport is not available
+Module intellij.gradle.java.groovy.ml is not enabled because dependency com.intellij.completion.ml.ranking is not available
+Module intellij.compose.ide.plugin.resources.android is not enabled because dependency org.jetbrains.android is not available
+2026-11-14 01:30:33,258 [   1079]   INFO - #c.i.p.i.b.AppStarter - Loaded bundled plugins: IDEA CORE (261.26222.65), YAML (261.26222.65), Toml (261.26222.65), TextMate Bundles (261.26222.65), Terminal (261.26222.65), Shell Script (261.26222.65), Properties (261.26222.65), Performance Testing (261.26222.65), Markdown (261.26222.65), JSON (261.26222.65), Java (261.26222.65), Gradle (261.26222.65), DevKit Runtime (261.26222.65), Gradle Declarative Support (261.26222.65), Git (261.26222.65), Copyright (261.26222.65), Modal Commit Interface (261.26222.65), Configuration Script (261.26222.65), WebP Support (261.26222.65), Visual Studio Keymap (261.26222.65), NetBeans Keymap (261.26222.65), Eclipse Keymap (261.26222.65), Groovy Live Templates (261.26222.65), EditorConfig (261.26222.65), GitLab (261.26222.65), GitHub (261.26222.65), IDE Features Trainer (261.26222.65), Artifacts Repository Search (261.26222.65), Images (261.26222.65), MCP Server (261.26222.65), Kotlin (261.26222.65-IJ), Compose Multiplatform (261.26222.65), JavaFX (261.26222.65), TestNG (261.26222.65), Task Management (261.26222.65), JUnit (261.26222.65), Java Internationalization (261.26222.65), Java Stream Debugger (261.26222.65), Code Coverage for Java (261.26222.65), Bytecode Viewer (261.26222.65), Java Bytecode Decompiler (261.26222.65), Eclipse Interoperability (261.26222.65), HTML Tools (261.26222.65), Groovy (261.26222.65), Maven (261.26222.65), Gradle for Java (261.26222.65), Gradle DSL API (261.26222.65)
+2026-11-14 01:30:33,258 [   1079]   INFO - #c.i.p.i.b.AppStarter - Loaded custom plugins: LSP4IJ (0.21.0), Go Workbench (0.1.0-preview.20261114.2)
+2026-11-14 01:30:33,291 [   1112]   WARN - #c.i.p.instanceContainer - InstanceNotOverridableException: Override failed for com.intellij.openapi.project.impl.ProjectStoreFactory: com.intellij.configurationScript.providers.ConfigurationScriptProjectStoreFactory attempts to override com.intellij.configurationStore.PlatformLangProjectStoreFactory, but the existing implementation is not overriddable (not declared as 'open=true')
+2026-11-14 01:30:33,401 [   1222]   INFO - #c.i.u.i.PageCacheUtils - File page caching params:
+	DEFAULT_PAGE_SIZE: 10485760
+	Direct memory to use, max: 2126512128
+	FilePageCache: regular
+	Regular FilePageCache: 629145600 bytes
+	DirectByteBuffers pool: 104857600 bytes
+2026-11-14 01:30:33,455 [   1276] SEVERE - #c.i.s.ComponentManagerImpl - org.jetbrains.plugins.terminal.TerminalEngine <clinit> requests com.intellij.configurationStore.statistic.eventLog.FeatureUsageSettingsEvents instance. Class initialization must not depend on services. Consider using instance of the service on-demand instead.
+java.lang.Throwable: org.jetbrains.plugins.terminal.TerminalEngine <clinit> requests com.intellij.configurationStore.statistic.eventLog.FeatureUsageSettingsEvents instance. Class initialization must not depend on services. Consider using instance of the service on-demand instead.
+	at com.intellij.openapi.diagnostic.Logger.error(Logger.java:375)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.checkOutsideClassInitializer(ComponentManagerImpl.kt:1724)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.getOrCreateInstanceBlocking(ComponentManagerImpl.kt:1680)
+	at com.intellij.serviceContainer.ComponentManagerImpl.doGetService(ComponentManagerImpl.kt:803)
+	at com.intellij.serviceContainer.ComponentManagerImpl.getService(ComponentManagerImpl.kt:741)
+	at com.intellij.configurationStore.ComponentStoreImpl.featureUsageSettingManager_delegate$lambda$0(ComponentStoreImpl.kt:1185)
+	at kotlin.SynchronizedLazyImpl.getValue(LazyJVM.kt:86)
+	at com.intellij.configurationStore.ComponentStoreImpl.getFeatureUsageSettingManager(ComponentStoreImpl.kt:120)
+	at com.intellij.configurationStore.ComponentStoreImpl.initComponent$suspendImpl(ComponentStoreImpl.kt:1006)
+	at com.intellij.configurationStore.ComponentStoreImpl.initComponent(ComponentStoreImpl.kt)
+	at com.intellij.configurationStore.ComponentStoreWithExtraComponents.initComponent(ComponentStoreWithExtraComponents.kt:48)
+	at com.intellij.serviceContainer.ServiceInstanceInitializerKt.initializeService(ServiceInstanceInitializer.kt:157)
+	at com.intellij.serviceContainer.ServiceInstanceInitializerKt.access$initializeService(ServiceInstanceInitializer.kt:1)
+	at com.intellij.serviceContainer.ServiceInstanceInitializer.createInstance$suspendImpl(ServiceInstanceInitializer.kt:75)
+	at com.intellij.serviceContainer.ServiceInstanceInitializer.createInstance(ServiceInstanceInitializer.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invokeSuspend(LazyInstanceHolder.kt:181)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invoke(LazyInstanceHolder.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invoke(LazyInstanceHolder.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:67)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invokeSuspend(LazyInstanceHolder.kt:179)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invoke(LazyInstanceHolder.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invoke(LazyInstanceHolder.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startCoroutineUndispatched(Undispatched.kt:20)
+	at kotlinx.coroutines.CoroutineStart.invoke(CoroutineStart.kt:360)
+	at kotlinx.coroutines.AbstractCoroutine.start(AbstractCoroutine.kt:134)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.launch(Builders.common.kt:53)
+	at kotlinx.coroutines.BuildersKt.launch(Unknown Source)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.initialize(LazyInstanceHolder.kt:164)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.access$initialize(LazyInstanceHolder.kt:29)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.tryInitialize(LazyInstanceHolder.kt:154)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstance(LazyInstanceHolder.kt:112)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstanceInCallerContext$suspendImpl(LazyInstanceHolder.kt:104)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstanceInCallerContext(LazyInstanceHolder.kt)
+	at com.intellij.serviceContainer.ComponentManagerImplKt$doGetOrCreateInstanceBlocking$1.invokeSuspend(ComponentManagerImpl.kt:1698)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:112)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$BuildersKt__BuildersKt(Builders.kt:87)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlockingWithParallelismCompensation(Builders.kt:63)
+	at kotlinx.coroutines.BuildersKt.runBlockingWithParallelismCompensation(Unknown Source)
+	at kotlinx.coroutines.internal.intellij.IntellijCoroutines.runBlockingWithParallelismCompensation(intellij.kt:48)
+	at com.intellij.util.IntelliJCoroutinesFacade.runBlockingWithParallelismCompensation(IntelliJCoroutinesFacade.kt:35)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.runBlockingInitialization$lambda$0(ComponentManagerImpl.kt:1829)
+	at com.intellij.openapi.progress.ContextKt.prepareThreadContext$lambda$0(context.kt:93)
+	at com.intellij.concurrency.ThreadContext.resetThreadContext(threadContext.kt:294)
+	at com.intellij.openapi.progress.ContextKt.prepareThreadContext(context.kt:92)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.runBlockingInitialization(ComponentManagerImpl.kt:1814)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.doGetOrCreateInstanceBlocking(ComponentManagerImpl.kt:1697)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.getOrCreateInstanceBlocking(ComponentManagerImpl.kt:1686)
+	at com.intellij.serviceContainer.ComponentManagerImpl.doGetService(ComponentManagerImpl.kt:803)
+	at com.intellij.serviceContainer.ComponentManagerImpl.getService(ComponentManagerImpl.kt:741)
+	at com.intellij.l10n.LocalizationStateService.getInstance(LocalizationStateService.java:17)
+	at com.intellij.l10n.LocalizationUtil.getLocale(LocalizationUtil.kt:29)
+	at com.intellij.l10n.LocalizationUtil.getLocale$default(LocalizationUtil.kt:28)
+	at com.intellij.l10n.LocalizationUtil.getLocale(LocalizationUtil.kt)
+	at com.intellij.DynamicBundle.getLocale(DynamicBundle.java:414)
+	at com.intellij.DynamicBundle.getResolveLocale(DynamicBundle.java:421)
+	at com.intellij.DynamicBundle.findBundle(DynamicBundle.java:79)
+	at com.intellij.AbstractBundle.getResourceBundle$lambda$0(AbstractBundle.kt:162)
+	at com.intellij.AbstractBundle$Companion.resolveResourceBundleWithFallback(AbstractBundle.kt:86)
+	at com.intellij.AbstractBundle.getResourceBundle(AbstractBundle.kt:161)
+	at com.intellij.AbstractBundle.getResourceBundle(AbstractBundle.kt:154)
+	at com.intellij.AbstractBundle.containsKey(AbstractBundle.kt:151)
+	at org.jetbrains.plugins.terminal.TerminalBundle.message(TerminalBundle.java:19)
+	at org.jetbrains.plugins.terminal.TerminalEngine.<clinit>(TerminalEngine.kt:8)
+	at org.jetbrains.plugins.terminal.TerminalOptionsProvider$State.<init>(TerminalOptionsProvider.kt:53)
+	at org.jetbrains.plugins.terminal.TerminalOptionsProvider.<init>(TerminalOptionsProvider.kt:32)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:735)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate$lambda$0(instantiate.kt:52)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate$lambda$3$0(instantiate.kt:294)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.withStoredTemporaryContext(instantiate.kt:310)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate(instantiate.kt:293)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate(instantiate.kt:45)
+	at com.intellij.serviceContainer.ServiceInstanceInitializer.createInstance$suspendImpl(ServiceInstanceInitializer.kt:39)
+	at com.intellij.serviceContainer.ServiceInstanceInitializer.createInstance(ServiceInstanceInitializer.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invokeSuspend(LazyInstanceHolder.kt:181)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invoke(LazyInstanceHolder.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invoke(LazyInstanceHolder.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:67)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invokeSuspend(LazyInstanceHolder.kt:179)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invoke(LazyInstanceHolder.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invoke(LazyInstanceHolder.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startCoroutineUndispatched(Undispatched.kt:20)
+	at kotlinx.coroutines.CoroutineStart.invoke(CoroutineStart.kt:360)
+	at kotlinx.coroutines.AbstractCoroutine.start(AbstractCoroutine.kt:134)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.launch(Builders.common.kt:53)
+	at kotlinx.coroutines.BuildersKt.launch(Unknown Source)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.initialize(LazyInstanceHolder.kt:164)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.access$initialize(LazyInstanceHolder.kt:29)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.tryInitialize(LazyInstanceHolder.kt:154)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstance(LazyInstanceHolder.kt:112)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstanceInCallerContext$suspendImpl(LazyInstanceHolder.kt:104)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstanceInCallerContext(LazyInstanceHolder.kt)
+	at com.intellij.serviceContainer.ComponentManagerImplKt$doGetOrCreateInstanceBlocking$1.invokeSuspend(ComponentManagerImpl.kt:1698)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.EventLoopImplBase.processNextEvent(EventLoop.common.kt:263)
+	at kotlinx.coroutines.BlockingCoroutine.joinBlocking(Builders.kt:112)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlocking$BuildersKt__BuildersKt(Builders.kt:87)
+	at kotlinx.coroutines.BuildersKt__BuildersKt.runBlockingWithParallelismCompensation(Builders.kt:63)
+	at kotlinx.coroutines.BuildersKt.runBlockingWithParallelismCompensation(Unknown Source)
+	at kotlinx.coroutines.internal.intellij.IntellijCoroutines.runBlockingWithParallelismCompensation(intellij.kt:48)
+	at com.intellij.util.IntelliJCoroutinesFacade.runBlockingWithParallelismCompensation(IntelliJCoroutinesFacade.kt:35)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.runBlockingInitialization$lambda$0(ComponentManagerImpl.kt:1829)
+	at com.intellij.openapi.progress.ContextKt.prepareThreadContext$lambda$0(context.kt:93)
+	at com.intellij.concurrency.ThreadContext.resetThreadContext(threadContext.kt:294)
+	at com.intellij.openapi.progress.ContextKt.prepareThreadContext(context.kt:92)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.runBlockingInitialization(ComponentManagerImpl.kt:1814)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.doGetOrCreateInstanceBlocking(ComponentManagerImpl.kt:1697)
+	at com.intellij.serviceContainer.ComponentManagerImplKt.getOrCreateInstanceBlocking(ComponentManagerImpl.kt:1686)
+	at com.intellij.serviceContainer.ComponentManagerImpl.doGetService(ComponentManagerImpl.kt:803)
+	at com.intellij.serviceContainer.ComponentManagerImpl.getService(ComponentManagerImpl.kt:741)
+	at org.jetbrains.plugins.terminal.TerminalOptionsProvider$Companion.getInstance(TerminalOptionsProvider.kt:333)
+	at dev.openidea.goide.terminal.GoTerminalCompletionDefaults.applyOnce(GoTerminalCustomizer.kt:38)
+	at dev.openidea.goide.terminal.GoTerminalCompletionInitializer.execute(GoTerminalCustomizer.kt:48)
+	at com.intellij.platform.ide.bootstrap.ApplicationLoader$callAppInitialized$1.invokeSuspend(ApplicationLoader.kt:597)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:610)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runDefaultDispatcherTask(CoroutineScheduler.kt:1194)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:906)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:775)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:762)
+2026-11-14 01:30:33,466 [   1287] SEVERE - #c.i.s.ComponentManagerImpl - open Goland 2026.1.4  Build #IC-261.26222.65
+2026-11-14 01:30:33,466 [   1287] SEVERE - #c.i.s.ComponentManagerImpl - JDK: 25.0.3; VM: OpenJDK 64-Bit Server VM; Vendor: JetBrains s.r.o.
+2026-11-14 01:30:33,466 [   1287] SEVERE - #c.i.s.ComponentManagerImpl - OS: Windows Server 2025
+2026-11-14 01:30:33,468 [   1289] SEVERE - #c.i.s.ComponentManagerImpl - Plugin to blame: Go Workbench version: 0.1.0-preview.20261114.2
+2026-11-14 01:30:33,484 [   1305]   INFO - #c.i.l.LocalizationStateServiceImpl - [i18n] Localization property from registry is null
+2026-11-14 01:30:33,509 [   1330]   INFO - #c.i.u.ExperimentalUI - === UI: old -> new ===
+2026-11-14 01:30:33,617 [   1438]   INFO - #c.i.a.o.PathMacrosImpl - Loaded path macros: {MAVEN_REPOSITORY=C:\Users\runneradmin\.m2\repository}
+2026-11-14 01:30:33,648 [   1469]   INFO - c.i.p.i.IdeFingerprint - Calculated dependencies fingerprint in 302 ms (hash=26apk6uxrha9z, buildTime=1794619832, appVersion=IC-261.26222.65)
+2026-11-14 01:30:33,653 [   1474]   INFO - #c.i.p.k.b.BackendKernelServiceKt - Backend started Kernel
+2026-11-14 01:30:33,714 [   1535]   INFO - #c.i.o.v.n.i.VfsData - Use SoftReference in VFS cache: true
+2026-11-14 01:30:33,720 [   1541]   INFO - #fleet.kernel.Transactor - Duration: 55.324500ms, change from: fleet.tracing.runtime.Span$Noop@2314226a
+2026-11-14 01:30:33,726 [   1547]   INFO - #c.i.p.e.i.f.EelMultiRoutingFileSystemBackendInitializationService - Eel MultiRoutingFileSystem backend is initialized
+2026-11-14 01:30:33,729 [   1550]   INFO - #dev.openidea.goide.lifecycle.StandaloneProxyWarmup - open Goland proxy warmup: starting before application starter
+2026-11-14 01:30:33,733 [   1554]   INFO - #dev.openidea.goide.lifecycle.StandaloneProxyWarmup - open Goland proxy warmup: completed before application starter
+2026-11-14 01:30:33,861 [   1682]   INFO - #c.i.i.s.e.StatisticsEventLoggerProvider - Initialize event logger provider for 'FUS'
+2026-11-14 01:30:33,868 [   1689]   INFO - #c.i.i.s.e.StatisticsEventLoggerProvider - Initialize event logger provider for 'MP'
+2026-11-14 01:30:33,868 [   1689]   INFO - #c.i.i.s.e.StatisticsEventLoggerProvider - Initialize event logger provider for 'TRACE'
+2026-11-14 01:30:33,868 [   1689]   INFO - #c.i.i.s.e.StatisticsEventLoggerProvider - Initialize event logger provider for 'ML'
+2026-11-14 01:30:33,888 [   1709]   INFO - #c.i.o.v.n.p.PersistentFSLoader - VFS uses names enumerator over mmapped file
+2026-11-14 01:30:33,888 [   1709]   INFO - #c.i.o.v.n.p.PersistentFSLoader - VFS uses streamlined attributes storage (over mmapped file)
+2026-11-14 01:30:33,968 [   1789]   INFO - #c.i.o.v.n.p.PersistentFSLoader - VFS uses content storage over memory-mapped file, with compression algo: LZ4[ > 8000b ]
+2026-11-14 01:30:34,007 [   1828]   INFO - #c.i.o.v.n.p.PersistentFSLoader - VFS uses OverMMappedFile(pageSize=67108864, acquireStorageOwnership=true) storage for main file records table
+2026-11-14 01:30:34,007 [   1828]   INFO - #c.i.u.ExperimentalUI - === UI: reset laf (com.intellij.ide.ui.laf.UIThemeLookAndFeelInfoImpl[Islands Dark com.intellij.ide.ui.laf.darcula.DarculaLaf] | Islands Dark | Islands Dark) ===
+2026-11-14 01:30:34,033 [   1854]   INFO - #c.i.i.s.DeviceIdManager - Generating new Device ID for 'FUS'
+2026-11-14 01:30:34,033 [   1854]   INFO - #c.i.i.s.e.EventLogConfiguration - Generating new salt for FUS
+2026-11-14 01:30:34,052 [   1873]   INFO - #c.i.i.s.StatisticsRegionSettingsServiceImpl - Statistics. Region code is not_set
+2026-11-14 01:30:34,075 [   1896]   INFO - #c.i.p.i.b.IdeStartupWizard - IDE startup isEnabled = true, IDEStartupKind = ExperimentalWizard, IDEStartup = 1
+2026-11-14 01:30:34,101 [   1922]   INFO - STDOUT - 2026.1.4
+2026-11-14 01:30:34,196 [   2017]   INFO - #c.i.i.s.DeviceIdManager - Generating new Device ID for 'EA'
+2026-11-14 01:30:34,317 [   2138]   INFO - #c.i.u.WinFocusStealer - Foreground lock timeout set to 200000
+2026-11-14 01:30:34,351 [   2172]   INFO - #c.i.i.p.ExpiredPluginsState - Plugins to skip: []
+2026-11-14 01:30:34,382 [   2203]   INFO - #c.i.o.v.n.p.FSRecords - VFS health-check enabled: first after 600000 ms, and each following 43200000 ms, wrap in RA: true
+2026-11-14 01:30:34,618 [   2439]   INFO - #c.i.o.v.n.p.PersistentFSLoader - VFS: impl (expected) version=65, 0 file records, 0 content blobs
+2026-11-14 01:30:34,626 [   2447]   INFO - #c.i.o.v.n.p.FSRecordsImpl - VFS initialized: 760 ms, 0 failed attempts, 0 error(s) were recovered
+2026-11-14 01:30:34,628 [   2449]   INFO - #c.i.o.v.n.p.FSRecordsImpl - VFS scanned: file-by-name index was populated
+2026-11-14 01:30:34,643 [   2464]   INFO - #c.i.o.u.LowMemoryWatcherManager - Use ExponentiallySmoothingTracker(90000 ms)
+2026-11-14 01:30:34,812 [   2633]   INFO - #c.i.u.i.c.d.IndexWriter - Use com.intellij.util.indexing.contentQueue.dev.MultiThreadedWithSuspendIndexWriter@2d845f7d as (parallel) index writer implementation
+2026-11-14 01:30:34,831 [   2652]   INFO - #c.i.u.i.i.SlruIndexStorageCacheProvider - SLRU cache will be used for indexes
+2026-11-14 01:30:34,831 [   2652]   INFO - #c.i.u.i.i.MapIndexStorageCacheProvider$Companion - Default index storage cache provider [com.intellij.util.indexing.impl.SlruIndexStorageCacheProvider@67ad071e] is used
+2026-11-14 01:30:34,834 [   2655]   INFO - #c.i.u.i.FileBasedIndexImpl - Loading indexes
+2026-11-14 01:30:34,841 [   2662]   WARN - #c.i.u.i.IndexDataInitializer - Index data initialization cancelled
+java.lang.Throwable: Control-flow exceptions (e.g. this class com.intellij.openapi.util.ShutDownTracker$ShutDownAlreadyRunningException) should never be logged. Instead, these should have been rethrown if caught.
+	at com.intellij.openapi.diagnostic.Logger.ensureNotControlFlow(Logger.java:506)
+	at com.intellij.idea.IdeaLogger.warn(IdeaLogger.java:168)
+	at com.intellij.util.indexing.IndexDataInitializer.call(IndexDataInitializer.kt:46)
+	at com.intellij.util.indexing.IndexDataInitializer$Companion$submitGenesisTask$2.invokeSuspend(IndexDataInitializer.kt:81)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.internal.LimitedDispatcher$Worker.run(LimitedDispatcher.kt:124)
+	at kotlinx.coroutines.scheduling.TaskImpl.run(Tasks.kt:89)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:610)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:1188)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runWorker(CoroutineScheduler.kt:775)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.run(CoroutineScheduler.kt:762)
+Caused by: com.intellij.openapi.util.ShutDownTracker$ShutDownAlreadyRunningException: Shutdown tasks are running, can't change the list of tasks anymore
+	at com.intellij.openapi.util.ShutDownTracker.checkShutDownIsNotRunning(ShutDownTracker.java:152)
+	at com.intellij.openapi.util.ShutDownTracker.registerCacheShutdownTask(ShutDownTracker.java:141)
+	at com.intellij.openapi.vfs.newvfs.persistent.PersistentFSImpl.<init>(PersistentFSImpl.java:260)
+	at java.base/java.lang.invoke.MethodHandle.invokeWithArguments(MethodHandle.java:735)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate$lambda$0(instantiate.kt:52)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate$lambda$3$0(instantiate.kt:294)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.withStoredTemporaryContext(instantiate.kt:310)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate(instantiate.kt:293)
+	at com.intellij.platform.instanceContainer.instantiation.InstantiateKt.instantiate(instantiate.kt:45)
+	at com.intellij.serviceContainer.ServiceInstanceInitializer.createInstance$suspendImpl(ServiceInstanceInitializer.kt:39)
+	at com.intellij.serviceContainer.ServiceInstanceInitializer.createInstance(ServiceInstanceInitializer.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invokeSuspend(LazyInstanceHolder.kt:181)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invoke(LazyInstanceHolder.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1$1.invoke(LazyInstanceHolder.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:67)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invokeSuspend(LazyInstanceHolder.kt:179)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invoke(LazyInstanceHolder.kt)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder$initialize$1.invoke(LazyInstanceHolder.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startCoroutineUndispatched(Undispatched.kt:20)
+	at kotlinx.coroutines.CoroutineStart.invoke(CoroutineStart.kt:360)
+	at kotlinx.coroutines.AbstractCoroutine.start(AbstractCoroutine.kt:134)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.launch(Builders.common.kt:53)
+	at kotlinx.coroutines.BuildersKt.launch(Unknown Source)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.initialize(LazyInstanceHolder.kt:164)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.access$initialize(LazyInstanceHolder.kt:29)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.tryInitialize(LazyInstanceHolder.kt:154)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstance(LazyInstanceHolder.kt:112)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstance$suspendImpl(LazyInstanceHolder.kt:100)
+	at com.intellij.platform.instanceContainer.internal.LazyInstanceHolder.getInstance(LazyInstanceHolder.kt)
+	at com.intellij.platform.instanceContainer.internal.InstanceContainerImpl.instance(InstanceContainerImpl.kt:83)
+	at com.intellij.serviceContainer.ComponentManagerImpl.getServiceAsync(ComponentManagerImpl.kt:749)
+	at com.intellij.platform.ide.bootstrap.AppServicePreloadingKt$preloadCriticalServices$managingFsJob$1$1.invokeSuspend(appServicePreloading.kt:159)
+	at com.intellij.platform.ide.bootstrap.AppServicePreloadingKt$preloadCriticalServices$managingFsJob$1$1.invoke(appServicePreloading.kt)
+	at com.intellij.platform.ide.bootstrap.AppServicePreloadingKt$preloadCriticalServices$managingFsJob$1$1.invoke(appServicePreloading.kt)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndspatched(Undispatched.kt:67)
+	at kotlinx.coroutines.intrinsics.UndispatchedKt.startUndispatchedOrReturn(Undispatched.kt:43)
+	at kotlinx.coroutines.BuildersKt__Builders_commonKt.withContext(Builders.common.kt:165)
+	at kotlinx.coroutines.BuildersKt.withContext(Unknown Source)
+	at com.intellij.platform.diagnostic.telemetry.impl.TracerKt.span(tracer.kt:62)
+	at com.intellij.platform.diagnostic.telemetry.impl.TracerKt.span$default(tracer.kt:55)
+	at com.intellij.platform.ide.bootstrap.AppServicePreloadingKt$preloadCriticalServices$managingFsJob$1.invokeSuspend(appServicePreloading.kt:44)
+	at kotlin.coroutines.jvm.internal.BaseContinuationImpl.resumeWith(ContinuationImpl.kt:34)
+	at kotlinx.coroutines.DispatchedTask.run(DispatchedTask.kt:100)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler.runSafely(CoroutineScheduler.kt:610)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.runDefaultDispatcherTask(CoroutineScheduler.kt:1194)
+	at kotlinx.coroutines.scheduling.CoroutineScheduler$Worker.executeTask(CoroutineScheduler.kt:906)
+	... 2 more
+2026-11-14 01:30:34,989 [   2810]   INFO - #c.i.o.u.LowMemoryWatcherManager - Subscribing to MemoryPool[G1 Old Gen]{max: 2147483648, threshold: 2040109440 (0.95 * max)}
+2026-11-14 01:30:35,049 [   2870]   INFO - #c.i.o.u.LowMemoryWatcherManager - Schedule GC-time updating: each 15000ms
+2026-11-14 01:30:35,093 [   2914]   INFO - #o.j.i.BuiltInServerManager - built-in server started, port 63342
+2026-11-14 01:30:35,211 [   3032]   INFO - #c.i.u.n.s.CertificateManager - Default SSL context initialized
+2026-11-14 01:30:35,212 [   3033]   INFO - #c.i.u.i.HttpRequests - Application is not initialized yet; Using default SSL configuration to connect to https://plugins.jetbrains.com/files/pluginsXMLIds.json
+2026-11-14 01:30:35,242 [   3063]   INFO - #c.i.u.n.IdeProxySelector - unable to autodetect proxy settings, using NO_PROXY
+2026-11-14 01:30:35,276 [   3097]   INFO - #c.i.p.i.b.AppStarter - ------------------------------------------------------ IDE SHUTDOWN ------------------------------------------------------

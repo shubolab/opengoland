@@ -1,5 +1,6 @@
 package dev.openidea.goide.terminal
 
+import com.intellij.DynamicBundle
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.util.registry.Registry
 import com.intellij.ide.util.PropertiesComponent
@@ -35,6 +36,10 @@ internal object GoTerminalCompletionDefaults {
     fun applyOnce() {
         val properties = PropertiesComponent.getInstance()
         if (properties.getBoolean(MIGRATION_KEY, false)) return
+        // The pinned terminal engine localizes its enum labels in <clinit>.
+        // Resolve the current locale first so its persistent-state services are
+        // initialized outside that static initializer, including on cold startup.
+        DynamicBundle.getLocale()
         val options = TerminalOptionsProvider.instance
         options.showCompletionPopupAutomatically = true
         options.commandCompletionShowingMode = TerminalCommandCompletionShowingMode.ALWAYS

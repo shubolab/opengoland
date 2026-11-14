@@ -1,0 +1,49 @@
+{
+  "sourceFile": "primary-error-call-chain.json",
+  "originalSha256": "0138b7fbc0b3ade33ff725e0116bbcff468b12eae16e6fadfdd69135ad47065b",
+  "callChain": {
+    "causeObserved": "TerminalEngine class initialization attempts to get FeatureUsageSettingsEvents service during GoTerminalCompletionDefaults.applyOnce initialization",
+    "actualLogEntry": "windows-provenance/installed-smoke/log/idea.log",
+    "actualIdeaLogSha256": "0b0ad678812571fe7bbb75af1c5da8ef099441a880f88894076d7b7904f54545",
+    "frames": [
+      {
+        "line": 48,
+        "text": "2026-11-14 01:30:33,455 [   1276] SEVERE - #c.i.s.ComponentManagerImpl - org.jetbrains.plugins.terminal.TerminalEngine <clinit> requests com.intellij.configurationStore.statistic.eventLog.FeatureUsageSettingsEvents instance. Class initialization must not depend on services. Consider using instance of the service on-demand instead."
+      },
+      {
+        "line": 49,
+        "text": "java.lang.Throwable: org.jetbrains.plugins.terminal.TerminalEngine <clinit> requests com.intellij.configurationStore.statistic.eventLog.FeatureUsageSettingsEvents instance. Class initialization must not depend on services. Consider using instance of the service on-demand instead."
+      },
+      {
+        "line": 57,
+        "text": "\tat com.intellij.configurationStore.ComponentStoreImpl.getFeatureUsageSettingManager(ComponentStoreImpl.kt:120)"
+      },
+      {
+        "line": 118,
+        "text": "\tat org.jetbrains.plugins.terminal.TerminalEngine.<clinit>(TerminalEngine.kt:8)"
+      },
+      {
+        "line": 119,
+        "text": "\tat org.jetbrains.plugins.terminal.TerminalOptionsProvider$State.<init>(TerminalOptionsProvider.kt:53)"
+      },
+      {
+        "line": 120,
+        "text": "\tat org.jetbrains.plugins.terminal.TerminalOptionsProvider.<init>(TerminalOptionsProvider.kt:32)"
+      },
+      {
+        "line": 169,
+        "text": "\tat org.jetbrains.plugins.terminal.TerminalOptionsProvider$Companion.getInstance(TerminalOptionsProvider.kt:333)"
+      },
+      {
+        "line": 170,
+        "text": "\tat dev.openidea.goide.terminal.GoTerminalCompletionDefaults.applyOnce(GoTerminalCustomizer.kt:38)"
+      },
+      {
+        "line": 171,
+        "text": "\tat dev.openidea.goide.terminal.GoTerminalCompletionInitializer.execute(GoTerminalCustomizer.kt:48)"
+      }
+    ],
+    "scope": "Observed runtime call chain only; no fix or reproduction claimed. No additional network requests."
+  },
+  "phaseClarification": "The same SEVERE is already present in the installed -version process stderr. The subsequent GUI smoke reads the pre-existing idea.log and rejects it; native-gui-windows is empty. This is not proof that the GUI process itself triggered the first error or reached the project frame."
+}
