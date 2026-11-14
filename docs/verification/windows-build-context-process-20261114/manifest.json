@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "unreleased-C1-Windows-attempt2-failure; correction-pending",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "version": "0.1.0-preview.20261114.1",
+  "files": [
+    {
+      "path": "TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
+      "bytes": 29475,
+      "sha256": "8eaabbd0d8e7a8838c4816a454beb281e475ce3ed370070ccb7e0e7449c37f06",
+      "kind": "original-unchanged-JUnit-XML",
+      "originalPath": ".tools/continuation-20261113/workspace-consistency/runtime/release14-1-build/attempt-2/TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
+      "originalSha256": "8eaabbd0d8e7a8838c4816a454beb281e475ce3ed370070ccb7e0e7449c37f06",
+      "archiveMember": "windows-provenance/kotlin-test-results/TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml"
+    },
+    {
+      "path": "TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+      "bytes": 19060,
+      "sha256": "48d8796e516191ad38e0f9f484a987350940ee8ba6b72265b388a51ed7b47489",
+      "kind": "original-unchanged-JUnit-XML",
+      "originalPath": ".tools/continuation-20261113/workspace-consistency/runtime/release14-1-build/attempt-2/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+      "originalSha256": "48d8796e516191ad38e0f9f484a987350940ee8ba6b72265b388a51ed7b47489",
+      "archiveMember": "windows-provenance/kotlin-test-results/TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml"
+    },
+    {
+      "path": "failure-summary.json",
+      "bytes": 8287,
+      "sha256": "339a7b445f7a7363d9e39aee48e455b621bf4ed3c2f139a0eff06205914b5095",
+      "kind": "compact-source-bound-failure-and-cohort-summary"
+    },
+    {
+      "path": "REPORT.zh-CN.md",
+      "bytes": 3676,
+      "sha256": "a43ae678184b31d3f3db7a2ea4f5eaaf76ff8cbef314f9b1fd540b1f136975de",
+      "kind": "Chinese-human-readable-bounded-report"
+    }
+  ]
+}

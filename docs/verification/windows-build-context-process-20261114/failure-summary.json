@@ -1,0 +1,152 @@
+{
+  "schemaVersion": 1,
+  "recordedAtUtc": "2026-11-13T23:59:36.836670+00:00",
+  "status": "C1 Windows attempt2 failed; no EXE; preview14.1 remains unreleased",
+  "version": "0.1.0-preview.20261114.1",
+  "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+  "tag": "v0.1.0-preview.20261114.1",
+  "tagPolicy": "Retain original C1 tag; do not move it. Any accepted correction needs a new source/version.",
+  "producer": {
+    "runId": 43517336656,
+    "attempt": 2,
+    "status": "completed",
+    "conclusion": "failure",
+    "runUrl": "https://github.com/shubolab/opengoland/actions/runs/43517336656",
+    "windowsJobId": 132233144372,
+    "windowsJobConclusion": "failure",
+    "windowsJobUrl": "https://github.com/shubolab/opengoland/actions/runs/43517336656/job/132233144372",
+    "startedAt": "2026-11-13T23:20:47Z",
+    "completedAt": "2026-11-13T23:46:56Z"
+  },
+  "windows": {
+    "countsFromAllOriginalXmlInArtifact": {
+      "reports": 173,
+      "tests": 966,
+      "failures": 2,
+      "errors": 0,
+      "skipped": 0
+    },
+    "artifact": {
+      "id": 14087135874,
+      "name": "windows-x64",
+      "bytes": 1016940,
+      "sha256": "a9324bd9d83b24c7d3ca38977cbd7654eed4900949cbbe684436c7e0d6ebf06d",
+      "downloadHashMatchesApi": true
+    },
+    "exeMembersInOriginalArtifact": 0,
+    "actualWindowsInstallerProduced": false,
+    "installationAcceptance": "Not reached; no EXE from this failed cohort.",
+    "failingSuites": [
+      {
+        "file": "TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml",
+        "suite": "com.redhat.devtools.lsp4ij.GoColdExternalWatchTest",
+        "tests": 4,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "failingCase": "testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange",
+        "failureType": "junit.framework.AssertionFailedError",
+        "failureMessage": "junit.framework.AssertionFailedError: Refresh must publish the real external content event: [VfsEvent[update: C:\\Users\\runneradmin\\AppData\\Local\\Temp\\cold external 中文😀 18197765840886752093\\dependency\\nested\\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74]]",
+        "stackEvidenceFile": "TEST-com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.xml"
+      },
+      {
+        "file": "TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml",
+        "suite": "dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest",
+        "tests": 10,
+        "failures": 1,
+        "errors": 0,
+        "skipped": 0,
+        "failingCase": "testVendorLocationsDoNotWatchTheUnusedOriginalReplacementTree",
+        "failureType": "java.util.concurrent.ExecutionException",
+        "failureMessage": "java.util.concurrent.ExecutionException: java.lang.IllegalStateException: destroy of current process not allowed",
+        "stackEvidenceFile": "TEST-dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.xml"
+      }
+    ]
+  },
+  "sourceInspection": {
+    "fixedSourceBlobs": {
+      "src/test/kotlin/com/redhat/devtools/lsp4ij/GoColdExternalWatchTest.kt": {
+        "sha256": "af771cf14e890badc0c170bbfb10057fec30d369808da98729a90ff3290c9c79",
+        "sourceUrl": "https://github.com/shubolab/opengoland/blob/cac85013896b0508d88dab9f8c42d5bbc388fec0/src/test/kotlin/com/redhat/devtools/lsp4ij/GoColdExternalWatchTest.kt"
+      },
+      "src/main/kotlin/dev/openidea/goide/run/GoRunBuildContextLoader.kt": {
+        "sha256": "25d85817c74e948cf7c8d1db3689a0058254726fd3422796168f3ad5a38d4fd6",
+        "sourceUrl": "https://github.com/shubolab/opengoland/blob/cac85013896b0508d88dab9f8c42d5bbc388fec0/src/main/kotlin/dev/openidea/goide/run/GoRunBuildContextLoader.kt"
+      },
+      "src/test/kotlin/dev/openidea/goide/run/GoLocalDependencyScopeLoaderTest.kt": {
+        "sha256": "f473617d82c9880f102be6d8cc27719adcfbba91afecd2cf450bd496f22ac8c1",
+        "sourceUrl": "https://github.com/shubolab/opengoland/blob/cac85013896b0508d88dab9f8c42d5bbc388fec0/src/test/kotlin/dev/openidea/goide/run/GoLocalDependencyScopeLoaderTest.kt"
+      }
+    },
+    "coldVfs": {
+      "C1Predicate": "it is VFileContentChangeEvent && it.path == f.source.toString()",
+      "observed": "Original failure lists a real external content-change event; its length changed63 ->74. Original XML stdout records beforeContentsChange and contentsChanged.",
+      "finding": "Literal VFS/native path-string comparison is not portable across Windows separators. The failed assertion does not establish absence of a VFS content event.",
+      "claimLimit": "This is controlled VFS evidence, not native fsnotifier/gopls/Windows interactive acceptance."
+    },
+    "metadataCleanup": {
+      "C1Ownership": "process.descendants() snapshots remembered children; stop() force-destroys remembered live handles; finally invokes stop() after a normal metadata query too.",
+      "observedException": "java.lang.IllegalStateException: destroy of current process not allowed",
+      "observedProductionStack": [
+        "ProcessHandleImpl.destroyProcess:334",
+        "ProcessHandleImpl.destroyForcibly:357",
+        "GoRunBuildContextLoader.execute$stop:630",
+        "GoRunBuildContextLoader.execute:666"
+      ],
+      "finding": "Production cleanup handed the current test JVM to destroyForcibly; the JDK rejected self-destruction. This is an unsafe process-ownership boundary in normal cleanup, not just a cancellation-test failure."
+    }
+  },
+  "macosSeparateCohort": {
+    "actualExecutionAttempt": 1,
+    "originalJobId": 132202578581,
+    "carriedSuccessAliasAttempt": 2,
+    "carriedSuccessAliasJobId": 132233146893,
+    "artifact": {
+      "id": 14083677862,
+      "name": "macos-arm64",
+      "bytes": 940591858,
+      "sha256": "1a73e933a2b277a7da8c3dc4422ded8e21732125137f4ca626ea3ecd1578f58a"
+    },
+    "counts": {
+      "reports": 173,
+      "tests": 966,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "sourceCommit": "cac85013896b0508d88dab9f8c42d5bbc388fec0",
+    "buildInputCount": 586,
+    "buildInputDigest": "59dd547a00eecb7f06cfd53255561b80b08baa3fb69fa4d060d04a86f73f4c02",
+    "installer": {
+      "name": "open-Goland-0.1.0-preview.20261114.1-macos-arm64.dmg",
+      "bytes": 1023853737,
+      "sha256": "a0710f86a4ff1439f39332498a61ee7ee53ca9b9e0d5e59711857c8f88061acd",
+      "shaComputedDirectlyFromZipMember": true
+    },
+    "scope": "Successful original Mac CI artifact and source-bound raw proof, not a second attempt2 Mac execution or a public dual-platform release. Read-only inspection did not install/mount a new copy. Local App4 native/GIF is separate.",
+    "inspectionRecordSha256": "356bfc3909799e7fca589007242ecc0c9b677b53c3d62f77b4c67371c013db88",
+    "downloadReceiptSha256": "a63ea241721d14a82bfcf5cc13594708e681ac6db4c2c05ae13a72c8b2e9a318"
+  },
+  "attempt1Windows": {
+    "jobId": 132202578617,
+    "observation": "GitHub annotation reported hosted-runner communication loss; detailed logs were unavailable.",
+    "rootCause": "unknown",
+    "sameCauseAsAttempt2Established": false,
+    "annotationSourceSha256": "6fa367a1215e7fd19799430cbc45454846c31e476d36a18e9cfd00f3e78382a9"
+  },
+  "correctionStatus": {
+    "state": "in progress; not accepted or released",
+    "plannedOwnership": "Reuse existing atomic Windows Job ownership in the Go engine, removing this production descendants-based cleanup.",
+    "acceptanceNeeded": "Root source/targeted/full gates and Windows CI on a new source/version; none claimed here."
+  },
+  "boundaries": [
+    "The two copied XML files are original bytes; they include their necessary per-test stdout/stderr. No complete raw CI job logs, API credentials, profiles, configs or AX are copied.",
+    "Mac source/CI proof and local C1 native/GIF success do not negate the Windows failures or establish full GoLand parity.",
+    "The attempt2 process-cleanup failure is not claimed as the cause of attempt1 runner loss."
+  ],
+  "inputMetadataSha256": {
+    "run.json": "d3625e691c45dba50a07a5b816450735efd89f64a2a9b047376acff0377299f0",
+    "failed-job.json": "4c24713de86b59cf47ba1d007807508978bab82e2800068d058e321accc93265",
+    "artifacts.json": "912f2826fd9e9d1215e8731703eb3bf0060437ad112934a5950df5d45be44afa"
+  }
+}

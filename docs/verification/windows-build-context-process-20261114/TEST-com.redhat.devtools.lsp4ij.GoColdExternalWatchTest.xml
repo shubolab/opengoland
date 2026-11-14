@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" tests="4" skipped="0" failures="1" errors="0" timestamp="2026-11-13T23:30:21.908Z" hostname="runnervmm7ud1" time="0.434">
+  <properties/>
+  <testcase name="testCancellableIdleStoppingDoesNotPermanentlyCloseTheSameClientsRegistrations" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.077"/>
+  <testcase name="testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.12">
+    <failure message="junit.framework.AssertionFailedError: Refresh must publish the real external content event: [VfsEvent[update: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文&#x1f600; 18197765840886752093\dependency\nested\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74]]" type="junit.framework.AssertionFailedError">junit.framework.AssertionFailedError: Refresh must publish the real external content event: [VfsEvent[update: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文&#x1f600; 18197765840886752093\dependency\nested\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74]]
+	at junit.framework.Assert.fail(Assert.java:57)
+	at junit.framework.Assert.assertTrue(Assert.java:22)
+	at junit.framework.TestCase.assertTrue(TestCase.java:192)
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange$lambda$0(GoColdExternalWatchTest.kt:50)
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture(GoColdExternalWatchTest.kt:106)
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture$default(GoColdExternalWatchTest.kt:95)
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange(GoColdExternalWatchTest.kt:29)
+	at java.base@25.0.3/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@25.0.3/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at com.intellij.testFramework.UsefulTestCase.lambda$runBare$12(UsefulTestCase.java:529)
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99)
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99)
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:81)
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:99)
+	at com.intellij.testFramework.UsefulTestCase.lambda$wrapTestRunnable$15(UsefulTestCase.java:561)
+	at com.intellij.testFramework.UsefulTestCase.runTestRunnable(UsefulTestCase.java:454)
+	at com.intellij.testFramework.LightPlatformTestCase.runTestRunnable(LightPlatformTestCase.java:534)
+	at com.intellij.testFramework.UsefulTestCase.defaultRunBare(UsefulTestCase.java:470)
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:551)
+	at com.intellij.testFramework.LightPlatformTestCase.runBare(LightPlatformTestCase.java:520)
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:529)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runRequest(JUnitTestClassExecutor.java:176)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:84)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:45)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:61)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:54)
+	at java.base@25.0.3/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base@25.0.3/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:88)
+	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:177)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:126)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+</failure>
+  </testcase>
+  <testcase name="testRelativeExternalWatcherAlsoDiscoversAnUnopenedNestedSource" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.155"/>
+  <testcase name="testUpstreamRegistrationFailureDoesNotInstallAnIndependentExternalWatch" classname="com.redhat.devtools.lsp4ij.GoColdExternalWatchTest" time="0.081"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[
+23:30:22,033 FINE   napi.vfs.newvfs.RefreshSession - RefreshSessionImpl created. Trace. 
+java.lang.Throwable 
+	at com.intellij.openapi.vfs.newvfs.RefreshSessionImpl.<init>(RefreshSessionImpl.kt:83) 
+	at com.intellij.openapi.vfs.newvfs.RefreshQueueImpl.createSession(RefreshQueueImpl.kt:334) 
+	at com.intellij.openapi.vfs.newvfs.RefreshQueue.refresh(RefreshQueue.kt:32) 
+	at com.intellij.openapi.vfs.newvfs.RefreshQueue.refresh(RefreshQueue.kt:22) 
+	at com.intellij.openapi.vfs.impl.local.LocalFileSystemBase.refreshFiles(LocalFileSystemBase.java:252) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange$lambda$0(GoColdExternalWatchTest.kt:48) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture(GoColdExternalWatchTest.kt:106) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture$default(GoColdExternalWatchTest.kt:95) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange(GoColdExternalWatchTest.kt:29) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at junit.framework.TestCase.runTest(TestCase.java:177) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$runBare$12(UsefulTestCase.java:529) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:81) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:99) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$wrapTestRunnable$15(UsefulTestCase.java:561) 
+	at com.intellij.testFramework.UsefulTestCase.runTestRunnable(UsefulTestCase.java:454) 
+	at com.intellij.testFramework.LightPlatformTestCase.runTestRunnable(LightPlatformTestCase.java:534) 
+	at com.intellij.testFramework.UsefulTestCase.defaultRunBare(UsefulTestCase.java:470) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:551) 
+	at com.intellij.testFramework.LightPlatformTestCase.runBare(LightPlatformTestCase.java:520) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:529) 
+	at junit.framework.TestResult$1.protect(TestResult.java:122) 
+	at junit.framework.TestResult.runProtected(TestResult.java:142) 
+	at junit.framework.TestResult.run(TestResult.java:125) 
+	at junit.framework.TestCase.run(TestCase.java:130) 
+	at junit.framework.TestSuite.runTest(TestSuite.java:241) 
+	at junit.framework.TestSuite.run(TestSuite.java:236) 
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runRequest(JUnitTestClassExecutor.java:176) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:84) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:45) 
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:61) 
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:54) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19) 
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33) 
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:88) 
+	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:177) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:126) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63) 
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) 
+ 
+23:30:22,037 FINE   penapi.vfs.newvfs.RefreshQueue - Start non-blocking action for session with id=1308349873 
+23:30:22,037 FINE   i.vfs.newvfs.AsyncEventSupport - Processing [VfsEvent[update: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093\dependency\nested\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74]] 
+23:30:22,040 FINE   penapi.vfs.newvfs.RefreshQueue - Successful finish of non-blocking read action for session with id=1308349873 
+23:30:22,040 FINE   penapi.vfs.newvfs.RefreshQueue - Final block of non-blocking read action for  session with id=1308349873 
+23:30:22,040 FINE   napi.vfs.newvfs.RefreshSession - events are about to fire: [Compound VfsEvent[update: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093\dependency\nested\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74]; induced: []] 
+23:30:22,043 FINE   fs.impl.VirtualFileManagerImpl - beforeContentsChange: file = file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093/dependency/nested/external.go, requestor = VFileEvent.refresh 
+23:30:22,044 FINE   fs.persistent.PersistentFSImpl - Applying VfsEvent[update: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093\dependency\nested\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74] 
+23:30:22,046 FINE   fs.impl.VirtualFileManagerImpl - contentsChanged: file = file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093/dependency/nested/external.go, requestor = VFileEvent.refresh 
+23:30:22,047 FINE   pl.PushedFilePropertiesUpdater - 1 file(s) changed 
+23:30:22,047 FINE   pl.PushedFilePropertiesUpdater - File changed: C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093/dependency/nested/external.go. 
+requestor:VFileEvent.refresh 
+event:VfsEvent[update: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093\dependency\nested\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74] 
+23:30:22,049 FINE   on.impl.DaemonCodeAnalyzerImpl - Stopping process: toRestart:true; myDisposed:false; reason: 'Write action finish: class java.lang.Object' 
+23:30:22,049 FINE   on.impl.DaemonCodeAnalyzerImpl - Rescheduling highlighting: isDone: false 
+23:30:22,053 FINE   impl.local.LocalFileSystemBase - File doesn't exist: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093 
+23:30:22,053 FINE   napi.vfs.newvfs.RefreshSession - RefreshSessionImpl created. Trace. 
+java.lang.Throwable 
+	at com.intellij.openapi.vfs.newvfs.RefreshSessionImpl.<init>(RefreshSessionImpl.kt:83) 
+	at com.intellij.openapi.vfs.newvfs.RefreshQueueImpl.createSession(RefreshQueueImpl.kt:334) 
+	at com.intellij.openapi.vfs.newvfs.RefreshQueue.refresh(RefreshQueue.kt:26) 
+	at com.intellij.openapi.vfs.newvfs.RefreshQueue.refresh(RefreshQueue.kt:18) 
+	at com.intellij.openapi.vfs.newvfs.impl.VirtualDirectoryImpl.findChild(VirtualDirectoryImpl.java:138) 
+	at com.intellij.openapi.vfs.newvfs.impl.VirtualDirectoryImpl.refreshAndFindChild(VirtualDirectoryImpl.java:505) 
+	at com.intellij.openapi.vfs.newvfs.VfsImplUtil$1.childOf(VfsImplUtil.java:88) 
+	at com.intellij.openapi.vfs.newvfs.VfsImplUtil$1.childOf(VfsImplUtil.java:75) 
+	at com.intellij.openapi.vfs.newvfs.FileNavigator.navigate(FileNavigator.java:111) 
+	at com.intellij.openapi.vfs.newvfs.VfsImplUtil.refreshAndFindFileByPath(VfsImplUtil.java:91) 
+	at com.intellij.openapi.vfs.impl.local.LocalFileSystemBase.refreshAndFindFileByPath(LocalFileSystemBase.java:99) 
+	at com.intellij.openapi.vfs.LocalFileSystem.refreshAndFindFileByNioFile(LocalFileSystem.java:66) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture(GoColdExternalWatchTest.kt:110) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture$default(GoColdExternalWatchTest.kt:95) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange(GoColdExternalWatchTest.kt:29) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at junit.framework.TestCase.runTest(TestCase.java:177) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$runBare$12(UsefulTestCase.java:529) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:81) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:99) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$wrapTestRunnable$15(UsefulTestCase.java:561) 
+	at com.intellij.testFramework.UsefulTestCase.runTestRunnable(UsefulTestCase.java:454) 
+	at com.intellij.testFramework.LightPlatformTestCase.runTestRunnable(LightPlatformTestCase.java:534) 
+	at com.intellij.testFramework.UsefulTestCase.defaultRunBare(UsefulTestCase.java:470) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:551) 
+	at com.intellij.testFramework.LightPlatformTestCase.runBare(LightPlatformTestCase.java:520) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:529) 
+	at junit.framework.TestResult$1.protect(TestResult.java:122) 
+	at junit.framework.TestResult.runProtected(TestResult.java:142) 
+	at junit.framework.TestResult.run(TestResult.java:125) 
+	at junit.framework.TestCase.run(TestCase.java:130) 
+	at junit.framework.TestSuite.runTest(TestSuite.java:241) 
+	at junit.framework.TestSuite.run(TestSuite.java:236) 
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runRequest(JUnitTestClassExecutor.java:176) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:84) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:45) 
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:61) 
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:54) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19) 
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33) 
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:88) 
+	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:177) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:126) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63) 
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) 
+ 
+23:30:22,054 FINE   impl.local.LocalFileSystemBase - File doesn't exist: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093 
+23:30:22,054 FINE   penapi.vfs.newvfs.RefreshQueue - Start non-blocking action for session with id=235071369 
+23:30:22,054 FINE   i.vfs.newvfs.AsyncEventSupport - Processing [VfsEvent[deleted: file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093]] 
+23:30:22,055 FINE   penapi.vfs.newvfs.RefreshQueue - Successful finish of non-blocking read action for session with id=235071369 
+23:30:22,055 FINE   penapi.vfs.newvfs.RefreshQueue - Final block of non-blocking read action for  session with id=235071369 
+23:30:22,056 FINE   napi.vfs.newvfs.RefreshSession - events are about to fire: [Compound VfsEvent[deleted: file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093]; induced: []] 
+23:30:22,057 FINE   fs.impl.VirtualFileManagerImpl - beforeFileDeletion: file = file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093, requestor = VFileEvent.refresh 
+23:30:22,057 FINE   .command.impl.StacksHolderBase - Invalidating actions in undo stacks for cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093 
+23:30:22,057 FINE   .command.impl.StacksHolderBase - Invalidating actions in redo stacks for cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093 
+23:30:22,058 FINE   fs.impl.VirtualFileManagerImpl - fileDeleted: file = file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093 (invalid, reason: Bulk file deletions: VfsEvent[deleted: file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093]), parent = file://C:/Users/runneradmin/AppData/Local/Temp, requestor = VFileEvent.refresh 
+23:30:22,058 FINE   pl.PushedFilePropertiesUpdater - 1 file(s) changed 
+23:30:22,058 FINE   pl.PushedFilePropertiesUpdater - File changed: C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093. 
+requestor:VFileEvent.refresh 
+event:VfsEvent[deleted: file://C:/Users/runneradmin/AppData/Local/Temp/cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093] 
+23:30:22,060 FINE   on.impl.DaemonCodeAnalyzerImpl - Stopping process: toRestart:true; myDisposed:false; reason: 'Write action finish: class java.lang.Object' 
+23:30:22,060 FINE   on.impl.DaemonCodeAnalyzerImpl - Rescheduling highlighting: isDone: false 
+23:30:22,061 SEVERE                 #TestFramework - Test failed 
+junit.framework.AssertionFailedError: Refresh must publish the real external content event: [VfsEvent[update: C:\Users\runneradmin\AppData\Local\Temp\cold external 中文]]>&#x1f600;<![CDATA[ 18197765840886752093\dependency\nested\external.go, oldTimestamp:1794612622023, newTimestamp:1794612624023, oldModificationStamp:0, newModificationStamp:60, oldLength:63, newLength:74]] 
+	at junit.framework.Assert.fail(Assert.java:57) 
+	at junit.framework.Assert.assertTrue(Assert.java:22) 
+	at junit.framework.TestCase.assertTrue(TestCase.java:192) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange$lambda$0(GoColdExternalWatchTest.kt:50) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture(GoColdExternalWatchTest.kt:106) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.fixture$default(GoColdExternalWatchTest.kt:95) 
+	at com.redhat.devtools.lsp4ij.GoColdExternalWatchTest.testAbsoluteExternalWatcherDiscoversUnopenedSourceAndVfsSeesItsDiskChange(GoColdExternalWatchTest.kt:29) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at junit.framework.TestCase.runTest(TestCase.java:177) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$runBare$12(UsefulTestCase.java:529) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:81) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:99) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$wrapTestRunnable$15(UsefulTestCase.java:561) 
+	at com.intellij.testFramework.UsefulTestCase.runTestRunnable(UsefulTestCase.java:454) 
+	at com.intellij.testFramework.LightPlatformTestCase.runTestRunnable(LightPlatformTestCase.java:534) 
+	at com.intellij.testFramework.UsefulTestCase.defaultRunBare(UsefulTestCase.java:470) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:551) 
+	at com.intellij.testFramework.LightPlatformTestCase.runBare(LightPlatformTestCase.java:520) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:529) 
+	at junit.framework.TestResult$1.protect(TestResult.java:122) 
+	at junit.framework.TestResult.runProtected(TestResult.java:142) 
+	at junit.framework.TestResult.run(TestResult.java:125) 
+	at junit.framework.TestCase.run(TestCase.java:130) 
+	at junit.framework.TestSuite.runTest(TestSuite.java:241) 
+	at junit.framework.TestSuite.run(TestSuite.java:236) 
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runRequest(JUnitTestClassExecutor.java:176) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:84) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:45) 
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:61) 
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:54) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19) 
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33) 
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:88) 
+	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:177) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:126) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63) 
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) 
+ 
+
+]]></system-err>
+</testsuite>

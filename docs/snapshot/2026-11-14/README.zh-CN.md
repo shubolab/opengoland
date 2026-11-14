@@ -2,7 +2,7 @@
 
 完整目标仍为 **active**：继续建设可日常使用、尽可能还原 GoLand 2026.1.4 的独立原生 Go IDE。工作台使用 Kotlin / 开源 IntelliJ Platform，语言及工程服务使用 Go engine、gopls、Delve。IDE 账号、计费、订阅和试用门槛保持移除，开发工具认证保留。
 
-**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。本轮 `.20261114.1` 正在检查双平台安装包，尚未公开。** 本机原生通过不等于新 EXE/DMG 已交付。
+**当前公开安装版仍为 [.20261113.3](https://github.com/shubolab/opengoland/releases/tag/v0.1.0-preview.20261113.3)。`.20261114.1` 的 Windows 检查失败，保持未发布；正在准备修正版 `.20261114.2`。** 本机原生通过不等于新 EXE/DMG 已交付。
 
 ## 本轮做成了什么
 
@@ -12,7 +12,7 @@
 
 最后修复零参数函数补全后的参数提示异常。LSP4IJ 的可选参数列表为空时沿用既有空列表呈现，只修改一行公开源码。4 项实际 handler 回归先复现旧 NPE，再验证修复；加上初始化/运行封存检查共 9/9 通过。最终补丁是 21 份来源、42 个类，旧 20 份来源和 41 个类逐字节不变。
 
-## 最终本机候选 candidate4
+## C1 本机候选 candidate4（本机通过，未发布）
 
 固定源码 **`cac85013896b0508d88dab9f8c42d5bbc388fec0`** 已推送，版本/tag 为 `0.1.0-preview.20261114.1` / `v0.1.0-preview.20261114.1`。586 个构建输入逐项与该提交匹配，摘要为 `59dd547a00eecb7f06cfd53255561b80b08baa3fb69fa4d060d04a86f73f4c02`；engine 元数据同为此提交，`modified=false`。
 
@@ -30,17 +30,23 @@
 
 [新版真实运行 GIF](../../demo/native-go-workflow-20261114.gif)由 Run、外部定义跳转、无缓存测试三张实际窗口截图组成，共 12 秒；[录制记录](../../demo/native-go-workflow-20261114-recording.json)保留原始 SHA、REA 身份和版本。它不是连续录屏，也不新增调试验收结论。中英文 README 已将此图作为主要示例，历史调试片段保留原版本说明。
 
-## 安装包发布继续点
+## Windows 失败后的窄修与发布继续点
 
-构建来源为 [manual producer 43517336656](https://github.com/shubolab/opengoland/actions/runs/43517336656)，固定上述源码、版本，`publish=false`。macOS 实际构建、安装、签名和无缓存检查已通过：原始 173 份 XML / 966 项均通过，586 输入逐项匹配 C1；实际 DMG 为 1,023,853,737 字节，SHA `a0710f86a4ff1439f39332498a61ee7ee53ca9b9e0d5e59711857c8f88061acd`。
+[来源43517336656](https://github.com/shubolab/opengoland/actions/runs/43517336656) 的 C1 Mac attempt1 已完成：173 份 XML / 966 项全部通过、586 输入匹配，实际 DMG 为 1,023,853,737 字节，SHA `a0710f86a4ff1439f39332498a61ee7ee53ca9b9e0d5e59711857c8f88061acd`。单份 Mac ZIP已下载并核对 API SHA，不将这个单平台成功写为双平台交付。
 
-attempt1 的 Windows hosted runner 于 23:18:32Z 失去与 GitHub 服务器的通信，GitHub 将 job 判为失败；主步骤仍显示 in_progress、后续保留产物步骤未执行，原日志下载返回 BlobNotFound，没有具体测试失败证据。失联原因仍未知，不能断言产品测试失败，也不能断言只是平台瞬断。root 据此仅重跑一次 failed jobs，同一 run 的 attempt2、新 Windows job `132233144372` 正在运行。Mac 成功结果复用为 alias job `132233146893`，其原始时间和每个 step 与 attempt1 完全相同，实际 Mac artifact 仍为 `14083677862`；没有第二次 Mac 构建。失败记录和原始 annotation 已保留在 ignored `runtime/release14-1-build/attempt-1/`。
+Windows attempt1 的 hosted runner 于 23:18:32Z 失联，原日志不可取，原因未知。一次 failed-only 重跑后，attempt2 job `132233144372` 提供了真实失败日志：**966 项、2 失败、零错误和跳过，没有 EXE**。一个是 VFS/native 路径字符串斜杠比较导致误判，原始内容事件实际已发生；另一个是生产 metadata loader 正常收尾时从 `process.descendants()` 拿到当前测试 JVM，尝试终止它，被 JDK 拒绝。不能把后一问题断言为第一次 runner 失联的原因。
 
-待 Windows 最终通过、整体 run completed/success 后，再提取真实 EXE、DMG 和原始 provenance，核对源码、原始 XML、race、安装结果和五个资产摘要，先私有草稿审计，最后公开。已取回一份经过 API SHA 校验的 Mac ZIP，约 0.9 GiB；Windows 仅在实际成功后下载。若再次失联，先排查资源/构建原因，不盲目第三次重试。公开前首页下载区继续指向 `.13.3`。
+[失败记录与两份原始 XML](../../verification/windows-build-context-process-20261114/REPORT.zh-CN.md)保存确切绑定。Mac 原成功 job 被 attempt2 API 复用成别名，不是第二次执行；原 artifact `14083677862` 保持不变。冗余 tag run `43523430835` 已精确取消。原 C1 tag `v0.1.0-preview.20261114.1` 不移动，也不再重跑它来掩盖源码缺陷。
 
-推送新 tag 自动触发的冗余 [run 43523430835](https://github.com/shubolab/opengoland/actions/runs/43523430835)已精确识别并取消，未影响 manual producer。旧 `publish-tested-installers.yml` 只接受较早的平铺 Mac 证据，本次 CI 使用嵌套 cohort，因此改为直接复用两个真实 CI artifact，保留证据布局，不伪造 `native-observations.json`，也不把本机 App4 冒充 CI 安装副本。组装和独立审计辅助脚本位于 ignored `.tools/continuation-20261113/`。
+当前窄修只有三个源文件：
 
-公开后补发布验证 JSON、下载入口、双语 Release 正文并提交推送文档；随后清理已结束的候选索引、冗余下载 ZIP 和旧 App，保留最新验证应用、安装器与紧凑证据。
+- 冷 VFS 测试保留真实内容事件断言，用 `Files.isSameFile` 比较实际文件身份。
+- Windows metadata 命令复用 Go engine 既有的原子 Job 所有者，保留选定 SDK 的环境、目录和参数；删除后代快照清理。仅终止本次直接启动的 owner，由 Job 回收真实后代。清理异常保留原始失败。
+- 新增真实进程控制：正常 launcher 退出后遗留子进程、首次循环检查前取消、独立 sentinel、私有环境/工作目录/UTF-8/非零退出。没有改 Go engine 源码。
+
+五类针对性检查已在本机通过 **38 项 / 5 份报告，零失败、错误和跳过**；这仍不是 Windows 分支或原生通过。首轮38项中只有新夹具对 Unix PTY 的 CRLF 预期不符，已保留日志并将夹具改为无换行精确 UTF-8 输出；生产解码语义未改，也未跳过该测试。下一步：冻结新源码、重新完整打包 `.14.2` 并原生复验，以同一源码跑双平台 CI。所有实际安装器、XML、race、源码及五资产摘要核对通过后才公开。
+
+14.1 的本机 GIF 保留原版本/日期/源码，不改标为14.2；新源码的实际运行画面需要单独取得。中英文下载区继续指向公开 `.13.3`。旧14.1专用 promotion/updater辅助脚本保持冻结，不对新的版本或失败产物套用。
 
 ## 完整目标还剩什么
 

@@ -30,6 +30,7 @@ import dev.openidea.goide.lsp.GoDocumentSync
 import com.intellij.openapi.Disposable
 import dev.openidea.goide.settings.GoToolchain
 import dev.openidea.goide.debug.GoTestDebugArguments
+import dev.openidea.goide.engine.GoEngineExecutable
 import java.util.concurrent.CompletableFuture
 
 /** Native UTF-16 document text, captured once on BGT under ReadAction, never per gutter token. */
@@ -596,14 +597,17 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         checkCurrent()
         val windows = SystemInfo.isWindows
         val commandLine = listOf(command.exePath) + command.parametersList.list
-        val process: Process = if (windows) ProcessBuilder(commandLine).directory(command.workDirectory).apply {
+        val ownedCommand = if (windows) {
+            val owner = checkNotNull(GoEngineExecutable.resolve()) { "The bundled Go command owner is unavailable" }
+            listOf(owner.toString(), "--opengoland-owned-command", "--") + commandLine
+        } else commandLine
+        val process: Process = if (windows) ProcessBuilder(ownedCommand).directory(command.workDirectory).apply {
             environment().clear(); environment().putAll(command.effectiveEnvironment)
         }.start() else {
             check(JnaLoader.isLoaded()) { "The IDE process launcher is unavailable" }
             PtyProcessBuilder(commandLine.toTypedArray()).setDirectory(command.workDirectory!!.toString())
                 .setEnvironment(command.effectiveEnvironment).setConsole(true).setRedirectErrorStream(false).setSpawnProcessUsingJdkOnMacIntel(false).start()
         }
-        val children = linkedMapOf<Long, ProcessHandle>()
         val failures = AtomicReference<Throwable?>()
         val stdout = ByteArrayOutputStream(); val stderr = ByteArrayOutputStream()
         fun reader(stream: InputStream, output: ByteArrayOutputStream) = Thread({
@@ -618,16 +622,12 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
         }, "open Goland build-context output").apply { isDaemon = true; start() }
         val readers = mutableListOf<Thread>()
         val deadline = System.nanoTime() + TimeUnit.SECONDS.toNanos(30)
-        fun rememberChildren() {
-            process.descendants().use { found -> found.forEach { children[it.pid()] = it } }
-        }
         fun stop() {
             if (windows) {
-                // A cancel can win before the first loop sample. Capture the
-                // current exact owned tree before killing its parent, or an
-                // inherited pipe can stay open in a now-orphaned child.
-                rememberChildren()
-                children.values.toList().asReversed().filter { it.isAlive }.forEach { it.destroyForcibly() }
+                // The bundled owner assigns the command to a KILL_ON_JOB_CLOSE
+                // job atomically at creation. Only this native Process belongs
+                // to us; PID/parent snapshots after exit are not ownership proof.
+                // Closing the owner also ends pre-sample and orphaned children.
                 if (process.isAlive) process.destroyForcibly()
             } else {
                 val native = PtyHelpers.getInstance()
@@ -638,12 +638,12 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             }
             process.waitFor(1000, TimeUnit.MILLISECONDS)
         }
+        var primaryFailure: Throwable? = null
         try {
             readers += reader(process.inputStream, stdout)
             readers += reader(process.errorStream, stderr)
             while (true) {
                 checkCurrent(); failures.get()?.let { throw it }
-                if (windows) rememberChildren()
                 if (process.waitFor(25, TimeUnit.MILLISECONDS)) break
                 require(System.nanoTime() < deadline) { "The selected Go SDK did not finish build-context metadata within 30 seconds" }
             }
@@ -660,13 +660,29 @@ internal class GoRunBuildContextLoader(private val project: Project) : GoRunBuil
             val out = decode(stdout.toByteArray()); val err = decode(stderr.toByteArray())
             if (process.exitValue() != 0) throw MetadataCommandFailure(process.exitValue(), err)
             return out
+        } catch (failure: Throwable) {
+            primaryFailure = failure
+            throw failure
         } finally {
             val interrupted = Thread.interrupted()
+            var cleanupFailure: Throwable? = null
+            fun cleanup(action: () -> Unit) {
+                try { action() } catch (failure: Throwable) {
+                    val previous = cleanupFailure
+                    if (previous == null) cleanupFailure = failure
+                    else if (previous !== failure) previous.addSuppressed(failure)
+                }
+            }
             try {
-                stop()
+                cleanup { stop() }
                 runCatching { process.outputStream.close() }; runCatching { process.inputStream.close() }; runCatching { process.errorStream.close() }
-                readers.forEach { it.join(1000) }
+                readers.forEach { cleanup { it.join(1000) } }
             } finally { if (interrupted) Thread.currentThread().interrupt() }
+            cleanupFailure?.let { failure ->
+                val primary = primaryFailure
+                if (primary == null) throw failure
+                if (primary !== failure) primary.addSuppressed(failure)
+            }
         }
     }
 

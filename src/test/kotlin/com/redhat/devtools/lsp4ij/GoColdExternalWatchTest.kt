@@ -48,7 +48,7 @@ class GoColdExternalWatchTest : LightPlatformTestCase() {
             local.refreshFiles(listOf(cached.parent), true, true, Runnable { refreshed.complete(null) })
             refreshed.get(10, TimeUnit.SECONDS)
             assertTrue("Refresh must publish the real external content event: $vfsEvents", vfsEvents.any {
-                it is VFileContentChangeEvent && it.path == f.source.toString()
+                it is VFileContentChangeEvent && Files.isSameFile(Path.of(it.path), f.source)
             })
             assertNull("The dependency is still unopened", FileDocumentManager.getInstance().getCachedDocument(cached))
         } finally { connection.disconnect() }

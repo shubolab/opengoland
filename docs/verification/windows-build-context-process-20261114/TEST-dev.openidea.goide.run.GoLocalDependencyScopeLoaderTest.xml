@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" tests="10" skipped="0" failures="1" errors="0" timestamp="2026-11-13T23:44:50.062Z" hostname="runnervmm7ud1" time="9.888">
+  <properties/>
+  <testcase name="testSelectedTagsChangeTheActiveDependencyGraph" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="1.586"/>
+  <testcase name="testActiveNormalAndTestImportsExcludeUnusedReplacementDirectives" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="1.928"/>
+  <testcase name="testUnrelatedOversizedDirtyDocumentDoesNotAffectDependencyDiscovery" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.812"/>
+  <testcase name="testDirtyReplacementManifestRecomputesTheTransitiveSelectedVersion" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.991"/>
+  <testcase name="testPreStartDisposalPreventsDependencyProcessCreation" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.024"/>
+  <testcase name="testDirtyImporterAndModfileUsePrivateViewWithOriginalRelativeReplacementMeaning" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.821"/>
+  <testcase name="testDirtyWorkspaceUseAndWorkspaceReplaceChooseActualLoadedRoots" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="1.71"/>
+  <testcase name="testIncompleteGraphCannotBecomeASuccessfulEmptyScope" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.813"/>
+  <testcase name="testVendorLocationsDoNotWatchTheUnusedOriginalReplacementTree" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.761">
+    <failure message="java.util.concurrent.ExecutionException: java.lang.IllegalStateException: destroy of current process not allowed" type="java.util.concurrent.ExecutionException">java.util.concurrent.ExecutionException: java.lang.IllegalStateException: destroy of current process not allowed
+	at java.base/java.util.concurrent.CompletableFuture.wrapInExecutionException(CompletableFuture.java:345)
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:440)
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2117)
+	at dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest$Fixture.load(GoLocalDependencyScopeLoaderTest.kt:193)
+	at dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.testVendorLocationsDoNotWatchTheUnusedOriginalReplacementTree(GoLocalDependencyScopeLoaderTest.kt:109)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at junit.framework.TestCase.runTest(TestCase.java:177)
+	at com.intellij.testFramework.UsefulTestCase.lambda$runBare$12(UsefulTestCase.java:529)
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99)
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99)
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:81)
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:99)
+	at com.intellij.testFramework.UsefulTestCase.lambda$wrapTestRunnable$15(UsefulTestCase.java:561)
+	at com.intellij.testFramework.UsefulTestCase.runTestRunnable(UsefulTestCase.java:454)
+	at com.intellij.testFramework.LightPlatformTestCase.runTestRunnable(LightPlatformTestCase.java:534)
+	at com.intellij.testFramework.UsefulTestCase.defaultRunBare(UsefulTestCase.java:470)
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:551)
+	at com.intellij.testFramework.LightPlatformTestCase.runBare(LightPlatformTestCase.java:520)
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:529)
+	at junit.framework.TestResult$1.protect(TestResult.java:122)
+	at junit.framework.TestResult.runProtected(TestResult.java:142)
+	at junit.framework.TestResult.run(TestResult.java:125)
+	at junit.framework.TestCase.run(TestCase.java:130)
+	at junit.framework.TestSuite.runTest(TestSuite.java:241)
+	at junit.framework.TestSuite.run(TestSuite.java:236)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runRequest(JUnitTestClassExecutor.java:176)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:84)
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:45)
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:61)
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:54)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28)
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19)
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:88)
+	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:177)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:126)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103)
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63)
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122)
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
+Caused by: java.lang.IllegalStateException: destroy of current process not allowed
+	at java.base/java.lang.ProcessHandleImpl.destroyProcess(ProcessHandleImpl.java:334)
+	at java.base/java.lang.ProcessHandleImpl.destroyForcibly(ProcessHandleImpl.java:357)
+	at dev.openidea.goide.run.GoRunBuildContextLoader.execute$stop(GoRunBuildContextLoader.kt:630)
+	at dev.openidea.goide.run.GoRunBuildContextLoader.execute(GoRunBuildContextLoader.kt:666)
+	at dev.openidea.goide.run.GoRunBuildContextLoader.load$query(GoRunBuildContextLoader.kt:375)
+	at dev.openidea.goide.run.GoRunBuildContextLoader.load(GoRunBuildContextLoader.kt:388)
+	at dev.openidea.goide.run.GoRunBuildContextLoader.access$load(GoRunBuildContextLoader.kt:108)
+	at dev.openidea.goide.run.GoRunBuildContextLoader$DependencyOperation.loadSnapshot(GoRunBuildContextLoader.kt:139)
+	at dev.openidea.goide.run.GoRunBuildContextLoader$DependencyOperation.loadSnapshot(GoRunBuildContextLoader.kt:138)
+	at dev.openidea.goide.run.GoRunBuildContextLoader$Operation.start(GoRunBuildContextLoader.kt:170)
+	at dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest$Fixture.load(GoLocalDependencyScopeLoaderTest.kt:192)
+	... 47 more
+</failure>
+  </testcase>
+  <testcase name="testOversizedEffectiveSourceAndGoEnvironmentFailExplicitly" classname="dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest" time="0.441"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[
+23:44:58,834 FINE   figurations.GeneralCommandLine - Executing [D:\a\opengoland\opengoland\.tools\release-tools\windows-amd64\go\bin\go.exe mod vendor] 
+23:44:58,834 FINE   figurations.GeneralCommandLine -   working dir: C:\Users\runneradmin\AppData\Local\Temp\go-local-dependency-scope-2289670211625711475\module 
+23:44:58,834 FINE   figurations.GeneralCommandLine -   environment: {GOFLAGS=>, GOROOT=>D:\a\opengoland\opengoland\.tools\release-tools\windows-amd64\go, PATH=>D:\a\opengoland\opengoland\.tools\release-tools\windows-amd64\go\bin;C:\Users\runneradmin\go\bin;D:\a\opengoland\opengoland\.tools\go-tools-cache\sdks\go1.27.3\windows-amd64\go\bin;D:\a\opengoland\opengoland\.tools\platform\idea-2026.1.4-windows\jbr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\PowerShell\7;C:\hostedtoolcache\windows\go\1.27.3\x64\bin;C:\Users\runneradmin\AppData\Roaming\Python\Python312\Scripts;C:\hostedtoolcache\windows\Python\3.12.10\x64\Scripts;C:\hostedtoolcache\windows\Python\3.12.10\x64;C:\Program Files\MongoDB\Server\7.0\bin;C:\vcpkg;C:\tools\zstd;C:\hostedtoolcache\windows\stack\3.11.1\x64;C:\cabal\bin;C:\\ghcup\bin;C:\mingw64\bin;C:\Program Files\dotnet;C:\Program Files\MySQL\MySQL Server 8.4\bin;C:\Program Files\R\R-4.6.2\bin\x64;C:\SeleniumWebDrivers\GeckoDriver;C:\SeleniumWebDrivers\EdgeDriver\;C:\SeleniumWebDrivers\ChromeDriver;C:\Program Files (x86)\sbt\bin;C:\Program Files (x86)\GitHub CLI;C:\Program Files\Git\bin;C:\Program Files (x86)\pipx_bin;C:\npm\prefix;C:\hostedtoolcache\windows\go\1.24.13\x64\bin;C:\hostedtoolcache\windows\Ruby\3.3.13\x64\bin;C:\Program Files\OpenSSL\bin;C:\tools\kotlinc\bin;C:\hostedtoolcache\windows\Java_Temurin-Hotspot_jdk\17.0.21-9\x64\bin;C:\Program Files\ImageMagick-7.1.2-Q16-HDRI;C:\Program Files\Microsoft SDKs\Azure\CLI2\wbin;C:\ProgramData\kind;C:\ProgramData\Chocolatey\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\WSL\;C:\Program Files\PowerShell\7\;C:\Program Files\Microsoft\Web Platform Installer\;C:\Program Files\Microsoft SQL Server\170\Tools\Binn\;C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\170\Tools\Binn\;C:\Program Files\dotnet\;C:\Program Files (x86)\Windows Kits\10\Windows Performance Toolkit\;C:\Program Files (x86)\WiX Toolset v3.14\bin;C:\Program Files\Microsoft SQL Server\130\DTS\Binn\;C:\Program Files\Microsoft SQL Server\140\DTS\Binn\;C:\Program Files\Microsoft SQL Server\150\DTS\Binn\;C:\Program Files\Microsoft SQL Server\160\DTS\Binn\;C:\Program Files\Microsoft SQL Server\170\DTS\Binn\;C:\ProgramData\chocolatey\lib\pulumi\tools\Pulumi\bin;C:\Program Files\CMake\bin;C:\Strawberry\c\bin;C:\Strawberry\perl\site\bin;C:\Strawberry\perl\bin;C:\ProgramData\chocolatey\lib\maven\apache-maven-3.9.16\bin;C:\Program Files\Microsoft Service Fabric\bin\Fabric\Fabric.Code;C:\Program Files\Microsoft SDKs\Service Fabric\Tools\ServiceFabricLocalClusterManager;C:\Program Files\LLVM\bin;C:\Program Files (x86)\LLVM\bin;C:\Program Files\nodejs\;C:\Program Files\Git\cmd;C:\Program Files\Git\ucrt64\bin;C:\Program Files\GitHub CLI\;c:\tools\php;C:\Program Files\Amazon\AWSCLIV2\;C:\Program Files\Amazon\SessionManagerPlugin\bin\;C:\Program Files\Amazon\AWSSAMCLI\bin\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\mongosh\;C:\Users\runneradmin\.dotnet\tools;C:\Users\runneradmin\.cargo\bin;C:\Users\runneradmin\AppData\Local\Microsoft\WindowsApps, GOPROXY=>off, GOENV=>off, GOCACHE=>C:\Users\runneradmin\AppData\Local\Temp\go-local-dependency-scope-2289670211625711475\cache, GOSUMDB=>off, GOTELEMETRY=>off, GOPATH=>C:\Users\runneradmin\AppData\Local\Temp\go-local-dependency-scope-2289670211625711475\gopath, SystemRoot=>C:\Windows, CGO_ENABLED=>0, GOTOOLCHAIN=>local, GOWORK=>off} (+CONSOLE) 
+23:44:58,834 FINE   figurations.GeneralCommandLine -   charset: UTF-8 
+23:44:58,837 FINE   figurations.GeneralCommandLine - Process D:\a\opengoland\opengoland\.tools\release-tools\windows-amd64\go\bin\go.exe mod vendor started with pid 7160 
+23:44:59,047 FINE   on.impl.DaemonCodeAnalyzerImpl - runUpdate result: wasn't run because called too soon: rescheduled in 6ms; requestDelta:18 
+23:44:59,054 FINE   on.impl.DaemonCodeAnalyzerImpl - runUpdate result: wasn't run because updateByTimerEnabled=true; activeEditors: (0): []; requestDelta:0 
+23:44:59,504 SEVERE                 #TestFramework - Test failed 
+java.util.concurrent.ExecutionException: java.lang.IllegalStateException: destroy of current process not allowed 
+	at java.base/java.util.concurrent.CompletableFuture.wrapInExecutionException(CompletableFuture.java:345) 
+	at java.base/java.util.concurrent.CompletableFuture.reportGet(CompletableFuture.java:440) 
+	at java.base/java.util.concurrent.CompletableFuture.get(CompletableFuture.java:2117) 
+	at dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest$Fixture.load(GoLocalDependencyScopeLoaderTest.kt:193) 
+	at dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest.testVendorLocationsDoNotWatchTheUnusedOriginalReplacementTree(GoLocalDependencyScopeLoaderTest.kt:109) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at junit.framework.TestCase.runTest(TestCase.java:177) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$runBare$12(UsefulTestCase.java:529) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt$recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures$2.invoke(testLogger.kt:99) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:81) 
+	at com.intellij.testFramework.TestLoggerKt.recordErrorsLoggedInTheCurrentThreadAndReportThemAsFailures(testLogger.kt:99) 
+	at com.intellij.testFramework.UsefulTestCase.lambda$wrapTestRunnable$15(UsefulTestCase.java:561) 
+	at com.intellij.testFramework.UsefulTestCase.runTestRunnable(UsefulTestCase.java:454) 
+	at com.intellij.testFramework.LightPlatformTestCase.runTestRunnable(LightPlatformTestCase.java:534) 
+	at com.intellij.testFramework.UsefulTestCase.defaultRunBare(UsefulTestCase.java:470) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:551) 
+	at com.intellij.testFramework.LightPlatformTestCase.runBare(LightPlatformTestCase.java:520) 
+	at com.intellij.testFramework.UsefulTestCase.runBare(UsefulTestCase.java:529) 
+	at junit.framework.TestResult$1.protect(TestResult.java:122) 
+	at junit.framework.TestResult.runProtected(TestResult.java:142) 
+	at junit.framework.TestResult.run(TestResult.java:125) 
+	at junit.framework.TestCase.run(TestCase.java:130) 
+	at junit.framework.TestSuite.runTest(TestSuite.java:241) 
+	at junit.framework.TestSuite.run(TestSuite.java:236) 
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:90) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:137) 
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:115) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runRequest(JUnitTestClassExecutor.java:176) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:84) 
+	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:45) 
+	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:61) 
+	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:54) 
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104) 
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565) 
+	at org.gradle.internal.dispatch.MethodInvocation.invokeOn(MethodInvocation.java:77) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:28) 
+	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:19) 
+	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33) 
+	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:88) 
+	at jdk.proxy1/jdk.proxy1.$Proxy4.processTestClass(Unknown Source) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:177) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:126) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:103) 
+	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:63) 
+	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:122) 
+	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:72) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69) 
+	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74) 
+Caused by: java.lang.IllegalStateException: destroy of current process not allowed 
+	at java.base/java.lang.ProcessHandleImpl.destroyProcess(ProcessHandleImpl.java:334) 
+	at java.base/java.lang.ProcessHandleImpl.destroyForcibly(ProcessHandleImpl.java:357) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader.execute$stop(GoRunBuildContextLoader.kt:630) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader.execute(GoRunBuildContextLoader.kt:666) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader.load$query(GoRunBuildContextLoader.kt:375) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader.load(GoRunBuildContextLoader.kt:388) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader.access$load(GoRunBuildContextLoader.kt:108) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader$DependencyOperation.loadSnapshot(GoRunBuildContextLoader.kt:139) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader$DependencyOperation.loadSnapshot(GoRunBuildContextLoader.kt:138) 
+	at dev.openidea.goide.run.GoRunBuildContextLoader$Operation.start(GoRunBuildContextLoader.kt:170) 
+	at dev.openidea.goide.run.GoLocalDependencyScopeLoaderTest$Fixture.load(GoLocalDependencyScopeLoaderTest.kt:192) 
+	... 47 more 
+ 
+
+]]></system-err>
+</testsuite>
